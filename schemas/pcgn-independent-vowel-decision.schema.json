@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BGN/PCGN 1972 independent-vowel component decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_character",
+    "romanization",
+    "source_table_row",
+    "status",
+    "ipa",
+    "ukrainian",
+    "source_locator",
+    "warnings"
+  ],
+  "properties": {
+    "source_character": {
+      "enum": ["ឥ", "ឦ", "ឧ", "ឯ", "ឰ", "ឱ", "ឲ", "ឳ", "ឪ", "ឫ", "ឬ", "ឭ", "ឮ", "ឨ", null]
+    },
+    "romanization": {
+      "enum": ["ĕ", "ei", "ê", "ai", "aô", "au", "âu", "rœ̆", "rœ", "lœ̆", "lœ", null]
+    },
+    "source_table_row": {
+      "enum": [3, 4, 7, 14, 15, 16, 17, 18, 19, 20, 21, 22, null]
+    },
+    "status": {"enum": ["RESOLVED", "UNRESOLVED"]},
+    "ipa": {"const": null},
+    "ukrainian": {"const": null},
+    "source_locator": {
+      "const": "PCGN 1972, Independent/Dependent Vowel Characters table (pp. 2–3), Notes §9"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "RESOLVED"}}, "required": ["status"]},
+      "then": {
+        "properties": {
+          "source_character": {"enum": ["ឥ", "ឦ", "ឯ", "ឰ", "ឱ", "ឲ", "ឳ", "ឪ", "ឫ", "ឬ", "ឭ", "ឮ"]},
+          "romanization": {"type": "string"},
+          "source_table_row": {"type": "integer"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "UNRESOLVED"}}, "required": ["status"]},
+      "then": {"properties": {"romanization": {"const": null}}}
+    }
+  ]
+}
