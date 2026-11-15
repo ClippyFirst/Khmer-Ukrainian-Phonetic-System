@@ -27,6 +27,7 @@ def test_pcgn_register_shifters_are_typed_and_not_applied_by_parser():
     result = analyze_pcgn_orthographic_chunk("ប៉ា៊")
 
     assert result.register_shifters == ("៉", "៊")
+    assert result.register_shifter_positions == (1, 3)
     assert [item.kind for item in result.tokens] == [
         "unstacked_consonant",
         "register_shifter",
@@ -120,7 +121,7 @@ def test_pcgn_analysis_schema_requires_explicit_abstention_fields():
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
     required = set(schema["required"])
 
-    assert {"tokens", "base_consonants", "subscript_consonants", "register_shifters"} <= required
+    assert {"tokens", "base_consonants", "subscript_consonants", "register_shifters", "register_shifter_positions"} <= required
     assert {"syllable_segmentation", "series_decision", "register_source", "coda_decision"} <= required
     assert {"romanization", "ipa", "ukrainian", "warnings", "sources"} <= required
     assert schema["properties"]["syllable_segmentation"]["const"] == "NOT_PERFORMED"

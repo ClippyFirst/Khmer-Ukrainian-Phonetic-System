@@ -2354,7 +2354,7 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - Added `resolve_pcgn_series(analysis)` and `PCGNSeriesDecision` in `src/khmer_ua/pcgn.py`, with schema `schemas/pcgn-series-decision.schema.json` and tests `tests/test_pcgn_series_resolution.py`.
 - The resolver applies only the PCGN 1972 Note 3 series rule: base if no foot; foot normally; base when the single foot is weak and base is not weak; foot when both are weak. Exact weak set: `ងញណនមយរលវ`; no UNGEGN-only `ស`.
 - Preserves the Note 3 ប+foot p-in-â exception as typed metadata `BA_WITH_FOOT_P_IN_A_SERIES`. The parser now rejects a PCGN foot form for ឡ, which the official consonant table says has no subscript form.
-- Abstains for shifters (Note 2 not implemented), multiple feet/bases, malformed/unknown/unmodelled input, and independent vowels. Output is series metadata only; no vowel, coda, phonetic syllabification, PCGN Latin, IPA or Ukrainian output.
+- At this checkpoint, shifters were deferred; the later “PCGN Note 2 shifter subset” section records the bounded single-base implementation. Multiple/misplaced shifters, shifters on clusters and BA+TRIISAP still abstain. Multiple feet/bases and unsupported input also abstain. Output remains series metadata only; no vowel, coda, phonetic syllabification, PCGN Latin, IPA or Ukrainian output.
 - Next gate: hosted exact-head Quality/Chromium, then exact-main checks; add Note 2 shifter resolution only after a separate source-grounded exception table and tests. Note 5 shortening remains blocked on coda and vowel-pattern parsing.
 
 
@@ -2364,6 +2364,16 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - PR-head `321a7d9ea03b47dae95bc2d7fd95f0c5a2745346`: push Quality [43734733096](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734733096), PR Quality [43734746708](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734746708), PR Chromium [43734746686](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734746686) all SUCCESS.
 - Exact post-merge main `357ce7f2a5400ff1643e4f64337009dd18c4113d`: Quality [43734828487](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734828487), Chromium [43734828491](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734828491), Pages build/deploy [43734828557](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734828557) all SUCCESS. Pages includes a separate deploy job and deployed-site/runtime-asset smoke test.
 - Python tests, web checks and production build passed on exact PR head and main. No local checkout or local test execution is claimed.
-- `KHM-ROM-PCGN-SERIES-001` is DONE_VERIFIED only for Note 3 series selection and its abstention contract. `KHM-ROM-ENGINE-001` remains PARTIAL: Note 2 shifters, vowel/rime selection, coda, Note 5 shortening, syllable segmentation and full PCGN output are not implemented.
+- `KHM-ROM-PCGN-SERIES-001` is DONE_VERIFIED only for Note 3 series selection. `KHM-ROM-PCGN-SHIFTERS-001` now records bounded Note 2 support as PARTIAL. `KHM-ROM-ENGINE-001` remains PARTIAL: cluster shifters, complete vowel/rime selection, coda, Note 5 shortening, syllable segmentation and full PCGN output are not implemented.
 - The resolver preserves PCGN's exact weak-foot set (five nasals plus យ/រ/ល/វ, no ស), the ប+foot p-in-â exception, and the no-foot status of ឡ. It abstains on shifters and multiple feet/bases. No IPA or Ukrainian output changed.
 - Issue #104 remains open; independent adjudicated IPA gold=0 and empirical accuracy=null. Root LICENSE absent while pyproject metadata declares MIT; main remains unprotected. Research prototype only.
+
+
+## PCGN Note 2 shifter subset — 2026-11-15
+
+- Extended `PCGNOrthographicAnalysis` with exact source positions for register shifters.
+- `resolve_pcgn_series` now applies Note 2 only for one shifter immediately after one base consonant with no foot: TRIISAP U+17CA changes â→ô; MUUSIKATOAN U+17C9 changes ô→â.
+- Preserves Note 3's BA + MUUSIKATOAN p-in-â exception. BA + TRIISAP remains unresolved.
+- Shifters on clusters, multiple/misplaced shifters, wrong-direction shifters and unsupported structures abstain. No vowel, coda, syllable segmentation, PCGN Latin, IPA or Ukrainian output is generated.
+- Update the analysis and series-decision JSON Schemas and tests for shifter positions, before/after series and typed effects. Exact-head CI pending.
+- This is a bounded subset, not complete Note 2 implementation. Next gates: review shifters on consonant+foot clusters and BA+TRIISAP; then tackle contextual vowel/rime selection and Note 5 only when coda is known.

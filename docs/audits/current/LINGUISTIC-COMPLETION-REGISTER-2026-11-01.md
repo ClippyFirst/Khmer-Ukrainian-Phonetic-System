@@ -871,3 +871,14 @@ No vowel, IPA, Ukrainian target or gold entry is generated. Independent adjudica
 | MAINLINE-CI-2026-11-15-J | DONE_VERIFIED (engineering/deployment only) | Exact main `357ce7f2a5400ff1643e4f64337009dd18c4113d`; Quality [43734828487], Chromium [43734828491], Pages [43734828557] all SUCCESS. | Hosted validation/tests/build/browser/deploy only; no linguistic accuracy claim. |
 
 Independent adjudicated IPA gold remains 0; empirical accuracy remains null. Issue #104 remains open.
+
+
+## PCGN Note 2 shifter subset — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-PCGN-SHIFTERS-001 | PARTIAL (implementation pending exact-head CI) | `register_shifter_positions` in typed analysis; `resolve_pcgn_series` supports one correctly placed shifter after a single base with no foot; schema/tests cover TRIISAP â→ô, MUUSIKATOAN ô→â and BA+MUUSIKATOAN p-in-â. | Full Note 2 cluster behavior, BA+TRIISAP, multiple/misplaced shifters and all contextual exceptions remain unresolved. |
+| KHM-ROM-PCGN-SERIES-001 | DONE_VERIFIED (Note 3 series-source decision only) | PR #215 exact-head and exact-main CI passed. | Note 2 extension is separately PARTIAL; no vowel or full romanization output. |
+| KHM-ROM-ENGINE-001 | PARTIAL | Structural analyzer + Note 3 series + bounded Note 2 subset. | Full contextual PCGN generator, vowel/rime, coda, Note 5 shortening and evidence-backed abstention fixtures. |
+
+No IPA, Ukrainian target or gold data is generated. Independent adjudicated IPA gold remains 0; accuracy remains null.
