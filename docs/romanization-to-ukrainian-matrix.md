@@ -805,3 +805,16 @@ PR #251 merged as `aab014705bdf90825b922ff69f1c2e7758e56246`. PR-head push Quali
 ## Exact-main verification — PR #252 / PCGN consonant components — 2026-11-15
 
 PR [#252](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/252) merged as `16fbbde6238e03290507056388b539f54622d236`. Final PR-head push Quality [43761467383], PR Quality [43761473221], PR Chromium [43761473212], exact-main Quality [43761598283], Chromium [43761598359] and Pages [43761598332] all SUCCESS. Initial push Quality [43761223088] caught malformed schema JSON; corrected schema and final checks passed. The resolver maps rows 1–21 only and delegates row 22 to Note 4.
+
+
+## BGN/PCGN final-consonant no-following-vowel rule — 2026-11-15
+
+Added `resolve_pcgn_final_consonant(analysis, has_following_vowel_character, has_toandakhiat)` for the guide's general statement that a syllable-final consonant without a vowel character or TOANDAKHIAT should generally have no vowel letter after it.
+
+The caller must isolate the final consonant chunk and explicitly supply both negative context conditions. The resolver accepts one base and at most one foot, maps them through the consonant table, and returns `following_vowel=""`. It does not find syllable boundaries or infer coda identity. BA and ALIF final contexts abstain for separate Note 3/4 handling; vowel-bearing, TOANDAKHIAT, multi-base/foot and unsupported cases also abstain.
+
+Schema: `schemas/pcgn-final-consonant-decision.schema.json`; tests: `tests/test_pcgn_final_consonant_resolution.py`; source rule: `data/khmer/romanization_pcgn_final_consonant.csv`.
+
+Source: BGN/PCGN 1972 Agreement, p. 2: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+
+Status: `KHM-ROM-PCGN-FINAL-CONSONANT-001 = PARTIAL`; the source's “generally” qualifier is preserved, and the resolver emits no complete syllable, IPA or Ukrainian output.
