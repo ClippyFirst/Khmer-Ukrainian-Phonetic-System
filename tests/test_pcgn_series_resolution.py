@@ -83,7 +83,7 @@ def test_pcgn_series_schema_enforces_explicit_resolved_and_unresolved_shapes():
     assert set(schema["required"]) == {
         "series", "basis", "status", "onset_exception", "series_before_shifter", "shifter_effect", "source_locator", "warnings"
     }
-    assert schema["properties"]["source_locator"]["const"] == "PCGN 1972, Note 3 (pp. 2–3)"
+    assert schema["properties"]["source_locator"]["enum"] == ["PCGN 1972, Note 3 (pp. 2–3)", "PCGN 1972, Notes 2–3 (pp. 2–3)"]
     assert schema["allOf"][0]["then"]["properties"]["series"]["enum"] == ["â", "ô"]
     assert schema["allOf"][1]["then"]["properties"]["series"]["const"] is None
 
