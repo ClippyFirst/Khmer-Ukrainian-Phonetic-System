@@ -129,11 +129,11 @@ def validate_ipa_candidate(
     after syntax validation. PARTIAL candidates must explain their
     uncertainty; COMPLETE is a provider assertion, not a gold label.
     """
-    if profile not in PROFILES:
+    if not isinstance(profile, str) or profile not in PROFILES:
         raise ValueError(f"unsupported pronunciation profile: {profile}")
-    if kind not in IPA_KINDS:
+    if not isinstance(kind, str) or kind not in IPA_KINDS:
         raise ValueError(f"unsupported IPA kind: {kind}")
-    if status not in CANDIDATE_STATUSES:
+    if not isinstance(status, str) or status not in CANDIDATE_STATUSES:
         raise ValueError(f"unsupported candidate status: {status}")
     if not isinstance(provider, str) or not provider.strip():
         raise ValueError("candidate provider must be a non-empty string")
