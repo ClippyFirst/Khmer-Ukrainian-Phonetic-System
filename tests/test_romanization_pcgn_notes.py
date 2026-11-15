@@ -25,7 +25,8 @@ def test_all_eleven_pcgn_notes_are_registered_with_primary_source_locators():
     statuses = {row["note_number"]: row["implementation_status"] for row in rows}
     assert statuses["5"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["6"] == "PARTIAL_COMPONENT_RESOLVER"
-    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"5", "6"})
+    assert statuses["7"] == "PARTIAL_COMPONENT_RESOLVER"
+    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"5", "6", "7"})
 
 
 def test_pcgn_note_three_keeps_the_pcgn_weak_subscript_set_exact():
@@ -53,6 +54,14 @@ def test_pcgn_note_six_preserves_explicit_robat_r_c_mapping_boundary():
     assert "not inferred" in note["limitations"].lower()
 
 
+def test_pcgn_note_seven_preserves_explicit_position_and_series_boundary():
+    note = next(row for row in _rows() if row["note_number"] == "7")
+    assert "syllable-initial" in note["source_summary"]
+    assert "syllable-final" in note["source_summary"]
+    assert "explicit caller-supplied syllable position" in note["conditions_or_exceptions"].lower()
+    assert "never inferred" in note["limitations"].lower()
+
+
 def test_pcgn_notes_registry_is_not_misrepresented_as_ipa_or_ukrainian_gold():
     rows = _rows()
     headers = set(rows[0])
@@ -60,4 +69,5 @@ def test_pcgn_notes_registry_is_not_misrepresented_as_ipa_or_ukrainian_gold():
     statuses = {row["note_number"]: row["implementation_status"] for row in rows}
     assert statuses["5"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["6"] == "PARTIAL_COMPONENT_RESOLVER"
-    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"5", "6"})
+    assert statuses["7"] == "PARTIAL_COMPONENT_RESOLVER"
+    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"5", "6", "7"})
