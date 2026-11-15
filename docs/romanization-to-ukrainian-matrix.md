@@ -262,3 +262,8 @@ The Ukrainian output remains PROVISIONAL because the target values in the CSV ar
 ## Direct-input implementation evidence — 2026-11-15
 
 PR #192 merged as `736b1bc30bc6ccea6eb1d9f3aacd0647c17b848f`. Exact-head Quality [43699528446](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43699528446) passed 223 tests + 70 subtests; Chromium [43699528852](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43699528852) passed 7 browser tests. The tests assert every raw diacritic-preserving form in the 37-row vowel/rime CSV maps to its corresponding project Ukrainian candidate. This verifies table/runtime parity, not the linguistic correctness of those candidates.
+
+
+## Mixed-script input boundary
+
+The direct Latin mode assumes one input format per run. If Latin BGN/PCGN text and Khmer letters/marks are mixed, the UI does not silently combine the direct-Latin and Khmer-source pipelines: Khmer letters/marks are bracketed as unsupported and the result is PARTIAL. Khmer numerals remain eligible for the existing Arabic-digit conversion, and Khmer punctuation is preserved. Enter Khmer-script text or Latin BGN/PCGN romanization separately for a meaningful result.

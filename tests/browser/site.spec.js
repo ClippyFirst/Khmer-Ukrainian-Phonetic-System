@@ -68,3 +68,24 @@ test("phonetic diagnostics stay hidden while editing direct romanization input",
   await expect(page.locator("#issue")).toBeHidden();
   await expect(page.locator("#unit-details")).toBeHidden();
 });
+
+
+test("mixed Khmer letters in direct romanization mode are bracketed as unsupported", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("Kâmpŭchéa ខ្មែរ");
+  await page.locator("#mode-romanization").click();
+  await expect(page.locator("#ua-romanization-result")).toHaveText("Кампучеа ⟦ខ⟧⟦្⟧⟦ម⟧⟦ែ⟧⟦រ⟧");
+  await expect(page.locator("#ua-romanization-status")).toContainText("PARTIAL");
+  await expect(page.locator("#romanization-title")).toHaveText("Змішаний ввід · потрібен один формат");
+  await expect(page.locator("#romanization-note")).toContainText("окремі запуски");
+});
+
+
+test("Khmer numerals do not incorrectly trigger the mixed-script warning", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("Kâmpŭchéa ២០២៦។");
+  await page.locator("#mode-romanization").click();
+  await expect(page.locator("#ua-romanization-result")).toHaveText("Кампучеа 2026។");
+  await expect(page.locator("#ua-romanization-status")).toContainText("PROVISIONAL");
+  await expect(page.locator("#romanization-title")).toHaveText("Вхідна романізація · BGN/PCGN 1972");
+});
