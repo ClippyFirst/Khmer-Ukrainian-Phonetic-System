@@ -774,3 +774,8 @@ Status: `KHM-ROM-PCGN-INHERENT-VOWEL-001 = PARTIAL`; final consonant/coda behavi
 ## Exact-main verification — PR #249 / anusvara-visarga table — 2026-11-15
 
 PR [#249](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/249) merged as `a50f815f993f8fa9b4ae59c5f0f89b8c7717ea6f`. PR-head push Quality [43760107833], PR Quality [43760141233], PR Chromium [43760141132], exact-main Quality [43760241393], Chromium [43760241451] and Pages build/deploy [43760241464] all SUCCESS. The PR adds only bounded PCGN table rows 1–8; it does not produce IPA/Ukrainian output or complete the PCGN engine.
+
+
+## Exact-main verification — PR #250 / inherent vowel row 1 — 2026-11-15
+
+PR [#250](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/250) merged as `62ce69bd17dc64fecfb73e81e22ca10bf97a25ff`. PR-head push Quality [43760551262], PR Quality [43760562169], PR Chromium [43760562155], exact-main Quality [43760662544], Chromium [43760662582] and Pages build/deploy [43760662587] all SUCCESS. The new resolver remains a bounded NON_FINAL inherent-vowel component; it does not implement final consonant/coda handling, complete syllable assembly, IPA or Ukrainian output.

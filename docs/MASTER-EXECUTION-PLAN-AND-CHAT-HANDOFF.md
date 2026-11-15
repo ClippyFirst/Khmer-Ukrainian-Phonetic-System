@@ -2781,3 +2781,12 @@ Implemented `resolve_pcgn_inherent_vowel(analysis, syllable_position)` and `PCGN
 Primary source: BGN/PCGN 1972 Agreement, p. 2, Vowel Characters table row 1 and explanatory paragraph: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 
 Status: `KHM-ROM-PCGN-INHERENT-VOWEL-001 = PARTIAL`. This is an onset vowel component only; no final-coda decision, full syllable, IPA or Ukrainian output is generated.
+
+
+## Exact-main verification — PR #250 / PCGN inherent vowel row 1 — 2026-11-15
+
+- PR [#250](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/250) merged by squash as `62ce69bd17dc64fecfb73e81e22ca10bf97a25ff`; exact current `main` verified at this SHA. No open PRs.
+- PR-head push Quality [43760551262], PR Quality [43760562169] and PR Chromium [43760562155] all SUCCESS.
+- Exact post-merge main Quality [43760662544], Chromium [43760662582] and Pages build/deploy [43760662587] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
+- The inherent-vowel resolver covers only PCGN table row 1 for an explicitly caller-identified NON_FINAL onset. FINAL consonant contexts abstain. No full syllable, IPA or Ukrainian output is generated.
+- Latest engineering checkpoint does not change the research gate: issue #104 remains OPEN; independent adjudicated IPA gold remains 0 and accuracy remains null. Root LICENSE is still absent and `main` remains unprotected.
