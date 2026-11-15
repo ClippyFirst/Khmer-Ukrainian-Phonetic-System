@@ -175,7 +175,15 @@ Still not established as a complete linguistic engine:
 
 Accordingly, the web service is **production-structured but linguistically coverage-limited**. It must not be marketed as a complete automatic Khmer transliterator until the full orthography → IPA matrix and adjudicated corpus are completed.
 
+## Documentation map
+
+Start with the [documentation index](docs/README.md). It explains where authoritative requirements, architecture, evidence, research matrices, implementation notes, validation procedures and agent guidance live.
+
+The canonical continuation and task ledger is [docs/MASTER-EXECUTION-PLAN-AND-CHAT-HANDOFF.md](docs/MASTER-EXECUTION-PLAN-AND-CHAT-HANDOFF.md). The index is navigation, not a replacement for that ledger.
+
 ## Documentation
+
+- [Documentation index](docs/README.md)
 
 - `docs/methodology.md`
 - `docs/phonology.md`
