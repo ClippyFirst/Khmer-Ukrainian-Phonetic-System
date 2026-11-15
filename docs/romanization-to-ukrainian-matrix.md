@@ -326,3 +326,8 @@ Pinned references:
 ## Normative profile reconciliation — BGN/PCGN vs UNGEGN (2026-11-15)
 
 A pinned source comparison is recorded in [BGN-PCGN-UNGEGN-RULE-DIFF-2026-11-15.md](audits/current/BGN-PCGN-UNGEGN-RULE-DIFF-2026-11-15.md). The candidate `pheasaKhmer/khmer-engine` implements UNGEGN 2013, not a verified PCGN 1972 drop-in. One explicit note-level delta matters to series resolution: PCGN note 3's neutral-subscript list is the five nasals plus y/r/l/v; UNGEGN note 3 adds ស. The candidate includes ស in `SERIES_NEUTRAL_SUBSCRIPTS`, so that constant must not be copied unchanged into a PCGN engine. The candidate also labels SAMYOK-before-final-y and YUUKALEAPINTU outputs as not given by the report/derived from secondary material, and extends the eă-final set to kh beyond the listed k/ng/h set. These are not accepted PCGN rules. No runtime or Ukrainian target behavior changed.
+
+
+## Exact-main checkpoint — profile-diff research (2026-11-15)
+
+PR #209 merged as `266297fcc296388220ea48c975344f5aa14f097d`. Exact-main hosted Quality [43730567132], Chromium [43730567159], and Pages build/deploy [43730567118] all SUCCESS. The comparison is documented in [BGN-PCGN-UNGEGN-RULE-DIFF-2026-11-15.md](audits/current/BGN-PCGN-UNGEGN-RULE-DIFF-2026-11-15.md). This closes only the bounded profile-text comparison; it does not implement a contextual Khmer-script romanizer or certify linguistic accuracy. `KHM-ROM-ENGINE-001` and `KHM-ROM-UA-001` remain PARTIAL; IPA gold remains 0.
