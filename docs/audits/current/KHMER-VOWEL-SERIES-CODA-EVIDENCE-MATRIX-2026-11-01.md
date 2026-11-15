@@ -167,3 +167,19 @@ The following is a structured extraction of Ishida's “Vowel sounds mapped to c
 - Coda-conditioned sequences are not interchangeable: the table distinguishes velar vs non-velar finals, labial vs non-labial finals, and U+17C6 /m/ vs U+17C7 /h/.
 - Vowel harmony and register-shifter state can change the expected series; conjunct stacks may cause the following vowel to be determined by the subscript consonant, with listed exceptions.
 - The table is a specialist orthographic mapping. Chem's four-speaker Phnom Penh acoustic sample remains a separate evidence layer. No row is promoted to project gold or a deterministic engine rule until the lexical item, profile, coda, stress and source/audio evidence are independently adjudicated.
+
+## 9. Phonotactic scope and prohibited-structure classification
+
+The following claims must remain in separate evidence classes:
+
+| Structure claim | Classification | Evidence | What must not be inferred |
+|---|---|---|---|
+| Major syllables have no coda clusters | Candidate phonological restriction | Nacaskul (1978), pp. 187–188 | Does not imply all written coeng sequences are onset clusters or that chained codas are absent |
+| Short nuclei do not occur in open major syllables | Major-syllable distribution | Nacaskul (1978), pp. 185, 188–189 | Does not automatically apply to minor types or all contemporary profiles |
+| Minor A: /r/ only in second cluster position; short /ə, ɔ/; no coda | Minor-type restriction | Nacaskul (1978), pp. 187–189 | Not a global ban on /r/ clusters or short vowels |
+| Minor B: single onset; restricted short nucleus; nasal coda | Minor-type restriction | Nacaskul (1978), pp. 187–190 | Not a global coda inventory |
+| Up to two coengs before the vowel | Orthographic encoding limit | Unicode L2/22-290, pp. 9–10 | Not a phonological maximum of two onset consonants |
+| Coeng chaining can make orthographic units diverge from phonetic syllables | Orthographic/phonetic segmentation distinction | Unicode L2/22-290, pp. 9–10; Ding et al. (2018), pp. 181–183 | Do not treat each Unicode/visual unit as one phonetic syllable |
+| PPK low-F0 group includes /r>h/ forms and voiced-onset disyllables | Profile-specific prosodic evidence | Mam et al. (2025), five speakers, 50 words | Not a universal Khmer tone rule and not evidence for a grapheme-to-tone mapping |
+
+The Nacaskul restrictions are historical source reports, not yet independently confirmed for every current Phnom Penh careful-citation environment. The Sak-Humphry 2025 publisher preview is not used to settle codas because its excerpt contradicts itself about /r/. No new vowel/coda matrix cell is promoted to adjudicated gold.
