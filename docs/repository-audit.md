@@ -581,3 +581,11 @@ Exact PR #204 head `b27b87081819307da5ffe27d55e3cf4521004730` passed Quality [43
 - Exact-main hosted Quality [43722162644], Chromium [43722162599] and Pages [43722162627] all SUCCESS. No local execution is claimed.
 - README inventory wording corrected to six PCGN diacritic-rule rows / seven Khmer source marks / ten numerals. This accurately distinguishes rule categories from individual source marks; no new phonological interpretation or runtime behavior was added.
 - Remaining release blockers unchanged: contextual PCGN generation and lossy upstream ASCII romanizer, Ukrainian target expert review, independent IPA gold=0 and accuracy=null (issue #104), external data rights/train-eval independence, manual accessibility, and root LICENSE owner decision. Main remains unprotected. Research prototype only.
+
+
+## Post-PR #206 exact-main verification — 2026-11-15
+
+- Current `main`: `ab5ade5f0984b32884df9fa5dac5607f927a2ea4`; PR #206 merged. No open PRs.
+- Exact-main Quality [43728032467], Chromium [43728032424], and Pages build/deploy [43728032407] all SUCCESS. The Quality workflow completed corpus structure validation, Python tests, Node web checks and production build; Chromium visible-results smoke passed; Pages build, Chromium exercise, upload and deployment passed. Hosted CI only; no local tests claimed.
+- README now accurately distinguishes six PCGN diacritic-rule rows from seven source marks and ten numeral rows. No runtime/linguistic behavior changed.
+- Remaining blockers: contextual PCGN Khmer-script generation and upstream ASCII information loss; expert review of Ukrainian proposals; issue #104 human IPA pilot (gold=0; accuracy=null); external rights review; root LICENSE owner decision; manual accessibility; main protection owner decision. Research prototype only.
