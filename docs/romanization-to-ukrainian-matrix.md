@@ -398,3 +398,16 @@ The resolver abstains when a register shifter is present (Note 2 is not implemen
 PR #215 merged as `357ce7f2a5400ff1643e4f64337009dd18c4113d`. Exact PR-head push Quality [43734733096], PR Quality [43734746708], PR Chromium [43734746686], and exact-main Quality [43734828487], Chromium [43734828491], Pages [43734828557] all SUCCESS.
 
 This verifies only Note 3's series-source decision and its fail-closed cases. The series result is not a vowel output or a complete romanization. Note 2, Note 5, coda and syllable-position handling remain unresolved; IPA-first and Ukrainian target behavior remain unchanged.
+
+
+## PCGN Note 2 register-shifter subset — 2026-11-15
+
+The series resolver now implements a bounded subset of Note 2 in addition to Note 3:
+
+- One TRIISAP U+17CA immediately after a single â-series base consonant changes the selected series to ô.
+- One MUUSIKATOAN U+17C9 immediately after a single ô-series base consonant changes the selected series to â.
+- The PCGN Note 3 BA + MUUSIKATOAN exception is preserved as `p` in â series.
+
+This subset is deliberately limited to a single base with no foot and a shifter immediately after the base. It abstains for shifters on consonant+foot clusters, multiple or misplaced shifters, wrong-direction marks, and BA + TRIISAP. The record carries the shifter's source position, pre-shifter series, resulting series, effect and PCGN source locator. It still emits no vowel or complete romanization.
+
+This is not complete Note 2 coverage. Do not infer omitted shifters. The primary source is the official BGN/PCGN 1972 guide, Notes 2–3: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
