@@ -838,3 +838,15 @@ No IPA labels, Ukrainian target decisions or gold records were added. Independen
 | KHM-ROM-TEST-001 | PARTIAL | Focused tests cover structure preservation, source-mark typing, abstention, malformed input and schema contract. | Hosted CI must pass; add independent expert-reviewed expected PCGN outputs before behavioral rule coverage is accepted. |
 
 No pronunciation, IPA, Ukrainian target or gold data was added. Independent adjudicated IPA gold remains 0; empirical accuracy remains null.
+
+
+## Exact-main verification — typed PCGN structural analysis — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-PCGN-STRUCTURE-001 | DONE_VERIFIED (typed structural contract and abstention only) | PR #213 merge `18134929554420875b447b1c5128b3b879e3f608`; module `src/khmer_ua/pcgn.py`, schema `schemas/pcgn-orthographic-analysis.schema.json`, tests `tests/test_pcgn_orthographic_analysis.py`; exact-head and exact-main Quality/Chromium/Pages passed. | Does not segment phonetic syllables, select effective series, infer coda/position, recover omitted marks or generate PCGN Latin/IPA/Ukrainian output. |
+| KHM-ROM-ENGINE-001 | PARTIAL | Typed orthographic input boundary now exists; contextual rules are still not implemented. | Source-backed PCGN series/shifter/vowel/shortening/coda resolver with ambiguity-aware abstention and reviewed expected outputs. |
+| KHM-ROM-TEST-001 | PARTIAL | Structural tests and CI pass; no contextual gold fixtures. | Independently reviewed PCGN romanization fixtures covering valid, ambiguous, omitted-mark and unsupported cases. |
+| MAINLINE-CI-2026-11-15-I | DONE_VERIFIED (engineering/deployment only) | Exact main `18134929554420875b447b1c5128b3b879e3f608`; Quality [43734192447], Chromium [43734192457], Pages [43734192455] all SUCCESS. | Hosted structure, Python, web, build, browser and deployment checks; no linguistic accuracy claim. |
+
+Independent adjudicated IPA gold remains 0; empirical accuracy remains null. Issue #104 remains open.

@@ -369,3 +369,10 @@ Added `src/khmer_ua/pcgn.py` with `analyze_pcgn_orthographic_chunk`, an intentio
 The record explicitly fixes `syllable_segmentation=NOT_PERFORMED`, `series_decision=UNRESOLVED`, `register_source=NOT_SELECTED`, `coda_decision=UNRESOLVED`, and `romanization/ipa/ukrainian=null`. This is not a PCGN romanizer and does not decide phonetic syllables, apply register shifters, infer codas, reconstruct omitted marks or produce a Ukrainian form. Multiple unstacked consonants are retained rather than guessed to be an onset, coda or next syllable. Malformed coeng and unknown material are preserved and return `UNSUPPORTED`.
 
 The serialized record contract is in `schemas/pcgn-orthographic-analysis.schema.json`; tests are in `tests/test_pcgn_orthographic_analysis.py`. The implementation uses the project's existing consonant/sign inventories and NFC normalizer. It does not modify the existing IPA-first engine or its phonetic outputs. Official PCGN source: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf, Notes 2–8.
+
+
+## Typed PCGN orthographic analysis — exact-main verification — 2026-11-15
+
+PR #213 merged as `18134929554420875b447b1c5128b3b879e3f608`. PR-head Quality [43734106341], Chromium [43734106320], push Quality [43734102361], and exact-main Quality [43734192447], Chromium [43734192457], Pages [43734192455] all SUCCESS.
+
+The new `analyze_pcgn_orthographic_chunk` API, its schema and focused tests are verified on exact main. Acceptance is limited to typed structural preservation and fail-closed abstention; no contextual PCGN romanization, phonetic syllabification, IPA or Ukrainian target is generated. The existing IPA-first path is unchanged.
