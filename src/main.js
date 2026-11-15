@@ -397,7 +397,7 @@ if (typeof document !== "undefined") {
     modeRomanization.setAttribute("aria-pressed", String(mode === "romanization"));
     outputMethodNote.textContent = mode === "phonetic"
       ? "Фонетичний режим: детерміновані правила орфографія → IPA → українська адаптація; непідтверджені форми не вгадуються."
-       : "Романізаційний режим: Khmer → BGN/PCGN-похідний латинський запис → окрема українська орфографічна передача. ASCII-романізатор втрачає діакритики, тому результат PROVISIONAL; фонетичний fallback не використовується.";
+       : "Романізаційний режим: можна ввести кмерський текст (автоматична ASCII-романізація) або готову латинську BGN/PCGN-форму з діакритиками; далі — окрема українська орфографічна передача. Невідомі фрагменти не вгадуються; IPA-fallback не використовується.";
   }
 
   function render() {
@@ -411,7 +411,7 @@ if (typeof document !== "undefined") {
     }
     empty.hidden = true;
     results.hidden = false;
-    const hasKhmer = /[\\u1780-\\u17ff\\u19e0-\\u19ff]/u.test(data.source);
+    const hasKhmer = /[\u1780-\u17ff\u19e0-\u19ff]/u.test(data.source);
     const latinRomanization = hasKhmer ? khmerToLatin(data.source) : data.source;
     romanizationResult.textContent = latinRomanization;
     const uaRomanized = hasKhmer
