@@ -82,7 +82,7 @@ export function renderRomanizedText(source){
     ...rendered,
     text,
     unsupported,
-    status:!hasLatin?"PASSTHROUGH":unsupported?"PARTIAL":"PROVISIONAL",
+    status:unsupported?"PARTIAL":!hasLatin?"PASSTHROUGH":"PROVISIONAL",
     profile:"BGN/PCGN 1972 romanization input; Ukrainian target values are project proposals",
   };
 }
