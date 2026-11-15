@@ -94,3 +94,13 @@ def test_pcgn_notes_registry_is_not_misrepresented_as_ipa_or_ukrainian_gold():
     assert statuses["7"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["8"] == "PARTIAL_COMPONENT_RESOLVER"
     assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"2", "3", "4", "5", "6", "7", "8"})
+
+
+
+def test_pcgn_note_two_registry_preserves_ba_triisap_exception_and_limits():
+    note = next(row for row in _rows() if row["note_number"] == "2")
+    assert "MUUSIKATOAN" in note["source_summary"]
+    assert "TRIISAP" in note["source_summary"]
+    assert "Note 3 specifies" in note["conditions_or_exceptions"]
+    assert "BA+TRIISAP" in note["limitations"]
+    assert "series metadata only" in note["limitations"]
