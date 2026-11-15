@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PCGN Khmer orthographic analysis (structure-only)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "raw_text", "normalized_text", "tokens", "base_consonants",
+    "subscript_consonants", "register_shifters", "dependent_vowel_signs",
+    "independent_vowels", "shortening_marks", "robat_positions",
+    "ahsda_positions", "toandakhiat_positions", "unresolved_components",
+    "syllable_segmentation", "series_decision", "register_source",
+    "coda_decision", "romanization", "ipa", "ukrainian", "status",
+    "warnings", "sources"
+  ],
+  "properties": {
+    "raw_text": {"type": "string"},
+    "normalized_text": {"type": "string"},
+    "tokens": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["text", "kind", "codepoints", "name", "orthographic_register"],
+        "properties": {
+          "text": {"type": "string", "minLength": 1},
+          "kind": {"type": "string", "minLength": 1},
+          "codepoints": {"type": "array", "items": {"type": "string", "pattern": "^U+[0-9A-F]{4,6}$"}, "minItems": 1},
+          "name": {"type": ["string", "null"]},
+          "orthographic_register": {"enum": ["first", "second", null]}
+        }
+      }
+    },
+    "base_consonants": {"type": "array", "items": {"type": "string"}},
+    "subscript_consonants": {"type": "array", "items": {"type": "string"}},
+    "register_shifters": {"type": "array", "items": {"type": "string"}},
+    "dependent_vowel_signs": {"type": "array", "items": {"type": "string"}},
+    "independent_vowels": {"type": "array", "items": {"type": "string"}},
+    "shortening_marks": {"type": "array", "items": {"type": "string"}},
+    "robat_positions": {"type": "array", "items": {"type": "integer", "minimum": 0}},
+    "ahsda_positions": {"type": "array", "items": {"type": "integer", "minimum": 0}},
+    "toandakhiat_positions": {"type": "array", "items": {"type": "integer", "minimum": 0}},
+    "unresolved_components": {"type": "array", "items": {"type": "string"}},
+    "syllable_segmentation": {"const": "NOT_PERFORMED"},
+    "series_decision": {"const": "UNRESOLVED"},
+    "register_source": {"const": "NOT_SELECTED"},
+    "coda_decision": {"const": "UNRESOLVED"},
+    "romanization": {"type": "null"},
+    "ipa": {"type": "null"},
+    "ukrainian": {"type": "null"},
+    "status": {"enum": ["STRUCTURE_ONLY", "UNSUPPORTED"]},
+    "warnings": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "sources": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1}
+  }
+}
