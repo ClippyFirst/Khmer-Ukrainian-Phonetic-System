@@ -74,7 +74,6 @@ def load_rows(path: Path) -> list[dict[str, str]]:
 def predict(
     orthographies: list[str],
     *,
-    model_id: str = MODEL_ID,
     model_revision: str = MODEL_REVISION,
     batch_size: int = 8,
     num_beams: int = 4,
@@ -93,12 +92,12 @@ def predict(
 
     torch.set_num_threads(1)
     torch.manual_seed(0)
-    model = EncoderDecoderModel.from_pretrained(model_id, revision=model_revision)
+    model = EncoderDecoderModel.from_pretrained(MODEL_ID, revision=model_revision)
     encoder_tokenizer = AutoTokenizer.from_pretrained(
-        model_id, subfolder="encoder_tokenizer", revision=model_revision
+        MODEL_ID, subfolder="encoder_tokenizer", revision=model_revision
     )
     decoder_tokenizer = AutoTokenizer.from_pretrained(
-        model_id, subfolder="decoder_tokenizer", revision=model_revision
+        MODEL_ID, subfolder="decoder_tokenizer", revision=model_revision
     )
     model.to("cpu")
     model.eval()
@@ -142,6 +141,7 @@ def build_report(
     *,
     model_revision: str,
     corpus_sha256: str,
+    corpus_source_commit: str | None = None,
     runtime: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     if len(rows) != len(predictions):
@@ -198,7 +198,7 @@ def build_report(
         "engine_revision": model_revision,
         "engine_license": "Apache-2.0 as declared by the model card",
         "corpus": "MekongPhon data/splits/khmer_eval.csv",
-        "corpus_source_commit": CORPUS_SOURCE_COMMIT,
+        "corpus_source_commit": corpus_source_commit,
         "reference_field": "pron_no_tones (source-reported IPA without tone)",
         "corpus_sha256": corpus_sha256,
         "input_count": len(rows),
@@ -254,8 +254,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--corpus", type=Path, default=DEFAULT_CORPUS)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--model-id", default=MODEL_ID)
     parser.add_argument("--model-revision", default=MODEL_REVISION)
+    parser.add_argument("--corpus-source-commit", default=None, help="Pinned source revision for a custom corpus path")
     parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--num-beams", type=int, default=4)
     args = parser.parse_args()
@@ -263,16 +263,19 @@ def main() -> int:
     rows = load_rows(args.corpus)
     predictions, runtime = predict(
         [row["orth"] for row in rows],
-        model_id=args.model_id,
         model_revision=args.model_revision,
         batch_size=args.batch_size,
         num_beams=args.num_beams,
     )
+    corpus_source_commit = args.corpus_source_commit
+    if corpus_source_commit is None and args.corpus.resolve() == DEFAULT_CORPUS.resolve():
+        corpus_source_commit = CORPUS_SOURCE_COMMIT
     report = build_report(
         rows,
         predictions,
         model_revision=args.model_revision,
         corpus_sha256=sha256_file(args.corpus),
+        corpus_source_commit=corpus_source_commit,
         runtime=runtime,
     )
     report_sha256 = write_report(args.output, report)
