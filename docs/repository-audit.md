@@ -563,3 +563,5 @@ No release status upgrade follows from green engineering CI: independent adjudic
 ## PCGN shortened-vowel source-mark inventory correction — 2026-11-15
 
 PR #204 corrects the mark matrix: PCGN note 5 distinguishes U+17CB BANTOC (◌់) and U+17D0 SAMYOK SANNYA (◌័), but the previous row represented only BANTOC. Both are now recorded under the same shortened-vowel rule category; the six PCGN rule rows remain six. Python and Node regression assertions cover the two-mark row. This changes source inventory only, not runtime romanization or Ukrainian mapping. Contextual Khmer-script PCGN generation remains PARTIAL. Official source: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf (note 5).
+
+Exact PR #204 head `b27b87081819307da5ffe27d55e3cf4521004730` passed Quality [43721677822] and Chromium [43721677790]; push Quality [43721673728] also passed. The initial data-only intermediate commit failed the stale exact-mark assertion, which was updated in both Python and Node suites; the final PR-head runs are green.
