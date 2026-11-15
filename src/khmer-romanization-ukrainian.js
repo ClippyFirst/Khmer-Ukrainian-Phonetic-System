@@ -65,22 +65,25 @@ export function renderLatinWord(value){
   return {text:output,mapped,unsupported};
 }
 
+function bracketUnconvertedKhmer(value){
+  let unsupported=0;
+  const text=String(value??"").replace(/[\p{Script=Khmer}]/gu,char => {
+    if(!/[\p{L}\p{M}]/u.test(char)) return char;
+    unsupported+=1;
+    return "⟦"+char+"⟧";
+  });
+  return {text,unsupported};
+}
+
 export function renderRomanizedText(source){
   const input=String(source??"").normalize("NFC");
   const rendered=renderLatinWord(input);
   const hasLatin=/\p{Script=Latin}/u.test(input);
-  const unsupportedKhmer=[...input].filter(char =>
-    /\p{Script=Khmer}/u.test(char) && /[\p{L}\p{M}]/u.test(char)
-  ).length;
-  const text=unsupportedKhmer
-    ? rendered.text.replace(/[\p{Script=Khmer}]/gu,char =>
-        /[\p{L}\p{M}]/u.test(char) ? "⟦"+char+"⟧" : char
-      )
-    : rendered.text;
-  const unsupported=rendered.unsupported+unsupportedKhmer;
+  const guarded=bracketUnconvertedKhmer(rendered.text);
+  const unsupported=rendered.unsupported+guarded.unsupported;
   return {
     ...rendered,
-    text,
+    text:guarded.text,
     unsupported,
     status:unsupported?"PARTIAL":!hasLatin?"PASSTHROUGH":"PROVISIONAL",
     profile:"BGN/PCGN 1972 romanization input; Ukrainian target values are project proposals",
@@ -96,9 +99,10 @@ export function renderKhmerRomanizationText(source,romanizer){
     while(i<chars.length&&isKhmer(chars[i])){run+=chars[i];i+=1;}
     const latin=romanizer(run);
     const rendered=renderLatinWord(latin);
-    output+=rendered.text;
+    const guarded=bracketUnconvertedKhmer(rendered.text);
+    output+=guarded.text;
     mapped+=rendered.mapped;
-    unsupported+=rendered.unsupported;
+    unsupported+=rendered.unsupported+guarded.unsupported;
   }
   return {
     text:output,

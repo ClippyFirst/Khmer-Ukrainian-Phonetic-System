@@ -250,3 +250,32 @@ test("direct Latin renderer with Khmer letters reports partial even without Lati
   assert.equal(result.status, "PARTIAL");
   assert.equal(result.unsupported, 5);
 });
+
+
+test("Khmer-script romanizer output with an unconverted Khmer mark is explicitly partial", () => {
+  const result = renderKhmerRomanizationText("សុខា", () => "Sokha៉");
+  assert.equal(result.text, "Сок'а⟦៉⟧");
+  assert.equal(result.status, "PARTIAL");
+  assert.equal(result.unsupported, 1);
+});
+
+test("Khmer-script romanizer output with an unconverted Khmer letter and mark brackets both", () => {
+  const result = renderKhmerRomanizationText("សុខា", () => "Sokhaខ៉");
+  assert.equal(result.text, "Сок'а⟦ខ⟧⟦៉⟧");
+  assert.equal(result.status, "PARTIAL");
+  assert.equal(result.unsupported, 2);
+});
+
+test("Khmer punctuation left by the romanizer remains preserved and is not marked unsupported", () => {
+  const result = renderKhmerRomanizationText("សុខា", () => "Sokha។");
+  assert.equal(result.text, "Сок'а។");
+  assert.equal(result.status, "PROVISIONAL");
+  assert.equal(result.unsupported, 0);
+});
+
+test("direct BGN/PCGN input with a Khmer mark is explicitly partial", () => {
+  const result = renderRomanizedText("Kâmpŭchéa៉");
+  assert.equal(result.text, "Кампучеа⟦៉⟧");
+  assert.equal(result.status, "PARTIAL");
+  assert.equal(result.unsupported, 1);
+});
