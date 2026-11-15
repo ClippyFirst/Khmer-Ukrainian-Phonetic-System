@@ -2165,3 +2165,15 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - This is orthographic input mapping, not IPA and not semantic translation. Ukrainian candidates remain PROVISIONAL. The direct path cannot reconstruct omitted diacritics or validate arbitrary non-BGN/PCGN romanization. Mixed Khmer+Latin input is not a dedicated mode.
 - The Khmer-script source path still uses `@gmana/km-translit` 0.1.2 and therefore loses PCGN diacritics. A complete contextual Khmer-script→BGN/PCGN generator remains PARTIAL.
 - No independent Ukrainian standard/adjudication was created. The result is a usable direct-input path with explicit uncertainty, not a claim of complete BGN/PCGN conformance.
+
+## Mixed-script romanization guard closeout — 2026-11-15
+
+- PR #194 merged as `4e1b95f2a1680e7c7363a68b226b0b44778cac74` from exact head `5c09a03d3d45a16001f73781fe7eb7bf7d057826`.
+- Exact-head Quality [43709408446](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709408446) SUCCESS (223 tests + 70 subtests; deterministic web checks and production build passed).
+- Exact-head Chromium [43709408411](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709408411) SUCCESS (9 browser tests).
+- An earlier browser run [43709299480](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709299480) failed because the newly added UI assertions were attached to the Latin-only unknown-fragment test rather than the mixed-script test. The test placement was corrected; exact final-head browser verification passed.
+- Direct BGN/PCGN input now brackets Khmer letters/marks in mixed or direct-renderer calls and returns PARTIAL rather than silently passing Khmer characters through. The UI explains the one-format-per-run boundary.
+- Khmer numerals still convert to Arabic digits and Khmer punctuation is preserved. UI mode detection now distinguishes Khmer letters/marks from numerals and punctuation.
+- Scope: no change to the Khmer-script romanizer, BGN/PCGN crosswalk values, Ukrainian target proposals, IPA pipeline or phonological rules.
+- Post-merge workflow query for merge SHA returned no runs; verification is exact PR-head CI only. No local npm/Playwright execution is claimed.
+- Repository remains a partial research prototype; Ukrainian candidates are provisional and linguistic/data-rights/accessibility gates remain open.
