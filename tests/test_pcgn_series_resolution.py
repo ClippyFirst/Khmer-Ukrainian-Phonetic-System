@@ -20,6 +20,8 @@ def test_pcgn_note3_weak_foot_uses_base_series_when_base_is_not_weak():
     assert result.status == "RESOLVED"
     assert result.onset_exception is None
     assert result.source_locator == "PCGN 1972, Note 3 (pp. 2–3)"
+    assert result.series_before_shifter == "â"
+    assert result.shifter_effect is None
 
 
 def test_pcgn_note3_nonweak_foot_selects_foot_series():
@@ -79,8 +81,40 @@ def test_pcgn_series_schema_enforces_explicit_resolved_and_unresolved_shapes():
     path = Path(__file__).resolve().parents[1] / "schemas/pcgn-series-decision.schema.json"
     schema = json.loads(path.read_text(encoding="utf-8"))
     assert set(schema["required"]) == {
-        "series", "basis", "status", "onset_exception", "source_locator", "warnings"
+        "series", "basis", "status", "onset_exception", "series_before_shifter", "shifter_effect", "source_locator", "warnings"
     }
     assert schema["properties"]["source_locator"]["const"] == "PCGN 1972, Note 3 (pp. 2–3)"
     assert schema["allOf"][0]["then"]["properties"]["series"]["enum"] == ["â", "ô"]
     assert schema["allOf"][1]["then"]["properties"]["series"]["const"] is None
+
+
+def test_pcgn_note2_triisap_changes_a_series_to_o_series():
+    result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk("ហ៊"))
+    assert result.series_before_shifter == "â"
+    assert result.series == "ô"
+    assert result.shifter_effect == "TRIISAP_A_TO_O"
+    assert result.status == "RESOLVED"
+    assert result.source_locator == "PCGN 1972, Notes 2–3 (pp. 2–3)"
+
+
+def test_pcgn_note2_muusikatoan_changes_o_series_to_a_series():
+    result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk("ញ៉"))
+    assert result.series_before_shifter == "ô"
+    assert result.series == "â"
+    assert result.shifter_effect == "MUUSIKATOAN_O_TO_A"
+    assert result.status == "RESOLVED"
+
+
+def test_pcgn_note3_ba_with_muusikatoan_preserves_p_in_a_exception():
+    result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk("ប៉"))
+    assert result.series == "â"
+    assert result.onset_exception == "BA_WITH_MUUSIKATOAN_P_IN_A_SERIES"
+    assert result.shifter_effect == "BA_MUUSIKATOAN_P_IN_A"
+
+
+def test_pcgn_note2_shifters_abstain_on_wrong_direction_position_cluster_and_ba_triisap():
+    for source in ("ក៉", "គ៊", "ហា៊", "ហ៊៉", "ថ៊្ម", "ប៊"):
+        result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk(source))
+        assert result.status == "UNRESOLVED"
+        assert result.series is None
+        assert result.shifter_effect is None
