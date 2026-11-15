@@ -603,6 +603,6 @@ A bounded ROBAT resolver now returns the source-defined `rC` component. It requi
 
 The official example `ធម៌ → thôrm` is tested at the component boundary: the resolver returns `rm`, not the full word. Unsupported mark placement, multiple ROBAT marks, foot-marked characters and missing/invalid consonant values abstain.
 
-Source: BGN/PCGN 1972, Diacritical Marks table row 4 and Note 6, p. 4: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+Source: BGN/PCGN 1972, Diacritical Marks table row 4 (p. 4) and Note 6 (p. 5): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 
 Status: `KHM-ROM-PCGN-ROBAT-001 = PARTIAL`; full PCGN syllable assembly and IPA/Ukrainian adapters remain PARTIAL.
