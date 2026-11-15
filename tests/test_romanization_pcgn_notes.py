@@ -30,8 +30,9 @@ def test_all_eleven_pcgn_notes_are_registered_with_primary_source_locators():
     assert statuses["6"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["7"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["8"] == "PARTIAL_COMPONENT_RESOLVER"
+    assert statuses["9"] == "PARTIAL_AMBIGUITY_CONTRACT"
     assert statuses["10"] == "PARTIAL_CHARACTER_INVENTORY"
-    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"2", "3", "4", "5", "6", "7", "8", "10"})
+    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"2", "3", "4", "5", "6", "7", "8", "9", "10"})
 
 
 def test_pcgn_note_three_keeps_the_pcgn_weak_subscript_set_exact():
@@ -94,8 +95,9 @@ def test_pcgn_notes_registry_is_not_misrepresented_as_ipa_or_ukrainian_gold():
     assert statuses["6"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["7"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["8"] == "PARTIAL_COMPONENT_RESOLVER"
+    assert statuses["9"] == "PARTIAL_AMBIGUITY_CONTRACT"
     assert statuses["10"] == "PARTIAL_CHARACTER_INVENTORY"
-    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"2", "3", "4", "5", "6", "7", "8", "10"})
+    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"2", "3", "4", "5", "6", "7", "8", "9", "10"})
 
 
 
@@ -116,3 +118,12 @@ def test_pcgn_note_ten_registry_marks_only_the_bounded_letter_inventory_as_parti
     assert "two-code-point sequences" in note["conditions_or_exceptions"]
     assert "non-letter characters" in note["limitations"].lower()
     assert "no normalization" in note["limitations"].lower()
+
+
+
+def test_pcgn_note_nine_registry_preserves_alternatives_without_selecting_one():
+    note = next(row for row in _rows() if row["note_number"] == "9")
+    assert note["implementation_status"] == "PARTIAL_AMBIGUITY_CONTRACT"
+    assert "ŏ or ŭ" in note["source_summary"]
+    assert "both alternatives" in note["conditions_or_exceptions"]
+    assert "no alternative is selected" in note["limitations"].lower()

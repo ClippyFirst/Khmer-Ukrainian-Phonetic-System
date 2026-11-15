@@ -30,6 +30,7 @@ def test_pcgn_independent_vowel_table_rows_are_mapped_without_series():
         assert result.status == "RESOLVED", source
         assert result.source_character == source
         assert result.romanization == expected
+        assert result.romanization_options == ()
         assert result.source_table_row == row
         assert result.ipa is None
         assert result.ukrainian is None
@@ -41,6 +42,7 @@ def test_pcgn_note9_keeps_uu_alternative_unresolved_and_traceable():
     assert result.source_character == "ឧ"
     assert result.source_table_row == 7
     assert result.romanization is None
+    assert result.romanization_options == ("ŏ", "ŭ")
     assert "PCGN_NOTE_9_Ŏ_OR_Ŭ_REQUIRES_REFERENCE_SELECTION" in result.warnings
 
 
@@ -49,6 +51,7 @@ def test_pcgn_independent_vowel_resolver_abstains_on_unlisted_or_mixed_input():
         result = resolve(source)
         assert result.status == "UNRESOLVED", source
         assert result.romanization is None, source
+        assert result.romanization_options == (), source
         assert result.ipa is None
         assert result.ukrainian is None
 
@@ -60,11 +63,22 @@ def test_pcgn_independent_vowel_schema_has_component_only_boundary():
     path = Path(__file__).resolve().parents[1] / "schemas/pcgn-independent-vowel-decision.schema.json"
     schema = json.loads(path.read_text(encoding="utf-8"))
     assert set(schema["required"]) == {
-        "source_character", "romanization", "source_table_row",
+        "source_character", "romanization", "romanization_options", "source_table_row",
         "status", "ipa", "ukrainian", "source_locator", "warnings",
     }
     assert schema["properties"]["ipa"]["const"] is None
     assert schema["properties"]["ukrainian"]["const"] is None
+    assert schema["properties"]["romanization_options"]["items"]["enum"] == ["ŏ", "ŭ"]
+    assert schema["allOf"][2]["then"]["properties"]["romanization_options"]["const"] == ["ŏ", "ŭ"]
     assert schema["properties"]["source_character"]["enum"] == [
         "ឥ", "ឦ", "ឧ", "ឯ", "ឰ", "ឱ", "ឲ", "ឳ", "ឪ", "ឫ", "ឬ", "ឭ", "ឮ", "ឨ", None
     ]
+
+
+
+def test_pcgn_note9_alternatives_are_not_selected_without_a_reference():
+    result = resolve("ឧ")
+    assert result.status == "UNRESOLVED"
+    assert result.romanization is None
+    assert result.romanization_options == ("ŏ", "ŭ")
+    assert "PCGN_NOTE_9_Ŏ_OR_Ŭ_REQUIRES_REFERENCE_SELECTION" in result.warnings
