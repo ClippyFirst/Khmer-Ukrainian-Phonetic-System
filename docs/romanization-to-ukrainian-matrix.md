@@ -258,3 +258,7 @@ The romanization panel now accepts either:
 The direct path is an orthographic mapping from a supplied romanization, not a Khmer pronunciation engine. It cannot recover omitted diacritics, resolve ambiguous romanization alternatives that the input itself does not distinguish, or establish that a supplied Latin string is actually BGN/PCGN. The UI treats any Latin-only input in this mode as BGN/PCGN; mixed Khmer+Latin input is not a dedicated mixed-script mode and should be entered in separate runs.
 
 The Ukrainian output remains PROVISIONAL because the target values in the CSV are project proposals, not an expert-adjudicated Ukrainian standard. Tests now exercise the raw diacritic forms in all 37 canonical vowel/rime rows as well as the browser's direct-input path.
+
+## Direct-input implementation evidence — 2026-11-15
+
+PR #192 merged as `736b1bc30bc6ccea6eb1d9f3aacd0647c17b848f`. Exact-head Quality [43699528446](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43699528446) passed 223 tests + 70 subtests; Chromium [43699528852](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43699528852) passed 7 browser tests. The tests assert every raw diacritic-preserving form in the 37-row vowel/rime CSV maps to its corresponding project Ukrainian candidate. This verifies table/runtime parity, not the linguistic correctness of those candidates.
