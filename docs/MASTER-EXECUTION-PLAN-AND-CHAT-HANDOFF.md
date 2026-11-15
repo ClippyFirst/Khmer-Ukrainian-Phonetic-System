@@ -2760,3 +2760,24 @@ Artifacts: `src/khmer_ua/pcgn.py`, package exports in `src/khmer_ua/__init__.py`
 Primary source: BGN/PCGN 1972 Agreement, p. 4, “Vowel Characters with Anusvara or Visarga”: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 
 Status: `KHM-ROM-PCGN-ANUSVARA-VISARGA-001 = PARTIAL`; `KHM-ROM-PCGN-VOWELS-001` and `KHM-ROM-ENGINE-001` remain PARTIAL. This is not evidence of IPA or Ukrainian transcription accuracy.
+
+
+## Exact-main verification — PR #249 / PCGN anusvara-visarga table — 2026-11-15
+
+- PR [#249](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/249) merged by squash as `a50f815f993f8fa9b4ae59c5f0f89b8c7717ea6f`; exact current `main` verified at this SHA. No open PRs.
+- PR-head push Quality [43760107833], PR Quality [43760141233] and PR Chromium [43760141132] all SUCCESS.
+- Exact post-merge main Quality [43760241393], Chromium [43760241451] and Pages build/deploy [43760241464] all SUCCESS, including deployed-site/runtime-asset smoke.
+- The implementation covers only PCGN table rows 1–8 for vowels with anusvara/visarga. Row 8 requires caller-identified final NGA; no IPA, Ukrainian output or accuracy claim.
+
+## BGN/PCGN inherent-vowel component — table row 1 — 2026-11-15
+
+Implemented `resolve_pcgn_inherent_vowel(analysis, syllable_position)` and `PCGNInherentVowelDecision` for the â/ô values in row 1 of the official Independent/Dependent Vowel Characters table.
+
+- The caller must explicitly identify the cluster as `NON_FINAL`; the resolver then uses the existing Notes 2–3 series decision to return the inherent `â` or `ô` vowel component.
+- `FINAL` position abstains. The guide separately says that a final consonant without a vowel character or TOANDAKHIAT should generally be romanized without a following vowel letter; that broader coda/edge rule is not inferred here.
+- Only one base plus at most one modeled foot is accepted. Invalid clusters, explicit vowel signs, special marks and unresolved series abstain.
+- Schema: `schemas/pcgn-inherent-vowel-decision.schema.json`; tests: `tests/test_pcgn_inherent_vowel_resolution.py`; source table: `data/khmer/romanization_pcgn_inherent_vowel.csv`; public package exports updated.
+
+Primary source: BGN/PCGN 1972 Agreement, p. 2, Vowel Characters table row 1 and explanatory paragraph: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+
+Status: `KHM-ROM-PCGN-INHERENT-VOWEL-001 = PARTIAL`. This is an onset vowel component only; no final-coda decision, full syllable, IPA or Ukrainian output is generated.
