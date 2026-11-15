@@ -1,51 +1,82 @@
 # Codebase map — Khmer → Ukrainian
 
-**Audit basis: current main after browser hotfix, manifest-wide split identity, source-evidence reconciliation and single careful-citation profile integration; navigation map, not a claim of complete Khmer phonology.
+**Purpose:** navigation and data-flow map for the current `main` snapshot. This file is not a claim that the full Khmer phonological engine or Ukrainian standard is complete.
 
-## User-facing entry points
+## Entry points
 
-- Python public API: src/khmer_ua/__init__.py exports analyze, normalize_khmer, render_ipa_profile and Ukrainian segment/sequence mapping.
-- CLI: src/khmer_ua/cli.py; analyze and related commands currently expose structural analysis and explicit not-established states.
-- Browser instrument: src/main.js; canonical JSON registries are imported from data/khmer/ and bundled by Vite.
+| Surface | Entry point | Responsibility |
+|---|---|---|
+| Python library | `src/khmer_ua/__init__.py` | Public exports and version identifiers |
+| Python CLI | `src/khmer_ua/cli.py` | Command-line interface |
+| Deterministic engine | `src/khmer_ua/rule_engine.py` | Bounded lexical/rule analysis and IPA-to-Ukrainian mapping |
+| Browser application | `index.html` → `src/main.js` | Local web service |
+| System explanation | `system.html` | User-facing methodology and limits |
+| Orthographic romanization | `@gmana/km-translit` → `src/khmer-romanization-ukrainian.js` | BGN/PCGN-derived Latin output and separate Ukrainian orthographic adapter |
 
-## Current Python flow
+## Python data flow
 
-~~~text
-CLI / Python API
-  └─ parser.analyze
-       ├─ normalize_khmer
-       ├─ segment_syllables / decompose_khmer_syllable
-       ├─ phonology.resolve_effective_register
-       │    └─ orthographic series / shifter rules only
-       └─ AnalysisResult
-            └─ phoneticization_not_yet_established
-~~~
+```text
+Python API / CLI
+  ├─ normalize.normalize_khmer
+  ├─ parser.analyze
+  │    ├─ orthographic segmentation and grapheme decomposition
+  │    └─ phonology.resolve_effective_register
+  ├─ RuleBasedKhmerEngine.analyze
+  │    ├─ exact versioned lexical fixture lookup
+  │    ├─ bounded, explicitly supported rule path
+  │    └─ explicit unresolved / provisional status where coverage is absent
+  └─ practical.map_ipa_string
+       └─ longest-match IPA → Ukrainian policy adapter
+```
 
-The current ipa.render_ipa_profile accepts an IPA string that already exists and validates its selected profile; it does not generate Khmer IPA from orthography. practical.map_sequence maps supplied IPA segments to the Ukrainian target policy. Do not present these functions as a complete source-to-IPA chain.
+`ipa.render_ipa_profile` validates a supplied IPA string against the currently supported profile and preserves it. It does not derive complete Khmer IPA from orthography. The practical adapter consumes IPA; do not add a parallel Khmer-grapheme-to-Ukrainian phonetic shortcut.
 
-## Browser flow
+`HybridKhmerEngine` and `create_hybrid_engine` remain compatibility exports, but `src/khmer_ua/hybrid.py` documents that the former provider-voting ensemble was removed. External candidates belong to optional diagnostics and must not override the deterministic published result.
 
-src/main.js independently tokenizes and structurally parses Khmer input, resolves register shifters, preserves uncertainty, and maps only supplied/fixture-backed phonetic data. Python/browser parity is tested; keep both implementations aligned when structural contracts change.
+## Browser data flow
 
-## Data and generated-artifact ownership
+```text
+index.html
+  └─ src/main.js
+       ├─ canonical Khmer registries + lexical/web fixtures
+       ├─ Unicode normalization and orthographic tokenization
+       ├─ consonant / coeng / sign / register-shifter structure
+       ├─ bounded fixture/rule-backed phonetic presentation
+       │    └─ src/ukrainian-practical.js (IPA → Ukrainian)
+       └─ separate romanization mode
+            ├─ @gmana/km-translit (Khmer → Latin)
+            └─ src/khmer-romanization-ukrainian.js (Latin → Ukrainian)
+```
 
-- Khmer structural registries: data/khmer/*.json.
-- Ukrainian target policy: data/ukrainian/practical-policy.json.
-- Source and contextual evidence: data/khmer/sources.json, docs/audits/current/.
-- Gold lifecycle/scorer: scripts/ipa_gold_corpus.py, scripts/benchmark_ipa.py, data/benchmark/.
+Keep the two routes separate. The romanization adapter is not a fallback when phonetic IPA is unknown. Preserve mixed text, separators and punctuation and expose unsupported fragments locally rather than suppressing valid neighbours.
+
+## Canonical data ownership
+
+- Khmer script/structure: `data/khmer/consonants.json`, `signs.json`, `vowels.json`, `registers.json`, `rules.json`.
+- Source provenance: `data/khmer/sources.json` and current audit matrices.
+- Ukrainian phonetic target: `data/ukrainian/practical-policy.json`.
+- BGN/PCGN-derived orthographic crosswalk: `data/khmer/romanization_ukrainian.csv`, `romanization_vowels_ukrainian.csv`, `romanization_marks_numerals.csv`.
+- Test fixtures: `data/tests/`; benchmark and gold lifecycle: `data/benchmark/`.
+- Generated coverage report: `scripts/coverage.py` → `reports/khmer-coverage-audit.json` and `public/reports/khmer-coverage-audit.json`.
 
 ## High-risk seams
 
-1. Coeng/subscript and register-shifter encoded order: parser + shared Python/browser contract.
-2. Effective register: phonology.resolve_effective_register is the shared Python rule owner; do not duplicate or bypass it.
-3. Inherent vowel × consonant series × vowel sign × coda/context: structural labels must not be promoted to IPA without evidence.
-4. Phnom Penh /r/-loss: preserve multiple/uncertain realizations; never blanket-rewrite /Cr/.
-5. IPA profile ID: the task branch selects khmer-pph-careful-citation-v1; reject legacy/unsupported profile IDs.
-6. Gold ingestion: only independent adjudicated, rights-eligible, held-out IPA may be scored.
+1. Unicode normalization, grapheme boundaries, coeng/subscript order and register-shifter eligibility.
+2. Python/browser structural parity and exact preservation of source spans/separators.
+3. Vowel sign × consonant series × length × coda × pronunciation profile; do not infer uncovered IPA.
+4. Phnom Penh /r/-loss and other style-conditioned variation; no blanket rewriting.
+5. Longest-match IPA mapping, including affricates and unsupported sequences.
+6. Lossy ASCII romanization and contextual BGN/PCGN distinctions.
+7. Gold-corpus provenance, split integrity, expert convention approval and rights verification.
 
-## Verification
+## Commands
 
-- Python: python -m pytest -q.
-- Browser: npm run check; production build: npm run build.
-- Inspect generated artifacts and built relative asset paths after relevant changes.
-- A green engineering suite does not prove complete Khmer phoneticization, expert adjudication or manual accessibility QA.
+```bash
+python -m pytest -q
+npm run check
+npm run build
+npm run test:browser
+python scripts/coverage.py --check
+```
+
+Run the full relevant suite after changes, not just a focused test. If local execution is unavailable, record that fact and cite exact-head hosted workflow evidence instead.

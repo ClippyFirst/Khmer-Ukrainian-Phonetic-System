@@ -1873,3 +1873,56 @@ The 2025 UNGEGN Asia South-East Division report (GEGN.2/2025/73/CRP.73, p. 3) co
 - This is not a runtime change and not linguistic validation. The test does not adjudicate context-dependent alternatives, reconstruct lost diacritics, establish phonetic accuracy, or promote Ukrainian proposals to approved mappings.
 - PR #176's shortened-vowel sequence coverage is also merged as `d4ac59a78447ba84c84e72457d10277706168434`; its exact PR-head Quality [43275112413], browser smoke [43275112515], and post-merge mainline Quality [43275258617], browser smoke [43275258586], and Pages/deployed-site smoke [43275258614] all passed.
 - Post-merge mainline checks for #177 all passed on `19a36f820625f53c6f50fbbe810bfbd074bb1ee7`: Quality [43275764929] **SUCCESS**, browser [43275764932] **SUCCESS**, Pages deployment and deployed-site/runtime smoke [43275764931] **SUCCESS**.
+
+
+## Repository documentation and branch-consolidation pass — 2026-11-15
+
+### Baseline and scope
+
+- Default branch at inspection: `main`, starting head `25cb1f4db5d0c971184f2393751506daa19f8df2`.
+- A recursive tree inspection found 149 tracked files. Existing implementation, canonical data, test suites, audit history and research matrices were preserved.
+- Created the single active task branch `docs/repository-information-architecture-2026-11-15` from that exact main head.
+- This pass is documentation/information-architecture work. It does not change the Khmer linguistic model, IPA labels, Ukrainian correspondences, source data, benchmark rows, dependencies or generated reports.
+
+### Branch and PR reconciliation
+
+- The branch inventory contains historical feature, test, research, CI, release and documentation branches. Comparisons against live `main` show that the historical branch tips are generally diverged, often with many commits behind main. A branch tip is not evidence that its unique patch is still required; several historical feature lines have already been integrated or superseded by later mainline commits.
+- The only open PR returned by the repository's open-PR endpoint is draft [#153](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/153), `research: benchmark Khmer G2P candidates and integrate evidence-gated hybrid`. Its head `bddb0186c9e62abd57827fa54233ebbfaa0540e2` is 34 commits ahead and 23 behind the inspected mainline in the branch comparison. It is intentionally not merged: it is a research draft, the optional benchmark workflow is manual-dispatch-only, corpus rights remain unresolved, and independent adjudicated IPA gold remains 0. Its diagnostic candidate outputs must not become production IPA authority.
+- No blind multi-branch/octopus merge, force-push, branch deletion, PR closure or repository setting change was performed. This connector session exposes branch creation and ref updates but no branch-delete operation; historical branches remain untouched.
+
+### Documentation changes on the task branch
+
+- Added `docs/README.md` as the central navigation index and repository layout map.
+- Added `docs/agents/methodology-references.md` to record the five requested upstream repositories, exact reviewed snapshots, adopted practices and non-adopted material.
+- Updated the root README to route readers through the documentation index.
+- Updated `AGENTS.md` with one-active-task-branch integration policy and explicit non-destructive reconciliation rules.
+- Reconciled `docs/architecture.md` and `docs/agents/codebase-map.md` with current Python, browser, IPA-adapter and separate orthographic-romanization paths.
+- Appended this dated audit/handoff record. The existing canonical research matrices and status registers were not rewritten or downgraded.
+
+### Task ledger
+
+| Task | Status | Evidence / acceptance boundary |
+|---|---|---|
+| Inspect current default branch, tracked tree and key docs | DONE_VERIFIED | Live main SHA and recursive tree inspected; 149 tracked files returned. |
+| Inspect branches and open PRs | DONE_VERIFIED | Branch heads compared to main in batches; open PR endpoint returned draft #153. Historical refs preserved. |
+| Create one active task branch | DONE_VERIFIED | `docs/repository-information-architecture-2026-11-15` created from the recorded main SHA. |
+| Establish central documentation navigation | PARTIAL until commit/CI | `docs/README.md` authored; exact branch commit and CI must be verified before DONE_VERIFIED. |
+| Reconcile architecture and codebase map | PARTIAL until commit/CI | Documentation reconciled against current source entry points and imports; exact branch commit and CI pending. |
+| Record upstream engineering/design methodology | PARTIAL until commit/CI | Five repositories and exact snapshots documented; no copied implementation or runtime dependency. |
+| Merge all historical branches | DEFERRED | Not safe or technically equivalent to a single clean history: branch tips are divergent, many changes are already on main, and the only open PR is an evidence-limited research draft. No branch-delete operation is exposed. Acceptance requires branch-by-branch unique-diff review and explicit owner authorization for destructive archival/deletion. |
+| Merge draft PR #153 | BLOCKED | 34 ahead / 23 behind in comparison; draft research integration; manual-only optional benchmark; source rights unresolved; no independent gold. Acceptance requires updated-base review, resolved rights and scope, exact-head required checks, and explicit research/production boundary. |
+| Local Python/Node/build/browser tests | BLOCKED (environment) | No local checkout/shell execution is available through this GitHub connector session. Do not report these as run. Hosted exact-head CI remains the available verification path. |
+
+### Research status deliberately preserved
+
+- Independent expert-adjudicated IPA gold remains 0; empirical accuracy remains null.
+- The deterministic local rule engine remains the published phonetic authority; optional external G2P candidates remain diagnostic only.
+- The Khmer → Ukrainian orthographic romanization adapter remains provisional/partial where upstream ASCII output loses diacritics and contextual distinctions.
+- The Cambodian 1995/1997 national profile remains evidence-limited pending adoption and rights reconciliation.
+- Manual visual, keyboard, assistive-technology and mobile QA is not established by automated CI alone.
+
+### Verification and next gate
+
+- Repository API inspection, branch comparisons, source-file inspection and upstream README/snapshot checks were performed through the connected GitHub integration.
+- No local pytest, npm, Vite, Playwright or generator command was executed in this environment.
+- Before marking the documentation batch DONE_VERIFIED: inspect the exact resulting task-branch tree and commit, run the repository Quality and Chromium workflows on that exact commit, and check the latest Pages workflow only if deployment is intended. This documentation change does not request a release or deployment.

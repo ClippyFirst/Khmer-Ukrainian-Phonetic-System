@@ -104,3 +104,15 @@ The project also adopts selected completion-discipline practices from [Leonxlnx/
 - Review every command and script before execution. A declared command is not safe merely because it appears in a ledger; it runs with the available environment and permissions.
 
 The existing repository status vocabulary remains authoritative: `DONE_VERIFIED`, `PARTIAL`, `TODO`, `BLOCKED`, and `DEFERRED`. Do not copy Unlazy's checker, hooks, approval store, or orchestration runtime into this project without a demonstrated need; the current GitHub Actions, canonical handoff and test infrastructure remain the source of execution evidence.
+
+
+## Single-active-branch and integration policy
+
+- Keep `main` as the canonical integration branch and use one clearly named task branch as the active workspace for a task.
+- Before integrating another branch, compare its exact head with current `main`, inspect its complete diff and tests, and establish whether its changes are already present, superseded, conflicting or genuinely unique.
+- Do not create an octopus merge of every branch tip. A branch can be behind and diverged, contain obsolete snapshots, or duplicate already merged work; ancestry alone is not acceptance evidence.
+- Merge or port only independently useful changes whose acceptance criteria and exact-head verification are satisfied. Keep evidence-limited research as research, not runtime authority.
+- Do not delete or force-update historical branches as part of routine consolidation. Archive/delete only after confirming no unique work remains and the repository owner explicitly authorizes the destructive cleanup.
+- When the connected environment cannot run local commands, use exact-head hosted CI evidence where available and state the local-verification limitation; never imply a command ran locally.
+
+See [the documentation index](docs/README.md) and [methodology references](docs/agents/methodology-references.md).

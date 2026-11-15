@@ -285,3 +285,15 @@ The adapter now maps all ten Khmer numeral code points U+17E0–U+17E9 to Arabic
 ## Khmer vowel matrix executable crosswalk coverage — 2026-11-12
 
 PR #177 (`19a36f820625f53c6f50fbbe810bfbd074bb1ee7`) adds a data-driven adapter test for all 37 independent-vowel, dependent-vowel and vowel/coda rows. The test converts PCGN diacritic forms to the ASCII aliases expected from the existing upstream dependency and verifies that each result belongs to the row's Ukrainian candidate set without unsupported fragments. Exact PR-head Quality [43275618264] passed (194 Python tests + 62 subtests and 12 Node adapter tests); browser smoke [43275618099] passed. This verifies inventory consistency only, not contextual vowel selection, phonetic correctness, or PCGN standard conformance. Upstream diacritic loss remains a runtime limitation.
+
+
+## Repository information architecture and branch reconciliation — 2026-11-15
+
+- Inspected the live default branch `main` at `25cb1f4db5d0c971184f2393751506daa19f8df2`, its recursive tracked tree (149 files), the current documentation/data/code layout, recent commits, workflow-run inventory, and all branches returned by the repository branch endpoint.
+- The documentation was already substantial but lacked a single navigational entry point. Added `docs/README.md` as the index; it points to, and does not replace, the canonical master handoff, architecture, current completion register, source registry or matrices.
+- Reconciled the architecture and codebase map with the current implementation: Python parsing, deterministic lexical/rule engine, supplied-IPA validation and longest-match Ukrainian adapter; browser structural/fixture path; and the independent BGN/PCGN-derived romanization path. Clarified that the former hybrid provider-voting ensemble is removed and external candidates are diagnostic only.
+- Recorded the five requested engineering/design repositories as pinned methodology references in `docs/agents/methodology-references.md`. No third-party code, skill pack, design database, runtime dependency or linguistic evidence was imported.
+- Branch comparison showed historical branch tips are generally diverged from current `main`, including branches whose implementation was subsequently integrated through other PRs. The only open PR surfaced is draft #153; its research branch is not a safe blanket merge. No octopus merge, force update or branch deletion was performed. A single active task branch was created from the exact current `main` head.
+- Environment limitation: the connected GitHub interface supports repository inspection and file/commit writes, but not a local checkout or local shell execution in this run. Do not claim local tests/builds were run; exact-head hosted checks must be checked separately.
+
+**Disposition:** documentation/navigation and branch policy are updated on the dedicated task branch. Linguistic completion, independent IPA gold, full BGN/PCGN conformance and manual accessibility review remain outside this documentation-only change and retain their existing status.
