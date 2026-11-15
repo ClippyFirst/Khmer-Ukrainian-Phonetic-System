@@ -85,9 +85,36 @@ def test_unbalanced_delimiters_and_unsupported_metadata_are_rejected():
         "status": "COMPLETE",
         "provider": "external-g2p",
     }
-    with pytest.raises(ValueError, match="unbalanced"):
-        validate_ipa_candidate("/kʰmae", **args)
+    for raw in ("/kʰmae", "kʰmae/", "[kʰmae", "kʰmae]", "kʰ/mae/"):
+        with pytest.raises(ValueError, match="unbalanced"):
+            validate_ipa_candidate(raw, **args)
+    with pytest.raises(ValueError, match="at least one IPA segment"):
+        validate_ipa_candidate("ˈː˥", **args)
     with pytest.raises(ValueError, match="unsupported IPA kind"):
         validate_ipa_candidate("kʰmae", **{**args, "kind": "PHONETIC_GUESS"})
     with pytest.raises(ValueError, match="unsupported pronunciation profile"):
         validate_ipa_candidate("kʰmae", **{**args, "profile": "phnom-penh-colloquial"})
+
+
+def test_candidate_validator_preserves_tone_length_stress_and_syllable_boundaries():
+    raw = "/ˈkʰmaeː˥.t͡ɕa/"
+    candidate = validate_ipa_candidate(
+        raw,
+        profile="khmer-pph-careful-citation-v1",
+        kind="PHONETIC_NARROW",
+        status="COMPLETE",
+        provider="external-g2p",
+    )
+    assert candidate.ipa == raw
+    assert candidate.raw_output == raw
+
+
+def test_combining_marks_cannot_float_across_a_space():
+    with pytest.raises(ValueError, match="orphan combining mark"):
+        validate_ipa_candidate(
+            "k ̥",
+            profile="khmer-pph-careful-citation-v1",
+            kind="PHONETIC_BROAD",
+            status="COMPLETE",
+            provider="external-g2p",
+        )
