@@ -882,3 +882,13 @@ Independent adjudicated IPA gold remains 0; empirical accuracy remains null. Iss
 | KHM-ROM-ENGINE-001 | PARTIAL | Structural analyzer + Note 3 series + bounded Note 2 subset. | Full contextual PCGN generator, vowel/rime, coda, Note 5 shortening and evidence-backed abstention fixtures. |
 
 No IPA, Ukrainian target or gold data is generated. Independent adjudicated IPA gold remains 0; accuracy remains null.
+
+
+## PCGN Note 2 shifter subset — PR #217 — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-PCGN-SHIFTERS-001 | PARTIAL (bounded subset implemented; exact-head and exact-main CI passed) | PR #217 merge `c738075c47c76730aa15e96acea588ad924c829c`; source-positioned shifters, typed before/after series/effect; exact-head push Quality [43735335039], PR Quality [43735349944] and Chromium [43735349863] SUCCESS. | Full Note 2 on clusters/feet, BA+TRIISAP, multiple/misplaced/wrong-direction marks remains unresolved. Exact-main Quality [43735441278], Chromium [43735441245] and Pages [43735441621] all SUCCESS on merge SHA `c738075c47c76730aa15e96acea588ad924c829c`. |
+| KHM-ROM-PCGN-SERIES-001 | DONE_VERIFIED (Note 3 series-source decision only) | PR #215 exact-head and exact-main CI passed. | Note 2 remains separately PARTIAL; no vowel or full romanization output. |
+
+No vowel, IPA, Ukrainian target or gold data is generated. Independent adjudicated IPA gold remains 0; accuracy remains null.

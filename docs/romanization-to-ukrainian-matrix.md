@@ -411,3 +411,10 @@ The series resolver now implements a bounded subset of Note 2 in addition to Not
 This subset is deliberately limited to a single base with no foot and a shifter immediately after the base. It abstains for shifters on consonant+foot clusters, multiple or misplaced shifters, wrong-direction marks, and BA + TRIISAP. The record carries the shifter's source position, pre-shifter series, resulting series, effect and PCGN source locator. It still emits no vowel or complete romanization.
 
 This is not complete Note 2 coverage. Do not infer omitted shifters. The primary source is the official BGN/PCGN 1972 guide, Notes 2–3: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+
+
+## PCGN Note 2 shifter subset — mainline checkpoint — 2026-11-15
+
+PR #217 merged as `c738075c47c76730aa15e96acea588ad924c829c`. The PR-head Quality, Python tests and Chromium smoke passed. Exact-main Quality [43735441278], Chromium [43735441245] and Pages [43735441621] were dispatched on this merge SHA; final conclusions are recorded in the master handoff after completion.
+
+The subset applies only to one correctly positioned shifter after one base with no foot: TRIISAP U+17CA changes â→ô, MUUSIKATOAN U+17C9 changes ô→â. BA+MUUSIKATOAN retains p-in-â. Cluster shifters, BA+TRIISAP, multiple/misplaced/wrong-direction shifters abstain. This is series metadata, not a vowel or romanization output.
