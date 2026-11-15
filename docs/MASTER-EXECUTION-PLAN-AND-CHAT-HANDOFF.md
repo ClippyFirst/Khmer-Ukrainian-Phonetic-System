@@ -1912,6 +1912,7 @@ The 2025 UNGEGN Asia South-East Division report (GEGN.2/2025/73/CRP.73, p. 3) co
 | Merge all historical branches | DEFERRED | Not safe or technically equivalent to a single clean history: branch tips are divergent, many changes are already on main, and the only open PR is an evidence-limited research draft. No branch-delete operation is exposed. Acceptance requires branch-by-branch unique-diff review and explicit owner authorization for destructive archival/deletion. |
 | Merge draft PR #153 | BLOCKED | 34 ahead / 23 behind in comparison; draft research integration; manual-only optional benchmark; source rights unresolved; no independent gold. Acceptance requires updated-base review, resolved rights and scope, exact-head required checks, and explicit research/production boundary. |
 | Local Python/Node/build/browser tests | BLOCKED (environment) | No local checkout/shell execution is available through this GitHub connector session. Do not report these as run. Hosted exact-head CI remains the available verification path. |
+| Resolve project license file/metadata mismatch | BLOCKED | `pyproject.toml` declares MIT, but the inspected tracked tree has no root `LICENSE`/`COPYING` file and GitHub repository metadata reports `license: null`. Acceptance requires owner confirmation of intended licensing and a canonical license file/metadata alignment; no license was selected or created. |
 
 ### Research status deliberately preserved
 
@@ -1928,3 +1929,8 @@ The 2025 UNGEGN Asia South-East Division report (GEGN.2/2025/73/CRP.73, p. 3) co
 - The documentation index's 30 relative Markdown links were checked against the exact commit tree; no missing internal targets were found.
 - No local pytest, npm, Vite, Playwright or generator command was executed in this environment. Hosted CI is the verification evidence; do not describe it as local execution.
 - PR [#179](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/179) is open and GitHub reports it mergeable/clean after successful checks. No deployment or release was requested.
+
+
+### License governance blocker — 2026-11-15
+
+The current `pyproject.toml` declares `MIT`, while the inspected repository tree contains no root `LICENSE`, `LICENSE.md` or `COPYING` file and GitHub repository metadata reports `license: null`. This is an unresolved project-owner decision, not permission to assume or publish MIT terms. **Status: BLOCKED.** Acceptance: owner confirms the intended project license, adds the canonical license text, and aligns package/repository metadata. No license file was fabricated or selected in this pass.
