@@ -637,3 +637,10 @@ The unit-test discovery gap is closed. This does not resolve the lossy ASCII rom
 | ID | Status | Evidence | Acceptance boundary |
 |---|---|---|---|
 | KHMER-MEKONGPHON-RULE-001 | PARTIAL (source inspected, not executed) | Pinned MekongPhon snapshot contains a separate rule-based Khmer-to-IPA baseline. | Verify source rights, dependencies, dialect/IPA convention and typed-candidate behavior before any execution or integration. No source copied. |
+
+## Mainline verification closeout — external source reconciliation — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| PR153-RECONCILIATION-001 | DONE_VERIFIED | PR #187 merge `1ef8578143bd2a0e9d55a46c0ddef4d0006dc5c3`; PR #188 merge `34f9dbfd94788d1d1b9b64646354157d4741dfed`; exact-head Quality and Chromium workflows succeeded. PR #153 closed unmerged after selective port. | Engineering/documentation reconciliation only; no phonetic gold or external data rights are created by this work. |
+| REPOSITORY-LICENSE-001 | BLOCKED (owner decision) | `pyproject.toml` declares MIT; root `LICENSE` is absent. | Owner must confirm intended project license before the canonical license text can be added. |

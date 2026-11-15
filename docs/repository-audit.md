@@ -449,3 +449,29 @@ Documentation-only PR [#180](https://github.com/ClippyFirst/Khmer-Ukrainian-Phon
 - Hybrid provider candidates now pass the shared typed IPA validator. Bare strings, malformed notation and unsupported metadata are rejected; PARTIAL candidates require uncertainty; raw IPA and provenance are retained; deterministic IPA/Ukrainian output is not overridden. External adapters remain explicit opt-in and research-only.
 - The benchmark runner/manual workflow from PR #184 were reused; duplicate versions in PR #153 were not re-imported. PR #153 remains open/draft and diverged; it was not merged wholesale.
 - No external inference or local shell execution occurred. Corpus rights, checkpoint train/eval split independence and independent profile-matched IPA gold remain unresolved (gold 0; accuracy null). This merge does not make the engine linguistically production-ready.
+
+## Mainline reconciliation closeout — PR #153 and external source triage — 2026-11-15
+
+### Merged changes and verification
+
+- PR #187 selectively added PhonSobon model/dataset records as non-IPA respelling resources, corrected the Khmer Acoustic Model dictionary count/license conflict, and recorded Google Language Resources and OpenSLR42 evidence boundaries. Merge: `1ef8578143bd2a0e9d55a46c0ddef4d0006dc5c3`. Exact-head Quality [43697879406](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43697879406) SUCCESS (222 tests + 64 subtests); Chromium [43697879409](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43697879409) SUCCESS.
+- PR #188 completed the external candidate registry for the MekongPhon rule-based baseline and PhonSobon resources, preserving historical diagnostic runs and updating the research/benchmark docs. Merge: `34f9dbfd94788d1d1b9b64646354157d4741dfed`. Exact-head Quality [43698031836](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43698031836) SUCCESS (222 tests + 70 subtests); Chromium [43698031838](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43698031838) SUCCESS (4 tests).
+- PR #153 was closed unmerged after comparison and selective reconciliation. Its old untyped hybrid runtime was superseded by PR #185; the safe benchmark harness was already in PR #184. No third-party data rows, model weights or source code were copied from #153.
+- The documentation branch `docs/repository-information-architecture-2026-11-15` was reviewed. Shared index/agent files matched main; the branch's README, architecture and audit snapshots were older. It remains untouched.
+
+### Current task ledger
+
+| Task | Status | Evidence / remaining acceptance |
+|---|---|---|
+| PR #153 reconciliation | DONE_VERIFIED (review and selective port) | Safe source records ported in #187/#188; incompatible runtime/workflow excluded; original PR closed unmerged |
+| PhonSobon model/dataset | PARTIAL | Source records and scope documented; output is Khmer-script respelling, not IPA; NCKL terms must be clarified before data use |
+| MekongPhon rule-based baseline | PARTIAL | Source inspected and registered; not executed; pinned snapshot lacks declared root license and output/profile compatibility is unverified |
+| Khmer Acoustic Model dictionary | BLOCKED | Entry count and CC BY 4.0/CC BY-SA 4.0 conflict; full dictionary absent from inspected tree |
+| Google Language Resources | PARTIAL | Bounded extraction only; Latin-script keys in inspected subset; full lexicon and Khmer-specific data rights not verified |
+| OpenSLR42 audio | PARTIAL | Current official page lists male archive while 2018 paper reports female speakers; manifest/checksum and speaker metadata reconciliation required |
+| Repository LICENSE | BLOCKED (owner decision) | `pyproject.toml` declares MIT but root `LICENSE` is absent; do not add license text without owner confirmation |
+| Independent Phnom Penh IPA gold | BLOCKED | Adjudicated gold remains 0; acceptance requires rights-cleared, profile-matched, blind double annotation and independent adjudication |
+| MekongPhon training/eval independence | BLOCKED | Checkpoint training-data manifest or independent split provenance is unavailable |
+| Manual accessibility review | PARTIAL | Hosted Chromium smoke is green; manual keyboard, assistive-technology, mobile and visual audit is not evidenced |
+
+The repository remains a research platform / partial prototype. No empirical phonetic accuracy is claimed.
