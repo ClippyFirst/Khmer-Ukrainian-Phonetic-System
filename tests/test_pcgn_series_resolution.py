@@ -109,6 +109,7 @@ def test_pcgn_note3_ba_with_muusikatoan_preserves_p_in_a_exception():
     result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk("ប៉"))
     assert result.series == "â"
     assert result.onset_exception == "BA_WITH_MUUSIKATOAN_P_IN_A_SERIES"
+    assert result.series_before_shifter == "â"
     assert result.shifter_effect == "BA_MUUSIKATOAN_P_IN_A"
 
 
