@@ -15,7 +15,7 @@
     "base_romanization": {"type": ["string", "null"]},
     "subscript_character": {"type": ["string", "null"], "enum": ["ក", "គ", "ខ", "ឃ", "ង", "ច", "ជ", "ឆ", "ឈ", "ញ", "ដ", "ឌ", "ឋ", "ឍ", "ថ", "ធ", "ណ", "ន", "ត", "ទ", "ប", "ព", "ផ", "ភ", "ម", "យ", "រ", "ល", "វ", "ស", "ហ", null]},
     "subscript_table_row": {"type": ["integer", "null"], "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, null]},
-    "subscript_romanization": {"type": ["string", "null]},
+    "subscript_romanization": {"type": ["string", "null"]},
     "series": {"enum": ["â", "ô", null]},
     "onset_exception": {"enum": ["BA_WITH_FOOT_P_IN_A_SERIES", "BA_WITH_MUUSIKATOAN_P_IN_A_SERIES", "BA_WITH_TRIISAP_P_IN_A_SERIES", null]},
     "romanization": {"type": ["string", "null]},
