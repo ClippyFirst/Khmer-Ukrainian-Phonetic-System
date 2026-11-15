@@ -2599,6 +2599,6 @@ The resolver accepts one ROBAT mark at the end of the supplied component chunk, 
 
 Schema: `schemas/pcgn-robat-decision.schema.json`; tests: `tests/test_pcgn_robat_resolution.py`. The PCGN source registry now records Note 6 as `PARTIAL_COMPONENT_RESOLVER`.
 
-Source: BGN/PCGN 1972 Agreement, Diacritical Marks table row 4 and Note 6, p. 4: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+Source: BGN/PCGN 1972 Agreement, Diacritical Marks table row 4 (p. 4) and Note 6 (p. 5): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 
 Status: `KHM-ROM-PCGN-ROBAT-001 = PARTIAL`. The consonant romanization is caller-supplied; the resolver does not infer syllable boundaries, determine the consonant's series/coda value, romanize the rest of the syllable, or produce IPA/Ukrainian output. ROBAT on foot clusters or non-final component positions abstains.
