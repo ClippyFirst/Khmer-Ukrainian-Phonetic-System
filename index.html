@@ -42,6 +42,48 @@
     
   </div>  <div id="details" class="details" data-method-panel="phonetic"></div>
   <section id="unit-details" class="unit-details" data-method-panel="phonetic" aria-label="Статус кожної одиниці"></section>
+  <section id="hybrid-panel" class="hybrid-panel" data-method-panel="phonetic" aria-labelledby="hybrid-title">
+    <div class="hybrid-heading">
+      <div><small>ДІАГНОСТИЧНИЙ ШАР · HYBRID</small><h3 id="hybrid-title">Зовнішній IPA-кандидат</h3></div>
+      <span class="hybrid-badge">НЕ ВПЛИВАЄ НА РЕЗУЛЬТАТ</span>
+    </div>
+    <p class="hybrid-intro">Основні IPA та українська форма залишаються результатом внутрішнього детермінованого рушія. Тут можна перевірити окремий кандидат від зовнішнього інструмента: він проходить валідацію, зберігається лише в поточному сеансі й не голосує, не замінює та не підвищує основний результат. Мережеві провайдери не підключені.</p>
+    <form id="hybrid-candidate-form" class="hybrid-form">
+      <div class="hybrid-form-grid">
+        <label>Ідентифікатор джерела
+          <input id="candidate-provider" name="provider" value="manual" autocomplete="off" required>
+        </label>
+        <label>Тип IPA
+          <select id="candidate-kind" name="kind">
+            <option value="PHONETIC_BROAD" selected>PHONETIC_BROAD</option>
+            <option value="PHONETIC_NARROW">PHONETIC_NARROW</option>
+            <option value="PHONEMIC">PHONEMIC</option>
+          </select>
+        </label>
+        <label>Статус кандидата
+          <select id="candidate-status" name="status">
+            <option value="PARTIAL" selected>PARTIAL</option>
+            <option value="COMPLETE">COMPLETE · твердження провайдера</option>
+          </select>
+        </label>
+      </div>
+      <label>IPA-кандидат
+        <textarea id="candidate-ipa" name="ipa" rows="2" placeholder="Напр. /kʰmae/ або kʰmae" spellcheck="false" required></textarea>
+      </label>
+      <label>Невизначеність (обов'язково для PARTIAL)
+        <textarea id="candidate-uncertainty" name="uncertainty" rows="2" placeholder="Що саме не перевірено? Одне зауваження на рядок."></textarea>
+      </label>
+      <label>Походження / provenance JSON (необов'язково)
+        <textarea id="candidate-provenance" name="provenance" rows="2" placeholder='{"engine":"назва","revision":"зафіксована версія"}' spellcheck="false"></textarea>
+      </label>
+      <div class="hybrid-form-footer">
+        <span>Профіль: <code>khmer-pph-careful-citation-v1</code></span>
+        <div><button class="button primary" type="submit">Додати діагностичний кандидат</button><button class="button" id="clear-candidate" type="button">Очистити</button></div>
+      </div>
+      <p id="hybrid-form-status" class="hybrid-form-status" role="status" aria-live="polite">Кандидат не додано.</p>
+    </form>
+    <div id="hybrid-candidates" class="hybrid-candidates" aria-live="polite"></div>
+  </section>
 </section>
 
 <section id="issue" class="issue" data-method-panel="phonetic" hidden aria-live="polite"><b>!</b><div><strong>Результат потребує обережності</strong><p id="issue-text"></p></div></section>
