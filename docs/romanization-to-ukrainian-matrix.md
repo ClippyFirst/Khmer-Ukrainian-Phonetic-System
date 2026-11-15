@@ -579,3 +579,14 @@ Status: `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` remains `PARTIAL` (listed independ
 - PR #231 merged as `b459fcbf56628409c8cd1ce8c95645b4b9c1c1a6`; exact-main Quality [43746279657], Chromium [43746279685] and Pages build/deploy [43746279665] all SUCCESS, including deployed-site/runtime-asset smoke.
 - PR-head push Quality [43746135830], PR Quality [43746153049] and PR Chromium [43746153043] all SUCCESS.
 - Documentation-only; no linguistic status changed.
+
+
+## BGN/PCGN Note 5 shortened-vowel component — 2026-11-15
+
+The bounded Note 5 resolver is now implemented as a separate component adapter. It accepts three exact token patterns only: inherent-vowel+BANTOC (row 1), AA+BANTOC (row 2), and SAMYOK SANNYA+coda (row 2). The caller must provide an onset-only analysis that exactly matches the full chunk prefix and an explicit coda class. The resolver applies the existing Notes 2–3 series decision to the onset, then returns only the shortened vowel component: row 1 â/ô = `á/ó`; row 2 â = `ă`; row 2 ô = `eă` before k/ng/h, otherwise `oă`.
+
+The coda class is caller-supplied and is never inferred from the orthographic chunk. The implementation preserves shortening-mark positions, validates exact token order, and abstains on unsupported patterns or mismatched onset context. It does not romanize the coda or generate a complete syllable, IPA, or Ukrainian output.
+
+Source: BGN/PCGN 1972, Vowel Characters table rows 1–2 and Note 5, pp. 2–3: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+
+Status: `KHM-ROM-PCGN-SHORTENING-001 = PARTIAL`; the PCGN syllable engine and IPA-first/Ukrainian adapter remain PARTIAL.
