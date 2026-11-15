@@ -2143,3 +2143,14 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - A Sak-Humphry (2025) preview excerpt contradicts itself about whether /r/ is an allowed coda; it is recorded but not used to settle the inventory.
 - Added a parser regression for the Unicode syllable-chaining example. It checks lossless orthographic trace and explicit `phoneticization_not_yet_established`; no phonological rules or IPA labels were added.
 - Acceptance ledger: phonotactic scope = PARTIAL; PPK pitch = PARTIAL; orthographic chaining boundary = DONE_VERIFIED (source contract + regression). The remaining blocker is profile-matched lexical/acoustic adjudication, not an engineering guess.
+
+## Phonotactic scope research closeout — 2026-11-15
+
+- PR #190 merged as `262d16fb755aff952fef42ecb69f8c8a8251df30` from exact head `df79de7d39471f706fb8350e09e557a18c86c097`.
+- Exact-head Quality [43698504896](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43698504896) SUCCESS: 223 Python tests + 70 subtests; IPA corpus structure validation, web checks and production build passed. Duplicate Quality [43698495803](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43698495803) also SUCCESS.
+- Exact-head Chromium [43698504898](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43698504898) SUCCESS: 4 browser tests.
+- The new parser regression verifies lossless trace of the Unicode coeng-chaining example while keeping `phonetic_representation.status = phoneticization_not_yet_established`. This verifies the boundary only; it does not validate a phonetic syllabifier.
+- Sources now separate Nacaskul's historical major/minor syllable restrictions, Unicode's orthographic coeng/chaining rules, Ding et al.'s secondary name-romanization description, and Mam et al.'s bounded 2025 PPK F0 results. The Sak-Humphry preview's coda contradiction is recorded but not adopted.
+- No new global coda/onset rejection rule, tone label, IPA label or /r/-rewrite was introduced. The current careful-citation profile remains unchanged.
+- Statuses: orthographic/phonetic boundary regression = DONE_VERIFIED; phonotactic scope matrix = PARTIAL pending contemporary profile-matched lexical evidence; PPK pitch = PARTIAL pending replication/perception and speaker coverage.
+- No local shell/pytest, human IPA adjudication or acoustic reanalysis was performed. Engineering checks are hosted CI only.

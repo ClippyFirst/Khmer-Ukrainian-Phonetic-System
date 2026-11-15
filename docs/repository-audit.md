@@ -484,3 +484,11 @@ The repository remains a research platform / partial prototype. No empirical pho
 - Mam et al. (2025) provides bounded PPK F0 evidence (50 words, five speakers, three repetitions) consistent with possible pitch phonologization for /r>h/ forms and voiced-onset disyllables. This is profile-specific and not implemented as a universal tone rule.
 - The Sak-Humphry publisher preview's coda excerpt is internally contradictory about /r/; it is recorded as a lead but excluded from the accepted coda inventory.
 - Added a parser regression that preserves the Unicode syllable-chaining example while keeping `phonetic_representation` explicitly unestablished. No IPA labels or global phonotactic rules were added.
+
+## Phonotactic research and orthographic/phonetic boundary — closeout 2026-11-15
+
+- PR #190 merged as `262d16fb755aff952fef42ecb69f8c8a8251df30`. Exact-head Quality [43698504896](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43698504896) SUCCESS (223 tests + 70 subtests); Chromium [43698504898](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43698504898) SUCCESS (4 tests).
+- Nacaskul (1978) is recorded as a historical source for major vs minor syllable types. Its minor type-A /r/ cluster and type-B nasal-coda restrictions are explicitly type-specific, not global bans. Its major-syllable coda and open-nucleus generalizations remain historical reports pending current-profile confirmation.
+- Unicode L2/22-290 and Ding et al. (2018) support a strict separation between orthographic units and phonetic syllables: coengs can encode chaining, silent/etymological stacks occur, and the two-pre-vowel-coeng encoding limit is not a phonological onset maximum.
+- Mam et al. (2025) reports bounded PPK F0 evidence in 50 words and five speakers, including low-F0 patterns for /r>h/ forms and voiced-onset disyllables. This supports a profile-specific research hypothesis, not a universal Khmer tone rule. The careful-citation profile is unchanged.
+- The parser regression preserves the cited Unicode example and keeps phoneticization withheld. No new engine rule or IPA label was added.
