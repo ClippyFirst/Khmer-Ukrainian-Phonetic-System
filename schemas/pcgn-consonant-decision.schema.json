@@ -18,7 +18,7 @@
     "subscript_romanization": {"type": ["string", "null"]},
     "series": {"enum": ["â", "ô", null]},
     "onset_exception": {"enum": ["BA_WITH_FOOT_P_IN_A_SERIES", "BA_WITH_MUUSIKATOAN_P_IN_A_SERIES", "BA_WITH_TRIISAP_P_IN_A_SERIES", null]},
-    "romanization": {"type": ["string", "null]},
+    "romanization": {"type": ["string", "null"]},
     "status": {"enum": ["RESOLVED", "UNRESOLVED"]},
     "ipa": {"type": "null"},
     "ukrainian": {"type": "null"},
