@@ -602,3 +602,11 @@ Exact PR #204 head `b27b87081819307da5ffe27d55e3cf4521004730` passed Quality [43
 ## Audit addendum — BGN/PCGN vs UNGEGN profile delta (2026-11-15)
 
 The pinned candidate engine review now has a primary-source rule diff at `docs/audits/current/BGN-PCGN-UNGEGN-RULE-DIFF-2026-11-15.md`. The key implementation blocker is concrete: PCGN note 3 does not list ស among neutral subscripts, whereas UNGEGN note 3 does, and the candidate's UNGEGN constant includes it. Candidate-specific unlisted forms (SAMYOK + final y; YUUKALEAPINTU) and heuristic coda/syllable rules must not be promoted to PCGN behavior. No runtime was changed. The contextual Khmer-script engine remains PARTIAL.
+
+
+## Exact-main audit — PR #209 (2026-11-15)
+
+- PR #209 merged as `266297fcc296388220ea48c975344f5aa14f097d`; no open PRs.
+- Exact-head PR checks: Quality [43730475810] and Chromium [43730475809] SUCCESS; push Quality [43730456889] SUCCESS.
+- Exact post-merge main checks: Quality [43730567132], Chromium [43730567159], Pages [43730567118] all SUCCESS. Quality includes corpus validation, Python tests, Node checks and build; browser smoke and deployed Pages smoke passed.
+- The rule-diff is research/documentation only. No code or linguistic claims changed. Contextual PCGN engine remains PARTIAL; independent IPA gold remains 0; root LICENSE/owner decision and manual accessibility review remain open.
