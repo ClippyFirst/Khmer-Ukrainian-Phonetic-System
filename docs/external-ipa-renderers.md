@@ -80,3 +80,11 @@ These resources are relevant to the UI's display of the source writing system; t
 Two smoke runs completed successfully. The first and the reproducible rerun both used `khmerphonemizer==0.0.3` and produced **6/6** raw outputs with **0 runtime errors**. The rerun records a repository-relative corpus path. Its report explicitly recorded `independent_gold_count: 0` and `accuracy: null`; this verifies API execution only, not phonetic accuracy. [First run](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40091599475) · [Pinned reproducible rerun and artifact](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40091745346).
 
 A manual inspection of raw output highlights follow-up questions rather than scored errors: for `ខ្ញុំ`, the engine returned `k ɲ o m` while the corpus source reports `/kʰɲom/`; for `ភ្នំពេញ`, the source-reported form includes stress and a syllable boundary (`/pʰnum ˈpɨɲ/`) that are not encoded in the engine's phone-token list. Since the corpus is not independently adjudicated and output conventions differ, these are **unresolved diagnostic differences**, not accuracy labels.
+
+## Additional candidate classifications — 2026-11-15
+
+- **MekongPhon rule-based baseline:** separate experimental Khmer-to-IPA rule engine at the pinned MekongPhon revision. It has not been executed or checked against the project's exact Phnom Penh profile or typed IPA contract. Its source snapshot has no declared root license; do not copy or redistribute it pending clarification.
+- **PhonSobon Khmer G2P:** auxiliary Khmer-script pronunciation respeller and syllabifier. Its output is not IPA, so it cannot be a provider for the IPA-to-Ukrainian adapter. Model-card validation accuracy is upstream-reported only; NCKL dataset rights remain unresolved.
+- **PhonSobon NCKL dataset:** useful only for orthography-to-respelling/syllable-boundary research after rights clearance. It is not an IPA benchmark and must not enter the independent IPA gold corpus.
+
+All three remain disabled and unverified in this repository. Registry presence is not integration or endorsement.
