@@ -440,3 +440,12 @@ Documentation-only PR [#180](https://github.com/ClippyFirst/Khmer-Ukrainian-Phon
 - Added `tests/test_hybrid_engine.py` for parity, typed boundary enforcement, malformed notation, missing uncertainty, provider order, failure isolation and factory exports. Added `docs/hybrid-engines.md` and updated README and deterministic-engine contract.
 - Branch: `feat/typed-ipa-hybrid-bridge-2026-11-15`; based on main commit `d4c058b346d51179af85b3f8173af3ecc79b4adb`. Hosted CI is required before merge; no local execution is claimed.
 - Not ported: old branch-wide edits to rule-engine tests/aliases that conflict with the current public API; duplicated benchmark harness/tests/workflow; model/data registry changes already superseded by PR #184. External model inference was not run. MekongPhon source rights and exact checkpoint train/eval split independence remain unresolved; independent adjudicated IPA gold remains 0 and accuracy null.
+
+
+## PR #185 mainline integration — 2026-11-15
+
+- PR [#185](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/185) selectively ported the hybrid runtime contract from draft PR #153 and merged into main as `71a0962ef4977aacde29ef016a13e108044d72b7`.
+- Exact final source/test head: `1d93b823fd15f5fe57da527b2afb5cc86a4b8f0b`. Quality [43696684037](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43696684037) SUCCESS: 222 Python tests + 64 subtests; corpus validation, web checks and production build passed. Chromium [43696684048](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43696684048) SUCCESS, including visible-result verification.
+- Hybrid provider candidates now pass the shared typed IPA validator. Bare strings, malformed notation and unsupported metadata are rejected; PARTIAL candidates require uncertainty; raw IPA and provenance are retained; deterministic IPA/Ukrainian output is not overridden. External adapters remain explicit opt-in and research-only.
+- The benchmark runner/manual workflow from PR #184 were reused; duplicate versions in PR #153 were not re-imported. PR #153 remains open/draft and diverged; it was not merged wholesale.
+- No external inference or local shell execution occurred. Corpus rights, checkpoint train/eval split independence and independent profile-matched IPA gold remain unresolved (gold 0; accuracy null). This merge does not make the engine linguistically production-ready.
