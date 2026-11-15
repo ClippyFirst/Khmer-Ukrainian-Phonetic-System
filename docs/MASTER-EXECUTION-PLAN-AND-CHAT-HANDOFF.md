@@ -2805,3 +2805,11 @@ Implemented `resolve_pcgn_consonant(analysis)` and `PCGNConsonantDecision` for t
 Primary source: BGN/PCGN 1972 Agreement, Consonant Characters and Subscript Consonant Forms table (pp. 1–2), Note 3 and note following the table: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 
 Status: `KHM-ROM-PCGN-CONSONANTS-001 = PARTIAL`. This is an onset-cluster component only; it does not segment syllables, map vowels/codas, emit IPA or produce Ukrainian output.
+
+
+## Exact-main verification — PR #251 documentation closeout — 2026-11-15
+
+- PR [#251](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/251) merged as `aab014705bdf90825b922ff69f1c2e7758e56246`; exact `main` verified at this SHA. No open PRs.
+- PR-head push Quality [43760857888], PR Quality [43760868532] and PR Chromium [43760868545] all SUCCESS.
+- Exact post-merge main Quality [43760984773], Chromium [43760984785] and Pages build/deploy [43760984838] all SUCCESS, including deployed-site/runtime-asset smoke.
+- PR #251 was documentation-only and did not promote any linguistic status.
