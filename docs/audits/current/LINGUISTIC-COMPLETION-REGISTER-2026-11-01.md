@@ -1101,3 +1101,10 @@ PR #237 merged as `890791a1d8236180c82a39b81bd28b7f772d614c`. Final PR-head `2e3
 ## Exact-main verification — PR #239 / PCGN Note 8 — 2026-11-15
 
 PR #239 merged as `9c615293e3037cb0ccbd9db0820698741bbcd5cf`. Final PR-head `e52b2d5be98a521dfa3c6dc5af846c6c79d42dce`: push Quality [43753171641], PR Quality [43753185515], PR Chromium [43753185496] all SUCCESS (290 tests + 70 subtests). Exact-main Quality [43753327251], Chromium [43753327183], Pages [43753327232] all SUCCESS, including deployed-site/runtime-asset smoke. TOANDAKHIAT remains PARTIAL; silent character is caller-identified, with omission-only output.
+
+
+## BGN/PCGN Note 4 bounded glottal-onset component — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-PCGN-GLOTTAL-001 | PARTIAL | `resolve_pcgn_glottal_onset`, `PCGNGlottalOnsetDecision`, schema `schemas/pcgn-glottal-onset-decision.schema.json`, tests `tests/test_pcgn_glottal_onset_resolution.py`, and source registry Note 4 status. Primary source: BGN/PCGN 1972, Consonant Characters row 22 and Note 4 (p. 5). | Standalone `អ` only; â-series is verified through Notes 2–3. Word-initial and following-vowel-letter context are explicit caller inputs; omission is offered only when both are true. Remaining: full syllable assembly, IPA/Ukrainian adapter integration, and word-level context acquisition. |
