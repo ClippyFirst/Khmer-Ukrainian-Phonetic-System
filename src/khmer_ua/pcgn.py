@@ -533,6 +533,95 @@ def resolve_pcgn_dependent_vowel(
     )
 
 
+PCGN_INHERENT_VOWEL_TABLE_LOCATOR = (
+    "PCGN 1972, Independent/Dependent Vowel Characters table row 1 (p. 2)"
+)
+
+
+@dataclass(frozen=True)
+class PCGNInherentVowelDecision:
+    syllable_position: Literal["NON_FINAL", "FINAL"] | None
+    series: Literal["â", "ô"] | None
+    romanization: str | None
+    source_table_row: int
+    status: Literal["RESOLVED", "UNRESOLVED"]
+    ipa: None
+    ukrainian: None
+    source_locator: str
+    warnings: tuple[str, ...]
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+def resolve_pcgn_inherent_vowel(
+    analysis: PCGNOrthographicAnalysis,
+    syllable_position: Literal["NON_FINAL", "FINAL"],
+) -> PCGNInherentVowelDecision:
+    """Resolve the inherent-vowel component in PCGN table row 1.
+
+    Only an explicitly identified non-final onset cluster is mapped to â/ô.
+    A final consonant without a vowel character or TOANDAKHIAT is governed
+    by the guide's separate general no-vowel-following statement; this
+    component resolver abstains there rather than assuming a syllable edge.
+    """
+    def unresolved(reason: str) -> PCGNInherentVowelDecision:
+        return PCGNInherentVowelDecision(
+            syllable_position=syllable_position if syllable_position in {"NON_FINAL", "FINAL"} else None,
+            series=None,
+            romanization=None,
+            source_table_row=1,
+            status="UNRESOLVED",
+            ipa=None,
+            ukrainian=None,
+            source_locator=PCGN_INHERENT_VOWEL_TABLE_LOCATOR,
+            warnings=(reason, "NO_COMPLETE_SYLLABLE_IPA_OR_UKRAINIAN_OUTPUT"),
+        )
+
+    if syllable_position not in {"NON_FINAL", "FINAL"}:
+        return unresolved("EXPLICIT_SYLLABLE_POSITION_REQUIRED")
+    if syllable_position == "FINAL":
+        return unresolved("FINAL_CONSONANT_NO_VOWEL_RULE_REQUIRES_SEPARATE_CODA_CONTEXT")
+    if analysis.status != "STRUCTURE_ONLY":
+        return unresolved("UNSUPPORTED_OR_UNRESOLVED_ORTHOGRAPHIC_COMPONENT")
+    if (
+        len(analysis.base_consonants) != 1
+        or len(analysis.subscript_consonants) > 1
+        or analysis.dependent_vowel_signs
+        or analysis.independent_vowels
+        or analysis.shortening_marks
+        or analysis.robat_positions
+        or analysis.ahsda_positions
+        or analysis.toandakhiat_positions
+        or any(
+            token.kind not in {"unstacked_consonant", "subscript_consonant", "register_shifter"}
+            for token in analysis.tokens
+        )
+    ):
+        return unresolved("ONSET_ONLY_CLUSTER_WITH_ONE_BASE_AND_AT_MOST_ONE_FOOT_REQUIRED")
+
+    series_decision = resolve_pcgn_series(analysis)
+    if series_decision.status != "RESOLVED" or series_decision.series not in {"â", "ô"}:
+        return unresolved("PCGN_NOTE_2_3_SERIES_MUST_BE_RESOLVED")
+
+    return PCGNInherentVowelDecision(
+        syllable_position="NON_FINAL",
+        series=series_decision.series,
+        romanization=series_decision.series,
+        source_table_row=1,
+        status="RESOLVED",
+        ipa=None,
+        ukrainian=None,
+        source_locator=PCGN_INHERENT_VOWEL_TABLE_LOCATOR,
+        warnings=(
+            "PCGN_TABLE_ROW_1_INHERENT_VOWEL_COMPONENT_ONLY",
+            "NON_FINAL_POSITION_EXPLICITLY_CALLER_SUPPLIED",
+            "NO_FINAL_CODA_OR_SYLLABLE_SEGMENTATION_INFERRED",
+            "NO_IPA_OR_UKRAINIAN_OUTPUT",
+        ),
+    )
+
+
 PCGN_ANUSVARA_VISARGA_TABLE_LOCATOR = (
     "PCGN 1972, Vowel Characters with Anusvara or Visarga table (p. 4)"
 )

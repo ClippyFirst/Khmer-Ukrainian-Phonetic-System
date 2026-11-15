@@ -750,3 +750,27 @@ Implementation: `resolve_pcgn_anusvara_visarga`, `PCGNAnusvaraVisargaDecision`; 
 Source: BGN/PCGN 1972 Agreement, p. 4: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 
 Status: `KHM-ROM-PCGN-ANUSVARA-VISARGA-001 = PARTIAL`. The result is a vowel/final component only; it does not emit a complete syllable, IPA or Ukrainian text. `KHM-ROM-PCGN-VOWELS-001` and `KHM-ROM-ENGINE-001` remain PARTIAL.
+
+
+## BGN/PCGN inherent vowel — table row 1 — 2026-11-15
+
+Added `resolve_pcgn_inherent_vowel(analysis, syllable_position)` for the official table's inherent-vowel row 1:
+
+| Context supplied by caller | Series from Notes 2–3 | Component |
+|---|---|---|
+| NON_FINAL onset | â | `â` |
+| NON_FINAL onset | ô | `ô` |
+| FINAL consonant | either | Abstain; final-consonant/coda rule is a separate contextual decision |
+
+The resolver accepts one base and at most one modeled foot, derives series through the existing Note 2–3 resolver, and returns only the inherent-vowel component. It requires an explicit non-final position. The guide says a syllable-final consonant not accompanied by a vowel character or TOANDAKHIAT should generally be romanized without a following vowel; the component resolver does not infer this condition or apply it as a universal rule.
+
+Schema: `schemas/pcgn-inherent-vowel-decision.schema.json`; tests: `tests/test_pcgn_inherent_vowel_resolution.py`; machine-readable row: `data/khmer/romanization_pcgn_inherent_vowel.csv`.
+
+Source: BGN/PCGN 1972 Agreement, p. 2, table row 1 and explanatory paragraph: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+
+Status: `KHM-ROM-PCGN-INHERENT-VOWEL-001 = PARTIAL`; final consonant/coda behavior and complete syllable assembly remain outside this component.
+
+
+## Exact-main verification — PR #249 / anusvara-visarga table — 2026-11-15
+
+PR [#249](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/249) merged as `a50f815f993f8fa9b4ae59c5f0f89b8c7717ea6f`. PR-head push Quality [43760107833], PR Quality [43760141233], PR Chromium [43760141132], exact-main Quality [43760241393], Chromium [43760241451] and Pages build/deploy [43760241464] all SUCCESS. The PR adds only bounded PCGN table rows 1–8; it does not produce IPA/Ukrainian output or complete the PCGN engine.

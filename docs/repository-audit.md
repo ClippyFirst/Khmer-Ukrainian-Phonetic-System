@@ -972,3 +972,17 @@ Status: `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` remains PARTIAL. No lexical choice
 - Added the decision schema, focused regression tests, package exports and machine-readable source table.
 - Unsupported patterns and any unlisted coda/context abstain. The resolver returns only the table component; no IPA or Ukrainian output is synthesized.
 - Status: `KHM-ROM-PCGN-ANUSVARA-VISARGA-001 = PARTIAL`; the overall PCGN engine remains PARTIAL.
+
+
+## BGN/PCGN inherent vowel row 1 implementation audit — 2026-11-15
+
+- Added a bounded row 1 resolver for the inherent `â/ô` vowel component.
+- It requires explicit `NON_FINAL` onset context and obtains series from the existing Notes 2–3 resolver.
+- FINAL context abstains; the guide's general no-vowel-after-final-consonant statement is not treated as a complete coda parser.
+- Added schema, tests, machine-readable row and public package exports.
+- Status: `KHM-ROM-PCGN-INHERENT-VOWEL-001 = PARTIAL`; no IPA/Ukrainian output.
+
+
+## Exact-main verification — PR #249 / PCGN anusvara-visarga table — 2026-11-15
+
+PR #249 merged as `a50f815f993f8fa9b4ae59c5f0f89b8c7717ea6f`. PR-head push Quality [43760107833], PR Quality [43760141233], PR Chromium [43760141132], exact-main Quality [43760241393], Chromium [43760241451] and Pages build/deploy [43760241464] all SUCCESS. The bounded resolver is engineering-verified; PCGN full syllable coverage remains PARTIAL.
