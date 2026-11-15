@@ -325,3 +325,27 @@ The documentation/information-architecture batch was merged to `main` by squash 
 ### Final mainline verification — 2026-11-15
 
 Main commit `8b6dd5a597a670e7c3ff7bc440b2a97b4762060e` passed Quality [43692567616], Chromium browser smoke [43692567608], and Pages deployment/deployed-site smoke [43692567615]. All conclusions were SUCCESS. This is hosted CI evidence, not a local test run.
+
+
+## PR #153 patch-level reconciliation against current main — 2026-11-15
+
+- Rechecked live main at `b2743a2c0f0a843eec9acbab538adad5cfa7cad5` and PR #153 head `bddb0186c9e62abd57827fa54233ebbfaa0540e2`. The merge base is `2fe36aa1eb64cc47fb60ab1b37561f40d57202a7`; the branch is **34 commits ahead / 26 behind**, status `diverged`, with 18 changed files. PR metadata remains open + draft + `mergeable=false`. There are no submitted reviews or PR comments.
+- The current-main side contains 26 commits since the merge base and changes 37 paths. Six paths overlap the PR's changed-file set: `README.md`, `data/khmer/sources.json`, `docs/MASTER-EXECUTION-PLAN-AND-CHAT-HANDOFF.md`, `docs/audits/current/LINGUISTIC-COMPLETION-REGISTER-2026-11-01.md`, `src/khmer_ua/__init__.py`, and `tests/test_rule_engine.py`. This confirms a non-trivial rebase/reconciliation requirement; do not merge the branch wholesale.
+- Exact current PR-head hosted checks: Quality run [43084554473](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43084554473) **SUCCESS**; Chromium browser smoke [43084554830](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43084554830) **SUCCESS**; optional G2P benchmark [43084554487](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43084554487) **SKIPPED**. Combined commit status returned no status entries. No local checkout or local shell tests were available.
+
+### Patch-level disposition
+
+| Area | Finding | Disposition |
+|---|---|---|
+| `src/khmer_ua/hybrid.py`, package exports, rule-engine tests | PR replaces the current compatibility shim (where `HybridKhmerEngine` aliases the deterministic rule engine and injected providers are rejected) with an external-candidate wrapper and optional provider factories. Current main explicitly documents that external G2P execution is not part of this public API. | **Do not merge as-is.** Any future candidate harness must live behind an explicitly research-only boundary and must not silently change the published API contract. |
+| Candidate validation | `_candidate` rejects empty output and literal `?`, but otherwise accepts arbitrary non-empty strings as complete IPA; it does not validate IPA symbols, typed status values, profile, or completeness. | **Acceptance gap.** Add a real typed IPA validation boundary and negative tests before considering reuse. Preserve raw provider output and uncertainty. |
+| Provider ordering | Priorities determine execution/display order only; the code and tests do not use them as accuracy weights or promotion authority. | **Conceptually acceptable**, but only after API and validation reconciliation. |
+| MekongPhon benchmark harness | New script computes Unicode-codepoint edit distance against upstream `pron_no_tones`, hashes source labels, omits source orthography/reference text from report records, and explicitly reports independent gold=0 / accuracy=null. | **Research-only / PARTIAL.** The metric is source-label concordance, not accuracy; it omits tone by construction. Keep outputs out of gold and production decisions. |
+| Optional workflow | Benchmark job is manual-dispatch only and the exact-head optional run was skipped. | **Not runtime-verified in this checkpoint.** Do not claim the new model benchmark ran in this CI cycle. |
+| MekongPhon source and model | The PR records a pinned model revision and a pinned upstream corpus snapshot, while explicitly noting unresolved corpus rights and unverified split independence. | **BLOCKED for repeatable project evaluation or data reuse** until rights and split provenance are independently resolved. The model card's code/model license does not settle corpus-data rights. |
+| Khmer acoustic dictionary | PR records missing full dictionary and conflicting upstream entry counts/data-license declarations. | **BLOCKED; do not import or redistribute.** |
+| Research documentation and registries | Some source metadata and diagnostic findings are useful, but several docs and registries overlap current-main edits and the PR's handoff contains stale base/head claims. | Reconcile item-by-item only after primary-source verification; do not copy stale handoff state. |
+
+### Decision and acceptance criteria
+
+**PR #153 remains BLOCKED and open as a draft; no branch, PR, or code was modified by this audit.** Reconsider only after (1) rebasing onto current main and resolving the six overlapping paths, (2) preserving the current deterministic published-output contract, (3) implementing typed IPA/profile/completeness validation for any candidate adapter, (4) resolving corpus rights and documenting train/evaluation split independence, and (5) obtaining exact-head Quality/browser evidence plus an explicitly dispatched benchmark run where rights permit. Independent Phnom Penh-profile adjudicated gold remains 0; empirical accuracy remains null.
