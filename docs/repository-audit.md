@@ -366,7 +366,7 @@ Documentation-only PR [#180](https://github.com/ClippyFirst/Khmer-Ukrainian-Phon
 
 ## Typed IPA candidate boundary — 2026-11-15
 
-- Implemented in PR [#182](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/182), branch `feat/typed-ipa-candidate-validation-2026-11-15`, exact verified head `a20f1d3f28cbe1a6a5f79cc7554afe4b47265a4a`.
+- Implemented in PR [#182](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/182), branch `feat/typed-ipa-candidate-validation-2026-11-15`, runtime/test head `a20f1d3f28cbe1a6a5f79cc7554afe4b47265a4a` (the subsequently updated PR head contains documentation-only audit/handoff additions).
 - Added immutable `IPACandidate`, `IPACandidateStatus`, and `validate_ipa_candidate`; exported from the package API. Candidate metadata requires the selected Phnom Penh careful-citation profile, one of PHONEMIC / PHONETIC_BROAD / PHONETIC_NARROW, COMPLETE / PARTIAL, and a non-empty provider identifier. PARTIAL requires explicit uncertainty notes.
 - The notation gate accepts Latin/Greek IPA segment letters, modifier letters, combining diacritics, IPA tone-bar symbols, click symbols, digits and a bounded set of IPA separators; it rejects unsupported scripts/symbols, orphan combining marks, malformed outer delimiters and non-NFC strings. It preserves the exact provider string, including tone, length, stress and syllable notation. This is a conservative notation check, not a complete IPA grammar, phonological validation, source verification or accuracy judgment.
 - No external provider is executed, no candidate is automatically converted to gold, and the deterministic engine's output contract is unchanged.
@@ -374,3 +374,6 @@ Documentation-only PR [#180](https://github.com/ClippyFirst/Khmer-Ukrainian-Phon
 - Exact-head Chromium smoke [43694149458](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43694149458): **SUCCESS**, including visible-result verification.
 - First CI attempt exposed three test failures because IPA tone-bar characters U+02E5–U+02E9 are Unicode modifier symbols (category Sk), not modifier letters; the gate was corrected to recognize the five IPA tone bars as explicit IPA symbols and the exact-head CI was rerun successfully.
 - PR #153 remains separate and blocked by corpus rights/split provenance and its own diverged API patch. This PR addresses the candidate notation/metadata acceptance gap without importing its model, data, or provider runtime. Independent adjudicated IPA gold remains 0; accuracy remains null.
+
+
+**CI scope note:** the successful Quality and Chromium runs were triggered for the final runtime/test code head before the two documentation-only audit/handoff commits. The GitHub connector exposed no new workflow runs for the later documentation-only head; no additional test run is claimed for those docs-only commits. Post-merge mainline CI is the final verification gate.
