@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from khmer_ua.pcgn import analyze_pcgn_orthographic_chunk
+from khmer_ua.pcgn import PCGN_NO_SUBSCRIPT_FOR, analyze_pcgn_orthographic_chunk
 
 
 def test_pcgn_analysis_preserves_base_and_subscript_without_claiming_syllable_parse():
@@ -144,3 +144,7 @@ def test_pcgn_laa_has_no_subscript_form_per_consonant_table_note():
     assert result.subscript_consonants == ()
     assert result.unresolved_components == ("្", "ឡ")
     assert result.tokens[-1].kind == "unsupported_pcgn_subscript"
+
+
+def test_pcgn_no_subscript_inventory_is_explicit():
+    assert PCGN_NO_SUBSCRIPT_FOR == frozenset("ឡ")
