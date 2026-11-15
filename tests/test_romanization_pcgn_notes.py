@@ -114,5 +114,5 @@ def test_pcgn_note_ten_registry_marks_only_the_bounded_letter_inventory_as_parti
     assert note["implementation_status"] == "PARTIAL_CHARACTER_INVENTORY"
     assert "precomposed and decomposed" in note["source_summary"]
     assert "two-code-point sequences" in note["conditions_or_exceptions"]
-    assert "non-letter punctuation" in note["limitations"].lower()
+    assert "non-letter characters" in note["limitations"].lower()
     assert "no normalization" in note["limitations"].lower()
