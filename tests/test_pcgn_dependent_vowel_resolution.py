@@ -90,4 +90,4 @@ def test_pcgn_dependent_vowel_schema_has_explicit_component_only_boundary():
     }
     assert schema["properties"]["ipa"]["const"] is None
     assert schema["properties"]["ukrainian"]["const"] is None
-    assert schema["properties"]["source_table_row"]["enum"] == [2, 3, 4, 5, 6, 7, 8, 9, 13, 14, 15]
+    assert schema["properties"]["source_table_row"]["enum"] == [2, 3, 4, 5, 6, 7, 8, 9, 13, 14, 15, None]
