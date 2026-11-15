@@ -981,3 +981,8 @@ Status: `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` remains PARTIAL. No lexical choice
 - FINAL context abstains; the guide's general no-vowel-after-final-consonant statement is not treated as a complete coda parser.
 - Added schema, tests, machine-readable row and public package exports.
 - Status: `KHM-ROM-PCGN-INHERENT-VOWEL-001 = PARTIAL`; no IPA/Ukrainian output.
+
+
+## Exact-main verification — PR #249 / PCGN anusvara-visarga table — 2026-11-15
+
+PR #249 merged as `a50f815f993f8fa9b4ae59c5f0f89b8c7717ea6f`. PR-head push Quality [43760107833], PR Quality [43760141233], PR Chromium [43760141132], exact-main Quality [43760241393], Chromium [43760241451] and Pages build/deploy [43760241464] all SUCCESS. The bounded resolver is engineering-verified; PCGN full syllable coverage remains PARTIAL.
