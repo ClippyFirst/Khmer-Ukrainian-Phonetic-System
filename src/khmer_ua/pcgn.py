@@ -759,6 +759,89 @@ def resolve_pcgn_shortened_vowel(
     )
 
 
+
+PCGN_ROBAT_TABLE_LOCATOR = (
+    "PCGN 1972, Diacritical Marks table row 4 and Note 6 (p. 4)"
+)
+PCGN_ROMANIZED_CONSONANT_VALUES = frozenset({
+    "k", "kh", "ng", "ch", "chh", "nh", "d", "th", "t",
+    "b", "p", "ph", "n", "m", "y", "r", "l", "v", "s", "h", "’",
+})
+
+
+@dataclass(frozen=True)
+class PCGNRobatDecision:
+    marked_character: str | None
+    marked_consonant_romanization: str | None
+    romanization: str | None
+    status: Literal["RESOLVED", "UNRESOLVED"]
+    ipa: None
+    ukrainian: None
+    source_locator: str
+    warnings: tuple[str, ...]
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+def resolve_pcgn_robat(
+    analysis: PCGNOrthographicAnalysis,
+    marked_consonant_romanization: str | None,
+) -> PCGNRobatDecision:
+    """Resolve the PCGN Note 6 rC component with explicit consonant context.
+
+    The consonant value is supplied by the caller from the appropriate PCGN
+    consonant-table context. This resolver does not infer the marked
+    consonant's romanization or produce a complete syllable.
+    """
+    def unresolved(reason: str) -> PCGNRobatDecision:
+        return PCGNRobatDecision(
+            marked_character=None,
+            marked_consonant_romanization=(
+                marked_consonant_romanization
+                if marked_consonant_romanization in PCGN_ROMANIZED_CONSONANT_VALUES
+                else None
+            ),
+            romanization=None,
+            status="UNRESOLVED",
+            ipa=None,
+            ukrainian=None,
+            source_locator=PCGN_ROBAT_TABLE_LOCATOR,
+            warnings=(reason, "NO_COMPLETE_SYLLABLE_IPA_OR_UKRAINIAN_OUTPUT"),
+        )
+
+    if analysis.status != "STRUCTURE_ONLY":
+        return unresolved("UNSUPPORTED_OR_UNRESOLVED_ORTHOGRAPHIC_COMPONENT")
+    if marked_consonant_romanization not in PCGN_ROMANIZED_CONSONANT_VALUES:
+        return unresolved("EXPLICIT_PCGN_MARKED_CONSONANT_ROMANIZATION_REQUIRED")
+    if len(analysis.robat_positions) != 1:
+        return unresolved("EXACTLY_ONE_ROBAT_MARK_REQUIRED")
+    if analysis.robat_positions[0] != len(analysis.normalized_text) - 1:
+        return unresolved("ROBAT_MUST_BE_FINAL_IN_THE_SUPPORTED_COMPONENT_CHUNK")
+    if len(analysis.tokens) < 2 or analysis.tokens[-1].kind != "robat":
+        return unresolved("ROBAT_TOKEN_MUST_END_THE_COMPONENT_CHUNK")
+    marked_token = analysis.tokens[-2]
+    if marked_token.kind != "unstacked_consonant":
+        return unresolved("ROBAT_MUST_IMMEDIATELY_FOLLOW_ONE_UNSTACKED_MARKED_CONSONANT")
+    if marked_token.text not in CONSONANTS_BY_CHAR:
+        return unresolved("MARKED_CHARACTER_IS_NOT_A_MODELED_KHMER_CONSONANT")
+
+    return PCGNRobatDecision(
+        marked_character=marked_token.text,
+        marked_consonant_romanization=marked_consonant_romanization,
+        romanization="r" + marked_consonant_romanization,
+        status="RESOLVED",
+        ipa=None,
+        ukrainian=None,
+        source_locator=PCGN_ROBAT_TABLE_LOCATOR,
+        warnings=(
+            "PCGN_NOTE_6_ROBAT_R_C_COMPONENT_ONLY",
+            "MARKED_CONSONANT_ROMANIZATION_CALLER_SUPPLIED_NOT_INFERRED",
+            "NO_ONSET_CODA_SYLLABLE_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT",
+        ),
+    )
+
+
 __all__ = [
     "PCGNOrthographicAnalysis",
     "PCGNToken",
@@ -766,11 +849,13 @@ __all__ = [
     "PCGNVowelDecision",
     "PCGNIndependentVowelDecision",
     "PCGNShortenedVowelDecision",
+    "PCGNRobatDecision",
     "PCGN_WEAK_SUBSCRIPTS",
     "PCGN_NO_SUBSCRIPT_FOR",
     "resolve_pcgn_series",
     "resolve_pcgn_dependent_vowel",
     "resolve_pcgn_independent_vowel",
     "resolve_pcgn_shortened_vowel",
+    "resolve_pcgn_robat",
     "analyze_pcgn_orthographic_chunk",
 ]
