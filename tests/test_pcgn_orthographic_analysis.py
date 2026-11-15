@@ -8,6 +8,9 @@ def test_pcgn_analysis_preserves_base_and_subscript_without_claiming_syllable_pa
 
     assert result.base_consonants == ("ក",)
     assert result.subscript_consonants == ("ប",)
+    assert result.tokens[0].orthographic_register == "first"
+    assert result.tokens[1].orthographic_register == "first"
+    assert result.register_source == "NOT_SELECTED"
     assert [item.kind for item in result.tokens] == [
         "unstacked_consonant",
         "subscript_consonant",
@@ -102,3 +105,8 @@ def test_pcgn_analysis_serializes_explicit_null_phonetic_outputs_and_provenance(
     assert payload["ukrainian"] is None
     assert "pcgn-1972-notes-2-8" in payload["sources"]
     assert any("OMITTED_DIACRITICS" in warning for warning in payload["warnings"])
+
+
+def test_empty_or_separator_only_chunk_is_not_reported_as_parsed_structure():
+    assert analyze_pcgn_orthographic_chunk("").status == "UNSUPPORTED"
+    assert analyze_pcgn_orthographic_chunk("  , ").status == "UNSUPPORTED"
