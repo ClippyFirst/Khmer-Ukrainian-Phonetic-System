@@ -70,7 +70,7 @@ def test_pcgn_note10_passes_through_nonletters_without_claiming_to_validate_them
     assert result.status == "VALID"
     assert result.recognized_special_letters == ("œ̆",)
     assert result.non_letter_characters == ("’", " ", "-", "1", "2", "3")
-    assert "NON_LETTER_PUNCTUATION_SPACING_AND_DIGITS_NOT_VALIDATED" in result.warnings
+    assert "NON_LETTER_CHARACTERS_NOT_VALIDATED" in result.warnings
 
 
 def test_pcgn_note10_decision_schema_preserves_inventory_and_validation_scope():
