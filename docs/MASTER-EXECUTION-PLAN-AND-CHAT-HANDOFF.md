@@ -2235,3 +2235,11 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - Open PRs: none at the start of this final documentation checkpoint. Open issue #104 remains the external human acquisition blocker; no one was contacted or recruited and no gold IPA data was fabricated.
 - Root `LICENSE` remains absent while `pyproject.toml` declares MIT (owner decision). Main remains unprotected; no governance setting was changed.
 - No local checkout or local test execution is claimed. Readiness remains partial research prototype, not linguistically validated production.
+
+
+## PCGN shortened-vowel mark inventory correction — 2026-11-15
+
+- PR #204 adds U+17D0 SAMYOK SANNYA (◌័) to PCGN diacritical-mark row 3 alongside U+17CB BANTOC (◌់). Official PCGN note 5 distinguishes both marks and describes both within shortened-vowel patterns.
+- The six PCGN rule categories remain six; the machine-readable inventory now explicitly covers seven Khmer source marks across those categories. No romanization or Ukrainian target was guessed or added.
+- Regression coverage was updated in both Python and Node test suites. An intermediate data-only commit correctly triggered a red Python assertion because the old exact-glyph test expected only ◌់; the assertion is being updated to the source-backed two-mark contract. The final PR-head CI is the acceptance gate.
+- Scope remains inventory-only. Khmer-script → BGN/PCGN contextual generation, series/shortening/coda resolution and Ukrainian target review remain PARTIAL.
