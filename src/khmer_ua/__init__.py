@@ -10,7 +10,8 @@ from .ipa import (
     validate_ipa_candidate,
 )
 from .practical import map_segment, map_sequence, map_ipa_string, explain_segment
-from .rule_engine import RuleBasedKhmerEngine, HybridKhmerEngine, create_hybrid_engine
+from .rule_engine import RuleBasedKhmerEngine
+from .hybrid import HybridKhmerEngine, create_hybrid_engine, make_mekongphon_backend, make_command_backend
 
 __all__ = [
     "analyze",
@@ -26,4 +27,6 @@ __all__ = [
     "RuleBasedKhmerEngine",
     "HybridKhmerEngine",
     "create_hybrid_engine",
+    "make_mekongphon_backend",
+    "make_command_backend",
 ]

@@ -1,0 +1,81 @@
+import pytest
+
+from khmer_ua import HybridKhmerEngine, RuleBasedKhmerEngine, create_hybrid_engine
+
+
+def typed(ipa, *, status="PARTIAL", uncertainty=("not independently adjudicated",), kind="PHONETIC_BROAD"):
+    return {
+        "ipa": ipa,
+        "profile": "khmer-pph-careful-citation-v1",
+        "kind": kind,
+        "status": status,
+        "uncertainty": uncertainty,
+        "provenance": {"revision": "test-fixture"},
+    }
+
+
+def test_hybrid_without_providers_is_identical_to_rule_engine():
+    source = "ខ្មែរ"
+    expected = RuleBasedKhmerEngine().analyze(source)
+    actual = HybridKhmerEngine().analyze(source)
+    assert actual["ipa"] == expected["ipa"]
+    assert actual["ukrainian"] == expected["ukrainian"]
+    assert actual["external_candidates"] == []
+
+
+def test_provider_candidate_uses_typed_ipa_boundary_and_preserves_raw_string():
+    raw = "/ˈkʰmaeː˥.t͡ɕa/"
+    result = HybridKhmerEngine({"mekongphon": lambda _: typed(raw)}).analyze("ខ្មែរ")
+    candidate = result["external_candidates"][0]
+    assert candidate["ipa_raw"] == raw
+    assert candidate["status"] == "PARTIAL"
+    assert candidate["uncertainty"] == ["not independently adjudicated"]
+    assert candidate["promotion"].startswith("WITHHELD")
+    assert result["ipa"] == RuleBasedKhmerEngine().analyze("ខ្មែរ")["ipa"]
+
+
+def test_bare_string_provider_output_is_rejected():
+    result = HybridKhmerEngine({"untyped": lambda _: "kʰmae"}).analyze("ខ្មែរ")
+    assert result["external_candidates"] == []
+    assert "typed candidate metadata" in result["backend_failures"][0]["reason"]
+
+
+def test_malformed_ipa_provider_output_is_rejected():
+    result = HybridKhmerEngine({"broken": lambda _: typed("ក្មែរ")}).analyze("ខ្មែរ")
+    assert result["external_candidates"] == []
+    assert "unsupported non-IPA" in result["backend_failures"][0]["reason"]
+
+
+def test_partial_without_uncertainty_is_rejected():
+    result = HybridKhmerEngine({
+        "missing-uncertainty": lambda _: typed("kʰmae", uncertainty=())
+    }).analyze("ខ្មែរ")
+    assert result["external_candidates"] == []
+    assert "must include at least one uncertainty" in result["backend_failures"][0]["reason"]
+
+
+def test_provider_priority_orders_candidates_without_promoting_them():
+    calls = []
+    providers = {
+        "goruut": lambda _: calls.append("goruut") or typed("kʰmae"),
+        "khmer-phonemizer": lambda _: calls.append("khmer-phonemizer") or typed("kʰmae"),
+        "mekongphon": lambda _: calls.append("mekongphon") or typed("kʰmae"),
+    }
+    result = HybridKhmerEngine(providers).analyze("ខ្មែរ")
+    assert calls == ["mekongphon", "khmer-phonemizer", "goruut"]
+    assert [item["priority"] for item in result["external_candidates"]] == [10, 20, 90]
+    assert all(item["promotion"].startswith("WITHHELD") for item in result["external_candidates"])
+
+
+def test_backend_failure_does_not_erase_internal_result():
+    result = HybridKhmerEngine({
+        "broken": lambda _: (_ for _ in ()).throw(RuntimeError("offline"))
+    }).analyze("ខ្មែរ")
+    assert result["backend_failures"][0]["reason"] == "offline"
+    assert "ipa" in result
+
+
+def test_factory_exports_typed_hybrid():
+    engine = create_hybrid_engine({"provider": lambda _: typed("kʰmae")})
+    assert isinstance(engine, HybridKhmerEngine)
+    assert len(engine.analyze("ខ្មែរ")["external_candidates"]) == 1

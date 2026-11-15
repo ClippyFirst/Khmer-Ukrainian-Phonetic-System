@@ -268,3 +268,8 @@ Python entry point: `from khmer_ua import RuleBasedKhmerEngine`.
 GitHub Pages: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/
 
 The published phonetic path uses the deterministic local rule engine; the separate romanization mode is not used as a pronunciation fallback.
+
+
+## Research-only typed IPA candidates
+
+The optional Python `HybridKhmerEngine` collects explicitly injected external IPA candidates through the shared typed validator. Bare provider strings are rejected; raw IPA, profile, kind, status, uncertainty and provenance are retained. External candidates never replace the deterministic engine's published result. No providers or model dependencies run by default. See [the typed hybrid API contract](docs/hybrid-engines.md).

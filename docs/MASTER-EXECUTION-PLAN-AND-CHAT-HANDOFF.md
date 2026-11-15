@@ -2080,3 +2080,13 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - The benchmark harness is an isolated research diagnostic, not a production provider. The current deterministic engine and typed IPA candidate boundary are unchanged.
 - PR #153 remains open/draft/unmerged. Its provider wrapper still bypasses the typed candidate validator and is not ported. Corpus rights and checkpoint train/evaluation split independence remain unresolved. Independent adjudicated Phnom Penh IPA gold remains 0; empirical accuracy remains null.
 - No local shell or pytest execution is claimed. This is an engineering-verification closeout only; the repository remains a research platform / partial prototype, not linguistically validated production.
+
+
+## Continuation — PR #153 selective reconciliation — 2026-11-15
+
+- Current base main at task start: `d4c058b346d51179af85b3f8173af3ecc79b4adb` (PR #184 mainline closeout).
+- PR #153 is draft/open and materially diverged: 34 commits ahead / 34 behind relative to current main; its recorded base SHA predates the latest main. Whole-branch merge is rejected as an approach.
+- Main already contains the diagnostic benchmark harness and manual-only workflow from PR #184; these were preserved rather than duplicated.
+- Selectively ported a new runtime bridge in `feat/typed-ipa-hybrid-bridge-2026-11-15`. It calls the current typed `validate_ipa_candidate` for every external candidate, rejects bare strings and malformed metadata/notation, preserves exact raw IPA, records uncertainty/provenance, and never alters deterministic `ipa`/Ukrainian output. External execution remains explicit opt-in.
+- Added eight focused hybrid tests, public factory/adapter exports, a dedicated API contract document, and README/engine-contract updates. Next action: run exact-head hosted Quality + Chromium checks; fix any failures; then submit a small PR against current main.
+- Blocked/evidence-limited: no independent adjudicated Phnom Penh IPA gold (0); model train/evaluation split independence not verified; MekongPhon corpus rights unresolved; no external model inference run; no production promotion permitted.
