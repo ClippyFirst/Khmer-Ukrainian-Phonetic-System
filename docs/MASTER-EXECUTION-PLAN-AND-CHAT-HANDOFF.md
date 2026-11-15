@@ -2367,3 +2367,13 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - `KHM-ROM-PCGN-SERIES-001` is DONE_VERIFIED only for Note 3 series selection and its abstention contract. `KHM-ROM-ENGINE-001` remains PARTIAL: Note 2 shifters, vowel/rime selection, coda, Note 5 shortening, syllable segmentation and full PCGN output are not implemented.
 - The resolver preserves PCGN's exact weak-foot set (five nasals plus យ/រ/ល/វ, no ស), the ប+foot p-in-â exception, and the no-foot status of ឡ. It abstains on shifters and multiple feet/bases. No IPA or Ukrainian output changed.
 - Issue #104 remains open; independent adjudicated IPA gold=0 and empirical accuracy=null. Root LICENSE absent while pyproject metadata declares MIT; main remains unprotected. Research prototype only.
+
+
+## PCGN Note 2 shifter subset — 2026-11-15
+
+- Extended `PCGNOrthographicAnalysis` with exact source positions for register shifters.
+- `resolve_pcgn_series` now applies Note 2 only for one shifter immediately after one base consonant with no foot: TRIISAP U+17CA changes â→ô; MUUSIKATOAN U+17C9 changes ô→â.
+- Preserves Note 3's BA + MUUSIKATOAN p-in-â exception. BA + TRIISAP remains unresolved.
+- Shifters on clusters, multiple/misplaced shifters, wrong-direction shifters and unsupported structures abstain. No vowel, coda, syllable segmentation, PCGN Latin, IPA or Ukrainian output is generated.
+- Update the analysis and series-decision JSON Schemas and tests for shifter positions, before/after series and typed effects. Exact-head CI pending.
+- This is a bounded subset, not complete Note 2 implementation. Next gates: review shifters on consonant+foot clusters and BA+TRIISAP; then tackle contextual vowel/rime selection and Note 5 only when coda is known.
