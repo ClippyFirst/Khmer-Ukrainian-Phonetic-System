@@ -782,3 +782,14 @@ Official evidence: UK PCGN, Romanization of Khmer (Cambodian), BGN/PCGN 1972 Agr
 | KHM-ROM-ENGINE-001 | PARTIAL | Existing runtime still depends on ASCII-derived `@gmana/km-translit`; external candidate is not a verified BGN/PCGN implementation. | Contextual, diacritic-preserving source-script romanizer with source-backed parity tests and expert review. |
 
 No code, dependency, corpus row, IPA label, Ukrainian mapping or generated artifact was changed by this research review.
+
+
+## BGN/PCGN ↔ UNGEGN profile comparison — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-PROFILE-DIFF-001 | DONE_VERIFIED (bounded textual rule comparison) | `docs/audits/current/BGN-PCGN-UNGEGN-RULE-DIFF-2026-11-15.md`; PCGN note 3 vs UNGEGN note 3 identifies the neutral-subscript delta (UNGEGN adds ស); candidate code includes ស in its UNGEGN neutral set. Candidate explicitly marks SAMYOK-before-final-y and YUUKALEAPINTU as unlisted/secondary-source extensions and has heuristic fallback/coda rules. | This closes only the bounded comparison. Full vowel table parity, code-point fixture verification, and an ambiguity-aware PCGN implementation remain open. |
+| KHM-ROM-ENGINE-001 | PARTIAL | Candidate is UNGEGN 2013, not verified PCGN 1972; no code/dependency/data imported. | Build project-owned contextual PCGN engine and source-located parity tests. |
+| KHM-ROM-UA-001 | PARTIAL | Existing direct Latin adapter remains separate; contextual source-script generator is absent. | Consume validated PCGN output; expert review Ukrainian targets. |
+
+No gold/IPA evidence changed: independent adjudicated gold remains 0; empirical accuracy remains null.
