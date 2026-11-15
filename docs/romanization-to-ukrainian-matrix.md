@@ -643,3 +643,14 @@ Status: `KHM-ROM-PCGN-TOANDAKHIAT-001 = PARTIAL`.
 ## Exact-main verification — PR #239 / PCGN Note 8 — 2026-11-15
 
 PR #239 merged as `9c615293e3037cb0ccbd9db0820698741bbcd5cf`. Final PR-head `e52b2d5be98a521dfa3c6dc5af846c6c79d42dce`: push Quality [43753171641], PR Quality [43753185515], PR Chromium [43753185496] all SUCCESS (290 tests + 70 subtests). Exact-main Quality [43753327251], Chromium [43753327183], Pages [43753327232] all SUCCESS, including deployed-site/runtime-asset smoke. TOANDAKHIAT remains PARTIAL; silent character is caller-identified, with omission-only output.
+
+
+## BGN/PCGN Note 4 glottal-onset component — 2026-11-15
+
+A bounded onset resolver now maps standalone `អ` to the PCGN apostrophe `’`. It returns both apostrophe options only when the caller explicitly states that the carrier is word-initial and followed by a vowel letter; otherwise it requires the apostrophe. The resolver validates the â-series through the existing Notes 2–3 resolver.
+
+No word position or following-vowel context is inferred. The component does not generate a complete syllable, IPA or Ukrainian output.
+
+Source: BGN/PCGN 1972, Consonant Characters row 22 and Note 4 (p. 5): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+
+Status: `KHM-ROM-PCGN-GLOTTAL-001 = PARTIAL`.
