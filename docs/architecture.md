@@ -18,7 +18,7 @@ The Ukrainian practical layer is a project proposal, not an official Ukrainian n
 - `src/khmer_ua/normalize.py` — Unicode normalization.
 - `src/khmer_ua/parser.py` — Khmer structural parsing and orthographic-unit analysis.
 - `src/khmer_ua/phonology.py` — effective consonant-series/register resolution and bounded structural rules; structural resolution is not a complete source-to-IPA model.
-- `src/khmer_ua/ipa.py` — validates the supported IPA profile and preserves supplied IPA; it does not generate a complete Khmer IPA transcription from spelling.
+- `src/khmer_ua/ipa.py` — selected-profile preservation plus a typed, syntax-checked IPA candidate boundary. It preserves provider output, notation kind, provider identity and uncertainty; it does not generate pronunciation or promote candidates to published output.
 - `src/khmer_ua/practical.py` — the canonical IPA-to-Ukrainian longest-match adapter.
 - `src/khmer_ua/rule_engine.py` — deterministic lexical-fixture and narrowly supported rule path. Unsupported combinations remain explicit; provisional onset previews are not complete IPA.
 - `src/khmer_ua/hybrid.py` — compatibility import path. The former provider-voting ensemble is removed; external candidates are not promoted to published output.
@@ -60,7 +60,8 @@ Do not duplicate canonical mappings in UI code or explanatory tables without a c
 - Unicode and orthographic structure do not establish a word's complete phonetic realization.
 - A source-attested lexical example is not an independently adjudicated gold label.
 - External G2P output is a diagnostic candidate, not a vote and not the final IPA authority.
-- IPA notation, profile, source locator, annotator/adjudicator provenance and data rights must be explicit before gold ingestion.
+- The typed candidate boundary validates notation and metadata only. A provider's COMPLETE assertion is not adjudication, gold status, phonological correctness or permission to publish a result.
+- IPA notation kind, pronunciation profile, provider/source provenance, uncertainty and data rights must remain explicit. Preserve tone, length, stress and syllable boundaries as supplied; never silently normalize or repair provider output.
 - No empirical accuracy percentage is valid while independent adjudicated gold is absent.
 - BGN/PCGN-derived ASCII output can lose diacritics and contextual distinctions; a downstream Ukrainian adapter cannot reconstruct information that upstream output discarded.
 - Preserve every source unit or mark it unsupported/uncertain. Preserve separators, punctuation, mixed scripts and Unicode normalization semantics according to the tested API contract.
