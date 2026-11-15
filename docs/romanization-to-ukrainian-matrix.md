@@ -390,7 +390,7 @@ Added `resolve_pcgn_series` as a narrow second-stage operation over the typed or
 
 The weak-foot inventory is exactly `ង ញ ណ ន ម យ រ ល វ`; it does not include ស. The PCGN table's statement that ឡ has no subscript form is now enforced as an unsupported structure rather than silently accepted.
 
-The resolver abstains when a register shifter is present (Note 2 is not implemented here), when there are multiple bases/feet, or when the structure contains unsupported material. It returns only `â` / `ô` series metadata and a source locator to PCGN 1972 Note 3 (pp. 2–3). It does not choose a vowel, coda, syllable boundary, IPA or Ukrainian form. Schema: `schemas/pcgn-series-decision.schema.json`; tests: `tests/test_pcgn_series_resolution.py`. Primary source: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf (consonant table and Note 3).
+The initial Note 3-only resolver abstained on shifters. A later bounded Note 2 subset now handles one correctly placed shifter after a single base with no foot; see “PCGN Note 2 register-shifter subset” below. Multiple bases/feet and unsupported structures still abstain. The resolver returns only `â` / `ô` series metadata; it does not choose a vowel, coda, syllable boundary, IPA or Ukrainian form. Schema: `schemas/pcgn-series-decision.schema.json`; tests: `tests/test_pcgn_series_resolution.py`. Primary source: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf (consonant table and Note 3).
 
 
 ## PCGN Note 3 series resolver — exact-main verification — 2026-11-15
