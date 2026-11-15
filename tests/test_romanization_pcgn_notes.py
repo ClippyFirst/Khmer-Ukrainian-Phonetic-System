@@ -23,11 +23,12 @@ def test_all_eleven_pcgn_notes_are_registered_with_primary_source_locators():
     assert all(row["conditions_or_exceptions"].strip() for row in rows)
     assert all(row["limitations"].strip() for row in rows)
     statuses = {row["note_number"]: row["implementation_status"] for row in rows}
+    assert statuses["4"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["5"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["6"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["7"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["8"] == "PARTIAL_COMPONENT_RESOLVER"
-    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"5", "6", "7", "8"})
+    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"4", "5", "6", "7", "8"})
 
 
 def test_pcgn_note_three_keeps_the_pcgn_weak_subscript_set_exact():
@@ -37,6 +38,14 @@ def test_pcgn_note_three_keeps_the_pcgn_weak_subscript_set_exact():
     assert "ស" not in note["source_summary"]
     assert "do not extend" in note["limitations"].lower()
     assert "ambiguous" in note["limitations"].lower()
+
+
+def test_pcgn_note_four_preserves_the_word_initial_optional_apostrophe_boundary():
+    note = next(row for row in _rows() if row["note_number"] == "4")
+    assert "apostrophe" in note["source_summary"].lower()
+    assert "word-initial" in note["conditions_or_exceptions"].lower()
+    assert "both are true" in note["conditions_or_exceptions"].lower()
+    assert "not inferred" in note["limitations"].lower()
 
 
 def test_pcgn_note_five_preserves_both_shortening_marks_and_the_exact_coda_set():
