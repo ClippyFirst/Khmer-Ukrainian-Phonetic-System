@@ -700,3 +700,14 @@ The unit-test discovery gap is closed. This does not resolve the lossy ASCII rom
 | REPOSITORY-LICENSE-001 | BLOCKED (owner decision) | `pyproject.toml` declares MIT; root `LICENSE` absent. | Owner must confirm intended license before adding canonical license text. |
 
 **Readiness:** engineering pipeline verified green on current main; linguistic accuracy, data/legal rights and manual accessibility gates remain open. Repository is a partial research prototype, not production-ready.
+
+
+## Romanizer output-integrity regression closeout — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-OUTPUT-GUARD-001 | DONE_VERIFIED (fail-closed output guard) | PR #201 merge `37a536592a8e462f00997890af63ad232d41a0ae`; exact-head Quality [43720084983](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720084983) and Chromium [43720085021](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720085021) SUCCESS; exact-main Quality [43720186392](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720186392), Chromium [43720186338](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720186338), Pages [43720186436](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720186436) SUCCESS. | Residual Khmer letters/marks after upstream rendering are bracketed and produce PARTIAL; punctuation is preserved. Does not repair lost diacritics or implement contextual PCGN romanization. |
+| KHM-ROM-ENGINE-001 | PARTIAL | Output-integrity guard merged; upstream Khmer-script romanizer still emits ASCII-derived output with diacritics omitted. | Contextual consonant-series, shortening, coda and diacritic-preserving Khmer-script → BGN/PCGN generator still required. |
+| KHM-ROM-TEST-001 | PARTIAL | New residual-letter/mark regressions added and exact-main CI green. | Full contextual romanizer parity, mark semantics, broad attested corpus and expert review remain open. |
+
+**Current main:** `37a536592a8e462f00997890af63ad232d41a0ae`. This guard improves output honesty, not linguistic coverage or readiness.
