@@ -321,3 +321,8 @@ Pinned references:
 - Syllable parser: https://github.com/pheasaKhmer/khmer-engine/blob/31b72cd4665f69678fc835da2f501771e/src/khmer_engine/syllables.py
 - UNGEGN report v4.0 (September 2013): https://www.eki.ee/wgrs/rom1_km.pdf
 - Normalizer dependency: https://github.com/pheasaKhmer/pheasa/tree/760c4b134188dd8bbab6c8ac88419fb0ce119fe9
+
+
+## Normative profile reconciliation — BGN/PCGN vs UNGEGN (2026-11-15)
+
+A pinned source comparison is recorded in [BGN-PCGN-UNGEGN-RULE-DIFF-2026-11-15.md](audits/current/BGN-PCGN-UNGEGN-RULE-DIFF-2026-11-15.md). The candidate `pheasaKhmer/khmer-engine` implements UNGEGN 2013, not a verified PCGN 1972 drop-in. One explicit note-level delta matters to series resolution: PCGN note 3's neutral-subscript list is the five nasals plus y/r/l/v; UNGEGN note 3 adds ស. The candidate includes ស in `SERIES_NEUTRAL_SUBSCRIPTS`, so that constant must not be copied unchanged into a PCGN engine. The candidate also labels SAMYOK-before-final-y and YUUKALEAPINTU outputs as not given by the report/derived from secondary material, and extends the eă-final set to kh beyond the listed k/ng/h set. These are not accepted PCGN rules. No runtime or Ukrainian target behavior changed.
