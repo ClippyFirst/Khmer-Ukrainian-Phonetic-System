@@ -573,3 +573,11 @@ Exact PR #204 head `b27b87081819307da5ffe27d55e3cf4521004730` passed Quality [43
 - Exact-main Quality [43721873111], Chromium [43721873141], and Pages deployment [43721873125] all SUCCESS. Quality: 224 Python tests + 70 subtests, corpus structure validation, web checks and build. Chromium: 11 browser tests. Pages: production exercise, deployment and deployed-site/runtime smoke.
 - The six PCGN diacritic rule categories now explicitly inventory seven Khmer source marks, including U+17CB BANTOC and U+17D0 SAMYOK SANNYA under shortened-vowel note 5. `KHM-ROM-MARKS-NUMERALS-001` is DONE_VERIFIED for inventory only; contextual romanization remains PARTIAL.
 - Issue #104 remains open; adjudicated IPA gold=0 and accuracy=null. External data rights/train-eval independence, root LICENSE owner decision, and manual accessibility review remain unresolved. No local test execution is claimed. Readiness remains partial research prototype, not production-ready.
+
+
+## Current mainline reconciliation — 2026-11-15 (6058768)
+
+- Current `main`: `6058768ca745fddf9306f66d2e325fbed512b6ec`; PR #204 implementation merge: `58735a94a8a8f76635f948c2d003d590f26fb0b2`. No open PRs.
+- Exact-main hosted Quality [43722162644], Chromium [43722162599] and Pages [43722162627] all SUCCESS. No local execution is claimed.
+- README inventory wording corrected to six PCGN diacritic-rule rows / seven Khmer source marks / ten numerals. This accurately distinguishes rule categories from individual source marks; no new phonological interpretation or runtime behavior was added.
+- Remaining release blockers unchanged: contextual PCGN generation and lossy upstream ASCII romanizer, Ukrainian target expert review, independent IPA gold=0 and accuracy=null (issue #104), external data rights/train-eval independence, manual accessibility, and root LICENSE owner decision. Main remains unprotected. Research prototype only.

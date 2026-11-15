@@ -746,3 +746,15 @@ Official evidence: UK PCGN, Romanization of Khmer (Cambodian), BGN/PCGN 1972 Agr
 | KHM-GOLD-001 | BLOCKED | Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) open; adjudicated IPA gold=0; accuracy=null. | Requires approved convention, qualified annotators, independent adjudicator, curator, rights-cleared pilot and adjudication. |
 
 **Current main:** `58735a94a8a8f76635f948c2d003d590f26fb0b2`. No open PRs. Project remains a partial research prototype; linguistic, legal and manual accessibility gates are not complete.
+
+
+## Current-main evidence checkpoint — 2026-11-15 (6058768)
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| MAINLINE-CI-2026-11-15-E | DONE_VERIFIED (engineering/deployment only) | Exact main `6058768ca745fddf9306f66d2e325fbed512b6ec`; Quality [43722162644](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43722162644), Chromium [43722162599](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43722162599), Pages [43722162627](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43722162627) all SUCCESS. | Hosted engineering tests/build/browser/deployment only; no linguistic accuracy claim or local test claim. |
+| KHM-ROM-MARKS-NUMERALS-001 | DONE_VERIFIED (bounded source inventory only) | PR #204 merge `58735a94a8a8f76635f948c2d003d590f26fb0b2`; six diacritic-rule rows inventory seven Khmer source marks, plus ten numeral rows. | No contextual romanization implementation or new Ukrainian mapping is implied. |
+| KHM-ROM-ENGINE-001 | PARTIAL | Khmer-script path still relies on ASCII-derived upstream output and loses PCGN diacritics. | Contextual series, shortening, coda and diacritic-preserving generation remain open. |
+| KHM-GOLD-001 | BLOCKED | Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104); independent adjudicated gold=0; accuracy=null. | Human convention approval, qualified double annotation, independent adjudication, curator, rights-cleared pilot and blind intake. |
+
+**Current main:** `6058768ca745fddf9306f66d2e325fbed512b6ec`. No open PRs. Root LICENSE/MIT metadata owner decision, source rights and manual accessibility remain open. Research prototype only.
