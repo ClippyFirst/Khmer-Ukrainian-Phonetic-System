@@ -2184,3 +2184,11 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - PR #195 exact-head Quality [43709585653](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709585653) SUCCESS (223 tests + 70 subtests); Chromium [43709585691](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709585691) SUCCESS (9 browser tests).
 - PR #194 implementation merge: `4e1b95f2a1680e7c7363a68b226b0b44778cac74`; exact-head Quality [43709408446](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709408446) and Chromium [43709408411](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709408411) passed.
 - Current main at this checkpoint: `0d1183553a4851eb0c21336f381be3d0f2d0efaf`. No open PRs. GitHub's commit-workflow query returned no post-merge runs for the implementation merge; exact PR-head CI is the available evidence.
+
+## Automated accessibility smoke closeout — 2026-11-15
+
+- PR #197 merged as `9452ac70ee16973ac5f0e8bd28201501539409de` from exact head `b0ca05c11d89b83798f4786a291827a20e99b8f9`.
+- Exact-head Quality [43709993984](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709993984) SUCCESS (223 tests + 70 subtests; web checks and production build passed).
+- Exact-head Chromium [43709994024](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709994024) SUCCESS (11 browser tests).
+- New browser assertions verify the input's accessible name, method switch group and button names, clear button name, Enter-key activation of the romanization method, and polite live status region.
+- This is automated DOM/keyboard smoke coverage only. Manual screen-reader, full keyboard traversal, contrast, zoom/reflow, mobile and assistive-technology review remains PARTIAL and is not claimed complete.
