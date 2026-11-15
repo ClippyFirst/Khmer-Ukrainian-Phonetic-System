@@ -657,3 +657,10 @@ The Note 3 resolver is verified for bounded series metadata only. It does not im
 ## PCGN Note 2 shifter subset — 2026-11-15
 
 The Note 3 series resolver now handles the unambiguous single-base subset of Note 2: TRIISAP after an â-series base shifts to ô; MUUSIKATOAN after an ô-series base shifts to â; BA + MUUSIKATOAN retains the Note 3 p-in-â exception. It records the shifter's source position and before/after series. It abstains on clusters, multiple/misplaced or wrong-direction shifters and BA + TRIISAP. This is partial Note 2 coverage, not full romanization. Hosted CI pending.
+
+
+## PCGN Note 2 shifter subset — PR #217 — 2026-11-15
+
+PR #217 merged as `c738075c47c76730aa15e96acea588ad924c829c`. PR-head push Quality [43735335039], PR Quality [43735349944] and Chromium [43735349863] all SUCCESS. Exact-main Quality [43735441278], Chromium [43735441245] and Pages [43735441621] were dispatched on the merge SHA; final status is pending at this audit entry.
+
+The bounded single-base Note 2 subset is implemented; full cluster shifter behavior, vowels, codas, syllabification and Note 5 shortening remain incomplete.
