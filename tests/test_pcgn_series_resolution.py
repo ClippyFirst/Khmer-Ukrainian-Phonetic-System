@@ -54,7 +54,7 @@ def test_pcgn_series_without_subscript_uses_base_register():
 
 
 def test_pcgn_series_abstains_on_shifters_multiple_feet_and_unsupported_input():
-    for source in ("ក៊", "ក្ប្ល", "ក្x", "ឥ"):
+    for source in ("ក៊", "ក្ប្ល", "ក្x", "ក្ឡ", "ឥ"):
         result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk(source))
         assert result.status == "UNRESOLVED"
         assert result.series is None
