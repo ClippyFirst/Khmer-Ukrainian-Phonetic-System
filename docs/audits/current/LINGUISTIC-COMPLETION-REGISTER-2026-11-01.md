@@ -1147,3 +1147,11 @@ PR #239 merged as `9c615293e3037cb0ccbd9db0820698741bbcd5cf`. Final PR-head `e52
 | ID | Status | Evidence | Acceptance boundary |
 |---|---|---|---|
 | KHM-ROM-PCGN-UNICODE-001 | PARTIAL | `validate_pcgn_romanization_characters`, `PCGNRomanizationCharacterInventoryDecision`, schema `schemas/pcgn-romanization-character-inventory-decision.schema.json`, tests `tests/test_pcgn_romanization_character_inventory.py`, and Note 10 source-registry row. Primary source: BGN/PCGN 1972, Note 10 (p. 5). | Validates basic ASCII letters and the exact modified-letter inventory, including decomposed breve sequences; preserves codepoints without normalization. Non-letter characters are not validated. No transliteration, IPA or Ukrainian output. |
+
+
+## Exact-main verification — PR #245 / PCGN Note 10 character inventory — 2026-11-15
+
+- PR [#245](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/245) merged by squash as `f7c038dc479fa7a52c6ec3267e8e1e60313f6343`; exact current `main` verified at this SHA. No open PRs.
+- Final PR-head `107a0c250be3f7ca1868e27f165f876667a4cd9d`: push Quality [43757052464], PR Quality [43757137146], PR Chromium [43757137145] all SUCCESS. Python 306 passed, 70 subtests passed; web checks and production build passed; Chromium visible-results smoke passed.
+- Exact post-merge main: Quality [43757257747], Chromium [43757257757], Pages build/deploy [43757257745] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
+- `KHM-ROM-PCGN-UNICODE-001` remains PARTIAL: Note 10 letter-inventory validation only. No PCGN word/syllable romanization, IPA, Ukrainian output, gold record or accuracy claim was added.
