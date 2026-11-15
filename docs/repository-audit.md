@@ -882,3 +882,12 @@ PR #237 merged as `890791a1d8236180c82a39b81bd28b7f772d614c`. Final PR-head `2e3
 ## Exact-main verification — PR #239 / PCGN Note 8 — 2026-11-15
 
 PR #239 merged as `9c615293e3037cb0ccbd9db0820698741bbcd5cf`. Final PR-head `e52b2d5be98a521dfa3c6dc5af846c6c79d42dce`: push Quality [43753171641], PR Quality [43753185515], PR Chromium [43753185496] all SUCCESS (290 tests + 70 subtests). Exact-main Quality [43753327251], Chromium [43753327183], Pages [43753327232] all SUCCESS, including deployed-site/runtime-asset smoke. TOANDAKHIAT remains PARTIAL; silent character is caller-identified, with omission-only output.
+
+
+## BGN/PCGN Note 4 implementation audit — 2026-11-15
+
+- Added `PCGNGlottalOnsetDecision` and `resolve_pcgn_glottal_onset`, with schema and tests.
+- Supports only standalone `អ`; the existing Notes 2–3 resolver must confirm â-series.
+- Word-initial and following-vowel-letter context are explicit inputs. Apostrophe omission is offered only when both are true.
+- Returns an apostrophe component/options only; no complete syllable, IPA or Ukrainian output.
+- Primary source: BGN/PCGN 1972 Consonant Characters row 22 and Note 4 (p. 5). Status PARTIAL.
