@@ -1000,3 +1000,8 @@ PR #250 merged as `62ce69bd17dc64fecfb73e81e22ca10bf97a25ff`. PR-head push Quali
 - Row 22 alif remains delegated to the separate Note 4 glottal-onset resolver.
 - Added typed decision, schema, source registry, tests and package exports.
 - Multiple-foot clusters, unresolved series, unsupported marks and lexical reference cases abstain. This is not a complete PCGN syllable romanizer and emits no IPA/Ukrainian output.
+
+
+## Exact-main verification — PR #251 — 2026-11-15
+
+PR #251 merged as `aab014705bdf90825b922ff69f1c2e7758e56246`. PR-head push Quality [43760857888], PR Quality [43760868532], PR Chromium [43760868545], exact-main Quality [43760984773], Chromium [43760984785] and Pages [43760984838] all SUCCESS. Documentation-only closeout.
