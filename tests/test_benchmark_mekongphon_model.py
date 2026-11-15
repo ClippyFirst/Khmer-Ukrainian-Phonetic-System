@@ -52,7 +52,7 @@ def test_codepoint_levenshtein_counts_insertions_deletions_and_substitutions():
 def test_load_rows_rejects_duplicate_orthographies(tmp_path):
     path = tmp_path / "duplicate.csv"
     path.write_text(
-        "orth,pron_no_tones\\nក,ka\\nក,ka\\n",
+        "orth,pron_no_tones\nក,ka\nក,ka\n",
         encoding="utf-8",
     )
     try:
@@ -65,7 +65,7 @@ def test_load_rows_rejects_duplicate_orthographies(tmp_path):
 
 def test_load_rows_rejects_missing_reference_values(tmp_path):
     path = tmp_path / "empty-reference.csv"
-    path.write_text("orth,pron_no_tones\\nក,\\n", encoding="utf-8")
+    path.write_text("orth,pron_no_tones\nក,\n", encoding="utf-8")
     try:
         MODULE["load_rows"](path)
     except ValueError as error:
