@@ -597,3 +597,8 @@ Exact PR #204 head `b27b87081819307da5ffe27d55e3cf4521004730` passed Quality [43
 - Its syllable parser uses weighted heuristics to infer readings that Khmer orthography does not uniquely mark; some romanization entries are explicitly marked as extrapolations. This makes ambiguity handling and expert review mandatory.
 - Engine code declares MIT; sample lexical data and counts have separate CC BY 4.0 / ODC-By 1.0 declarations; its Pheasa normalizer dependency declares Apache-2.0. No dependency or external data was imported.
 - This reduces uncertainty about a possible implementation approach but does not close `KHM-ROM-ENGINE-001`. No local or external tests were run by this repository during the review. Candidate is not IPA and not gold.
+
+
+## Audit addendum — BGN/PCGN vs UNGEGN profile delta (2026-11-15)
+
+The pinned candidate engine review now has a primary-source rule diff at `docs/audits/current/BGN-PCGN-UNGEGN-RULE-DIFF-2026-11-15.md`. The key implementation blocker is concrete: PCGN note 3 does not list ស among neutral subscripts, whereas UNGEGN note 3 does, and the candidate's UNGEGN constant includes it. Candidate-specific unlisted forms (SAMYOK + final y; YUUKALEAPINTU) and heuristic coda/syllable rules must not be promoted to PCGN behavior. No runtime was changed. The contextual Khmer-script engine remains PARTIAL.
