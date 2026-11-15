@@ -761,7 +761,7 @@ def resolve_pcgn_shortened_vowel(
 
 
 PCGN_ROBAT_TABLE_LOCATOR = (
-    "PCGN 1972, Diacritical Marks table row 4 and Note 6 (p. 4)"
+    "PCGN 1972, Diacritical Marks table row 4 (p. 4), Note 6 (p. 5)"
 )
 PCGN_ROMANIZED_CONSONANT_VALUES = frozenset({
     "k", "kh", "ng", "ch", "chh", "nh", "d", "th", "t",
