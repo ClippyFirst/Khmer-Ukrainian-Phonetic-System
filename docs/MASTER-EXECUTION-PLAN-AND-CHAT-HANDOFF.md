@@ -2009,7 +2009,7 @@ PR #153 should remain a draft until its research-only API boundary, typed IPA va
 | Preserve provider output and uncertainty | DONE_VERIFIED | Exact raw IPA string retained; provider id, profile, kind, status and uncertainty are typed fields. PARTIAL requires uncertainty notes. Tests cover tone, length, stress, tie bar and syllable separator preservation. |
 | Reject obvious malformed IPA candidate notation/metadata | DONE_VERIFIED (bounded syntax gate) | Rejects empty/non-NFC strings, non-IPA scripts/symbols, orphan combining marks, bad delimiters, unsupported profile/kind/status and missing provider identity. Not a full IPA grammar or phonological validation. |
 | Keep published deterministic result unchanged | DONE_VERIFIED | Only IPA module, package exports, tests and architecture docs changed; no external runtime provider added and no deterministic engine behavior changed. |
-| Exact-head hosted verification | DONE_VERIFIED | Head `a20f1d3f28cbe1a6a5f79cc7554afe4b47265a4a`; Quality run 43694149473 SUCCESS (206 tests + 62 subtests; corpus gate, web checks and build passed); Chromium run 43694149458 SUCCESS (including visible-result verification). |
+| Exact-head hosted verification | DONE_VERIFIED | Runtime/test head `a20f1d3f28cbe1a6a5f79cc7554afe4b47265a4a`; subsequent PR head `6f454e114822f765729666dd27d299604431266b` adds only the audit/handoff documentation recorded in this section. Quality run 43694149473 SUCCESS (206 tests + 62 subtests; corpus gate, web checks and build passed); Chromium run 43694149458 SUCCESS (including visible-result verification). |
 | Integrate candidate API into PR #153 provider harness | BLOCKED / NOT DONE | PR #153 remains diverged and rights/split-limited. Keep this candidate boundary standalone until its API can be reconciled without changing published deterministic behavior. |
 
 ### Verification correction
@@ -2022,3 +2022,6 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - Independent adjudicated Phnom Penh IPA gold: 0; accuracy: null.
 - The validator is deliberately a conservative syntax/metadata gate. It does not verify phonological truth, completeness, profile match beyond the declared profile id, source rights, or provider honesty.
 - License metadata mismatch and manual accessibility review remain unresolved as previously recorded.
+
+
+**CI scope note:** the successful Quality and Chromium runs were triggered for the final runtime/test code head before the two documentation-only audit/handoff commits. The GitHub connector exposed no new workflow runs for the later documentation-only head; no additional test run is claimed for those docs-only commits. Post-merge mainline CI is the final verification gate.
