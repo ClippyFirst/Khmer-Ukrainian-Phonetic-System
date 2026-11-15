@@ -656,7 +656,7 @@ The Note 3 resolver is verified for bounded series metadata only. It does not im
 
 ## PCGN Note 2 shifter subset — 2026-11-15
 
-The Note 3 series resolver now handles the unambiguous single-base subset of Note 2: TRIISAP after an â-series base shifts to ô; MUUSIKATOAN after an ô-series base shifts to â; BA + MUUSIKATOAN retains the Note 3 p-in-â exception. It records the shifter's source position and before/after series. It abstains on clusters, multiple/misplaced or wrong-direction shifters and BA + TRIISAP. This is partial Note 2 coverage, not full romanization. Hosted CI pending.
+The Note 3 series resolver now handles the unambiguous single-base subset of Note 2: TRIISAP after an â-series base shifts to ô; MUUSIKATOAN after an ô-series base shifts to â; BA + MUUSIKATOAN retains the Note 3 p-in-â exception. It records the shifter's source position and before/after series. It abstains on clusters, multiple/misplaced or wrong-direction shifters and BA + TRIISAP. This is partial Note 2 coverage, not full romanization. Exact PR-head and exact-main Quality/Chromium checks passed; Pages deployment also passed on exact main.
 
 
 ## PCGN Note 2 shifter subset — PR #217 — 2026-11-15
@@ -669,3 +669,8 @@ The bounded single-base Note 2 subset is implemented; full cluster shifter behav
 ## Exact-main checkpoint — PR #218 — 2026-11-15
 
 PR #218 merged as `9420326549d8a327774d0587b6fe19c4b17befcd`. Exact-head push Quality [43735564674], PR Quality [43735576766] and Chromium [43735576217] all SUCCESS. Exact-main Quality [43735662414], Chromium [43735662288] and Pages [43735662264] all SUCCESS, including deployed-site/runtime-asset smoke.
+
+
+## Exact-main verification — PR #219 — 2026-11-15
+
+PR #219 merged as `690b44174a8831ac9b08b44786d5ffde43f6d5aa`. PR-head push Quality [43735841295], PR Quality [43735855013], PR Chromium [43735855047], and exact-main Quality [43735981736], Chromium [43735981714], Pages [43735981744] all SUCCESS.
