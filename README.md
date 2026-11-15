@@ -249,7 +249,7 @@ The service separates the phonetic IPA-first route from the orthographic romaniz
 
 - [`data/khmer/romanization_ukrainian.csv`](data/khmer/romanization_ukrainian.csv) — 22 consonant/subscript rows.
 - [`data/khmer/romanization_vowels_ukrainian.csv`](data/khmer/romanization_vowels_ukrainian.csv) — 37 source-located independent/dependent vowel and anusvara/visarga rows.
-- [`data/khmer/romanization_marks_numerals.csv`](data/khmer/romanization_marks_numerals.csv) — 6 diacritic and 10 numeral rows.
+- [`data/khmer/romanization_marks_numerals.csv`](data/khmer/romanization_marks_numerals.csv) — 6 PCGN diacritic-rule rows covering 7 Khmer source marks (including both U+17CB BANTOC and U+17D0 SAMYOK SANNYA under note 5), plus 10 numeral rows.
 
 These files separate source romanization from Ukrainian target proposals and preserve explicit evidence statuses. They are research tables, not proof that the runtime BGN/PCGN engine or romanization → Ukrainian syllable adapter is complete.
 
