@@ -668,4 +668,4 @@ The bounded single-base Note 2 subset is implemented; full cluster shifter behav
 
 ## Exact-main checkpoint — PR #218 — 2026-11-15
 
-PR #218 merged as `9420326549d8a327774d0587b6fe19c4b17befcd`. Exact-head push Quality [43735564674], PR Quality [43735576766] and Chromium [43735576217] all SUCCESS. Exact-main Quality [43735662414], Chromium [43735662288] and Pages [43735662264] were dispatched; final status pending.
+PR #218 merged as `9420326549d8a327774d0587b6fe19c4b17befcd`. Exact-head push Quality [43735564674], PR Quality [43735576766] and Chromium [43735576217] all SUCCESS. Exact-main Quality [43735662414], Chromium [43735662288] and Pages [43735662264] all SUCCESS, including deployed-site/runtime-asset smoke.
