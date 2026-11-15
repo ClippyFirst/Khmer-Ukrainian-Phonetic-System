@@ -7,6 +7,7 @@ import fixtures from "../data/tests/web-fixtures.json" with { type: "json" };
 import { khmerToLatin } from "@gmana/km-translit";
 import { mapIpa } from "./ukrainian-practical.js";
 import { renderKhmerRomanizationText, renderRomanizedText } from "./khmer-romanization-ukrainian.js";
+import { HybridKhmerEngine } from "./hybrid-engine.js";
 
 const CONSONANTS = Object.fromEntries(consonants.map((item) => [item.char, item]));
 const SIGN_BY_CHAR = Object.fromEntries(signs.map((item) => [item.char, item]));
@@ -386,6 +387,8 @@ if (typeof document !== "undefined") {
   const modePhonetic = $("mode-phonetic");
   const modeRomanization = $("mode-romanization");
   const outputMethodNote = $("output-method-note");
+  const hybridEngine = new HybridKhmerEngine({ ruleEngine: convert });
+  let manualCandidate = null;
   let activeMode = "phonetic";
 
   function setOutputMode(mode) {
@@ -398,17 +401,71 @@ if (typeof document !== "undefined") {
     modeRomanization.classList.toggle("is-active", mode === "romanization");
     modeRomanization.setAttribute("aria-pressed", String(mode === "romanization"));
     outputMethodNote.textContent = mode === "phonetic"
-      ? "Фонетичний режим: детерміновані правила орфографія → IPA → українська адаптація; непідтверджені форми не вгадуються."
+      ? "Гібридний фонетичний режим: внутрішні правила визначають основний IPA й український результат; зовнішні IPA-кандидати доступні лише для діагностики та не можуть їх замінити."
        : "Романізаційний режим: можна ввести кмерський текст (автоматична ASCII-романізація) або готову латинську BGN/PCGN-форму з діакритиками; вводьте один формат за раз. Профіль вимови діє лише у фонетичному режимі. Невідомі фрагменти не вгадуються; IPA-fallback не використовується.";
     render();
   }
 
+  function renderHybridDiagnostics(data) {
+    const container = $("hybrid-candidates");
+    container.replaceChildren();
+    const candidates = data.external_candidates ?? [];
+    const failures = data.backend_failures ?? [];
+    if (!candidates.length && !failures.length) {
+      const emptyCandidate = document.createElement("p");
+      emptyCandidate.className = "hybrid-empty";
+      emptyCandidate.textContent = "Діагностичних кандидатів поки немає. Мережеві моделі не запускаються; додайте результат зовнішнього інструмента вручну.";
+      container.append(emptyCandidate);
+      return;
+    }
+    candidates.forEach((candidate) => {
+      const card = document.createElement("article");
+      card.className = "hybrid-candidate";
+      const heading = document.createElement("div");
+      heading.className = "hybrid-candidate-heading";
+      const provider = document.createElement("strong");
+      provider.textContent = candidate.provider;
+      const meta = document.createElement("span");
+      meta.className = "hybrid-candidate-meta";
+      meta.textContent = candidate.kind + " · " + candidate.status + " · priority " + candidate.priority;
+      heading.append(provider, meta);
+      const ipa = document.createElement("p");
+      ipa.className = "hybrid-candidate-ipa";
+      ipa.lang = "und-fonipa";
+      ipa.textContent = candidate.ipa_raw;
+      const uncertainty = document.createElement("p");
+      uncertainty.className = "hybrid-candidate-note";
+      uncertainty.textContent = candidate.uncertainty.length ? "Невизначеність: " + candidate.uncertainty.join("; ") : "Невизначеність не задекларована провайдером.";
+      const provenance = document.createElement("p");
+      provenance.className = "hybrid-candidate-note";
+      provenance.textContent = "Provenance: " + JSON.stringify(candidate.provenance);
+      const promotion = document.createElement("p");
+      promotion.className = "hybrid-candidate-note";
+      promotion.textContent = candidate.status === "COMPLETE"
+        ? "COMPLETE — лише твердження провайдера, не незалежне adjudication. " + candidate.promotion
+        : "Кандидат PARTIAL збережено для огляду; підвищення статусу заборонене. " + candidate.promotion;
+      card.append(heading, ipa, uncertainty, provenance, promotion);
+      container.append(card);
+    });
+    failures.forEach((failure) => {
+      const card = document.createElement("article");
+      card.className = "hybrid-failure";
+      const heading = document.createElement("strong");
+      heading.textContent = "Кандидат відхилено · " + failure.provider;
+      const reason = document.createElement("p");
+      reason.textContent = failure.reason;
+      card.append(heading, reason);
+      container.append(card);
+    });
+  }
   function render() {
     $("count").textContent = `${[...source.value].length} символів`;
-    const data = convert(source.value, $("profile").value);
+    const providers = manualCandidate ? { [manualCandidate.provider]: () => manualCandidate.candidate } : {};
+    const data = hybridEngine.analyze(source.value, $("profile").value, providers);
     if (!data) {
       results.hidden = true;
       issue.hidden = true;
+      $("hybrid-candidates").replaceChildren();
       empty.hidden = false;
       return;
     }
@@ -450,6 +507,13 @@ if (typeof document !== "undefined") {
     $("ua-result").textContent = data.ua;
     $("status").textContent = data.status.replaceAll("_", " ");
     $("details").textContent = data.note;
+    renderHybridDiagnostics(data);
+    const candidateFailure = data.backend_failures?.find((failure) => failure.provider === manualCandidate?.provider);
+    $("hybrid-form-status").textContent = candidateFailure
+      ? "Кандидат відхилено: " + candidateFailure.reason
+      : data.external_candidate_count
+        ? "Діагностичний кандидат додано. Основний IPA та українська форма не змінені."
+        : "Кандидат не додано.";
     const unitDetails = $("unit-details");
     unitDetails.replaceChildren();
     const unitHeading = document.createElement("h3");
