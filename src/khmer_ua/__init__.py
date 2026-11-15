@@ -6,6 +6,7 @@ from .parser import analyze, normalize_khmer
 from .pcgn import (
     PCGNOrthographicAnalysis,
     PCGNSeriesDecision,
+    PCGN_NO_SUBSCRIPT_FOR,
     PCGNToken,
     PCGN_WEAK_SUBSCRIPTS,
     analyze_pcgn_orthographic_chunk,
@@ -26,6 +27,7 @@ __all__ = [
     "PCGNOrthographicAnalysis",
     "PCGNToken",
     "PCGNSeriesDecision",
+    "PCGN_NO_SUBSCRIPT_FOR",
     "PCGN_WEAK_SUBSCRIPTS",
     "resolve_pcgn_series",
     "analyze_pcgn_orthographic_chunk",
