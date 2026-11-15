@@ -41,6 +41,9 @@ def test_pcgn_final_consonant_general_rule_maps_consonant_without_following_vowe
         assert result.romanization == expected, source
         assert result.base_table_row == row, source
         assert result.following_vowel == ""
+        assert result.syllable_position == "FINAL"
+        assert result.has_following_vowel_character is False
+        assert result.has_toandakhiat is False
         assert result.ipa is None
         assert result.ukrainian is None
 
@@ -66,6 +69,7 @@ def test_pcgn_final_consonant_schema_and_rule_registry():
         (root / "schemas/pcgn-final-consonant-decision.schema.json").read_text(encoding="utf-8")
     )
     assert set(schema["required"]) == {
+        "syllable_position", "has_following_vowel_character", "has_toandakhiat",
         "base_character", "base_table_row", "base_romanization",
         "subscript_character", "subscript_table_row", "subscript_romanization",
         "romanization", "following_vowel", "status", "ipa", "ukrainian",
