@@ -2243,3 +2243,16 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - The six PCGN rule categories remain six; the machine-readable inventory now explicitly covers seven Khmer source marks across those categories. No romanization or Ukrainian target was guessed or added.
 - Regression coverage was updated in both Python and Node test suites. An intermediate data-only commit correctly triggered a red Python assertion because the old exact-glyph test expected only ◌់; the assertion is being updated to the source-backed two-mark contract. Exact PR-head verification on code/docs SHA `b27b87081819307da5ffe27d55e3cf4521004730`: Quality [43721677822](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721677822), Chromium [43721677790](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721677790), and push Quality [43721673728](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721673728) all SUCCESS. Quality completed corpus validation, Python tests, web checks and production build; Chromium visible-results smoke passed.
 - Scope remains inventory-only. Khmer-script → BGN/PCGN contextual generation, series/shortening/coda resolution and Ukrainian target review remain PARTIAL.
+
+
+## Final mainline checkpoint — PCGN mark inventory correction — 2026-11-15
+
+- Starting main SHA for this batch: `4c6738940e58e152b9ab3f6d95f6c00006243ebc`.
+- PR #204, `fix: inventory both PCGN shortened-vowel marks`, merged by squash as `58735a94a8a8f76635f948c2d003d590f26fb0b2`. It adds U+17D0 SAMYOK SANNYA alongside U+17CB BANTOC in PCGN note 5 row 3; Python and Node regressions now assert both source marks. No romanization or Ukrainian target was guessed.
+- Final `main`: `58735a94a8a8f76635f948c2d003d590f26fb0b2`.
+- Exact-main Quality [43721873111](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721873111) SUCCESS: corpus structure validation; 224 Python tests + 70 subtests; web checks; production build.
+- Exact-main Chromium [43721873141](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721873141) SUCCESS: 11 browser tests.
+- Exact-main Pages [43721873125](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721873125) SUCCESS: build, browser exercise, deploy and deployed-site/runtime smoke test.
+- `KHM-ROM-MARKS-NUMERALS-001` is `DONE_VERIFIED` for bounded inventory only. `KHM-ROM-ENGINE-001` and `KHM-ROM-TEST-001` remain `PARTIAL`; upstream Khmer-script romanization is still ASCII-derived and lossy.
+- Open PRs: none. Issue #104 remains open and blocks independent adjudicated IPA gold (0 rows; accuracy null). Root `LICENSE` is still absent while `pyproject.toml` declares MIT (owner decision). Manual accessibility review remains PARTIAL; main protection is not changed.
+- No local checkout/tests were run. Repository remains a partial research prototype, not a linguistically validated production release.

@@ -565,3 +565,11 @@ No release status upgrade follows from green engineering CI: independent adjudic
 PR #204 corrects the mark matrix: PCGN note 5 distinguishes U+17CB BANTOC (◌់) and U+17D0 SAMYOK SANNYA (◌័), but the previous row represented only BANTOC. Both are now recorded under the same shortened-vowel rule category; the six PCGN rule rows remain six. Python and Node regression assertions cover the two-mark row. This changes source inventory only, not runtime romanization or Ukrainian mapping. Contextual Khmer-script PCGN generation remains PARTIAL. Official source: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf (note 5).
 
 Exact PR #204 head `b27b87081819307da5ffe27d55e3cf4521004730` passed Quality [43721677822] and Chromium [43721677790]; push Quality [43721673728] also passed. The initial data-only intermediate commit failed the stale exact-mark assertion, which was updated in both Python and Node suites; the final PR-head runs are green.
+
+
+## Mainline closeout — PCGN mark inventory — 2026-11-15
+
+- PR #204 merged to `main` as `58735a94a8a8f76635f948c2d003d590f26fb0b2`; current main verified at the same SHA; no open PRs.
+- Exact-main Quality [43721873111], Chromium [43721873141], and Pages deployment [43721873125] all SUCCESS. Quality: 224 Python tests + 70 subtests, corpus structure validation, web checks and build. Chromium: 11 browser tests. Pages: production exercise, deployment and deployed-site/runtime smoke.
+- The six PCGN diacritic rule categories now explicitly inventory seven Khmer source marks, including U+17CB BANTOC and U+17D0 SAMYOK SANNYA under shortened-vowel note 5. `KHM-ROM-MARKS-NUMERALS-001` is DONE_VERIFIED for inventory only; contextual romanization remains PARTIAL.
+- Issue #104 remains open; adjudicated IPA gold=0 and accuracy=null. External data rights/train-eval independence, root LICENSE owner decision, and manual accessibility review remain unresolved. No local test execution is claimed. Readiness remains partial research prototype, not production-ready.
