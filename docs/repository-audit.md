@@ -362,3 +362,15 @@ Main commit `8b6dd5a597a670e7c3ff7bc440b2a97b4762060e` passed Quality [436925676
 ### PR #180 merge closeout
 
 Documentation-only PR [#180](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/180) was squash-merged as 509a35f0d9899959c08a809d486e9c0e09d5c957. Its exact PR-head Quality [43693340334](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43693340334) and Chromium browser smoke [43693340375](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43693340375) both passed. The commit-run lookup did not expose post-merge mainline runs; this record does not claim that such mainline runs passed. PR #153 remains open, draft, and blocked as detailed above.
+
+
+## Typed IPA candidate boundary — 2026-11-15
+
+- Implemented in PR [#182](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/182), branch `feat/typed-ipa-candidate-validation-2026-11-15`, exact verified head `a20f1d3f28cbe1a6a5f79cc7554afe4b47265a4a`.
+- Added immutable `IPACandidate`, `IPACandidateStatus`, and `validate_ipa_candidate`; exported from the package API. Candidate metadata requires the selected Phnom Penh careful-citation profile, one of PHONEMIC / PHONETIC_BROAD / PHONETIC_NARROW, COMPLETE / PARTIAL, and a non-empty provider identifier. PARTIAL requires explicit uncertainty notes.
+- The notation gate accepts Latin/Greek IPA segment letters, modifier letters, combining diacritics, IPA tone-bar symbols, click symbols, digits and a bounded set of IPA separators; it rejects unsupported scripts/symbols, orphan combining marks, malformed outer delimiters and non-NFC strings. It preserves the exact provider string, including tone, length, stress and syllable notation. This is a conservative notation check, not a complete IPA grammar, phonological validation, source verification or accuracy judgment.
+- No external provider is executed, no candidate is automatically converted to gold, and the deterministic engine's output contract is unchanged.
+- Exact-head Quality [43694149473](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43694149473): **SUCCESS**; Python suite: **206 passed, 62 subtests passed**; corpus-structure gate, web checks and production build completed successfully.
+- Exact-head Chromium smoke [43694149458](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43694149458): **SUCCESS**, including visible-result verification.
+- First CI attempt exposed three test failures because IPA tone-bar characters U+02E5–U+02E9 are Unicode modifier symbols (category Sk), not modifier letters; the gate was corrected to recognize the five IPA tone bars as explicit IPA symbols and the exact-head CI was rerun successfully.
+- PR #153 remains separate and blocked by corpus rights/split provenance and its own diverged API patch. This PR addresses the candidate notation/metadata acceptance gap without importing its model, data, or provider runtime. Independent adjudicated IPA gold remains 0; accuracy remains null.
