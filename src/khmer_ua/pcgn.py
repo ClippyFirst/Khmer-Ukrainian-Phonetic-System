@@ -513,14 +513,104 @@ def resolve_pcgn_dependent_vowel(
     )
 
 
+PCGN_INDEPENDENT_VOWEL_TABLE_LOCATOR = (
+    "PCGN 1972, Independent/Dependent Vowel Characters table (pp. 2–3), Notes §9"
+)
+PCGN_INDEPENDENT_VOWEL_ROWS: dict[str, tuple[int, str]] = {
+    "ឥ": (3, "ĕ"),
+    "ឦ": (4, "ei"),
+    "ឯ": (14, "ê"),
+    "ឰ": (15, "ai"),
+    "ឱ": (16, "aô"),
+    "ឲ": (16, "aô"),
+    "ឳ": (17, "au"),
+    "ឪ": (18, "âu"),
+    "ឫ": (19, "rœ̆"),
+    "ឬ": (20, "rœ"),
+    "ឭ": (21, "lœ̆"),
+    "ឮ": (22, "lœ"),
+}
+
+
+@dataclass(frozen=True)
+class PCGNIndependentVowelDecision:
+    source_character: str | None
+    romanization: str | None
+    source_table_row: int | None
+    status: Literal["RESOLVED", "UNRESOLVED"]
+    ipa: None
+    ukrainian: None
+    source_locator: str
+    warnings: tuple[str, ...]
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+def resolve_pcgn_independent_vowel(
+    analysis: PCGNOrthographicAnalysis,
+) -> PCGNIndependentVowelDecision:
+    """Map one listed independent vowel without assigning IPA or a series."""
+    source_character = (
+        analysis.independent_vowels[0]
+        if len(analysis.independent_vowels) == 1
+        else None
+    )
+    row = PCGN_INDEPENDENT_VOWEL_ROWS.get(source_character) if source_character else None
+    table_row = row[0] if row else (7 if source_character == "ឧ" else None)
+
+    def unresolved(reason: str) -> PCGNIndependentVowelDecision:
+        return PCGNIndependentVowelDecision(
+            source_character=source_character,
+            romanization=None,
+            source_table_row=table_row,
+            status="UNRESOLVED",
+            ipa=None,
+            ukrainian=None,
+            source_locator=PCGN_INDEPENDENT_VOWEL_TABLE_LOCATOR,
+            warnings=(reason, "NO_IPA_OR_UKRAINIAN_OUTPUT"),
+        )
+
+    if analysis.status != "STRUCTURE_ONLY":
+        return unresolved("UNSUPPORTED_OR_UNRESOLVED_ORTHOGRAPHIC_COMPONENT")
+    if len(analysis.independent_vowels) != 1:
+        return unresolved("EXACTLY_ONE_INDEPENDENT_VOWEL_REQUIRED")
+    if analysis.base_consonants or analysis.subscript_consonants:
+        return unresolved("MIXED_CONSONANT_AND_INDEPENDENT_VOWEL_INPUT")
+    if analysis.dependent_vowel_signs or analysis.register_shifters or analysis.shortening_marks:
+        return unresolved("MIXED_VOWEL_OR_REGISTER_MARK_INPUT")
+    if analysis.robat_positions or analysis.ahsda_positions or analysis.toandakhiat_positions:
+        return unresolved("SPECIAL_DIACRITIC_NOT_SUPPORTED")
+    if any(token.kind != "independent_vowel" for token in analysis.tokens):
+        return unresolved("NON_INDEPENDENT_VOWEL_TOKEN_PRESENT")
+
+    if source_character == "ឧ":
+        return unresolved("PCGN_NOTE_9_Ŏ_OR_Ŭ_REQUIRES_REFERENCE_SELECTION")
+    if row is None:
+        return unresolved("INDEPENDENT_VOWEL_NOT_LISTED_IN_PCGN_TABLE_SUBSET")
+
+    return PCGNIndependentVowelDecision(
+        source_character=source_character,
+        romanization=row[1],
+        source_table_row=row[0],
+        status="RESOLVED",
+        ipa=None,
+        ukrainian=None,
+        source_locator=PCGN_INDEPENDENT_VOWEL_TABLE_LOCATOR,
+        warnings=("INDEPENDENT_VOWEL_COMPONENT_ONLY", "NO_IPA_OR_UKRAINIAN_OUTPUT"),
+    )
+
+
 __all__ = [
     "PCGNOrthographicAnalysis",
     "PCGNToken",
     "PCGNSeriesDecision",
     "PCGNVowelDecision",
+    "PCGNIndependentVowelDecision",
     "PCGN_WEAK_SUBSCRIPTS",
     "PCGN_NO_SUBSCRIPT_FOR",
     "resolve_pcgn_series",
     "resolve_pcgn_dependent_vowel",
+    "resolve_pcgn_independent_vowel",
     "analyze_pcgn_orthographic_chunk",
 ]
