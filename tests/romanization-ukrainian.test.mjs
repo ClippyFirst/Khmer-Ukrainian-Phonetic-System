@@ -4,7 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { test } from "node:test";
 import { khmerToLatin } from "@gmana/km-translit";
-import { renderKhmerRomanizationText, renderLatinWord } from "../src/khmer-romanization-ukrainian.js";
+import { renderKhmerRomanizationText, renderLatinWord, renderRomanizedText } from "../src/khmer-romanization-ukrainian.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 function parseCsv(text) {
@@ -171,6 +171,57 @@ test("all 37 canonical PCGN vowel and vowel-coda rows have executable ASCII cros
       const result = renderLatinWord(form);
       assert.equal(result.unsupported, 0, `row ${row.table_row}: ${form} must be supported`);
       assert.ok(ukrainianCandidates.includes(result.text), `row ${row.table_row}: ${form} → ${result.text} must be one of ${ukrainianCandidates.join("/")}`);
+    }
+  }
+});
+
+
+test("direct diacritic-preserving BGN/PCGN input renders Ukrainian without Khmer re-romanization", () => {
+  const result = renderRomanizedText("Kâmpŭchéa");
+  assert.equal(result.text, "Кампучеа");
+  assert.equal(result.status, "PROVISIONAL");
+  assert.equal(result.unsupported, 0);
+  assert.match(result.profile, /BGN\/PCGN 1972/u);
+});
+
+test("direct BGN/PCGN input preserves case and brackets unsupported Latin fragments", () => {
+  assert.equal(renderRomanizedText("KÂMPŬCHÉA").text, "КАМПУЧЕА");
+  const partial = renderRomanizedText("Kâmpŭchéa q");
+  assert.equal(partial.text, "Кампучеа ⟦q⟧");
+  assert.equal(partial.status, "PARTIAL");
+  assert.equal(partial.unsupported, 1);
+});
+
+test("decomposed breve input is normalized before BGN/PCGN matching", () => {
+  const result = renderRomanizedText("oe\u0306");
+  assert.equal(result.text, "⟦o⟧⟦e⟧̆");
+  // The canonical PCGN form is œ̆; this test ensures unrelated decomposed
+  // Latin text is not silently guessed as that distinct vowel.
+  assert.equal(result.status, "PARTIAL");
+});
+
+function splitRawPcgnAlternatives(value) {
+  return value.replace(/shortened/giu, "")
+    .split(/[\/;]| or /u)
+    .map(value => value.replace(/\s+/gu, ""))
+    .filter(Boolean);
+}
+
+test("all 37 canonical PCGN vowel rows accept their diacritic-preserving forms", () => {
+  const rows = parseCsv(readFileSync(path.join(root, "data/khmer/romanization_vowels_ukrainian.csv"), "utf8"));
+  assert.equal(rows.length, 37);
+  for (const row of rows) {
+    const romanizationForms = splitRawPcgnAlternatives(row.bgn_pcgn_romanization);
+    const ukrainianCandidates = splitRawPcgnAlternatives(row.ukrainian_candidate);
+    assert.ok(romanizationForms.length > 0, `raw PCGN forms for row ${row.table_row}`);
+    assert.ok(ukrainianCandidates.length > 0, `Ukrainian candidates for row ${row.table_row}`);
+    for (const form of romanizationForms) {
+      const result = renderRomanizedText(form);
+      assert.equal(result.unsupported, 0, `row ${row.table_row}: ${form}`);
+      assert.ok(
+        ukrainianCandidates.includes(result.text),
+        `row ${row.table_row}: ${form} → ${result.text} must be one of ${ukrainianCandidates.join("/")}`
+      );
     }
   }
 });
