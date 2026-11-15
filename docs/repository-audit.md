@@ -610,3 +610,10 @@ The pinned candidate engine review now has a primary-source rule diff at `docs/a
 - Exact-head PR checks: Quality [43730475810] and Chromium [43730475809] SUCCESS; push Quality [43730456889] SUCCESS.
 - Exact post-merge main checks: Quality [43730567132], Chromium [43730567159], Pages [43730567118] all SUCCESS. Quality includes corpus validation, Python tests, Node checks and build; browser smoke and deployed Pages smoke passed.
 - The rule-diff is research/documentation only. No code or linguistic claims changed. Contextual PCGN engine remains PARTIAL; independent IPA gold remains 0; root LICENSE/owner decision and manual accessibility review remain open.
+
+
+## PCGN note registry audit — 2026-11-15
+
+The eleven notes of the official BGN/PCGN guide are now separately registered in `data/khmer/romanization_pcgn_notes.csv`, with source locators and explicit `DOCUMENTED_ONLY` status. A new Python test protects note coverage and the critical Note 3/Note 5 boundaries: the PCGN weak-foot set excludes ស, and the ô-series shortened eă condition is exactly before k/ng/h. It also preserves both BANTOC and SAMYOK SANNYA.
+
+This closes documentation coverage for Notes 1–11 only. It does not establish that the runtime implements those notes, does not resolve ambiguous feet or omitted diacritics, and does not alter IPA or Ukrainian target behavior. The Khmer-script romanizer remains PARTIAL.
