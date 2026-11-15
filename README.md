@@ -242,7 +242,7 @@ The research registry records external pronunciation engines, IPA dictionaries, 
 
 ## Two output methods
 
-The service separates the phonetic IPA-first route from the orthographic romanization route. The romanization tab currently exposes a PARTIAL Ukrainian crosswalk and never falls back to phonetic output. See the [romanization → Ukrainian research matrix](docs/romanization-to-ukrainian-matrix.md) for the selected BGN/PCGN 1972 profile, source tables and unresolved rows.
+The service separates the phonetic IPA-first route from the orthographic romanization route. The romanization tab accepts either Khmer script (via the existing BGN/PCGN-derived ASCII package) or an already romanized BGN/PCGN Latin input with diacritics, then applies a separate provisional Ukrainian orthographic crosswalk. Unknown fragments remain explicit; it never falls back to IPA. See the [romanization → Ukrainian research matrix](docs/romanization-to-ukrainian-matrix.md) for the profile, source tables and unresolved rows.
 
 
 ## Machine-readable BGN/PCGN orthographic tables
