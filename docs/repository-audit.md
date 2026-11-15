@@ -617,3 +617,10 @@ The pinned candidate engine review now has a primary-source rule diff at `docs/a
 The eleven notes of the official BGN/PCGN guide are now separately registered in `data/khmer/romanization_pcgn_notes.csv`, with source locators and explicit `DOCUMENTED_ONLY` status. A new Python test protects note coverage and the critical Note 3/Note 5 boundaries: the PCGN weak-foot set excludes ស, and the ô-series shortened eă condition is exactly before k/ng/h. It also preserves both BANTOC and SAMYOK SANNYA.
 
 This closes documentation coverage for Notes 1–11 only. It does not establish that the runtime implements those notes, does not resolve ambiguous feet or omitted diacritics, and does not alter IPA or Ukrainian target behavior. The Khmer-script romanizer remains PARTIAL.
+
+
+## Exact-main verification — PR #211 PCGN note registry — 2026-11-15
+
+PR [#211](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/211) merged as `9383385fc3244ff600d0fab254c6488a83d92d7b`. PR-head push Quality [43732930991], PR Quality [43732940452], and PR Chromium [43732940449] all SUCCESS. Exact-main Quality [43733051013], Chromium [43733051164], and Pages build/deploy [43733051031] all SUCCESS.
+
+The new eleven-note PCGN registry and its regression tests are therefore engineering-verified on exact main. Acceptance remains bounded to documentation and rule-boundary guardrails: it does not implement a contextual Khmer-script romanizer or resolve ambiguous/omitted marks. Issue #104 remains the human IPA-gold blocker; research prototype only.
