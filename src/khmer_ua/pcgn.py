@@ -40,6 +40,7 @@ class PCGNToken:
     kind: str
     codepoints: tuple[str, ...]
     name: str | None = None
+    orthographic_register: str | None = None
 
 
 @dataclass(frozen=True)
@@ -59,6 +60,7 @@ class PCGNOrthographicAnalysis:
     unresolved_components: tuple[str, ...]
     syllable_segmentation: Literal["NOT_PERFORMED"]
     series_decision: Literal["UNRESOLVED"]
+    register_source: Literal["NOT_SELECTED"]
     coda_decision: Literal["UNRESOLVED"]
     romanization: None
     ipa: None
@@ -93,13 +95,19 @@ def analyze_pcgn_orthographic_chunk(text: str) -> PCGNOrthographicAnalysis:
     unresolved: list[str] = []
     i = 0
 
-    def token(value: str, kind: str, name: str | None = None) -> None:
+    def token(
+        value: str,
+        kind: str,
+        name: str | None = None,
+        orthographic_register: str | None = None,
+    ) -> None:
         tokens.append(
             PCGNToken(
                 text=value,
                 kind=kind,
                 codepoints=tuple(f"U+{ord(ch):04X}" for ch in value),
                 name=name,
+                orthographic_register=orthographic_register,
             )
         )
 
@@ -109,7 +117,12 @@ def analyze_pcgn_orthographic_chunk(text: str) -> PCGNOrthographicAnalysis:
             if i + 1 < len(chars) and chars[i + 1] in CONSONANTS_BY_CHAR:
                 subscript = chars[i + 1]
                 subscripts.append(subscript)
-                token(COENG + subscript, "subscript_consonant", CONSONANTS_BY_CHAR[subscript]["name"])
+                token(
+                COENG + subscript,
+                "subscript_consonant",
+                CONSONANTS_BY_CHAR[subscript]["name"],
+                CONSONANTS_BY_CHAR[subscript].get("register"),
+            )
                 i += 2
                 continue
             token(ch, "malformed_coeng", "COENG")
@@ -120,7 +133,7 @@ def analyze_pcgn_orthographic_chunk(text: str) -> PCGNOrthographicAnalysis:
         consonant = CONSONANTS_BY_CHAR.get(ch)
         if consonant:
             bases.append(ch)
-            token(ch, "unstacked_consonant", consonant["name"])
+            token(ch, "unstacked_consonant", consonant["name"], consonant.get("register"))
             i += 1
             continue
 
@@ -199,11 +212,12 @@ def analyze_pcgn_orthographic_chunk(text: str) -> PCGNOrthographicAnalysis:
         unresolved_components=tuple(unresolved),
         syllable_segmentation="NOT_PERFORMED",
         series_decision="UNRESOLVED",
+        register_source="NOT_SELECTED",
         coda_decision="UNRESOLVED",
         romanization=None,
         ipa=None,
         ukrainian=None,
-        status="UNSUPPORTED" if unresolved else "STRUCTURE_ONLY",
+        status="UNSUPPORTED" if unresolved or not any(ch in CONSONANTS_BY_CHAR or ch in SIGNS_BY_CHAR for ch in chars) else "STRUCTURE_ONLY",
         warnings=tuple(warnings),
         sources=("unicode17-ch16", "pcgn-1972-notes-2-8", PCGN_GUIDE),
     )
