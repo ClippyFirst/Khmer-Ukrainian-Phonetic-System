@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BGN/PCGN 1972 consonant cluster component decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "base_character", "base_table_row", "base_romanization",
+    "subscript_character", "subscript_table_row", "subscript_romanization",
+    "series", "onset_exception", "romanization", "status", "ipa",
+    "ukrainian", "source_locator", "warnings"
+  ],
+  "properties": {
+    "base_character": {"type": ["string", "null"], "enum": ["ក", "គ", "ខ", "ឃ", "ង", "ច", "ជ", "ឆ", "ឈ", "ញ", "ដ", "ឌ", "ឋ", "ឍ", "ថ", "ធ", "ណ", "ន", "ត", "ទ", "ប", "ព", "ផ", "ភ", "ម", "យ", "រ", "ឡ", "ល", "វ", "ស", "ហ", "អ", null]},
+    "base_table_row": {"type": ["integer", "null"], "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, null]},
+    "base_romanization": {"type": ["string", "null"]},
+    "subscript_character": {"type": ["string", "null"], "enum": ["ក", "គ", "ខ", "ឃ", "ង", "ច", "ជ", "ឆ", "ឈ", "ញ", "ដ", "ឌ", "ឋ", "ឍ", "ថ", "ធ", "ណ", "ន", "ត", "ទ", "ប", "ព", "ផ", "ភ", "ម", "យ", "រ", "ល", "វ", "ស", "ហ", null]},
+    "subscript_table_row": {"type": ["integer", "null"], "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, null]},
+    "subscript_romanization": {"type": ["string", "null"]},
+    "series": {"enum": ["â", "ô", null]},
+    "onset_exception": {"enum": ["BA_WITH_FOOT_P_IN_A_SERIES", "BA_WITH_MUUSIKATOAN_P_IN_A_SERIES", "BA_WITH_TRIISAP_P_IN_A_SERIES", null]},
+    "romanization": {"type": ["string", "null"]},
+    "status": {"enum": ["RESOLVED", "UNRESOLVED"]},
+    "ipa": {"type": "null"},
+    "ukrainian": {"type": "null"},
+    "source_locator": {"const": "PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2), Note 3"},
+    "warnings": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "RESOLVED"}}, "required": ["status"]},
+      "then": {
+        "properties": {
+          "base_character": {"type": "string"},
+          "base_table_row": {"enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]},
+          "base_romanization": {"type": "string", "minLength": 1},
+          "series": {"enum": ["â", "ô"]},
+          "romanization": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "UNRESOLVED"}}, "required": ["status"]},
+      "then": {"properties": {"romanization": {"type": "null"}, "ipa": {"type": "null"}, "ukrainian": {"type": "null"}}}
+    }
+  ]
+}

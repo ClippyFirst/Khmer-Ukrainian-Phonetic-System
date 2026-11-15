@@ -779,3 +779,24 @@ PR [#249](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/2
 ## Exact-main verification — PR #250 / inherent vowel row 1 — 2026-11-15
 
 PR [#250](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/250) merged as `62ce69bd17dc64fecfb73e81e22ca10bf97a25ff`. PR-head push Quality [43760551262], PR Quality [43760562169], PR Chromium [43760562155], exact-main Quality [43760662544], Chromium [43760662582] and Pages build/deploy [43760662587] all SUCCESS. The new resolver remains a bounded NON_FINAL inherent-vowel component; it does not implement final consonant/coda handling, complete syllable assembly, IPA or Ukrainian output.
+
+
+## BGN/PCGN consonant table — bounded rows 1–21 — 2026-11-15
+
+Added `resolve_pcgn_consonant(analysis)` for one base plus at most one subscript foot, mapping source Unicode consonant identity to the official PCGN consonant-table Latin component.
+
+- Rows 1–11 and 13–21 use the source table's consonant values.
+- Row 12 `ប` returns `b` normally; it returns `p` only for the Note 3 BA+MUUSIKATOAN, BA+TRIISAP or BA+foot exception. A subscript `ប` maps to `p`.
+- Row 22 `អ` is not duplicated here; it is delegated to `resolve_pcgn_glottal_onset` under Note 4.
+- The resolver obtains series from Notes 2–3, returns base and foot separately plus their concatenated consonant-cluster component, and abstains on multiple feet, unsupported marks and unresolved context. It maps supplied Unicode character identities only; lexical cases requiring external reference consultation are not guessed.
+
+Artifacts: `PCGNConsonantDecision`, schema `schemas/pcgn-consonant-decision.schema.json`, tests `tests/test_pcgn_consonant_resolution.py`, source table `data/khmer/romanization_pcgn_consonants.csv`.
+
+Source: BGN/PCGN 1972 Agreement, pp. 1–2: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+
+Status: `KHM-ROM-PCGN-CONSONANTS-001 = PARTIAL`. No complete syllable, vowel/coda output, IPA or Ukrainian output is generated.
+
+
+## Exact-main verification — PR #251 — 2026-11-15
+
+PR #251 merged as `aab014705bdf90825b922ff69f1c2e7758e56246`. PR-head push Quality [43760857888], PR Quality [43760868532], PR Chromium [43760868545], exact-main Quality [43760984773], Chromium [43760984785] and Pages [43760984838] all SUCCESS, including deployed-site/runtime-asset smoke. Documentation-only; no language behavior changed.

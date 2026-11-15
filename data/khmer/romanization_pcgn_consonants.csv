@@ -1,0 +1,23 @@
+table_row,base_characters,subscript_characters,romanization,implementation,source_locator,limitations
+1,ក|គ,ក|គ,k,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
+2,ខ|ឃ,ខ|ឃ,kh,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
+3,ង,ង,ng,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
+4,ច|ជ,ច|ជ,ch,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
+5,ឆ|ឈ,ឆ|ឈ,chh,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
+6,ញ,ញ,nh,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
+7,ដ|ឌ,ដ|ឌ,d,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",Subscript visual identity may need lexical reference consultation
+8,ឋ|ឍ,ឋ|ឍ,th,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",Subscript visual identity may need lexical reference consultation
+9,ថ|ធ,ថ|ធ,th,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
+10,ណ|ន,ណ|ន,n,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
+11,ត|ទ,ត|ទ,t,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
+12,ប,ប,b,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters row 12 and Note 3",Base is b unless Note 3 BA+MUUSIKATOAN/TRIISAP/foot exception selects p
+13,ព,ព,p,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
+14,ផ|ភ,ផ|ភ,ph,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
+15,ម,ម,m,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
+16,យ,យ,y,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",Subscript form is listed in the ô-series column only
+17,រ,រ,r,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
+18,ឡ|ល,ល,l,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters row 18 and note following table",No subscript form for ឡ
+19,វ,វ,v,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
+20,ស,ស,s,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
+21,ហ,ហ,h,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
+22,អ,អ,’,DELEGATED_NOTE_4,"PCGN 1972, Consonant Characters row 22 and Note 4",Use separate glottal-onset resolver with word position and following-vowel context

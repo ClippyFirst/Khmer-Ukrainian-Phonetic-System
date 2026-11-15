@@ -2790,3 +2790,26 @@ Status: `KHM-ROM-PCGN-INHERENT-VOWEL-001 = PARTIAL`. This is an onset vowel comp
 - Exact post-merge main Quality [43760662544], Chromium [43760662582] and Pages build/deploy [43760662587] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - The inherent-vowel resolver covers only PCGN table row 1 for an explicitly caller-identified NON_FINAL onset. FINAL consonant contexts abstain. No full syllable, IPA or Ukrainian output is generated.
 - Latest engineering checkpoint does not change the research gate: issue #104 remains OPEN; independent adjudicated IPA gold remains 0 and accuracy remains null. Root LICENSE is still absent and `main` remains unprotected.
+
+
+## BGN/PCGN consonant table component — rows 1–21 — 2026-11-15
+
+Implemented `resolve_pcgn_consonant(analysis)` and `PCGNConsonantDecision` for the official consonant table rows 1–21.
+
+- The resolver maps one Unicode base consonant and at most one modeled subscript foot to their PCGN Latin consonant components.
+- It derives the â/ô series using the existing Notes 2–3 resolver. For row 12, base `ប` is `b` normally and becomes `p` only when the Note 3 BA+MUUSIKATOAN, BA+TRIISAP or BA+foot exception is present; a subscript `ប` is `p`.
+- Row 22 `អ` is deliberately delegated to the separate Note 4 glottal-onset resolver, which requires word-position/following-vowel context.
+- One base plus one foot only. Multi-foot clusters, unknown characters, unsupported marks and unresolved series abstain. The resolver maps the supplied Unicode character identity; guide cases requiring lexical consultation remain outside this automatic subset.
+- Schema: `schemas/pcgn-consonant-decision.schema.json`; tests: `tests/test_pcgn_consonant_resolution.py`; source table: `data/khmer/romanization_pcgn_consonants.csv`; package exports updated.
+
+Primary source: BGN/PCGN 1972 Agreement, Consonant Characters and Subscript Consonant Forms table (pp. 1–2), Note 3 and note following the table: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+
+Status: `KHM-ROM-PCGN-CONSONANTS-001 = PARTIAL`. This is an onset-cluster component only; it does not segment syllables, map vowels/codas, emit IPA or produce Ukrainian output.
+
+
+## Exact-main verification — PR #251 documentation closeout — 2026-11-15
+
+- PR [#251](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/251) merged as `aab014705bdf90825b922ff69f1c2e7758e56246`; exact `main` verified at this SHA. No open PRs.
+- PR-head push Quality [43760857888], PR Quality [43760868532] and PR Chromium [43760868545] all SUCCESS.
+- Exact post-merge main Quality [43760984773], Chromium [43760984785] and Pages build/deploy [43760984838] all SUCCESS, including deployed-site/runtime-asset smoke.
+- PR #251 was documentation-only and did not promote any linguistic status.
