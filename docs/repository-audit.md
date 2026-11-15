@@ -863,3 +863,8 @@ PR #235 merged as `34ab63ff37023bddcaeaebb0a6ccd838f662c045`. Final PR-head `0d6
 - Syllable position is explicit caller input. INITIAL records mark omission; FINAL additionally requires explicit `â`/`ô` and returns only that vowel component.
 - No syllable segmentation, series inference, complete romanization, IPA or Ukrainian output.
 - Primary source: BGN/PCGN 1972 Diacritical Marks table row 5 (p. 4), Note 7 (p. 5). Status PARTIAL.
+
+
+## Exact-main verification — PR #237 / PCGN Note 7 — 2026-11-15
+
+PR #237 merged as `890791a1d8236180c82a39b81bd28b7f772d614c`. Final PR-head `2e3ee353124b1a9cacac64997ceb06720a78370c`: push Quality [43752539333], PR Quality [43752551657], PR Chromium [43752551605] all SUCCESS (284 tests + 70 subtests). Exact-main Quality [43752661403], Chromium [43752661392], Pages [43752661369] all SUCCESS, including deployed-site/runtime-asset smoke. AHSDA remains a PARTIAL component resolver; no syllable-position or series inference, full romanization, IPA or Ukrainian output.
