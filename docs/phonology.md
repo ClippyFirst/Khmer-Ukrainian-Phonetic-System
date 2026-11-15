@@ -4,7 +4,7 @@
 
 The repository distinguishes a descriptive phonetic inventory from a deterministic orthography-to-IPA algorithm. The latter is incomplete and must not be simulated by guesswork.
 
-The Standard Khmer/careful-citation profile in this project does not assume lexical tone by default. That statement must not be generalized to all contemporary Phnom Penh speech: a 2025 five-speaker study reports a categorical high/low F0 grouping in a bounded PPK wordlist, including /r>h/ forms and voiced-onset disyllables, and argues that pitch may be undergoing phonologization. This remains profile-specific and evidence-limited; it is not a license to add a universal Khmer tone rule.
+The current `khmer-pph-careful-citation-v1` profile does not encode lexical tone by default. This is a conservative implementation choice, not a claim that all contemporary Phnom Penh speech is non-tonal: a 2025 five-speaker study reports a categorical high/low F0 grouping in a bounded PPK wordlist, including /r>h/ forms and voiced-onset disyllables, and argues that pitch may be undergoing phonologization. This remains profile-specific and evidence-limited; it is not a license to add a universal Khmer tone rule.
 
 ## Consonants
 
