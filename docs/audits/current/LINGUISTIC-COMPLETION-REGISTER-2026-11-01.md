@@ -793,3 +793,15 @@ No code, dependency, corpus row, IPA label, Ukrainian mapping or generated artif
 | KHM-ROM-UA-001 | PARTIAL | Existing direct Latin adapter remains separate; contextual source-script generator is absent. | Consume validated PCGN output; expert review Ukrainian targets. |
 
 No gold/IPA evidence changed: independent adjudicated gold remains 0; empirical accuracy remains null.
+
+
+## Exact-main verification — BGN/PCGN ↔ UNGEGN rule diff (2026-11-15)
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| MAINLINE-CI-2026-11-15-G | DONE_VERIFIED (engineering/deployment only) | Main `266297fcc296388220ea48c975344f5aa14f097d`; Quality [43730567132](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43730567132), Chromium [43730567159](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43730567159), Pages [43730567118](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43730567118) all SUCCESS. | Hosted engineering, browser and deployment checks only; no linguistic accuracy or local test claim. |
+| KHM-ROM-PROFILE-DIFF-001 | DONE_VERIFIED (bounded textual comparison) | PR #209 merge `266297fcc296388220ea48c975344f5aa14f097d`; primary-source comparison at `docs/audits/current/BGN-PCGN-UNGEGN-RULE-DIFF-2026-11-15.md`. | Does not complete a full table parity diff or runtime. |
+| KHM-ROM-ENGINE-001 | PARTIAL | Candidate is UNGEGN 2013; explicit series-neutral subscript difference and unlisted extensions documented. | Project-owned contextual PCGN engine with ambiguity/abstention and source-located parity tests. |
+| KHM-GOLD-001 | BLOCKED | Issue #104 open; adjudicated IPA gold=0; accuracy=null. | Expert-approved convention, qualified double annotation, independent adjudicator, curator, blind intake, rights-cleared pilot and adjudication. |
+
+No code, corpus, IPA label, Ukrainian mapping or generated artifact changed. Research prototype only.
