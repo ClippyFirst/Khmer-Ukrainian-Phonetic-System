@@ -991,3 +991,12 @@ PR #249 merged as `a50f815f993f8fa9b4ae59c5f0f89b8c7717ea6f`. PR-head push Quali
 ## Exact-main verification — PR #250 / PCGN inherent vowel — 2026-11-15
 
 PR #250 merged as `62ce69bd17dc64fecfb73e81e22ca10bf97a25ff`. PR-head push Quality [43760551262], PR Quality [43760562169], PR Chromium [43760562155], exact-main Quality [43760662544], Chromium [43760662582] and Pages build/deploy [43760662587] all SUCCESS. The inherent-vowel component is bounded to caller-identified NON_FINAL onsets; the PCGN engine remains PARTIAL.
+
+
+## BGN/PCGN consonant table implementation audit — 2026-11-15
+
+- Added bounded consonant-cluster mapping for table rows 1–21: one base and at most one foot.
+- Row 12 BA b/p alternation is controlled by the existing Note 3 exception metadata, not guessed from an isolated glyph.
+- Row 22 alif remains delegated to the separate Note 4 glottal-onset resolver.
+- Added typed decision, schema, source registry, tests and package exports.
+- Multiple-foot clusters, unresolved series, unsupported marks and lexical reference cases abstain. This is not a complete PCGN syllable romanizer and emits no IPA/Ukrainian output.
