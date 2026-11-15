@@ -3,12 +3,14 @@
   "title": "BGN/PCGN 1972 Note 3 series decision",
   "type": "object",
   "additionalProperties": false,
-  "required": ["series", "basis", "status", "onset_exception", "source_locator", "warnings"],
+  "required": ["series", "basis", "status", "onset_exception", "series_before_shifter", "shifter_effect", "source_locator", "warnings"],
   "properties": {
     "series": {"enum": ["â", "ô", null]},
     "basis": {"enum": ["BASE", "SUBSCRIPT", "UNRESOLVED"]},
     "status": {"enum": ["RESOLVED", "UNRESOLVED"]},
-    "onset_exception": {"enum": ["BA_WITH_FOOT_P_IN_A_SERIES", null]},
+    "onset_exception": {"enum": ["BA_WITH_FOOT_P_IN_A_SERIES", "BA_WITH_MUUSIKATOAN_P_IN_A_SERIES", null]},
+    "series_before_shifter": {"enum": ["â", "ô", null]},
+    "shifter_effect": {"enum": ["TRIISAP_A_TO_O", "MUUSIKATOAN_O_TO_A", "BA_MUUSIKATOAN_P_IN_A", null]},
     "source_locator": {"const": "PCGN 1972, Note 3 (pp. 2–3)"},
     "warnings": {"type": "array", "items": {"type": "string"}, "minItems": 1}
   },
