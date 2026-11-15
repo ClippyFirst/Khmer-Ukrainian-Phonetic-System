@@ -83,3 +83,26 @@ def test_report_keeps_tone_omission_and_zero_gold_explicit():
     assert report["independent_gold_count"] == 0
     assert report["accuracy"] is None
     assert any("does not evaluate tone/phonation recovery" in item for item in report["limitations"])
+
+
+def test_custom_corpus_path_does_not_claim_the_default_source_revision():
+    rows = [{"orth": "ក", "pron_no_tones": "ka"}]
+    report = build_report(
+        rows,
+        ["ka"],
+        model_revision="20e069d384b240da76320e1569958568c12a54bc",
+        corpus_sha256="c" * 64,
+    )
+    assert report["corpus_source_commit"] is None
+
+
+def test_explicit_corpus_source_revision_is_preserved():
+    rows = [{"orth": "ក", "pron_no_tones": "ka"}]
+    report = build_report(
+        rows,
+        ["ka"],
+        model_revision="20e069d384b240da76320e1569958568c12a54bc",
+        corpus_sha256="d" * 64,
+        corpus_source_commit="f80f6c1840c4818b51e05f2e00cded4701a5b662",
+    )
+    assert report["corpus_source_commit"] == "f80f6c1840c4818b51e05f2e00cded4701a5b662"
