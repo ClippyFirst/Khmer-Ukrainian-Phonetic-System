@@ -57,3 +57,14 @@ test("unknown pre-romanized fragments are bracketed, not guessed", async ({ page
   await expect(page.locator("#ua-romanization-result")).toHaveText("Кампучеа ⟦q⟧");
   await expect(page.locator("#ua-romanization-status")).toContainText("PARTIAL");
 });
+
+
+test("phonetic diagnostics stay hidden while editing direct romanization input", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("Kâmpŭchéa");
+  await page.locator("#mode-romanization").click();
+  await page.locator("#source").fill("Kâmpŭchéa q");
+  await expect(page.locator("#ua-romanization-result")).toHaveText("Кампучеа ⟦q⟧");
+  await expect(page.locator("#issue")).toBeHidden();
+  await expect(page.locator("#unit-details")).toBeHidden();
+});
