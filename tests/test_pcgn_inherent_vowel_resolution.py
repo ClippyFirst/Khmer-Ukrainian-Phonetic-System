@@ -50,6 +50,13 @@ def test_pcgn_inherent_vowel_abstains_for_final_consonants_and_explicit_vowels()
         assert result.romanization is None
 
 
+def test_pcgn_inherent_vowel_invalid_position_abstains_schema_safely():
+    result = resolve_pcgn_inherent_vowel(analyze_pcgn_orthographic_chunk("ក"), "UNKNOWN")  # type: ignore[arg-type]
+    assert result.status == "UNRESOLVED"
+    assert result.syllable_position is None
+    assert result.romanization is None
+
+
 def test_pcgn_inherent_vowel_schema_and_source_registry_are_bounded():
     root = Path(__file__).resolve().parents[1]
     schema = json.loads(
