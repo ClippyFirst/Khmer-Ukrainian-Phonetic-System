@@ -420,3 +420,13 @@ Documentation-only PR [#180](https://github.com/ClippyFirst/Khmer-Ukrainian-Phon
 - The report remains explicitly source-attested: 100/100 historical outputs, 64 strict matches, CER 12.539% on `pron_no_tones`; no tone evaluation, independent gold 0, accuracy null, training/evaluation split independence not established.
 - PR #153's provider runtime was not ported because it bypasses `validate_ipa_candidate` and conflicts with the current compatibility API. PR #153 remains open/draft. PR #184 is the separate safe port; merge only after final docs-head CI.
 - No local shell execution is claimed. Rights, split independence, typed provider adapter and independent Phnom Penh IPA adjudication remain BLOCKED.
+
+
+## PR #184 mainline merge and verification — 2026-11-15
+
+- Squash merge: PR #184 → `66c43e1772a4c871e06e625e80ad43da2d123c85`; starting main `5e082024b7ae871b1bb95219ea80e5b87502b66e`.
+- Exact PR-head Quality [43695611313](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43695611313) and Chromium [43695611252](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43695611252) both SUCCESS. Python: 214 passed, 64 subtests passed. Browser: 4 passed including visible-result verification.
+- Post-merge main Quality [43695677574](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43695677574), browser [43695677644](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43695677644), and Pages build/deploy [43695677607](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43695677607) all SUCCESS.
+- PR #184 ported the pinned diagnostic runner, tests, manual-only neural benchmark workflow, and source/experiment evidence. It did not port the old HybridKhmerEngine provider runtime. The benchmark model is fixed to the audited model ID; custom corpus paths cannot silently inherit the default source revision. The workflow does not export source corpus rows.
+- No optional workflow dispatch, external model inference, local shell, or local pytest execution occurred. Hosted CI verifies code/tests/build/browser/deploy only.
+- PR #153 remains open/draft; no blind merge or branch rewrite. Independent gold remains 0, accuracy null, MekongPhon corpus rights unresolved, and train/evaluation split independence not established. The engine is not linguistically production-ready.
