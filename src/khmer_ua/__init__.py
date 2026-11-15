@@ -11,6 +11,7 @@ from .pcgn import (
     PCGNShortenedVowelDecision,
     PCGNRobatDecision,
     PCGNAhsdaDecision,
+    PCGNToandakhiatDecision,
     PCGN_NO_SUBSCRIPT_FOR,
     PCGNToken,
     PCGN_WEAK_SUBSCRIPTS,
@@ -21,6 +22,7 @@ from .pcgn import (
     resolve_pcgn_shortened_vowel,
     resolve_pcgn_robat,
     resolve_pcgn_ahsda,
+    resolve_pcgn_toandakhiat,
 )
 from .ipa import (
     IPACandidate,
@@ -42,6 +44,7 @@ __all__ = [
     "PCGNShortenedVowelDecision",
     "PCGNRobatDecision",
     "PCGNAhsdaDecision",
+    "PCGNToandakhiatDecision",
     "PCGN_NO_SUBSCRIPT_FOR",
     "PCGN_WEAK_SUBSCRIPTS",
     "resolve_pcgn_series",
@@ -50,6 +53,7 @@ __all__ = [
     "resolve_pcgn_shortened_vowel",
     "resolve_pcgn_robat",
     "resolve_pcgn_ahsda",
+    "resolve_pcgn_toandakhiat",
     "analyze_pcgn_orthographic_chunk",
     "normalize_khmer",
     "IPACandidate",

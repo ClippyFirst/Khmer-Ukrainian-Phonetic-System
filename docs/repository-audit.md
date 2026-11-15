@@ -868,3 +868,12 @@ PR #235 merged as `34ab63ff37023bddcaeaebb0a6ccd838f662c045`. Final PR-head `0d6
 ## Exact-main verification — PR #237 / PCGN Note 7 — 2026-11-15
 
 PR #237 merged as `890791a1d8236180c82a39b81bd28b7f772d614c`. Final PR-head `2e3ee353124b1a9cacac64997ceb06720a78370c`: push Quality [43752539333], PR Quality [43752551657], PR Chromium [43752551605] all SUCCESS (284 tests + 70 subtests). Exact-main Quality [43752661403], Chromium [43752661392], Pages [43752661369] all SUCCESS, including deployed-site/runtime-asset smoke. AHSDA remains a PARTIAL component resolver; no syllable-position or series inference, full romanization, IPA or Ukrainian output.
+
+
+## BGN/PCGN Note 8 implementation audit — 2026-11-15
+
+- Added `PCGNToandakhiatDecision` and `resolve_pcgn_toandakhiat`, schema and regression tests.
+- Requires exactly one final TOANDAKHIAT mark and an exact caller-supplied marked consonant grapheme matching the immediately preceding unstacked/subscript token.
+- Returns an omission decision only. It does not infer silent characters, romanize the remaining word, or produce IPA/Ukrainian.
+- Synthetic structural tests cover unstacked/subscript consonants and fail-closed contexts; guide examples are not treated as gold.
+- Primary source: BGN/PCGN 1972 Diacritical Marks table row 6 (p. 4), Note 8 (p. 5). Status PARTIAL.

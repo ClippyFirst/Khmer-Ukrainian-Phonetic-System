@@ -26,7 +26,8 @@ def test_all_eleven_pcgn_notes_are_registered_with_primary_source_locators():
     assert statuses["5"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["6"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["7"] == "PARTIAL_COMPONENT_RESOLVER"
-    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"5", "6", "7"})
+    assert statuses["8"] == "PARTIAL_COMPONENT_RESOLVER"
+    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"5", "6", "7", "8"})
 
 
 def test_pcgn_note_three_keeps_the_pcgn_weak_subscript_set_exact():
@@ -62,6 +63,13 @@ def test_pcgn_note_seven_preserves_explicit_position_and_series_boundary():
     assert "never inferred" in note["limitations"].lower()
 
 
+def test_pcgn_note_eight_preserves_explicit_silent_character_boundary():
+    note = next(row for row in _rows() if row["note_number"] == "8")
+    assert "not pronounced" in note["source_summary"].lower()
+    assert "caller must identify" in note["conditions_or_exceptions"].lower()
+    assert "not inferred" in note["limitations"].lower()
+
+
 def test_pcgn_notes_registry_is_not_misrepresented_as_ipa_or_ukrainian_gold():
     rows = _rows()
     headers = set(rows[0])
@@ -70,4 +78,5 @@ def test_pcgn_notes_registry_is_not_misrepresented_as_ipa_or_ukrainian_gold():
     assert statuses["5"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["6"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["7"] == "PARTIAL_COMPONENT_RESOLVER"
-    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"5", "6", "7"})
+    assert statuses["8"] == "PARTIAL_COMPONENT_RESOLVER"
+    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"5", "6", "7", "8"})

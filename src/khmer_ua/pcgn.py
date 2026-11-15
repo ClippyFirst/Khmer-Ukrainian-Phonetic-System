@@ -944,6 +944,85 @@ def resolve_pcgn_ahsda(
     )
 
 
+
+PCGN_TOANDAKHIAT_TABLE_LOCATOR = (
+    "PCGN 1972, Diacritical Marks table row 6 (p. 4), Note 8 (p. 5)"
+)
+
+
+@dataclass(frozen=True)
+class PCGNToandakhiatDecision:
+    marked_character: str | None
+    marked_token_kind: Literal["unstacked_consonant", "subscript_consonant"] | None
+    effect: Literal["OMIT_MARKED_CHARACTER"] | None
+    romanization: None
+    status: Literal["RESOLVED", "UNRESOLVED"]
+    ipa: None
+    ukrainian: None
+    source_locator: str
+    warnings: tuple[str, ...]
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+def resolve_pcgn_toandakhiat(
+    analysis: PCGNOrthographicAnalysis,
+    marked_character: str | None,
+) -> PCGNToandakhiatDecision:
+    """Resolve the PCGN Note 8 silent-character omission component.
+
+    The exact marked consonant grapheme is an explicit caller input. This
+    resolver verifies that it is the consonant token immediately preceding
+    the one final TOANDAKHIAT mark; it does not guess which character is
+    silent or romanize the rest of the word.
+    """
+    def unresolved(reason: str) -> PCGNToandakhiatDecision:
+        return PCGNToandakhiatDecision(
+            marked_character=None,
+            marked_token_kind=None,
+            effect=None,
+            romanization=None,
+            status="UNRESOLVED",
+            ipa=None,
+            ukrainian=None,
+            source_locator=PCGN_TOANDAKHIAT_TABLE_LOCATOR,
+            warnings=(reason, "NO_COMPLETE_SYLLABLE_IPA_OR_UKRAINIAN_OUTPUT"),
+        )
+
+    if analysis.status != "STRUCTURE_ONLY":
+        return unresolved("UNSUPPORTED_OR_UNRESOLVED_ORTHOGRAPHIC_COMPONENT")
+    if not marked_character:
+        return unresolved("EXPLICIT_TOANDAKHIAT_MARKED_CHARACTER_REQUIRED")
+    if len(analysis.toandakhiat_positions) != 1:
+        return unresolved("EXACTLY_ONE_TOANDAKHIAT_MARK_REQUIRED")
+    if analysis.toandakhiat_positions[0] != len(analysis.normalized_text) - 1:
+        return unresolved("TOANDAKHIAT_MUST_BE_FINAL_IN_THE_SUPPORTED_COMPONENT_CHUNK")
+    if len(analysis.tokens) < 2 or analysis.tokens[-1].kind != "toandakhiat_silent_mark":
+        return unresolved("TOANDAKHIAT_TOKEN_MUST_END_THE_COMPONENT_CHUNK")
+    marked_token = analysis.tokens[-2]
+    if marked_token.kind not in {"unstacked_consonant", "subscript_consonant"}:
+        return unresolved("TOANDAKHIAT_MARKED_COMPONENT_MUST_BE_A_MODELED_CONSONANT")
+    if marked_token.text != marked_character:
+        return unresolved("CALLER_IDENTIFIED_MARKED_CHARACTER_DOES_NOT_MATCH_SOURCE_TOKEN")
+
+    return PCGNToandakhiatDecision(
+        marked_character=marked_token.text,
+        marked_token_kind=marked_token.kind,
+        effect="OMIT_MARKED_CHARACTER",
+        romanization=None,
+        status="RESOLVED",
+        ipa=None,
+        ukrainian=None,
+        source_locator=PCGN_TOANDAKHIAT_TABLE_LOCATOR,
+        warnings=(
+            "PCGN_NOTE_8_MARKED_CHARACTER_NOT_PRONOUNCED_AND_NOT_ROMANIZED",
+            "MARKED_CHARACTER_CALLER_IDENTIFIED_NOT_INFERRED",
+            "NO_REMAINING_WORD_ROMANIZATION_IPA_OR_UKRAINIAN_OUTPUT",
+        ),
+    )
+
+
 __all__ = [
     "PCGNOrthographicAnalysis",
     "PCGNToken",
@@ -953,6 +1032,7 @@ __all__ = [
     "PCGNShortenedVowelDecision",
     "PCGNRobatDecision",
     "PCGNAhsdaDecision",
+    "PCGNToandakhiatDecision",
     "PCGN_WEAK_SUBSCRIPTS",
     "PCGN_NO_SUBSCRIPT_FOR",
     "resolve_pcgn_series",
@@ -961,5 +1041,6 @@ __all__ = [
     "resolve_pcgn_shortened_vowel",
     "resolve_pcgn_robat",
     "resolve_pcgn_ahsda",
+    "resolve_pcgn_toandakhiat",
     "analyze_pcgn_orthographic_chunk",
 ]

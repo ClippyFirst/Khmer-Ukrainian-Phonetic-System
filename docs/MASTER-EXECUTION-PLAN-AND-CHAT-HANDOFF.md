@@ -2636,3 +2636,18 @@ Status: `KHM-ROM-PCGN-AHSDA-001 = PARTIAL`. Syllable position and series are cal
 - Final PR-head `2e3ee353124b1a9cacac64997ceb06720a78370c`: push Quality [43752539333], PR Quality [43752551657], PR Chromium [43752551605] all SUCCESS. Quality reports 284 Python tests passed and 70 subtests passed; web checks and production build passed; Chromium visible-results smoke passed.
 - Exact post-merge main: Quality [43752661403], Chromium [43752661392], Pages build/deploy [43752661369] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - `KHM-ROM-PCGN-AHSDA-001` remains PARTIAL: syllable position is caller-supplied; FINAL additionally requires explicit series. The resolver returns only the mark effect/vowel component, not a full syllable, IPA or Ukrainian output.
+
+
+## PCGN Note 8 — bounded TOANDAKHIAT silent-character component — 2026-11-15
+
+Implemented `resolve_pcgn_toandakhiat(analysis, marked_character)` and exported `PCGNToandakhiatDecision`.
+
+The resolver requires the caller to identify the exact marked consonant grapheme. It accepts exactly one final TOANDAKHIAT mark and verifies that the supplied grapheme matches the immediately preceding modeled unstacked or subscript consonant token. On success it returns only `OMIT_MARKED_CHARACTER`; it does not romanize the marked character or the remainder of the word.
+
+This deliberately does not infer which glyph is silent from a word-level orthographic string. Synthetic structural tests cover unstacked and subscript tokens, missing/mismatched caller identification, misplaced/multiple marks and non-consonant attachment. The guide's lexical examples are source references, not independently adjudicated pronunciation labels.
+
+Schema: `schemas/pcgn-toandakhiat-decision.schema.json`; tests: `tests/test_pcgn_toandakhiat_resolution.py`.
+
+Source: BGN/PCGN 1972, Diacritical Marks table row 6 (p. 4) and Note 8 (p. 5): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+
+Status: `KHM-ROM-PCGN-TOANDAKHIAT-001 = PARTIAL`. Only consonant tokens with explicit caller identification are supported; no full-word romanization, IPA or Ukrainian output is produced.
