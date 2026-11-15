@@ -2375,7 +2375,7 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - `resolve_pcgn_series` now applies Note 2 only for one shifter immediately after one base consonant with no foot: TRIISAP U+17CA changes â→ô; MUUSIKATOAN U+17C9 changes ô→â.
 - Preserves Note 3's BA + MUUSIKATOAN p-in-â exception. BA + TRIISAP remains unresolved.
 - Shifters on clusters, multiple/misplaced shifters, wrong-direction shifters and unsupported structures abstain. No vowel, coda, syllable segmentation, PCGN Latin, IPA or Ukrainian output is generated.
-- Update the analysis and series-decision JSON Schemas and tests for shifter positions, before/after series and typed effects. Exact-head CI pending.
+- Updated the analysis and series-decision JSON Schemas and tests for shifter positions, before/after series and typed effects. Exact PR-head and main CI passed.
 - This is a bounded subset, not complete Note 2 implementation. Next gates: review shifters on consonant+foot clusters and BA+TRIISAP; then tackle contextual vowel/rime selection and Note 5 only when coda is known.
 
 
@@ -2394,3 +2394,11 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - PR [#218](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/218) merged by squash as `9420326549d8a327774d0587b6fe19c4b17befcd`; exact current `main` verified at this SHA. No open PRs.
 - PR-head `eec944d2393fd78f810fe19c405e0ee5fdeacd99`: push Quality [43735564674], PR Quality [43735576766], PR Chromium [43735576217] all SUCCESS.
 - Exact post-merge main checks: Quality [43735662414](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735662414), Chromium [43735662288](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735662288), Pages build/deploy [43735662264](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735662264) all SUCCESS, including deployed-site/runtime-asset smoke.
+
+
+## Exact-main verification — PR #219 documentation closeout — 2026-11-15
+
+- PR [#219](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/219) merged by squash as `690b44174a8831ac9b08b44786d5ffde43f6d5aa`; exact current `main` verified at this SHA. No open PRs.
+- PR-head `d0cf981a7219d0c9ccd615a11b3f62b08dfffe14`: push Quality [43735841295], PR Quality [43735855013], PR Chromium [43735855047] all SUCCESS.
+- Exact post-merge main checks: Quality [43735981736], Chromium [43735981714], Pages build/deploy [43735981744] all SUCCESS, including deployed-site/runtime-asset smoke.
+- This is documentation-only verification. The Note 2 shifter implementation remains PARTIAL; no linguistic status is upgraded by this PR.
