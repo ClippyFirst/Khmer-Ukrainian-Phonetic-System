@@ -164,3 +164,37 @@ select{display:block;width:100%;min-height:44px;padding:9px 12px;border:1px soli
   .unit-detail-heading{align-items:flex-start;flex-direction:column}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+.hybrid-panel{margin-top:18px;padding:18px 20px;border:1px solid var(--line);background:var(--surface)}
+.hybrid-heading{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.hybrid-heading small{color:var(--red);font:750 .72rem/1.4 ui-monospace,monospace;letter-spacing:.08em}
+.hybrid-heading h3{margin:5px 0 0;font-size:1.08rem}
+.hybrid-badge{flex:none;padding:5px 8px;border:1px solid var(--line);color:var(--muted);font:700 .68rem/1.35 ui-monospace,monospace}
+.hybrid-intro{max-width:900px;margin:10px 0 16px;color:var(--muted);font-size:.88rem;line-height:1.6}
+.hybrid-form{display:grid;gap:12px;padding:15px;border:1px solid var(--line);background:var(--soft)}
+.hybrid-form label{display:grid;gap:6px;color:var(--ink);font-size:.82rem;font-weight:700}
+.hybrid-form input,.hybrid-form select,.hybrid-form textarea{width:100%;min-width:0;padding:10px 11px;border:1px solid #cfd3d9;border-radius:0;background:#fff;color:var(--ink);font:500 .9rem/1.5 inherit}
+.hybrid-form textarea{resize:vertical;font-family:ui-monospace,SFMono-Regular,monospace}
+.hybrid-form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.hybrid-form-footer{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hybrid-form-footer>span{color:var(--muted);font-size:.8rem}
+.hybrid-form-footer>span code{font-size:.76rem}
+.hybrid-form-footer>div{display:flex;flex-wrap:wrap;gap:8px}
+.hybrid-form-status{margin:0;color:var(--muted);font-size:.82rem;line-height:1.5}
+.hybrid-candidates{display:grid;gap:9px;margin-top:12px}
+.hybrid-empty{margin:0;padding:12px 14px;border:1px dashed var(--line);color:var(--muted);font-size:.85rem;line-height:1.5}
+.hybrid-candidate,.hybrid-failure{min-width:0;padding:13px 15px;border:1px solid var(--line);background:#fff}
+.hybrid-candidate-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hybrid-candidate-heading strong{font-size:.88rem;overflow-wrap:anywhere}
+.hybrid-candidate-meta{color:var(--muted);font:650 .7rem/1.4 ui-monospace,monospace}
+.hybrid-candidate-ipa{margin:8px 0;font:1.25rem/1.55 "Charis SIL","Doulos SIL","DejaVu Sans","Noto Sans",sans-serif;overflow-wrap:anywhere}
+.hybrid-candidate-note,.hybrid-failure p{margin:5px 0 0;color:var(--muted);font-size:.82rem;line-height:1.5;overflow-wrap:anywhere}
+.hybrid-failure{border-color:#d8c9a5;background:#fbf8ef}
+.hybrid-failure strong{font-size:.84rem;color:#705a27}
+@media(max-width:760px){
+  .hybrid-panel{padding:15px}
+  .hybrid-form-grid{grid-template-columns:minmax(0,1fr)}
+  .hybrid-form-footer{align-items:stretch;flex-direction:column}
+  .hybrid-form-footer>div{display:grid;grid-template-columns:1fr 1fr}
+  .hybrid-heading{align-items:flex-start;flex-direction:column}
+}
