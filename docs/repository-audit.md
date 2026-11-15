@@ -652,3 +652,8 @@ The function returns only series metadata with a source locator; it does not imp
 PR #215 merged as `357ce7f2a5400ff1643e4f64337009dd18c4113d`. PR-head push Quality [43734733096], PR Quality [43734746708], PR Chromium [43734746686], and exact-main Quality [43734828487], Chromium [43734828491], Pages build/deploy [43734828557] all SUCCESS.
 
 The Note 3 resolver is verified for bounded series metadata only. It does not implement shifters, vowel selection, coda/phonetic syllabification, shortened vowels, or romanization. The complete Khmer-script PCGN engine remains PARTIAL. Issue #104 and legal/governance/manual-accessibility blockers remain unchanged.
+
+
+## PCGN Note 2 shifter subset — 2026-11-15
+
+The Note 3 series resolver now handles the unambiguous single-base subset of Note 2: TRIISAP after an â-series base shifts to ô; MUUSIKATOAN after an ô-series base shifts to â; BA + MUUSIKATOAN retains the Note 3 p-in-â exception. It records the shifter's source position and before/after series. It abstains on clusters, multiple/misplaced or wrong-direction shifters and BA + TRIISAP. This is partial Note 2 coverage, not full romanization. Hosted CI pending.
