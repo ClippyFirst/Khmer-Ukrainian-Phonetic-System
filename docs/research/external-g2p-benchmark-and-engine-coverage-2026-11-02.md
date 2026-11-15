@@ -95,3 +95,15 @@ The [`byumatrixlab/khmer-ipa`](https://huggingface.co/byumatrixlab/khmer-ipa) mo
 ### Full Khmer dictionary availability check — 2026-11-02
 
 The README points to `dictionary/khmer_ipa.dict` and reports 29,204 entries, but fetching that exact path from the repository's `main` branch returned GitHub API 404. The only dictionary file successfully retrieved for inspection was `dictionary/khmer_ipa_sample.dict`, which contains six entries. Therefore the claimed 29,204-entry inventory remains an upstream README claim, not an independently inspected corpus in this audit. No lexicon coverage percentage can be calculated from the six-entry sample. **BLOCKED:** repeat the coverage/notation audit when the full dictionary is accessible at a stable repository path or another inspectable source.
+
+## Auxiliary respelling and incomplete IPA lexicon candidates — 2026-11-15
+
+### PhonSobon Khmer G2P
+
+The [model](https://huggingface.co/phonsobon/khmer-g2p) predicts Khmer-script respelling with syllable separators, not IPA. The model card reports 83.37% validation word accuracy at epoch 150 for a 7.46M-parameter character-level Transformer; this is an upstream validation metric, not a project benchmark and not a test-set result.
+
+The [dataset](https://huggingface.co/datasets/phonsobon/khmer-G2P) reports 38,629 pairs / 37,755 unique words, split 34,770 / 1,939 / 1,920. It derives from NCKL Khmer Dictionary 2022 and the card asks users to credit NCKL and check NCKL terms before commercial use. No rows or model weights are copied. This is an auxiliary syllabification/respelling comparator only; it cannot satisfy the IPA adapter boundary or independent IPA gold requirement.
+
+### Khmer Acoustic Model dictionary status correction
+
+The pinned review found incompatible claims: root README advertises 29,204 IPA entries and CC BY-SA 4.0, while `dictionary/README.md` reports 33,091 entries and CC BY 4.0. The inspected tree at commit `2714994b41ccf875c5b6f6182b48a72f13632dbf` exposes only a 144-byte six-entry sample. Reported MAE/F1 values are forced-alignment measures, not G2P accuracy. The resource remains blocked until the complete dictionary, count, provenance and data rights are resolved.
