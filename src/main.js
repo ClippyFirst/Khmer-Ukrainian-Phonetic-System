@@ -414,7 +414,7 @@ if (typeof document !== "undefined") {
     }
     empty.hidden = true;
     results.hidden = false;
-    const hasKhmer = /[\u1780-\u17ff\u19e0-\u19ff]/u.test(data.source);
+    const hasKhmer = [...data.source].some(char => /\p{Script=Khmer}/u.test(char) && /[\p{L}\p{M}]/u.test(char));
     const hasLatin = /\p{Script=Latin}/u.test(data.source);
     const hasMixedScript = hasKhmer && hasLatin;
     const usesKhmerRomanizer = hasKhmer && !hasLatin;
