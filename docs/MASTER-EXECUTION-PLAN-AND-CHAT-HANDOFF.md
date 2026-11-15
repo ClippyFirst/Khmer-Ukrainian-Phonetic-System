@@ -2356,3 +2356,14 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - Preserves the Note 3 ប+foot p-in-â exception as typed metadata `BA_WITH_FOOT_P_IN_A_SERIES`. The parser now rejects a PCGN foot form for ឡ, which the official consonant table says has no subscript form.
 - Abstains for shifters (Note 2 not implemented), multiple feet/bases, malformed/unknown/unmodelled input, and independent vowels. Output is series metadata only; no vowel, coda, phonetic syllabification, PCGN Latin, IPA or Ukrainian output.
 - Next gate: hosted exact-head Quality/Chromium, then exact-main checks; add Note 2 shifter resolution only after a separate source-grounded exception table and tests. Note 5 shortening remains blocked on coda and vowel-pattern parsing.
+
+
+## Exact-main verification — PCGN Note 3 series resolver / PR #215 — 2026-11-15
+
+- PR [#215](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/215) merged by squash as `357ce7f2a5400ff1643e4f64337009dd18c4113d`; exact current `main` verified at this SHA. No open PRs.
+- PR-head `321a7d9ea03b47dae95bc2d7fd95f0c5a2745346`: push Quality [43734733096](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734733096), PR Quality [43734746708](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734746708), PR Chromium [43734746686](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734746686) all SUCCESS.
+- Exact post-merge main `357ce7f2a5400ff1643e4f64337009dd18c4113d`: Quality [43734828487](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734828487), Chromium [43734828491](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734828491), Pages build/deploy [43734828557](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734828557) all SUCCESS. Pages includes a separate deploy job and deployed-site/runtime-asset smoke test.
+- Python tests, web checks and production build passed on exact PR head and main. No local checkout or local test execution is claimed.
+- `KHM-ROM-PCGN-SERIES-001` is DONE_VERIFIED only for Note 3 series selection and its abstention contract. `KHM-ROM-ENGINE-001` remains PARTIAL: Note 2 shifters, vowel/rime selection, coda, Note 5 shortening, syllable segmentation and full PCGN output are not implemented.
+- The resolver preserves PCGN's exact weak-foot set (five nasals plus យ/រ/ល/វ, no ស), the ប+foot p-in-â exception, and the no-foot status of ឡ. It abstains on shifters and multiple feet/bases. No IPA or Ukrainian output changed.
+- Issue #104 remains open; independent adjudicated IPA gold=0 and empirical accuracy=null. Root LICENSE absent while pyproject metadata declares MIT; main remains unprotected. Research prototype only.
