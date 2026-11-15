@@ -638,3 +638,8 @@ The resolver does not infer which character is silent, does not romanize the rem
 Source: BGN/PCGN 1972, Diacritical Marks table row 6 (p. 4) and Note 8 (p. 5): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 
 Status: `KHM-ROM-PCGN-TOANDAKHIAT-001 = PARTIAL`.
+
+
+## Exact-main verification — PR #239 / PCGN Note 8 — 2026-11-15
+
+PR #239 merged as `9c615293e3037cb0ccbd9db0820698741bbcd5cf`. Final PR-head `e52b2d5be98a521dfa3c6dc5af846c6c79d42dce`: push Quality [43753171641], PR Quality [43753185515], PR Chromium [43753185496] all SUCCESS (290 tests + 70 subtests). Exact-main Quality [43753327251], Chromium [43753327183], Pages [43753327232] all SUCCESS, including deployed-site/runtime-asset smoke. TOANDAKHIAT remains PARTIAL; silent character is caller-identified, with omission-only output.
