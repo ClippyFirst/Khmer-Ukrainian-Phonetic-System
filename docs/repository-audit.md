@@ -674,3 +674,8 @@ PR #218 merged as `9420326549d8a327774d0587b6fe19c4b17befcd`. Exact-head push Qu
 ## Exact-main verification — PR #219 — 2026-11-15
 
 PR #219 merged as `690b44174a8831ac9b08b44786d5ffde43f6d5aa`. PR-head push Quality [43735841295], PR Quality [43735855013], PR Chromium [43735855047], and exact-main Quality [43735981736], Chromium [43735981714], Pages [43735981744] all SUCCESS.
+
+
+## Exact-main checkpoint — PR #220 — 2026-11-15
+
+PR #220 merged as `8c4784235742cd83c35ce4a2b0bc7831a2b11bb2`. PR-head push Quality [43736157032], PR Quality [43736168034], PR Chromium [43736167978] all SUCCESS. Exact-main Quality [43736256876], Chromium [43736256892] and Pages [43736257006] dispatched; final status pending.
