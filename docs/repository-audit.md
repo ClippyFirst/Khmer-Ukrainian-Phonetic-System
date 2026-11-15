@@ -515,3 +515,9 @@ The repository remains a research platform / partial prototype. No empirical pho
 - PR #195 merged documentation as `0d1183553a4851eb0c21336f381be3d0f2d0efaf`; exact-head Quality [43709585653] passed (223 tests + 70 subtests), Chromium [43709585691] passed (9 tests).
 - Mixed-script handling is verified as an input guard only. Ukrainian mapping values remain provisional. No new phonological claim or accuracy score is made.
 - Post-merge CI was not returned for PR #194 merge SHA; do not substitute PR-head CI for a post-merge run.
+
+## Automated accessibility smoke — 2026-11-15
+
+- PR #197 merged as `9452ac70ee16973ac5f0e8bd28201501539409de`. Exact-head Quality [43709993984] SUCCESS (223 tests + 70 subtests); Chromium [43709994024] SUCCESS (11 browser tests).
+- Automated checks cover the input accessible name, method switch group/button names, clear button name, keyboard activation with Enter, and the polite live status region.
+- Manual screen-reader, complete keyboard traversal, contrast, zoom/reflow, mobile and assistive-technology review remains PARTIAL. Automated browser smoke is not a substitute for human accessibility QA.
