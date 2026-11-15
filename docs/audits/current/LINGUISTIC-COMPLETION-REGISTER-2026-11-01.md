@@ -674,3 +674,15 @@ The unit-test discovery gap is closed. This does not resolve the lossy ASCII rom
 |---|---|---|---|
 | KHM-UI-A11Y-SMOKE-001 | DONE_VERIFIED (automated smoke only) | PR #197 merge `9452ac70ee16973ac5f0e8bd28201501539409de`; exact-head Quality 223 tests + 70 subtests and 11 browser tests passed. | Covers key accessible names, method-switch Enter activation and polite live status. Does not replace manual screen-reader, full keyboard, contrast, zoom/reflow or mobile review. |
 | KHM-UI-MANUAL-A11Y-001 | PARTIAL | Hosted Chromium smoke exists; PR #197 added automated semantics/keyboard assertions. | Manual screen-reader, complete keyboard, contrast, zoom/reflow, mobile and assistive-technology audit remains required. |
+
+
+## Exact-main CI and PR-state checkpoint — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| MAINLINE-CI-2026-11-15 | DONE_VERIFIED (engineering CI only) | Main SHA `14c87c275a3dcc599893da19b455b2e853abb630`; post-merge Quality [43710193628](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43710193628), Chromium [43710193653](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43710193653), Pages [43710193633](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43710193633) all SUCCESS. | Hosted engineering/build/deployment checks only; not linguistic accuracy, legal clearance or manual accessibility approval. No local tests claimed. |
+| PR153-RECONCILIATION-001 | DONE_VERIFIED (selective source-record preservation) | PR #153 CLOSED unmerged; current comparison is diverged, 34 ahead / 48 behind. Useful source-triage records are already preserved by PRs #187/#188. | Do not merge stale runtime or duplicated benchmark workflow. Source branch left untouched. |
+| KHM-UI-MANUAL-A11Y-001 | PARTIAL | Automated smoke is merged and exact-main Chromium is green. | Human screen-reader, full keyboard, contrast, zoom/reflow, mobile and assistive-technology review remains required. |
+| KHM-GOLD-001 | BLOCKED | Open issue #104 still requires expert-approved convention, two qualified annotators, independent adjudicator, curator, blind intake, 30 attested groups, rights review and independent adjudication. | No gold/accuracy claim until controlled pilot and validation are complete. |
+
+**Current mainline:** `14c87c275a3dcc599893da19b455b2e853abb630`; no open PRs. Root `LICENSE` is still absent while `pyproject.toml` declares MIT; retain as an owner decision. Repository remains a partial research prototype, not production-ready.
