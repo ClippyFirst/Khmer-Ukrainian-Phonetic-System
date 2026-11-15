@@ -107,3 +107,9 @@ The [dataset](https://huggingface.co/datasets/phonsobon/khmer-G2P) reports 38,62
 ### Khmer Acoustic Model dictionary status correction
 
 The pinned review found incompatible claims: root README advertises 29,204 IPA entries and CC BY-SA 4.0, while `dictionary/README.md` reports 33,091 entries and CC BY 4.0. The inspected tree at commit `2714994b41ccf875c5b6f6182b48a72f13632dbf` exposes only a 144-byte six-entry sample. Reported MAE/F1 values are forced-alignment measures, not G2P accuracy. The resource remains blocked until the complete dictionary, count, provenance and data rights are resolved.
+
+## Google TTS and OpenSLR42 source-format audit — 2026-11-15
+
+- The pinned Google Language Resources Khmer lexicon is a large TTS lexicon, but a bounded extraction previously inspected Latin-script spelling keys and custom phonemic sequences. The entire file was not inspected; it is not accepted as a Khmer-script G2P or standard-IPA source. Its companion phonology JSON is feature-annotated and uses explicit doubled-vowel length labels; tone/register coverage and the exact Khmer-specific data license remain unverified.
+- OpenSLR SLR42 currently lists a male-speaker archive (866 MB, CC BY-SA 4.0), while the 2018 paper reports 17 female speakers, 2,906 files and 3:58:00. This is an archive/paper metadata discrepancy, not proof of a particular archive error. The resource contains orthographic transcripts and audio, not IPA gold.
+- Neither resource was downloaded, imported or executed in this pass. The Google lexicon remains PARTIAL / out of scope for the current Khmer-script G2P path; SLR42 remains a supporting audio lead pending manifest/checksum and speaker-metadata reconciliation.
