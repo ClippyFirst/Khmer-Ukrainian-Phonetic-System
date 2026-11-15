@@ -246,3 +246,12 @@ The benchmark rejects a prediction TSV with a header but no data rows. Without t
 ### Identifier input validation
 
 Gold IDs and prediction IDs, as well as prediction engine names, must contain at least one non-whitespace character. Whitespace-only values are rejected before scoring so they cannot create blank-looking keys or engine entries. The check does not rewrite non-empty identifiers; matching remains exact and provenance-preserving. Regression coverage exercises whitespace-only gold IDs, prediction IDs and engine names.
+
+## Additional candidates — 2026-11-15
+
+The external registry now distinguishes two resources that should not be conflated with IPA engines:
+
+- **MekongPhon rule-based baseline:** source-inspected only; not executed, no verified target-profile convention, and no declared root license in the pinned repository snapshot. It remains a research lead, not an integrated provider.
+- **PhonSobon Khmer G2P/model dataset:** predicts NCKL Khmer-script respelling and syllable boundaries, not IPA. The model card's 83.37% validation word accuracy is self-reported upstream; the NCKL-derived dataset's redistribution/commercial terms remain unresolved. It can only be considered for a separate respelling/syllabification experiment after rights clearance.
+
+Neither resource changes independent IPA gold (0) or project accuracy (null). No external data rows or code were copied.
