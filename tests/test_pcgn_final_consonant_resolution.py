@@ -49,8 +49,12 @@ def test_pcgn_final_consonant_general_rule_maps_consonant_without_following_vowe
 
 
 def test_pcgn_final_consonant_requires_no_vowel_character_or_toandakhiat():
-    assert resolve("ក", has_vowel=True).status == "UNRESOLVED"
-    assert resolve("ក", has_toandakhiat=True).status == "UNRESOLVED"
+    with_vowel = resolve("ក", has_vowel=True)
+    assert with_vowel.status == "UNRESOLVED"
+    assert with_vowel.has_following_vowel_character is True
+    with_toandakhiat = resolve("ក", has_toandakhiat=True)
+    assert with_toandakhiat.status == "UNRESOLVED"
+    assert with_toandakhiat.has_toandakhiat is True
     assert resolve("កា").status == "UNRESOLVED"
     assert resolve("ក៍").status == "UNRESOLVED"
 
