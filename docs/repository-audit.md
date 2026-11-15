@@ -540,3 +540,11 @@ No release status upgrade follows from green engineering CI: independent adjudic
 - Current release blockers are unchanged: independent adjudicated IPA gold=0 (accuracy=null); context/profile phonology and PPK pitch remain PARTIAL; Khmer-script BGN/PCGN generation loses diacritics; Ukrainian romanization targets are provisional; source/model rights and train/eval independence are unresolved; manual accessibility QA remains PARTIAL.
 - Root `LICENSE` is absent while `pyproject.toml` says MIT: owner decision required. `main` is unprotected per branch metadata; no governance change was made.
 - Classification: engineering CI DONE_VERIFIED; language validation PARTIAL/BLOCKED; research prototype only, not production-ready.
+
+
+## Khmer romanizer output-integrity guard — 2026-11-15
+
+- PR #201 merged as `37a536592a8e462f00997890af63ad232d41a0ae`; exact PR head `42cb1ee70bc89daf6739af24e296a8e9dbb29a86` passed Quality [43720084983] and Chromium [43720085021]. Post-merge exact-main Quality [43720186392], Chromium [43720186338] and Pages [43720186436] all SUCCESS.
+- Residual Khmer-script letters and combining marks emitted by the upstream Khmer→Latin package are now bracketed and counted unsupported in both the Khmer-script path and direct BGN/PCGN Latin path. Status becomes PARTIAL; Khmer punctuation remains untouched.
+- This closes a result-integrity hole (unconverted script was previously allowed through with no unsupported count). It does not fix the upstream ASCII/diacritic loss or implement contextual PCGN rules. KHM-ROM-ENGINE-001 and broad romanization coverage remain PARTIAL.
+- No phonological or Ukrainian mapping rules changed; no accuracy or conformance claim is added.

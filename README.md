@@ -273,3 +273,6 @@ The published phonetic path uses the deterministic local rule engine; the separa
 ## Research-only typed IPA candidates
 
 The optional Python `HybridKhmerEngine` collects explicitly injected external IPA candidates through the shared typed validator. Bare provider strings are rejected; raw IPA, profile, kind, status, uncertainty and provenance are retained. External candidates never replace the deterministic engine's published result. No providers or model dependencies run by default. See [the typed hybrid API contract](docs/hybrid-engines.md).
+
+
+The Khmer-script romanization path now brackets any Khmer letters or combining marks that remain in the upstream Latin output and marks the result PARTIAL; Khmer punctuation is preserved. This is an output-integrity safeguard only: it does not restore omitted PCGN diacritics or make the upstream ASCII romanizer contextually conformant.
