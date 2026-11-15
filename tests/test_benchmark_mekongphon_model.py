@@ -1,0 +1,108 @@
+import runpy
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+MODULE = runpy.run_path(str(ROOT / "scripts" / "benchmark_mekongphon_model.py"))
+build_report = MODULE["build_report"]
+codepoint_levenshtein = MODULE["codepoint_levenshtein"]
+
+
+def test_mekongphon_report_is_source_attested_not_accuracy():
+    rows = [
+        {"orth": "ក", "pron_no_tones": "ka"},
+        {"orth": "ខ", "pron_no_tones": "kʰa"},
+    ]
+    report = build_report(
+        rows,
+        ["ka", "kha"],
+        model_revision="20e069d384b240da76320e1569958568c12a54bc",
+        corpus_sha256="a" * 64,
+    )
+
+    assert report["input_count"] == 2
+    assert report["successful_outputs"] == 2
+    assert report["source_attested_diagnostic"]["strict_matches"] == 1
+    assert report["source_attested_diagnostic"]["reference_codepoints"] == 5
+    assert report["source_attested_diagnostic"]["character_errors"] == 1
+    assert report["source_attested_diagnostic"]["codepoint_cer"] == 0.2
+    assert report["independent_gold_count"] == 0
+    assert report["accuracy"] is None
+    assert report["score_status"] == "SOURCE_ATTESTED_DIAGNOSTIC_NOT_ACCURACY"
+    assert "orth" not in report["records"][0]
+    assert "reference" not in report["records"][0]
+    assert report["records"][1]["raw_output"] == "kha"
+
+
+def test_mekongphon_report_rejects_prediction_count_mismatch():
+    rows = [{"orth": "ក", "pron_no_tones": "ka"}]
+    try:
+        build_report(rows, [], model_revision="revision", corpus_sha256="a" * 64)
+    except ValueError as error:
+        assert "one prediction per input" in str(error)
+    else:
+        raise AssertionError("expected a prediction-count error")
+
+
+def test_codepoint_levenshtein_counts_insertions_deletions_and_substitutions():
+    assert codepoint_levenshtein("kitten", "sitting") == 3
+    assert codepoint_levenshtein("ŋ", "n") == 1
+    assert codepoint_levenshtein("", "a") == 1
+
+
+def test_load_rows_rejects_duplicate_orthographies(tmp_path):
+    path = tmp_path / "duplicate.csv"
+    path.write_text("\n".join(["orth,pron_no_tones", "ក,ka", "ក,ka"]) + "\n", encoding="utf-8")
+    try:
+        MODULE["load_rows"](path)
+    except ValueError as error:
+        assert "duplicate orthographies" in str(error)
+    else:
+        raise AssertionError("expected duplicate orthographies to be rejected")
+
+
+def test_load_rows_rejects_missing_reference_values(tmp_path):
+    path = tmp_path / "empty-reference.csv"
+    path.write_text("\n".join(["orth,pron_no_tones", "ក,"]) + "\n", encoding="utf-8")
+    try:
+        MODULE["load_rows"](path)
+    except ValueError as error:
+        assert "empty source IPA labels" in str(error)
+    else:
+        raise AssertionError("expected empty source labels to be rejected")
+
+
+def test_report_keeps_tone_omission_and_zero_gold_explicit():
+    rows = [{"orth": "ខ្មែរ", "pron_no_tones": "kʰmae"}]
+    report = build_report(
+        rows,
+        ["kʰmae"],
+        model_revision="20e069d384b240da76320e1569958568c12a54bc",
+        corpus_sha256="b" * 64,
+    )
+    assert report["reference_field"] == "pron_no_tones (source-reported IPA without tone)"
+    assert report["independent_gold_count"] == 0
+    assert report["accuracy"] is None
+    assert any("does not evaluate tone/phonation recovery" in item for item in report["limitations"])
+
+
+def test_custom_corpus_path_does_not_claim_the_default_source_revision():
+    rows = [{"orth": "ក", "pron_no_tones": "ka"}]
+    report = build_report(
+        rows,
+        ["ka"],
+        model_revision="20e069d384b240da76320e1569958568c12a54bc",
+        corpus_sha256="c" * 64,
+    )
+    assert report["corpus_source_commit"] is None
+
+
+def test_explicit_corpus_source_revision_is_preserved():
+    rows = [{"orth": "ក", "pron_no_tones": "ka"}]
+    report = build_report(
+        rows,
+        ["ka"],
+        model_revision="20e069d384b240da76320e1569958568c12a54bc",
+        corpus_sha256="d" * 64,
+        corpus_source_commit="f80f6c1840c4818b51e05f2e00cded4701a5b662",
+    )
+    assert report["corpus_source_commit"] == "f80f6c1840c4818b51e05f2e00cded4701a5b662"

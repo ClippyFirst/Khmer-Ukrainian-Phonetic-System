@@ -2047,3 +2047,25 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - The implementation PR #182 and documentation PR #183 are both merged. Current source implementation was tested on code head a20f1d3f28cbe1a6a5f79cc7554afe4b47265a4a; documentation closeout was tested on PR #183 head baa98c02342f68bcca132618e84c7c5da34a465d. No local shell run is claimed.
 - PR #153 remains the next major research blocker. Do not merge its external-provider integration until rights, train/evaluation split independence, API contract reconciliation and its benchmark run are resolved. Independent adjudicated IPA gold remains 0; accuracy remains null.
 - The latest main commit at this checkpoint is df5891a7b9c9cfecde31f2795617b29a44d4b929. This handoff update itself is a further documentation-only commit on main.
+
+
+## MekongPhon diagnostic harness reconciliation — 2026-11-15
+
+- PR #153 was inspected against current main `5e082024b7ae871b1bb95219ea80e5b87502b66e`. Its head is `bddb0186c9e62abd57827fa54233ebbfaa0540e2`; the merge base is `2fe36aa1eb64cc47fb60ab1b37561f40d57202a7`. The branch is 34 commits ahead and 31 behind current main, with 18 changed paths; wholesale integration is unsafe.
+- The PR hybrid wrapper is not ported: it accepts arbitrary non-empty IPA-like strings and does not call the new `validate_ipa_candidate` typed boundary. Its `HybridKhmerEngine` also conflicts with the current deterministic compatibility shim. A future provider adapter must construct a typed candidate with explicit profile, IPA kind, status, provider and uncertainty, preserve raw output, and remain non-promoting.
+- Ported only the independent, opt-in MekongPhon diagnostic harness, regression tests, manual-dispatch workflow, and source/experiment registry evidence on a branch based on current main. No MekongPhon corpus rows or model weights were copied into this repository. The harness hashes the external corpus, emits source-attested concordance only, stores no source orthography/reference text in its report records, and fixes `independent_gold_count=0` / `accuracy=null`.
+- Historical source-attested model run: 100/100 outputs, 64 strict matches, codepoint CER 0.12539184952978055 against `pron_no_tones`; this field omits tone. Training/evaluation split independence remains NOT_ESTABLISHED. This is not project accuracy and does not reproduce or validate the paper's reported under-2% result.
+- Corpus rights remain unresolved in the pinned MekongPhon repository snapshot; model-card Apache-2.0 does not resolve training-corpus rights. Future external inference remains manual-dispatch only; no automated model download is part of the published runtime.
+- Task ledger: benchmark harness/tests/workflow = PARTIAL pending exact-head hosted CI; research source registry = DONE_VERIFIED as a record of claims and caveats, not source-rights clearance; hybrid provider integration = BLOCKED pending typed adapter and rights; independent IPA gold = BLOCKED pending two blind Phnom Penh-profile annotations plus independent adjudication; training/evaluation disjointness = BLOCKED pending upstream split manifest/checkpoint provenance.
+- No local shell, pytest, model inference, or network benchmark was executed in this session. Hosted CI results for the new branch will be recorded after they complete. PR #153 remains open/draft and was not merged or rewritten.
+
+
+### Exact-head verification and final workflow corrections — 2026-11-15
+
+- Final code/test head: `750a69b75ee7fa846572f63125d675e4557d12cc`.
+- Quality [43695488162](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43695488162): **SUCCESS** — 214 Python tests and 64 subtests passed; independent IPA gold corpus structure validation, Node web checks and production build passed.
+- Chromium [43695488169](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43695488169): **SUCCESS** — deterministic web checks/build and visible-result Chromium verification; 4 browser tests passed.
+- The benchmark harness now fixes the model identifier to the audited model card; only the immutable model revision can be selected. A custom corpus path no longer inherits the default MekongPhon source commit claim: source revision is recorded only for the known default path or when explicitly supplied. Regression tests cover both cases.
+- The optional workflow was reduced to `workflow_dispatch` only. A first draft also exported the upstream 100-row orthography/reference corpus as an Actions artifact; that job was removed because the dataset rights are unresolved. The retained job uploads model diagnostic outputs only, not source corpus rows. The workflow was not dispatched in this session.
+- No local shell/pytest, model inference, or fresh external benchmark was run. Hosted CI above verifies repository tests/build/browser behavior, not external model performance.
+- PR #184 contains the safe harness/data/docs port only; PR #153 remains open/draft and unmerged. Independent adjudicated Phnom Penh IPA gold remains 0, project accuracy remains null, corpus rights and checkpoint split independence remain blocked.
