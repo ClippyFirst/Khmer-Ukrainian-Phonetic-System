@@ -811,7 +811,19 @@ No code, corpus, IPA label, Ukrainian mapping or generated artifact changed. Res
 
 | ID | Status | Evidence | Acceptance boundary |
 |---|---|---|---|
-| KHM-ROM-PCGN-NOTES-001 | DONE_VERIFIED (source-located documentation only; CI pending PR) | `data/khmer/romanization_pcgn_notes.csv` records Notes 1–11 with primary-source locators; `tests/test_romanization_pcgn_notes.py` checks complete coverage and critical PCGN Note 3/5 constraints. | Does not implement contextual romanization. All note rows remain `DOCUMENTED_ONLY`; ambiguous feet, omitted marks and coda-conditioned forms still require a parser and evidence-aware abstention. |
+| KHM-ROM-PCGN-NOTES-001 | DONE_VERIFIED (source-located Notes 1–11 documentation and regression guardrails; exact PR-head and main CI passed) | `data/khmer/romanization_pcgn_notes.csv` records Notes 1–11 with primary-source locators; `tests/test_romanization_pcgn_notes.py` checks complete coverage and critical PCGN Note 3/5 constraints. | Does not implement contextual romanization. All note rows remain `DOCUMENTED_ONLY`; ambiguous feet, omitted marks and coda-conditioned forms still require a parser and evidence-aware abstention. |
 | KHM-ROM-ENGINE-001 | PARTIAL | Current source-script path still uses lossy ASCII-derived upstream output; PCGN contextual notes are now registered but not executed by a project-owned parser. | Contextual series, shifter, shortening, coda, syllable-position and ambiguity-aware romanization with source-located parity tests. |
 
 No IPA labels, Ukrainian mappings, gold rows or empirical accuracy claims were added. Independent adjudicated IPA gold remains 0; accuracy remains null.
+
+
+## Exact-main verification — PCGN Notes 1–11 registry — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| MAINLINE-CI-2026-11-15-H | DONE_VERIFIED (engineering/deployment only) | Exact main `9383385fc3244ff600d0fab254c6488a83d92d7b`; Quality [43733051013](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43733051013), Chromium [43733051164](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43733051164), Pages [43733051031](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43733051031) all SUCCESS. | Hosted corpus-structure, Python, Node, build, browser and Pages deployment checks; no linguistic accuracy claim. |
+| KHM-ROM-PCGN-NOTES-001 | DONE_VERIFIED (source-located Notes 1–11 documentation and regression guardrails) | PR #211 merge `9383385fc3244ff600d0fab254c6488a83d92d7b`; exact-head and exact-main Quality/Chromium/Pages workflows passed. | Does not implement contextual PCGN romanization; each note remains DOCUMENTED_ONLY at runtime. |
+| KHM-ROM-ENGINE-001 | PARTIAL | PCGN notes are now machine-readable, but the source-script route still relies on lossy ASCII-derived upstream output. | Project-owned contextual PCGN parser/generator with explicit ambiguity, omitted-mark and abstention behavior. |
+| KHM-ROM-TEST-001 | PARTIAL | Existing row-level tests plus Notes 1–11 boundary tests pass in hosted CI. | Contextual Khmer-script parity fixtures with independently reviewed expected romanizations remain absent. |
+
+No IPA labels, Ukrainian target decisions or gold records were added. Independent adjudicated IPA gold remains 0; empirical accuracy remains null.
