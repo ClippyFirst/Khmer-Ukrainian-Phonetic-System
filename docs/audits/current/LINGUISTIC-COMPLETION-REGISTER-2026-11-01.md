@@ -805,3 +805,13 @@ No gold/IPA evidence changed: independent adjudicated gold remains 0; empirical 
 | KHM-GOLD-001 | BLOCKED | Issue #104 open; adjudicated IPA gold=0; accuracy=null. | Expert-approved convention, qualified double annotation, independent adjudicator, curator, blind intake, rights-cleared pilot and adjudication. |
 
 No code, corpus, IPA label, Ukrainian mapping or generated artifact changed. Research prototype only.
+
+
+## PCGN note coverage — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-PCGN-NOTES-001 | DONE_VERIFIED (source-located documentation only; CI pending PR) | `data/khmer/romanization_pcgn_notes.csv` records Notes 1–11 with primary-source locators; `tests/test_romanization_pcgn_notes.py` checks complete coverage and critical PCGN Note 3/5 constraints. | Does not implement contextual romanization. All note rows remain `DOCUMENTED_ONLY`; ambiguous feet, omitted marks and coda-conditioned forms still require a parser and evidence-aware abstention. |
+| KHM-ROM-ENGINE-001 | PARTIAL | Current source-script path still uses lossy ASCII-derived upstream output; PCGN contextual notes are now registered but not executed by a project-owned parser. | Contextual series, shifter, shortening, coda, syllable-position and ambiguity-aware romanization with source-located parity tests. |
+
+No IPA labels, Ukrainian mappings, gold rows or empirical accuracy claims were added. Independent adjudicated IPA gold remains 0; accuracy remains null.
