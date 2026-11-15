@@ -733,3 +733,16 @@ The unit-test discovery gap is closed. This does not resolve the lossy ASCII rom
 | KHM-ROM-ENGINE-001 | PARTIAL | Source mark coverage improved; upstream Khmer-script romanizer still emits BGN/PCGN-derived ASCII and loses contextual diacritics. | Contextual series, shortening, coda and diacritic-preserving generation remain open. |
 
 Official evidence: UK PCGN, Romanization of Khmer (Cambodian), BGN/PCGN 1972 Agreement, note 5: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+
+
+## Final mainline checkpoint — PCGN mark inventory — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| MAINLINE-CI-2026-11-15-D | DONE_VERIFIED (engineering/deployment only) | Main `58735a94a8a8f76635f948c2d003d590f26fb0b2`; Quality [43721873111](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721873111), Chromium [43721873141](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721873141), Pages [43721873125](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721873125) all SUCCESS. | 224 Python tests + 70 subtests, web checks/build, 11 browser tests, Pages deployment and deployed-site smoke. No linguistic accuracy claim. |
+| KHM-ROM-MARKS-NUMERALS-001 | DONE_VERIFIED (bounded source inventory only) | PR #204 merge `58735a94a8a8f76635f948c2d003d590f26fb0b2`; six PCGN rule rows, seven source marks including U+17CB and U+17D0, ten numerals; exact-head and exact-main CI green. | Inventory and source provenance are covered. Contextual romanization behavior remains outside this task. |
+| KHM-ROM-ENGINE-001 | PARTIAL | Source inventory correction merged; upstream Khmer-script path still uses lossy ASCII-derived output. | Contextual consonant-series, shortening, coda and diacritic-preserving generator remain open. |
+| KHM-ROM-TEST-001 | PARTIAL | Regression coverage includes both PCGN shortened-vowel marks; full contextual Khmer-script → BGN/PCGN parity remains absent. | Broad attested corpus, contextual matrix behavior and expert review remain outstanding. |
+| KHM-GOLD-001 | BLOCKED | Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) open; adjudicated IPA gold=0; accuracy=null. | Requires approved convention, qualified annotators, independent adjudicator, curator, rights-cleared pilot and adjudication. |
+
+**Current main:** `58735a94a8a8f76635f948c2d003d590f26fb0b2`. No open PRs. Project remains a partial research prototype; linguistic, legal and manual accessibility gates are not complete.
