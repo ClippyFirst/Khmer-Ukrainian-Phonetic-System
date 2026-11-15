@@ -404,24 +404,29 @@ PCGN_DEPENDENT_VOWEL_TABLE_LOCATOR = (
 
 # Normal (not shortened) dependent-vowel values from the official PCGN table.
 # The two values are the â-series and ô-series columns respectively.
-PCGN_DEPENDENT_VOWEL_ROWS: dict[str, tuple[int, str, str]] = {
-    "ា": (2, "a", "éa"),
-    "ិ": (3, "ĕ", "ĕ"),
-    "ី": (4, "ei", "i"),
-    "ឹ": (5, "œ̆", "œ̆"),
-    "ឺ": (6, "œ", "œ"),
-    "ុ": (7, "ŏ", "ŭ"),
-    "ូ": (8, "o", "u"),
-    "ួ": (9, "uŏ", "uŏ"),
-    "េ": (13, "é", "é"),
-    "ែ": (14, "ê", "ê"),
-    "ៃ": (15, "ai", "ey"),
+PCGN_DEPENDENT_VOWEL_ROWS: dict[tuple[str, ...], tuple[int, str, str]] = {
+    ("ា",): (2, "a", "éa"),
+    ("ិ",): (3, "ĕ", "ĕ"),
+    ("ី",): (4, "ei", "i"),
+    ("ឹ",): (5, "œ̆", "œ̆"),
+    ("ឺ",): (6, "œ", "œ"),
+    ("ុ",): (7, "ŏ", "ŭ"),
+    ("ូ",): (8, "o", "u"),
+    ("ួ",): (9, "uŏ", "uŏ"),
+    ("េ", "ើ"): (10, "aeu", "eu"),
+    ("េ", "ឿ"): (11, "œă", "œă"),
+    ("េ", "ៀ"): (12, "iĕ", "iĕ"),
+    ("េ",): (13, "é", "é"),
+    ("ែ",): (14, "ê", "ê"),
+    ("ៃ",): (15, "ai", "ey"),
+    ("េ", "ា"): (16, "aô", "aô"),
+    ("េ", "ៅ"): (17, "au", "au"),
 }
 
 
 @dataclass(frozen=True)
 class PCGNVowelDecision:
-    source_sign: str | None
+    source_signs: tuple[str, ...] | None
     series: Literal["â", "ô"] | None
     romanization: str | None
     source_table_row: int | None
@@ -447,7 +452,7 @@ def resolve_pcgn_dependent_vowel(
     """
     def unresolved(reason: str) -> PCGNVowelDecision:
         return PCGNVowelDecision(
-            source_sign=None,
+            source_signs=None,
             series=None,
             romanization=None,
             source_table_row=None,
@@ -466,8 +471,8 @@ def resolve_pcgn_dependent_vowel(
         return unresolved("EXACTLY_ONE_BASE_CONSONANT_REQUIRED")
     if len(analysis.subscript_consonants) > 1:
         return unresolved("MULTIPLE_SUBSCRIPTS_REQUIRE_READING_ADJUDICATION")
-    if len(analysis.dependent_vowel_signs) != 1:
-        return unresolved("EXACTLY_ONE_DEPENDENT_VOWEL_SIGN_REQUIRED")
+    if not 1 <= len(analysis.dependent_vowel_signs) <= 2:
+        return unresolved("ONE_OR_TWO_DEPENDENT_VOWEL_SIGNS_REQUIRED")
     if analysis.independent_vowels:
         return unresolved("INDEPENDENT_VOWEL_NOT_SUPPORTED_BY_DEPENDENT_RESOLVER")
     if analysis.shortening_marks:
@@ -484,15 +489,15 @@ def resolve_pcgn_dependent_vowel(
     if any(token.kind not in allowed_token_kinds for token in analysis.tokens):
         return unresolved("NON_VOWEL_COMPONENT_REQUIRES_CONTEXTUAL_ANALYSIS")
 
-    sign = analysis.dependent_vowel_signs[0]
-    row = PCGN_DEPENDENT_VOWEL_ROWS.get(sign)
+    signs = tuple(analysis.dependent_vowel_signs)
+    row = PCGN_DEPENDENT_VOWEL_ROWS.get(signs)
     if row is None:
         return unresolved("DEPENDENT_VOWEL_NOT_IN_BOUNDED_NORMAL_TABLE_SUBSET")
 
     row_number, a_series_value, o_series_value = row
     value = a_series_value if series_decision.series == "â" else o_series_value
     return PCGNVowelDecision(
-        source_sign=sign,
+        source_signs=signs,
         series=series_decision.series,
         romanization=value,
         source_table_row=row_number,
