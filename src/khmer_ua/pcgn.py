@@ -306,7 +306,7 @@ def resolve_pcgn_series(
                     basis="BASE",
                     status="RESOLVED",
                     onset_exception="BA_WITH_MUUSIKATOAN_P_IN_A_SERIES",
-                    series_before_shifter="ô",
+                    series_before_shifter="â",
                     shifter_effect="BA_MUUSIKATOAN_P_IN_A",
                     source_locator="PCGN 1972, Notes 2–3 (pp. 2–3)",
                     warnings=(
