@@ -8,7 +8,7 @@
     "status", "ipa", "ukrainian", "source_locator", "warnings"
   ],
   "properties": {
-    "syllable_position": {"enum": ["NON_FINAL", "FINAL"]},
+    "syllable_position": {"enum": ["NON_FINAL", "FINAL", null]},
     "series": {"enum": ["â", "ô", null]},
     "romanization": {"type": ["string", "null"]},
     "source_table_row": {"const": 1},
