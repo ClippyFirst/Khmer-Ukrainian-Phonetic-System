@@ -475,3 +475,12 @@ Documentation-only PR [#180](https://github.com/ClippyFirst/Khmer-Ukrainian-Phon
 | Manual accessibility review | PARTIAL | Hosted Chromium smoke is green; manual keyboard, assistive-technology, mobile and visual audit is not evidenced |
 
 The repository remains a research platform / partial prototype. No empirical phonetic accuracy is claimed.
+
+## Phonotactic and PPK pitch evidence reconciliation — 2026-11-15
+
+- Added source records for Nacaskul (1978), Unicode L2/22-290, Ding et al. (2018), Mam et al. (2025), and the Sak-Humphry (2025) publisher preview.
+- The evidence now distinguishes major-syllable restrictions, minor type-A/type-B restrictions, and orthographic coeng constraints. Nacaskul's no-coda-cluster and short-open-nucleus claims remain historical source reports pending current-profile confirmation; minor-type restrictions are not global.
+- Unicode's two-pre-vowel-coeng limit is explicitly orthographic, not a phonological onset maximum. Coeng chaining and silent/etymological stacked letters can cause orthographic units to diverge from phonetic syllables.
+- Mam et al. (2025) provides bounded PPK F0 evidence (50 words, five speakers, three repetitions) consistent with possible pitch phonologization for /r>h/ forms and voiced-onset disyllables. This is profile-specific and not implemented as a universal tone rule.
+- The Sak-Humphry publisher preview's coda excerpt is internally contradictory about /r/; it is recorded as a lead but excluded from the accepted coda inventory.
+- Added a parser regression that preserves the Unicode syllable-chaining example while keeping `phonetic_representation` explicitly unestablished. No IPA labels or global phonotactic rules were added.
