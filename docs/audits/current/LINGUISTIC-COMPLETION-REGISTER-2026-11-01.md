@@ -772,3 +772,13 @@ Official evidence: UK PCGN, Romanization of Khmer (Cambodian), BGN/PCGN 1972 Agr
 | KHM-GOLD-001 | BLOCKED | Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) open; adjudicated IPA gold=0; accuracy=null. | Approved IPA convention, qualified double annotation, separate adjudicator, curator, blind intake, rights-cleared 30-lexeme pilot and adjudication. |
 
 **Current main:** `ab5ade5f0984b32884df9fa5dac5607f927a2ea4`. No open PRs. Root LICENSE/MIT metadata, source rights, manual accessibility and branch protection remain owner/external gates. Research prototype only.
+
+
+## External implementation candidate — KHM-ROM-ENGINE-001 remains PARTIAL (2026-11-15)
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-ENGINE-CANDIDATE-001 | RESEARCH_CANDIDATE (non-acceptance status) | Inspected `pheasaKhmer/khmer-engine` at `31b72cd4665f69678fc835da2f501771e42f097a`: UNGEGN 2013 rules, explicit cluster/syllable representation, weighted syllable-boundary inference, series/shifter/coda handling, and rule tests. Code MIT; bundled sample data CC BY 4.0 / ODC-By 1.0; `pheasa` dependency Apache-2.0. | Not imported or run here. First compare every relevant rule against BGN/PCGN 1972; review heuristic ambiguities and source-specific extrapolations; define abstention behavior; independently verify rights and target outputs. |
+| KHM-ROM-ENGINE-001 | PARTIAL | Existing runtime still depends on ASCII-derived `@gmana/km-translit`; external candidate is not a verified BGN/PCGN implementation. | Contextual, diacritic-preserving source-script romanizer with source-backed parity tests and expert review. |
+
+No code, dependency, corpus row, IPA label, Ukrainian mapping or generated artifact was changed by this research review.
