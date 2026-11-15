@@ -2822,3 +2822,26 @@ Status: `KHM-ROM-PCGN-CONSONANTS-001 = PARTIAL`. This is an onset-cluster compon
 - Exact post-merge main Quality [43761598283], Chromium [43761598359] and Pages build/deploy [43761598332] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - An earlier pre-fix push Quality run [43761223088] failed because the new consonant-decision JSON schema contained malformed JSON. The schema was corrected, parsed successfully, and the final exact PR-head and main checks passed. The CSV row-12 default was also corrected to keep `b` separate from its Note 3 `p` exception.
 - The resolver covers rows 1–21 only; row 22 remains delegated to Note 4. It emits onset consonant components only, not a full syllable, IPA or Ukrainian output.
+
+
+## Exact-main verification — PR #253 / consonant-table verification record — 2026-11-15
+
+- PR [#253](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/253) merged as `df63d6bb94f19d0772c4051d8d27f117a2d6eaf2`; exact mainline CI passed.
+- PR-head push Quality [43761762695], PR Quality [43761775856] and PR Chromium [43761775796] all SUCCESS.
+- Exact post-merge main Quality [43761865853], Chromium [43761865900] and Pages build/deploy [43761865852] all SUCCESS, including deployed-site/runtime-asset smoke.
+- Documentation-only closeout; no linguistic status promotion.
+
+## BGN/PCGN final-consonant no-following-vowel rule — bounded component — 2026-11-15
+
+Implemented `resolve_pcgn_final_consonant(analysis, has_following_vowel_character, has_toandakhiat)` and `PCGNFinalConsonantDecision` for the guide's general rule: a syllable-final consonant not accompanied by a vowel character or TOANDAKHIAT should generally be romanized without a vowel letter following.
+
+- The caller must isolate the final consonant chunk and explicitly confirm both context conditions are false.
+- The resolver maps one base plus at most one foot using the PCGN consonant table and returns the consonant component with `following_vowel=""`.
+- BA and ALIF final cases abstain because their special Note 3/4 contexts are not resolved by this general rule. Other marks, vowel-bearing forms, multiple bases/feet and unsupported structures also abstain.
+- The source says “generally”; the result is labelled `GENERAL_RULE_APPLIED`, not an absolute phonological law.
+
+Artifacts: `schemas/pcgn-final-consonant-decision.schema.json`, `tests/test_pcgn_final_consonant_resolution.py`, `data/khmer/romanization_pcgn_final_consonant.csv`, and public exports in `src/khmer_ua/__init__.py`.
+
+Primary source: BGN/PCGN 1972 Agreement, p. 2, explanatory paragraph following the vowel table: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+
+Status: `KHM-ROM-PCGN-FINAL-CONSONANT-001 = PARTIAL`. No syllable segmentation, complete PCGN word, IPA or Ukrainian output is generated.
