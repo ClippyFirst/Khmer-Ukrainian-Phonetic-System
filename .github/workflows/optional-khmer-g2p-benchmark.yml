@@ -1,37 +1,17 @@
 name: Optional Khmer G2P smoke benchmark
 
 on:
-  push:
-    paths:
-      - ".github/workflows/optional-goruut-runtime.yml"
-      - "tests/fixtures/goruut-source-attested.csv"
-      - "tests/fixtures/goruut-probes.txt"
-      - "scripts/benchmark_g2p.py"
-      - "scripts/benchmark_mekongphon_model.py"
-      - "tests/test_benchmark_mekongphon_model.py"
-      - "data/tests/verified-lexical-corpus.json"
-      - ".github/workflows/optional-khmer-g2p-benchmark.yml"
   workflow_dispatch:
-  pull_request:
-    paths:
-      - ".github/workflows/optional-goruut-runtime.yml"
-      - "tests/fixtures/goruut-source-attested.csv"
-      - "tests/fixtures/goruut-probes.txt"
-      - "scripts/benchmark_g2p.py"
-      - "scripts/benchmark_mekongphon_model.py"
-      - "tests/test_benchmark_mekongphon_model.py"
-      - "data/tests/verified-lexical-corpus.json"
-      - ".github/workflows/optional-khmer-g2p-benchmark.yml"
 
 permissions:
   contents: read
 
 jobs:
   optional-g2p-smoke:
-    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - uses: actions/checkout@v7
       - uses: actions/checkout@v7
         with:
           repository: byu-matrix-lab/MekongPhon
@@ -79,15 +59,17 @@ jobs:
           if-no-files-found: error
 
   mekongphon-neural-model:
-    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
+      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7
         with:
           repository: byu-matrix-lab/MekongPhon
           ref: f80f6c1840c4818b51e05f2e00cded4701a5b662
           path: mekongphon
           persist-credentials: false
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip
