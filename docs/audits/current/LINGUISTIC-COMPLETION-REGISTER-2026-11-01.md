@@ -711,3 +711,15 @@ The unit-test discovery gap is closed. This does not resolve the lossy ASCII rom
 | KHM-ROM-TEST-001 | PARTIAL | New residual-letter/mark regressions added and exact-main CI green. | Full contextual romanizer parity, mark semantics, broad attested corpus and expert review remain open. |
 
 **Current main:** `37a536592a8e462f00997890af63ad232d41a0ae`. This guard improves output honesty, not linguistic coverage or readiness.
+
+
+## Final mainline checkpoint — 2026-11-15 (PR #201/#202)
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| MAINLINE-CI-2026-11-15-C | DONE_VERIFIED (engineering and deployment only) | Main `1cc833ad1097f6b1ee7c28eb3e7aefb99ad480fb`; Quality [43720449189](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720449189), Chromium [43720449188](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720449188), Pages [43720449180](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720449180) all SUCCESS on exact main. | Hosted Python/web tests, build, Chromium visible-results and Pages deploy/runtime smoke; no local test claim or linguistic accuracy inference. |
+| KHM-ROM-OUTPUT-GUARD-001 | DONE_VERIFIED (fail-closed output guard) | PR #201 merge `37a536592a8e462f00997890af63ad232d41a0ae`; documented in PR #202 merge `1cc833ad1097f6b1ee7c28eb3e7aefb99ad480fb`. | Residual Khmer letters/marks bracketed and PARTIAL; punctuation preserved. No repair of diacritic loss or contextual romanization. |
+| KHM-ROM-ENGINE-001 | PARTIAL | Khmer-script path still uses ASCII-derived upstream package and loses diacritics. | Contextual consonant-series, shortening, coda and diacritic-preserving generator remain open. |
+| KHM-GOLD-001 | BLOCKED | Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains open; independent adjudicated IPA gold=0; accuracy=null. | Human expert protocol, annotators, independent adjudicator, rights-cleared 30 groups and adjudication required. |
+
+**Current main:** `1cc833ad1097f6b1ee7c28eb3e7aefb99ad480fb`. No open PRs at checkpoint. Project remains a partial research prototype; legal, linguistic and manual accessibility acceptance are outstanding.
