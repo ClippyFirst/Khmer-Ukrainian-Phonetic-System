@@ -2354,7 +2354,7 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - Added `resolve_pcgn_series(analysis)` and `PCGNSeriesDecision` in `src/khmer_ua/pcgn.py`, with schema `schemas/pcgn-series-decision.schema.json` and tests `tests/test_pcgn_series_resolution.py`.
 - The resolver applies only the PCGN 1972 Note 3 series rule: base if no foot; foot normally; base when the single foot is weak and base is not weak; foot when both are weak. Exact weak set: `ងញណនមយរលវ`; no UNGEGN-only `ស`.
 - Preserves the Note 3 ប+foot p-in-â exception as typed metadata `BA_WITH_FOOT_P_IN_A_SERIES`. The parser now rejects a PCGN foot form for ឡ, which the official consonant table says has no subscript form.
-- Abstains for shifters (Note 2 not implemented), multiple feet/bases, malformed/unknown/unmodelled input, and independent vowels. Output is series metadata only; no vowel, coda, phonetic syllabification, PCGN Latin, IPA or Ukrainian output.
+- At this checkpoint, shifters were deferred; the later “PCGN Note 2 shifter subset” section records the bounded single-base implementation. Multiple/misplaced shifters, shifters on clusters and BA+TRIISAP still abstain. Multiple feet/bases and unsupported input also abstain. Output remains series metadata only; no vowel, coda, phonetic syllabification, PCGN Latin, IPA or Ukrainian output.
 - Next gate: hosted exact-head Quality/Chromium, then exact-main checks; add Note 2 shifter resolution only after a separate source-grounded exception table and tests. Note 5 shortening remains blocked on coda and vowel-pattern parsing.
 
 
