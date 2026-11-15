@@ -606,3 +606,8 @@ The official example `ធម៌ → thôrm` is tested at the component boundary:
 Source: BGN/PCGN 1972, Diacritical Marks table row 4 (p. 4) and Note 6 (p. 5): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 
 Status: `KHM-ROM-PCGN-ROBAT-001 = PARTIAL`; full PCGN syllable assembly and IPA/Ukrainian adapters remain PARTIAL.
+
+
+## Exact-main verification — PR #235 / PCGN Note 6 — 2026-11-15
+
+PR #235 merged as `34ab63ff37023bddcaeaebb0a6ccd838f662c045`. Final PR-head `0d6f1a2b11ab1de94ad9be391c2dd4932142ff77`: push Quality [43751844908], PR Quality [43751851657], PR Chromium [43751851706] all SUCCESS (278 tests + 70 subtests). Exact-main Quality [43751965081], Chromium [43751965119], Pages [43751965128] all SUCCESS, including deployed-site/runtime-asset smoke. ROBAT remains a PARTIAL `rC)-component resolver with caller-supplied consonant value; no IPA/Ukrainian or complete-syllable promotion.
