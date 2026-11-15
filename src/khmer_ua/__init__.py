@@ -26,6 +26,13 @@ from .pcgn import (
     resolve_pcgn_toandakhiat,
     resolve_pcgn_glottal_onset,
 )
+from .pcgn_unicode import (
+    PCGN_CHARACTER_INVENTORY_LOCATOR,
+    PCGN_SPECIAL_LETTER_CODEPOINTS,
+    PCGN_SPECIAL_LETTERS,
+    PCGNRomanizationCharacterInventoryDecision,
+    validate_pcgn_romanization_characters,
+)
 from .ipa import (
     IPACandidate,
     IPACandidateStatus,
@@ -59,6 +66,11 @@ __all__ = [
     "resolve_pcgn_toandakhiat",
     "resolve_pcgn_glottal_onset",
     "analyze_pcgn_orthographic_chunk",
+    "PCGN_CHARACTER_INVENTORY_LOCATOR",
+    "PCGN_SPECIAL_LETTER_CODEPOINTS",
+    "PCGN_SPECIAL_LETTERS",
+    "PCGNRomanizationCharacterInventoryDecision",
+    "validate_pcgn_romanization_characters",
     "normalize_khmer",
     "IPACandidate",
     "IPACandidateStatus",
