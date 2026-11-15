@@ -447,8 +447,9 @@ def resolve_pcgn_dependent_vowel(
     """Map one ordinary dependent vowel sign to its PCGN Latin component.
 
     This is deliberately not a syllable romanizer. It accepts one base, at
-    most one foot, one dependent vowel sign, and an already-resolved Note
-    2/3 series. Shortening, codas, independent vowels and other marks abstain.
+    most one foot, one source-ordered dependent-vowel pattern (one or two
+    signs), and an already-resolved Note 2/3 series. Shortening, codas,
+    independent vowels and other marks abstain.
     """
     def unresolved(reason: str) -> PCGNVowelDecision:
         return PCGNVowelDecision(
