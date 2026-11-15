@@ -5,7 +5,7 @@
   "additionalProperties": false,
   "required": [
     "raw_text", "normalized_text", "tokens", "base_consonants",
-    "subscript_consonants", "register_shifters", "dependent_vowel_signs",
+    "subscript_consonants", "register_shifters", "register_shifter_positions", "dependent_vowel_signs",
     "independent_vowels", "shortening_marks", "robat_positions",
     "ahsda_positions", "toandakhiat_positions", "unresolved_components",
     "syllable_segmentation", "series_decision", "register_source",
@@ -33,6 +33,7 @@
     "base_consonants": {"type": "array", "items": {"type": "string"}},
     "subscript_consonants": {"type": "array", "items": {"type": "string"}},
     "register_shifters": {"type": "array", "items": {"type": "string"}},
+    "register_shifter_positions": {"type": "array", "items": {"type": "integer", "minimum": 0}},
     "dependent_vowel_signs": {"type": "array", "items": {"type": "string"}},
     "independent_vowels": {"type": "array", "items": {"type": "string"}},
     "shortening_marks": {"type": "array", "items": {"type": "string"}},
