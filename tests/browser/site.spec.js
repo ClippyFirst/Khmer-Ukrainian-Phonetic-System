@@ -94,6 +94,7 @@ test("Khmer numerals do not incorrectly trigger the mixed-script warning", async
 test("primary input and method controls expose accessible names", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("textbox", { name: "Введіть кмерський текст або латинську романізацію BGN/PCGN 1972" })).toBeVisible();
+  await page.locator("#source").fill("ក");
   const methodGroup = page.getByRole("group", { name: "Метод українського запису" });
   await expect(methodGroup.getByRole("button", { name: "Фонетичний" })).toBeVisible();
   await expect(methodGroup.getByRole("button", { name: "За романізацією" })).toBeVisible();
@@ -107,6 +108,6 @@ test("romanization method can be activated by keyboard and status is announced",
   await romanizationButton.focus();
   await page.keyboard.press("Enter");
   await expect(romanizationButton).toHaveAttribute("aria-pressed", "true");
-  await expect(page.getByRole("status").first()).toHaveAttribute("aria-live", "polite");
+  await expect(page.locator("#status")).toHaveAttribute("aria-live", "polite");
   await expect(page.locator("#ua-romanization-result")).toHaveText("Кампучеа");
 });
