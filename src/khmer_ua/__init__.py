@@ -3,14 +3,22 @@ SCHEMA_VERSION = "0.1.0"
 DATA_VERSION = "2026-10-05-research-finalization"
 
 from .parser import analyze, normalize_khmer
-from .ipa import render_ipa_profile
+from .ipa import (
+    IPACandidate,
+    IPACandidateStatus,
+    render_ipa_profile,
+    validate_ipa_candidate,
+)
 from .practical import map_segment, map_sequence, map_ipa_string, explain_segment
 from .rule_engine import RuleBasedKhmerEngine, HybridKhmerEngine, create_hybrid_engine
 
 __all__ = [
     "analyze",
     "normalize_khmer",
+    "IPACandidate",
+    "IPACandidateStatus",
     "render_ipa_profile",
+    "validate_ipa_candidate",
     "map_segment",
     "map_sequence",
     "map_ipa_string",
