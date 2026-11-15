@@ -129,3 +129,10 @@ def test_pcgn_analysis_schema_requires_explicit_abstention_fields():
     assert schema["properties"]["romanization"]["type"] == "null"
     assert schema["properties"]["ipa"]["type"] == "null"
     assert schema["properties"]["ukrainian"]["type"] == "null"
+
+
+def test_unmodeled_khmer_letters_are_not_accepted_as_known_pcgn_structure():
+    result = analyze_pcgn_orthographic_chunk("ឣ")
+    assert result.status == "UNSUPPORTED"
+    assert result.unresolved_components == ("ឣ",)
+    assert result.tokens[0].kind == "unmodeled_letter"
