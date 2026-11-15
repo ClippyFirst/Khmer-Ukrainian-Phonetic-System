@@ -39,14 +39,19 @@ class IPACandidate:
     uncertainty: tuple[str, ...]
 
 
-def _is_ipa_letter(character: str) -> bool:
+def _is_ipa_segment_letter(character: str) -> bool:
     category = unicodedata.category(character)
     name = unicodedata.name(character, "")
-    if not category.startswith("L"):
-        return False
-    # IPA segment inventories are based on Latin and Greek letters, including
-    # IPA extensions and modifier letters. Other scripts are not guessed.
-    return "LATIN" in name or "GREEK" in name or "MODIFIER LETTER" in name
+    return category.startswith("L") and category != "Lm" and (
+        "LATIN" in name or "GREEK" in name
+    )
+
+
+def _is_ipa_modifier_letter(character: str) -> bool:
+    return (
+        unicodedata.category(character) == "Lm"
+        and "MODIFIER LETTER" in unicodedata.name(character, "")
+    )
 
 
 def _validate_ipa_notation(ipa: str) -> None:
@@ -57,36 +62,56 @@ def _validate_ipa_notation(ipa: str) -> None:
     if unicodedata.normalize("NFC", ipa) != ipa:
         raise ValueError("candidate IPA must be NFC-normalized; output is never silently rewritten")
 
-    has_letter = False
+    delimiters = [character for character in ipa if character in "/[]"]
+    if delimiters and (
+        len(ipa) < 2
+        or (ipa[0], ipa[-1]) not in {("/", "/"), ("[", "]")}
+        or any(character in "/[]" for character in ipa[1:-1])
+    ):
+        raise ValueError("candidate IPA has unbalanced or misplaced outer delimiters")
+
+    has_segment = False
     previous_was_base = False
     for index, character in enumerate(ipa):
         category = unicodedata.category(character)
-        if _is_ipa_letter(character):
-            has_letter = True
+        if character in "/[]":
+            continue
+        if _is_ipa_segment_letter(character):
+            has_segment = True
             previous_was_base = True
+            continue
+        if _is_ipa_modifier_letter(character):
+            # Stress, length, tone and segment modifiers do not themselves
+            # count as segment letters and do not rewrite the source string.
             continue
         if category.startswith("M"):
             if not previous_was_base:
                 raise ValueError(f"orphan combining mark at IPA offset {index}")
-            # A tie bar is itself a combining mark; it still joins the
-            # preceding segment to the following segment.
+            # A tie bar joins the preceding segment to the following one.
             previous_was_base = character in {"͡", "͜"}
             continue
-        if character in _IPA_DIGITS or character in _IPA_SYMBOLS or character.isspace():
-            if character in "/[]":
-                continue
-            if character not in {"ˈ", "ˌ", "ː", "ˑ", "͡", "͜", "‿", ".", "·", "|", "-", "/"} and not character.isspace():
-                previous_was_base = False
+        if character in _IPA_DIGITS:
+            previous_was_base = False
+            continue
+        if character.isspace():
+            previous_was_base = False
+            continue
+        if character in _IPA_SYMBOLS:
+            if character in {"͡", "͜"} and not previous_was_base:
+                raise ValueError(f"orphan IPA tie bar at offset {index}")
+            previous_was_base = character in {"͡", "͜"}
+            continue
+        # IPA click letters are symbols rather than Unicode letters.
+        if character in "ʘǀǃǂǁ":
+            has_segment = True
+            previous_was_base = True
             continue
         raise ValueError(
             f"unsupported non-IPA character U+{ord(character):04X} at IPA offset {index}"
         )
 
-    if not has_letter:
+    if not has_segment:
         raise ValueError("candidate IPA must contain at least one IPA segment letter")
-
-    if (ipa.startswith("/") != ipa.endswith("/")) or (ipa.startswith("[") != ipa.endswith("]")):
-        raise ValueError("candidate IPA has unbalanced outer delimiters")
 
 
 def validate_ipa_candidate(
