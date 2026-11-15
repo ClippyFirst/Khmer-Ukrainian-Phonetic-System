@@ -291,3 +291,33 @@ Verification on the exact PR #204 head `b27b87081819307da5ffe27d55e3cf4521004730
 - Exact merge-main Pages [43721873125](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721873125) SUCCESS: production build, 11-test Chromium exercise, Pages deployment and deployed-site/runtime-asset smoke test.
 - `KHM-ROM-MARKS-NUMERALS-001` is now `DONE_VERIFIED` only for the bounded source inventory (six rule rows, seven Khmer marks, ten numerals). `KHM-ROM-ENGINE-001` and `KHM-ROM-TEST-001` remain `PARTIAL`; no contextual PCGN generator or linguistic accuracy claim follows.
 - No local checkout or local test execution is claimed.
+
+
+## External implementation candidate review — UNGEGN/Khmer Engine (2026-11-15)
+
+A potentially useful contextual implementation was inspected: [pheasaKhmer/khmer-engine](https://github.com/pheasaKhmer/khmer-engine/tree/31b72cd4665f69678fc835da2f501771e42f097a), pinned for this review at `31b72cd4665f69678fc835da2f501771e42f097a` (2026-10-10). Its `rules.py` explicitly implements the **UNGEGN 2013** romanization profile, not a declared BGN/PCGN 1972 implementation. UNGEGN describes its recommended system as approved in 1972 and based on BGN/PCGN 1972, but that historical relationship is not proof that every implementation detail is equivalent.
+
+**Useful engineering patterns observed (candidate only):**
+- Separates written Khmer clusters from inferred spoken syllables.
+- Represents onset, subscript onset, register shifter, vowel, signs and finals as inspectable fields.
+- Infers competing syllable parses with a weighted Viterbi-style state search rather than pretending written clusters equal spoken syllables.
+- Selects a-series/o-series values from onset/subscript and shifter context; applies final-sensitive o-series selection and explicit cases for BANTOC, SAMYOK SANNYA, NIKAHIT, REAHMUK, YUUKALEAPINTU and ROBAT.
+- Tests include official province-name examples and worked examples attributed to UNGEGN report notes.
+
+**Why it is not adopted as a drop-in engine:**
+- Its public contract is UNGEGN 2013; a rule-by-rule reconciliation against the project's selected BGN/PCGN 1972 guide is still required.
+- The source itself labels some forms as “not given” and derives them by analogy or from Wikipedia (for example SAMYOK before final យ and ឰ/ៈ cases). Those cannot be silently promoted to official rules.
+- Syllable boundaries are inferred with heuristic costs because the orthography does not encode every spoken boundary. This introduces ambiguity and requires an explicit uncertainty/abstention contract and expert review.
+- Whole-text operation uses a lexicon segmenter; this project cannot assume a reliable Khmer word boundary from whitespace or a naive code-point split.
+- The tests are implementation regression fixtures, not independent double-annotated IPA gold; they do not validate Ukrainian target proposals or phonetic accuracy.
+
+**Licensing/provenance:** the reviewed engine repository declares MIT for code. Its README/data manifest separately identifies bundled sample word/pronunciation data as CC BY 4.0 and counts as ODC-By 1.0; its package metadata expresses the combined package license accordingly. The engine depends on `pheasa>=0.1.0`; the reviewed Pheasa repository declares Apache-2.0. A future port/adoption must preserve code attribution and satisfy the normalizer dependency's license, and should not copy the lexicon/sample data unless its separate data rights and attribution are deliberately accepted. This is a review of public declarations, not legal advice or independent rights verification.
+
+**Disposition:** `RESEARCH_CANDIDATE`, not selected, not imported, not benchmarked in this repository. Use its architecture as a comparison target for the future Khmer-script contextual romanizer; first produce a source-by-source BGN/PCGN ↔ UNGEGN rule diff and a reviewed set of ambiguous syllable parses. Preserve IPA as a separate phonological boundary; this engine produces orthographic romanization, not IPA.
+
+Pinned references:
+- Engine source: https://github.com/pheasaKhmer/khmer-engine/tree/31b72cd4665f69678fc835da2f501771e42f097a
+- Rule implementation: https://github.com/pheasaKhmer/khmer-engine/blob/31b72cd4665f69678fc835da2f501771e/src/khmer_engine/rules.py
+- Syllable parser: https://github.com/pheasaKhmer/khmer-engine/blob/31b72cd4665f69678fc835da2f501771e/src/khmer_engine/syllables.py
+- UNGEGN report v4.0 (September 2013): https://www.eki.ee/wgrs/rom1_km.pdf
+- Normalizer dependency: https://github.com/pheasaKhmer/pheasa/tree/760c4b134188dd8bbab6c8ac88419fb0ce119fe9
