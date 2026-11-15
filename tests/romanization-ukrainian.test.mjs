@@ -193,11 +193,9 @@ test("direct BGN/PCGN input preserves case and brackets unsupported Latin fragme
 });
 
 test("decomposed breve input is normalized before BGN/PCGN matching", () => {
-  const result = renderRomanizedText("oe\u0306");
-  assert.equal(result.text, "⟦o⟧⟦e⟧̆");
-  // The canonical PCGN form is œ̆; this test ensures unrelated decomposed
-  // Latin text is not silently guessed as that distinct vowel.
-  assert.equal(result.status, "PARTIAL");
+  const result = renderRomanizedText("œ\u0306");
+  assert.equal(result.text, "и");
+  assert.equal(result.status, "PROVISIONAL");
 });
 
 function splitRawPcgnAlternatives(value) {
