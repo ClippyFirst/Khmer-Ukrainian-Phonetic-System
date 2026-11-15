@@ -663,3 +663,7 @@ The unit-test discovery gap is closed. This does not resolve the lossy ASCII rom
 | KHM-ROM-UA-001 | PARTIAL | Direct BGN/PCGN input is wired to the Ukrainian candidate layer. | Ukrainian targets remain PROVISIONAL; expert review and a defined Ukrainian standard are still required. |
 | KHM-ROM-ENGINE-001 | PARTIAL | Direct Latin input is supported; Khmer-script input still uses ASCII @gmana/km-translit and loses diacritics. | A contextual, diacritic-preserving Khmer-script→BGN/PCGN generator and source-profile validation remain open. |
 | KHM-ROM-TEST-001 | PARTIAL | Tests cover 22 consonant rows, 37 raw vowel/rime forms, direct input, unknown fragments and browser behavior. | Marks/numerals, broad upstream corpus and contextual Khmer-script romanizer parity remain open. |
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-MIXED-INPUT-001 | DONE_VERIFIED (input guard) | PR #194 merge `4e1b95f2a1680e7c7363a68b226b0b44778cac74`; exact-head Quality 223 tests + 70 subtests and 9 browser tests passed. | Mixed Khmer letters/marks plus Latin input is PARTIAL with explicit brackets; Khmer numerals/punctuation remain preserved. This is input-mode validation, not a romanization or linguistic accuracy claim. |
