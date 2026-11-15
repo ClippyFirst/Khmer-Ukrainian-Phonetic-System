@@ -856,7 +856,18 @@ Independent adjudicated IPA gold remains 0; empirical accuracy remains null. Iss
 
 | ID | Status | Evidence | Acceptance boundary |
 |---|---|---|---|
-| KHM-ROM-PCGN-SERIES-001 | PARTIAL (implementation pending exact-head CI) | `resolve_pcgn_series`, `PCGNSeriesDecision`, `schemas/pcgn-series-decision.schema.json`, `tests/test_pcgn_series_resolution.py`; exact PCGN weak set and Note 3 source locator encoded. | Note 3 series selection only; Note 2 shifters, vowel forms, coda, syllable segmentation and romanization remain out of scope. |
+| KHM-ROM-PCGN-SERIES-001 | DONE_VERIFIED (Note 3 series-source decision and abstention only) | `resolve_pcgn_series`, `PCGNSeriesDecision`, `schemas/pcgn-series-decision.schema.json`, `tests/test_pcgn_series_resolution.py`; exact PCGN weak set and Note 3 source locator encoded. | Note 3 series selection only; Note 2 shifters, vowel forms, coda, syllable segmentation and romanization remain out of scope. |
 | KHM-ROM-ENGINE-001 | PARTIAL | Typed structural layer plus bounded Note 3 series decision. | Complete contextual PCGN parsing and generation with ambiguity-aware abstention and source-backed parity fixtures. |
 
 No vowel, IPA, Ukrainian target or gold entry is generated. Independent adjudicated IPA gold remains 0; accuracy remains null.
+
+
+## Exact-main verification — PCGN Note 3 series resolver — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-PCGN-SERIES-001 | DONE_VERIFIED (Note 3 series-source decision and abstention only) | PR #215 merge `357ce7f2a5400ff1643e4f64337009dd18c4113d`; `resolve_pcgn_series`, `PCGNSeriesDecision`, schema `schemas/pcgn-series-decision.schema.json`, tests `tests/test_pcgn_series_resolution.py`; exact-head and exact-main Quality/Chromium/Pages passed. | Does not apply Note 2 shifters, map vowels, infer codas/phonetic syllables, process Note 5 shortening or generate PCGN Latin. |
+| KHM-ROM-ENGINE-001 | PARTIAL | Typed structural analysis plus Note 3 series resolver. | Contextual PCGN resolver/generator with shifter, vowel/rime, coda, shortening and ambiguity-aware behavior; source-backed parity fixtures. |
+| MAINLINE-CI-2026-11-15-J | DONE_VERIFIED (engineering/deployment only) | Exact main `357ce7f2a5400ff1643e4f64337009dd18c4113d`; Quality [43734828487], Chromium [43734828491], Pages [43734828557] all SUCCESS. | Hosted validation/tests/build/browser/deploy only; no linguistic accuracy claim. |
+
+Independent adjudicated IPA gold remains 0; empirical accuracy remains null. Issue #104 remains open.
