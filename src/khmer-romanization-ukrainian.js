@@ -7,7 +7,7 @@ const MAP = Object.freeze({
   eăh:"еаг", ăh:"аг", ŏh:"ог", ŭh:"уг", éh:"ег",
   "rœ̆":"ри", "lœ̆":"ли", "rœ":"ри", "lœ":"ли",
   "œ̆":"и", "œă":"иа", œ:"и",
-  "uŏ":"уо", aô:"ао", oŭ:"оу", "éa":"еа", eă:"еа", oă:"оа", "iĕ":"іє",
+  "uŏ":"уо", aô:"ао", oŭ:"оу", "éa":"еа", eă:"еа", oă:"оа", ie:"іє", "iĕ":"іє",
   aeu:"аеу", eu:"еу",
   chh:"ч'", kh:"к'", th:"т'", ph:"п'", nh:"нь", ng:"нг", ch:"ч",
   // Vowel + coda combinations and ASCII forms retained by the upstream package.
