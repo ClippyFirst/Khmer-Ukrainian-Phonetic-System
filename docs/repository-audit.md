@@ -320,3 +320,8 @@ The pre-existing inventory contained 40 non-main branches. Their tips were compa
 ## Documentation PR #179 merge — 2026-11-15
 
 The documentation/information-architecture batch was merged to `main` by squash commit `e84d530b0a4355d450ed1f7e2568a2c58ca4e9c4` (PR #179). Exact PR-head Quality and Chromium smoke passed on `db0e1b930d4566f6443b2b3a19fd811269e33adb`: runs 43692418605, 43692421394 and 43692421391. The docs index has 30 validated relative links and no missing targets. Mainline Quality, browser and Pages workflows triggered by the merge were still running at closeout; their final state is tracked separately. The license metadata inconsistency remains an owner decision blocker.
+
+
+### Final mainline verification — 2026-11-15
+
+Main commit `8b6dd5a597a670e7c3ff7bc440b2a97b4762060e` passed Quality [43692567616], Chromium browser smoke [43692567608], and Pages deployment/deployed-site smoke [43692567615]. All conclusions were SUCCESS. This is hosted CI evidence, not a local test run.

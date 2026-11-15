@@ -1951,3 +1951,12 @@ The current `pyproject.toml` declares `MIT`, while the inspected repository tree
 - Mainline workflows triggered by the merge commit: Quality [43692484702], Chromium browser smoke [43692484674], and Pages deployment [43692484691] were running at the time of this closeout. Check their final outcomes before asserting post-merge mainline/deployment verification.
 - The task branch has completed its work and PR #179 is closed/merged. Historical branches remain preserved; no branch deletion was available through the connected GitHub integration. PR #153 remains open as an evidence-limited research draft.
 - The project-license metadata mismatch remains BLOCKED for owner decision; no license was selected or added.
+
+
+## Final mainline verification — 2026-11-15
+
+- Main head at this verification: `8b6dd5a597a670e7c3ff7bc440b2a97b4762060e`.
+- Quality [43692567616](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692567616): **SUCCESS**.
+- Chromium browser smoke [43692567608](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692567608): **SUCCESS**.
+- GitHub Pages deployment and deployed-site/runtime smoke [43692567615](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692567615): **SUCCESS**.
+- These are hosted mainline checks; no local shell execution is claimed. No runtime or linguistic data changed in the closeout commits.
