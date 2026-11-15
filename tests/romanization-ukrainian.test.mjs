@@ -213,13 +213,14 @@ test("all 37 canonical PCGN vowel rows accept their diacritic-preserving forms",
     const ukrainianCandidates = splitRawPcgnAlternatives(row.ukrainian_candidate);
     assert.ok(romanizationForms.length > 0, `raw PCGN forms for row ${row.table_row}`);
     assert.ok(ukrainianCandidates.length > 0, `Ukrainian candidates for row ${row.table_row}`);
-    assert.ok(
-      ukrainianCandidates.length === romanizationForms.length || ukrainianCandidates.length === 1,
-      `parallel raw PCGN/target forms for row ${row.table_row}`
+    assert.equal(
+      romanizationForms.length % ukrainianCandidates.length,
+      0,
+      `raw PCGN forms must repeat the target alternatives evenly for row ${row.table_row}`
     );
     for (let i = 0; i < romanizationForms.length; i += 1) {
       const form = romanizationForms[i];
-      const expected = ukrainianCandidates.length === 1 ? ukrainianCandidates[0] : ukrainianCandidates[i];
+      const expected = ukrainianCandidates[i % ukrainianCandidates.length];
       const result = renderRomanizedText(form);
       assert.equal(result.unsupported, 0, `row ${row.table_row}: ${form}`);
       assert.equal(result.text, expected, `row ${row.table_row}: ${form} → Ukrainian target`);
