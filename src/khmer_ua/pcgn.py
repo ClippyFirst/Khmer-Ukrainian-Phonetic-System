@@ -173,9 +173,9 @@ def analyze_pcgn_orthographic_chunk(text: str) -> PCGNOrthographicAnalysis:
     if len(bases) > 1:
         warnings.append("MULTIPLE_UNSTACKED_CONSONANTS_RETAINED_WITHOUT_SYLLABLE_ASSIGNMENT")
     if shifters:
-        warnings.append("REGISTER_SHIFTER_EFFECT_REQUIRES_PCgn_NOTE_2_CONTEXT")
+        warnings.append("REGISTER_SHIFTER_EFFECT_REQUIRES_PCGN_NOTE_2_CONTEXT")
     if shortening:
-        warnings.append("SHORTENING_REQUIRES_PCgn_NOTE_5_PATTERN_SERIES_AND_CODA")
+        warnings.append("SHORTENING_REQUIRES_PCGN_NOTE_5_PATTERN_SERIES_AND_CODA")
     if robat:
         warnings.append("ROBAT_REQUIRES_FOLLOWING_ROMANIZED_CONSONANT")
     if ahsda:
