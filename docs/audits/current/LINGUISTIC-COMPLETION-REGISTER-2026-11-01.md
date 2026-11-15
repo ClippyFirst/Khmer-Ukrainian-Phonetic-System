@@ -723,3 +723,13 @@ The unit-test discovery gap is closed. This does not resolve the lossy ASCII rom
 | KHM-GOLD-001 | BLOCKED | Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains open; independent adjudicated IPA gold=0; accuracy=null. | Human expert protocol, annotators, independent adjudicator, rights-cleared 30 groups and adjudication required. |
 
 **Current main:** `1cc833ad1097f6b1ee7c28eb3e7aefb99ad480fb`. No open PRs at checkpoint. Project remains a partial research prototype; legal, linguistic and manual accessibility acceptance are outstanding.
+
+
+## PCGN shortened-vowel mark inventory correction — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-MARKS-NUMERALS-001 | PARTIAL (source inventory correction) | PR #204 adds U+17D0 SAMYOK SANNYA (◌័) alongside U+17CB BANTOC (◌់) in PCGN note 5 row 3; regression assertions updated in Python and Node suites. | Six PCGN rule categories now explicitly inventory seven Khmer source marks. This does not implement contextual romanization or assign a new Ukrainian value. Exact PR-head Quality [43721677822](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721677822), Chromium [43721677790](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721677790), and push Quality [43721673728](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721673728) SUCCESS on `b27b87081819307da5ffe27d55e3cf4521004730`. |
+| KHM-ROM-ENGINE-001 | PARTIAL | Source mark coverage improved; upstream Khmer-script romanizer still emits BGN/PCGN-derived ASCII and loses contextual diacritics. | Contextual series, shortening, coda and diacritic-preserving generation remain open. |
+
+Official evidence: UK PCGN, Romanization of Khmer (Cambodian), BGN/PCGN 1972 Agreement, note 5: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.

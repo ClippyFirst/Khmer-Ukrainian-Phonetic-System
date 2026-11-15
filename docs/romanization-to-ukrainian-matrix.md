@@ -124,7 +124,7 @@ These are **research candidates**, not a production vowel adapter. The source st
 
 ## Diacritics and numerals
 
-[data/khmer/romanization_marks_numerals.csv](../data/khmer/romanization_marks_numerals.csv) records all six PCGN diacritical-mark rows and all ten Khmer numeral rows. The marks are not treated as independent letters: PCGN notes specify series changes, shortened-vowel behavior, consonant insertion, positional behavior, and a silent mark that is omitted from romanization. The numeral rows map Khmer digits to their Arabic-digit values. The runtime romanizer must apply these rules contextually rather than concatenate character substitutions.
+[data/khmer/romanization_marks_numerals.csv](../data/khmer/romanization_marks_numerals.csv) records all six PCGN diacritical-mark rule rows and all ten Khmer numeral rows. The shortened-vowel rule row 3 explicitly inventories both Khmer source marks ◌់ (U+17CB BANTOC) and ◌័ (U+17D0 SAMYOK SANNYA), as required by PCGN note 5. The marks are not treated as independent letters: PCGN notes specify series changes, shortened-vowel behavior, consonant insertion, positional behavior, and a silent mark that is omitted from romanization. The numeral rows map Khmer digits to their Arabic-digit values. The runtime romanizer must apply these rules contextually rather than concatenate character substitutions.
 
 ## Required machine-readable table contract
 
@@ -143,7 +143,7 @@ Every supported Khmer grapheme/orthographic syllable must either have a complete
 | KHM-ROM-UA-001 | PARTIAL | Direct BGN/PCGN Latin input now maps the raw diacritic forms in all 37 vowel/rime rows to project Ukrainian candidates; Khmer-script input still traverses the upstream ASCII package and loses diacritics. Full acceptance requires contextual series/shortening/coda resolution and expert review of Ukrainian candidates. |
 | KHM-ROM-ONSET-001 | DONE_VERIFIED | All 22 PCGN consonant rows plus special ឝ are in data/khmer/romanization_ukrainian.csv; exact row and provenance tests passed in workflow 41229431196 |
 | KHM-ROM-VOWEL-INVENTORY-001 | PARTIAL | 37 source rows now match the PCGN glyphs/romanization values; exact-head workflow 41233203184 passed; all 37 source-glyph/romanization assertions are verified |
-| KHM-ROM-MARKS-NUMERALS-001 | PARTIAL | Six exact PCGN diacritic glyphs and ten numeral glyphs are inventoried; exact-glyph tests passed in workflow 41233203184 |
+| KHM-ROM-MARKS-NUMERALS-001 | PARTIAL | Six PCGN diacritic rule rows cover seven Khmer source marks (including both U+17CB BANTOC and U+17D0 SAMYOK SANNYA under shortened-vowel note 5); ten numeral glyphs remain inventoried. Exact row coverage is CI-tested; contextual romanization remains incomplete. |
 | KHM-ROM-MATRIX-001 | PARTIAL | The target column is complete for the inventoried rows; PCGN consonant-series × vowel × shortening × coda resolution and contextual romanization generation remain incomplete |
 | KHM-ROM-TEST-001 | PARTIAL | Unit tests now cover all 22 consonant rows, all 37 raw diacritic-preserving vowel/rime forms, and direct-input behavior; browser tests cover direct Latin input and unknown fragments. | Remaining: Khmer-script-to-Latin contextual parity, marks/numerals matrix, broad real-package corpus and expert review of Ukrainian candidates. National 1997 profile remains a separate evidence-limited research task. |
 | KHM-IPA-001 | PARTIAL | Existing contextual vowel/register/coda IPA model and independent gold remain incomplete |
@@ -274,3 +274,10 @@ The direct Latin mode assumes one input format per run. If Latin BGN/PCGN text a
 PR #201 adds a fail-closed check after the upstream Khmer-script → Latin romanizer and after direct BGN/PCGN Latin rendering. Any Khmer-script letter or combining mark still present in the would-be Latin output is bracketed and counted unsupported; the result is `PARTIAL`. Khmer punctuation remains preserved and is not treated as an unconverted letter/mark. This prevents silent pass-through of residual Khmer orthographic material.
 
 This guard does **not** reconstruct diacritics dropped by the upstream ASCII package, determine contextual series/shortening/coda forms, or establish BGN/PCGN conformance. KHM-ROM-ENGINE-001 and KHM-ROM-TEST-001 remain PARTIAL. PR #201 exact-head and post-merge Quality/Chromium/Pages workflows passed; see the canonical master handoff for run IDs.
+
+
+## PCGN shortened-vowel mark inventory correction — 2026-11-15
+
+The machine-readable mark matrix previously listed U+17CB BANTOC (◌់) for PCGN note 5 but omitted U+17D0 SAMYOK SANNYA (◌័). The official PCGN note explicitly distinguishes both marks and states that both participate in the shortened-vowel patterns. CSV row 3 now records both source units while preserving the six PCGN rule-row categories. This is an inventory correction only: it does not infer a new romanization output or Ukrainian candidate. Regression assertions cover the row's two source units and their Unicode identities. See the official PCGN 1972 Khmer guide: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf (note 5).
+
+Verification on the exact PR #204 head `b27b87081819307da5ffe27d55e3cf4521004730`: Quality [43721677822](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721677822) and Chromium [43721677790](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721677790) both SUCCESS. Quality includes independent IPA corpus structure validation, Python tests, web checks and production build; Chromium visible-results smoke passed. Push Quality [43721673728](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721673728) also SUCCESS on the same SHA.
