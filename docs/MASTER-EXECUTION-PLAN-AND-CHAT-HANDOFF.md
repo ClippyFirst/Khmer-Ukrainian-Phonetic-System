@@ -2280,7 +2280,7 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 
 ## External contextual romanizer candidate — 2026-11-15
 
-- Inspected `pheasaKhmer/khmer-engine` at `31b72cd4665f69678fc835da2f501771e42f097a`. It provides a useful architecture reference: Khmer cluster parsing, heuristic syllable-boundary inference, series/shifter-aware nucleus selection, and explicit treatment of BANTOC/SAMYOK/ROB​AT and codas.
+- Inspected `pheasaKhmer/khmer-engine` at `31b72cd4665f69678fc835da2f501771e42f097a`. It provides a useful architecture reference: Khmer cluster parsing, heuristic syllable-boundary inference, series/shifter-aware nucleus selection, and explicit treatment of BANTOC/SAMYOK/ROBAT and codas.
 - It is expressly an UNGEGN 2013 implementation, not yet verified rule-for-rule against this project's BGN/PCGN 1972 contract. Some code paths are marked as not present in the tables and inferred from secondary references. Syllable segmentation is heuristic and requires expert adjudication of ambiguous parses.
 - License review: engine code MIT; bundled sample lexical/pronunciation data CC BY 4.0 and counts ODC-By 1.0; dependency `pheasa` declares Apache-2.0. No code or data was copied; no dependency was added.
 - Disposition: research candidate only. Next engineering gate is a source-by-source BGN/PCGN ↔ UNGEGN rule diff plus a reviewed ambiguity/abstention corpus. It does not supply IPA gold and does not replace the IPA-first phonological path.
