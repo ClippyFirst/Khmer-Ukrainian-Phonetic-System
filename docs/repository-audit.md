@@ -624,3 +624,10 @@ This closes documentation coverage for Notes 1–11 only. It does not establish 
 PR [#211](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/211) merged as `9383385fc3244ff600d0fab254c6488a83d92d7b`. PR-head push Quality [43732930991], PR Quality [43732940452], and PR Chromium [43732940449] all SUCCESS. Exact-main Quality [43733051013], Chromium [43733051164], and Pages build/deploy [43733051031] all SUCCESS.
 
 The new eleven-note PCGN registry and its regression tests are therefore engineering-verified on exact main. Acceptance remains bounded to documentation and rule-boundary guardrails: it does not implement a contextual Khmer-script romanizer or resolve ambiguous/omitted marks. Issue #104 remains the human IPA-gold blocker; research prototype only.
+
+
+## Typed PCGN structural analysis — 2026-11-15
+
+A new isolated `src/khmer_ua/pcgn.py` module records source-script structure for a caller-supplied chunk. It retains base/foot identities and orthographic register labels, shifters, vowel signs, both shortening marks, ROBAT, AHSDA and TOANDAKHIAT, code points, unresolved material and provenance. The output schema requires explicit abstention for syllable segmentation, series, series source, coda, romanization, IPA and Ukrainian output.
+
+This improves inspectability and provides a typed boundary for future work, but it does not implement contextual BGN/PCGN rules or resolve any linguistic ambiguity. It deliberately does not reuse the existing phonological parser's heuristic syllable segmentation. Tests and hosted CI are pending on the PR head; do not mark the engine complete until contextual source-backed parity fixtures and expert review exist.

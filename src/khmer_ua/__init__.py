@@ -3,6 +3,7 @@ SCHEMA_VERSION = "0.1.0"
 DATA_VERSION = "2026-10-05-research-finalization"
 
 from .parser import analyze, normalize_khmer
+from .pcgn import PCGNOrthographicAnalysis, PCGNToken, analyze_pcgn_orthographic_chunk
 from .ipa import (
     IPACandidate,
     IPACandidateStatus,
@@ -15,6 +16,9 @@ from .hybrid import HybridKhmerEngine, create_hybrid_engine, make_mekongphon_bac
 
 __all__ = [
     "analyze",
+    "PCGNOrthographicAnalysis",
+    "PCGNToken",
+    "analyze_pcgn_orthographic_chunk",
     "normalize_khmer",
     "IPACandidate",
     "IPACandidateStatus",

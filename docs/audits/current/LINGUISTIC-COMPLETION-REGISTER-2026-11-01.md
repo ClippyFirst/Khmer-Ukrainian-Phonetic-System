@@ -827,3 +827,14 @@ No IPA labels, Ukrainian mappings, gold rows or empirical accuracy claims were a
 | KHM-ROM-TEST-001 | PARTIAL | Existing row-level tests plus Notes 1–11 boundary tests pass in hosted CI. | Contextual Khmer-script parity fixtures with independently reviewed expected romanizations remain absent. |
 
 No IPA labels, Ukrainian target decisions or gold records were added. Independent adjudicated IPA gold remains 0; empirical accuracy remains null.
+
+
+## Typed PCGN orthographic analysis — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-PCGN-STRUCTURE-001 | PARTIAL (implementation pending exact-head CI) | `src/khmer_ua/pcgn.py`, `schemas/pcgn-orthographic-analysis.schema.json`, `tests/test_pcgn_orthographic_analysis.py`. Typed source trace preserves base/subscript identities and orthographic register labels, marks, vowel signs, positions, unknowns and provenance. | No syllable segmentation, effective-series choice, coda inference, diacritic recovery, romanization or IPA. Needs exact-head hosted test/schema verification and reviewed contextual fixtures. |
+| KHM-ROM-ENGINE-001 | PARTIAL | A parser-facing structural contract now exists, separate from the IPA-first engine. | Complete contextual PCGN resolver/generator with ambiguity/abstention and source-backed parity fixtures; no guessed readings. |
+| KHM-ROM-TEST-001 | PARTIAL | Focused tests cover structure preservation, source-mark typing, abstention, malformed input and schema contract. | Hosted CI must pass; add independent expert-reviewed expected PCGN outputs before behavioral rule coverage is accepted. |
+
+No pronunciation, IPA, Ukrainian target or gold data was added. Independent adjudicated IPA gold remains 0; empirical accuracy remains null.

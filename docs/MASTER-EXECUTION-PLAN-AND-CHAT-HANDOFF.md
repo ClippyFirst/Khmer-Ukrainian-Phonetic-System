@@ -2324,3 +2324,14 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - No local checkout or local test execution is claimed. The change adds a source-located documentation registry and Python regression tests only; no runtime, dependency, IPA, Ukrainian target, gold row or generated pronunciation changed.
 - `KHM-ROM-PCGN-NOTES-001` is DONE_VERIFIED only for Notes 1–11 documentation and guardrail tests. `KHM-ROM-ENGINE-001` and `KHM-ROM-TEST-001` remain PARTIAL. Issue #104 remains open; adjudicated IPA gold=0 and accuracy=null. Root LICENSE/MIT metadata, source rights, manual accessibility and main protection remain unresolved.
 - Readiness remains a partial research prototype, not a linguistically validated production release.
+
+
+## Typed PCGN orthographic analysis — 2026-11-15
+
+- New isolated module: `src/khmer_ua/pcgn.py`, exported as `analyze_pcgn_orthographic_chunk`.
+- New serialized contract: `schemas/pcgn-orthographic-analysis.schema.json`.
+- New focused tests: `tests/test_pcgn_orthographic_analysis.py`.
+- The typed result preserves base and subscript identities plus their orthographic register labels, register-shifter identities, dependent/independent vowels, both shortening marks, ROBAT/AHSDA/TOANDAKHIAT positions, unresolved source components, NFC/raw forms and source references.
+- Deliberate non-decisions are machine-readable: `NOT_PERFORMED` syllable segmentation, `UNRESOLVED` series and coda, `NOT_SELECTED` series source, and null romanization/IPA/Ukrainian. It does not run through the phonological engine and does not change existing IPA-first outputs.
+- It accepts a caller-supplied chunk and does not claim to find chunk boundaries. Multiple unstacked consonants remain unassigned. Unknown characters and malformed coeng sequences are preserved and fail closed.
+- This is the first parser-facing structural contract, not contextual PCGN rule parity. Next gates: validate schema/serialization in hosted CI; then add source-backed, independently reviewed contextual fixtures before any rule resolver or romanization generation. Do not infer a coda, syllable boundary or omitted shifter.
