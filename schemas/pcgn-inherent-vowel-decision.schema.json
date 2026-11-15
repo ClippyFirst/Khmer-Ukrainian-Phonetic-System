@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BGN/PCGN 1972 inherent vowel component decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "syllable_position", "series", "romanization", "source_table_row",
+    "status", "ipa", "ukrainian", "source_locator", "warnings"
+  ],
+  "properties": {
+    "syllable_position": {"enum": ["NON_FINAL", "FINAL"]},
+    "series": {"enum": ["â", "ô", null]},
+    "romanization": {"type": ["string", "null"]},
+    "source_table_row": {"const": 1},
+    "status": {"enum": ["RESOLVED", "UNRESOLVED"]},
+    "ipa": {"type": "null"},
+    "ukrainian": {"type": "null"},
+    "source_locator": {"const": "PCGN 1972, Independent/Dependent Vowel Characters table row 1 (p. 2)"},
+    "warnings": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "RESOLVED"}}, "required": ["status"]},
+      "then": {
+        "properties": {
+          "syllable_position": {"const": "NON_FINAL"},
+          "series": {"enum": ["â", "ô"]},
+          "romanization": {"enum": ["â", "ô"]}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "UNRESOLVED"}}, "required": ["status"]},
+      "then": {"properties": {"series": {"type": "null"}, "romanization": {"type": "null"}}}
+    }
+  ]
+}
