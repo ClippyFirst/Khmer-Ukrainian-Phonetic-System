@@ -173,11 +173,13 @@
       "url": "https://github.com/chemvatho/Khmer-acoustic-model",
       "kind": "word-level IPA reference resource",
       "status": "benchmark-resource",
-      "output": "Upstream advertises 29,204 IPA entries validated by native linguists. README states dictionary data CC BY-SA 4.0 separately from MIT code/model.",
-      "license": "Dictionary CC BY-SA 4.0 as stated upstream; verify exact files/revision and attribution before use",
+      "output": "Potential Khmer IPA lexicon, but the pinned upstream review found contradictory counts (29,204 in the root README; 33,091 in dictionary/README.md) and only a six-entry sample in the visible tree. Published MAE/F1 figures concern forced-alignment boundaries, not G2P or transcription accuracy. Full dictionary is unavailable for inspection.",
+      "license": "CONFLICTING_UPSTREAM_DECLARATIONS: root README says CC BY-SA 4.0; dictionary/README.md says CC BY 4.0. Full dictionary absent from inspected tree; no reuse or redistribution until clarified.",
       "verified_in_repo": false,
       "enabled_by_default": false,
-      "execution_status": "UPSTREAM_RESOURCE_CLAIM_LICENSE_REVIEW_REQUIRED"
+      "execution_status": "BLOCKED_METADATA_CONFLICT_AND_FULL_DICTIONARY_ABSENT",
+      "latest_checked_revision": "2714994b41ccf875c5b6f6182b48a72f13632dbf",
+      "latest_checked_at": "2026-11-11"
     },
     {
       "id": "mekongphon-khmer-ipa",
