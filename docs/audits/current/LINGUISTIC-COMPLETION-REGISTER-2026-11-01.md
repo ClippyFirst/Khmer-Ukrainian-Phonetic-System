@@ -619,3 +619,12 @@ The 2025 UNGEGN Asia South-East Division report further confirms that the Octobe
 | KHM-ROM-TEST-001 | PARTIAL | PR #167 merged as `f0485892f5d4b16e5fbe0ded6f8e083d8b044f4b`; the adapter unit suite is now included in `npm test` and `npm run check`. It asserts all 22 distinct consonant romanization tokens and the 33 ASCII vowel candidates. Exact-main Quality [43250158336](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43250158336) and browser smoke [43250158628](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43250158628) passed. | Add complete source-matrix→runtime parity, real upstream romanizer corpus tests, marks/numerals and contextual diacritic-preserving profile coverage. |
 
 The unit-test discovery gap is closed. This does not resolve the lossy ASCII romanizer, the national 1997 profile blocker, or the proposed status of Ukrainian mappings.
+
+## Auxiliary external source triage — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHMER-PHONSOBON-001 | PARTIAL (source recorded; not integrated) | PhonSobon model card reports 83.37% validation word accuracy for a 7.46M-parameter Khmer-script respelling model; dataset card reports 38,629 NCKL-derived respelling pairs and a word-level train/validation/test split. | Auxiliary respelling/syllabification only, never IPA or phonetic gold. NCKL redistribution/derivative/commercial terms must be clarified before data use; no rows or weights copied. |
+| KHMER-ACOUSTIC-DICT-001 | BLOCKED | Pinned upstream review reports 29,204 vs 33,091 entry-count conflict, CC BY-SA 4.0 vs CC BY 4.0 data-license conflict, and only a six-entry sample in the inspected tree. | Obtain the full versioned dictionary and digest, reconcile counts and IPA conventions, verify item provenance and receive authoritative data-rights clarification. Alignment metrics do not establish G2P accuracy. |
+
+**Research boundary:** neither candidate adds independent adjudicated IPA gold. Gold remains 0 and empirical accuracy remains null.
