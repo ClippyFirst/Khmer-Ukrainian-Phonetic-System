@@ -726,3 +726,27 @@ Status: `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` remains PARTIAL. No lexical choice
 - Final PR-head `20cb0f2704bef9eb6319fb0c3a38c74740d6fded`: push Quality [43757811370], PR Quality [43757897285], PR Chromium [43757897258] all SUCCESS. Python 308 passed, 70 subtests passed; web checks and production build passed; Chromium visible-results smoke passed.
 - Exact post-merge main: Quality [43758011762], Chromium [43758011768], Pages build/deploy [43758011784] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - Note 9 now exposes `("ŏ", "ŭ")` as options for `ឧ` while retaining UNRESOLVED status and no selected romanization. `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` remains PARTIAL; no lexical selection, IPA, Ukrainian output, gold record or accuracy claim was added.
+
+
+## BGN/PCGN vowel characters with anusvara or visarga — table rows 1–8 — 2026-11-15
+
+Added a bounded component resolver for the official p. 4 table “Vowel Characters with Anusvara or Visarga”. It consumes an exact full chunk plus a caller-supplied onset-only analysis, resolves the onset series through Notes 2–3, and maps only these eight source rows:
+
+| Row | Exact source sequence after onset | â series | ô series |
+|---:|---|---|---|
+| 1 | `ុ + ំ` | `om` | `ŭm` |
+| 2 | `ំ` | `âm` | `um` |
+| 3 | `ា + ំ` | `ăm` | `ŏâm` |
+| 4 | `ះ` | `ăh` | `eăh` |
+| 5 | `ុ + ះ` | `ŏh` | `ŭh` |
+| 6 | `េ + ះ` | `éh` | `éh` |
+| 7 | `ោ + ះ` | `aôh` | `ŏăh` |
+| 8 | `ា + ំ + ង` | `ăng` | `eăng` |
+
+Row 8 is intentionally stricter: the caller must pass `coda_character="ង"`; the resolver checks that the exact final base token is NGA. It does not infer a coda or syllable boundary. All unlisted combinations, extra marks, mismatched onset prefixes and unsupported structures abstain.
+
+Implementation: `resolve_pcgn_anusvara_visarga`, `PCGNAnusvaraVisargaDecision`; schema `schemas/pcgn-anusvara-visarga-decision.schema.json`; regression tests `tests/test_pcgn_anusvara_visarga_resolution.py`; source registry `data/khmer/romanization_pcgn_anusvara_visarga.csv`.
+
+Source: BGN/PCGN 1972 Agreement, p. 4: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+
+Status: `KHM-ROM-PCGN-ANUSVARA-VISARGA-001 = PARTIAL`. The result is a vowel/final component only; it does not emit a complete syllable, IPA or Ukrainian text. `KHM-ROM-PCGN-VOWELS-001` and `KHM-ROM-ENGINE-001` remain PARTIAL.

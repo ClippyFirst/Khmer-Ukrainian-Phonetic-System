@@ -533,6 +533,145 @@ def resolve_pcgn_dependent_vowel(
     )
 
 
+PCGN_ANUSVARA_VISARGA_TABLE_LOCATOR = (
+    "PCGN 1972, Vowel Characters with Anusvara or Visarga table (p. 4)"
+)
+# Exact post-onset Unicode token sequences from the official table. The final
+# NGA in row 8 is an explicit coda and is never inferred from a word string.
+PCGN_ANUSVARA_VISARGA_ROWS: dict[tuple[str, ...], tuple[int, str, str]] = {
+    ("ុ", "ំ"): (1, "om", "ŭm"),
+    ("ំ",): (2, "âm", "um"),
+    ("ា", "ំ"): (3, "ăm", "ŏâm"),
+    ("ះ",): (4, "ăh", "eăh"),
+    ("ុ", "ះ"): (5, "ŏh", "ŭh"),
+    ("េ", "ះ"): (6, "éh", "éh"),
+    ("ោ", "ះ"): (7, "aôh", "ŏăh"),
+    ("ា", "ំ", "ង"): (8, "ăng", "eăng"),
+}
+
+
+@dataclass(frozen=True)
+class PCGNAnusvaraVisargaDecision:
+    source_components: tuple[str, ...] | None
+    series: Literal["â", "ô"] | None
+    coda_character: str | None
+    romanization: str | None
+    source_table_row: int | None
+    status: Literal["RESOLVED", "UNRESOLVED"]
+    ipa: None
+    ukrainian: None
+    source_locator: str
+    warnings: tuple[str, ...]
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+def resolve_pcgn_anusvara_visarga(
+    analysis: PCGNOrthographicAnalysis,
+    onset_analysis: PCGNOrthographicAnalysis,
+    coda_character: str | None = None,
+) -> PCGNAnusvaraVisargaDecision:
+    """Resolve one exact PCGN table row containing NIKAHIT or REAHMUK.
+
+    The caller supplies an onset-only analysis. Row 8 additionally requires
+    the exact final NGA coda to be caller-identified. This resolver does not
+    infer a syllable boundary, coda, pronunciation or IPA; it returns only
+    the vowel-plus-final-consonant romanization component from table rows 1–8.
+    """
+    def unresolved(reason: str) -> PCGNAnusvaraVisargaDecision:
+        return PCGNAnusvaraVisargaDecision(
+            source_components=None,
+            series=None,
+            coda_character=coda_character if coda_character == "ង" else None,
+            romanization=None,
+            source_table_row=None,
+            status="UNRESOLVED",
+            ipa=None,
+            ukrainian=None,
+            source_locator=PCGN_ANUSVARA_VISARGA_TABLE_LOCATOR,
+            warnings=(reason, "NO_COMPLETE_SYLLABLE_IPA_OR_UKRAINIAN_OUTPUT"),
+        )
+
+    if analysis.status != "STRUCTURE_ONLY" or onset_analysis.status != "STRUCTURE_ONLY":
+        return unresolved("UNSUPPORTED_OR_UNRESOLVED_ORTHOGRAPHIC_COMPONENT")
+    if (
+        len(onset_analysis.base_consonants) != 1
+        or len(onset_analysis.subscript_consonants) > 1
+        or onset_analysis.dependent_vowel_signs
+        or onset_analysis.independent_vowels
+        or onset_analysis.shortening_marks
+        or onset_analysis.robat_positions
+        or onset_analysis.ahsda_positions
+        or onset_analysis.toandakhiat_positions
+        or any(
+            token.kind not in {"unstacked_consonant", "subscript_consonant", "register_shifter"}
+            for token in onset_analysis.tokens
+        )
+    ):
+        return unresolved("ONSET_ANALYSIS_MUST_CONTAIN_ONE_BASE_AND_AT_MOST_ONE_FOOT_ONLY")
+
+    series_decision = resolve_pcgn_series(onset_analysis)
+    if series_decision.status != "RESOLVED" or series_decision.series not in {"â", "ô"}:
+        return unresolved("PCGN_NOTE_2_3_ONSET_SERIES_MUST_BE_RESOLVED")
+
+    onset_tokens = tuple(onset_analysis.tokens)
+    if tuple(analysis.tokens[:len(onset_tokens)]) != onset_tokens:
+        return unresolved("ONSET_ANALYSIS_DOES_NOT_MATCH_FULL_CHUNK_PREFIX")
+    if (
+        analysis.subscript_consonants != onset_analysis.subscript_consonants
+        or analysis.register_shifters != onset_analysis.register_shifters
+        or analysis.independent_vowels
+        or analysis.shortening_marks
+        or analysis.robat_positions
+        or analysis.ahsda_positions
+        or analysis.toandakhiat_positions
+    ):
+        return unresolved("FULL_CHUNK_CONTAINS_UNSUPPORTED_OR_MISMATCHED_CONTEXT")
+
+    components = tuple(token.text for token in analysis.tokens[len(onset_tokens):])
+    row = PCGN_ANUSVARA_VISARGA_ROWS.get(components)
+    if row is None:
+        return unresolved("ANUSVARA_VISARGA_SEQUENCE_NOT_IN_PCGN_TABLE_ROWS_1_TO_8")
+
+    row_number, a_series_value, o_series_value = row
+    if row_number == 8:
+        if coda_character != "ង":
+            return unresolved("PCGN_ROW_8_REQUIRES_EXPLICIT_FINAL_NGA_CODA")
+        if analysis.base_consonants != onset_analysis.base_consonants + ("ង",):
+            return unresolved("PCGN_ROW_8_FINAL_NGA_DOES_NOT_MATCH_FULL_CHUNK")
+    else:
+        if coda_character is not None:
+            return unresolved("CODA_ARGUMENT_NOT_ALLOWED_FOR_PCGN_ROWS_1_TO_7")
+        if analysis.base_consonants != onset_analysis.base_consonants:
+            return unresolved("UNLISTED_CODA_OR_MULTIPLE_BASE_CONSONANTS")
+
+    allowed_kinds = {
+        "dependent_vowel", "vowel_modifier", "sign", "unstacked_consonant"
+    }
+    if any(token.kind not in allowed_kinds for token in analysis.tokens[len(onset_tokens):]):
+        return unresolved("NON_TABLE_TOKEN_IN_ANUSVARA_VISARGA_SEQUENCE")
+
+    value = a_series_value if series_decision.series == "â" else o_series_value
+    return PCGNAnusvaraVisargaDecision(
+        source_components=components,
+        series=series_decision.series,
+        coda_character="ង" if row_number == 8 else None,
+        romanization=value,
+        source_table_row=row_number,
+        status="RESOLVED",
+        ipa=None,
+        ukrainian=None,
+        source_locator=PCGN_ANUSVARA_VISARGA_TABLE_LOCATOR,
+        warnings=(
+            "PCGN_TABLE_ANUSVARA_VISARGA_COMPONENT_ONLY",
+            "ONSET_SERIES_RESOLVED_FROM_SEPARATE_ONSET_ANALYSIS",
+            "ROW_8_NGA_CODA_EXPLICITLY_CALLER_IDENTIFIED" if row_number == 8 else "NO_CODA_INFERRED",
+            "NO_SYLLABLE_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT",
+        ),
+    )
+
+
 PCGN_INDEPENDENT_VOWEL_TABLE_LOCATOR = (
     "PCGN 1972, Independent/Dependent Vowel Characters table (pp. 2–3), Notes §9"
 )
