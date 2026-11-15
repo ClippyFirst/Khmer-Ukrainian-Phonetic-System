@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "BGN/PCGN 1972 Note 3 series decision",
+  "title": "BGN/PCGN 1972 Notes 2–3 series decision",
   "type": "object",
   "additionalProperties": false,
   "required": ["series", "basis", "status", "onset_exception", "series_before_shifter", "shifter_effect", "source_locator", "warnings"],
