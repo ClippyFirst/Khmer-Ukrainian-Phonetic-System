@@ -1216,3 +1216,8 @@ The resolver preserves Unicode source identity and does not guess cases requirin
 ## Exact-main verification — PR #251 — 2026-11-15
 
 PR #251 merged as `aab014705bdf90825b922ff69f1c2e7758e56246`. PR-head push Quality [43760857888], PR Quality [43760868532], PR Chromium [43760868545], exact-main Quality [43760984773], Chromium [43760984785] and Pages [43760984838] all SUCCESS. Documentation-only closeout; no linguistic status promotion.
+
+
+## Exact-main verification — PR #252 — 2026-11-15
+
+PR #252 merged as `16fbbde6238e03290507056388b539f54622d236`. Final PR-head push Quality [43761467383], PR Quality [43761473221], PR Chromium [43761473212], exact-main Quality [43761598283], Chromium [43761598359] and Pages [43761598332] all SUCCESS. Earlier Quality [43761223088] failed on malformed JSON in the new schema; correction and subsequent full checks passed. `KHM-ROM-PCGN-CONSONANTS-001` remains PARTIAL by design; no IPA or Ukrainian acceptance is implied.
