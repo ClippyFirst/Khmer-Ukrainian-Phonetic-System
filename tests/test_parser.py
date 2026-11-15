@@ -98,3 +98,21 @@ def test_unknown_khmer_material_does_not_drop_following_graphemes():
     assert [cp for item in parsed.graphemes for cp in item.codepoints] == [
         "U+1780", "U+0078", "U+1799"
     ]
+
+def test_syllable_chaining_example_does_not_claim_phonetic_syllabification():
+    # Unicode L2/22-290 gives this orthographic sequence as an example where
+    # phonetic syllables and orthographic units do not correspond one-to-one.
+    source = "".join(chr(cp) for cp in (
+        0x179F, 0x1784, 0x17D2, 0x1782, 0x17D2, 0x179A, 0x17B6, 0x1798
+    ))
+    result = analyze(source)
+
+    assert result.normalized == source
+    assert result.phonetic_representation == {
+        "status": "phoneticization_not_yet_established"
+    }
+    assert "".join(
+        grapheme["text"]
+        for syllable in result.syllables
+        for grapheme in syllable["graphemes"]
+    ) == source

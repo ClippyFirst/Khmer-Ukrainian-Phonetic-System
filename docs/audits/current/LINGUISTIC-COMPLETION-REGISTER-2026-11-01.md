@@ -644,3 +644,9 @@ The unit-test discovery gap is closed. This does not resolve the lossy ASCII rom
 |---|---|---|---|
 | PR153-RECONCILIATION-001 | DONE_VERIFIED | PR #187 merge `1ef8578143bd2a0e9d55a46c0ddef4d0006dc5c3`; PR #188 merge `34f9dbfd94788d1d1b9b64646354157d4741dfed`; exact-head Quality and Chromium workflows succeeded. PR #153 closed unmerged after selective port. | Engineering/documentation reconciliation only; no phonetic gold or external data rights are created by this work. |
 | REPOSITORY-LICENSE-001 | BLOCKED (owner decision) | `pyproject.toml` declares MIT; root `LICENSE` is absent. | Owner must confirm intended project license before the canonical license text can be added. |
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHMER-PHONOTACTIC-SCOPE-001 | PARTIAL | Nacaskul (1978), Unicode L2/22-290 and Ding et al. (2018) are now classified by major/minor syllable type versus orthographic encoding. | Confirm current Phnom Penh profile with lexical and acoustic evidence before implementing global constraints; no exhaustive cluster/coda inventory yet. |
+| KHMER-PPK-PITCH-2025-001 | PARTIAL | Mam et al. (2025) reports lower F0 groups for /r>h/ forms and voiced-onset disyllables in a five-speaker PPK sample. | Independent multi-speaker replication, perception evidence and profile-matched lexical data required; no universal tone rule or tone-bearing IPA labels added. |
+| KHMER-ORTHOGRAPHIC-CHAINING-001 | DONE_VERIFIED (source contract and regression) | Unicode encoding analysis describes coeng chaining and mismatch between orthographic units and phonetic syllables; parser regression keeps phoneticization withheld. | Structural parser remains orthographic; a future phonetic syllabifier requires separate lexical/prosodic evidence. |

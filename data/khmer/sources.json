@@ -409,5 +409,63 @@
     "license": "The pinned MekongPhon repository snapshot has no declared root LICENSE. Do not copy or redistribute source code/data pending rights clarification.",
     "status": "CANDIDATE_SOURCE_INSPECTED_NOT_EXECUTED",
     "limitations": "Output conventions, dialect/profile coverage, tokenization behavior and compatibility with the project's typed IPA contract have not been validated. Not an enabled provider, not gold, and not a source of empirical accuracy."
+  },
+  {
+    "id": "nacaskul1978-syllabic-morphological-structure",
+    "type": "historical_phonotactic_description",
+    "title": "The Syllabic and Morphological Structure of Cambodian Words",
+    "author": "Karnchana Nacaskul",
+    "year": 1978,
+    "url": "https://www.sealang.net/archives/mks/pdf/7%3A183-200.pdf",
+    "scope": "Describes major and minor syllables. For major syllables it reports no final consonant clusters, a listed coda inventory, and no short vowels/short diphthongs in open syllables. It separately defines minor type A (clusters only with /r/ in second position; short /ə/ or /ɔ/; no coda) and type B (single onset; restricted short nucleus; coda among four nasals).",
+    "status": "HISTORICAL_PHONOTACTIC_ANALYSIS",
+    "limitations": "1978 description using its own transcription and register analysis. Do not treat minor-type restrictions as global phonotactic bans or assume every coda inventory detail is current for the selected Phnom Penh careful-citation profile. Reconcile with contemporary acoustic/lexical evidence before encoding rules."
+  },
+  {
+    "id": "unicode-l2-22-290-khmer-encoding-structure",
+    "type": "technical_orthographic_encoding_analysis",
+    "title": "Khmer Encoding Structure (L2/22-290)",
+    "author": "Martin Hosken, with Norbert Lindenberg and Makara Sok",
+    "year": 2022,
+    "url": "https://www.unicode.org/L2/L2022/22290-khmer-encoding.pdf",
+    "scope": "Describes modern Khmer orthographic syllable structure as a base plus up to two pre-vowel coengs and an optional dependent vowel; documents coeng use for initial clusters and syllable chaining, and notes that phonetic syllable count can differ from orthographic units. It distinguishes Middle Khmer final coengs from modern dictionary orthography and notes personal-name exceptions.",
+    "status": "TECHNICAL_ORTHOGRAPHIC_REFERENCE",
+    "limitations": "This is an encoding/orthography proposal, not a phonological grammar. The two-coeng limit is not a statement that Khmer has at most two onset consonants; chaining can place a previous phonetic coda inside the next orthographic unit."
+  },
+  {
+    "id": "ding-et-al-2018-statistical-khmer-name-romanization",
+    "type": "secondary_nlp_orthographic_phonotactic_description",
+    "title": "Statistical Khmer Name Romanization",
+    "author": "Chenchen Ding, Vichet Chea, Masao Utiyama, Eiichiro Sumita, Sethserey Sam, Sopheap Seng",
+    "year": 2018,
+    "doi": "10.1007/978-981-10-8438-6_15",
+    "url": "https://att-astrec.nict.go.jp/member/tei/PACLING2017-KM.pdf",
+    "scope": "Reports two-consonant onset clusters as common, three as the maximum, and roughly 80 possible consonant combinations. Based on a 7,658-instance Khmer personal-name romanization/alignment study; explicitly discusses mismatch between phonemic syllables and orthographic unbreakable writing units, including silent etymological stacked letters and syllable chaining.",
+    "license": "The paper states that its manually aligned name-romanization data were released under CC BY-NC-SA for research use; exact current hosting and file-level terms must be checked before reuse.",
+    "status": "SECONDARY_ENGINEERING_DESCRIPTION",
+    "limitations": "A name-romanization/NLP study, not an exhaustive phonological field survey. The approximate 80 cluster types and three-consonant maximum are secondary descriptive claims, not an authoritative exhaustive list or a basis for rejecting individual clusters. No dataset rows are imported."
+  },
+  {
+    "id": "mam-et-al-2025-phonologization-pitch-khmer",
+    "type": "primary_phonetic_prosody_study",
+    "title": "Phonologization of Pitch in Phnom Penh and Standard Khmer for Cluster and Disyllabic Words",
+    "author": "Sothornin Mam, Pittayawat Pittayaporn, Sireemas Maspong",
+    "year": 2025,
+    "doi": "10.21437/TAI.2025-29",
+    "url": "https://www.isca-archive.org/tai_2025/mam25_tai.pdf",
+    "scope": "Compares Standard Khmer and Phnom Penh Khmer using 50 target words, five native speakers (two male, three female), and three repetitions. F0 was measured in the stressed rime. The study reports a lower F0 group for /r>h/ forms and for voiced-onset disyllables in PPK, suggesting that pitch may be phonologizing beyond the previously described /r/-loss context.",
+    "status": "PRIMARY_PHONETIC_SOURCE_PROFILE_SPECIFIC",
+    "limitations": "The paper describes the result as possible/incipient phonologization and calls for further study. It is a bounded wordlist and five-speaker sample, not a complete perception study or an independently adjudicated project gold set. Do not add a general Khmer tone rule or infer tone from orthography alone."
+  },
+  {
+    "id": "sak-humphry-2025-cambodian-essential-grammar-preview",
+    "type": "recent_grammar_preview_needs_verification",
+    "title": "Cambodian: An Essential Grammar",
+    "author": "Chhany Sak-Humphry",
+    "year": 2025,
+    "url": "https://www.routledge.com/Cambodian-An-Essential-Grammar/Sak-Humphry/p/book/9781138483002",
+    "scope": "Publisher preview excerpt discusses CVF and CCVF syllable patterns, short/long nuclei and final consonants. The retrieved excerpt states that short or long vowels are possible when a final is present and that open monosyllables require a long nucleus.",
+    "status": "PREVIEW_INCONSISTENT_CODA_INVENTORY",
+    "limitations": "The retrieved preview excerpt lists /r/ among permitted finals and then also lists /r/ among excluded finals. Do not use this excerpt to settle the coda inventory until the full text or an author/publisher correction resolves the contradiction."
   }
 ]
