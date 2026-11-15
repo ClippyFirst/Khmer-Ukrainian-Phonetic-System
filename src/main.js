@@ -386,8 +386,10 @@ if (typeof document !== "undefined") {
   const modePhonetic = $("mode-phonetic");
   const modeRomanization = $("mode-romanization");
   const outputMethodNote = $("output-method-note");
+  let activeMode = "phonetic";
 
   function setOutputMode(mode) {
+    activeMode = mode;
     document.querySelectorAll("[data-method-panel]").forEach((panel) => {
       panel.hidden = panel.dataset.methodPanel !== mode;
     });
@@ -466,9 +468,9 @@ if (typeof document !== "undefined") {
       card.append(heading, values, note);
       unitDetails.append(card);
     });
-    unitDetails.hidden = data.units.every((unit) => unit.status === "PUNCTUATION");
+    unitDetails.hidden = activeMode !== "phonetic" || data.units.every((unit) => unit.status === "PUNCTUATION");
     const notice = getStatusNotice(data);
-    issue.hidden = !notice;
+    issue.hidden = activeMode !== "phonetic" || !notice;
     if (!issue.hidden) {
       $("issue-text").textContent = notice;
       $("issue").querySelector("strong").textContent =
