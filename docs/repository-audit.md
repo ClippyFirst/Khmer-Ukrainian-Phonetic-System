@@ -500,3 +500,10 @@ The repository remains a research platform / partial prototype. No empirical pho
 - The Khmer-script path remains ASCII-derived and loses PCGN diacritics upstream. The new direct path does not reconstruct omitted diacritics or validate arbitrary romanization systems.
 - Ukrainian target mappings remain project proposals/PROVISIONAL; this is not IPA, pronunciation inference or semantic translation. No release-readiness claim is made.
 - Two failed intermediate CI heads were fixed and retained: missing ASCII `ie` fallback and incorrect test grouping for shortened variants that share target candidates. Final exact-head Quality and browser checks passed.
+
+## Mixed-script romanization guard — 2026-11-15
+
+- PR #194 merged as `4e1b95f2a1680e7c7363a68b226b0b44778cac74`. Exact-head Quality [43709408446](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709408446) SUCCESS (223 tests + 70 subtests); Chromium [43709408411](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709408411) SUCCESS (9 browser tests).
+- Mixed Khmer+Latin direct input no longer silently passes Khmer letters/marks through: they are bracketed and result status is PARTIAL. UI asks users to run Khmer-script and Latin BGN/PCGN inputs separately.
+- Khmer numerals still convert to Arabic digits and Khmer punctuation remains preserved; UI mode detection distinguishes letters/marks from numerals and punctuation.
+- No change to BGN/PCGN mapping, Ukrainian proposals, IPA or phonological rules. Post-merge CI was not returned for merge SHA; exact PR-head checks are the verification evidence.
