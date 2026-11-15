@@ -51,6 +51,7 @@ class PCGNOrthographicAnalysis:
     base_consonants: tuple[str, ...]
     subscript_consonants: tuple[str, ...]
     register_shifters: tuple[str, ...]
+    register_shifter_positions: tuple[int, ...]
     dependent_vowel_signs: tuple[str, ...]
     independent_vowels: tuple[str, ...]
     shortening_marks: tuple[str, ...]
@@ -86,6 +87,7 @@ def analyze_pcgn_orthographic_chunk(text: str) -> PCGNOrthographicAnalysis:
     bases: list[str] = []
     subscripts: list[str] = []
     shifters: list[str] = []
+    shifter_positions: list[int] = []
     dependent_vowels: list[str] = []
     independent_vowels: list[str] = []
     shortening: list[str] = []
@@ -152,6 +154,7 @@ def analyze_pcgn_orthographic_chunk(text: str) -> PCGNOrthographicAnalysis:
                 continue
             if ch in {"៉", "៊"}:
                 shifters.append(ch)
+                shifter_positions.append(i)
                 token(ch, "register_shifter", name)
             elif ch in {"់", "័"}:
                 shortening.append(ch)
@@ -213,6 +216,7 @@ def analyze_pcgn_orthographic_chunk(text: str) -> PCGNOrthographicAnalysis:
         base_consonants=tuple(bases),
         subscript_consonants=tuple(subscripts),
         register_shifters=tuple(shifters),
+        register_shifter_positions=tuple(shifter_positions),
         dependent_vowel_signs=tuple(dependent_vowels),
         independent_vowels=tuple(independent_vowels),
         shortening_marks=tuple(shortening),
@@ -239,7 +243,9 @@ class PCGNSeriesDecision:
     series: Literal["â", "ô"] | None
     basis: Literal["BASE", "SUBSCRIPT", "UNRESOLVED"]
     status: Literal["RESOLVED", "UNRESOLVED"]
-    onset_exception: Literal["BA_WITH_FOOT_P_IN_A_SERIES"] | None
+    onset_exception: Literal["BA_WITH_FOOT_P_IN_A_SERIES", "BA_WITH_MUUSIKATOAN_P_IN_A_SERIES"] | None
+    series_before_shifter: Literal["â", "ô"] | None
+    shifter_effect: Literal["TRIISAP_A_TO_O", "MUUSIKATOAN_O_TO_A", "BA_MUUSIKATOAN_P_IN_A"] | None
     source_locator: str
     warnings: tuple[str, ...]
 
@@ -250,11 +256,12 @@ class PCGNSeriesDecision:
 def resolve_pcgn_series(
     analysis: PCGNOrthographicAnalysis,
 ) -> PCGNSeriesDecision:
-    """Apply only the explicit PCGN Note 3 base/foot series-selection rule.
+    """Apply bounded BGN/PCGN Notes 2–3 series selection.
 
-    This does not apply Note 2 shifters or infer syllable boundaries/codas.
-    Any shifter, ambiguous multi-foot shape, unsupported token or non-single
-    base remains unresolved. The weak-foot set is exactly the PCGN set.
+    Note 3 chooses the base/foot source. Note 2 shifters are applied only for
+    one base consonant, no foot, one correctly placed mark immediately after
+    the base. Shifters on clusters, BA+TRIISAP, multiple marks and wrong-way
+    shifters abstain until their exact context is independently reviewed.
     """
     def unresolved(reason: str) -> PCGNSeriesDecision:
         return PCGNSeriesDecision(
@@ -262,14 +269,14 @@ def resolve_pcgn_series(
             basis="UNRESOLVED",
             status="UNRESOLVED",
             onset_exception=None,
-            source_locator="PCGN 1972, Note 3 (pp. 2–3)",
+            series_before_shifter=None,
+            shifter_effect=None,
+            source_locator="PCGN 1972, Notes 2–3 (pp. 2–3)",
             warnings=(reason, "NO_VOWEL_OR_ROMANIZATION_OUTPUT"),
         )
 
     if analysis.status != "STRUCTURE_ONLY":
         return unresolved("UNSUPPORTED_OR_UNRESOLVED_ORTHOGRAPHIC_COMPONENT")
-    if analysis.register_shifters:
-        return unresolved("REGISTER_SHIFTER_PRESENT_NOTE_2_NOT_IMPLEMENTED")
     if len(analysis.base_consonants) != 1:
         return unresolved("EXACTLY_ONE_BASE_CONSONANT_REQUIRED")
     if len(analysis.subscript_consonants) > 1:
@@ -279,6 +286,54 @@ def resolve_pcgn_series(
     base_register = CONSONANTS_BY_CHAR[base].get("register")
     if base_register not in {"first", "second"}:
         return unresolved("BASE_ORTHOGRAPHIC_REGISTER_UNAVAILABLE")
+
+    if analysis.register_shifters:
+        if len(analysis.register_shifters) != 1:
+            return unresolved("MULTIPLE_REGISTER_SHIFTERS_REQUIRE_REVIEW")
+        if analysis.subscript_consonants:
+            return unresolved("REGISTER_SHIFTER_ON_CLUSTER_NOT_IMPLEMENTED")
+        if analysis.register_shifter_positions != (1,):
+            return unresolved("REGISTER_SHIFTER_NOT_IMMEDIATELY_AFTER_BASE")
+        mark = analysis.register_shifters[0]
+        original: Literal["â", "ô"] = "â" if base_register == "first" else "ô"
+        if base == "ប":
+            if mark == "៉":
+                return PCGNSeriesDecision(
+                    series="â",
+                    basis="BASE",
+                    status="RESOLVED",
+                    onset_exception="BA_WITH_MUUSIKATOAN_P_IN_A_SERIES",
+                    series_before_shifter=original,
+                    shifter_effect="BA_MUUSIKATOAN_P_IN_A",
+                    source_locator="PCGN 1972, Notes 2–3 (pp. 2–3)",
+                    warnings=(
+                        "PCGN_NOTE_3_BA_MUUSIKATOAN_P_IN_A_EXCEPTION",
+                        "SERIES_METADATA_ONLY_NO_VOWEL_OR_ROMANIZATION",
+                    ),
+                )
+            return unresolved("BA_WITH_TRIISAP_EXCEPTION_NOT_RESOLVED")
+
+        if mark == "៊" and original == "â":
+            series: Literal["â", "ô"] = "ô"
+            effect: Literal["TRIISAP_A_TO_O", "MUUSIKATOAN_O_TO_A", "BA_MUUSIKATOAN_P_IN_A"] = "TRIISAP_A_TO_O"
+            warning = "PCGN_NOTE_2_TRIISAP_A_TO_O"
+        elif mark == "៉" and original == "ô":
+            series = "â"
+            effect = "MUUSIKATOAN_O_TO_A"
+            warning = "PCGN_NOTE_2_MUUSIKATOAN_O_TO_A"
+        else:
+            return unresolved("REGISTER_SHIFTER_DIRECTION_DOES_NOT_MATCH_BASE_SERIES")
+
+        return PCGNSeriesDecision(
+            series=series,
+            basis="BASE",
+            status="RESOLVED",
+            onset_exception=None,
+            series_before_shifter=original,
+            shifter_effect=effect,
+            source_locator="PCGN 1972, Notes 2–3 (pp. 2–3)",
+            warnings=(warning, "SERIES_METADATA_ONLY_NO_VOWEL_OR_ROMANIZATION"),
+        )
 
     if not analysis.subscript_consonants:
         register = base_register
@@ -290,7 +345,6 @@ def resolve_pcgn_series(
         if foot_register not in {"first", "second"}:
             return unresolved("SUBSCRIPT_ORTHOGRAPHIC_REGISTER_UNAVAILABLE")
         if base == "ប":
-            # PCGN Note 3: ប with a foot is romanized p in the â series.
             register = "first"
             basis = "BASE"
             exception = "BA_WITH_FOOT_P_IN_A_SERIES"
@@ -303,7 +357,7 @@ def resolve_pcgn_series(
             basis = "SUBSCRIPT"
             exception = None
 
-    series: Literal["â", "ô"] = "â" if register == "first" else "ô"
+    series = "â" if register == "first" else "ô"
     warnings = ["PCGN_NOTE_3_SERIES_SELECTION_ONLY"]
     if exception:
         warnings.append("PCGN_NOTE_3_BA_WITH_FOOT_P_EXCEPTION")
@@ -312,6 +366,8 @@ def resolve_pcgn_series(
         basis=basis,
         status="RESOLVED",
         onset_exception=exception,
+        series_before_shifter=series,
+        shifter_effect=None,
         source_locator="PCGN 1972, Note 3 (pp. 2–3)",
         warnings=tuple(warnings),
     )
