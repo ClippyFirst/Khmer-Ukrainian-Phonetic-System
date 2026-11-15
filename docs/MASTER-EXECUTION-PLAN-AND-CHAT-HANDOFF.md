@@ -2037,3 +2037,13 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - No external provider, corpus, or model was added. The deterministic engine and output contract remain unchanged. The new typed candidate API is available for future research adapters, but COMPLETE is only provider metadata and is not independent gold or permission to publish output.
 - PR #153 remains open/draft/BLOCKED pending API reconciliation, corpus rights, and train/evaluation split independence. Independent adjudicated Phnom Penh IPA gold remains 0; accuracy remains null.
 - Existing blockers remain: MIT metadata without a tracked LICENSE file (owner decision), full manual accessibility review, and the linguistic gold-data gate.
+
+
+## Final mainline checkpoint after PR #183 — 2026-11-15
+
+- Documentation closeout PR [#183](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/183) was squash-merged as df5891a7b9c9cfecde31f2795617b29a44d4b929.
+- Exact PR-head Quality [43694397227](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43694397227): **SUCCESS**. The job completed corpus structure validation, Python tests, Node web checks and production build.
+- Exact PR-head Chromium smoke [43694397191](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43694397191): **SUCCESS**, including visible-result verification.
+- The implementation PR #182 and documentation PR #183 are both merged. Current source implementation was tested on code head a20f1d3f28cbe1a6a5f79cc7554afe4b47265a4a; documentation closeout was tested on PR #183 head baa98c02342f68bcca132618e84c7c5da34a465d. No local shell run is claimed.
+- PR #153 remains the next major research blocker. Do not merge its external-provider integration until rights, train/evaluation split independence, API contract reconciliation and its benchmark run are resolved. Independent adjudicated IPA gold remains 0; accuracy remains null.
+- The latest main commit at this checkpoint is df5891a7b9c9cfecde31f2795617b29a44d4b929. This handoff update itself is a further documentation-only commit on main.
