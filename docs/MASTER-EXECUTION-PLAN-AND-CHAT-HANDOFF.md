@@ -2402,3 +2402,10 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - PR-head `d0cf981a7219d0c9ccd615a11b3f62b08dfffe14`: push Quality [43735841295], PR Quality [43735855013], PR Chromium [43735855047] all SUCCESS.
 - Exact post-merge main checks: Quality [43735981736], Chromium [43735981714], Pages build/deploy [43735981744] all SUCCESS, including deployed-site/runtime-asset smoke.
 - This is documentation-only verification. The Note 2 shifter implementation remains PARTIAL; no linguistic status is upgraded by this PR.
+
+
+## Exact-main verification — PR #220 — 2026-11-15
+
+- PR [#220](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/220) merged as `8c4784235742cd83c35ce4a2b0bc7831a2b11bb2`; exact current `main` verified at this SHA. No open PRs.
+- PR-head push Quality [43736157032], PR Quality [43736168034], PR Chromium [43736167978] all SUCCESS.
+- Exact post-merge main Quality [43736256876], Chromium [43736256892], Pages [43736257006] dispatched on this SHA; final status pending at this checkpoint.
