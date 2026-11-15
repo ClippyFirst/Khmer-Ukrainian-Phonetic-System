@@ -963,3 +963,12 @@ Status: `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` remains PARTIAL. No lexical choice
 - Final PR-head `20cb0f2704bef9eb6319fb0c3a38c74740d6fded`: push Quality [43757811370], PR Quality [43757897285], PR Chromium [43757897258] all SUCCESS. Python 308 passed, 70 subtests passed; web checks and production build passed; Chromium visible-results smoke passed.
 - Exact post-merge main: Quality [43758011762], Chromium [43758011768], Pages build/deploy [43758011784] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - Note 9 now exposes `("ŏ", "ŭ")` as options for `ឧ` while retaining UNRESOLVED status and no selected romanization. `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` remains PARTIAL; no lexical selection, IPA, Ukrainian output, gold record or accuracy claim was added.
+
+
+## BGN/PCGN vowel + anusvara/visarga implementation audit — 2026-11-15
+
+- Implemented a bounded resolver for the eight rows in the official p. 4 “Vowel Characters with Anusvara or Visarga” table.
+- The caller supplies an onset-only analysis; the resolver uses the existing Note 2–3 series decision. Row 8 additionally requires an explicit final `ង` coda identifier.
+- Added the decision schema, focused regression tests, package exports and machine-readable source table.
+- Unsupported patterns and any unlisted coda/context abstain. The resolver returns only the table component; no IPA or Ukrainian output is synthesized.
+- Status: `KHM-ROM-PCGN-ANUSVARA-VISARGA-001 = PARTIAL`; the overall PCGN engine remains PARTIAL.
