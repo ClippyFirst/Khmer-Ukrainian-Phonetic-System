@@ -2589,3 +2589,16 @@ Status: `KHM-ROM-PCGN-SHORTENING-001 = PARTIAL`. This is a shortened-vowel compo
 - An earlier head `754f04d92009f342fb81f97ef9255c9ee7fb5fc1` failed two registry tests because they still required all PCGN notes to remain DOCUMENTED_ONLY. The tests were reconciled to permit Note 5's PARTIAL_COMPONENT_RESOLVER status while retaining the no-IPA/no-gold assertion; final exact-head checks passed.
 - Exact post-merge main: Quality [43751266786], Chromium [43751266785], Pages build/deploy [43751266784] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - Linguistic status remains PARTIAL. The resolver returns only a shortened-vowel component and requires caller-supplied onset/coda context; it does not produce a complete syllable, IPA or Ukrainian output.
+
+
+## PCGN Note 6 — bounded ROBAT component — 2026-11-15
+
+Implemented `resolve_pcgn_robat(analysis, marked_consonant_romanization)` and exported `PCGNRobatDecision`.
+
+The resolver accepts one ROBAT mark at the end of the supplied component chunk, immediately after one modeled unstacked Khmer consonant. The caller must supply that marked consonant's contextual PCGN romanization from the consonant table. The resolver validates the supplied value against the table's romanized consonant inventory and returns only `rC` (for example, the `rm` component in the guide example `ធម៌ → thôrm`).
+
+Schema: `schemas/pcgn-robat-decision.schema.json`; tests: `tests/test_pcgn_robat_resolution.py`. The PCGN source registry now records Note 6 as `PARTIAL_COMPONENT_RESOLVER`.
+
+Source: BGN/PCGN 1972 Agreement, Diacritical Marks table row 4 (p. 4) and Note 6 (p. 5): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+
+Status: `KHM-ROM-PCGN-ROBAT-001 = PARTIAL`. The consonant romanization is caller-supplied; the resolver does not infer syllable boundaries, determine the consonant's series/coda value, romanize the rest of the syllable, or produce IPA/Ukrainian output. ROBAT on foot clusters or non-final component positions abstains.

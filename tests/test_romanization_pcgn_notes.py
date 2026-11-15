@@ -24,7 +24,8 @@ def test_all_eleven_pcgn_notes_are_registered_with_primary_source_locators():
     assert all(row["limitations"].strip() for row in rows)
     statuses = {row["note_number"]: row["implementation_status"] for row in rows}
     assert statuses["5"] == "PARTIAL_COMPONENT_RESOLVER"
-    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note != "5")
+    assert statuses["6"] == "PARTIAL_COMPONENT_RESOLVER"
+    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"5", "6"})
 
 
 def test_pcgn_note_three_keeps_the_pcgn_weak_subscript_set_exact():
@@ -45,10 +46,18 @@ def test_pcgn_note_five_preserves_both_shortening_marks_and_the_exact_coda_set()
     assert "coda" in note["limitations"].lower()
 
 
+def test_pcgn_note_six_preserves_explicit_robat_r_c_mapping_boundary():
+    note = next(row for row in _rows() if row["note_number"] == "6")
+    assert "rC" in note["source_summary"]
+    assert "caller supplies" in note["conditions_or_exceptions"].lower()
+    assert "not inferred" in note["limitations"].lower()
+
+
 def test_pcgn_notes_registry_is_not_misrepresented_as_ipa_or_ukrainian_gold():
     rows = _rows()
     headers = set(rows[0])
     assert not ({"ipa", "ipa_output", "ukrainian_candidate", "gold"} & headers)
     statuses = {row["note_number"]: row["implementation_status"] for row in rows}
     assert statuses["5"] == "PARTIAL_COMPONENT_RESOLVER"
-    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note != "5")
+    assert statuses["6"] == "PARTIAL_COMPONENT_RESOLVER"
+    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"5", "6"})

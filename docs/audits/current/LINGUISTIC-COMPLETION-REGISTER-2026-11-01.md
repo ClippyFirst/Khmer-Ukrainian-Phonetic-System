@@ -1065,3 +1065,10 @@ Status: `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` remains `PARTIAL` (listed independ
 ## Exact-main verification — PR #233 / PCGN Note 5 — 2026-11-15
 
 PR #233 merged as `cf57045bf6ddf0537e2a5c33a8b2468e8f3f6f2c`. Final PR-head `9bcf7391ce08557ce2fa56e4cbb764568949f952`: push Quality [43751102348], PR Quality [43751107119], Chromium [43751107131] all SUCCESS (272 tests + 70 subtests; web checks/build/Chromium passed). Exact-main Quality [43751266786], Chromium [43751266785], Pages [43751266784] all SUCCESS, including deployed-site/runtime-asset smoke. Note 5 remains PARTIAL component-only; no IPA/Ukrainian or complete-syllable status promotion.
+
+
+## BGN/PCGN Note 6 bounded implementation — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-PCGN-ROBAT-001 | PARTIAL | `resolve_pcgn_robat`, `PCGNRobatDecision`, schema `schemas/pcgn-robat-decision.schema.json`, tests `tests/test_pcgn_robat_resolution.py`, and source registry Note 6 status. Primary source: BGN/PCGN 1972, Diacritical Marks table row 4 (p. 4) and Note 6 (p. 5). | Only one final ROBAT after one modeled unstacked consonant; caller supplies its PCGN romanization. Remaining: foot-cluster/other placements, integration with complete coda and syllable parsing, full romanization, IPA/Ukrainian adapters. |
