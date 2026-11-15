@@ -258,10 +258,10 @@ def resolve_pcgn_series(
 ) -> PCGNSeriesDecision:
     """Apply bounded BGN/PCGN Notes 2–3 series selection.
 
-    Note 3 chooses the base/foot source. Note 2 shifters are applied only for
-    one base consonant, no foot, one correctly placed mark immediately after
-    the base. Shifters on clusters, BA+TRIISAP, multiple marks and wrong-way
-    shifters abstain until their exact context is independently reviewed.
+    Note 3 chooses the base/foot source. Note 2 shifters are applied to one base or one base-plus-foot cluster when
+    the single mark is encoded immediately after the base, as required by
+    Unicode Khmer syllabic order. BA+TRIISAP, shifters on BA+foot, multiple
+    marks and wrong-way shifters abstain pending narrower adjudication.
     """
     def unresolved(reason: str) -> PCGNSeriesDecision:
         return PCGNSeriesDecision(
