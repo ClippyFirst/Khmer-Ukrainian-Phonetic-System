@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BGN/PCGN 1972 bounded normal dependent-vowel component",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_sign",
+    "series",
+    "romanization",
+    "source_table_row",
+    "status",
+    "ipa",
+    "ukrainian",
+    "source_locator",
+    "warnings"
+  ],
+  "properties": {
+    "source_sign": {
+      "enum": ["ា", "ិ", "ី", "ឹ", "ឺ", "ុ", "ូ", "ួ", "េ", "ែ", "ៃ", null]
+    },
+    "series": {"enum": ["â", "ô", null]},
+    "romanization": {
+      "enum": ["a", "éa", "ĕ", "ei", "i", "œ̆", "œ", "ŏ", "ŭ", "o", "u", "uŏ", "é", "ê", "ai", "ey", null]
+    },
+    "source_table_row": {"enum": [2, 3, 4, 5, 6, 7, 8, 9, 13, 14, 15, null]},
+    "status": {"enum": ["RESOLVED", "UNRESOLVED"]},
+    "ipa": {"const": null},
+    "ukrainian": {"const": null},
+    "source_locator": {
+      "const": "PCGN 1972, Independent/Dependent Vowel Characters table (pp. 2–3)"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "RESOLVED"}}, "required": ["status"]},
+      "then": {
+        "properties": {
+          "source_sign": {"enum": ["ា", "ិ", "ី", "ឹ", "ឺ", "ុ", "ូ", "ួ", "េ", "ែ", "ៃ"]},
+          "series": {"enum": ["â", "ô"]},
+          "romanization": {"type": "string"},
+          "source_table_row": {"type": "integer"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "UNRESOLVED"}}, "required": ["status"]},
+      "then": {
+        "properties": {
+          "source_sign": {"const": null},
+          "series": {"const": null},
+          "romanization": {"const": null},
+          "source_table_row": {"const": null}
+        }
+      }
+    }
+  ]
+}

@@ -6,11 +6,13 @@ from .parser import analyze, normalize_khmer
 from .pcgn import (
     PCGNOrthographicAnalysis,
     PCGNSeriesDecision,
+    PCGNVowelDecision,
     PCGN_NO_SUBSCRIPT_FOR,
     PCGNToken,
     PCGN_WEAK_SUBSCRIPTS,
     analyze_pcgn_orthographic_chunk,
     resolve_pcgn_series,
+    resolve_pcgn_dependent_vowel,
 )
 from .ipa import (
     IPACandidate,
@@ -27,9 +29,11 @@ __all__ = [
     "PCGNOrthographicAnalysis",
     "PCGNToken",
     "PCGNSeriesDecision",
+    "PCGNVowelDecision",
     "PCGN_NO_SUBSCRIPT_FOR",
     "PCGN_WEAK_SUBSCRIPTS",
     "resolve_pcgn_series",
+    "resolve_pcgn_dependent_vowel",
     "analyze_pcgn_orthographic_chunk",
     "normalize_khmer",
     "IPACandidate",

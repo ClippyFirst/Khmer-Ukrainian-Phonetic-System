@@ -398,12 +398,123 @@ def resolve_pcgn_series(
     )
 
 
+PCGN_DEPENDENT_VOWEL_TABLE_LOCATOR = (
+    "PCGN 1972, Independent/Dependent Vowel Characters table (pp. 2–3)"
+)
+
+# Normal (not shortened) dependent-vowel values from the official PCGN table.
+# The two values are the â-series and ô-series columns respectively.
+PCGN_DEPENDENT_VOWEL_ROWS: dict[str, tuple[int, str, str]] = {
+    "ា": (2, "a", "éa"),
+    "ិ": (3, "ĕ", "ĕ"),
+    "ី": (4, "ei", "i"),
+    "ឹ": (5, "œ̆", "œ̆"),
+    "ឺ": (6, "œ", "œ"),
+    "ុ": (7, "ŏ", "ŭ"),
+    "ូ": (8, "o", "u"),
+    "ួ": (9, "uŏ", "uŏ"),
+    "េ": (13, "é", "é"),
+    "ែ": (14, "ê", "ê"),
+    "ៃ": (15, "ai", "ey"),
+}
+
+
+@dataclass(frozen=True)
+class PCGNVowelDecision:
+    source_sign: str | None
+    series: Literal["â", "ô"] | None
+    romanization: str | None
+    source_table_row: int | None
+    status: Literal["RESOLVED", "UNRESOLVED"]
+    ipa: None
+    ukrainian: None
+    source_locator: str
+    warnings: tuple[str, ...]
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+def resolve_pcgn_dependent_vowel(
+    analysis: PCGNOrthographicAnalysis,
+    series_decision: PCGNSeriesDecision,
+) -> PCGNVowelDecision:
+    """Map one ordinary dependent vowel sign to its PCGN Latin component.
+
+    This is deliberately not a syllable romanizer. It accepts one base, at
+    most one foot, one dependent vowel sign, and an already-resolved Note
+    2/3 series. Shortening, codas, independent vowels and other marks abstain.
+    """
+    def unresolved(reason: str) -> PCGNVowelDecision:
+        return PCGNVowelDecision(
+            source_sign=None,
+            series=None,
+            romanization=None,
+            source_table_row=None,
+            status="UNRESOLVED",
+            ipa=None,
+            ukrainian=None,
+            source_locator=PCGN_DEPENDENT_VOWEL_TABLE_LOCATOR,
+            warnings=(reason, "NO_COMPLETE_SYLLABLE_OR_UKRAINIAN_OUTPUT"),
+        )
+
+    if analysis.status != "STRUCTURE_ONLY":
+        return unresolved("UNSUPPORTED_OR_UNRESOLVED_ORTHOGRAPHIC_COMPONENT")
+    if series_decision.status != "RESOLVED" or series_decision.series not in {"â", "ô"}:
+        return unresolved("RESOLVED_PCGN_SERIES_REQUIRED")
+    if len(analysis.base_consonants) != 1:
+        return unresolved("EXACTLY_ONE_BASE_CONSONANT_REQUIRED")
+    if len(analysis.subscript_consonants) > 1:
+        return unresolved("MULTIPLE_SUBSCRIPTS_REQUIRE_READING_ADJUDICATION")
+    if len(analysis.dependent_vowel_signs) != 1:
+        return unresolved("EXACTLY_ONE_DEPENDENT_VOWEL_SIGN_REQUIRED")
+    if analysis.independent_vowels:
+        return unresolved("INDEPENDENT_VOWEL_NOT_SUPPORTED_BY_DEPENDENT_RESOLVER")
+    if analysis.shortening_marks:
+        return unresolved("SHORTENING_REQUIRES_PCGN_NOTE_5_CONTEXT")
+    if analysis.robat_positions or analysis.ahsda_positions or analysis.toandakhiat_positions:
+        return unresolved("SPECIAL_DIACRITIC_REQUIRES_POSITION_OR_CODA_CONTEXT")
+
+    allowed_token_kinds = {
+        "unstacked_consonant",
+        "subscript_consonant",
+        "register_shifter",
+        "dependent_vowel",
+    }
+    if any(token.kind not in allowed_token_kinds for token in analysis.tokens):
+        return unresolved("NON_VOWEL_COMPONENT_REQUIRES_CONTEXTUAL_ANALYSIS")
+
+    sign = analysis.dependent_vowel_signs[0]
+    row = PCGN_DEPENDENT_VOWEL_ROWS.get(sign)
+    if row is None:
+        return unresolved("DEPENDENT_VOWEL_NOT_IN_BOUNDED_NORMAL_TABLE_SUBSET")
+
+    row_number, a_series_value, o_series_value = row
+    value = a_series_value if series_decision.series == "â" else o_series_value
+    return PCGNVowelDecision(
+        source_sign=sign,
+        series=series_decision.series,
+        romanization=value,
+        source_table_row=row_number,
+        status="RESOLVED",
+        ipa=None,
+        ukrainian=None,
+        source_locator=PCGN_DEPENDENT_VOWEL_TABLE_LOCATOR,
+        warnings=(
+            "NORMAL_DEPENDENT_VOWEL_COMPONENT_ONLY",
+            "NO_ONSET_CODA_SYLLABLE_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT",
+        ),
+    )
+
+
 __all__ = [
     "PCGNOrthographicAnalysis",
     "PCGNToken",
     "PCGNSeriesDecision",
+    "PCGNVowelDecision",
     "PCGN_WEAK_SUBSCRIPTS",
     "PCGN_NO_SUBSCRIPT_FOR",
     "resolve_pcgn_series",
+    "resolve_pcgn_dependent_vowel",
     "analyze_pcgn_orthographic_chunk",
 ]
