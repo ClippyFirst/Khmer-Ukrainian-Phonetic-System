@@ -2101,3 +2101,18 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - First PR-head CI caught two obsolete tests asserting the previous alias-only hybrid API. Updated the tests to assert the new wrapper preserves deterministic output and requires typed providers; the final exact head passed. Initial failed run 43696654577 is retained for transparency.
 - PR #184's diagnostic benchmark harness/workflow were reused, not duplicated. PR #153 remains open/draft/diverged; no blind merge. Its old branch still contains overlapping stale changes and is not a clean integration base.
 - Remaining blockers: MekongPhon corpus rights unresolved; exact model checkpoint train/evaluation split independence unverified; independent adjudicated Phnom Penh IPA gold 0 and accuracy null; no external model inference run in this task. Keep all external candidate results diagnostic and never promote them to published output.
+
+## Selective PR #153 research-record reconciliation — 2026-11-15
+
+- Rechecked PR #153 against current main. The old runtime and benchmark workflow are superseded by the typed hybrid bridge in PR #185 and the safe manual-only benchmark harness in PR #184; neither old implementation is reintroduced.
+- The branch also contained three useful source records absent from the current main registry. Selectively recorded the PhonSobon model and NCKL-derived respelling dataset as auxiliary Khmer-script respelling/syllabification resources (not IPA), and corrected the Khmer Acoustic Model dictionary entry to preserve its conflicting entry counts and CC BY 4.0 vs CC BY-SA 4.0 declarations.
+- No third-party dataset rows, weights, code or model assets were copied. PhonSobon dataset rights remain unverified; the Khmer Acoustic Model full dictionary remains unavailable in the inspected pinned tree. Both remain outside runtime and gold.
+- Source evidence checked in this continuation: PhonSobon model card and dataset card; Khmer Acoustic Model root README plus the previously pinned dictionary README/tree review. Upstream model/dataset claims are recorded as claims, not independently reproduced measurements.
+- Current branch: `research/phon-sobon-and-lexicon-triage-2026-11-15`, based on main `3cdabeb0eaa325ddbf76c40c4d6baf036467828d`. Exact-head CI and documentation checks are pending.
+- Acceptance ledger: PhonSobon source record = PARTIAL (recorded, rights-limited, non-IPA); Khmer Acoustic Model dictionary = BLOCKED (full artifact/count/rights conflict); PR #153 whole-branch merge = REJECTED (diverged and contains superseded runtime/workflow changes). Independent adjudicated Phnom Penh IPA gold remains 0; accuracy remains null.
+
+### Additional PR #153 source-record reconciliation — Google TTS and OpenSLR42
+
+- Added the pinned Google Language Resources Khmer lexicon/phonology files as a PARTIAL research lead. The bounded extraction found Latin-script spelling keys in the inspected subset; because the complete lexicon was not inspected, this is not generalized to every row. The feature inventory is not silently normalized to IPA, and Khmer-specific data rights remain unverified.
+- Added OpenSLR SLR42 as supporting audio only. The current official page lists a male archive under CC BY-SA 4.0, while the 2018 paper reports 17 female speakers. This discrepancy is recorded as a blocker requiring archive manifest/checksum and speaker-ID reconciliation.
+- Neither resource was downloaded, imported, or promoted to gold. These additions complete the remaining source-triage observations from PR #153 that were safe to preserve without copying third-party data or runtime code.

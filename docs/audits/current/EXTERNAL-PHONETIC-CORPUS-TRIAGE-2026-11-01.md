@@ -159,3 +159,41 @@ This is separate from DDD's larger CC BY-SA 4.0 corpus and its own share-alike r
 | Khmer Acoustic Model | Potential IPA dictionary and audio-model lead | Full dictionary unavailable in visible tree; CC BY 4.0 vs CC BY-SA 4.0 conflict | BLOCKED |
 
 The four records are now in `data/khmer/sources.json` with explicit scope, source revision where available, format and rights status. No external rows were copied into project data. Independent expert-adjudicated Khmer IPA gold remains **0**; empirical accuracy remains **null**.
+
+## Auxiliary NCKL respelling and blocked IPA lexicon candidates — 2026-11-15
+
+### PhonSobon Khmer G2P
+
+The [model card](https://huggingface.co/phonsobon/khmer-g2p) describes a 7.46M-parameter character-level Transformer that predicts NCKL Khmer-script respelling with hyphenated syllable boundaries. Its reported 83.37% validation word accuracy at epoch 150 is an upstream validation claim; no test score is reported there and it has not been reproduced by this project.
+
+The associated [dataset card](https://huggingface.co/datasets/phonsobon/khmer-G2P) reports 38,629 word–respelling pairs / 37,755 unique words, split 34,770 / 1,939 / 1,920. It derives from the Khmer Dictionary 2022 of the National Council of Khmer Language (NCKL), Royal Academy of Cambodia. The dataset card identifies the terms as `nckl-khmer-dictionary-2022`, requests NCKL attribution and says to check NCKL terms before commercial use.
+
+**Disposition: AUXILIARY RESPELLING / SYLLABIFICATION ONLY — NOT IPA, NOT PHONETIC GOLD.** The output is Khmer-script respelling, not IPA. It must not be substituted into the IPA-first runtime or used as a phonetic benchmark. No dataset rows or model weights are copied. Redistribution and commercial/derivative use remain blocked pending authoritative NCKL terms.
+
+### Khmer Acoustic Model pronunciation dictionary
+
+The pinned upstream review reports conflicting dictionary counts and data-license declarations: root README says 29,204 entries and CC BY-SA 4.0, while `dictionary/README.md` says 33,091 entries and CC BY 4.0. The inspected tree at `2714994b41ccf875c5b6f6182b48a72f13632dbf` contains only `dictionary/khmer_ipa_sample.dict` (144 bytes), not the advertised full dictionary. Published MAE/F1 values are forced-alignment metrics, not G2P or transcription accuracy.
+
+**Disposition: BLOCKED.** Do not ingest or redistribute the sample as a complete lexicon. Require the complete versioned dictionary and digest, reconciled counts, item-level provenance, dialect/IPA convention and an authoritative data-license statement. The registry now preserves this conflict rather than presenting CC BY-SA 4.0 as settled.
+
+No source rows were added to project data. Independent adjudicated Phnom Penh IPA gold remains 0; empirical accuracy remains null.
+
+## Google Language Resources and OpenSLR42 reconciliation — 2026-11-15
+
+### Google Language Resources Khmer lexicon and phonology
+
+The archived [Google Language Resources repository](https://github.com/google/language-resources/tree/a90601024f07ab7e96c911243324e0adeb16da96/km) contains a Khmer TTS lexicon and a feature-annotated phonology JSON. The pinned files are `km/data/lexicon.tsv` (2,845,315 bytes; blob `d399efeca642b1185786b2982374488c525e37c4`) and `km/festvox/phonology.json` (6,707 bytes; blob `8fb697ff66b09ef0c2a17f17b35600af410a92a9`). The JSON describes a feature inventory with length labels such as doubled vowels; it is not a self-sufficient declaration of the project's standard IPA convention.
+
+A bounded extraction of the large lexicon previously found Latin-script spelling keys and custom phonemic sequences in the inspected subset. The full 2.8 MB file was not inspected, so this does not prove that every row is Latin-script. The repository root says Apache-2.0 applies unless otherwise noted and some datasets are CC BY 4.0; the Khmer-specific rights for these exact files remain to be verified.
+
+**Disposition: PARTIAL FORMAT REVIEW / NOT APPROVED FOR KHMER-SCRIPT G2P.** Do not treat the paper's lexicon-size claim as a count of Khmer-script word–IPA pairs. Reconsider only after a full script/format audit, exact data-rights review and dialect/phone-convention reconciliation.
+
+Primary references: [Sodimana et al. 2018](https://www.isca-archive.org/sltu_2018/sodimana18_sltu.html); [archived Google repository](https://github.com/google/language-resources).
+
+### OpenSLR SLR42 Khmer speech corpus
+
+The [current OpenSLR SLR42 page](https://openslr.org/42/) lists a single 866 MB archive, `km_kh_male.zip`, and identifies it as male-speaker Khmer speech. It declares CC BY-SA 4.0 and describes audio plus a TSV transcription index. In contrast, Table 1 of the [2018 source paper](https://www.isca-archive.org/sltu_2018/sodimana18_sltu.pdf) reports 17 female speakers, 2,906 files and 3:58:00 for Khmer.
+
+**Disposition: SUPPORTING AUDIO ONLY / METADATA DISCREPANCY.** The currently listed male archive must not be assumed to be the same speaker set as the paper's female-speaker table. The resource has text transcripts, not IPA labels or independent phonetic gold. Before annotation, obtain the archive manifest and checksum, inspect speaker IDs, reconcile the paper/page mismatch, and verify the archive's included license. No audio was downloaded or imported in this continuation.
+
+No external audio or lexicon rows were copied. Independent adjudicated Phnom Penh IPA gold remains 0; accuracy remains null.
