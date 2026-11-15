@@ -1010,3 +1010,12 @@ PR #251 merged as `aab014705bdf90825b922ff69f1c2e7758e56246`. PR-head push Quali
 ## Exact-main verification — PR #252 / PCGN consonant table — 2026-11-15
 
 PR #252 merged as `16fbbde6238e03290507056388b539f54622d236`. Final PR-head push Quality [43761467383], PR Quality [43761473221], PR Chromium [43761473212], exact-main Quality [43761598283], Chromium [43761598359] and Pages [43761598332] all SUCCESS. The initial malformed-schema failure [43761223088] was corrected and retested. Overall PCGN generation remains PARTIAL.
+
+
+## BGN/PCGN final-consonant rule implementation audit — 2026-11-15
+
+- Added a bounded final-consonant component resolver for the guide's general no-following-vowel statement.
+- Caller must explicitly isolate the final consonant and confirm absence of a vowel character and TOANDAKHIAT.
+- One base plus at most one foot is supported; BA/ALIF and all unsupported contexts abstain.
+- The guide's qualifier “generally” is retained in the typed status; no complete word or syllable is inferred.
+- Added schema, tests, source registry and public exports. Overall PCGN engine remains PARTIAL.

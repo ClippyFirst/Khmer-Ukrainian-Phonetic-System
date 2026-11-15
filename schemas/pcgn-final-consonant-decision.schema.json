@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BGN/PCGN 1972 final consonant component decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "syllable_position", "has_following_vowel_character", "has_toandakhiat",
+    "base_character", "base_table_row", "base_romanization",
+    "subscript_character", "subscript_table_row", "subscript_romanization",
+    "romanization", "following_vowel", "status", "ipa", "ukrainian",
+    "source_locator", "warnings"
+  ],
+  "properties": {
+    "syllable_position": {"const": "FINAL"},
+    "has_following_vowel_character": {"type": "boolean"},
+    "has_toandakhiat": {"type": "boolean"},
+    "base_character": {"type": ["string", "null"]},
+    "base_table_row": {"type": ["integer", "null"]},
+    "base_romanization": {"type": ["string", "null"]},
+    "subscript_character": {"type": ["string", "null"]},
+    "subscript_table_row": {"type": ["integer", "null"]},
+    "subscript_romanization": {"type": ["string", "null"]},
+    "romanization": {"type": ["string", "null"]},
+    "following_vowel": {"enum": ["", null]},
+    "status": {"enum": ["GENERAL_RULE_APPLIED", "UNRESOLVED"]},
+    "ipa": {"type": "null"},
+    "ukrainian": {"type": "null"},
+    "source_locator": {"const": "PCGN 1972, final-consonant no-following-vowel rule (p. 2) with consonant table (pp. 1–2)"},
+    "warnings": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "GENERAL_RULE_APPLIED"}}, "required": ["status"]},
+      "then": {
+        "properties": {
+          "base_character": {"type": "string"},
+          "base_table_row": {"type": "integer"},
+          "base_romanization": {"type": "string"},
+          "romanization": {"type": "string", "minLength": 1},
+          "following_vowel": {"const": ""}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "UNRESOLVED"}}, "required": ["status"]},
+      "then": {"properties": {"romanization": {"type": "null"}, "following_vowel": {"type": "null"}}}
+    }
+  ]
+}

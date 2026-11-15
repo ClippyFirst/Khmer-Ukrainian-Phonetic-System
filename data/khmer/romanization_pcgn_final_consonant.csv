@@ -1,0 +1,2 @@
+rule_id,source_condition,romanization_effect,source_locator,acceptance_boundary
+PCGN_FINAL_NO_FOLLOWING_VOWEL,Syllable-final consonant not accompanied by a vowel character or TOANDAKHIAT,Consonant table component followed by no vowel letter,"PCGN 1972, final-consonant no-following-vowel rule (p. 2) with consonant table (pp. 1–2)",General rule only; caller supplies final position and absence of vowel/TOANDAKHIAT; BA and ALIF abstain

@@ -1221,3 +1221,10 @@ PR #251 merged as `aab014705bdf90825b922ff69f1c2e7758e56246`. PR-head push Quali
 ## Exact-main verification — PR #252 — 2026-11-15
 
 PR #252 merged as `16fbbde6238e03290507056388b539f54622d236`. Final PR-head push Quality [43761467383], PR Quality [43761473221], PR Chromium [43761473212], exact-main Quality [43761598283], Chromium [43761598359] and Pages [43761598332] all SUCCESS. Earlier Quality [43761223088] failed on malformed JSON in the new schema; correction and subsequent full checks passed. `KHM-ROM-PCGN-CONSONANTS-001` remains PARTIAL by design; no IPA or Ukrainian acceptance is implied.
+
+
+## BGN/PCGN final-consonant no-following-vowel component — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-PCGN-FINAL-CONSONANT-001 | PARTIAL | `resolve_pcgn_final_consonant`, `PCGNFinalConsonantDecision`, schema `schemas/pcgn-final-consonant-decision.schema.json`, tests `tests/test_pcgn_final_consonant_resolution.py`, rule registry `data/khmer/romanization_pcgn_final_consonant.csv`. Primary source: BGN/PCGN 1972, p. 2 final-consonant statement. | Explicit final position and caller-confirmed absence of vowel character/TOANDAKHIAT; one base plus at most one foot. BA/ALIF abstain. “Generally” is preserved as a qualified rule. No syllable segmentation, IPA or Ukrainian output. |
