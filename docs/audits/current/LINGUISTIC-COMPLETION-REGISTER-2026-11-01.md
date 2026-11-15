@@ -877,7 +877,7 @@ Independent adjudicated IPA gold remains 0; empirical accuracy remains null. Iss
 
 | ID | Status | Evidence | Acceptance boundary |
 |---|---|---|---|
-| KHM-ROM-PCGN-SHIFTERS-001 | PARTIAL (implementation pending exact-head CI) | `register_shifter_positions` in typed analysis; `resolve_pcgn_series` supports one correctly placed shifter after a single base with no foot; schema/tests cover TRIISAP â→ô, MUUSIKATOAN ô→â and BA+MUUSIKATOAN p-in-â. | Full Note 2 cluster behavior, BA+TRIISAP, multiple/misplaced shifters and all contextual exceptions remain unresolved. |
+| KHM-ROM-PCGN-SHIFTERS-001 | PARTIAL (bounded subset implemented; exact-head and exact-main CI passed) | `register_shifter_positions` in typed analysis; `resolve_pcgn_series` supports one correctly placed shifter after a single base with no foot; schema/tests cover TRIISAP â→ô, MUUSIKATOAN ô→â and BA+MUUSIKATOAN p-in-â. | Full Note 2 cluster behavior, BA+TRIISAP, multiple/misplaced shifters and all contextual exceptions remain unresolved. |
 | KHM-ROM-PCGN-SERIES-001 | DONE_VERIFIED (Note 3 series-source decision only) | PR #215 exact-head and exact-main CI passed. | Note 2 extension is separately PARTIAL; no vowel or full romanization output. |
 | KHM-ROM-ENGINE-001 | PARTIAL | Structural analyzer + Note 3 series + bounded Note 2 subset. | Full contextual PCGN generator, vowel/rime, coda, Note 5 shortening and evidence-backed abstention fixtures. |
 
@@ -897,3 +897,8 @@ No vowel, IPA, Ukrainian target or gold data is generated. Independent adjudicat
 ## PR #218 exact-main verification checkpoint — 2026-11-15
 
 The documentation closeout PR #218 is merged as `9420326549d8a327774d0587b6fe19c4b17befcd`. PR-head Quality [43735576766], Chromium [43735576217] and push Quality [43735564674] passed. Exact-main Quality [43735662414], Chromium [43735662288] and Pages [43735662264] all SUCCESS, including deployed-site/runtime-asset smoke; no status promotion depends on this docs-only PR.
+
+
+## Exact-main verification — PR #219 — 2026-11-15
+
+PR #219 merged as `690b44174a8831ac9b08b44786d5ffde43f6d5aa`. PR-head push Quality [43735841295], PR Quality [43735855013], PR Chromium [43735855047], exact-main Quality [43735981736], Chromium [43735981714] and Pages [43735981744] all SUCCESS. This closes the documentation checkpoint only; KHM-ROM-PCGN-SHIFTERS-001 remains PARTIAL.
