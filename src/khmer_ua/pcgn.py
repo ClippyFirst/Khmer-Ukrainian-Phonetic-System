@@ -583,7 +583,7 @@ def resolve_pcgn_anusvara_visarga(
         return PCGNAnusvaraVisargaDecision(
             source_components=None,
             series=None,
-            coda_character=coda_character,
+            coda_character=coda_character if coda_character == "ង" else None,
             romanization=None,
             source_table_row=None,
             status="UNRESOLVED",
