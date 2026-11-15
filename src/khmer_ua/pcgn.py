@@ -702,6 +702,11 @@ def resolve_pcgn_shortened_vowel(
 
     coda_character = analysis.base_consonants[-1]
     mark = analysis.shortening_marks[0]
+    mark_position = analysis.shortening_mark_positions[0]
+    if mark == "់" and mark_position != len(analysis.normalized_text) - 1:
+        return unresolved("BANTOC_MUST_BE_THE_FINAL_CODEPOINT_IN_THE_LISTED_PATTERN")
+    if mark == "័" and mark_position != len(onset_analysis.normalized_text):
+        return unresolved("SAMYOK_SANNYA_MUST_IMMEDIATELY_FOLLOW_THE_ONSET_CLUSTER")
     if mark == "់" and not analysis.dependent_vowel_signs:
         expected_tail = ("unstacked_consonant", "shortening_mark")
         pattern = "INHERENT_BANTOC"
