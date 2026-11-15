@@ -2659,3 +2659,16 @@ Status: `KHM-ROM-PCGN-TOANDAKHIAT-001 = PARTIAL`. Only consonant tokens with exp
 - Final PR-head `e52b2d5be98a521dfa3c6dc5af846c6c79d42dce`: push Quality [43753171641], PR Quality [43753185515], PR Chromium [43753185496] all SUCCESS. Quality reports 290 Python tests passed and 70 subtests passed; web checks and production build passed; Chromium visible-results smoke passed.
 - Exact post-merge main: Quality [43753327251], Chromium [43753327183], Pages build/deploy [43753327232] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - `KHM-ROM-PCGN-TOANDAKHIAT-001` remains PARTIAL: the caller must identify the exact silent consonant grapheme; the resolver returns omission only. No complete word romanization, IPA or Ukrainian output.
+
+
+## PCGN Note 4 — bounded glottal-onset apostrophe component — 2026-11-15
+
+Implemented `resolve_pcgn_glottal_onset(analysis, word_initial, followed_by_vowel_letter)` and exported `PCGNGlottalOnsetDecision`.
+
+The resolver accepts only the standalone onset carrier `អ`, verifies its â-series using the existing Note 2–3 series resolver, and returns the apostrophe component `’`. The apostrophe is represented as optional only when both explicit caller inputs are true: the carrier is word-initial and it precedes a vowel letter. In all other supported contexts the apostrophe is required.
+
+Schema: `schemas/pcgn-glottal-onset-decision.schema.json`; tests: `tests/test_pcgn_glottal_onset_resolution.py`.
+
+Source: BGN/PCGN 1972, Consonant Characters row 22 and Note 4 (p. 5): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+
+Status: `KHM-ROM-PCGN-GLOTTAL-001 = PARTIAL`. Word position and following-vowel context are caller-supplied; no complete syllable, IPA or Ukrainian output is produced.
