@@ -644,7 +644,7 @@ The new typed analyzer is bounded to orthographic chunk structure and explicit a
 
 A bounded series-selection function now implements the official Note 3 rule over a typed orthographic chunk. It preserves the exact PCGN weak-subscript set (five nasals plus យ/រ/ល/វ; excludes ស), the special ប-with-foot p-in-â exception, and rejects a subscript form for ឡ because the PCGN consonant table says none exists. It abstains when shifters, multiple feet/bases or unsupported material require additional analysis.
 
-The function returns only series metadata with a source locator; it does not implement Note 2 shifters, vowel mapping, coda detection, Note 5 shortening, syllabification, IPA or Ukrainian output. Hosted CI pending; do not mark the resolver verified until exact-head tests pass.
+The Note 3 function initially returned only series metadata. A subsequent bounded Note 2 subset now handles one correctly placed shifter after a single base with no foot; cluster shifters, BA+TRIISAP and malformed/multiple/misplaced cases still abstain. Vowel mapping, coda detection, Note 5 shortening, syllabification, IPA and Ukrainian output remain unimplemented.
 
 
 ## Exact-main audit — PCGN Note 3 series resolver / PR #215 — 2026-11-15
