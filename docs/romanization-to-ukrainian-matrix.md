@@ -353,3 +353,19 @@ Python regression tests check all eleven notes, exact PCGN weak-subscript member
 PR #211 merged as `9383385fc3244ff600d0fab254c6488a83d92d7b`. Exact PR-head Quality [43732940452] and Chromium [43732940449], push Quality [43732930991], and post-merge main Quality [43733051013], Chromium [43733051164] and Pages [43733051031] all SUCCESS. The Python test suite includes the new PCGN note-registry assertions; browser smoke and Pages production-site/deployment checks also passed.
 
 This verifies the source-located Notes 1–11 registry and tests only. The Khmer-script romanization engine remains PARTIAL; no new romanization outputs, IPA labels, Ukrainian targets or gold entries were introduced.
+
+
+## Typed PCGN orthographic analysis boundary — 2026-11-15
+
+Added `src/khmer_ua/pcgn.py` with `analyze_pcgn_orthographic_chunk`, an intentionally narrow, typed structural adapter for a caller-supplied orthographic chunk. It preserves:
+
+- unstacked/base consonant identities and their *orthographic* register labels;
+- each coeng + consonant pair as a subscript token, including its identity and orthographic register;
+- MUUSIKATOAN / TRIISAP, dependent and independent vowel signs;
+- BANTOC / SAMYOK SANNYA as distinct shortening marks;
+- ROBAT, AHSDA and TOANDAKHIAT as separately typed marks with source positions;
+- original and NFC-normalized text, token code points, unresolved components, warnings and source provenance.
+
+The record explicitly fixes `syllable_segmentation=NOT_PERFORMED`, `series_decision=UNRESOLVED`, `register_source=NOT_SELECTED`, `coda_decision=UNRESOLVED`, and `romanization/ipa/ukrainian=null`. This is not a PCGN romanizer and does not decide phonetic syllables, apply register shifters, infer codas, reconstruct omitted marks or produce a Ukrainian form. Multiple unstacked consonants are retained rather than guessed to be an onset, coda or next syllable. Malformed coeng and unknown material are preserved and return `UNSUPPORTED`.
+
+The serialized record contract is in `schemas/pcgn-orthographic-analysis.schema.json`; tests are in `tests/test_pcgn_orthographic_analysis.py`. The implementation uses the project's existing consonant/sign inventories and NFC normalizer. It does not modify the existing IPA-first engine or its phonetic outputs. Official PCGN source: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf, Notes 2–8.
