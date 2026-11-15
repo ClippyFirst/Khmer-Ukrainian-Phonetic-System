@@ -2409,3 +2409,10 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - PR [#220](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/220) merged as `8c4784235742cd83c35ce4a2b0bc7831a2b11bb2`; exact current `main` verified at this SHA. No open PRs.
 - PR-head push Quality [43736157032], PR Quality [43736168034], PR Chromium [43736167978] all SUCCESS.
 - Exact post-merge main Quality [43736256876], Chromium [43736256892], Pages [43736257006] all SUCCESS on this SHA, including deployed-site/runtime-asset smoke.
+
+
+## Exact-main verification — PR #221 — 2026-11-15
+
+- PR [#221](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/221) merged as `0d9bb90b1451ce9a2452121e30c3864d4cd887f5`; exact current `main` verified at this SHA. No open PRs.
+- PR-head push Quality [43736444673], PR Quality [43736456391], PR Chromium [43736456480] all SUCCESS.
+- Exact post-merge main Quality [43736548569], Chromium [43736548708], Pages [43736548595] dispatched on this SHA; final status pending at this checkpoint.
