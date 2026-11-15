@@ -376,3 +376,18 @@ The serialized record contract is in `schemas/pcgn-orthographic-analysis.schema.
 PR #213 merged as `18134929554420875b447b1c5128b3b879e3f608`. PR-head Quality [43734106341], Chromium [43734106320], push Quality [43734102361], and exact-main Quality [43734192447], Chromium [43734192457], Pages [43734192455] all SUCCESS.
 
 The new `analyze_pcgn_orthographic_chunk` API, its schema and focused tests are verified on exact main. Acceptance is limited to typed structural preservation and fail-closed abstention; no contextual PCGN romanization, phonetic syllabification, IPA or Ukrainian target is generated. The existing IPA-first path is unchanged.
+
+
+## PCGN Note 3 series resolver — 2026-11-15
+
+Added `resolve_pcgn_series` as a narrow second-stage operation over the typed orthographic record. It applies only the official Note 3 base/foot selection rule:
+
+- no foot: use the base consonant's table series;
+- one non-weak foot: use the foot's series;
+- one weak foot (the five nasals plus យ/រ/ល/វ) with a non-weak base: use the base's series;
+- weak base + weak foot: use the foot's series;
+- ប with one foot: retain the Note 3 exception `p` in the â series as a typed onset exception, not as a complete romanization.
+
+The weak-foot inventory is exactly `ង ញ ណ ន ម យ រ ល វ`; it does not include ស. The PCGN table's statement that ឡ has no subscript form is now enforced as an unsupported structure rather than silently accepted.
+
+The resolver abstains when a register shifter is present (Note 2 is not implemented here), when there are multiple bases/feet, or when the structure contains unsupported material. It returns only `â` / `ô` series metadata and a source locator to PCGN 1972 Note 3 (pp. 2–3). It does not choose a vowel, coda, syllable boundary, IPA or Ukrainian form. Schema: `schemas/pcgn-series-decision.schema.json`; tests: `tests/test_pcgn_series_resolution.py`. Primary source: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf (consonant table and Note 3).
