@@ -2602,3 +2602,12 @@ Schema: `schemas/pcgn-robat-decision.schema.json`; tests: `tests/test_pcgn_robat
 Source: BGN/PCGN 1972 Agreement, Diacritical Marks table row 4 (p. 4) and Note 6 (p. 5): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 
 Status: `KHM-ROM-PCGN-ROBAT-001 = PARTIAL`. The consonant romanization is caller-supplied; the resolver does not infer syllable boundaries, determine the consonant's series/coda value, romanize the rest of the syllable, or produce IPA/Ukrainian output. ROBAT on foot clusters or non-final component positions abstains.
+
+
+## Exact-main verification — PCGN Note 6 ROBAT component / PR #235 — 2026-11-15
+
+- PR [#235](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/235) merged by squash as `34ab63ff37023bddcaeaebb0a6ccd838f662c045`; exact `main` verified at this SHA. No open PRs.
+- Final PR-head `0d6f1a2b11ab1de94ad9be391c2dd4932142ff77`: push Quality [43751844908], PR Quality [43751851657], PR Chromium [43751851706] all SUCCESS. Quality reports 278 Python tests passed and 70 subtests passed; web checks and production build passed; Chromium visible-results smoke passed.
+- An earlier test run failed one registry assertion because the test searched for the exact phrase `not inferred` while the source text said `is inferred`; the registry wording was clarified to `caller-supplied, not inferred`, and final exact-head checks passed.
+- Exact post-merge main: Quality [43751965081], Chromium [43751965119], Pages build/deploy [43751965128] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
+- `KHM-ROM-PCGN-ROBAT-001` remains PARTIAL: only the `rC` component is returned with caller-supplied consonant romanization. No full syllable, IPA or Ukrainian output is produced.
