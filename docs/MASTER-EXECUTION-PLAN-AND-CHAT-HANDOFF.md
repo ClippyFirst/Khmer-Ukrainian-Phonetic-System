@@ -2224,3 +2224,14 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - Exact post-merge main SHA `37a536592a8e462f00997890af63ad232d41a0ae`: Quality [43720186392](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720186392), Chromium [43720186338](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720186338), and Pages build/deploy [43720186436](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720186436) all SUCCESS.
 - Acceptance boundary: this is a fail-closed output-integrity guard, not a contextual Khmer → BGN/PCGN romanizer. It does not restore omitted diacritics, establish series/shortening/coda resolution, or upgrade romanization conformance. KHM-ROM-ENGINE-001 and KHM-ROM-TEST-001 remain PARTIAL.
 - No local checkout/test execution is claimed. Repository remains a partial research prototype; IPA gold, language validation, legal and manual accessibility gates remain open.
+
+
+## Final mainline checkpoint after romanizer guard — 2026-11-15
+
+- PR #201 implementation merged as `37a536592a8e462f00997890af63ad232d41a0ae`; PR #202 documentation closeout merged as `1cc833ad1097f6b1ee7c28eb3e7aefb99ad480fb`.
+- Verified current `main` at `1cc833ad1097f6b1ee7c28eb3e7aefb99ad480fb`. Post-merge workflows on this exact SHA all SUCCESS: Quality [43720449189](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720449189), Chromium [43720449188](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720449188), Pages build/deploy [43720449180](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720449180). Pages deploy smoke-tested the deployed site and runtime assets.
+- PR #202 exact-head Quality [43720352442](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720352442) and Chromium [43720352370](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720352370) also SUCCESS. PR #201 exact-head Quality [43720084983] and Chromium [43720085021] passed; see preceding section.
+- PR #201 closes only the residual-script output-integrity hole. Khmer-script → BGN/PCGN remains ASCII-derived and loses diacritics; contextual series/shortening/coda logic, matrix mark semantics and broad romanizer parity remain PARTIAL. Ukrainian targets remain project proposals.
+- Open PRs: none at the start of this final documentation checkpoint. Open issue #104 remains the external human acquisition blocker; no one was contacted or recruited and no gold IPA data was fabricated.
+- Root `LICENSE` remains absent while `pyproject.toml` declares MIT (owner decision). Main remains unprotected; no governance setting was changed.
+- No local checkout or local test execution is claimed. Readiness remains partial research prototype, not linguistically validated production.
