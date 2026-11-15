@@ -2025,3 +2025,15 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 
 
 **CI scope note:** the successful Quality and Chromium runs were triggered for the final runtime/test code head before the two documentation-only audit/handoff commits. The GitHub connector exposed no new workflow runs for the later documentation-only head; no additional test run is claimed for those docs-only commits. Post-merge mainline CI is the final verification gate.
+
+
+## Mainline closeout — typed IPA candidate validator — 2026-11-15
+
+- Starting main before this task: 2f0d9f362e5f82ebb4d3372eae8f8fb4cc2001ba.
+- Implementation branch: feat/typed-ipa-candidate-validation-2026-11-15.
+- PR [#182](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/182) merged successfully; final main merge commit: c69789b21bffb306497758a1181bef0d36459bd5.
+- Exact runtime/test head: a20f1d3f28cbe1a6a5f79cc7554afe4b47265a4a. Quality [43694149473](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43694149473) SUCCESS (206 tests, 62 subtests; corpus structure gate, web checks, build). Chromium [43694149458](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43694149458) SUCCESS (visible result check included).
+- The first CI attempt had 3 failures caused by unsupported U+02E5–U+02E9 IPA tone-bar symbols. Added those symbols explicitly; the final runtime/test head passed all checks. Two later commits only appended audit/handoff evidence. No CI run was exposed for the later docs-only PR head; no such run is claimed.
+- No external provider, corpus, or model was added. The deterministic engine and output contract remain unchanged. The new typed candidate API is available for future research adapters, but COMPLETE is only provider metadata and is not independent gold or permission to publish output.
+- PR #153 remains open/draft/BLOCKED pending API reconciliation, corpus rights, and train/evaluation split independence. Independent adjudicated Phnom Penh IPA gold remains 0; accuracy remains null.
+- Existing blockers remain: MIT metadata without a tracked LICENSE file (owner decision), full manual accessibility review, and the linguistic gold-data gate.
