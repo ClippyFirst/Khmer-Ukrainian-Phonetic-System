@@ -848,4 +848,4 @@ PR #233 merged as `cf57045bf6ddf0537e2a5c33a8b2468e8f3f6f2c`. Final PR-head `9bc
 - Accepts exactly one ROBAT mark at the end of the supplied component chunk, immediately after one modeled unstacked consonant.
 - Requires the caller to supply a PCGN romanized consonant value; validates against the consonant-table inventory and returns only `rC`.
 - The `rm` component in `ធម៌ → thôrm` is covered. No full syllable, coda inference, IPA or Ukrainian output is produced.
-- Primary source: BGN/PCGN 1972 Diacritical Marks table row 4 and Note 6, p. 4. Status PARTIAL pending broader structural integration and complete syllable romanization.
+- Primary source: BGN/PCGN 1972 Diacritical Marks table row 4 (p. 4) and Note 6 (p. 5). Status PARTIAL pending broader structural integration and complete syllable romanization.
