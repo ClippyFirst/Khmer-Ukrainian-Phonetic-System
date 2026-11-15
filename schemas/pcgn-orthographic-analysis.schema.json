@@ -6,7 +6,7 @@
   "required": [
     "raw_text", "normalized_text", "tokens", "base_consonants",
     "subscript_consonants", "register_shifters", "register_shifter_positions", "dependent_vowel_signs",
-    "independent_vowels", "shortening_marks", "robat_positions",
+    "independent_vowels", "shortening_marks", "shortening_mark_positions", "robat_positions",
     "ahsda_positions", "toandakhiat_positions", "unresolved_components",
     "syllable_segmentation", "series_decision", "register_source",
     "coda_decision", "romanization", "ipa", "ukrainian", "status",
@@ -37,6 +37,7 @@
     "dependent_vowel_signs": {"type": "array", "items": {"type": "string"}},
     "independent_vowels": {"type": "array", "items": {"type": "string"}},
     "shortening_marks": {"type": "array", "items": {"type": "string"}},
+    "shortening_mark_positions": {"type": "array", "items": {"type": "integer", "minimum": 0}},
     "robat_positions": {"type": "array", "items": {"type": "integer", "minimum": 0}},
     "ahsda_positions": {"type": "array", "items": {"type": "integer", "minimum": 0}},
     "toandakhiat_positions": {"type": "array", "items": {"type": "integer", "minimum": 0}},
