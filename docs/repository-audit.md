@@ -661,6 +661,6 @@ The Note 3 series resolver now handles the unambiguous single-base subset of Not
 
 ## PCGN Note 2 shifter subset — PR #217 — 2026-11-15
 
-PR #217 merged as `c738075c47c76730aa15e96acea588ad924c829c`. PR-head push Quality [43735335039], PR Quality [43735349944] and Chromium [43735349863] all SUCCESS. Exact-main Quality [43735441278], Chromium [43735441245] and Pages [43735441621] were dispatched on the merge SHA; final status is pending at this audit entry.
+PR #217 merged as `c738075c47c76730aa15e96acea588ad924c829c`. PR-head push Quality [43735335039], PR Quality [43735349944] and Chromium [43735349863] all SUCCESS. Exact-main Quality [43735441278], Chromium [43735441245] and Pages [43735441621] all SUCCESS on the merge SHA, including deployed-site/runtime-asset smoke.
 
 The bounded single-base Note 2 subset is implemented; full cluster shifter behavior, vowels, codas, syllabification and Note 5 shortening remain incomplete.
