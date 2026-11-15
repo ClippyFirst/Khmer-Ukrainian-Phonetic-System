@@ -540,7 +540,7 @@ PCGN_INHERENT_VOWEL_TABLE_LOCATOR = (
 
 @dataclass(frozen=True)
 class PCGNInherentVowelDecision:
-    syllable_position: Literal["NON_FINAL", "FINAL"]
+    syllable_position: Literal["NON_FINAL", "FINAL"] | None
     series: Literal["â", "ô"] | None
     romanization: str | None
     source_table_row: int
@@ -567,7 +567,7 @@ def resolve_pcgn_inherent_vowel(
     """
     def unresolved(reason: str) -> PCGNInherentVowelDecision:
         return PCGNInherentVowelDecision(
-            syllable_position=syllable_position,
+            syllable_position=syllable_position if syllable_position in {"NON_FINAL", "FINAL"} else None,
             series=None,
             romanization=None,
             source_table_row=1,
