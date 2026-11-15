@@ -800,3 +800,8 @@ Status: `KHM-ROM-PCGN-CONSONANTS-001 = PARTIAL`. No complete syllable, vowel/cod
 ## Exact-main verification — PR #251 — 2026-11-15
 
 PR #251 merged as `aab014705bdf90825b922ff69f1c2e7758e56246`. PR-head push Quality [43760857888], PR Quality [43760868532], PR Chromium [43760868545], exact-main Quality [43760984773], Chromium [43760984785] and Pages [43760984838] all SUCCESS, including deployed-site/runtime-asset smoke. Documentation-only; no language behavior changed.
+
+
+## Exact-main verification — PR #252 / PCGN consonant components — 2026-11-15
+
+PR [#252](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/252) merged as `16fbbde6238e03290507056388b539f54622d236`. Final PR-head push Quality [43761467383], PR Quality [43761473221], PR Chromium [43761473212], exact-main Quality [43761598283], Chromium [43761598359] and Pages [43761598332] all SUCCESS. Initial push Quality [43761223088] caught malformed schema JSON; corrected schema and final checks passed. The resolver maps rows 1–21 only and delegates row 22 to Note 4.

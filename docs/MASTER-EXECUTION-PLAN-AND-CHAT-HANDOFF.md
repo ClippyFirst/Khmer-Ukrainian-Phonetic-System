@@ -2813,3 +2813,12 @@ Status: `KHM-ROM-PCGN-CONSONANTS-001 = PARTIAL`. This is an onset-cluster compon
 - PR-head push Quality [43760857888], PR Quality [43760868532] and PR Chromium [43760868545] all SUCCESS.
 - Exact post-merge main Quality [43760984773], Chromium [43760984785] and Pages build/deploy [43760984838] all SUCCESS, including deployed-site/runtime-asset smoke.
 - PR #251 was documentation-only and did not promote any linguistic status.
+
+
+## Exact-main verification — PR #252 / PCGN consonant table rows 1–21 — 2026-11-15
+
+- PR [#252](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/252) merged by squash as `16fbbde6238e03290507056388b539f54622d236`; exact current `main` verified at this SHA. No open PRs.
+- Final PR-head push Quality [43761467383], PR Quality [43761473221] and PR Chromium [43761473212] all SUCCESS.
+- Exact post-merge main Quality [43761598283], Chromium [43761598359] and Pages build/deploy [43761598332] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
+- An earlier pre-fix push Quality run [43761223088] failed because the new consonant-decision JSON schema contained malformed JSON. The schema was corrected, parsed successfully, and the final exact PR-head and main checks passed. The CSV row-12 default was also corrected to keep `b` separate from its Note 3 `p` exception.
+- The resolver covers rows 1–21 only; row 22 remains delegated to Note 4. It emits onset consonant components only, not a full syllable, IPA or Ukrainian output.
