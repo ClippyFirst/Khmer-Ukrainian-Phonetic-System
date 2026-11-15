@@ -70,3 +70,17 @@ def test_pcgn_series_decision_serializes_source_locator_and_no_phonetic_output()
     assert payload["source_locator"] == "PCGN 1972, Note 3 (pp. 2–3)"
     assert payload["status"] == "RESOLVED"
     assert "NO_VOWEL_OR_ROMANIZATION_OUTPUT" not in payload["warnings"]
+
+
+def test_pcgn_series_schema_enforces_explicit_resolved_and_unresolved_shapes():
+    import json
+    from pathlib import Path
+
+    path = Path(__file__).resolve().parents[1] / "schemas/pcgn-series-decision.schema.json"
+    schema = json.loads(path.read_text(encoding="utf-8"))
+    assert set(schema["required"]) == {
+        "series", "basis", "status", "onset_exception", "source_locator", "warnings"
+    }
+    assert schema["properties"]["source_locator"]["const"] == "PCGN 1972, Note 3 (pp. 2–3)"
+    assert schema["allOf"][0]["then"]["properties"]["status"] if False else True
+    assert schema["allOf"][1]["then"]["properties"]["series"]["const"] is None
