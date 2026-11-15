@@ -135,6 +135,11 @@ def analyze_pcgn_orthographic_chunk(text: str) -> PCGNOrthographicAnalysis:
         sign = SIGNS_BY_CHAR.get(ch)
         if sign:
             name = SPECIAL_MARKS.get(ch, sign.get("name"))
+            if sign.get("kind") == "unmodeled_letter":
+                token(ch, "unmodeled_letter", name)
+                unresolved.append(ch)
+                i += 1
+                continue
             if ch in {"៉", "៊"}:
                 shifters.append(ch)
                 token(ch, "register_shifter", name)
