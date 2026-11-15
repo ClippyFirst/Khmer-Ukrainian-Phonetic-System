@@ -590,3 +590,8 @@ The coda class is caller-supplied and is never inferred from the orthographic ch
 Source: BGN/PCGN 1972, Vowel Characters table rows 1–2 and Note 5, pp. 2–3: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 
 Status: `KHM-ROM-PCGN-SHORTENING-001 = PARTIAL`; the PCGN syllable engine and IPA-first/Ukrainian adapter remain PARTIAL.
+
+
+## Exact-main verification — PR #233 / PCGN Note 5 — 2026-11-15
+
+PR #233 merged as `cf57045bf6ddf0537e2a5c33a8b2468e8f3f6f2c`. Final PR-head `9bcf7391ce08557ce2fa56e4cbb764568949f952`: push Quality [43751102348], PR Quality [43751107119], Chromium [43751107131] all SUCCESS (272 tests + 70 subtests; web checks/build/Chromium passed). Exact-main Quality [43751266786], Chromium [43751266785], Pages [43751266784] all SUCCESS, including deployed-site/runtime-asset smoke. Note 5 remains PARTIAL component-only; no IPA/Ukrainian or complete-syllable status promotion.
