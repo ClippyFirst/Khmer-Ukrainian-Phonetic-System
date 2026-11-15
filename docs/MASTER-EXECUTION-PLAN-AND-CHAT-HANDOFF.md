@@ -2377,3 +2377,13 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - Shifters on clusters, multiple/misplaced shifters, wrong-direction shifters and unsupported structures abstain. No vowel, coda, syllable segmentation, PCGN Latin, IPA or Ukrainian output is generated.
 - Update the analysis and series-decision JSON Schemas and tests for shifter positions, before/after series and typed effects. Exact-head CI pending.
 - This is a bounded subset, not complete Note 2 implementation. Next gates: review shifters on consonant+foot clusters and BA+TRIISAP; then tackle contextual vowel/rime selection and Note 5 only when coda is known.
+
+
+## Exact-main verification — PCGN Note 2 shifter subset / PR #217 — 2026-11-15
+
+- PR [#217](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/217) merged by squash as `c738075c47c76730aa15e96acea588ad924c829c`; exact current `main` verified at this SHA. No open PRs.
+- PR-head `e1bd39fa43e80ae5cd60dc3af2dc850d7b206076`: push Quality [43735335039](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735335039), PR Quality [43735349944](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735349944), PR Chromium [43735349863](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735349863) all SUCCESS.
+- Exact post-merge main checks: Quality [43735441278](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735441278), Chromium [43735441245](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735441245), Pages [43735441621](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735441621) — pending at time of this update; replace with exact conclusions after completion.
+- The bounded Note 2 subset preserves shifter source positions, pre-/post-shifter series and typed effect. It supports one correctly placed mark after one base with no foot, plus BA+MUUSIKATOAN p-in-â. It abstains on shifter+foot clusters, multiple/misplaced/wrong-direction marks and BA+TRIISAP.
+- This is not complete Note 2 or full PCGN romanization. Vowel/rime selection, coda and syllable segmentation, Note 5 shortening, and PCGN Latin output remain PARTIAL. No IPA-first or Ukrainian target behavior changed.
+- Issue #104 remains open; adjudicated IPA gold=0 and accuracy=null. Root LICENSE absent vs MIT metadata and unprotected main remain owner/governance blockers. Research prototype only.
