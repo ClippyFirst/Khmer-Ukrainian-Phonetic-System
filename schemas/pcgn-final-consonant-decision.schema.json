@@ -10,13 +10,13 @@
     "source_locator", "warnings"
   ],
   "properties": {
-    "base_character": {"type": ["string", "null]},
-    "base_table_row": {"type": ["integer", "null]},
-    "base_romanization": {"type": ["string", "null]},
-    "subscript_character": {"type": ["string", "null]},
-    "subscript_table_row": {"type": ["integer", "null]},
-    "subscript_romanization": {"type": ["string", "null]},
-    "romanization": {"type": ["string", "null]},
+    "base_character": {"type": ["string", "null"]},
+    "base_table_row": {"type": ["integer", "null"]},
+    "base_romanization": {"type": ["string", "null"]},
+    "subscript_character": {"type": ["string", "null"]},
+    "subscript_table_row": {"type": ["integer", "null"]},
+    "subscript_romanization": {"type": ["string", "null"]},
+    "romanization": {"type": ["string", "null"]},
     "following_vowel": {"enum": ["", null]},
     "status": {"enum": ["GENERAL_RULE_APPLIED", "UNRESOLVED"]},
     "ipa": {"type": "null"},
@@ -39,7 +39,7 @@
     },
     {
       "if": {"properties": {"status": {"const": "UNRESOLVED"}}, "required": ["status"]},
-      "then": {"properties": {"romanization": {"type": "null}, "following_vowel": {"type": "null}}}
+      "then": {"properties": {"romanization": {"type": "null"}, "following_vowel": {"type": "null"}}}
     }
   ]
 }
