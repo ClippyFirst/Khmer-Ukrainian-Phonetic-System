@@ -691,6 +691,9 @@ PCGN_FINAL_CONSONANT_TABLE_LOCATOR = (
 
 @dataclass(frozen=True)
 class PCGNFinalConsonantDecision:
+    syllable_position: Literal["FINAL"]
+    has_following_vowel_character: bool
+    has_toandakhiat: bool
     base_character: str | None
     base_table_row: int | None
     base_romanization: str | None
@@ -725,6 +728,9 @@ def resolve_pcgn_final_consonant(
     """
     def unresolved(reason: str) -> PCGNFinalConsonantDecision:
         return PCGNFinalConsonantDecision(
+            syllable_position="FINAL",
+            has_following_vowel_character=has_following_vowel_character,
+            has_toandakhiat=has_toandakhiat,
             base_character=analysis.base_consonants[0] if len(analysis.base_consonants) == 1 else None,
             base_table_row=None,
             base_romanization=None,
@@ -778,6 +784,9 @@ def resolve_pcgn_final_consonant(
     subscript_romanization = subscript_row[1] if subscript_row else None
     romanization = base_romanization + (subscript_romanization or "")
     return PCGNFinalConsonantDecision(
+        syllable_position="FINAL",
+        has_following_vowel_character=has_following_vowel_character,
+        has_toandakhiat=has_toandakhiat,
         base_character=base,
         base_table_row=base_row[0],
         base_romanization=base_romanization,
