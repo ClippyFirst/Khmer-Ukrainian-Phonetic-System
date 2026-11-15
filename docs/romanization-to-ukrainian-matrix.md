@@ -128,7 +128,7 @@ These are **research candidates**, not a production vowel adapter. The source st
 
 ## Required machine-readable table contract
 
-The next implementation slice should add a canonical registry with at least: source_grapheme, orthographic_unit, consonant_series, subscript_role, romanization, romanization_standard, ukrainian_candidate, ukrainian_status, context, source_id, source_locator, evidence_status and test_id.
+The canonical source inventory currently lives in three CSVs: consonant/subscript rows, 37 vowel/rime rows, and diacritic/numeral rows. The runtime map remains a static longest-match adapter in `src/khmer-romanization-ukrainian.js`; the Node tests read the CSVs and enforce source-form → Ukrainian-candidate parity. A future generated registry could remove this duplicated mapping, but it must preserve alternative forms and evidence statuses rather than flatten them.
 
 Every supported Khmer grapheme/orthographic syllable must either have a complete path:
 **Khmer unit → BGN/PCGN romanized syllable → Ukrainian practical syllable**, or a visible exception/unsupported status. Do not use khmerToLatin output as an IPA source, and do not generate Ukrainian output by applying the IPA mapper to the Latin string.
@@ -138,14 +138,14 @@ Every supported Khmer grapheme/orthographic syllable must either have a complete
 | ID | Status | Acceptance |
 |---|---|---|
 | KHM-ROM-STD-001 | DONE_VERIFIED (source review) | BGN/PCGN 1972 selected; UNGEGN approval and PCGN table cited |
-| KHM-ROM-ENGINE-001 | PARTIAL | Replace/verify the ASCII simplifier against the full BGN/PCGN table, including diacritics and context |
+| KHM-ROM-ENGINE-001 | PARTIAL | Khmer-script input still uses the ASCII simplifier; replace/verify it against the full BGN/PCGN table, including contextual diacritics and series resolution. Direct Latin input does not solve this source-generation step. |
 | KHM-ROM-UA-TARGET-001 | DONE_VERIFIED | All 22 consonant rows and 37 PCGN vowel/rime rows have non-empty Ukrainian project candidates; exact table/provenance and coverage assertions passed on the feature head and merged mainline. This is a project orthographic proposal, not expert-approved standardization. |
-| KHM-ROM-UA-001 | PARTIAL | Separate runtime adapter is integrated and tested; current upstream ASCII romanizer drops BGN/PCGN diacritics, so lost contextual vowel distinctions cannot be recovered. Full acceptance requires a diacritic-preserving/context-aware BGN/PCGN source path. |
+| KHM-ROM-UA-001 | PARTIAL | Direct BGN/PCGN Latin input now maps the raw diacritic forms in all 37 vowel/rime rows to project Ukrainian candidates; Khmer-script input still traverses the upstream ASCII package and loses diacritics. Full acceptance requires contextual series/shortening/coda resolution and expert review of Ukrainian candidates. |
 | KHM-ROM-ONSET-001 | DONE_VERIFIED | All 22 PCGN consonant rows plus special ឝ are in data/khmer/romanization_ukrainian.csv; exact row and provenance tests passed in workflow 41229431196 |
 | KHM-ROM-VOWEL-INVENTORY-001 | PARTIAL | 37 source rows now match the PCGN glyphs/romanization values; exact-head workflow 41233203184 passed; all 37 source-glyph/romanization assertions are verified |
 | KHM-ROM-MARKS-NUMERALS-001 | PARTIAL | Six exact PCGN diacritic glyphs and ten numeral glyphs are inventoried; exact-glyph tests passed in workflow 41233203184 |
 | KHM-ROM-MATRIX-001 | PARTIAL | The target column is complete for the inventoried rows; PCGN consonant-series × vowel × shortening × coda resolution and contextual romanization generation remain incomplete |
-| KHM-ROM-TEST-001 | PARTIAL | PR #167 merged as `f0485892f5d4b16e5fbe0ded6f8e083d8b044f4b` wires `tests/romanization-ukrainian.test.mjs` into both `npm test` and `npm run check`. The unit suite asserts all 22 distinct PCGN consonant romanization tokens and 33 ASCII vowel candidates; current-main Quality [43250158336](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43250158336) and browser smoke [43250158628](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43250158628) passed. | Remaining: full source-matrix→runtime parity for every vowel row, Khmer marks/numerals, broad real-package corpus, and contextual diacritic-preserving BGN/PCGN handling. National 1997 profile remains a separate evidence-limited research task. |
+| KHM-ROM-TEST-001 | PARTIAL | Unit tests now cover all 22 consonant rows, all 37 raw diacritic-preserving vowel/rime forms, and direct-input behavior; browser tests cover direct Latin input and unknown fragments. | Remaining: Khmer-script-to-Latin contextual parity, marks/numerals matrix, broad real-package corpus and expert review of Ukrainian candidates. National 1997 profile remains a separate evidence-limited research task. |
 | KHM-IPA-001 | PARTIAL | Existing contextual vowel/register/coda IPA model and independent gold remain incomplete |
 
 
