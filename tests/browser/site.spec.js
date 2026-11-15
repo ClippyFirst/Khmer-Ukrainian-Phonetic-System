@@ -56,6 +56,8 @@ test("unknown pre-romanized fragments are bracketed, not guessed", async ({ page
   await page.locator("#mode-romanization").click();
   await expect(page.locator("#ua-romanization-result")).toHaveText("Кампучеа ⟦q⟧");
   await expect(page.locator("#ua-romanization-status")).toContainText("PARTIAL");
+  await expect(page.locator("#romanization-title")).toHaveText("Змішаний ввід · потрібен один формат");
+  await expect(page.locator("#romanization-note")).toContainText("окремі запуски");
 });
 
 
@@ -76,4 +78,14 @@ test("mixed Khmer letters in direct romanization mode are bracketed as unsupport
   await page.locator("#mode-romanization").click();
   await expect(page.locator("#ua-romanization-result")).toHaveText("Кампучеа ⟦ខ⟧⟦្⟧⟦ម⟧⟦ែ⟧⟦រ⟧");
   await expect(page.locator("#ua-romanization-status")).toContainText("PARTIAL");
+});
+
+
+test("Khmer numerals do not incorrectly trigger the mixed-script warning", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("Kâmpŭchéa ២០២៦។");
+  await page.locator("#mode-romanization").click();
+  await expect(page.locator("#ua-romanization-result")).toHaveText("Кампучеа 2026។");
+  await expect(page.locator("#ua-romanization-status")).toContainText("PROVISIONAL");
+  await expect(page.locator("#romanization-title")).toHaveText("Вхідна романізація · BGN/PCGN 1972");
 });
