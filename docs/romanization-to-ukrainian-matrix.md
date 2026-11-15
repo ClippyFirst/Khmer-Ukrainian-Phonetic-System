@@ -331,3 +331,18 @@ A pinned source comparison is recorded in [BGN-PCGN-UNGEGN-RULE-DIFF-2026-11-15.
 ## Exact-main checkpoint — profile-diff research (2026-11-15)
 
 PR #209 merged as `266297fcc296388220ea48c975344f5aa14f097d`. Exact-main hosted Quality [43730567132], Chromium [43730567159], and Pages build/deploy [43730567118] all SUCCESS. The comparison is documented in [BGN-PCGN-UNGEGN-RULE-DIFF-2026-11-15.md](audits/current/BGN-PCGN-UNGEGN-RULE-DIFF-2026-11-15.md). This closes only the bounded profile-text comparison; it does not implement a contextual Khmer-script romanizer or certify linguistic accuracy. `KHM-ROM-ENGINE-001` and `KHM-ROM-UA-001` remain PARTIAL; IPA gold remains 0.
+
+
+## PCGN notes 1–11 source registry — 2026-11-15
+
+The complete eleven-note section of the official BGN/PCGN 1972 guide is now represented in `data/khmer/romanization_pcgn_notes.csv`. Each note has a primary-source locator, a bounded summary, its conditions/exceptions, and an explicit `DOCUMENTED_ONLY` implementation status. This complements (does not replace) the row-level consonant, vowel/rime, diacritic and numeral matrices.
+
+The registry deliberately preserves the high-risk contextual constraints:
+
+- Note 2: register-shifter direction and the ប / បា exception.
+- Note 3: PCGN's weak-subscript set (the five nasals plus យ/រ/ល/វ), the distinct ប/បា p-in-â behavior, and the source's warning that some feet are ambiguous. It does **not** add ស to the neutral set.
+- Note 5: both BANTOC and SAMYOK SANNYA patterns, with the ô-series eă condition restricted to following k/ng/h and oă otherwise.
+- Notes 6–8: ROBAT's following-consonant dependency, syllable-position-sensitive ◌៏, and non-romanized silent ◌៍.
+- Notes 9–11: the unresolved ŏ/ŭ alternative, roman-character code-point inventory, and case handling.
+
+Python regression tests check all eleven notes, exact PCGN weak-subscript membership, both shortening marks and the closed k/ng/h condition. This is a source-documentation and guardrail milestone only: it does not implement the contextual romanizer, infer missing diacritics, choose ambiguous readings, create IPA, or promote Ukrainian target proposals. Official source: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf (pp. 2–6, Notes 1–11).
