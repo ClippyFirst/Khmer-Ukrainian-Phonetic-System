@@ -68,3 +68,12 @@ test("phonetic diagnostics stay hidden while editing direct romanization input",
   await expect(page.locator("#issue")).toBeHidden();
   await expect(page.locator("#unit-details")).toBeHidden();
 });
+
+
+test("mixed Khmer letters in direct romanization mode are bracketed as unsupported", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("Kâmpŭchéa ខ្មែរ");
+  await page.locator("#mode-romanization").click();
+  await expect(page.locator("#ua-romanization-result")).toHaveText("Кампучеа ⟦ខ⟧⟦្⟧⟦ម⟧⟦ែ⟧⟦រ⟧");
+  await expect(page.locator("#ua-romanization-status")).toContainText("PARTIAL");
+});
