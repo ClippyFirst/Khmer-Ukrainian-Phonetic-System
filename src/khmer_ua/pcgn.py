@@ -842,6 +842,108 @@ def resolve_pcgn_robat(
     )
 
 
+
+PCGN_AHSDA_TABLE_LOCATOR = (
+    "PCGN 1972, Diacritical Marks table row 5 (p. 4), Note 7 (p. 5)"
+)
+
+
+@dataclass(frozen=True)
+class PCGNAhsdaDecision:
+    marked_character: str | None
+    syllable_position: Literal["INITIAL", "FINAL"] | None
+    series: Literal["â", "ô"] | None
+    effect: Literal["MARK_NOT_ROMANIZED_INITIAL", "CONSONANT_VOWELLED_FINAL"] | None
+    romanization: str | None
+    status: Literal["RESOLVED", "UNRESOLVED"]
+    ipa: None
+    ukrainian: None
+    source_locator: str
+    warnings: tuple[str, ...]
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+def resolve_pcgn_ahsda(
+    analysis: PCGNOrthographicAnalysis,
+    syllable_position: Literal["INITIAL", "FINAL"] | None,
+    series: Literal["â", "ô"] | None,
+) -> PCGNAhsdaDecision:
+    """Resolve the position-sensitive PCGN Note 7 AHSDA component.
+
+    Syllable position is explicit caller context, never inferred from an
+    orthographic chunk. In final position the caller also supplies the
+    consonant-series value. The result is only the AHSDA mark's effect.
+    """
+    def unresolved(reason: str) -> PCGNAhsdaDecision:
+        return PCGNAhsdaDecision(
+            marked_character=None,
+            syllable_position=syllable_position if syllable_position in {"INITIAL", "FINAL"} else None,
+            series=series if series in {"â", "ô"} else None,
+            effect=None,
+            romanization=None,
+            status="UNRESOLVED",
+            ipa=None,
+            ukrainian=None,
+            source_locator=PCGN_AHSDA_TABLE_LOCATOR,
+            warnings=(reason, "NO_COMPLETE_SYLLABLE_IPA_OR_UKRAINIAN_OUTPUT"),
+        )
+
+    if analysis.status != "STRUCTURE_ONLY":
+        return unresolved("UNSUPPORTED_OR_UNRESOLVED_ORTHOGRAPHIC_COMPONENT")
+    if syllable_position not in {"INITIAL", "FINAL"}:
+        return unresolved("EXPLICIT_AHSDA_SYLLABLE_POSITION_REQUIRED")
+    if len(analysis.ahsda_positions) != 1:
+        return unresolved("EXACTLY_ONE_AHSDA_MARK_REQUIRED")
+    if analysis.ahsda_positions[0] != len(analysis.normalized_text) - 1:
+        return unresolved("AHSDA_MUST_BE_FINAL_IN_THE_SUPPORTED_COMPONENT_CHUNK")
+    if len(analysis.tokens) < 2 or analysis.tokens[-1].kind != "ahsda_position_sensitive":
+        return unresolved("AHSDA_TOKEN_MUST_END_THE_COMPONENT_CHUNK")
+    marked_token = analysis.tokens[-2]
+    if marked_token.kind != "unstacked_consonant" or marked_token.text not in CONSONANTS_BY_CHAR:
+        return unresolved("AHSDA_MUST_IMMEDIATELY_FOLLOW_ONE_MODELED_UNSTACKED_CONSONANT")
+
+    if syllable_position == "INITIAL":
+        if series is not None and series not in {"â", "ô"}:
+            return unresolved("INVALID_CALLER_SUPPLIED_SERIES")
+        return PCGNAhsdaDecision(
+            marked_character=marked_token.text,
+            syllable_position="INITIAL",
+            series=series,
+            effect="MARK_NOT_ROMANIZED_INITIAL",
+            romanization=None,
+            status="RESOLVED",
+            ipa=None,
+            ukrainian=None,
+            source_locator=PCGN_AHSDA_TABLE_LOCATOR,
+            warnings=(
+                "PCGN_NOTE_7_AHSDA_MARK_NOT_ROMANIZED_IN_SYLLABLE_INITIAL_POSITION",
+                "SYLLABLE_POSITION_CALLER_SUPPLIED_NOT_INFERRED",
+                "NO_COMPLETE_SYLLABLE_IPA_OR_UKRAINIAN_OUTPUT",
+            ),
+        )
+
+    if series not in {"â", "ô"}:
+        return unresolved("EXPLICIT_RESOLVED_SERIES_REQUIRED_IN_SYLLABLE_FINAL_POSITION")
+    return PCGNAhsdaDecision(
+        marked_character=marked_token.text,
+        syllable_position="FINAL",
+        series=series,
+        effect="CONSONANT_VOWELLED_FINAL",
+        romanization=series,
+        status="RESOLVED",
+        ipa=None,
+        ukrainian=None,
+        source_locator=PCGN_AHSDA_TABLE_LOCATOR,
+        warnings=(
+            "PCGN_NOTE_7_FINAL_AHSDA_INDICATES_SERIES_VOWEL",
+            "SYLLABLE_POSITION_AND_SERIES_CALLER_SUPPLIED_NOT_INFERRED",
+            "VOWEL_COMPONENT_ONLY_NO_COMPLETE_SYLLABLE_IPA_OR_UKRAINIAN_OUTPUT",
+        ),
+    )
+
+
 __all__ = [
     "PCGNOrthographicAnalysis",
     "PCGNToken",
@@ -850,6 +952,7 @@ __all__ = [
     "PCGNIndependentVowelDecision",
     "PCGNShortenedVowelDecision",
     "PCGNRobatDecision",
+    "PCGNAhsdaDecision",
     "PCGN_WEAK_SUBSCRIPTS",
     "PCGN_NO_SUBSCRIPT_FOR",
     "resolve_pcgn_series",
@@ -857,5 +960,6 @@ __all__ = [
     "resolve_pcgn_independent_vowel",
     "resolve_pcgn_shortened_vowel",
     "resolve_pcgn_robat",
+    "resolve_pcgn_ahsda",
     "analyze_pcgn_orthographic_chunk",
 ]

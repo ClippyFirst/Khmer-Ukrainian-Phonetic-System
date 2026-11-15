@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BGN/PCGN 1972 Note 7 AHSDA context decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "marked_character",
+    "syllable_position",
+    "series",
+    "effect",
+    "romanization",
+    "status",
+    "ipa",
+    "ukrainian",
+    "source_locator",
+    "warnings"
+  ],
+  "properties": {
+    "marked_character": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "syllable_position": {
+      "enum": [
+        "INITIAL",
+        "FINAL",
+        null
+      ]
+    },
+    "series": {
+      "enum": [
+        "â",
+        "ô",
+        null
+      ]
+    },
+    "effect": {
+      "enum": [
+        "MARK_NOT_ROMANIZED_INITIAL",
+        "CONSONANT_VOWELLED_FINAL",
+        null
+      ]
+    },
+    "romanization": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "RESOLVED",
+        "UNRESOLVED"
+      ]
+    },
+    "ipa": {
+      "const": null
+    },
+    "ukrainian": {
+      "const": null
+    },
+    "source_locator": {
+      "const": "PCGN 1972, Diacritical Marks table row 5 (p. 4), Note 7 (p. 5)"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "RESOLVED"
+          },
+          "syllable_position": {
+            "const": "INITIAL"
+          }
+        },
+        "required": [
+          "status",
+          "syllable_position"
+        ]
+      },
+      "then": {
+        "properties": {
+          "marked_character": {
+            "type": "string",
+            "minLength": 1
+          },
+          "effect": {
+            "const": "MARK_NOT_ROMANIZED_INITIAL"
+          },
+          "romanization": {
+            "const": null
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "RESOLVED"
+          },
+          "syllable_position": {
+            "const": "FINAL"
+          }
+        },
+        "required": [
+          "status",
+          "syllable_position"
+        ]
+      },
+      "then": {
+        "properties": {
+          "marked_character": {
+            "type": "string",
+            "minLength": 1
+          },
+          "series": {
+            "enum": [
+              "â",
+              "ô"
+            ]
+          },
+          "effect": {
+            "const": "CONSONANT_VOWELLED_FINAL"
+          },
+          "romanization": {
+            "enum": [
+              "â",
+              "ô"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "UNRESOLVED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "romanization": {
+            "const": null
+          }
+        }
+      }
+    }
+  ]
+}
