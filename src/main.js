@@ -556,14 +556,61 @@ if (typeof document !== "undefined") {
   modePhonetic.addEventListener("click", () => setOutputMode("phonetic"));
   modeRomanization.addEventListener("click", () => setOutputMode("romanization"));
   setOutputMode("phonetic");
-  source.addEventListener("input", render);
-  $("profile").addEventListener("change", render);
+  source.addEventListener("input", () => {
+    manualCandidate = null;
+    render();
+    $("hybrid-form-status").textContent = "Кандидат скинуто після зміни вхідного тексту.";
+  });
+  $("profile").addEventListener("change", () => {
+    manualCandidate = null;
+    render();
+    $("hybrid-form-status").textContent = "Кандидат скинуто після зміни профілю.";
+  });
+  $("hybrid-candidate-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    let provenance = {};
+    try {
+      const rawProvenance = $("candidate-provenance").value.trim();
+      if (rawProvenance) {
+        provenance = JSON.parse(rawProvenance);
+        if (provenance === null || typeof provenance !== "object" || Array.isArray(provenance)) {
+          throw new TypeError("Provenance має бути JSON-об'єктом.");
+        }
+      }
+      manualCandidate = {
+        provider: $("candidate-provider").value.trim(),
+        candidate: {
+          ipa: $("candidate-ipa").value,
+          profile: $("profile").value,
+          kind: $("candidate-kind").value,
+          status: $("candidate-status").value,
+          uncertainty: $("candidate-uncertainty").value.replaceAll("\\r", "").split("\\n").map((line) => line.trim()).filter(Boolean),
+          provenance,
+        },
+      };
+      render();
+    } catch (error) {
+      manualCandidate = null;
+      render();
+      $("hybrid-form-status").textContent = "Кандидат не додано: " + (error instanceof Error ? error.message : String(error));
+    }
+  });
+  $("clear-candidate").addEventListener("click", () => {
+    manualCandidate = null;
+    $("candidate-ipa").value = "";
+    $("candidate-uncertainty").value = "";
+    $("candidate-provenance").value = "";
+    render();
+    $("hybrid-form-status").textContent = "Діагностичний кандидат очищено.";
+  });
   $("example").addEventListener("click", () => {
+    manualCandidate = null;
     source.value = fixtures["ភាសាខ្មែរ"] ? "ភាសាខ្មែរ" : Object.keys(fixtures)[0];
     render();
     source.focus();
   });
   $("clear").addEventListener("click", () => {
+    manualCandidate = null;
     source.value = "";
     render();
     source.focus();
