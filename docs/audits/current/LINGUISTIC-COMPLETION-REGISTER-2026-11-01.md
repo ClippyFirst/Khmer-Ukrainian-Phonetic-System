@@ -907,3 +907,8 @@ PR #219 merged as `690b44174a8831ac9b08b44786d5ffde43f6d5aa`. PR-head push Quali
 ## PR #220 exact-main checkpoint — 2026-11-15
 
 PR #220 merged as `8c4784235742cd83c35ce4a2b0bc7831a2b11bb2`. PR-head push Quality [43736157032], PR Quality [43736168034], PR Chromium [43736167978] passed. Exact-main Quality [43736256876], Chromium [43736256892] and Pages [43736257006] all SUCCESS, including deployed-site/runtime-asset smoke; no linguistic status promotion depends on this docs-only PR.
+
+
+## PR #221 exact-main checkpoint — 2026-11-15
+
+PR #221 merged as `0d9bb90b1451ce9a2452121e30c3864d4cd887f5`. PR-head push Quality [43736444673], PR Quality [43736456391], PR Chromium [43736456480] passed. Exact-main Quality [43736548569], Chromium [43736548708] and Pages [43736548595] pending; no linguistic status promotion depends on this docs-only PR.
