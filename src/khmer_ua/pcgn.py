@@ -556,6 +556,7 @@ PCGN_INDEPENDENT_VOWEL_ROWS: dict[str, tuple[int, str]] = {
 class PCGNIndependentVowelDecision:
     source_character: str | None
     romanization: str | None
+    romanization_options: tuple[str, ...]
     source_table_row: int | None
     status: Literal["RESOLVED", "UNRESOLVED"]
     ipa: None
@@ -579,10 +580,14 @@ def resolve_pcgn_independent_vowel(
     row = PCGN_INDEPENDENT_VOWEL_ROWS.get(source_character) if source_character else None
     table_row = row[0] if row else (7 if source_character == "ឧ" else None)
 
-    def unresolved(reason: str) -> PCGNIndependentVowelDecision:
+    def unresolved(
+        reason: str,
+        romanization_options: tuple[str, ...] = (),
+    ) -> PCGNIndependentVowelDecision:
         return PCGNIndependentVowelDecision(
             source_character=source_character,
             romanization=None,
+            romanization_options=romanization_options,
             source_table_row=table_row,
             status="UNRESOLVED",
             ipa=None,
@@ -605,13 +610,17 @@ def resolve_pcgn_independent_vowel(
         return unresolved("NON_INDEPENDENT_VOWEL_TOKEN_PRESENT")
 
     if source_character == "ឧ":
-        return unresolved("PCGN_NOTE_9_Ŏ_OR_Ŭ_REQUIRES_REFERENCE_SELECTION")
+        return unresolved(
+            "PCGN_NOTE_9_Ŏ_OR_Ŭ_REQUIRES_REFERENCE_SELECTION",
+            romanization_options=("ŏ", "ŭ"),
+        )
     if row is None:
         return unresolved("INDEPENDENT_VOWEL_NOT_LISTED_IN_PCGN_TABLE_SUBSET")
 
     return PCGNIndependentVowelDecision(
         source_character=source_character,
         romanization=row[1],
+        romanization_options=(),
         source_table_row=row[0],
         status="RESOLVED",
         ipa=None,
