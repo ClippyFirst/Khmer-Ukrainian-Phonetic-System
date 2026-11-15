@@ -247,9 +247,9 @@ class PCGNSeriesDecision:
     series: Literal["â", "ô"] | None
     basis: Literal["BASE", "SUBSCRIPT", "UNRESOLVED"]
     status: Literal["RESOLVED", "UNRESOLVED"]
-    onset_exception: Literal["BA_WITH_FOOT_P_IN_A_SERIES", "BA_WITH_MUUSIKATOAN_P_IN_A_SERIES"] | None
+    onset_exception: Literal["BA_WITH_FOOT_P_IN_A_SERIES", "BA_WITH_MUUSIKATOAN_P_IN_A_SERIES", "BA_WITH_TRIISAP_P_IN_A_SERIES"] | None
     series_before_shifter: Literal["â", "ô"] | None
-    shifter_effect: Literal["TRIISAP_A_TO_O", "MUUSIKATOAN_O_TO_A", "BA_MUUSIKATOAN_P_IN_A"] | None
+    shifter_effect: Literal["TRIISAP_A_TO_O", "MUUSIKATOAN_O_TO_A", "BA_MUUSIKATOAN_P_IN_A", "BA_TRIISAP_P_IN_A"] | None
     source_locator: str
     warnings: tuple[str, ...]
 
@@ -264,8 +264,9 @@ def resolve_pcgn_series(
 
     Note 3 chooses the base/foot source. Note 2 shifters are applied to one base or one base-plus-foot cluster when
     the single mark is encoded immediately after the base, as required by
-    Unicode Khmer syllabic order. BA+TRIISAP, shifters on BA+foot, multiple
-    marks and wrong-way shifters abstain pending narrower adjudication.
+    Unicode Khmer syllabic order. The explicit Note 3 BA+TRIISAP exception
+    is represented separately; shifters on BA+foot, multiple marks and
+    wrong-way shifters abstain pending narrower adjudication.
     """
     def unresolved(reason: str) -> PCGNSeriesDecision:
         return PCGNSeriesDecision(
@@ -318,7 +319,22 @@ def resolve_pcgn_series(
                         "SERIES_METADATA_ONLY_NO_VOWEL_OR_ROMANIZATION",
                     ),
                 )
-            return unresolved("BA_WITH_TRIISAP_EXCEPTION_NOT_RESOLVED")
+            if mark == "៊":
+                return PCGNSeriesDecision(
+                    series="â",
+                    basis="BASE",
+                    status="RESOLVED",
+                    onset_exception="BA_WITH_TRIISAP_P_IN_A_SERIES",
+                    series_before_shifter="ô",
+                    shifter_effect="BA_TRIISAP_P_IN_A",
+                    source_locator="PCGN 1972, Notes 2–3 (pp. 2–3)",
+                    warnings=(
+                        "PCGN_NOTE_3_BA_TRIISAP_P_IN_A_EXCEPTION",
+                        "PCGN_NOTE_2_TRIISAP_MARK_RECORDED_WITH_NOTE_3_BA_EXCEPTION",
+                        "SERIES_METADATA_ONLY_NO_VOWEL_OR_ROMANIZATION",
+                    ),
+                )
+            return unresolved("UNSUPPORTED_BA_REGISTER_SHIFTER_CONTEXT")
 
         # Determine the unshifted series of the whole graphic cluster using
         # Note 3 before applying the Note 2 mark.

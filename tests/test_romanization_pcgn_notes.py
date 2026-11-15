@@ -23,12 +23,14 @@ def test_all_eleven_pcgn_notes_are_registered_with_primary_source_locators():
     assert all(row["conditions_or_exceptions"].strip() for row in rows)
     assert all(row["limitations"].strip() for row in rows)
     statuses = {row["note_number"]: row["implementation_status"] for row in rows}
+    assert statuses["2"] == "PARTIAL_COMPONENT_RESOLVER"
+    assert statuses["3"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["4"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["5"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["6"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["7"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["8"] == "PARTIAL_COMPONENT_RESOLVER"
-    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"4", "5", "6", "7", "8"})
+    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"2", "3", "4", "5", "6", "7", "8"})
 
 
 def test_pcgn_note_three_keeps_the_pcgn_weak_subscript_set_exact():
@@ -84,9 +86,21 @@ def test_pcgn_notes_registry_is_not_misrepresented_as_ipa_or_ukrainian_gold():
     headers = set(rows[0])
     assert not ({"ipa", "ipa_output", "ukrainian_candidate", "gold"} & headers)
     statuses = {row["note_number"]: row["implementation_status"] for row in rows}
+    assert statuses["2"] == "PARTIAL_COMPONENT_RESOLVER"
+    assert statuses["3"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["4"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["5"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["6"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["7"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["8"] == "PARTIAL_COMPONENT_RESOLVER"
-    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"4", "5", "6", "7", "8"})
+    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"2", "3", "4", "5", "6", "7", "8"})
+
+
+
+def test_pcgn_note_two_registry_preserves_ba_triisap_exception_and_limits():
+    note = next(row for row in _rows() if row["note_number"] == "2")
+    assert "MUUSIKATOAN" in note["source_summary"]
+    assert "TRIISAP" in note["source_summary"]
+    assert "Note 3 specifies" in note["conditions_or_exceptions"]
+    assert "BA+TRIISAP" in note["limitations"]
+    assert "series metadata only" in note["limitations"]

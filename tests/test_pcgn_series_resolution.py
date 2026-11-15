@@ -145,8 +145,33 @@ def test_pcgn_note2_muusikatoan_applies_to_base_plus_weak_foot_cluster():
 
 
 def test_pcgn_note2_shifters_abstain_on_wrong_direction_position_and_ba_exceptions():
-    for source in ("ក៉", "គ៊", "ហា៊", "ហ៊៉", "ថ៉្ម", "ប៊", "ប៊្ក", "ប៉្ក"):
+    for source in ("ក៉", "គ៊", "ហា៊", "ហ៊៉", "ថ៉្ម", "ប៊្ក", "ប៉្ក"):
         result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk(source))
         assert result.status == "UNRESOLVED"
         assert result.series is None
         assert result.shifter_effect is None
+
+
+
+def test_pcgn_note3_ba_with_triisap_is_p_in_a_series():
+    # Note 3 explicitly overrides the ordinary ô-series base value for ប
+    # with TRIISAP: the consonant is romanized p in the â-series.
+    result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk("ប៊"))
+    assert result.status == "RESOLVED"
+    assert result.series_before_shifter == "ô"
+    assert result.series == "â"
+    assert result.basis == "BASE"
+    assert result.onset_exception == "BA_WITH_TRIISAP_P_IN_A_SERIES"
+    assert result.shifter_effect == "BA_TRIISAP_P_IN_A"
+    assert "PCGN_NOTE_3_BA_TRIISAP_P_IN_A_EXCEPTION" in result.warnings
+    assert result.source_locator == "PCGN 1972, Notes 2–3 (pp. 2–3)"
+
+
+def test_pcgn_ba_triisap_schema_enum_covers_the_documented_exception():
+    import json
+    from pathlib import Path
+
+    path = Path(__file__).resolve().parents[1] / "schemas/pcgn-series-decision.schema.json"
+    schema = json.loads(path.read_text(encoding="utf-8"))
+    assert "BA_WITH_TRIISAP_P_IN_A_SERIES" in schema["properties"]["onset_exception"]["enum"]
+    assert "BA_TRIISAP_P_IN_A" in schema["properties"]["shifter_effect"]["enum"]
