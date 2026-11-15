@@ -548,3 +548,13 @@ No release status upgrade follows from green engineering CI: independent adjudic
 - Residual Khmer-script letters and combining marks emitted by the upstream Khmer→Latin package are now bracketed and counted unsupported in both the Khmer-script path and direct BGN/PCGN Latin path. Status becomes PARTIAL; Khmer punctuation remains untouched.
 - This closes a result-integrity hole (unconverted script was previously allowed through with no unsupported count). It does not fix the upstream ASCII/diacritic loss or implement contextual PCGN rules. KHM-ROM-ENGINE-001 and broad romanization coverage remain PARTIAL.
 - No phonological or Ukrainian mapping rules changed; no accuracy or conformance claim is added.
+
+
+## Final mainline checkpoint after PR #201/#202 — 2026-11-15
+
+- Current `main`: `1cc833ad1097f6b1ee7c28eb3e7aefb99ad480fb`. PR #201 implementation merge `37a536592a8e462f00997890af63ad232d41a0ae`; PR #202 documentation merge `1cc833ad1097f6b1ee7c28eb3e7aefb99ad480fb`.
+- Exact-main post-merge Quality [43720449189], Chromium [43720449188] and Pages build/deploy [43720449180] all SUCCESS. Pages included deployed-site/runtime-asset smoke. Exact PR #202 head Quality [43720352442] and Chromium [43720352370] passed.
+- Residual Khmer letters/marks from upstream romanizer output now produce bracketed PARTIAL output; Khmer punctuation is preserved. This is an output guard only. ASCII diacritic loss and contextual BGN/PCGN conformance remain unresolved.
+- Issue #104 remains open for expert IPA convention, annotators, adjudicator, curator, blind intake, rights-cleared 30-item pilot and adjudication. No recruitment/contact or fabricated data.
+- No open PRs at this checkpoint. Root `LICENSE` absent vs MIT metadata remains an owner decision; main remains unprotected.
+- Status: engineering CI/deployment DONE_VERIFIED on exact main; language/data/legal/manual-accessibility gates remain PARTIAL/BLOCKED. Research prototype, not production-ready.
