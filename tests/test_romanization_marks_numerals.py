@@ -22,7 +22,7 @@ def test_pcgn_diacritics_and_numerals_have_explicit_rows():
     expected_marks = {
         "1": "◌៊",
         "2": "◌៉",
-        "3": "◌់",
+        "3": "◌់|◌័",
         "4": "◌៌",
         "5": "◌៏",
         "6": "◌៍",
@@ -37,3 +37,15 @@ def test_pcgn_diacritics_and_numerals_have_explicit_rows():
     silent = next(row for row in rows if row["table_section"] == "diacritical_mark" and row["table_row"] == "6")
     assert silent["bgn_pcgn_romanization"] == "omitted"
     assert silent["ukrainian_status"] == "ESTABLISHED"
+
+
+def test_pcgn_shortened_vowel_row_covers_both_contextual_marks():
+    with CSV_PATH.open(encoding="utf-8-sig", newline="") as stream:
+        rows = list(csv.DictReader(stream))
+    row = next(
+        row for row in rows
+        if row["table_section"] == "diacritical_mark" and row["table_row"] == "3"
+    )
+    assert row["source_units"].split("|") == ["◌់", "◌័"]
+    assert "U+17CB BANTOC" in row["note"]
+    assert "U+17D0 SAMYOK SANNYA" in row["note"]
