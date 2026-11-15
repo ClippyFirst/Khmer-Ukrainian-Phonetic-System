@@ -227,3 +227,18 @@ test("all 37 canonical PCGN vowel rows accept their diacritic-preserving forms",
     }
   }
 });
+
+
+test("mixed Khmer and Latin input is explicitly partial instead of passing Khmer letters through", () => {
+  const result = renderRomanizedText("Kâmpŭchéa ខ្មែរ");
+  assert.equal(result.text, "Кампучеа ⟦ខ⟧⟦្⟧⟦ម⟧⟦ែ⟧⟦រ⟧");
+  assert.equal(result.status, "PARTIAL");
+  assert.equal(result.unsupported, 5);
+});
+
+test("Khmer numerals and punctuation remain usable alongside direct Latin input", () => {
+  const result = renderRomanizedText("Kâmpŭchéa ២០២៦។");
+  assert.equal(result.text, "Кампучеа 2026។");
+  assert.equal(result.status, "PROVISIONAL");
+  assert.equal(result.unsupported, 0);
+});
