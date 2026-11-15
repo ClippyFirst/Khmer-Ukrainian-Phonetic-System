@@ -409,3 +409,14 @@ Documentation-only PR [#180](https://github.com/ClippyFirst/Khmer-Ukrainian-Phon
 | Corpus rights | BLOCKED | Rights holder must clarify license for pinned corpus revision; model license alone is insufficient |
 | Train/evaluation disjointness | BLOCKED | Need checkpoint training-data manifest or independently verifiable split provenance |
 | Independent Phnom Penh IPA gold | BLOCKED | Blind double annotation and adjudication, with tone/length/coda/syllable boundaries explicitly represented |
+
+
+## PR #184 — final safe MekongPhon diagnostic harness verification — 2026-11-15
+
+- Branch `research/mekongphon-diagnostic-harness-2026-11-15`, based directly on `main` at `5e082024b7ae871b1bb95219ea80e5b87502b66e`.
+- Final code/test head `750a69b75ee7fa846572f63125d675e4557d12cc`: Quality [43695488162](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43695488162) SUCCESS (214 Python tests + 64 subtests; corpus structure gate, web checks, production build); Chromium [43695488169](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43695488169) SUCCESS (4 browser tests including visible-result verification).
+- The benchmark script now records the source commit only when the default pinned corpus path is used or the caller explicitly supplies a revision. The model identifier is fixed to the audited BYU MATRIX model; report metadata cannot silently claim another model ID.
+- The optional workflow is manual-dispatch only. The initial corpus-exporting Khmer Phonemizer job was removed before final verification because it uploaded source orthography/reference rows while corpus redistribution rights remain unresolved. The remaining job downloads the pinned external corpus only at explicit dispatch and uploads model diagnostic output, not source rows. No workflow dispatch/model inference occurred in this session.
+- The report remains explicitly source-attested: 100/100 historical outputs, 64 strict matches, CER 12.539% on `pron_no_tones`; no tone evaluation, independent gold 0, accuracy null, training/evaluation split independence not established.
+- PR #153's provider runtime was not ported because it bypasses `validate_ipa_candidate` and conflicts with the current compatibility API. PR #153 remains open/draft. PR #184 is the separate safe port; merge only after final docs-head CI.
+- No local shell execution is claimed. Rights, split independence, typed provider adapter and independent Phnom Penh IPA adjudication remain BLOCKED.
