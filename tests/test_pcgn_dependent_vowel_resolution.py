@@ -36,6 +36,16 @@ def test_pcgn_dependent_vowel_series_conditioned_rows():
         ("គែ", "ê", 14, "ô"),
         ("កៃ", "ai", 15, "â"),
         ("គៃ", "ey", 15, "ô"),
+        ("កេើ", "aeu", 10, "â"),
+        ("គេើ", "eu", 10, "ô"),
+        ("កេឿ", "œă", 11, "â"),
+        ("គេឿ", "œă", 11, "ô"),
+        ("កេៀ", "iĕ", 12, "â"),
+        ("គេៀ", "iĕ", 12, "ô"),
+        ("កេា", "aô", 16, "â"),
+        ("គេា", "aô", 16, "ô"),
+        ("កេៅ", "au", 17, "â"),
+        ("គេៅ", "au", 17, "ô"),
     )
     for source, expected, row, series in cases:
         result = resolve(source)
@@ -45,6 +55,7 @@ def test_pcgn_dependent_vowel_series_conditioned_rows():
         assert result.series == series, source
         assert result.ipa is None
         assert result.ukrainian is None
+        assert result.source_signs is not None
 
 
 def test_pcgn_dependent_vowel_uses_note2_series_after_note3_cluster_selection():
@@ -60,7 +71,7 @@ def test_pcgn_dependent_vowel_uses_note2_series_after_note3_cluster_selection():
 
 
 def test_pcgn_dependent_vowel_abstains_on_shortening_coda_multiple_signs_and_other_marks():
-    cases = ("កា់", "កាំ", "កាត", "កាី", "កា៌", "កា៏")
+    cases = ("កា់", "កាំ", "កាត", "កាី", "កា៌", "កា៏", "កើេ")
     for source in cases:
         analysis = analyze_pcgn_orthographic_chunk(source)
         result = resolve_pcgn_dependent_vowel(analysis, resolve_pcgn_series(analysis))
@@ -85,9 +96,13 @@ def test_pcgn_dependent_vowel_schema_has_explicit_component_only_boundary():
     path = Path(__file__).resolve().parents[1] / "schemas/pcgn-dependent-vowel-decision.schema.json"
     schema = json.loads(path.read_text(encoding="utf-8"))
     assert set(schema["required"]) == {
-        "source_sign", "series", "romanization", "source_table_row",
+        "source_signs", "series", "romanization", "source_table_row",
         "status", "ipa", "ukrainian", "source_locator", "warnings",
     }
     assert schema["properties"]["ipa"]["const"] is None
     assert schema["properties"]["ukrainian"]["const"] is None
-    assert schema["properties"]["source_table_row"]["enum"] == [2, 3, 4, 5, 6, 7, 8, 9, 13, 14, 15, None]
+    assert schema["properties"]["source_signs"]["oneOf"][0]["maxItems"] == 2
+    assert schema["properties"]["source_signs"]["oneOf"][0]["items"]["enum"] == [
+        "ា", "ិ", "ី", "ឹ", "ឺ", "ុ", "ូ", "ួ", "េ", "ើ", "ឿ", "ៀ", "ែ", "ៃ", "ៅ"
+    ]
+    assert schema["properties"]["source_table_row"]["enum"] == [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, None]
