@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BGN/PCGN 1972 Note 5 shortened-vowel component decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "pattern",
+    "shortening_mark",
+    "series",
+    "coda_character",
+    "coda_class",
+    "romanization",
+    "source_table_row",
+    "status",
+    "ipa",
+    "ukrainian",
+    "source_locator",
+    "warnings"
+  ],
+  "properties": {
+    "pattern": {
+      "enum": [
+        "INHERENT_BANTOC",
+        "AA_BANTOC",
+        "SAMYOK_CODA",
+        null
+      ]
+    },
+    "shortening_mark": {
+      "enum": [
+        "់",
+        "័",
+        null
+      ]
+    },
+    "series": {
+      "enum": [
+        "â",
+        "ô",
+        null
+      ]
+    },
+    "coda_character": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "coda_class": {
+      "enum": [
+        "k",
+        "ng",
+        "h",
+        "other",
+        null
+      ]
+    },
+    "romanization": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_table_row": {
+      "enum": [
+        1,
+        2,
+        null
+      ]
+    },
+    "status": {
+      "enum": [
+        "RESOLVED",
+        "UNRESOLVED"
+      ]
+    },
+    "ipa": {
+      "const": null
+    },
+    "ukrainian": {
+      "const": null
+    },
+    "source_locator": {
+      "const": "PCGN 1972, Independent/Dependent Vowel Characters table rows 1–2, Note 5"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "RESOLVED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "pattern": {
+            "enum": [
+              "INHERENT_BANTOC",
+              "AA_BANTOC",
+              "SAMYOK_CODA"
+            ]
+          },
+          "shortening_mark": {
+            "enum": [
+              "់",
+              "័"
+            ]
+          },
+          "series": {
+            "enum": [
+              "â",
+              "ô"
+            ]
+          },
+          "coda_character": {
+            "type": "string",
+            "minLength": 1
+          },
+          "coda_class": {
+            "enum": [
+              "k",
+              "ng",
+              "h",
+              "other"
+            ]
+          },
+          "romanization": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_table_row": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "UNRESOLVED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "romanization": {
+            "const": null
+          }
+        }
+      }
+    }
+  ]
+}

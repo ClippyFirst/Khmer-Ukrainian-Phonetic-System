@@ -55,6 +55,7 @@ class PCGNOrthographicAnalysis:
     dependent_vowel_signs: tuple[str, ...]
     independent_vowels: tuple[str, ...]
     shortening_marks: tuple[str, ...]
+    shortening_mark_positions: tuple[int, ...]
     robat_positions: tuple[int, ...]
     ahsda_positions: tuple[int, ...]
     toandakhiat_positions: tuple[int, ...]
@@ -91,6 +92,7 @@ def analyze_pcgn_orthographic_chunk(text: str) -> PCGNOrthographicAnalysis:
     dependent_vowels: list[str] = []
     independent_vowels: list[str] = []
     shortening: list[str] = []
+    shortening_positions: list[int] = []
     robat: list[int] = []
     ahsda: list[int] = []
     toandakhiat: list[int] = []
@@ -158,6 +160,7 @@ def analyze_pcgn_orthographic_chunk(text: str) -> PCGNOrthographicAnalysis:
                 token(ch, "register_shifter", name)
             elif ch in {"់", "័"}:
                 shortening.append(ch)
+                shortening_positions.append(i)
                 token(ch, "shortening_mark", name)
             elif ch == "៌":
                 robat.append(i)
@@ -220,6 +223,7 @@ def analyze_pcgn_orthographic_chunk(text: str) -> PCGNOrthographicAnalysis:
         dependent_vowel_signs=tuple(dependent_vowels),
         independent_vowels=tuple(independent_vowels),
         shortening_marks=tuple(shortening),
+        shortening_mark_positions=tuple(shortening_positions),
         robat_positions=tuple(robat),
         ahsda_positions=tuple(ahsda),
         toandakhiat_positions=tuple(toandakhiat),
@@ -601,16 +605,172 @@ def resolve_pcgn_independent_vowel(
     )
 
 
+
+PCGN_SHORTENED_VOWEL_TABLE_LOCATOR = (
+    "PCGN 1972, Independent/Dependent Vowel Characters table rows 1–2, Note 5"
+)
+PCGN_CODA_CLASSES = frozenset({"k", "ng", "h", "other"})
+
+
+@dataclass(frozen=True)
+class PCGNShortenedVowelDecision:
+    pattern: Literal["INHERENT_BANTOC", "AA_BANTOC", "SAMYOK_CODA"] | None
+    shortening_mark: Literal["់", "័"] | None
+    series: Literal["â", "ô"] | None
+    coda_character: str | None
+    coda_class: Literal["k", "ng", "h", "other"] | None
+    romanization: str | None
+    source_table_row: int | None
+    status: Literal["RESOLVED", "UNRESOLVED"]
+    ipa: None
+    ukrainian: None
+    source_locator: str
+    warnings: tuple[str, ...]
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+def resolve_pcgn_shortened_vowel(
+    analysis: PCGNOrthographicAnalysis,
+    onset_analysis: PCGNOrthographicAnalysis,
+    coda_class: Literal["k", "ng", "h", "other"] | None,
+) -> PCGNShortenedVowelDecision:
+    """Resolve only the PCGN Note 5 shortened-vowel component.
+
+    The caller supplies an onset-only orthographic analysis and an explicit
+    coda class. Neither phonetic syllable segmentation nor coda identity is
+    inferred from the full chunk. The full chunk must match one of the exact
+    Note 5 shapes: onset+coda+BANTOC, onset+AA+coda+BANTOC, or
+    onset+SAMYOK+coda. Only the shortened vowel component is returned.
+    """
+    def unresolved(reason: str) -> PCGNShortenedVowelDecision:
+        return PCGNShortenedVowelDecision(
+            pattern=None,
+            shortening_mark=None,
+            series=None,
+            coda_character=None,
+            coda_class=coda_class if coda_class in PCGN_CODA_CLASSES else None,
+            romanization=None,
+            source_table_row=None,
+            status="UNRESOLVED",
+            ipa=None,
+            ukrainian=None,
+            source_locator=PCGN_SHORTENED_VOWEL_TABLE_LOCATOR,
+            warnings=(reason, "NO_COMPLETE_SYLLABLE_IPA_OR_UKRAINIAN_OUTPUT"),
+        )
+
+    if analysis.status != "STRUCTURE_ONLY" or onset_analysis.status != "STRUCTURE_ONLY":
+        return unresolved("UNSUPPORTED_OR_UNRESOLVED_ORTHOGRAPHIC_COMPONENT")
+    if coda_class not in PCGN_CODA_CLASSES:
+        return unresolved("EXPLICIT_PCGN_CODA_CLASS_REQUIRED")
+    if (
+        len(onset_analysis.base_consonants) != 1
+        or len(onset_analysis.subscript_consonants) > 1
+        or onset_analysis.dependent_vowel_signs
+        or onset_analysis.independent_vowels
+        or onset_analysis.shortening_marks
+        or onset_analysis.robat_positions
+        or onset_analysis.ahsda_positions
+        or onset_analysis.toandakhiat_positions
+        or any(
+            token.kind not in {"unstacked_consonant", "subscript_consonant", "register_shifter"}
+            for token in onset_analysis.tokens
+        )
+    ):
+        return unresolved("ONSET_ANALYSIS_MUST_CONTAIN_ONE_BASE_AND_AT_MOST_ONE_FOOT_ONLY")
+
+    series_decision = resolve_pcgn_series(onset_analysis)
+    if series_decision.status != "RESOLVED" or series_decision.series not in {"â", "ô"}:
+        return unresolved("PCGN_NOTE_2_3_ONSET_SERIES_MUST_BE_RESOLVED")
+
+    onset_tokens = tuple(onset_analysis.tokens)
+    if tuple(analysis.tokens[:len(onset_tokens)]) != onset_tokens:
+        return unresolved("ONSET_ANALYSIS_DOES_NOT_MATCH_FULL_CHUNK_PREFIX")
+    tail = tuple(token.kind for token in analysis.tokens[len(onset_tokens):])
+    tail_text = tuple(token.text for token in analysis.tokens[len(onset_tokens):])
+    if len(analysis.base_consonants) != 2:
+        return unresolved("EXACTLY_ONE_ONSET_BASE_AND_ONE_EXPLICIT_CODA_CONSONANT_REQUIRED")
+    if analysis.subscript_consonants != onset_analysis.subscript_consonants:
+        return unresolved("FULL_CHUNK_FOOT_DOES_NOT_MATCH_ONSET_ANALYSIS")
+    if analysis.register_shifters != onset_analysis.register_shifters:
+        return unresolved("FULL_CHUNK_SHIFTER_DOES_NOT_MATCH_ONSET_ANALYSIS")
+    if analysis.independent_vowels or analysis.robat_positions or analysis.ahsda_positions or analysis.toandakhiat_positions:
+        return unresolved("INDEPENDENT_VOWEL_OR_SPECIAL_DIACRITIC_NOT_SUPPORTED")
+    if len(analysis.shortening_marks) != 1 or len(analysis.shortening_mark_positions) != 1:
+        return unresolved("EXACTLY_ONE_NOTE_5_SHORTENING_MARK_REQUIRED")
+
+    coda_character = analysis.base_consonants[-1]
+    mark = analysis.shortening_marks[0]
+    mark_position = analysis.shortening_mark_positions[0]
+    if mark == "់" and mark_position != len(analysis.normalized_text) - 1:
+        return unresolved("BANTOC_MUST_BE_THE_FINAL_CODEPOINT_IN_THE_LISTED_PATTERN")
+    if mark == "័" and mark_position != len(onset_analysis.normalized_text):
+        return unresolved("SAMYOK_SANNYA_MUST_IMMEDIATELY_FOLLOW_THE_ONSET_CLUSTER")
+    if mark == "់" and not analysis.dependent_vowel_signs:
+        expected_tail = ("unstacked_consonant", "shortening_mark")
+        pattern = "INHERENT_BANTOC"
+        row = 1
+    elif mark == "់" and analysis.dependent_vowel_signs == ("ា",):
+        expected_tail = ("dependent_vowel", "unstacked_consonant", "shortening_mark")
+        pattern = "AA_BANTOC"
+        row = 2
+    elif mark == "័" and not analysis.dependent_vowel_signs:
+        expected_tail = ("shortening_mark", "unstacked_consonant")
+        pattern = "SAMYOK_CODA"
+        row = 2
+    else:
+        return unresolved("SHORTENING_MARK_AND_VOWEL_PATTERN_NOT_LISTED_IN_PCGN_NOTE_5")
+
+    if tail != expected_tail:
+        return unresolved("FULL_CHUNK_DOES_NOT_MATCH_EXACT_PCGN_NOTE_5_TOKEN_ORDER")
+    if mark == "់" and tail_text[-1] != "់":
+        return unresolved("BANTOC_MUST_FOLLOW_THE_CODA_IN_THE_LISTED_PATTERN")
+    if mark == "័" and tail_text[0] != "័":
+        return unresolved("SAMYOK_SANNYA_MUST_PRECEDE_THE_CODA_IN_THE_LISTED_PATTERN")
+
+    if pattern == "INHERENT_BANTOC":
+        value = "á" if series_decision.series == "â" else "ó"
+    elif series_decision.series == "â":
+        value = "ă"
+    elif coda_class in {"k", "ng", "h"}:
+        value = "eă"
+    else:
+        value = "oă"
+
+    return PCGNShortenedVowelDecision(
+        pattern=pattern,
+        shortening_mark=mark,
+        series=series_decision.series,
+        coda_character=coda_character,
+        coda_class=coda_class,
+        romanization=value,
+        source_table_row=row,
+        status="RESOLVED",
+        ipa=None,
+        ukrainian=None,
+        source_locator=PCGN_SHORTENED_VOWEL_TABLE_LOCATOR,
+        warnings=(
+            "PCGN_NOTE_5_SHORTENED_VOWEL_COMPONENT_ONLY",
+            "ONSET_SERIES_RESOLVED_FROM_SEPARATE_ONSET_ANALYSIS",
+            "CODA_CLASS_CALLER_SUPPLIED_NOT_INFERRED",
+            "NO_CODA_ROMANIZATION_SYLLABLE_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT",
+        ),
+    )
+
+
 __all__ = [
     "PCGNOrthographicAnalysis",
     "PCGNToken",
     "PCGNSeriesDecision",
     "PCGNVowelDecision",
     "PCGNIndependentVowelDecision",
+    "PCGNShortenedVowelDecision",
     "PCGN_WEAK_SUBSCRIPTS",
     "PCGN_NO_SUBSCRIPT_FOR",
     "resolve_pcgn_series",
     "resolve_pcgn_dependent_vowel",
     "resolve_pcgn_independent_vowel",
+    "resolve_pcgn_shortened_vowel",
     "analyze_pcgn_orthographic_chunk",
 ]

@@ -22,7 +22,9 @@ def test_all_eleven_pcgn_notes_are_registered_with_primary_source_locators():
     assert all(row["source_summary"].strip() for row in rows)
     assert all(row["conditions_or_exceptions"].strip() for row in rows)
     assert all(row["limitations"].strip() for row in rows)
-    assert {row["implementation_status"] for row in rows} == {"DOCUMENTED_ONLY"}
+    statuses = {row["note_number"]: row["implementation_status"] for row in rows}
+    assert statuses["5"] == "PARTIAL_COMPONENT_RESOLVER"
+    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note != "5")
 
 
 def test_pcgn_note_three_keeps_the_pcgn_weak_subscript_set_exact():
@@ -47,4 +49,6 @@ def test_pcgn_notes_registry_is_not_misrepresented_as_ipa_or_ukrainian_gold():
     rows = _rows()
     headers = set(rows[0])
     assert not ({"ipa", "ipa_output", "ukrainian_candidate", "gold"} & headers)
-    assert all(row["implementation_status"] == "DOCUMENTED_ONLY" for row in rows)
+    statuses = {row["note_number"]: row["implementation_status"] for row in rows}
+    assert statuses["5"] == "PARTIAL_COMPONENT_RESOLVER"
+    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note != "5")

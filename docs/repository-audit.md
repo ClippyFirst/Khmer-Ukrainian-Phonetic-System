@@ -825,3 +825,13 @@ Status: `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` remains `PARTIAL` (listed independ
 - PR #231 merged as `b459fcbf56628409c8cd1ce8c95645b4b9c1c1a6`; exact-main Quality [43746279657], Chromium [43746279685] and Pages build/deploy [43746279665] all SUCCESS, including deployed-site/runtime-asset smoke.
 - PR-head push Quality [43746135830], PR Quality [43746153049] and PR Chromium [43746153043] all SUCCESS.
 - Documentation-only; no linguistic status changed.
+
+
+## BGN/PCGN Note 5 implementation audit — 2026-11-15
+
+- Added a typed shortened-vowel component decision with schema and explicit null IPA/Ukrainian fields.
+- Only three source-listed shapes are accepted: consonant(+foot) + coda + BANTOC; consonant(+foot) + AA + coda + BANTOC; consonant(+foot) + SAMYOK SANNYA + coda.
+- The onset-only analysis must match the full chunk's token prefix; Notes 2–3 series selection is applied to that onset.
+- Coda class is explicit caller input (`k`, `ng`, `h`, `other`), not inferred from Khmer orthography. The decision records the coda character and supplied class.
+- Output is the shortened vowel component only. No coda romanization, syllable segmentation, complete romanization, IPA or Ukrainian result is claimed.
+- Primary source: BGN/PCGN 1972 Vowel Characters table rows 1–2 and Note 5, pp. 2–3. Implementation status PARTIAL pending integration with a verified syllable/coda parser and full romanization adapter.
