@@ -669,3 +669,8 @@ The unit-test discovery gap is closed. This does not resolve the lossy ASCII rom
 | KHM-ROM-MIXED-INPUT-001 | DONE_VERIFIED (input guard) | PR #194 merge `4e1b95f2a1680e7c7363a68b226b0b44778cac74`; exact-head Quality 223 tests + 70 subtests and 9 browser tests passed. | Mixed Khmer letters/marks plus Latin input is PARTIAL with explicit brackets; Khmer numerals/punctuation remain preserved. This is input-mode validation, not a romanization or linguistic accuracy claim. |
 
 **Verification checkpoint:** PR #194 implementation merged as `4e1b95f2a1680e7c7363a68b226b0b44778cac74`; PR #195 documentation merged as `0d1183553a4851eb0c21336f381be3d0f2d0efaf`. Exact PR-head Quality and Chromium workflows passed; see the canonical master handoff for run IDs. These checks verify implementation and input handling, not linguistic correctness of Ukrainian target proposals.
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-UI-A11Y-SMOKE-001 | DONE_VERIFIED (automated smoke only) | PR #197 merge `9452ac70ee16973ac5f0e8bd28201501539409de`; exact-head Quality 223 tests + 70 subtests and 11 browser tests passed. | Covers key accessible names, method-switch Enter activation and polite live status. Does not replace manual screen-reader, full keyboard, contrast, zoom/reflow or mobile review. |
+| KHM-UI-MANUAL-A11Y-001 | PARTIAL | Hosted Chromium smoke exists; PR #197 added automated semantics/keyboard assertions. | Manual screen-reader, complete keyboard, contrast, zoom/reflow, mobile and assistive-technology audit remains required. |
