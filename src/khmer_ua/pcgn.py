@@ -684,6 +684,122 @@ def resolve_pcgn_consonant(
     )
 
 
+PCGN_FINAL_CONSONANT_TABLE_LOCATOR = (
+    "PCGN 1972, final-consonant no-following-vowel rule (p. 2) with consonant table (pp. 1–2)"
+)
+
+
+@dataclass(frozen=True)
+class PCGNFinalConsonantDecision:
+    base_character: str | None
+    base_table_row: int | None
+    base_romanization: str | None
+    subscript_character: str | None
+    subscript_table_row: int | None
+    subscript_romanization: str | None
+    romanization: str | None
+    following_vowel: Literal[""] | None
+    status: Literal["GENERAL_RULE_APPLIED", "UNRESOLVED"]
+    ipa: None
+    ukrainian: None
+    source_locator: str
+    warnings: tuple[str, ...]
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+def resolve_pcgn_final_consonant(
+    analysis: PCGNOrthographicAnalysis,
+    *,
+    has_following_vowel_character: bool,
+    has_toandakhiat: bool,
+) -> PCGNFinalConsonantDecision:
+    """Resolve a final consonant component under the PCGN general rule.
+
+    The caller must isolate the final consonant chunk and explicitly confirm
+    that it has neither a following vowel character nor TOANDAKHIAT. The guide
+    says such a final consonant should generally have no vowel letter after it.
+    BA and ALIF are withheld because their special Note 3/4 context is not
+    resolved by this generic coda rule.
+    """
+    def unresolved(reason: str) -> PCGNFinalConsonantDecision:
+        return PCGNFinalConsonantDecision(
+            base_character=analysis.base_consonants[0] if len(analysis.base_consonants) == 1 else None,
+            base_table_row=None,
+            base_romanization=None,
+            subscript_character=analysis.subscript_consonants[0] if len(analysis.subscript_consonants) == 1 else None,
+            subscript_table_row=None,
+            subscript_romanization=None,
+            romanization=None,
+            following_vowel=None,
+            status="UNRESOLVED",
+            ipa=None,
+            ukrainian=None,
+            source_locator=PCGN_FINAL_CONSONANT_TABLE_LOCATOR,
+            warnings=(reason, "NO_COMPLETE_SYLLABLE_IPA_OR_UKRAINIAN_OUTPUT"),
+        )
+
+    if has_following_vowel_character:
+        return unresolved("FINAL_CONSONANT_IS_ACCOMPANIED_BY_A_VOWEL_CHARACTER")
+    if has_toandakhiat:
+        return unresolved("FINAL_CONSONANT_IS_ACCOMPANIED_BY_TOANDAKHIAT")
+    if analysis.status != "STRUCTURE_ONLY":
+        return unresolved("UNSUPPORTED_OR_UNRESOLVED_ORTHOGRAPHIC_COMPONENT")
+    if len(analysis.base_consonants) != 1 or len(analysis.subscript_consonants) > 1:
+        return unresolved("FINAL_CHUNK_REQUIRES_ONE_BASE_AND_AT_MOST_ONE_FOOT")
+    if (
+        analysis.dependent_vowel_signs
+        or analysis.independent_vowels
+        or analysis.shortening_marks
+        or analysis.robat_positions
+        or analysis.ahsda_positions
+        or analysis.toandakhiat_positions
+        or analysis.register_shifters
+        or any(token.kind not in {"unstacked_consonant", "subscript_consonant"} for token in analysis.tokens)
+    ):
+        return unresolved("FINAL_CONSONANT_CHUNK_CONTAINS_UNSUPPORTED_MARKS_OR_VOWELS")
+
+    base = analysis.base_consonants[0]
+    if base in {"ប", "អ"}:
+        return unresolved("BA_OR_ALIF_FINAL_CONTEXT_REQUIRES_SEPARATE_NOTE_3_OR_NOTE_4_DECISION")
+    base_row = PCGN_CONSONANT_ROMANIZATION_ROWS.get(base)
+    if base_row is None:
+        return unresolved("FINAL_BASE_NOT_IN_SUPPORTED_PCGN_CONSONANT_ROWS")
+
+    subscript = analysis.subscript_consonants[0] if analysis.subscript_consonants else None
+    if subscript in {"ប", "អ"}:
+        return unresolved("BA_OR_ALIF_FOOT_FINAL_CONTEXT_REQUIRES_SEPARATE_DECISION")
+    subscript_row = PCGN_CONSONANT_ROMANIZATION_ROWS.get(subscript) if subscript else None
+    if subscript is not None and subscript_row is None:
+        return unresolved("FINAL_SUBSCRIPT_NOT_IN_SUPPORTED_PCGN_CONSONANT_ROWS")
+
+    base_romanization = base_row[1]
+    subscript_romanization = subscript_row[1] if subscript_row else None
+    romanization = base_romanization + (subscript_romanization or "")
+    return PCGNFinalConsonantDecision(
+        base_character=base,
+        base_table_row=base_row[0],
+        base_romanization=base_romanization,
+        subscript_character=subscript,
+        subscript_table_row=subscript_row[0] if subscript_row else None,
+        subscript_romanization=subscript_romanization,
+        romanization=romanization,
+        following_vowel="",
+        status="GENERAL_RULE_APPLIED",
+        ipa=None,
+        ukrainian=None,
+        source_locator=PCGN_FINAL_CONSONANT_TABLE_LOCATOR,
+        warnings=(
+            "PCGN_FINAL_CONSONANT_HAS_NO_FOLLOWING_VOWEL_LETTER",
+            "SOURCE_RULE_IS_GENERAL_NOT_ABSOLUTE",
+            "CALLER_SUPPLIED_FINAL_POSITION_AND_ABSENCE_OF_VOWEL_AND_TOANDAKHIAT",
+            "BA_AND_ALIF_FINAL_CASES_ABSTAIN",
+            "NO_SYLLABLE_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT",
+        ),
+    )
+
+
 PCGN_INHERENT_VOWEL_TABLE_LOCATOR = (
     "PCGN 1972, Independent/Dependent Vowel Characters table row 1 (p. 2)"
 )
