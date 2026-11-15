@@ -795,3 +795,8 @@ Artifacts: `PCGNConsonantDecision`, schema `schemas/pcgn-consonant-decision.sche
 Source: BGN/PCGN 1972 Agreement, pp. 1–2: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 
 Status: `KHM-ROM-PCGN-CONSONANTS-001 = PARTIAL`. No complete syllable, vowel/coda output, IPA or Ukrainian output is generated.
+
+
+## Exact-main verification — PR #251 — 2026-11-15
+
+PR #251 merged as `aab014705bdf90825b922ff69f1c2e7758e56246`. PR-head push Quality [43760857888], PR Quality [43760868532], PR Chromium [43760868545], exact-main Quality [43760984773], Chromium [43760984785] and Pages [43760984838] all SUCCESS, including deployed-site/runtime-asset smoke. Documentation-only; no language behavior changed.
