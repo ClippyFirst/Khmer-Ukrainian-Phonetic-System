@@ -16,8 +16,8 @@ def test_pcgn_inherent_vowel_maps_nonfinal_onsets_by_resolved_series():
         ("ក", "â"),
         ("គ", "ô"),
         ("ក្", None),
-        ("ក្ម", "ô"),
-        ("គ៊", None),
+        ("ក្គ", "ô"),
+        ("គ៊", "â"),
     )
     for source, expected in cases:
         result = resolve_pcgn_inherent_vowel(
