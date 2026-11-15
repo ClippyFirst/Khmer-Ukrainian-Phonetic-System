@@ -42,6 +42,7 @@ def test_both_pcgn_shortening_marks_are_preserved_as_distinct_tokens():
     result = analyze_pcgn_orthographic_chunk("កា់័")
 
     assert result.shortening_marks == ("់", "័")
+    assert result.shortening_mark_positions == (2, 3)
     assert [item.name for item in result.tokens if item.kind == "shortening_mark"] == [
         "BANTOC",
         "SAMYOK_SANNYA",
@@ -121,7 +122,7 @@ def test_pcgn_analysis_schema_requires_explicit_abstention_fields():
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
     required = set(schema["required"])
 
-    assert {"tokens", "base_consonants", "subscript_consonants", "register_shifters", "register_shifter_positions"} <= required
+    assert {"tokens", "base_consonants", "subscript_consonants", "register_shifters", "register_shifter_positions", "shortening_mark_positions"} <= required
     assert {"syllable_segmentation", "series_decision", "register_source", "coda_decision"} <= required
     assert {"romanization", "ipa", "ukrainian", "warnings", "sources"} <= required
     assert schema["properties"]["syllable_segmentation"]["const"] == "NOT_PERFORMED"
