@@ -69,3 +69,28 @@ Chem (2020) full-text extraction adds two high-value dialect probes: Standard Kh
 
 
 The Khmer matrix now includes the complete phone-to-grapheme mapping table extracted from Ishida's “Vowel sounds mapped to characters” section (all listed plain-vowel and diphthong/rhyme entries, with series and coda conditions). The acoustic series × vowel × coda cross-table remains PARTIAL because Chem's small Phnom Penh sample does not cover every cell.
+
+## Phonotactic restriction classification — 2026-11-15
+
+The current evidence supports a classification of claims, not a new global phonotactic rule set.
+
+| Claim | Correct domain | Source evidence | Status / implementation boundary |
+|---|---|---|---|
+| No final consonant clusters | Major syllable coda | Nacaskul (1978), pp. 187–188, explicitly contrasts numerous initial clusters with no final clusters | HISTORICAL_SOURCE_REPORTED; contemporary selected-profile lexical confirmation still needed |
+| Short vowels and short diphthongs do not occur in open syllables | Major-syllable nucleus/coda relation | Nacaskul (1978), pp. 185, 188–189 | HISTORICAL_SOURCE_REPORTED; do not generalize to every minor syllable or every variety without confirmation |
+| A minor type-A onset cluster has /r/ in second position; nucleus short /ə/ or /ɔ/; no final | Minor syllable type A only | Nacaskul (1978), pp. 187–189 | TYPE_SPECIFIC; not a ban on /r/-clusters in major syllables |
+| Minor type B has a single-consonant onset, restricted short nucleus and one of four nasal finals | Minor syllable type B only | Nacaskul (1978), pp. 187–190 | TYPE_SPECIFIC; not the language-wide coda inventory |
+| Two-consonant onset clusters are common; up to three are reported | Onset structure | Ding et al. (2018), pp. 181–182, in a Khmer name-romanization/NLP study | SECONDARY_DESCRIPTION; approximate cluster count is not an exhaustive inventory or proof that every other sequence is impossible |
+| Up to two pre-vowel coengs in an orthographic unit | Orthographic encoding | Unicode L2/22-290, pp. 9–10 | ORTHOGRAPHIC_LIMIT, not a phonological maximum; base + coengs and syllable chaining must be interpreted separately |
+| Coeng may represent initial clustering or syllable chaining; orthographic units need not equal phonetic syllables | Orthographic/phonetic boundary | Unicode L2/22-290, pp. 9–10; Ding et al. (2018), pp. 181–183 | STRUCTURAL_ENCODING_FACT; parser output remains orthographic structure and does not claim phonetic syllabification |
+| PPK minor disyllable forms CrV/CV/CVN may simplify to C; F0 is lower in /r>h/ forms and voiced-onset disyllables | Profile-specific reduction/prosody | Mam et al. (2025), 50 words, 5 speakers, 3 repetitions | PRIMARY_BUT_BOUNDED; possible pitch phonologization, not a universal tone or segmental rewrite |
+
+### Source reconciliation and contradictions
+
+- Nacaskul's 1978 article is explicitly a historical Cambodian description and uses its own phonetic notation. Its major/minor syllable distinction is useful, but its coda inventory and register claims are not silently promoted to current project rules.
+- Unicode L2/22-290 is an orthographic encoding analysis. It documents up to two pre-vowel coengs and chaining; these must not be mistaken for a language-wide phonological onset limit.
+- Ding et al. (2018) study 7,658 personal-name romanization instances and explicitly discuss silent etymological stacked letters and phonemic-syllable/orthographic-unit mismatch. Its approximate 80 cluster types are secondary, not an exhaustive phonological survey.
+- The publisher preview for Sak-Humphry (2025) contains an internally contradictory coda excerpt: /r/ appears in both the permitted and excluded sets. The preview is recorded as a lead only and is not used to settle the coda inventory.
+- Mam et al. (2025) report possible PPK pitch phonologization beyond /r>-h/ forms, including voiced-onset disyllables. The sample is five speakers and 50 words; the authors call for further work. Do not infer tone from spelling or alter the careful-citation profile.
+
+**Implementation decision:** no new global syllable-rejection rule, coda rule, tone label or /r/-rewrite is introduced. The parser's `syllables` are orthographic structural units; `phonetic_representation.status` remains `phoneticization_not_yet_established`.
