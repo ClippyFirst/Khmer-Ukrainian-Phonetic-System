@@ -769,3 +769,8 @@ Schema: `schemas/pcgn-inherent-vowel-decision.schema.json`; tests: `tests/test_p
 Source: BGN/PCGN 1972 Agreement, p. 2, table row 1 and explanatory paragraph: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 
 Status: `KHM-ROM-PCGN-INHERENT-VOWEL-001 = PARTIAL`; final consonant/coda behavior and complete syllable assembly remain outside this component.
+
+
+## Exact-main verification — PR #249 / anusvara-visarga table — 2026-11-15
+
+PR [#249](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/249) merged as `a50f815f993f8fa9b4ae59c5f0f89b8c7717ea6f`. PR-head push Quality [43760107833], PR Quality [43760141233], PR Chromium [43760141132], exact-main Quality [43760241393], Chromium [43760241451] and Pages build/deploy [43760241464] all SUCCESS. The PR adds only bounded PCGN table rows 1–8; it does not produce IPA/Ukrainian output or complete the PCGN engine.
