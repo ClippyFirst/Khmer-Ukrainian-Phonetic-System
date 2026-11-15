@@ -2611,3 +2611,20 @@ Status: `KHM-ROM-PCGN-ROBAT-001 = PARTIAL`. The consonant romanization is caller
 - An earlier test run failed one registry assertion because the test searched for the exact phrase `not inferred` while the source text said `is inferred`; the registry wording was clarified to `caller-supplied, not inferred`, and final exact-head checks passed.
 - Exact post-merge main: Quality [43751965081], Chromium [43751965119], Pages build/deploy [43751965128] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - `KHM-ROM-PCGN-ROBAT-001` remains PARTIAL: only the `rC` component is returned with caller-supplied consonant romanization. No full syllable, IPA or Ukrainian output is produced.
+
+
+## PCGN Note 7 — bounded AHSDA position effect — 2026-11-15
+
+Implemented `resolve_pcgn_ahsda(analysis, syllable_position, series)` and exported `PCGNAhsdaDecision`.
+
+The resolver accepts one final AHSDA mark immediately after a modeled unstacked consonant, but never infers syllable position:
+- Caller-supplied `INITIAL`: the AHSDA mark itself is not romanized; the resolver returns an explicit `MARK_NOT_ROMANIZED_INITIAL` effect and no Latin component.
+- Caller-supplied `FINAL`: requires an explicit `â` or `ô` series and returns that vowel component, as Note 7 specifies.
+
+The mark's position and final series are explicit inputs. Unknown position, missing final series, multiple/misplaced marks and non-consonant attachment abstain.
+
+Schema: `schemas/pcgn-ahsda-decision.schema.json`; tests: `tests/test_pcgn_ahsda_resolution.py`. The official examples `ស៏`, `តំណ៏`, and `ពម៏` are used only to test the stated position/series effects, not as a full romanizer.
+
+Source: BGN/PCGN 1972, Diacritical Marks table row 5 (p. 4) and Note 7 (p. 5): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+
+Status: `KHM-ROM-PCGN-AHSDA-001 = PARTIAL`. Syllable position and series are caller-supplied; no complete syllable, IPA or Ukrainian output is produced.
