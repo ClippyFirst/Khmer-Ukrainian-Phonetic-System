@@ -25,8 +25,6 @@ def test_all_eleven_pcgn_notes_are_registered_with_primary_source_locators():
     statuses = {row["note_number"]: row["implementation_status"] for row in rows}
     assert statuses["2"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["3"] == "PARTIAL_COMPONENT_RESOLVER"
-    assert statuses["2"] == "PARTIAL_COMPONENT_RESOLVER"
-    assert statuses["3"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["4"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["5"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["6"] == "PARTIAL_COMPONENT_RESOLVER"
@@ -88,6 +86,8 @@ def test_pcgn_notes_registry_is_not_misrepresented_as_ipa_or_ukrainian_gold():
     headers = set(rows[0])
     assert not ({"ipa", "ipa_output", "ukrainian_candidate", "gold"} & headers)
     statuses = {row["note_number"]: row["implementation_status"] for row in rows}
+    assert statuses["2"] == "PARTIAL_COMPONENT_RESOLVER"
+    assert statuses["3"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["4"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["5"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["6"] == "PARTIAL_COMPONENT_RESOLVER"
