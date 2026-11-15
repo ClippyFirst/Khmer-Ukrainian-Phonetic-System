@@ -850,3 +850,13 @@ No pronunciation, IPA, Ukrainian target or gold data was added. Independent adju
 | MAINLINE-CI-2026-11-15-I | DONE_VERIFIED (engineering/deployment only) | Exact main `18134929554420875b447b1c5128b3b879e3f608`; Quality [43734192447], Chromium [43734192457], Pages [43734192455] all SUCCESS. | Hosted structure, Python, web, build, browser and deployment checks; no linguistic accuracy claim. |
 
 Independent adjudicated IPA gold remains 0; empirical accuracy remains null. Issue #104 remains open.
+
+
+## PCGN Note 3 series resolver — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-PCGN-SERIES-001 | PARTIAL (implementation pending exact-head CI) | `resolve_pcgn_series`, `PCGNSeriesDecision`, `schemas/pcgn-series-decision.schema.json`, `tests/test_pcgn_series_resolution.py`; exact PCGN weak set and Note 3 source locator encoded. | Note 3 series selection only; Note 2 shifters, vowel forms, coda, syllable segmentation and romanization remain out of scope. |
+| KHM-ROM-ENGINE-001 | PARTIAL | Typed structural layer plus bounded Note 3 series decision. | Complete contextual PCGN parsing and generation with ambiguity-aware abstention and source-backed parity fixtures. |
+
+No vowel, IPA, Ukrainian target or gold entry is generated. Independent adjudicated IPA gold remains 0; accuracy remains null.
