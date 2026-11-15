@@ -29,11 +29,6 @@ SPECIAL_MARKS = {
 }
 CONSONANTS_BY_CHAR = {item["char"]: item for item in CONSONANTS}
 SIGNS_BY_CHAR = {item["char"]: item for item in SIGNS}
-INDEPENDENT_VOWELS = {
-    item["char"] for item in SIGNS if item.get("kind") == "independent_vowel"
-}
-
-
 @dataclass(frozen=True)
 class PCGNToken:
     text: str
@@ -118,11 +113,11 @@ def analyze_pcgn_orthographic_chunk(text: str) -> PCGNOrthographicAnalysis:
                 subscript = chars[i + 1]
                 subscripts.append(subscript)
                 token(
-                COENG + subscript,
-                "subscript_consonant",
-                CONSONANTS_BY_CHAR[subscript]["name"],
-                CONSONANTS_BY_CHAR[subscript].get("register"),
-            )
+                    COENG + subscript,
+                    "subscript_consonant",
+                    CONSONANTS_BY_CHAR[subscript]["name"],
+                    CONSONANTS_BY_CHAR[subscript].get("register"),
+                )
                 i += 2
                 continue
             token(ch, "malformed_coeng", "COENG")
