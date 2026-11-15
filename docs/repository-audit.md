@@ -840,3 +840,12 @@ Status: `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` remains `PARTIAL` (listed independ
 ## Exact-main verification — PR #233 / PCGN Note 5 — 2026-11-15
 
 PR #233 merged as `cf57045bf6ddf0537e2a5c33a8b2468e8f3f6f2c`. Final PR-head `9bcf7391ce08557ce2fa56e4cbb764568949f952`: push Quality [43751102348], PR Quality [43751107119], Chromium [43751107131] all SUCCESS (272 tests + 70 subtests; web checks/build/Chromium passed). Exact-main Quality [43751266786], Chromium [43751266785], Pages [43751266784] all SUCCESS, including deployed-site/runtime-asset smoke. Note 5 remains PARTIAL component-only; no IPA/Ukrainian or complete-syllable status promotion.
+
+
+## BGN/PCGN Note 6 implementation audit — 2026-11-15
+
+- Added `PCGNRobatDecision` and `resolve_pcgn_robat`, plus a schema and focused regression tests.
+- Accepts exactly one ROBAT mark at the end of the supplied component chunk, immediately after one modeled unstacked consonant.
+- Requires the caller to supply a PCGN romanized consonant value; validates against the consonant-table inventory and returns only `rC`.
+- The `rm` component in `ធម៌ → thôrm` is covered. No full syllable, coda inference, IPA or Ukrainian output is produced.
+- Primary source: BGN/PCGN 1972 Diacritical Marks table row 4 and Note 6, p. 4. Status PARTIAL pending broader structural integration and complete syllable romanization.
