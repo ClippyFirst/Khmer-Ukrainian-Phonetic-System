@@ -279,3 +279,13 @@ test("direct BGN/PCGN input with a Khmer mark is explicitly partial", () => {
   assert.equal(result.status, "PARTIAL");
   assert.equal(result.unsupported, 1);
 });
+
+
+test("PCGN shortened-vowel rule inventories both BANTOC and SAMYOK SANNYA", () => {
+  const rows = parseCsv(readFileSync(path.join(root, "data/khmer/romanization_marks_numerals.csv"), "utf8"));
+  const shortened = rows.find(row => row.unit_type === "diacritic" && row.table_row === "3");
+  assert.ok(shortened, "PCGN diacritical-mark row 3 must exist");
+  assert.deepEqual(shortened.source_units.split("|"), ["◌់", "◌័"]);
+  assert.match(shortened.context, /◌់ and ◌័/u);
+  assert.match(shortened.note, /U\+17CB BANTOC and U\+17D0 SAMYOK SANNYA/u);
+});
