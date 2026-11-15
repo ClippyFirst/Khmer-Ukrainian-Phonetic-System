@@ -377,3 +377,12 @@ Documentation-only PR [#180](https://github.com/ClippyFirst/Khmer-Ukrainian-Phon
 
 
 **CI scope note:** the successful Quality and Chromium runs were triggered for the final runtime/test code head before the two documentation-only audit/handoff commits. The GitHub connector exposed no new workflow runs for the later documentation-only head; no additional test run is claimed for those docs-only commits. Post-merge mainline CI is the final verification gate.
+
+
+## Typed IPA validator integration closeout — 2026-11-15
+
+- PR [#182](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/182) was squash-merged into main as c69789b21bffb306497758a1181bef0d36459bd5. Its source/test head before documentation-only follow-up was a20f1d3f28cbe1a6a5f79cc7554afe4b47265a4a.
+- Exact code-head Quality [43694149473](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43694149473) passed: 206 tests, 62 subtests, independent IPA gold corpus structure validation, web checks and production build. Exact code-head Chromium smoke [43694149458](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43694149458) passed, including visible-result verification.
+- Documentation-only audit/handoff commits were added after that code-head CI. No additional workflow run was exposed for the final docs-only PR head; the code head itself was tested. The merge commit is recorded above; no post-merge push-run success is claimed by the available connector.
+- The PR #153 candidate-validation gap is now addressed by a standalone, typed, non-promoting validator on main. PR #153 itself remains open/draft and blocked by its diverged provider API, corpus rights and split-independence evidence. No MekongPhon model or corpus data was imported.
+- The validator does not establish IPA phonological correctness, completeness, independent adjudication, or source redistribution rights. Independent adjudicated gold remains 0 and empirical accuracy remains null.
