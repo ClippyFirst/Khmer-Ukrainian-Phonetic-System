@@ -29,6 +29,11 @@ SPECIAL_MARKS = {
 }
 CONSONANTS_BY_CHAR = {item["char"]: item for item in CONSONANTS}
 SIGNS_BY_CHAR = {item["char"]: item for item in SIGNS}
+# PCGN Note 3 defines the weak set explicitly; do not add UNGEGN-only members.
+PCGN_WEAK_SUBSCRIPTS = frozenset("ងញណនមយរលវ")
+PCGN_NO_SUBSCRIPT_FOR = frozenset("ឡ")
+
+
 @dataclass(frozen=True)
 class PCGNToken:
     text: str
@@ -111,6 +116,11 @@ def analyze_pcgn_orthographic_chunk(text: str) -> PCGNOrthographicAnalysis:
         if ch == COENG:
             if i + 1 < len(chars) and chars[i + 1] in CONSONANTS_BY_CHAR:
                 subscript = chars[i + 1]
+                if subscript in PCGN_NO_SUBSCRIPT_FOR:
+                    token(COENG + subscript, "unsupported_pcgn_subscript", CONSONANTS_BY_CHAR[subscript]["name"])
+                    unresolved.extend((COENG, subscript))
+                    i += 2
+                    continue
                 subscripts.append(subscript)
                 token(
                     COENG + subscript,
@@ -223,8 +233,96 @@ def analyze_pcgn_orthographic_chunk(text: str) -> PCGNOrthographicAnalysis:
     )
 
 
+
+@dataclass(frozen=True)
+class PCGNSeriesDecision:
+    series: Literal["â", "ô"] | None
+    basis: Literal["BASE", "SUBSCRIPT", "UNRESOLVED"]
+    status: Literal["RESOLVED", "UNRESOLVED"]
+    onset_exception: Literal["BA_WITH_FOOT_P_IN_A_SERIES"] | None
+    source_locator: str
+    warnings: tuple[str, ...]
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+def resolve_pcgn_series(
+    analysis: PCGNOrthographicAnalysis,
+) -> PCGNSeriesDecision:
+    """Apply only the explicit PCGN Note 3 base/foot series-selection rule.
+
+    This does not apply Note 2 shifters or infer syllable boundaries/codas.
+    Any shifter, ambiguous multi-foot shape, unsupported token or non-single
+    base remains unresolved. The weak-foot set is exactly the PCGN set.
+    """
+    def unresolved(reason: str) -> PCGNSeriesDecision:
+        return PCGNSeriesDecision(
+            series=None,
+            basis="UNRESOLVED",
+            status="UNRESOLVED",
+            onset_exception=None,
+            source_locator="PCGN 1972, Note 3 (pp. 2–3)",
+            warnings=(reason, "NO_VOWEL_OR_ROMANIZATION_OUTPUT"),
+        )
+
+    if analysis.status != "STRUCTURE_ONLY":
+        return unresolved("UNSUPPORTED_OR_UNRESOLVED_ORTHOGRAPHIC_COMPONENT")
+    if analysis.register_shifters:
+        return unresolved("REGISTER_SHIFTER_PRESENT_NOTE_2_NOT_IMPLEMENTED")
+    if len(analysis.base_consonants) != 1:
+        return unresolved("EXACTLY_ONE_BASE_CONSONANT_REQUIRED")
+    if len(analysis.subscript_consonants) > 1:
+        return unresolved("MULTIPLE_SUBSCRIPTS_REQUIRE_READING_ADJUDICATION")
+
+    base = analysis.base_consonants[0]
+    base_register = CONSONANTS_BY_CHAR[base].get("register")
+    if base_register not in {"first", "second"}:
+        return unresolved("BASE_ORTHOGRAPHIC_REGISTER_UNAVAILABLE")
+
+    if not analysis.subscript_consonants:
+        register = base_register
+        basis: Literal["BASE", "SUBSCRIPT", "UNRESOLVED"] = "BASE"
+        exception = None
+    else:
+        foot = analysis.subscript_consonants[0]
+        foot_register = CONSONANTS_BY_CHAR[foot].get("register")
+        if foot_register not in {"first", "second"}:
+            return unresolved("SUBSCRIPT_ORTHOGRAPHIC_REGISTER_UNAVAILABLE")
+        if base == "ប":
+            # PCGN Note 3: ប with a foot is romanized p in the â series.
+            register = "first"
+            basis = "BASE"
+            exception = "BA_WITH_FOOT_P_IN_A_SERIES"
+        elif foot in PCGN_WEAK_SUBSCRIPTS and base not in PCGN_WEAK_SUBSCRIPTS:
+            register = base_register
+            basis = "BASE"
+            exception = None
+        else:
+            register = foot_register
+            basis = "SUBSCRIPT"
+            exception = None
+
+    series: Literal["â", "ô"] = "â" if register == "first" else "ô"
+    warnings = ["PCGN_NOTE_3_SERIES_SELECTION_ONLY"]
+    if exception:
+        warnings.append("PCGN_NOTE_3_BA_WITH_FOOT_P_EXCEPTION")
+    return PCGNSeriesDecision(
+        series=series,
+        basis=basis,
+        status="RESOLVED",
+        onset_exception=exception,
+        source_locator="PCGN 1972, Note 3 (pp. 2–3)",
+        warnings=tuple(warnings),
+    )
+
+
 __all__ = [
     "PCGNOrthographicAnalysis",
     "PCGNToken",
+    "PCGNSeriesDecision",
+    "PCGN_WEAK_SUBSCRIPTS",
+    "PCGN_NO_SUBSCRIPT_FOR",
+    "resolve_pcgn_series",
     "analyze_pcgn_orthographic_chunk",
 ]

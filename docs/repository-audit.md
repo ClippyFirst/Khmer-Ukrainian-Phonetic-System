@@ -638,3 +638,10 @@ This improves inspectability and provides a typed boundary for future work, but 
 PR #213 merged as `18134929554420875b447b1c5128b3b879e3f608`. Exact-head push Quality [43734102361], PR Quality [43734106341], PR Chromium [43734106320], and exact-main Quality [43734192447], Chromium [43734192457], Pages [43734192455] all SUCCESS.
 
 The new typed analyzer is bounded to orthographic chunk structure and explicit abstention. It does not segment phonetic syllables, select a PCGN series, infer codas, recover omitted marks or emit romanization/IPA/Ukrainian text. The IPA-first runtime is unchanged. This closes a parser-facing structural-contract task only; contextual romanization and linguistic validation remain partial/blocked.
+
+
+## PCGN Note 3 series resolver — 2026-11-15
+
+A bounded series-selection function now implements the official Note 3 rule over a typed orthographic chunk. It preserves the exact PCGN weak-subscript set (five nasals plus យ/រ/ល/វ; excludes ស), the special ប-with-foot p-in-â exception, and rejects a subscript form for ឡ because the PCGN consonant table says none exists. It abstains when shifters, multiple feet/bases or unsupported material require additional analysis.
+
+The function returns only series metadata with a source locator; it does not implement Note 2 shifters, vowel mapping, coda detection, Note 5 shortening, syllabification, IPA or Ukrainian output. Hosted CI pending; do not mark the resolver verified until exact-head tests pass.

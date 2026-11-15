@@ -2347,3 +2347,12 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - `KHM-ROM-PCGN-STRUCTURE-001` is DONE_VERIFIED for this bounded typed structure/abstention contract. `KHM-ROM-ENGINE-001`, `KHM-ROM-TEST-001` and `KHM-ROM-UA-001` remain PARTIAL: no contextual PCGN series/shortening/coda resolver, no independently reviewed expected-output fixtures, and no expert-adjudicated Ukrainian target set.
 - Relevant old branches reviewed: typed-IPA bridge/candidate-validation branches carry core files byte-identical to main; their functionality is already present on main and was not re-ported. The old direct-BGN/PCGN-input branch differs in `src/khmer-romanization-ukrainian.js` and lacks the later residual-Khmer output guard now on main; it was left untouched rather than merged over the safer current implementation. Matrix-completion and romanization-runtime branch matrix files match main; stale branches were not deleted.
 - Issue #104 remains open; independent adjudicated IPA gold=0 and empirical accuracy=null. Root LICENSE remains absent while pyproject metadata declares MIT; main remains unprotected. Readiness remains partial research prototype, not linguistically validated production.
+
+
+## PCGN Note 3 series resolver — 2026-11-15
+
+- Added `resolve_pcgn_series(analysis)` and `PCGNSeriesDecision` in `src/khmer_ua/pcgn.py`, with schema `schemas/pcgn-series-decision.schema.json` and tests `tests/test_pcgn_series_resolution.py`.
+- The resolver applies only the PCGN 1972 Note 3 series rule: base if no foot; foot normally; base when the single foot is weak and base is not weak; foot when both are weak. Exact weak set: `ងញណនមយរលវ`; no UNGEGN-only `ស`.
+- Preserves the Note 3 ប+foot p-in-â exception as typed metadata `BA_WITH_FOOT_P_IN_A_SERIES`. The parser now rejects a PCGN foot form for ឡ, which the official consonant table says has no subscript form.
+- Abstains for shifters (Note 2 not implemented), multiple feet/bases, malformed/unknown/unmodelled input, and independent vowels. Output is series metadata only; no vowel, coda, phonetic syllabification, PCGN Latin, IPA or Ukrainian output.
+- Next gate: hosted exact-head Quality/Chromium, then exact-main checks; add Note 2 shifter resolution only after a separate source-grounded exception table and tests. Note 5 shortening remains blocked on coda and vowel-pattern parsing.
