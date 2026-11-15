@@ -110,3 +110,22 @@ def test_pcgn_analysis_serializes_explicit_null_phonetic_outputs_and_provenance(
 def test_empty_or_separator_only_chunk_is_not_reported_as_parsed_structure():
     assert analyze_pcgn_orthographic_chunk("").status == "UNSUPPORTED"
     assert analyze_pcgn_orthographic_chunk("  , ").status == "UNSUPPORTED"
+
+
+def test_pcgn_analysis_schema_requires_explicit_abstention_fields():
+    import json
+    from pathlib import Path
+
+    schema_path = Path(__file__).resolve().parents[1] / "schemas/pcgn-orthographic-analysis.schema.json"
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    required = set(schema["required"])
+
+    assert {"tokens", "base_consonants", "subscript_consonants", "register_shifters"} <= required
+    assert {"syllable_segmentation", "series_decision", "register_source", "coda_decision"} <= required
+    assert {"romanization", "ipa", "ukrainian", "warnings", "sources"} <= required
+    assert schema["properties"]["syllable_segmentation"]["const"] == "NOT_PERFORMED"
+    assert schema["properties"]["series_decision"]["const"] == "UNRESOLVED"
+    assert schema["properties"]["register_source"]["const"] == "NOT_SELECTED"
+    assert schema["properties"]["romanization"]["type"] == "null"
+    assert schema["properties"]["ipa"]["type"] == "null"
+    assert schema["properties"]["ukrainian"]["type"] == "null"
