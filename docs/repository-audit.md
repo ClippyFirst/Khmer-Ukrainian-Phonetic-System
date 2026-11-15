@@ -631,3 +631,10 @@ The new eleven-note PCGN registry and its regression tests are therefore enginee
 A new isolated `src/khmer_ua/pcgn.py` module records source-script structure for a caller-supplied chunk. It retains base/foot identities and orthographic register labels, shifters, vowel signs, both shortening marks, ROBAT, AHSDA and TOANDAKHIAT, code points, unresolved material and provenance. The output schema requires explicit abstention for syllable segmentation, series, series source, coda, romanization, IPA and Ukrainian output.
 
 This improves inspectability and provides a typed boundary for future work, but it does not implement contextual BGN/PCGN rules or resolve any linguistic ambiguity. It deliberately does not reuse the existing phonological parser's heuristic syllable segmentation. Tests and hosted CI are pending on the PR head; do not mark the engine complete until contextual source-backed parity fixtures and expert review exist.
+
+
+## Exact-main audit — PR #213 typed PCGN orthographic analysis — 2026-11-15
+
+PR #213 merged as `18134929554420875b447b1c5128b3b879e3f608`. Exact-head push Quality [43734102361], PR Quality [43734106341], PR Chromium [43734106320], and exact-main Quality [43734192447], Chromium [43734192457], Pages [43734192455] all SUCCESS.
+
+The new typed analyzer is bounded to orthographic chunk structure and explicit abstention. It does not segment phonetic syllables, select a PCGN series, infer codas, recover omitted marks or emit romanization/IPA/Ukrainian text. The IPA-first runtime is unchanged. This closes a parser-facing structural-contract task only; contextual romanization and linguistic validation remain partial/blocked.
