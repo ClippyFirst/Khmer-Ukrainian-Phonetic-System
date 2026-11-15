@@ -2628,3 +2628,11 @@ Schema: `schemas/pcgn-ahsda-decision.schema.json`; tests: `tests/test_pcgn_ahsda
 Source: BGN/PCGN 1972, Diacritical Marks table row 5 (p. 4) and Note 7 (p. 5): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 
 Status: `KHM-ROM-PCGN-AHSDA-001 = PARTIAL`. Syllable position and series are caller-supplied; no complete syllable, IPA or Ukrainian output is produced.
+
+
+## Exact-main verification — PCGN Note 7 AHSDA component / PR #237 — 2026-11-15
+
+- PR [#237](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/237) merged by squash as `890791a1d8236180c82a39b81bd28b7f772d614c`; exact `main` verified at this SHA. No open PRs.
+- Final PR-head `2e3ee353124b1a9cacac64997ceb06720a78370c`: push Quality [43752539333], PR Quality [43752551657], PR Chromium [43752551605] all SUCCESS. Quality reports 284 Python tests passed and 70 subtests passed; web checks and production build passed; Chromium visible-results smoke passed.
+- Exact post-merge main: Quality [43752661403], Chromium [43752661392], Pages build/deploy [43752661369] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
+- `KHM-ROM-PCGN-AHSDA-001` remains PARTIAL: syllable position is caller-supplied; FINAL additionally requires explicit series. The resolver returns only the mark effect/vowel component, not a full syllable, IPA or Ukrainian output.
