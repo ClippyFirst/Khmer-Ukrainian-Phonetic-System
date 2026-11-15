@@ -3,7 +3,14 @@ SCHEMA_VERSION = "0.1.0"
 DATA_VERSION = "2026-10-05-research-finalization"
 
 from .parser import analyze, normalize_khmer
-from .pcgn import PCGNOrthographicAnalysis, PCGNToken, analyze_pcgn_orthographic_chunk
+from .pcgn import (
+    PCGNOrthographicAnalysis,
+    PCGNSeriesDecision,
+    PCGNToken,
+    PCGN_WEAK_SUBSCRIPTS,
+    analyze_pcgn_orthographic_chunk,
+    resolve_pcgn_series,
+)
 from .ipa import (
     IPACandidate,
     IPACandidateStatus,
@@ -18,6 +25,9 @@ __all__ = [
     "analyze",
     "PCGNOrthographicAnalysis",
     "PCGNToken",
+    "PCGNSeriesDecision",
+    "PCGN_WEAK_SUBSCRIPTS",
+    "resolve_pcgn_series",
     "analyze_pcgn_orthographic_chunk",
     "normalize_khmer",
     "IPACandidate",
