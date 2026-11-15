@@ -267,3 +267,10 @@ PR #192 merged as `736b1bc30bc6ccea6eb1d9f3aacd0647c17b848f`. Exact-head Quality
 ## Mixed-script input boundary
 
 The direct Latin mode assumes one input format per run. If Latin BGN/PCGN text and Khmer letters/marks are mixed, the UI does not silently combine the direct-Latin and Khmer-source pipelines: Khmer letters/marks are bracketed as unsupported and the result is PARTIAL. Khmer numerals remain eligible for the existing Arabic-digit conversion, and Khmer punctuation is preserved. Enter Khmer-script text or Latin BGN/PCGN romanization separately for a meaningful result.
+
+
+## Residual-script output guard — 2026-11-15
+
+PR #201 adds a fail-closed check after the upstream Khmer-script → Latin romanizer and after direct BGN/PCGN Latin rendering. Any Khmer-script letter or combining mark still present in the would-be Latin output is bracketed and counted unsupported; the result is `PARTIAL`. Khmer punctuation remains preserved and is not treated as an unconverted letter/mark. This prevents silent pass-through of residual Khmer orthographic material.
+
+This guard does **not** reconstruct diacritics dropped by the upstream ASCII package, determine contextual series/shortening/coda forms, or establish BGN/PCGN conformance. KHM-ROM-ENGINE-001 and KHM-ROM-TEST-001 remain PARTIAL. PR #201 exact-head and post-merge Quality/Chromium/Pages workflows passed; see the canonical master handoff for run IDs.
