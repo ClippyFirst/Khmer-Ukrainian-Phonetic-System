@@ -422,4 +422,4 @@ The subset applies only to one correctly positioned shifter after one base with 
 
 ## Exact-main checkpoint — PR #218 — 2026-11-15
 
-PR #218 merged as `9420326549d8a327774d0587b6fe19c4b17befcd`. Exact PR-head Quality [43735576766], Chromium [43735576217], push Quality [43735564674] passed. Exact-main Quality [43735662414], Chromium [43735662288], Pages [43735662264] are running; see master handoff for final results.
+PR #218 merged as `9420326549d8a327774d0587b6fe19c4b17befcd`. Exact PR-head Quality [43735576766], Chromium [43735576217], push Quality [43735564674] passed. Exact-main Quality [43735662414], Chromium [43735662288] and Pages [43735662264] all SUCCESS, including deployed-site/runtime-asset smoke.
