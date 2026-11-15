@@ -297,3 +297,11 @@ PR #177 (`19a36f820625f53c6f50fbbe810bfbd074bb1ee7`) adds a data-driven adapter 
 - Environment limitation: the connected GitHub interface supports repository inspection and file/commit writes, but not a local checkout or local shell execution in this run. Do not claim local tests/builds were run; exact-head hosted checks must be checked separately.
 
 **Disposition:** documentation/navigation and branch policy are updated on the dedicated task branch. Linguistic completion, independent IPA gold, full BGN/PCGN conformance and manual accessibility review remain outside this documentation-only change and retain their existing status.
+
+
+### Exact-head verification closeout — 2026-11-15
+
+- Documentation branch commit `41b88ecdc7545b4f5f60738bc528c6d56e55c5a6` passed push Quality [43692108930](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692108930), PR Quality [43692138758](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692138758), and Chromium browser smoke [43692138745](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692138745).
+- Quality covered corpus-structure validation, Python tests, Node web checks and Vite production build. Browser smoke covered deterministic web checks, production build and Chromium visible-results verification.
+- The new documentation index's 30 relative Markdown links were resolved against the exact commit tree; zero missing internal targets.
+- PR #179 is reported mergeable/clean. Local shell execution was unavailable; the evidence above is hosted CI, not a local test run.
