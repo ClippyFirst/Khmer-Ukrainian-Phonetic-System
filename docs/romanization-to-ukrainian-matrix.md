@@ -346,3 +346,10 @@ The registry deliberately preserves the high-risk contextual constraints:
 - Notes 9–11: the unresolved ŏ/ŭ alternative, roman-character code-point inventory, and case handling.
 
 Python regression tests check all eleven notes, exact PCGN weak-subscript membership, both shortening marks and the closed k/ng/h condition. This is a source-documentation and guardrail milestone only: it does not implement the contextual romanizer, infer missing diacritics, choose ambiguous readings, create IPA, or promote Ukrainian target proposals. Official source: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf (pp. 2–6, Notes 1–11).
+
+
+## Exact-main verification — PCGN Notes 1–11 registry — 2026-11-15
+
+PR #211 merged as `9383385fc3244ff600d0fab254c6488a83d92d7b`. Exact PR-head Quality [43732940452] and Chromium [43732940449], push Quality [43732930991], and post-merge main Quality [43733051013], Chromium [43733051164] and Pages [43733051031] all SUCCESS. The Python test suite includes the new PCGN note-registry assertions; browser smoke and Pages production-site/deployment checks also passed.
+
+This verifies the source-located Notes 1–11 registry and tests only. The Khmer-script romanization engine remains PARTIAL; no new romanization outputs, IPA labels, Ukrainian targets or gold entries were introduced.
