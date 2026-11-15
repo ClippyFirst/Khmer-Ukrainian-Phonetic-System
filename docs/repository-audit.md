@@ -849,3 +849,8 @@ PR #233 merged as `cf57045bf6ddf0537e2a5c33a8b2468e8f3f6f2c`. Final PR-head `9bc
 - Requires the caller to supply a PCGN romanized consonant value; validates against the consonant-table inventory and returns only `rC`.
 - The `rm` component in `ធម៌ → thôrm` is covered. No full syllable, coda inference, IPA or Ukrainian output is produced.
 - Primary source: BGN/PCGN 1972 Diacritical Marks table row 4 (p. 4) and Note 6 (p. 5). Status PARTIAL pending broader structural integration and complete syllable romanization.
+
+
+## Exact-main verification — PR #235 / PCGN Note 6 — 2026-11-15
+
+PR #235 merged as `34ab63ff37023bddcaeaebb0a6ccd838f662c045`. Final PR-head `0d6f1a2b11ab1de94ad9be391c2dd4932142ff77`: push Quality [43751844908], PR Quality [43751851657], PR Chromium [43751851706] all SUCCESS (278 tests + 70 subtests). Exact-main Quality [43751965081], Chromium [43751965119], Pages [43751965128] all SUCCESS, including deployed-site/runtime-asset smoke. ROBAT remains a PARTIAL `rC)-component resolver with caller-supplied consonant value; no IPA/Ukrainian or complete-syllable promotion.
