@@ -1174,3 +1174,12 @@ Status: `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` remains PARTIAL. No lexical choice
 - Final PR-head `20cb0f2704bef9eb6319fb0c3a38c74740d6fded`: push Quality [43757811370], PR Quality [43757897285], PR Chromium [43757897258] all SUCCESS. Python 308 passed, 70 subtests passed; web checks and production build passed; Chromium visible-results smoke passed.
 - Exact post-merge main: Quality [43758011762], Chromium [43758011768], Pages build/deploy [43758011784] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - Note 9 now exposes `("ŏ", "ŭ")` as options for `ឧ` while retaining UNRESOLVED status and no selected romanization. `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` remains PARTIAL; no lexical selection, IPA, Ukrainian output, gold record or accuracy claim was added.
+
+
+## BGN/PCGN anusvara/visarga table component — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-PCGN-ANUSVARA-VISARGA-001 | PARTIAL | `resolve_pcgn_anusvara_visarga`, `PCGNAnusvaraVisargaDecision`, schema `schemas/pcgn-anusvara-visarga-decision.schema.json`, tests `tests/test_pcgn_anusvara_visarga_resolution.py`, data registry `data/khmer/romanization_pcgn_anusvara_visarga.csv`. Primary source: BGN/PCGN 1972, p. 4, “Vowel Characters with Anusvara or Visarga”. | Exact table rows 1–8 only; onset analysis and â/ô series are caller-contextualized through Notes 2–3. Row 8 requires explicit final NGA. No syllable segmentation, inferred coda, complete PCGN output, IPA or Ukrainian output. |
+
+The implementation is a source-table component resolver, not a pronunciation model. Independent adjudicated IPA gold remains 0 and empirical accuracy remains null.
