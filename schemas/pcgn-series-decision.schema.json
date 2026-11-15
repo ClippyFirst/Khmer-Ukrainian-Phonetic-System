@@ -8,9 +8,9 @@
     "series": {"enum": ["â", "ô", null]},
     "basis": {"enum": ["BASE", "SUBSCRIPT", "UNRESOLVED"]},
     "status": {"enum": ["RESOLVED", "UNRESOLVED"]},
-    "onset_exception": {"enum": ["BA_WITH_FOOT_P_IN_A_SERIES", "BA_WITH_MUUSIKATOAN_P_IN_A_SERIES", null]},
+    "onset_exception": {"enum": ["BA_WITH_FOOT_P_IN_A_SERIES", "BA_WITH_MUUSIKATOAN_P_IN_A_SERIES", "BA_WITH_TRIISAP_P_IN_A_SERIES", null]},
     "series_before_shifter": {"enum": ["â", "ô", null]},
-    "shifter_effect": {"enum": ["TRIISAP_A_TO_O", "MUUSIKATOAN_O_TO_A", "BA_MUUSIKATOAN_P_IN_A", null]},
+    "shifter_effect": {"enum": ["TRIISAP_A_TO_O", "MUUSIKATOAN_O_TO_A", "BA_MUUSIKATOAN_P_IN_A", "BA_TRIISAP_P_IN_A", null]},
     "source_locator": {"enum": ["PCGN 1972, Note 3 (pp. 2–3)", "PCGN 1972, Notes 2–3 (pp. 2–3)"]},
     "warnings": {"type": "array", "items": {"type": "string"}, "minItems": 1}
   },
