@@ -2154,3 +2154,14 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - No new global coda/onset rejection rule, tone label, IPA label or /r/-rewrite was introduced. The current careful-citation profile remains unchanged.
 - Statuses: orthographic/phonetic boundary regression = DONE_VERIFIED; phonotactic scope matrix = PARTIAL pending contemporary profile-matched lexical evidence; PPK pitch = PARTIAL pending replication/perception and speaker coverage.
 - No local shell/pytest, human IPA adjudication or acoustic reanalysis was performed. Engineering checks are hosted CI only.
+
+## Direct BGN/PCGN romanization input closeout — 2026-11-15
+
+- PR #192 merged as `736b1bc30bc6ccea6eb1d9f3aacd0647c17b848f` from exact head `e790249dee908c46cad5b1846a81e84014d83338`.
+- Exact-head Quality [43699528446](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43699528446) SUCCESS: 223 tests + 70 subtests; data/corpus validation, web checks and production build passed.
+- Exact-head Chromium [43699528852](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43699528852) SUCCESS: 7 browser tests, including direct diacritic-preserving input, unknown-fragment bracketing and keeping phonetic diagnostics hidden while the romanization mode is active.
+- Earlier exact-head failures were retained: [43699140457](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43699140457) exposed a missing ASCII `ie` fallback; [43699450855](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43699450855) exposed a target-alternative grouping issue for shortened vowel forms. Both were corrected; final exact-head checks are green.
+- Romanization mode now accepts either Khmer script (existing ASCII romanizer path) or a Latin-only BGN/PCGN 1972 input. Direct input maps the raw diacritic forms in all 37 vowel/rime rows; unknown Latin fragments remain in `⟦…⟧` with PARTIAL status.
+- This is orthographic input mapping, not IPA and not semantic translation. Ukrainian candidates remain PROVISIONAL. The direct path cannot reconstruct omitted diacritics or validate arbitrary non-BGN/PCGN romanization. Mixed Khmer+Latin input is not a dedicated mode.
+- The Khmer-script source path still uses `@gmana/km-translit` 0.1.2 and therefore loses PCGN diacritics. A complete contextual Khmer-script→BGN/PCGN generator remains PARTIAL.
+- No independent Ukrainian standard/adjudication was created. The result is a usable direct-input path with explicit uncertainty, not a claim of complete BGN/PCGN conformance.

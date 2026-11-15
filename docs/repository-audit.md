@@ -492,3 +492,11 @@ The repository remains a research platform / partial prototype. No empirical pho
 - Unicode L2/22-290 and Ding et al. (2018) support a strict separation between orthographic units and phonetic syllables: coengs can encode chaining, silent/etymological stacks occur, and the two-pre-vowel-coeng encoding limit is not a phonological onset maximum.
 - Mam et al. (2025) reports bounded PPK F0 evidence in 50 words and five speakers, including low-F0 patterns for /r>h/ forms and voiced-onset disyllables. This supports a profile-specific research hypothesis, not a universal Khmer tone rule. The careful-citation profile is unchanged.
 - The parser regression preserves the cited Unicode example and keeps phoneticization withheld. No new engine rule or IPA label was added.
+
+## Direct BGN/PCGN Latin input — 2026-11-15
+
+- PR #192 merged as `736b1bc30bc6ccea6eb1d9f3aacd0647c17b848f`. Exact-head Quality [43699528446](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43699528446) SUCCESS (223 tests + 70 subtests); Chromium [43699528852](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43699528852) SUCCESS (7 browser tests).
+- The romanization mode accepts direct Latin-only BGN/PCGN 1972 input with the diacritics represented in all 37 vowel/rime matrix rows. Unknown Latin fragments are bracketed and produce PARTIAL; the UI makes the one-format-per-run assumption explicit.
+- The Khmer-script path remains ASCII-derived and loses PCGN diacritics upstream. The new direct path does not reconstruct omitted diacritics or validate arbitrary romanization systems.
+- Ukrainian target mappings remain project proposals/PROVISIONAL; this is not IPA, pronunciation inference or semantic translation. No release-readiness claim is made.
+- Two failed intermediate CI heads were fixed and retained: missing ASCII `ie` fallback and incorrect test grouping for shortened variants that share target candidates. Final exact-head Quality and browser checks passed.
