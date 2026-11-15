@@ -589,3 +589,11 @@ Exact PR #204 head `b27b87081819307da5ffe27d55e3cf4521004730` passed Quality [43
 - Exact-main Quality [43728032467], Chromium [43728032424], and Pages build/deploy [43728032407] all SUCCESS. The Quality workflow completed corpus structure validation, Python tests, Node web checks and production build; Chromium visible-results smoke passed; Pages build, Chromium exercise, upload and deployment passed. Hosted CI only; no local tests claimed.
 - README now accurately distinguishes six PCGN diacritic-rule rows from seven source marks and ten numeral rows. No runtime/linguistic behavior changed.
 - Remaining blockers: contextual PCGN Khmer-script generation and upstream ASCII information loss; expert review of Ukrainian proposals; issue #104 human IPA pilot (gold=0; accuracy=null); external rights review; root LICENSE owner decision; manual accessibility; main protection owner decision. Research prototype only.
+
+
+## External contextual romanizer candidate — audit note (2026-11-15)
+
+- Reviewed `pheasaKhmer/khmer-engine` pinned at `31b72cd4665f69678fc835da2f501771e42f097a`. Its UNGEGN 2013 rules and syllable parser may inform future implementation architecture; it is not a verified BGN/PCGN 1972 drop-in.
+- Its syllable parser uses weighted heuristics to infer readings that Khmer orthography does not uniquely mark; some romanization entries are explicitly marked as extrapolations. This makes ambiguity handling and expert review mandatory.
+- Engine code declares MIT; sample lexical data and counts have separate CC BY 4.0 / ODC-By 1.0 declarations; its Pheasa normalizer dependency declares Apache-2.0. No dependency or external data was imported.
+- This reduces uncertainty about a possible implementation approach but does not close `KHM-ROM-ENGINE-001`. No local or external tests were run by this repository during the review. Candidate is not IPA and not gold.
