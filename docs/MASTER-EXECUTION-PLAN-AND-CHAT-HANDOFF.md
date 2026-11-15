@@ -2256,3 +2256,12 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - `KHM-ROM-MARKS-NUMERALS-001` is `DONE_VERIFIED` for bounded inventory only. `KHM-ROM-ENGINE-001` and `KHM-ROM-TEST-001` remain `PARTIAL`; upstream Khmer-script romanization is still ASCII-derived and lossy.
 - Open PRs: none. Issue #104 remains open and blocks independent adjudicated IPA gold (0 rows; accuracy null). Root `LICENSE` is still absent while `pyproject.toml` declares MIT (owner decision). Manual accessibility review remains PARTIAL; main protection is not changed.
 - No local checkout/tests were run. Repository remains a partial research prototype, not a linguistically validated production release.
+
+
+## Current mainline reconciliation — 2026-11-15 (post-PR #204)
+
+- Current default branch verified at `6058768ca745fddf9306f66d2e325fbed512b6ec`; this is a documentation-only follow-up to PR #204's merge `58735a94a8a8f76635f948c2d003d590f26fb0b2`. No open PRs were returned; issue #104 remains the open human IPA-pilot blocker.
+- Exact-current-SHA hosted workflows all SUCCESS: Quality [43722162644](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43722162644), Chromium [43722162599](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43722162599), Pages [43722162627](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43722162627). These are hosted GitHub Actions results; no local checkout or local tests are claimed.
+- README now states the machine-readable inventory correctly: six PCGN diacritic-rule rows cover seven Khmer source marks; note 5 includes both U+17CB BANTOC and U+17D0 SAMYOK SANNYA; ten numeral rows are separate. This is an inventory clarification, not a new runtime rule.
+- PR #204 implementation and its Python/Node regressions remain merged and verified. Contextual Khmer-script → BGN/PCGN generation, diacritic recovery, expert review of Ukrainian target proposals, independent IPA gold (0 adjudicated rows; accuracy null), rights review, manual accessibility, and owner decision on absent root LICENSE vs MIT metadata remain unresolved.
+- Main remains unprotected. No repository settings, licensing, or release state changed. Readiness remains partial research prototype, not linguistically validated production.
