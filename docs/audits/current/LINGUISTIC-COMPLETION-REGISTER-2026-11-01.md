@@ -1192,3 +1192,8 @@ The implementation is a source-table component resolver, not a pronunciation mod
 | KHM-ROM-PCGN-INHERENT-VOWEL-001 | PARTIAL | `resolve_pcgn_inherent_vowel`, `PCGNInherentVowelDecision`, schema `schemas/pcgn-inherent-vowel-decision.schema.json`, tests `tests/test_pcgn_inherent_vowel_resolution.py`, source row `data/khmer/romanization_pcgn_inherent_vowel.csv`. Primary source: BGN/PCGN 1972, p. 2, vowel table row 1. | Explicit NON_FINAL onset only; Note 2–3 series selects â/ô. FINAL abstains pending separate final-consonant/coda handling. No complete syllable, IPA or Ukrainian output. |
 
 The component remains PARTIAL and does not change `KHM-ROM-PCGN-VOWELS-001` or `KHM-ROM-ENGINE-001` from PARTIAL.
+
+
+## Exact-main verification — PR #249 — 2026-11-15
+
+PR #249 merged as `a50f815f993f8fa9b4ae59c5f0f89b8c7717ea6f`. PR-head push Quality [43760107833], PR Quality [43760141233], PR Chromium [43760141132], exact-main Quality [43760241393], Chromium [43760241451] and Pages [43760241464] all SUCCESS. This verifies engineering integration of the eight source-table rows only; no linguistic accuracy or IPA/Ukrainian acceptance is claimed.
