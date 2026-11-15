@@ -10,6 +10,7 @@ from .pcgn import (
     PCGNIndependentVowelDecision,
     PCGNShortenedVowelDecision,
     PCGNRobatDecision,
+    PCGNAhsdaDecision,
     PCGN_NO_SUBSCRIPT_FOR,
     PCGNToken,
     PCGN_WEAK_SUBSCRIPTS,
@@ -19,6 +20,7 @@ from .pcgn import (
     resolve_pcgn_independent_vowel,
     resolve_pcgn_shortened_vowel,
     resolve_pcgn_robat,
+    resolve_pcgn_ahsda,
 )
 from .ipa import (
     IPACandidate,
@@ -39,6 +41,7 @@ __all__ = [
     "PCGNIndependentVowelDecision",
     "PCGNShortenedVowelDecision",
     "PCGNRobatDecision",
+    "PCGNAhsdaDecision",
     "PCGN_NO_SUBSCRIPT_FOR",
     "PCGN_WEAK_SUBSCRIPTS",
     "resolve_pcgn_series",
@@ -46,6 +49,7 @@ __all__ = [
     "resolve_pcgn_independent_vowel",
     "resolve_pcgn_shortened_vowel",
     "resolve_pcgn_robat",
+    "resolve_pcgn_ahsda",
     "analyze_pcgn_orthographic_chunk",
     "normalize_khmer",
     "IPACandidate",
