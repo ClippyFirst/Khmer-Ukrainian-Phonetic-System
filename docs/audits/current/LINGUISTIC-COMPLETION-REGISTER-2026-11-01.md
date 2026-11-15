@@ -1053,3 +1053,10 @@ Status: `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` remains `PARTIAL` (listed independ
 - PR #231 merged as `b459fcbf56628409c8cd1ce8c95645b4b9c1c1a6`; exact-main Quality [43746279657], Chromium [43746279685] and Pages build/deploy [43746279665] all SUCCESS, including deployed-site/runtime-asset smoke.
 - PR-head push Quality [43746135830], PR Quality [43746153049] and PR Chromium [43746153043] all SUCCESS.
 - Documentation-only; no linguistic status changed.
+
+
+## BGN/PCGN Note 5 bounded implementation — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-PCGN-SHORTENING-001 | PARTIAL | `resolve_pcgn_shortened_vowel`, `PCGNShortenedVowelDecision`, schema `schemas/pcgn-shortened-vowel-decision.schema.json`, parser shortening-mark positions, and tests for rows 1–2 / Note 5. Primary source: BGN/PCGN 1972, Vowel Characters table rows 1–2 and Note 5, pp. 2–3. | Only exact inherent+BANTOC, AA+BANTOC and SAMYOK+coda patterns. Caller supplies onset-only analysis and explicit coda class. Remaining: verified syllable/coda parser, complete PCGN onset/coda romanization and IPA/Ukrainian adapters. |
