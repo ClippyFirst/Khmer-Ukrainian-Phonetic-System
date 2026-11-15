@@ -84,8 +84,9 @@ def test_pcgn_notes_registry_is_not_misrepresented_as_ipa_or_ukrainian_gold():
     headers = set(rows[0])
     assert not ({"ipa", "ipa_output", "ukrainian_candidate", "gold"} & headers)
     statuses = {row["note_number"]: row["implementation_status"] for row in rows}
+    assert statuses["4"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["5"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["6"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["7"] == "PARTIAL_COMPONENT_RESOLVER"
     assert statuses["8"] == "PARTIAL_COMPONENT_RESOLVER"
-    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"5", "6", "7", "8"})
+    assert all(status == "DOCUMENTED_ONLY" for note, status in statuses.items() if note not in {"4", "5", "6", "7", "8"})
