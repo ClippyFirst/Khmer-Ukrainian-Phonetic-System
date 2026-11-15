@@ -1985,3 +1985,15 @@ The current `pyproject.toml` declares `MIT`, while the inspected repository tree
 ### Next genuine blocker
 
 PR #153 should remain a draft until its research-only API boundary, typed IPA validation, six overlapping paths, corpus rights, and split independence are resolved. Independent expert-adjudicated Phnom Penh IPA gold remains 0; do not invent scores or promote source-attested labels. Hosted CI was inspected; no local shell execution is claimed.
+
+
+## Final continuation checkpoint — historical branch audit — 2026-11-15
+
+- Live main after documentation PR #180: 509a35f0d9899959c08a809d486e9c0e09d5c957.
+- All 41 non-main branch refs returned by GitHub search were compared against main. Their tips are divergent because squash-merged task histories are not ancestors of main; do not infer unique work from ahead/behind counts alone. File-level summaries were checked against merged/superseded PR history.
+- Spot checks: the unmodelled-letter fix branch's source/sign/test files are exactly identical to main; the numeral runtime branch's adapter file is identical while its tests have evolved; the older grapheme-accounting branch is superseded by later parser/test changes. Romanization and practical-adapter branches are historical task snapshots whose accepted work is already represented by merged PRs. Earlier practical-adapter PRs #154/#155 were superseded by #156; earlier model-consensus PRs #150/#151 were superseded by deterministic-engine PR #152. Old coverage/font/G2P branches are far behind and not safe merge bases.
+- No historical branch was deleted or force-updated. Keep current main as the sole integration base; preserve historical refs.
+- PR #180 merged as 509a35f0d9899959c08a809d486e9c0e09d5c957. Exact PR-head Quality 43693340334 and Chromium 43693340375 passed. No post-merge mainline run result was exposed by the available commit-run lookup, so no post-merge CI success is claimed.
+- PR #153 remains open/draft/BLOCKED: 34 ahead / 26 behind, 18 changed files, six paths overlap main's post-merge-base changes, candidate validation gap, unresolved corpus rights/split independence, and optional benchmark skipped. Independent adjudicated IPA gold=0; accuracy=null.
+
+**Stop point:** all repository-visible branch comparisons and the active research PR's patch review are recorded. Further code integration is not evidence-safe until PR #153's explicit acceptance criteria are met. License metadata remains an owner decision blocker.
