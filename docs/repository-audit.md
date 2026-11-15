@@ -530,3 +530,13 @@ The current `main` head is `14c87c275a3dcc599893da19b455b2e853abb630`. PR #198 r
 PR #153 is CLOSED unmerged and superseded. Current comparison is diverged (34 commits ahead / 48 behind); its old runtime and duplicate benchmark workflow are not to be merged. Useful research source records were selectively reconciled through PRs #187 and #188. No open PRs were present at this checkpoint.
 
 No release status upgrade follows from green engineering CI: independent adjudicated IPA gold remains 0, accuracy remains null, romanization and Ukrainian targets remain provisional/partial, data rights and human accessibility review remain open. `main` is still unprotected; no governance setting was changed.
+
+
+## Current-main reconciliation — 2026-11-15 (89e5ba4)
+
+- Current `main`: `89e5ba49c7507f60b421119cbae4b63c240ac3c8` (supersedes the historical `14c87c2…` checkpoint below).
+- Exact-SHA hosted CI: Quality [43712699599](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43712699599), Khmer browser smoke [43712699648](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43712699648), Pages [43712699614](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43712699614): all SUCCESS. Quality included corpus structure validation, Python tests, web checks and build; browser included Chromium visible-results verification. No local test run is claimed.
+- No open PRs. PR #153 is CLOSED unmerged; current comparison is diverged, 34 ahead / 49 behind. Its safe source-triage content remains selectively represented by #187/#188; old runtime and duplicate workflow remain excluded. PR #64 is CLOSED unmerged; its old CSS snapshot is not merged.
+- Current release blockers are unchanged: independent adjudicated IPA gold=0 (accuracy=null); context/profile phonology and PPK pitch remain PARTIAL; Khmer-script BGN/PCGN generation loses diacritics; Ukrainian romanization targets are provisional; source/model rights and train/eval independence are unresolved; manual accessibility QA remains PARTIAL.
+- Root `LICENSE` is absent while `pyproject.toml` says MIT: owner decision required. `main` is unprotected per branch metadata; no governance change was made.
+- Classification: engineering CI DONE_VERIFIED; language validation PARTIAL/BLOCKED; research prototype only, not production-ready.

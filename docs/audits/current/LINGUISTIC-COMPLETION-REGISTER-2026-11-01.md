@@ -686,3 +686,17 @@ The unit-test discovery gap is closed. This does not resolve the lossy ASCII rom
 | KHM-GOLD-001 | BLOCKED | Open issue #104 still requires expert-approved convention, two qualified annotators, independent adjudicator, curator, blind intake, 30 attested groups, rights review and independent adjudication. | No gold/accuracy claim until controlled pilot and validation are complete. |
 
 **Current mainline:** `14c87c275a3dcc599893da19b455b2e853abb630`; no open PRs. Root `LICENSE` is still absent while `pyproject.toml` declares MIT; retain as an owner decision. Repository remains a partial research prototype, not production-ready.
+
+
+## Current-main evidence ledger — 2026-11-15 (89e5ba4)
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| MAINLINE-CI-2026-11-15-B | DONE_VERIFIED (engineering only) | Current main `89e5ba49c7507f60b421119cbae4b63c240ac3c8`; Quality [43712699599](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43712699599), Chromium [43712699648](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43712699648), Pages [43712699614](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43712699614) all SUCCESS on this exact SHA. | Confirms hosted corpus validation, Python/web tests, production build, Chromium visible-results smoke and Pages deploy; no local execution or linguistic accuracy claim. |
+| PR153-RECONCILIATION-002 | DONE_VERIFIED (historical disposition) | PR #153 CLOSED unmerged; current comparison to main: 34 ahead / 49 behind, diverged; safe source triage preserved in #187/#188. | Do not merge its stale runtime or duplicate workflow. |
+| PR64-RECONCILIATION-001 | DONE_VERIFIED (historical disposition) | PR #64 CLOSED unmerged; historical CSS snapshot is superseded by focused UI work. | Reopen/reimplement only if a fresh audit establishes a concrete missing UI behavior. |
+| KHM-GOLD-001 | BLOCKED | Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains open; independent adjudicated gold=0; `gold.tsv` remains header-only. | Requires approved IPA convention, two qualified annotators, independent adjudicator, curator, blind intake, rights-cleared 30 lexeme groups and adjudication. |
+| KHM-UI-MANUAL-A11Y-001 | PARTIAL | Automated Chromium smoke is green on current main. | Human screen-reader, full keyboard, contrast, zoom/reflow, mobile and assistive-technology review remains outstanding. |
+| REPOSITORY-LICENSE-001 | BLOCKED (owner decision) | `pyproject.toml` declares MIT; root `LICENSE` absent. | Owner must confirm intended license before adding canonical license text. |
+
+**Readiness:** engineering pipeline verified green on current main; linguistic accuracy, data/legal rights and manual accessibility gates remain open. Repository is a partial research prototype, not production-ready.
