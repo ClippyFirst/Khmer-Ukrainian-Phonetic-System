@@ -242,3 +242,11 @@ test("Khmer numerals and punctuation remain usable alongside direct Latin input"
   assert.equal(result.status, "PROVISIONAL");
   assert.equal(result.unsupported, 0);
 });
+
+
+test("direct Latin renderer with Khmer letters reports partial even without Latin", () => {
+  const result = renderRomanizedText("ខ្មែរ");
+  assert.equal(result.text, "⟦ខ⟧⟦្⟧⟦ម⟧⟦ែ⟧⟦រ⟧");
+  assert.equal(result.status, "PARTIAL");
+  assert.equal(result.unsupported, 5);
+});
