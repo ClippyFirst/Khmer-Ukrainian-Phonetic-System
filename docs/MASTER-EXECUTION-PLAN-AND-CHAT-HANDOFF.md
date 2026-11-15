@@ -2304,3 +2304,13 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - No local checkout or local test execution is claimed. No runtime code, dependency, corpus, IPA, Ukrainian target or generated artifact changed in PR #209.
 - The bounded profile diff is recorded in `docs/audits/current/BGN-PCGN-UNGEGN-RULE-DIFF-2026-11-15.md`. `KHM-ROM-PROFILE-DIFF-001` is DONE_VERIFIED only for textual comparison; `KHM-ROM-ENGINE-001` and `KHM-ROM-UA-001` remain PARTIAL. Issue #104 remains open; adjudicated IPA gold=0 and empirical accuracy=null.
 - Readiness remains partial research prototype, not linguistically validated or production-ready.
+
+
+## PCGN notes 1–11 registry — 2026-11-15
+
+- Added `data/khmer/romanization_pcgn_notes.csv`: all eleven notes from the official BGN/PCGN 1972 guide are now source-located with bounded summaries, exceptions, limitations and `DOCUMENTED_ONLY` status.
+- Added `tests/test_romanization_pcgn_notes.py` to assert note count/order, primary-source provenance, the exact PCGN weak-subscript set (five nasals plus y/r/l/v; no ស), both shortened-vowel marks, the k/ng/h coda condition, and the absence of IPA/Ukrainian-gold fields.
+- This is not a contextual romanizer implementation. It adds no code path, external dependency, IPA label, Ukrainian target, corpus row or generated pronunciation. Existing row-level CSV parity tests remain the evidence for the 22 consonant, 12 independent-vowel, 17 dependent-vowel, 8 anusvara/visarga, 6 diacritic-rule and 10 numeral table rows.
+- The note registry is `DONE_VERIFIED` only as a source-located transcription of the guide's notes; runtime behavior remains `PARTIAL`. Note 3's ambiguous-foot warning and Note 5's contextual mark/coda behavior explicitly prohibit naive context-free mappings.
+- Hosted CI must run on the exact PR head and exact post-merge main before this task is marked verified. No local checkout/test execution is claimed in this connector session.
+- Next feasible gate: design a parser-facing, typed PCGN analysis record that retains base consonant, foot identity/uncertainty, series source, shifter presence/absence, vowel pattern, shortening mark, coda, syllable position and provenance; keep ambiguous or omitted-mark cases abstaining until source-backed evidence or expert review exists. Do not port UNGEGN heuristics.
