@@ -1211,3 +1211,8 @@ PR #250 merged as `62ce69bd17dc64fecfb73e81e22ca10bf97a25ff`. PR-head push Quali
 | KHM-ROM-PCGN-CONSONANTS-001 | PARTIAL | `resolve_pcgn_consonant`, `PCGNConsonantDecision`, schema `schemas/pcgn-consonant-decision.schema.json`, tests `tests/test_pcgn_consonant_resolution.py`, source registry `data/khmer/romanization_pcgn_consonants.csv`. Primary source: BGN/PCGN 1972, consonant table pp. 1–2 and Note 3. | Rows 1–21 only; one base plus at most one foot. BA b/p depends on explicit Note 3 exception. Row 22 is delegated to Note 4. No syllable segmentation, vowels/coda, IPA or Ukrainian output. |
 
 The resolver preserves Unicode source identity and does not guess cases requiring lexical reference consultation. Overall `KHM-ROM-ENGINE-001` remains PARTIAL.
+
+
+## Exact-main verification — PR #251 — 2026-11-15
+
+PR #251 merged as `aab014705bdf90825b922ff69f1c2e7758e56246`. PR-head push Quality [43760857888], PR Quality [43760868532], PR Chromium [43760868545], exact-main Quality [43760984773], Chromium [43760984785] and Pages [43760984838] all SUCCESS. Documentation-only closeout; no linguistic status promotion.
