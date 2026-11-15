@@ -892,3 +892,8 @@ No IPA, Ukrainian target or gold data is generated. Independent adjudicated IPA 
 | KHM-ROM-PCGN-SERIES-001 | DONE_VERIFIED (Note 3 series-source decision only) | PR #215 exact-head and exact-main CI passed. | Note 2 remains separately PARTIAL; no vowel or full romanization output. |
 
 No vowel, IPA, Ukrainian target or gold data is generated. Independent adjudicated IPA gold remains 0; accuracy remains null.
+
+
+## PR #218 exact-main verification checkpoint — 2026-11-15
+
+The documentation closeout PR #218 is merged as `9420326549d8a327774d0587b6fe19c4b17befcd`. PR-head Quality [43735576766], Chromium [43735576217] and push Quality [43735564674] passed. Exact-main Quality [43735662414], Chromium [43735662288] and Pages [43735662264] all SUCCESS, including deployed-site/runtime-asset smoke; no status promotion depends on this docs-only PR.

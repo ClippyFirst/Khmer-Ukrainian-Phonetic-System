@@ -2387,3 +2387,10 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - The bounded Note 2 subset preserves shifter source positions, pre-/post-shifter series and typed effect. It supports one correctly placed mark after one base with no foot, plus BA+MUUSIKATOAN p-in-â. It abstains on shifter+foot clusters, multiple/misplaced/wrong-direction marks and BA+TRIISAP.
 - This is not complete Note 2 or full PCGN romanization. Vowel/rime selection, coda and syllable segmentation, Note 5 shortening, and PCGN Latin output remain PARTIAL. No IPA-first or Ukrainian target behavior changed.
 - Issue #104 remains open; adjudicated IPA gold=0 and accuracy=null. Root LICENSE absent vs MIT metadata and unprotected main remain owner/governance blockers. Research prototype only.
+
+
+## Exact-main verification — PR #218 PCGN Note 2 documentation closeout — 2026-11-15
+
+- PR [#218](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/218) merged by squash as `9420326549d8a327774d0587b6fe19c4b17befcd`; exact current `main` verified at this SHA. No open PRs.
+- PR-head `eec944d2393fd78f810fe19c405e0ee5fdeacd99`: push Quality [43735564674], PR Quality [43735576766], PR Chromium [43735576217] all SUCCESS.
+- Exact post-merge main checks: Quality [43735662414](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735662414), Chromium [43735662288](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735662288), Pages build/deploy [43735662264](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735662264) all SUCCESS, including deployed-site/runtime-asset smoke.

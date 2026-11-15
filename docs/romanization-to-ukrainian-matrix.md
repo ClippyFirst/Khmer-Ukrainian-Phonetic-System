@@ -418,3 +418,8 @@ This is not complete Note 2 coverage. Do not infer omitted shifters. The primary
 PR #217 merged as `c738075c47c76730aa15e96acea588ad924c829c`. The PR-head Quality, Python tests and Chromium smoke passed. Exact-main Quality [43735441278], Chromium [43735441245] and Pages [43735441621] were dispatched on this merge SHA; final conclusions are recorded in the master handoff after completion.
 
 The subset applies only to one correctly positioned shifter after one base with no foot: TRIISAP U+17CA changes â→ô, MUUSIKATOAN U+17C9 changes ô→â. BA+MUUSIKATOAN retains p-in-â. Cluster shifters, BA+TRIISAP, multiple/misplaced/wrong-direction shifters abstain. This is series metadata, not a vowel or romanization output.
+
+
+## Exact-main checkpoint — PR #218 — 2026-11-15
+
+PR #218 merged as `9420326549d8a327774d0587b6fe19c4b17befcd`. Exact PR-head Quality [43735576766], Chromium [43735576217], push Quality [43735564674] passed. Exact-main Quality [43735662414], Chromium [43735662288] and Pages [43735662264] all SUCCESS, including deployed-site/runtime-asset smoke.
