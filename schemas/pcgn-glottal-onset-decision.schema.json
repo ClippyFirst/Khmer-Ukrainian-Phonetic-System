@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BGN/PCGN 1972 Note 4 glottal onset component decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_character",
+    "word_initial",
+    "followed_by_vowel_letter",
+    "romanization",
+    "romanization_options",
+    "status",
+    "ipa",
+    "ukrainian",
+    "source_locator",
+    "warnings"
+  ],
+  "properties": {
+    "source_character": {
+      "enum": [
+        "អ",
+        null
+      ]
+    },
+    "word_initial": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "followed_by_vowel_letter": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "romanization": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "romanization_options": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 0,
+      "maxItems": 2,
+      "uniqueItems": true
+    },
+    "status": {
+      "enum": [
+        "RESOLVED",
+        "UNRESOLVED"
+      ]
+    },
+    "ipa": {
+      "const": null
+    },
+    "ukrainian": {
+      "const": null
+    },
+    "source_locator": {
+      "const": "PCGN 1972, Consonant Characters row 22 and Note 4 (p. 5)"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "RESOLVED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "source_character": {
+            "const": "អ"
+          },
+          "word_initial": {
+            "type": "boolean"
+          },
+          "followed_by_vowel_letter": {
+            "type": "boolean"
+          },
+          "romanization": {
+            "const": "’"
+          },
+          "romanization_options": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "UNRESOLVED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "romanization": {
+            "const": null
+          },
+          "romanization_options": {
+            "maxItems": 0
+          }
+        }
+      }
+    }
+  ]
+}

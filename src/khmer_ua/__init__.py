@@ -12,6 +12,7 @@ from .pcgn import (
     PCGNRobatDecision,
     PCGNAhsdaDecision,
     PCGNToandakhiatDecision,
+    PCGNGlottalOnsetDecision,
     PCGN_NO_SUBSCRIPT_FOR,
     PCGNToken,
     PCGN_WEAK_SUBSCRIPTS,
@@ -23,6 +24,7 @@ from .pcgn import (
     resolve_pcgn_robat,
     resolve_pcgn_ahsda,
     resolve_pcgn_toandakhiat,
+    resolve_pcgn_glottal_onset,
 )
 from .ipa import (
     IPACandidate,
@@ -45,6 +47,7 @@ __all__ = [
     "PCGNRobatDecision",
     "PCGNAhsdaDecision",
     "PCGNToandakhiatDecision",
+    "PCGNGlottalOnsetDecision",
     "PCGN_NO_SUBSCRIPT_FOR",
     "PCGN_WEAK_SUBSCRIPTS",
     "resolve_pcgn_series",
@@ -54,6 +57,7 @@ __all__ = [
     "resolve_pcgn_robat",
     "resolve_pcgn_ahsda",
     "resolve_pcgn_toandakhiat",
+    "resolve_pcgn_glottal_onset",
     "analyze_pcgn_orthographic_chunk",
     "normalize_khmer",
     "IPACandidate",
