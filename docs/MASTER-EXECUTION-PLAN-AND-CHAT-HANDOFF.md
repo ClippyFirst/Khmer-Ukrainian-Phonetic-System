@@ -2651,3 +2651,11 @@ Schema: `schemas/pcgn-toandakhiat-decision.schema.json`; tests: `tests/test_pcgn
 Source: BGN/PCGN 1972, Diacritical Marks table row 6 (p. 4) and Note 8 (p. 5): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 
 Status: `KHM-ROM-PCGN-TOANDAKHIAT-001 = PARTIAL`. Only consonant tokens with explicit caller identification are supported; no full-word romanization, IPA or Ukrainian output is produced.
+
+
+## Exact-main verification — PCGN Note 8 TOANDAKHIAT component / PR #239 — 2026-11-15
+
+- PR [#239](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/239) merged by squash as `9c615293e3037cb0ccbd9db0820698741bbcd5cf`; exact `main` verified at this SHA. No open PRs.
+- Final PR-head `e52b2d5be98a521dfa3c6dc5af846c6c79d42dce`: push Quality [43753171641], PR Quality [43753185515], PR Chromium [43753185496] all SUCCESS. Quality reports 290 Python tests passed and 70 subtests passed; web checks and production build passed; Chromium visible-results smoke passed.
+- Exact post-merge main: Quality [43753327251], Chromium [43753327183], Pages build/deploy [43753327232] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
+- `KHM-ROM-PCGN-TOANDAKHIAT-001` remains PARTIAL: the caller must identify the exact silent consonant grapheme; the resolver returns omission only. No complete word romanization, IPA or Ukrainian output.

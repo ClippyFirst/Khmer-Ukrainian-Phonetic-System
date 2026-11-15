@@ -1096,3 +1096,8 @@ PR #237 merged as `890791a1d8236180c82a39b81bd28b7f772d614c`. Final PR-head `2e3
 | ID | Status | Evidence | Acceptance boundary |
 |---|---|---|---|
 | KHM-ROM-PCGN-TOANDAKHIAT-001 | PARTIAL | `resolve_pcgn_toandakhiat`, `PCGNToandakhiatDecision`, schema `schemas/pcgn-toandakhiat-decision.schema.json`, tests `tests/test_pcgn_toandakhiat_resolution.py`, and source registry Note 8 status. Primary source: BGN/PCGN 1972, Diacritical Marks table row 6 (p. 4), Note 8 (p. 5). | Caller identifies exact marked consonant grapheme; resolver verifies immediate token adjacency and returns omission only. Remaining: broader character scope, full-word integration, IPA/Ukrainian adapters. |
+
+
+## Exact-main verification — PR #239 / PCGN Note 8 — 2026-11-15
+
+PR #239 merged as `9c615293e3037cb0ccbd9db0820698741bbcd5cf`. Final PR-head `e52b2d5be98a521dfa3c6dc5af846c6c79d42dce`: push Quality [43753171641], PR Quality [43753185515], PR Chromium [43753185496] all SUCCESS (290 tests + 70 subtests). Exact-main Quality [43753327251], Chromium [43753327183], Pages [43753327232] all SUCCESS, including deployed-site/runtime-asset smoke. TOANDAKHIAT remains PARTIAL; silent character is caller-identified, with omission-only output.
