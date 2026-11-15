@@ -1023,6 +1023,102 @@ def resolve_pcgn_toandakhiat(
     )
 
 
+
+PCGN_GLOTTAL_ONSET_TABLE_LOCATOR = (
+    "PCGN 1972, Consonant Characters row 22 and Note 4 (p. 5)"
+)
+
+
+@dataclass(frozen=True)
+class PCGNGlottalOnsetDecision:
+    source_character: str | None
+    word_initial: bool | None
+    followed_by_vowel_letter: bool | None
+    romanization: str | None
+    romanization_options: tuple[str, ...]
+    status: Literal["RESOLVED", "UNRESOLVED"]
+    ipa: None
+    ukrainian: None
+    source_locator: str
+    warnings: tuple[str, ...]
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+def resolve_pcgn_glottal_onset(
+    analysis: PCGNOrthographicAnalysis,
+    word_initial: bool | None,
+    followed_by_vowel_letter: bool | None,
+) -> PCGNGlottalOnsetDecision:
+    """Resolve the PCGN Note 4 apostrophe component for អ.
+
+    Word-initial position and the following vowel-letter context are explicit
+    caller inputs. The apostrophe is optional only when both are true.
+    """
+    def unresolved(reason: str) -> PCGNGlottalOnsetDecision:
+        return PCGNGlottalOnsetDecision(
+            source_character=None,
+            word_initial=word_initial if isinstance(word_initial, bool) else None,
+            followed_by_vowel_letter=(
+                followed_by_vowel_letter
+                if isinstance(followed_by_vowel_letter, bool)
+                else None
+            ),
+            romanization=None,
+            romanization_options=(),
+            status="UNRESOLVED",
+            ipa=None,
+            ukrainian=None,
+            source_locator=PCGN_GLOTTAL_ONSET_TABLE_LOCATOR,
+            warnings=(reason, "NO_COMPLETE_SYLLABLE_IPA_OR_UKRAINIAN_OUTPUT"),
+        )
+
+    if analysis.status != "STRUCTURE_ONLY":
+        return unresolved("UNSUPPORTED_OR_UNRESOLVED_ORTHOGRAPHIC_COMPONENT")
+    if not isinstance(word_initial, bool) or not isinstance(followed_by_vowel_letter, bool):
+        return unresolved("EXPLICIT_WORD_POSITION_AND_FOLLOWING_VOWEL_CONTEXT_REQUIRED")
+    if (
+        analysis.base_consonants != ("អ",)
+        or analysis.subscript_consonants
+        or analysis.dependent_vowel_signs
+        or analysis.independent_vowels
+        or analysis.shortening_marks
+        or analysis.robat_positions
+        or analysis.ahsda_positions
+        or analysis.toandakhiat_positions
+        or len(analysis.tokens) != 1
+        or analysis.tokens[0].kind != "unstacked_consonant"
+    ):
+        return unresolved("NOTE_4_COMPONENT_MUST_BE_THE_STANDALONE_ONSET_CARRIER_ALONE")
+
+    series_decision = resolve_pcgn_series(analysis)
+    if series_decision.status != "RESOLVED" or series_decision.series != "â":
+        return unresolved("PCGN_NOTE_4_REQUIRES_THE_A_SERIES_ONSET_CARRIER")
+
+    optional = word_initial and followed_by_vowel_letter
+    options = ("’", "") if optional else ("’",)
+    warnings = [
+        "PCGN_NOTE_4_A_SERIES_ONSET_CARRIER_AS_APOSTROPHE",
+        "WORD_POSITION_AND_FOLLOWING_VOWEL_CONTEXT_CALLER_SUPPLIED",
+        "APOSTROPHE_COMPONENT_ONLY_NO_COMPLETE_SYLLABLE_IPA_OR_UKRAINIAN_OUTPUT",
+    ]
+    if optional:
+        warnings.append("PCGN_NOTE_4_WORD_INITIAL_BEFORE_VOWEL_APOSTROPHE_OPTIONAL")
+    return PCGNGlottalOnsetDecision(
+        source_character="អ",
+        word_initial=word_initial,
+        followed_by_vowel_letter=followed_by_vowel_letter,
+        romanization="’",
+        romanization_options=options,
+        status="RESOLVED",
+        ipa=None,
+        ukrainian=None,
+        source_locator=PCGN_GLOTTAL_ONSET_TABLE_LOCATOR,
+        warnings=tuple(warnings),
+    )
+
+
 __all__ = [
     "PCGNOrthographicAnalysis",
     "PCGNToken",
@@ -1033,6 +1129,7 @@ __all__ = [
     "PCGNRobatDecision",
     "PCGNAhsdaDecision",
     "PCGNToandakhiatDecision",
+    "PCGNGlottalOnsetDecision",
     "PCGN_WEAK_SUBSCRIPTS",
     "PCGN_NO_SUBSCRIPT_FOR",
     "resolve_pcgn_series",
@@ -1042,5 +1139,6 @@ __all__ = [
     "resolve_pcgn_robat",
     "resolve_pcgn_ahsda",
     "resolve_pcgn_toandakhiat",
+    "resolve_pcgn_glottal_onset",
     "analyze_pcgn_orthographic_chunk",
 ]
