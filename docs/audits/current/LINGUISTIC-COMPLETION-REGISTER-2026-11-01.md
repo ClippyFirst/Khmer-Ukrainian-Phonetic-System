@@ -667,3 +667,5 @@ The unit-test discovery gap is closed. This does not resolve the lossy ASCII rom
 | ID | Status | Evidence | Acceptance boundary |
 |---|---|---|---|
 | KHM-ROM-MIXED-INPUT-001 | DONE_VERIFIED (input guard) | PR #194 merge `4e1b95f2a1680e7c7363a68b226b0b44778cac74`; exact-head Quality 223 tests + 70 subtests and 9 browser tests passed. | Mixed Khmer letters/marks plus Latin input is PARTIAL with explicit brackets; Khmer numerals/punctuation remain preserved. This is input-mode validation, not a romanization or linguistic accuracy claim. |
+
+**Verification checkpoint:** PR #194 implementation merged as `4e1b95f2a1680e7c7363a68b226b0b44778cac74`; PR #195 documentation merged as `0d1183553a4851eb0c21336f381be3d0f2d0efaf`. Exact PR-head Quality and Chromium workflows passed; see the canonical master handoff for run IDs. These checks verify implementation and input handling, not linguistic correctness of Ukrainian target proposals.

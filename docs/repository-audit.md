@@ -507,3 +507,11 @@ The repository remains a research platform / partial prototype. No empirical pho
 - Mixed Khmer+Latin direct input no longer silently passes Khmer letters/marks through: they are bracketed and result status is PARTIAL. UI asks users to run Khmer-script and Latin BGN/PCGN inputs separately.
 - Khmer numerals still convert to Arabic digits and Khmer punctuation remains preserved; UI mode detection distinguishes letters/marks from numerals and punctuation.
 - No change to BGN/PCGN mapping, Ukrainian proposals, IPA or phonological rules. Post-merge CI was not returned for merge SHA; exact PR-head checks are the verification evidence.
+
+## Final mainline checkpoint — 2026-11-15
+
+- Current main before this documentation checkpoint: `0d1183553a4851eb0c21336f381be3d0f2d0efaf`. No open PRs.
+- PR #194 merged implementation as `4e1b95f2a1680e7c7363a68b226b0b44778cac74`; exact-head Quality [43709408446] and Chromium [43709408411] passed.
+- PR #195 merged documentation as `0d1183553a4851eb0c21336f381be3d0f2d0efaf`; exact-head Quality [43709585653] passed (223 tests + 70 subtests), Chromium [43709585691] passed (9 tests).
+- Mixed-script handling is verified as an input guard only. Ukrainian mapping values remain provisional. No new phonological claim or accuracy score is made.
+- Post-merge CI was not returned for PR #194 merge SHA; do not substitute PR-head CI for a post-merge run.

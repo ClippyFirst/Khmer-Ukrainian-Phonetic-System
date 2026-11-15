@@ -2177,3 +2177,10 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - Scope: no change to the Khmer-script romanizer, BGN/PCGN crosswalk values, Ukrainian target proposals, IPA pipeline or phonological rules.
 - Post-merge workflow query for merge SHA returned no runs; verification is exact PR-head CI only. No local npm/Playwright execution is claimed.
 - Repository remains a partial research prototype; Ukrainian candidates are provisional and linguistic/data-rights/accessibility gates remain open.
+
+## Documentation checkpoint — mixed-script guard final mainline — 2026-11-15
+
+- PR #195 merged as `0d1183553a4851eb0c21336f381be3d0f2d0efaf`; it records the implementation and verification from PR #194 in the canonical handoff, audit, completion register and README.
+- PR #195 exact-head Quality [43709585653](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709585653) SUCCESS (223 tests + 70 subtests); Chromium [43709585691](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709585691) SUCCESS (9 browser tests).
+- PR #194 implementation merge: `4e1b95f2a1680e7c7363a68b226b0b44778cac74`; exact-head Quality [43709408446](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709408446) and Chromium [43709408411](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709408411) passed.
+- Current main at this checkpoint: `0d1183553a4851eb0c21336f381be3d0f2d0efaf`. No open PRs. GitHub's commit-workflow query returned no post-merge runs for the implementation merge; exact PR-head CI is the available evidence.
