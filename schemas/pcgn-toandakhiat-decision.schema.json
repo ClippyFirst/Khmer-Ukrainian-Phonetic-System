@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BGN/PCGN 1972 Note 8 TOANDAKHIAT silent-character decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "marked_character",
+    "marked_token_kind",
+    "effect",
+    "romanization",
+    "status",
+    "ipa",
+    "ukrainian",
+    "source_locator",
+    "warnings"
+  ],
+  "properties": {
+    "marked_character": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "marked_token_kind": {
+      "enum": [
+        "unstacked_consonant",
+        "subscript_consonant",
+        null
+      ]
+    },
+    "effect": {
+      "enum": [
+        "OMIT_MARKED_CHARACTER",
+        null
+      ]
+    },
+    "romanization": {
+      "const": null
+    },
+    "status": {
+      "enum": [
+        "RESOLVED",
+        "UNRESOLVED"
+      ]
+    },
+    "ipa": {
+      "const": null
+    },
+    "ukrainian": {
+      "const": null
+    },
+    "source_locator": {
+      "const": "PCGN 1972, Diacritical Marks table row 6 (p. 4), Note 8 (p. 5)"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "RESOLVED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "marked_character": {
+            "type": "string",
+            "minLength": 1
+          },
+          "marked_token_kind": {
+            "enum": [
+              "unstacked_consonant",
+              "subscript_consonant"
+            ]
+          },
+          "effect": {
+            "const": "OMIT_MARKED_CHARACTER"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "UNRESOLVED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "effect": {
+            "const": null
+          }
+        }
+      }
+    }
+  ]
+}
