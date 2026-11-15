@@ -109,11 +109,43 @@ def test_pcgn_note3_ba_with_muusikatoan_preserves_p_in_a_exception():
     result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk("ប៉"))
     assert result.series == "â"
     assert result.onset_exception == "BA_WITH_MUUSIKATOAN_P_IN_A_SERIES"
+    assert result.series_before_shifter == "â"
     assert result.shifter_effect == "BA_MUUSIKATOAN_P_IN_A"
 
 
-def test_pcgn_note2_shifters_abstain_on_wrong_direction_position_cluster_and_ba_triisap():
-    for source in ("ក៉", "គ៊", "ហា៊", "ហ៊៉", "ថ៊្ម", "ប៊"):
+def test_pcgn_note2_triisap_applies_to_base_plus_weak_foot_cluster():
+    # Note 3 selects the base series because ម is a weak foot; Note 2 then
+    # shifts the resulting â-series cluster to ô. Unicode requires the mark
+    # immediately after the base, before COENG+foot.
+    result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk("ថ៊្ម"))
+    assert result.series_before_shifter == "â"
+    assert result.series == "ô"
+    assert result.basis == "BASE"
+    assert result.shifter_effect == "TRIISAP_A_TO_O"
+    assert "PCGN_NOTE_2_APPLIED_TO_BASE_PLUS_FOOT_CLUSTER" in result.warnings
+
+
+def test_pcgn_note2_triisap_applies_after_note3_foot_series_selection():
+    # ម is weak and ហ is non-weak; Note 3 selects the foot's â series.
+    # Note 2 TRIISAP then changes the whole cluster to ô.
+    result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk("ម៊្ហ"))
+    assert result.series_before_shifter == "â"
+    assert result.series == "ô"
+    assert result.basis == "SUBSCRIPT"
+    assert result.shifter_effect == "TRIISAP_A_TO_O"
+
+
+def test_pcgn_note2_muusikatoan_applies_to_base_plus_weak_foot_cluster():
+    # A weak foot does not override a non-weak base under Note 3.
+    result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk("គ៉្ង"))
+    assert result.series_before_shifter == "ô"
+    assert result.series == "â"
+    assert result.basis == "BASE"
+    assert result.shifter_effect == "MUUSIKATOAN_O_TO_A"
+
+
+def test_pcgn_note2_shifters_abstain_on_wrong_direction_position_and_ba_exceptions():
+    for source in ("ក៉", "គ៊", "ហា៊", "ហ៊៉", "ថ៉្ម", "ប៊", "ប៊្ក", "ប៉្ក"):
         result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk(source))
         assert result.status == "UNRESOLVED"
         assert result.series is None

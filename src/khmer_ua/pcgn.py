@@ -258,10 +258,10 @@ def resolve_pcgn_series(
 ) -> PCGNSeriesDecision:
     """Apply bounded BGN/PCGN Notes 2–3 series selection.
 
-    Note 3 chooses the base/foot source. Note 2 shifters are applied only for
-    one base consonant, no foot, one correctly placed mark immediately after
-    the base. Shifters on clusters, BA+TRIISAP, multiple marks and wrong-way
-    shifters abstain until their exact context is independently reviewed.
+    Note 3 chooses the base/foot source. Note 2 shifters are applied to one base or one base-plus-foot cluster when
+    the single mark is encoded immediately after the base, as required by
+    Unicode Khmer syllabic order. BA+TRIISAP, shifters on BA+foot, multiple
+    marks and wrong-way shifters abstain pending narrower adjudication.
     """
     def unresolved(reason: str) -> PCGNSeriesDecision:
         return PCGNSeriesDecision(
@@ -290,20 +290,23 @@ def resolve_pcgn_series(
     if analysis.register_shifters:
         if len(analysis.register_shifters) != 1:
             return unresolved("MULTIPLE_REGISTER_SHIFTERS_REQUIRE_REVIEW")
-        if analysis.subscript_consonants:
-            return unresolved("REGISTER_SHIFTER_ON_CLUSTER_NOT_IMPLEMENTED")
         if analysis.register_shifter_positions != (1,):
             return unresolved("REGISTER_SHIFTER_NOT_IMMEDIATELY_AFTER_BASE")
+
         mark = analysis.register_shifters[0]
-        original: Literal["â", "ô"] = "â" if base_register == "first" else "ô"
+        # Note 1 defines the affected unit as either a consonant or a
+        # consonant-plus-foot cluster. Unicode fixes the encoded order:
+        # base, register shifter, then COENG+subscript.
         if base == "ប":
+            if analysis.subscript_consonants:
+                return unresolved("BA_WITH_FOOT_AND_REGISTER_SHIFTER_REQUIRES_ADJUDICATION")
             if mark == "៉":
                 return PCGNSeriesDecision(
                     series="â",
                     basis="BASE",
                     status="RESOLVED",
                     onset_exception="BA_WITH_MUUSIKATOAN_P_IN_A_SERIES",
-                    series_before_shifter=original,
+                    series_before_shifter="â",
                     shifter_effect="BA_MUUSIKATOAN_P_IN_A",
                     source_locator="PCGN 1972, Notes 2–3 (pp. 2–3)",
                     warnings=(
@@ -313,6 +316,24 @@ def resolve_pcgn_series(
                 )
             return unresolved("BA_WITH_TRIISAP_EXCEPTION_NOT_RESOLVED")
 
+        # Determine the unshifted series of the whole graphic cluster using
+        # Note 3 before applying the Note 2 mark.
+        if not analysis.subscript_consonants:
+            register = base_register
+            basis: Literal["BASE", "SUBSCRIPT", "UNRESOLVED"] = "BASE"
+        else:
+            foot = analysis.subscript_consonants[0]
+            foot_register = CONSONANTS_BY_CHAR[foot].get("register")
+            if foot_register not in {"first", "second"}:
+                return unresolved("SUBSCRIPT_ORTHOGRAPHIC_REGISTER_UNAVAILABLE")
+            if foot in PCGN_WEAK_SUBSCRIPTS and base not in PCGN_WEAK_SUBSCRIPTS:
+                register = base_register
+                basis = "BASE"
+            else:
+                register = foot_register
+                basis = "SUBSCRIPT"
+
+        original: Literal["â", "ô"] = "â" if register == "first" else "ô"
         if mark == "៊" and original == "â":
             series: Literal["â", "ô"] = "ô"
             effect: Literal["TRIISAP_A_TO_O", "MUUSIKATOAN_O_TO_A", "BA_MUUSIKATOAN_P_IN_A"] = "TRIISAP_A_TO_O"
@@ -322,17 +343,21 @@ def resolve_pcgn_series(
             effect = "MUUSIKATOAN_O_TO_A"
             warning = "PCGN_NOTE_2_MUUSIKATOAN_O_TO_A"
         else:
-            return unresolved("REGISTER_SHIFTER_DIRECTION_DOES_NOT_MATCH_BASE_SERIES")
+            return unresolved("REGISTER_SHIFTER_DIRECTION_DOES_NOT_MATCH_CLUSTER_SERIES")
 
         return PCGNSeriesDecision(
             series=series,
-            basis="BASE",
+            basis=basis,
             status="RESOLVED",
             onset_exception=None,
             series_before_shifter=original,
             shifter_effect=effect,
             source_locator="PCGN 1972, Notes 2–3 (pp. 2–3)",
-            warnings=(warning, "SERIES_METADATA_ONLY_NO_VOWEL_OR_ROMANIZATION"),
+            warnings=(
+                warning,
+                "PCGN_NOTE_2_APPLIED_TO_BASE_PLUS_FOOT_CLUSTER" if analysis.subscript_consonants else "PCGN_NOTE_2_APPLIED_TO_SINGLE_BASE",
+                "SERIES_METADATA_ONLY_NO_VOWEL_OR_ROMANIZATION",
+            ),
         )
 
     if not analysis.subscript_consonants:
