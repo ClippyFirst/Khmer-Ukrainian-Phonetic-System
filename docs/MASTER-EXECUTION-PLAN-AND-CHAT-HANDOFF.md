@@ -2090,3 +2090,14 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - Selectively ported a new runtime bridge in `feat/typed-ipa-hybrid-bridge-2026-11-15`. It calls the current typed `validate_ipa_candidate` for every external candidate, rejects bare strings and malformed metadata/notation, preserves exact raw IPA, records uncertainty/provenance, and never alters deterministic `ipa`/Ukrainian output. External execution remains explicit opt-in.
 - Added eight focused hybrid tests, public factory/adapter exports, a dedicated API contract document, and README/engine-contract updates. Next action: run exact-head hosted Quality + Chromium checks; fix any failures; then submit a small PR against current main.
 - Blocked/evidence-limited: no independent adjudicated Phnom Penh IPA gold (0); model train/evaluation split independence not verified; MekongPhon corpus rights unresolved; no external model inference run; no production promotion permitted.
+
+
+## PR #185 closeout — typed hybrid provider bridge — 2026-11-15
+
+- Starting main: `d4c058b346d51179af85b3f8173af3ecc79b4adb`.
+- Implementation branch: `feat/typed-ipa-hybrid-bridge-2026-11-15`.
+- PR [#185](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/185) merged successfully; merge commit: `71a0962ef4977aacde29ef016a13e108044d72b7`.
+- Final code/test head: `1d93b823fd15f5fe57da527b2afb5cc86a4b8f0b`. Quality [43696684037](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43696684037) SUCCESS (222 tests + 64 subtests, corpus validation, web checks, production build). Chromium [43696684048](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43696684048) SUCCESS (visible-result check).
+- First PR-head CI caught two obsolete tests asserting the previous alias-only hybrid API. Updated the tests to assert the new wrapper preserves deterministic output and requires typed providers; the final exact head passed. Initial failed run 43696654577 is retained for transparency.
+- PR #184's diagnostic benchmark harness/workflow were reused, not duplicated. PR #153 remains open/draft/diverged; no blind merge. Its old branch still contains overlapping stale changes and is not a clean integration base.
+- Remaining blockers: MekongPhon corpus rights unresolved; exact model checkpoint train/evaluation split independence unverified; independent adjudicated Phnom Penh IPA gold 0 and accuracy null; no external model inference run in this task. Keep all external candidate results diagnostic and never promote them to published output.
