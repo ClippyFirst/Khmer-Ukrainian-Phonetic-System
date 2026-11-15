@@ -159,3 +159,21 @@ This is separate from DDD's larger CC BY-SA 4.0 corpus and its own share-alike r
 | Khmer Acoustic Model | Potential IPA dictionary and audio-model lead | Full dictionary unavailable in visible tree; CC BY 4.0 vs CC BY-SA 4.0 conflict | BLOCKED |
 
 The four records are now in `data/khmer/sources.json` with explicit scope, source revision where available, format and rights status. No external rows were copied into project data. Independent expert-adjudicated Khmer IPA gold remains **0**; empirical accuracy remains **null**.
+
+## Auxiliary NCKL respelling and blocked IPA lexicon candidates — 2026-11-15
+
+### PhonSobon Khmer G2P
+
+The [model card](https://huggingface.co/phonsobon/khmer-g2p) describes a 7.46M-parameter character-level Transformer that predicts NCKL Khmer-script respelling with hyphenated syllable boundaries. Its reported 83.37% validation word accuracy at epoch 150 is an upstream validation claim; no test score is reported there and it has not been reproduced by this project.
+
+The associated [dataset card](https://huggingface.co/datasets/phonsobon/khmer-G2P) reports 38,629 word–respelling pairs / 37,755 unique words, split 34,770 / 1,939 / 1,920. It derives from the Khmer Dictionary 2022 of the National Council of Khmer Language (NCKL), Royal Academy of Cambodia. The dataset card identifies the terms as `nckl-khmer-dictionary-2022`, requests NCKL attribution and says to check NCKL terms before commercial use.
+
+**Disposition: AUXILIARY RESPELLING / SYLLABIFICATION ONLY — NOT IPA, NOT PHONETIC GOLD.** The output is Khmer-script respelling, not IPA. It must not be substituted into the IPA-first runtime or used as a phonetic benchmark. No dataset rows or model weights are copied. Redistribution and commercial/derivative use remain blocked pending authoritative NCKL terms.
+
+### Khmer Acoustic Model pronunciation dictionary
+
+The pinned upstream review reports conflicting dictionary counts and data-license declarations: root README says 29,204 entries and CC BY-SA 4.0, while `dictionary/README.md` says 33,091 entries and CC BY 4.0. The inspected tree at `2714994b41ccf875c5b6f6182b48a72f13632dbf` contains only `dictionary/khmer_ipa_sample.dict` (144 bytes), not the advertised full dictionary. Published MAE/F1 values are forced-alignment metrics, not G2P or transcription accuracy.
+
+**Disposition: BLOCKED.** Do not ingest or redistribute the sample as a complete lexicon. Require the complete versioned dictionary and digest, reconciled counts, item-level provenance, dialect/IPA convention and an authoritative data-license statement. The registry now preserves this conflict rather than presenting CC BY-SA 4.0 as settled.
+
+No source rows were added to project data. Independent adjudicated Phnom Penh IPA gold remains 0; empirical accuracy remains null.
