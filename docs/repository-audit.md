@@ -521,3 +521,12 @@ The repository remains a research platform / partial prototype. No empirical pho
 - PR #197 merged as `9452ac70ee16973ac5f0e8bd28201501539409de`. Exact-head Quality [43709993984] SUCCESS (223 tests + 70 subtests); Chromium [43709994024] SUCCESS (11 browser tests).
 - Automated checks cover the input accessible name, method switch group/button names, clear button name, keyboard activation with Enter, and the polite live status region.
 - Manual screen-reader, complete keyboard traversal, contrast, zoom/reflow, mobile and assistive-technology review remains PARTIAL. Automated browser smoke is not a substitute for human accessibility QA.
+
+
+## Post-merge mainline verification — 2026-11-15
+
+The current `main` head is `14c87c275a3dcc599893da19b455b2e853abb630`. PR #198 records the automated accessibility smoke closeout. Post-merge push workflows on this exact SHA are now confirmed: Quality [43710193628](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43710193628), Chromium [43710193653](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43710193653), and Pages [43710193633](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43710193633) all SUCCESS. The Chromium job includes deterministic web checks, production build and visible-results verification. These are hosted GitHub Actions results; no local test execution is claimed.
+
+PR #153 is CLOSED unmerged and superseded. Current comparison is diverged (34 commits ahead / 48 behind); its old runtime and duplicate benchmark workflow are not to be merged. Useful research source records were selectively reconciled through PRs #187 and #188. No open PRs were present at this checkpoint.
+
+No release status upgrade follows from green engineering CI: independent adjudicated IPA gold remains 0, accuracy remains null, romanization and Ukrainian targets remain provisional/partial, data rights and human accessibility review remain open. `main` is still unprotected; no governance setting was changed.
