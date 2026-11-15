@@ -2058,3 +2058,14 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - Corpus rights remain unresolved in the pinned MekongPhon repository snapshot; model-card Apache-2.0 does not resolve training-corpus rights. Future external inference remains manual-dispatch only; no automated model download is part of the published runtime.
 - Task ledger: benchmark harness/tests/workflow = PARTIAL pending exact-head hosted CI; research source registry = DONE_VERIFIED as a record of claims and caveats, not source-rights clearance; hybrid provider integration = BLOCKED pending typed adapter and rights; independent IPA gold = BLOCKED pending two blind Phnom Penh-profile annotations plus independent adjudication; training/evaluation disjointness = BLOCKED pending upstream split manifest/checkpoint provenance.
 - No local shell, pytest, model inference, or network benchmark was executed in this session. Hosted CI results for the new branch will be recorded after they complete. PR #153 remains open/draft and was not merged or rewritten.
+
+
+### Exact-head verification and final workflow corrections — 2026-11-15
+
+- Final code/test head: `750a69b75ee7fa846572f63125d675e4557d12cc`.
+- Quality [43695488162](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43695488162): **SUCCESS** — 214 Python tests and 64 subtests passed; independent IPA gold corpus structure validation, Node web checks and production build passed.
+- Chromium [43695488169](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43695488169): **SUCCESS** — deterministic web checks/build and visible-result Chromium verification; 4 browser tests passed.
+- The benchmark harness now fixes the model identifier to the audited model card; only the immutable model revision can be selected. A custom corpus path no longer inherits the default MekongPhon source commit claim: source revision is recorded only for the known default path or when explicitly supplied. Regression tests cover both cases.
+- The optional workflow was reduced to `workflow_dispatch` only. A first draft also exported the upstream 100-row orthography/reference corpus as an Actions artifact; that job was removed because the dataset rights are unresolved. The retained job uploads model diagnostic outputs only, not source corpus rows. The workflow was not dispatched in this session.
+- No local shell/pytest, model inference, or fresh external benchmark was run. Hosted CI above verifies repository tests/build/browser behavior, not external model performance.
+- PR #184 contains the safe harness/data/docs port only; PR #153 remains open/draft and unmerged. Independent adjudicated Phnom Penh IPA gold remains 0, project accuracy remains null, corpus rights and checkpoint split independence remain blocked.
