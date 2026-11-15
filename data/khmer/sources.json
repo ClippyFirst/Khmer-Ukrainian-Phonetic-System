@@ -397,5 +397,17 @@
     "license": "OpenSLR SLR42 page declares CC BY-SA 4.0; verify the archive's included LICENSE and attribution requirements before any processing or redistribution.",
     "status": "SUPPORTING_AUDIO_SOURCE_METADATA_DISCREPANCY",
     "limitations": "The corpus contains audio plus Khmer text transcripts, not word-level IPA labels or independent phonetic gold. Do not infer that the currently listed male archive is the same speaker set as the paper's 17-female-speaker table. Obtain and inspect the exact archive manifest, checksum, speaker IDs and license before annotation or derivative use."
+  },
+  {
+    "id": "mekongphon-rule-based-khmer-ipa-baseline",
+    "type": "external_g2p_rule_based_baseline",
+    "title": "MekongPhon rule-based Khmer-to-IPA baseline",
+    "year": 2026,
+    "url": "https://github.com/byu-matrix-lab/MekongPhon/blob/f80f6c1840c4818b51e05f2e00cded4701a5b662/training/baselines/rb_khm_to_ipa.py",
+    "source_revision": "f80f6c1840c4818b51e05f2e00cded4701a5b662",
+    "scope": "Experimental rule-based baseline with consonant/register and vowel assignment tables and Khmer tokenization; distinct from the BYU MATRIX neural encoder-decoder. Source code was inspected but not executed by this project.",
+    "license": "The pinned MekongPhon repository snapshot has no declared root LICENSE. Do not copy or redistribute source code/data pending rights clarification.",
+    "status": "CANDIDATE_SOURCE_INSPECTED_NOT_EXECUTED",
+    "limitations": "Output conventions, dialect/profile coverage, tokenization behavior and compatibility with the project's typed IPA contract have not been validated. Not an enabled provider, not gold, and not a source of empirical accuracy."
   }
 ]

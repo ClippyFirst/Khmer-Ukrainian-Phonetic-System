@@ -2116,3 +2116,9 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - Added the pinned Google Language Resources Khmer lexicon/phonology files as a PARTIAL research lead. The bounded extraction found Latin-script spelling keys in the inspected subset; because the complete lexicon was not inspected, this is not generalized to every row. The feature inventory is not silently normalized to IPA, and Khmer-specific data rights remain unverified.
 - Added OpenSLR SLR42 as supporting audio only. The current official page lists a male archive under CC BY-SA 4.0, while the 2018 paper reports 17 female speakers. This discrepancy is recorded as a blocker requiring archive manifest/checksum and speaker-ID reconciliation.
 - Neither resource was downloaded, imported, or promoted to gold. These additions complete the remaining source-triage observations from PR #153 that were safe to preserve without copying third-party data or runtime code.
+
+## Completion of PR #153 source-registry reconciliation — 2026-11-15
+
+- The remaining external candidates from PR #153 are now represented in the canonical registries: MekongPhon rule-based baseline (source inspected, not executed; rights unknown), PhonSobon model (Khmer-script respelling, not IPA), and PhonSobon NCKL-derived dataset (respelling/syllabification only; NCKL terms unresolved).
+- Historical MekongPhon model diagnostics already existed in the current registry and were preserved, including both pinned 100-row runs. No duplicate run records were added.
+- PR #153's stale runtime and duplicated benchmark workflow remain excluded; the current typed bridge and manual-only benchmark harness remain authoritative. All remaining research records are non-runtime and disabled.

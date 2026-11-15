@@ -633,3 +633,7 @@ The unit-test discovery gap is closed. This does not resolve the lossy ASCII rom
 |---|---|---|---|
 | KHMER-GOOGLE-TTS-001 | PARTIAL (format and rights unresolved) | Pinned Google Language Resources files recorded; bounded lexicon extraction found Latin-script spelling keys in the inspected subset; companion phone inventory is feature-annotated. | Full-file script audit, Khmer-specific data license, dialect and IPA convention review required. Not accepted as Khmer-script G2P or standard IPA. |
 | KHMER-OPENSLR42-001 | PARTIAL (audio lead; metadata discrepancy) | OpenSLR lists a male-speaker archive and CC BY-SA 4.0; 2018 paper reports 17 female speakers, 2,906 files and 3:58:00. | Obtain archive manifest/checksum, reconcile speaker metadata, verify included license and transcription scope. Audio/transcripts are not IPA gold. |
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHMER-MEKONGPHON-RULE-001 | PARTIAL (source inspected, not executed) | Pinned MekongPhon snapshot contains a separate rule-based Khmer-to-IPA baseline. | Verify source rights, dependencies, dialect/IPA convention and typed-candidate behavior before any execution or integration. No source copied. |
