@@ -6,7 +6,7 @@ import practicalPolicy from "../data/ukrainian/practical-policy.json" with { typ
 import fixtures from "../data/tests/web-fixtures.json" with { type: "json" };
 import { khmerToLatin } from "@gmana/km-translit";
 import { mapIpa } from "./ukrainian-practical.js";
-import { renderKhmerRomanizationText } from "./khmer-romanization-ukrainian.js";
+import { renderKhmerRomanizationText, renderRomanizedText } from "./khmer-romanization-ukrainian.js";
 
 const CONSONANTS = Object.fromEntries(consonants.map((item) => [item.char, item]));
 const SIGN_BY_CHAR = Object.fromEntries(signs.map((item) => [item.char, item]));
@@ -386,8 +386,10 @@ if (typeof document !== "undefined") {
   const modePhonetic = $("mode-phonetic");
   const modeRomanization = $("mode-romanization");
   const outputMethodNote = $("output-method-note");
+  let activeMode = "phonetic";
 
   function setOutputMode(mode) {
+    activeMode = mode;
     document.querySelectorAll("[data-method-panel]").forEach((panel) => {
       panel.hidden = panel.dataset.methodPanel !== mode;
     });
@@ -397,7 +399,8 @@ if (typeof document !== "undefined") {
     modeRomanization.setAttribute("aria-pressed", String(mode === "romanization"));
     outputMethodNote.textContent = mode === "phonetic"
       ? "Фонетичний режим: детерміновані правила орфографія → IPA → українська адаптація; непідтверджені форми не вгадуються."
-       : "Романізаційний режим: Khmer → BGN/PCGN-похідний латинський запис → окрема українська орфографічна передача. ASCII-романізатор втрачає діакритики, тому результат PROVISIONAL; фонетичний fallback не використовується.";
+       : "Романізаційний режим: можна ввести кмерський текст (автоматична ASCII-романізація) або готову латинську BGN/PCGN-форму з діакритиками; вводьте один формат за раз. Профіль вимови діє лише у фонетичному режимі. Невідомі фрагменти не вгадуються; IPA-fallback не використовується.";
+    render();
   }
 
   function render() {
@@ -411,15 +414,29 @@ if (typeof document !== "undefined") {
     }
     empty.hidden = true;
     results.hidden = false;
-    const latinRomanization = khmerToLatin(data.source);
+    const hasKhmer = /[\u1780-\u17ff\u19e0-\u19ff]/u.test(data.source);
+    const latinRomanization = hasKhmer ? khmerToLatin(data.source) : data.source;
     romanizationResult.textContent = latinRomanization;
-    const uaRomanized = renderKhmerRomanizationText(data.source, khmerToLatin);
+    const uaRomanized = hasKhmer
+      ? renderKhmerRomanizationText(data.source, khmerToLatin)
+      : renderRomanizedText(data.source);
+    $("romanization-title").textContent = hasKhmer
+      ? "Романізація · BGN/PCGN-derived ASCII"
+      : "Вхідна романізація · BGN/PCGN 1972";
+    $("romanization-description").textContent = hasKhmer
+      ? "Автоматичний латинський запис із кмерського письма; не IPA."
+      : "Готовий латинський запис обробляється без повторної романізації.";
+    $("romanization-note").textContent = hasKhmer
+      ? "Пакет @gmana/km-translit 0.1.2 відкидає діакритики BGN/PCGN; контекстні голосні не можна відновити однозначно."
+      : "Діакритичні форми BGN/PCGN підтримуються за таблицею; невідомі латинські фрагменти залишаються в ⟦…⟧. Українські відповідники — проєктні кандидати.";
     $("ua-romanization-result").textContent = uaRomanized.text || "—";
     $("ua-romanization-status").textContent = uaRomanized.status === "PROVISIONAL"
-      ? "PROVISIONAL · буквена передача з латинського результату; пакет відкидає BGN/PCGN діакритики, тому контекстні голосні не можна відновити однозначно."
+      ? hasKhmer
+        ? "PROVISIONAL · буквена передача з ASCII-результату; пакет відкидає BGN/PCGN діакритики, тому контекстні голосні не можна відновити однозначно."
+        : "PROVISIONAL · пряма передача з BGN/PCGN-романізації; українські відповідники мають статус проєктних кандидатів."
       : uaRomanized.status === "PARTIAL"
-        ? "PARTIAL · зіставлено " + uaRomanized.mapped + " фрагм.; " + uaRomanized.unsupported + " невідомих латинських фрагм. залишено в ⟦…⟧. Профіль романізатора не є повністю відповідним BGN/PCGN."
-        : "PASSTHROUGH · кмерського тексту для романізації немає; сторонній текст збережено.";
+        ? "PARTIAL · зіставлено " + uaRomanized.mapped + " фрагм.; " + uaRomanized.unsupported + " невідомих латинських фрагм. залишено в ⟦…⟧."
+        : "PASSTHROUGH · латинських фрагментів для романізації немає; сторонній текст збережено.";
     $("ipa-result").textContent = data.ipa;
     $("ua-result").textContent = data.ua;
     $("status").textContent = data.status.replaceAll("_", " ");
@@ -452,9 +469,9 @@ if (typeof document !== "undefined") {
       card.append(heading, values, note);
       unitDetails.append(card);
     });
-    unitDetails.hidden = data.units.every((unit) => unit.status === "PUNCTUATION");
+    unitDetails.hidden = activeMode !== "phonetic" || data.units.every((unit) => unit.status === "PUNCTUATION");
     const notice = getStatusNotice(data);
-    issue.hidden = !notice;
+    issue.hidden = activeMode !== "phonetic" || !notice;
     if (!issue.hidden) {
       $("issue-text").textContent = notice;
       $("issue").querySelector("strong").textContent =
