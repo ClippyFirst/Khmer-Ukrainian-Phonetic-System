@@ -2559,3 +2559,24 @@ Status: `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` remains `PARTIAL` (listed independ
 - PR #231 merged as `b459fcbf56628409c8cd1ce8c95645b4b9c1c1a6`; exact-main Quality [43746279657], Chromium [43746279685] and Pages build/deploy [43746279665] all SUCCESS, including deployed-site/runtime-asset smoke.
 - PR-head push Quality [43746135830], PR Quality [43746153049] and PR Chromium [43746153043] all SUCCESS.
 - Documentation-only; no linguistic status changed.
+
+
+
+## PCGN Note 5 — bounded shortened-vowel component — 2026-11-15
+
+Implemented `resolve_pcgn_shortened_vowel(analysis, onset_analysis, coda_class)` and exported `PCGNShortenedVowelDecision`.
+
+The resolver covers only the exact BGN/PCGN 1972 Note 5/table shapes:
+- `onset + coda + BANTOC` (table row 1): `á` in â-series, `ó` in ô-series.
+- `onset + AA + coda + BANTOC` (row 2): `ă` in â-series; in ô-series `eă` before coda classes `k/ng/h`, otherwise `oă`.
+- `onset + SAMYOK SANNYA + coda` (row 2): same row-2 series/coda values.
+
+The onset is passed separately and must match the exact prefix of the full orthographic chunk. The series is resolved from that onset using the existing bounded Notes 2–3 resolver. The coda class is a required caller-supplied enum (`k`, `ng`, `h`, `other`); it is recorded but never inferred from the full chunk. Parser output now retains exact shortening-mark positions.
+
+Regression fixtures include the official guide's examples `បត់ → bát`, `ចាក់ → chăk`, `រ្ពាក់ → rôpeăk`, `មាត់ → moăt`, `ច័ក → chăk`, and `ភ័ព → phoăpv`, plus explicit ô-series k/ng/h conditions and fail-closed malformed/mismatched contexts.
+
+Schema: `schemas/pcgn-shortened-vowel-decision.schema.json`; tests: `tests/test_pcgn_shortened_vowel_resolution.py` and updated `tests/test_pcgn_orthographic_analysis.py`.
+
+Source: BGN/PCGN 1972 Agreement, Vowel Characters table rows 1–2 and Note 5, pp. 2–3: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+
+Status: `KHM-ROM-PCGN-SHORTENING-001 = PARTIAL`. This is a shortened-vowel component only; no coda romanization, complete PCGN syllable, IPA, Ukrainian output, phonetic syllabification, or inferred coda is produced. `KHM-ROM-PCGN-VOWELS-001` and `KHM-ROM-ENGINE-001` remain PARTIAL.
