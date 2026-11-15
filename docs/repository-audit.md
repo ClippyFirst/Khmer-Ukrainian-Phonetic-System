@@ -835,3 +835,8 @@ Status: `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` remains `PARTIAL` (listed independ
 - Coda class is explicit caller input (`k`, `ng`, `h`, `other`), not inferred from Khmer orthography. The decision records the coda character and supplied class.
 - Output is the shortened vowel component only. No coda romanization, syllable segmentation, complete romanization, IPA or Ukrainian result is claimed.
 - Primary source: BGN/PCGN 1972 Vowel Characters table rows 1–2 and Note 5, pp. 2–3. Implementation status PARTIAL pending integration with a verified syllable/coda parser and full romanization adapter.
+
+
+## Exact-main verification — PR #233 / PCGN Note 5 — 2026-11-15
+
+PR #233 merged as `cf57045bf6ddf0537e2a5c33a8b2468e8f3f6f2c`. Final PR-head `9bcf7391ce08557ce2fa56e4cbb764568949f952`: push Quality [43751102348], PR Quality [43751107119], Chromium [43751107131] all SUCCESS (272 tests + 70 subtests; web checks/build/Chromium passed). Exact-main Quality [43751266786], Chromium [43751266785], Pages [43751266784] all SUCCESS, including deployed-site/runtime-asset smoke. Note 5 remains PARTIAL component-only; no IPA/Ukrainian or complete-syllable status promotion.

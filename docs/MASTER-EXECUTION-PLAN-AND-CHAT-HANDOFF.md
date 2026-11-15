@@ -2580,3 +2580,12 @@ Schema: `schemas/pcgn-shortened-vowel-decision.schema.json`; tests: `tests/test_
 Source: BGN/PCGN 1972 Agreement, Vowel Characters table rows 1–2 and Note 5, pp. 2–3: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 
 Status: `KHM-ROM-PCGN-SHORTENING-001 = PARTIAL`. This is a shortened-vowel component only; no coda romanization, complete PCGN syllable, IPA, Ukrainian output, phonetic syllabification, or inferred coda is produced. `KHM-ROM-PCGN-VOWELS-001` and `KHM-ROM-ENGINE-001` remain PARTIAL.
+
+
+## Exact-main verification — PCGN Note 5 shortened-vowel component / PR #233 — 2026-11-15
+
+- PR [#233](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/233) merged by squash as `cf57045bf6ddf0537e2a5c33a8b2468e8f3f6f2c`; exact `main` verified at this SHA. No open PRs.
+- Final PR-head `9bcf7391ce08557ce2fa56e4cbb764568949f952`: push Quality [43751102348], PR Quality [43751107119], PR Chromium [43751107131] all SUCCESS. Quality reports 272 Python tests passed and 70 subtests passed; web checks and production build passed; Chromium visible-results smoke passed.
+- An earlier head `754f04d92009f342fb81f97ef9255c9ee7fb5fc1` failed two registry tests because they still required all PCGN notes to remain DOCUMENTED_ONLY. The tests were reconciled to permit Note 5's PARTIAL_COMPONENT_RESOLVER status while retaining the no-IPA/no-gold assertion; final exact-head checks passed.
+- Exact post-merge main: Quality [43751266786], Chromium [43751266785], Pages build/deploy [43751266784] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
+- Linguistic status remains PARTIAL. The resolver returns only a shortened-vowel component and requires caller-supplied onset/coda context; it does not produce a complete syllable, IPA or Ukrainian output.
