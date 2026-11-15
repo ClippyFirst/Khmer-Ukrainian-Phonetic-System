@@ -1941,3 +1941,13 @@ The current `pyproject.toml` declares `MIT`, while the inspected repository tree
 - Final documentation branch head after the license-governance note: `aa3dc61ab331ed0e79e1c4430ecd315254f0fb6e` (three commits ahead of baseline main, zero behind).
 - On this exact head, push Quality [43692325225](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692325225) and PR Quality [43692327962](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692327962) completed **SUCCESS**. The PR Chromium browser smoke [43692327929](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692327929) was still running when this record was prepared; do not mark browser verification complete until its final conclusion is checked.
 - The documentation-only final changes include the license metadata blocker; no license terms were chosen or added.
+
+
+## Post-merge closeout — documentation information architecture — 2026-11-15
+
+- Documentation PR [#179](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/179) was squash-merged into `main` as `e84d530b0a4355d450ed1f7e2568a2c58ca4e9c4` at 2026-11-15T08:00:39Z.
+- The PR head was `db0e1b930d4566f6443b2b3a19fd811269e33adb`. Exact-head push Quality [43692418605](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692418605), PR Quality [43692421394](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692421394), and Chromium browser smoke [43692421391](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692421391) all completed **SUCCESS**.
+- The final docs index's 30 relative Markdown links resolved against the exact PR-head tree with zero missing internal targets.
+- Mainline workflows triggered by the merge commit: Quality [43692484702], Chromium browser smoke [43692484674], and Pages deployment [43692484691] were running at the time of this closeout. Check their final outcomes before asserting post-merge mainline/deployment verification.
+- The task branch has completed its work and PR #179 is closed/merged. Historical branches remain preserved; no branch deletion was available through the connected GitHub integration. PR #153 remains open as an evidence-limited research draft.
+- The project-license metadata mismatch remains BLOCKED for owner decision; no license was selected or added.

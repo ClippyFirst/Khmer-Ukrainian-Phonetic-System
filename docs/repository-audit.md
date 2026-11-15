@@ -315,3 +315,8 @@ The package metadata in `pyproject.toml` declares MIT, but the inspected tracked
 ### Branch and PR disposition detail — 2026-11-15
 
 The pre-existing inventory contained 40 non-main branches. Their tips were compared against main. PR history confirms that the recent romanization, grapheme-accounting and crosswalk branches associated with merged PRs #157–#178 are already integrated; they should not be merged a second time. Model-consensus research PRs #150/#151 were closed unmerged and superseded by deterministic-engine PR #152. Earlier practical-adapter PRs #154/#155 were closed unmerged and superseded by merged PR #156. Draft research PR #153 remains open and evidence-limited. The documentation branch is a separate, single active task branch. Historical refs remain preserved because the connected interface does not expose a branch-delete operation and no destructive archival was requested.
+
+
+## Documentation PR #179 merge — 2026-11-15
+
+The documentation/information-architecture batch was merged to `main` by squash commit `e84d530b0a4355d450ed1f7e2568a2c58ca4e9c4` (PR #179). Exact PR-head Quality and Chromium smoke passed on `db0e1b930d4566f6443b2b3a19fd811269e33adb`: runs 43692418605, 43692421394 and 43692421391. The docs index has 30 validated relative links and no missing targets. Mainline Quality, browser and Pages workflows triggered by the merge were still running at closeout; their final state is tracked separately. The license metadata inconsistency remains an owner decision blocker.
