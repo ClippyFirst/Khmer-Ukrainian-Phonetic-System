@@ -29,6 +29,11 @@ SPECIAL_MARKS = {
 }
 CONSONANTS_BY_CHAR = {item["char"]: item for item in CONSONANTS}
 SIGNS_BY_CHAR = {item["char"]: item for item in SIGNS}
+# PCGN Note 3 defines the weak set explicitly; do not add UNGEGN-only members.
+PCGN_WEAK_SUBSCRIPTS = frozenset("ងញណនមយរលវ")
+PCGN_NO_SUBSCRIPT_FOR = frozenset("ឡ")
+
+
 @dataclass(frozen=True)
 class PCGNToken:
     text: str
@@ -227,11 +232,6 @@ def analyze_pcgn_orthographic_chunk(text: str) -> PCGNOrthographicAnalysis:
         sources=("unicode17-ch16", "pcgn-1972-notes-2-8", PCGN_GUIDE),
     )
 
-
-
-# PCGN Note 3 defines the weak set explicitly; do not add UNGEGN-only members.
-PCGN_WEAK_SUBSCRIPTS = frozenset("ងញណនមយរលវ")
-PCGN_NO_SUBSCRIPT_FOR = frozenset("ឡ")
 
 
 @dataclass(frozen=True)
