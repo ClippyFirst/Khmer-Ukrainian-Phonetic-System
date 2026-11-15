@@ -2110,3 +2110,9 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - Source evidence checked in this continuation: PhonSobon model card and dataset card; Khmer Acoustic Model root README plus the previously pinned dictionary README/tree review. Upstream model/dataset claims are recorded as claims, not independently reproduced measurements.
 - Current branch: `research/phon-sobon-and-lexicon-triage-2026-11-15`, based on main `3cdabeb0eaa325ddbf76c40c4d6baf036467828d`. Exact-head CI and documentation checks are pending.
 - Acceptance ledger: PhonSobon source record = PARTIAL (recorded, rights-limited, non-IPA); Khmer Acoustic Model dictionary = BLOCKED (full artifact/count/rights conflict); PR #153 whole-branch merge = REJECTED (diverged and contains superseded runtime/workflow changes). Independent adjudicated Phnom Penh IPA gold remains 0; accuracy remains null.
+
+### Additional PR #153 source-record reconciliation — Google TTS and OpenSLR42
+
+- Added the pinned Google Language Resources Khmer lexicon/phonology files as a PARTIAL research lead. The bounded extraction found Latin-script spelling keys in the inspected subset; because the complete lexicon was not inspected, this is not generalized to every row. The feature inventory is not silently normalized to IPA, and Khmer-specific data rights remain unverified.
+- Added OpenSLR SLR42 as supporting audio only. The current official page lists a male archive under CC BY-SA 4.0, while the 2018 paper reports 17 female speakers. This discrepancy is recorded as a blocker requiring archive manifest/checksum and speaker-ID reconciliation.
+- Neither resource was downloaded, imported, or promoted to gold. These additions complete the remaining source-triage observations from PR #153 that were safe to preserve without copying third-party data or runtime code.
