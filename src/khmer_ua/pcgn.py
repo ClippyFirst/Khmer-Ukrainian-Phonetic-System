@@ -111,6 +111,11 @@ def analyze_pcgn_orthographic_chunk(text: str) -> PCGNOrthographicAnalysis:
         if ch == COENG:
             if i + 1 < len(chars) and chars[i + 1] in CONSONANTS_BY_CHAR:
                 subscript = chars[i + 1]
+                if subscript in PCGN_NO_SUBSCRIPT_FOR:
+                    token(COENG + subscript, "unsupported_pcgn_subscript", CONSONANTS_BY_CHAR[subscript]["name"])
+                    unresolved.extend((COENG, subscript))
+                    i += 2
+                    continue
                 subscripts.append(subscript)
                 token(
                     COENG + subscript,
@@ -226,6 +231,7 @@ def analyze_pcgn_orthographic_chunk(text: str) -> PCGNOrthographicAnalysis:
 
 # PCGN Note 3 defines the weak set explicitly; do not add UNGEGN-only members.
 PCGN_WEAK_SUBSCRIPTS = frozenset("ងញណនមយរលវ")
+PCGN_NO_SUBSCRIPT_FOR = frozenset("ឡ")
 
 
 @dataclass(frozen=True)
@@ -316,6 +322,7 @@ __all__ = [
     "PCGNToken",
     "PCGNSeriesDecision",
     "PCGN_WEAK_SUBSCRIPTS",
+    "PCGN_NO_SUBSCRIPT_FOR",
     "resolve_pcgn_series",
     "analyze_pcgn_orthographic_chunk",
 ]
