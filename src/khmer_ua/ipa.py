@@ -17,7 +17,7 @@ CANDIDATE_STATUSES = {"COMPLETE", "PARTIAL"}
 
 # IPA uses a small set of structural symbols in addition to segment letters.
 # Brackets/slashes are accepted only as balanced outer delimiters.
-_IPA_SYMBOLS = set("ˈˌːˑ͜͡‿.·|/-[]")
+_IPA_SYMBOLS = set("ˈˌːˑ˥˦˧˨˩͜͡‿.·|/-[]")
 _IPA_DIGITS = set("0123456789")
 
 
