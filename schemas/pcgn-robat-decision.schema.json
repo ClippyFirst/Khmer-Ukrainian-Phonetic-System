@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BGN/PCGN 1972 Note 6 ROBAT consonant component decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "marked_character",
+    "marked_consonant_romanization",
+    "romanization",
+    "status",
+    "ipa",
+    "ukrainian",
+    "source_locator",
+    "warnings"
+  ],
+  "properties": {
+    "marked_character": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "marked_consonant_romanization": {
+      "enum": [
+        "k",
+        "kh",
+        "ng",
+        "ch",
+        "chh",
+        "nh",
+        "d",
+        "th",
+        "t",
+        "b",
+        "p",
+        "ph",
+        "n",
+        "m",
+        "y",
+        "r",
+        "l",
+        "v",
+        "s",
+        "h",
+        "’",
+        null
+      ]
+    },
+    "romanization": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "RESOLVED",
+        "UNRESOLVED"
+      ]
+    },
+    "ipa": {
+      "const": null
+    },
+    "ukrainian": {
+      "const": null
+    },
+    "source_locator": {
+      "const": "PCGN 1972, Diacritical Marks table row 4 and Note 6 (p. 4)"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "RESOLVED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "marked_character": {
+            "type": "string",
+            "minLength": 1
+          },
+          "marked_consonant_romanization": {
+            "enum": [
+              "k",
+              "kh",
+              "ng",
+              "ch",
+              "chh",
+              "nh",
+              "d",
+              "th",
+              "t",
+              "b",
+              "p",
+              "ph",
+              "n",
+              "m",
+              "y",
+              "r",
+              "l",
+              "v",
+              "s",
+              "h",
+              "’"
+            ]
+          },
+          "romanization": {
+            "type": "string",
+            "pattern": "^r.+$"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "UNRESOLVED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "romanization": {
+            "const": null
+          }
+        }
+      }
+    }
+  ]
+}
