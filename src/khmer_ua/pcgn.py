@@ -533,6 +533,157 @@ def resolve_pcgn_dependent_vowel(
     )
 
 
+PCGN_CONSONANT_TABLE_LOCATOR = (
+    "PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2), Note 3"
+)
+# Rows 1–21 only. The glottal carrier in row 22 is delegated to Note 4.
+PCGN_CONSONANT_ROMANIZATION_ROWS: dict[str, tuple[int, str]] = {
+    "ក": (1, "k"), "គ": (1, "k"),
+    "ខ": (2, "kh"), "ឃ": (2, "kh"),
+    "ង": (3, "ng"),
+    "ច": (4, "ch"), "ជ": (4, "ch"),
+    "ឆ": (5, "chh"), "ឈ": (5, "chh"),
+    "ញ": (6, "nh"),
+    "ដ": (7, "d"), "ឌ": (7, "d"),
+    "ឋ": (8, "th"), "ឍ": (8, "th"),
+    "ថ": (9, "th"), "ធ": (9, "th"),
+    "ណ": (10, "n"), "ន": (10, "n"),
+    "ត": (11, "t"), "ទ": (11, "t"),
+    "ប": (12, "b"),
+    "ព": (13, "p"),
+    "ផ": (14, "ph"), "ភ": (14, "ph"),
+    "ម": (15, "m"),
+    "យ": (16, "y"),
+    "រ": (17, "r"),
+    "ឡ": (18, "l"), "ល": (18, "l"),
+    "វ": (19, "v"),
+    "ស": (20, "s"),
+    "ហ": (21, "h"),
+}
+
+
+@dataclass(frozen=True)
+class PCGNConsonantDecision:
+    base_character: str | None
+    base_table_row: int | None
+    base_romanization: str | None
+    subscript_character: str | None
+    subscript_table_row: int | None
+    subscript_romanization: str | None
+    series: Literal["â", "ô"] | None
+    onset_exception: Literal[
+        "BA_WITH_FOOT_P_IN_A_SERIES",
+        "BA_WITH_MUUSIKATOAN_P_IN_A_SERIES",
+        "BA_WITH_TRIISAP_P_IN_A_SERIES",
+    ] | None
+    romanization: str | None
+    status: Literal["RESOLVED", "UNRESOLVED"]
+    ipa: None
+    ukrainian: None
+    source_locator: str
+    warnings: tuple[str, ...]
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+def resolve_pcgn_consonant(
+    analysis: PCGNOrthographicAnalysis,
+) -> PCGNConsonantDecision:
+    """Resolve one base consonant and at most one foot to a PCGN onset.
+
+    The Note 2–3 series resolver supplies the BA exception needed for the
+    b/p alternation. Row 22 (អ) remains with the separate Note 4 glottal
+    onset resolver. This returns a consonant-cluster component only.
+    """
+    def unresolved(reason: str) -> PCGNConsonantDecision:
+        return PCGNConsonantDecision(
+            base_character=analysis.base_consonants[0] if len(analysis.base_consonants) == 1 else None,
+            base_table_row=None,
+            base_romanization=None,
+            subscript_character=analysis.subscript_consonants[0] if len(analysis.subscript_consonants) == 1 else None,
+            subscript_table_row=None,
+            subscript_romanization=None,
+            series=None,
+            onset_exception=None,
+            romanization=None,
+            status="UNRESOLVED",
+            ipa=None,
+            ukrainian=None,
+            source_locator=PCGN_CONSONANT_TABLE_LOCATOR,
+            warnings=(reason, "NO_COMPLETE_SYLLABLE_IPA_OR_UKRAINIAN_OUTPUT"),
+        )
+
+    if analysis.status != "STRUCTURE_ONLY":
+        return unresolved("UNSUPPORTED_OR_UNRESOLVED_ORTHOGRAPHIC_COMPONENT")
+    if len(analysis.base_consonants) != 1 or len(analysis.subscript_consonants) > 1:
+        return unresolved("EXACTLY_ONE_BASE_AND_AT_MOST_ONE_FOOT_REQUIRED")
+    if (
+        analysis.dependent_vowel_signs
+        or analysis.independent_vowels
+        or analysis.shortening_marks
+        or analysis.robat_positions
+        or analysis.ahsda_positions
+        or analysis.toandakhiat_positions
+        or any(
+            token.kind not in {"unstacked_consonant", "subscript_consonant", "register_shifter"}
+            for token in analysis.tokens
+        )
+    ):
+        return unresolved("CONSONANT_ONSET_ONLY_CHUNK_REQUIRED")
+
+    base = analysis.base_consonants[0]
+    if base == "អ":
+        return unresolved("PCGN_ROW_22_ALIF_REQUIRES_NOTE_4_GLOTTAL_ONSET_CONTEXT")
+    base_row = PCGN_CONSONANT_ROMANIZATION_ROWS.get(base)
+    if base_row is None:
+        return unresolved("BASE_CONSONANT_NOT_IN_PCGN_ROWS_1_TO_21")
+
+    subscript = analysis.subscript_consonants[0] if analysis.subscript_consonants else None
+    subscript_row = PCGN_CONSONANT_ROMANIZATION_ROWS.get(subscript) if subscript else None
+    if subscript is not None and subscript_row is None:
+        return unresolved("SUBSCRIPT_CONSONANT_NOT_IN_PCGN_ROWS_1_TO_21")
+
+    series_decision = resolve_pcgn_series(analysis)
+    if series_decision.status != "RESOLVED" or series_decision.series not in {"â", "ô"}:
+        return unresolved("PCGN_NOTE_2_3_SERIES_MUST_BE_RESOLVED")
+
+    base_romanization = base_row[1]
+    if base == "ប" and series_decision.onset_exception in {
+        "BA_WITH_FOOT_P_IN_A_SERIES",
+        "BA_WITH_MUUSIKATOAN_P_IN_A_SERIES",
+        "BA_WITH_TRIISAP_P_IN_A_SERIES",
+    }:
+        base_romanization = "p"
+
+    subscript_romanization = None
+    if subscript_row is not None:
+        subscript_romanization = "p" if subscript == "ប" else subscript_row[1]
+
+    parts = (base_romanization,) + ((subscript_romanization,) if subscript_romanization else ())
+    return PCGNConsonantDecision(
+        base_character=base,
+        base_table_row=base_row[0],
+        base_romanization=base_romanization,
+        subscript_character=subscript,
+        subscript_table_row=subscript_row[0] if subscript_row else None,
+        subscript_romanization=subscript_romanization,
+        series=series_decision.series,
+        onset_exception=series_decision.onset_exception,
+        romanization="".join(parts),
+        status="RESOLVED",
+        ipa=None,
+        ukrainian=None,
+        source_locator=PCGN_CONSONANT_TABLE_LOCATOR,
+        warnings=(
+            "PCGN_CONSONANT_CLUSTER_COMPONENT_ONLY",
+            "BA_B_P_SELECTION_FOLLOWS_NOTE_3_EXCEPTION_WHEN_PRESENT",
+            "ROW_22_ALIF_IS_HANDLED_BY_SEPARATE_NOTE_4_RESOLVER",
+            "NO_SYLLABLE_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT",
+        ),
+    )
+
+
 PCGN_INHERENT_VOWEL_TABLE_LOCATOR = (
     "PCGN 1972, Independent/Dependent Vowel Characters table row 1 (p. 2)"
 )
