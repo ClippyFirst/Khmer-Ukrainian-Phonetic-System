@@ -1960,3 +1960,28 @@ The current `pyproject.toml` declares `MIT`, while the inspected repository tree
 - Chromium browser smoke [43692567608](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692567608): **SUCCESS**.
 - GitHub Pages deployment and deployed-site/runtime smoke [43692567615](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692567615): **SUCCESS**.
 - These are hosted mainline checks; no local shell execution is claimed. No runtime or linguistic data changed in the closeout commits.
+
+
+## Continuation checkpoint — PR #153 patch-level audit — 2026-11-15
+
+### Task ledger update
+
+| Task | Status | Evidence / acceptance boundary |
+|---|---|---|
+| Recheck live main, PR #153 head, merge base and CI | DONE_VERIFIED | Main `b2743a2c0f0a843eec9acbab538adad5cfa7cad5`; PR head `bddb0186c9e62abd57827fa54233ebbfaa0540e2`; merge base `2fe36aa1eb64cc47fb60ab1b37561f40d57202a7`; compare is 34 ahead / 26 behind, 18 PR paths, 37 mainline paths since merge base. Exact-head Quality 43084554473 SUCCESS; Chromium 43084554830 SUCCESS; optional G2P benchmark 43084554487 SKIPPED. |
+| Patch-level PR #153 review | DONE_VERIFIED (review only) | Reviewed all 18 changed paths and focused patches for hybrid API, provider validation, benchmark harness, tests, workflow, and research documentation. Six paths overlap current-main changes. No code was merged or changed. |
+| Integrate PR #153 wholesale | BLOCKED | Diverged history, six overlapping paths, changed public API contract, candidate IPA validator gap, unresolved corpus rights/split independence, optional benchmark skipped. Acceptance criteria are listed in `docs/repository-audit.md` under the dated PR #153 reconciliation. |
+| Reuse source-attested MekongPhon diagnostic as project accuracy | DEFERRED / NOT PERMITTED | Source concordance against `pron_no_tones` is not independent gold; tone is not evaluated; independent gold=0 and accuracy=null. |
+
+### Exact findings
+
+- PR #153 is still open and draft, with `mergeable=false`; no reviews or comments are recorded.
+- The PR replaces the current deterministic compatibility shim with an external-provider wrapper. Its candidate gate accepts arbitrary non-empty strings other than those containing `?`; it does not establish that output is valid, complete, profile-matched IPA. This is a concrete acceptance defect, not a hypothetical race/security concern.
+- Provider priorities are correctly documented as execution/display order only, not accuracy or promotion weights.
+- The new MekongPhon harness intentionally reports source-attested concordance only and does not call it accuracy. Its manual workflow did not run in the exact-head CI checkpoint.
+- Source corpus rights and training/evaluation split independence remain unresolved. The full Khmer acoustic dictionary is absent upstream and its reported counts/licenses conflict.
+- Historical branches were not altered. The audit does not authorize bulk merge, force update, or deletion.
+
+### Next genuine blocker
+
+PR #153 should remain a draft until its research-only API boundary, typed IPA validation, six overlapping paths, corpus rights, and split independence are resolved. Independent expert-adjudicated Phnom Penh IPA gold remains 0; do not invent scores or promote source-attested labels. Hosted CI was inspected; no local shell execution is claimed.
