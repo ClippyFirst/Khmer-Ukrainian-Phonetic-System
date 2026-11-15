@@ -2284,3 +2284,13 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - It is expressly an UNGEGN 2013 implementation, not yet verified rule-for-rule against this project's BGN/PCGN 1972 contract. Some code paths are marked as not present in the tables and inferred from secondary references. Syllable segmentation is heuristic and requires expert adjudication of ambiguous parses.
 - License review: engine code MIT; bundled sample lexical/pronunciation data CC BY 4.0 and counts ODC-By 1.0; dependency `pheasa` declares Apache-2.0. No code or data was copied; no dependency was added.
 - Disposition: research candidate only. Next engineering gate is a source-by-source BGN/PCGN ↔ UNGEGN rule diff plus a reviewed ambiguity/abstention corpus. It does not supply IPA gold and does not replace the IPA-first phonological path.
+
+
+## BGN/PCGN ↔ UNGEGN rule-diff checkpoint — 2026-11-15
+
+- Current base/main at start: `4bf66a05c04d419ab9cbf415fafdc78109ddf5c7`.
+- Added `docs/audits/current/BGN-PCGN-UNGEGN-RULE-DIFF-2026-11-15.md`, grounded in the official UK PCGN BGN/PCGN 1972 guide, the UNGEGN 2013 Khmer section, Unicode's Khmer character list, and pinned candidate source code.
+- Confirmed explicit rule difference: PCGN note 3's neutral subscript list excludes ស; UNGEGN note 3 adds ស. The candidate's `SERIES_NEUTRAL_SUBSCRIPTS` includes ស, therefore it is not PCGN-equivalent in that branch.
+- Candidate-only/unsupported extensions recorded: SAMYOK SANNYA before final យ (commented “not given”), YUUKALEAPINTU mapping (commented “not given; Wikipedia”), generic fallback for unlisted vowel+NIKAHIT/REAHMUK combinations, and coda-conditioned eă for kh although the source lists k/ng/h. The weighted syllable-boundary costs are heuristic, not linguistic evidence.
+- No code, data, dependency, IPA, Ukrainian mapping or generated artifact imported/changed. Candidate remains research-only; KHM-ROM-ENGINE-001 and KHM-ROM-UA-001 remain PARTIAL; IPA gold remains 0 and accuracy null.
+- Next gate: complete a machine-readable row-by-row PCGN table parity diff, then build a project-owned parser with explicit ambiguity/abstention behavior. Do not port candidate heuristics or extrapolations.
