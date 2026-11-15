@@ -340,5 +340,39 @@
     "evaluation_corpus_revision": "f80f6c1840c4818b51e05f2e00cded4701a5b662",
     "project_run_id": 42997945391,
     "automation_status": "MANUAL_WORKFLOW_DISPATCH_ONLY_PENDING_CORPUS_RIGHTS"
+  },
+  {
+    "id": "phonsobon-khmer-g2p-model",
+    "type": "external_pronunciation_respelling_model",
+    "title": "PhonSobon Khmer G2P (NCKL respelling)",
+    "year": 2026,
+    "url": "https://huggingface.co/phonsobon/khmer-g2p",
+    "scope": "7.46M-parameter character-level Transformer that predicts NCKL Khmer-script respelling with hyphenated syllable boundaries. The model card reports 83.37% validation word accuracy at epoch 150; this is an upstream validation claim, not a result independently reproduced by this repository.",
+    "license": "MIT as declared by the model card; this model license does not grant rights to the underlying NCKL-derived training data.",
+    "status": "AUXILIARY_RESPELLING_MODEL_NOT_IPA",
+    "limitations": "Output is Khmer-script respelling, not IPA or a typed phonetic result, and must not enter the IPA-first runtime path. The linked dataset derives from the NCKL Khmer Dictionary 2022; its dataset card uses the nckl-khmer-dictionary-2022 license identifier, requests NCKL attribution and says to check NCKL terms before commercial use. No dataset rows or model weights are copied into this repository. No test-set score is stated in the model card."
+  },
+  {
+    "id": "phonsobon-khmer-g2p-dataset",
+    "type": "pronunciation_respelling_benchmark",
+    "title": "PhonSobon Khmer G2P dataset (derived from NCKL Khmer Dictionary 2022)",
+    "year": 2026,
+    "url": "https://huggingface.co/datasets/phonsobon/khmer-G2P",
+    "scope": "38,629 word-to-pronunciation pairs and 37,755 unique words; published split counts are train 34,770, validation 1,939 and test 1,920. Labels are Khmer-script pronunciation respellings with hyphenated syllable boundaries, not IPA. The dataset card describes a word-level split keeping all readings of a word together.",
+    "status": "AUXILIARY_SYLLABIFICATION_BENCHMARK_NOT_IPA",
+    "license": "Dataset card identifies nckl-khmer-dictionary-2022; it attributes content to the National Council of Khmer Language (NCKL), Royal Academy of Cambodia, requests NCKL credit and says to check NCKL terms before commercial use. Exact redistribution and derivative-use permissions remain unverified.",
+    "limitations": "Standard NCKL/Phnom Penh prescribed word pronunciations; not regional or colloquial variants and not running-speech sandhi. This is a respelling/syllabification resource, not a source of IPA labels or an independent phonetic gold set. Do not redistribute or use commercially until NCKL terms are clarified; no rows are imported."
+  },
+  {
+    "id": "chemvatho-khmer-pronunciation-dictionary",
+    "type": "external_ipa_lexicon_benchmark_candidate",
+    "title": "Khmer Pronunciation Dictionary / Khmer acoustic model",
+    "year": 2025,
+    "url": "https://github.com/chemvatho/Khmer-acoustic-model/tree/2714994b41ccf875c5b6f6182b48a72f13632dbf/dictionary",
+    "source_revision": "2714994b41ccf875c5b6f6182b48a72f13632dbf",
+    "scope": "The upstream root README advertises a 29,204-entry IPA dictionary; the inspected dictionary/README.md reports 33,091 entries. The pinned repository tree exposed only dictionary/khmer_ipa_sample.dict (144 bytes), not the advertised full dictionary. Reported MAE/F1 values concern forced-alignment boundaries, not G2P or IPA transcription accuracy.",
+    "status": "BLOCKED_SOURCE_INCOMPLETE_RIGHTS_CONFLICT",
+    "license": "Conflicting upstream declarations: root README says pronunciation dictionary CC BY-SA 4.0; dictionary/README.md says CC BY 4.0. Code/model MIT terms do not resolve third-party dictionary-data rights.",
+    "limitations": "Do not import, benchmark or redistribute the six-entry sample as if it represented the full lexicon. Require a versioned complete dictionary and digest, reconciled entry count, item-level provenance, dialect/IPA convention and authoritative data-license clarification. Native-linguist validation is an upstream claim, not independently verified here."
   }
 ]
