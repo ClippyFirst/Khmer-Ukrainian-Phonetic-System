@@ -679,3 +679,23 @@ Status: `KHM-ROM-PCGN-GLOTTAL-001 = PARTIAL`.
 - Final PR-head `f2436ec9fadc007e077ac375a7dfdcc269411fae`: push Quality [43756120696], PR Quality [43756201009], PR Chromium [43756200975] all SUCCESS. Python 299 passed, 70 subtests passed; web checks and production build passed; Chromium visible-results smoke passed.
 - Exact post-merge main: Quality [43756294903], Chromium [43756294932], Pages build/deploy [43756295043] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - The Note 3 `ប`+TRIISAP exception now records ô as the pre-shifter base series and â as the selected series with the p-in-â exception. Notes 2 and 3 are correctly classified as partial component resolvers. `KHM-ROM-PCGN-SHIFTERS-001` remains PARTIAL; no vowel, complete romanization, IPA, Ukrainian output, gold record or accuracy claim was added.
+
+
+## Exact-main verification — PR #244 documentation checkpoint — 2026-11-15
+
+- PR [#244](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/244) merged as `7dac519ce6a25aa4ccb36c9feb9a588ca3e5f3fa`; exact-main Quality [43756575098], Chromium [43756575123] and Pages build/deploy [43756575113] all SUCCESS, including deployed-site/runtime-asset smoke.
+- PR-head Quality [43756457792], PR Chromium [43756457772] and push Quality [43756446431] all SUCCESS.
+- This closes the exact-main documentation checkpoint for PR #243; no linguistic status changed.
+
+
+## BGN/PCGN Note 10 — exact romanization-letter inventory validator — 2026-11-15
+
+Added `validate_pcgn_romanization_characters` and `PCGNRomanizationCharacterInventoryDecision` in `src/khmer_ua/pcgn_unicode.py`, exported through the package API.
+
+The validator accepts basic ASCII Roman letters and the exact modified-letter inventory in BGN/PCGN Note 10, including both decomposed sequences `œ + U+0306` and `Œ + U+0306`. It preserves the input string and codepoint trace exactly; it performs no NFC/NFD normalization, transliteration, IPA conversion or Ukrainian adaptation. Non-letter characters are passed through and explicitly reported as outside this validator's scope. Unlisted Unicode letters/marks are returned as unsupported.
+
+Schema: `schemas/pcgn-romanization-character-inventory-decision.schema.json`; tests: `tests/test_pcgn_romanization_character_inventory.py`. The source registry marks Note 10 `PARTIAL_CHARACTER_INVENTORY`.
+
+Primary source: BGN/PCGN 1972 Agreement, Note 10 (p. 5): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+
+Status: `KHM-ROM-PCGN-UNICODE-001 = PARTIAL`. This is an inventory validator only; it does not generate romanization or establish any IPA/Ukrainian correspondence.

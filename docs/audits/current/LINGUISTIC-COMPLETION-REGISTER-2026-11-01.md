@@ -1133,3 +1133,17 @@ PR #239 merged as `9c615293e3037cb0ccbd9db0820698741bbcd5cf`. Final PR-head `e52
 - Final PR-head `f2436ec9fadc007e077ac375a7dfdcc269411fae`: push Quality [43756120696], PR Quality [43756201009], PR Chromium [43756200975] all SUCCESS. Python 299 passed, 70 subtests passed; web checks and production build passed; Chromium visible-results smoke passed.
 - Exact post-merge main: Quality [43756294903], Chromium [43756294932], Pages build/deploy [43756295043] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - The Note 3 `ប`+TRIISAP exception now records ô as the pre-shifter base series and â as the selected series with the p-in-â exception. Notes 2 and 3 are correctly classified as partial component resolvers. `KHM-ROM-PCGN-SHIFTERS-001` remains PARTIAL; no vowel, complete romanization, IPA, Ukrainian output, gold record or accuracy claim was added.
+
+
+## Exact-main verification — PR #244 documentation checkpoint — 2026-11-15
+
+- PR [#244](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/244) merged as `7dac519ce6a25aa4ccb36c9feb9a588ca3e5f3fa`; exact-main Quality [43756575098], Chromium [43756575123] and Pages build/deploy [43756575113] all SUCCESS, including deployed-site/runtime-asset smoke.
+- PR-head Quality [43756457792], PR Chromium [43756457772] and push Quality [43756446431] all SUCCESS.
+- This closes the exact-main documentation checkpoint for PR #243; no linguistic status changed.
+
+
+## BGN/PCGN Note 10 bounded character inventory — 2026-11-15
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-PCGN-UNICODE-001 | PARTIAL | `validate_pcgn_romanization_characters`, `PCGNRomanizationCharacterInventoryDecision`, schema `schemas/pcgn-romanization-character-inventory-decision.schema.json`, tests `tests/test_pcgn_romanization_character_inventory.py`, and Note 10 source-registry row. Primary source: BGN/PCGN 1972, Note 10 (p. 5). | Validates basic ASCII letters and the exact modified-letter inventory, including decomposed breve sequences; preserves codepoints without normalization. Non-letter characters are not validated. No transliteration, IPA or Ukrainian output. |
