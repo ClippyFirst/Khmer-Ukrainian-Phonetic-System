@@ -24,7 +24,7 @@
         "properties": {
           "text": {"type": "string", "minLength": 1},
           "kind": {"type": "string", "minLength": 1},
-          "codepoints": {"type": "array", "items": {"type": "string", "pattern": "^U\\\\+[0-9A-F]{4,6}$"}, "minItems": 1},
+          "codepoints": {"type": "array", "items": {"type": "string", "pattern": "^U\\+[0-9A-F]{4,6}$"}, "minItems": 1},
           "name": {"type": ["string", "null"]},
           "orthographic_register": {"enum": ["first", "second", null]}
         }
