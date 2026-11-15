@@ -150,10 +150,10 @@ def make_command_backend(command: list[str], *, engine_id: str, revision: str) -
 
     def run(text: str) -> dict[str, Any]:
         completed = subprocess.run(
-            command, input=text + "\\n", text=True, capture_output=True, check=True
+            command, input=text + "\n", text=True, capture_output=True, check=True
         )
         return {
-            "ipa": completed.stdout.rstrip("\\r\\n"),
+            "ipa": completed.stdout.rstrip("\r\n"),
             "profile": DEFAULT_PROFILE,
             "kind": "PHONETIC_BROAD",
             "status": "PARTIAL",
