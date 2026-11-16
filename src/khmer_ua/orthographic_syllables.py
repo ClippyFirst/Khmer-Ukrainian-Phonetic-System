@@ -195,11 +195,16 @@ def _rejected_spans(
         ]
         if invalid_ends:
             rejected = components[max(invalid_ends)]
+            detail = (
+                f"{rejected.status} component {rejected.text!r}"
+                if rejected.status in {"MALFORMED_COENG", "UNMODELED_CHARACTER"}
+                else rejected.role
+            )
             return ({
                 "start": rejected.start,
                 "end": rejected.end,
                 "reason": (
-                    f"{rejected.role} at this position prevents a complete "
+                    f"{detail} at this position prevents a complete "
                     "Unicode 18 §16.4 component-order production."
                 ),
             },)
