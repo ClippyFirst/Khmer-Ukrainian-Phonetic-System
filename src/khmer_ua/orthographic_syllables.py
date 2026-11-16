@@ -1,6 +1,5 @@
 """Unicode 18 Khmer orthographic-syllable parsing with a packed parse forest."""
 from dataclasses import dataclass
-from math import prod
 from typing import Literal
 
 from .orthographic_structure import KhmerOrthographicComponent, scan_orthographic_components

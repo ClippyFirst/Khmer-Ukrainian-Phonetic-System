@@ -76,7 +76,8 @@ def test_bnf_component_role_ambiguity_is_preserved_as_two_parse_trees():
     result = parse_orthographic_syllables("ក្ក")
     assert result.status == "AMBIGUOUS"
     assert result.syllables is None
-    assert result.to_dict()["parse_count"] == 2
+    assert result.to_dict()["parse_count"] == "2"
+    assert result.to_dict()["segmentation_count"] == 1
     alternatives = {
         item.grammar_roles
         for item in result.alternatives[0].syllables[0].grammar_alternatives
