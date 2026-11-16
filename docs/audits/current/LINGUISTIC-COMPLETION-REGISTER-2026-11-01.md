@@ -1377,3 +1377,14 @@ PR #283 merged as `bdc15daf6f7c40a6c088e306343a421b9347e9c1`. The Python and bro
 Exact PR-head Quality [43953219338] and Chromium [43953219579] succeeded. Exact-main Quality [43953449784] passed 402 Python tests + 70 subtests, IPA corpus engineering validation, Node/web checks and build; Chromium [43953449807] and Pages deploy/runtime smoke [43953450103] succeeded.
 
 Acceptance boundary: this does not complete Unicode BNF sequence validation, full Khmer orthographic-syllable segmentation, word segmentation, pronunciation, IPA coverage or Ukrainian target validation. Independent IPA gold remains 0 and empirical accuracy remains null.
+
+
+## Unicode 18 Khmer orthographic-syllable parser — 2026-11-16
+
+| Task ID | Status | Scope / acceptance |
+|---|---|---|
+| KHM-ORTHO-COMPONENT-SCAN-001 | DONE_VERIFIED | Lossless Python/browser component inventory, exact code-point spans and versioned schema; PR #283 and exact-main CI verified. This does not validate the full BNF. |
+| KHM-ORTHO-BNF-PARSER-001 | TODO | Implement Unicode 18 §16.4 BNF with Appendix A.2 semantics over the existing component scanner; return all viable parse alternatives/packed forest, preserve offsets and source reconstruction, and pass shared Python/browser examples on exact-head and exact-main CI. |
+| KHM-ORTHO-TN61-MODERN-PROFILE-001 | TODO / NON_NORMATIVE | Optional separately versioned Modern Khmer validator based on Unicode TN #61 v2; keep distinct from normative Unicode 18 BNF and record its proposed/non-normative status. |
+
+Orthographic parsing does not implement phonological syllabification, LOC word division, IPA or Ukrainian output. The source reconciliation and detailed acceptance contract are in `docs/audits/current/UNICODE-KHMER-ORTHOGRAPHIC-SYLLABLE-GRAMMAR-2026-11-16.md`. No source corpus or gold labels were added.
