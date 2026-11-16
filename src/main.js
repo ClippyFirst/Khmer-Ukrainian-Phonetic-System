@@ -10,6 +10,7 @@ import { renderKhmerRomanizationText, renderRomanizedText } from "./khmer-romani
 
 const CONSONANTS = Object.fromEntries(consonants.map((item) => [item.char, item]));
 const SIGN_BY_CHAR = Object.fromEntries(signs.map((item) => [item.char, item]));
+const INDEPENDENT_VOWELS = new Set(signs.filter((item) => item.kind === "independent_vowel").map((item) => item.char));
 const VOWEL_SIGNS = new Set(
   signs
     .filter((item) => ["dependent_vowel", "composite_vowel", "vowel_modifier"].includes(item.kind))
@@ -113,7 +114,6 @@ function resolveRegister(base, raw) {
 
 function scanOrthographicComponents(raw) {
   const chars = [...raw];
-  const independentVowels = new Set(signs.filter((item) => item.kind === "independent_vowel").map((item) => item.char));
   const dependentVowels = new Set(signs.filter((item) => ["dependent_vowel", "composite_vowel"].includes(item.kind)).map((item) => item.char));
   const shifters = new Set(signs.filter((item) => item.kind === "register_shifter").map((item) => item.char));
   const components = [];
@@ -131,7 +131,7 @@ function scanOrthographicComponents(raw) {
     const char = chars[index];
     if (char === COENG) {
       const sub = chars[index + 1];
-      if (sub && (isKhmerConsonant(sub) || independentVowels.has(sub))) {
+      if (sub && (isKhmerConsonant(sub) || INDEPENDENT_VOWELS.has(sub))) {
         add("SUBSCRIPT", char + sub, index);
         index += 2;
         continue;
@@ -142,7 +142,7 @@ function scanOrthographicComponents(raw) {
       index += 1;
       continue;
     }
-    if (isKhmerConsonant(char) || independentVowels.has(char)) {
+    if (isKhmerConsonant(char) || INDEPENDENT_VOWELS.has(char)) {
       baseCount += 1;
       add("BASE", char, index, baseCount === 1 ? "RECOGNIZED" : "AMBIGUOUS_BASE_ROLE");
     } else if (char === "\u17CC") {
@@ -195,6 +195,7 @@ function parseSyllable(raw) {
   let index = 1;
   const base = first;
   const subscripts = [];
+  const subscriptIndependentVowels = [];
   const additionalConsonants = [];
   const vowelSigns = [];
   const unknown = [];
@@ -209,11 +210,16 @@ function parseSyllable(raw) {
     }
     if (char === COENG) {
       const sub = chars[index + 1];
-      if (!sub || !isKhmerConsonant(sub)) {
+      if (!sub || (!isKhmerConsonant(sub) && !INDEPENDENT_VOWELS.has(sub))) {
         return { status: "INVALID_OR_UNSUPPORTED", raw, unknown: sub ? [COENG, sub] : [COENG], unknown_codepoints: unknownCodepoints(sub ? [COENG, sub] : [COENG]), reason: "Malformed coeng sequence: " + unknownCodepoints(sub ? [COENG, sub] : [COENG]).join(", ") + ".", orthographic_structure };
       }
-      subscripts.push(sub);
-      graphemes.push({ text: COENG + sub, kind: "subscript" });
+      if (isKhmerConsonant(sub)) {
+        subscripts.push(sub);
+        graphemes.push({ text: COENG + sub, kind: "subscript" });
+      } else {
+        subscriptIndependentVowels.push(sub);
+        graphemes.push({ text: COENG + sub, kind: "subscript_independent_vowel" });
+      }
       index += 2;
       continue;
     }
@@ -248,6 +254,7 @@ function parseSyllable(raw) {
     register: register.register,
     register_rule: register.rule,
     subscripts,
+    subscript_independent_vowels: subscriptIndependentVowels,
     additional_consonants: additionalConsonants,
     syllabification_status: additionalConsonants.length ? "NOT_ESTABLISHED" : "NOT_ASSESSED",
     vowelSigns,
@@ -317,7 +324,7 @@ function renderFixture(fixture, profile) {
 
 function deriveDeterministicIpa(analysis) {
   if (analysis.status === "INVALID_OR_UNSUPPORTED") return null;
-  if (analysis.subscripts?.length || analysis.additional_consonants?.length || analysis.vowelSigns?.length || analysis.unknown?.length) return null;
+  if (analysis.subscripts?.length || analysis.subscript_independent_vowels?.length || analysis.additional_consonants?.length || analysis.vowelSigns?.length || analysis.unknown?.length) return null;
   if (analysis.register_rule === "MULTIPLE_REGISTER_SHIFTERS" || analysis.register_rule === "MISPLACED_REGISTER_SHIFTER" || analysis.register_rule === "NON_STANDARD_SHIFTER_USE") return null;
 
   const onset = analysis.onset_ipa;
