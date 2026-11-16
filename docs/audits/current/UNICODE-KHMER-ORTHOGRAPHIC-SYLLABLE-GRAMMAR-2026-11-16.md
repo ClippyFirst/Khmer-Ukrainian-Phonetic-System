@@ -37,7 +37,7 @@ Do not silently substitute TN #61 for Unicode Standard 18 §16.4, or present the
 
 ## BNF ambiguity and role assignments
 
-The BNF uses `S` both in the repeated `{S {R}}*` group and as a final optional `{S}`. For a base followed by one COENG pair (for example `ក្ក`), both productions can consume the same subscript component. The parser must therefore preserve two parse trees with distinct component roles (`SUBSCRIPT_CLUSTER` and `TRAILING_SUBSCRIPT`) even though the source span and syllable boundary are identical. Choosing one role would silently discard grammar ambiguity.
+The BNF uses `S` both in the repeated `{S {R}}*` group and as a final optional `{S}`. For a base followed by one COENG pair (for example `ក្ក` or the Unicode example `ផ្ឯម`), both productions can consume the same subscript component. In `ផ្ឯម`, the B + COENG + independent vowel + final base sequence therefore has two grammar-role parses for the first orthographic unit, followed by a second base-started unit. The parser must preserve both parse trees (`SUBSCRIPT_CLUSTER` and `TRAILING_SUBSCRIPT`) even though the source spans and syllable boundaries are identical. Choosing one role would silently discard grammar ambiguity. This orthographic parse does not decide the word's single phonological syllable.
 
 ## Evidence examples already available
 
