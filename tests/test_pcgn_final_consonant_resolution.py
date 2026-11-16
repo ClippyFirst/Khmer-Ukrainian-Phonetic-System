@@ -4,7 +4,10 @@ import csv
 import json
 from pathlib import Path
 
+import pytest
+
 from khmer_ua.pcgn import (
+    PCGN_CONSONANT_ROMANIZATION_ROWS,
     PCGN_FINAL_CONSONANT_TABLE_LOCATOR,
     analyze_pcgn_orthographic_chunk,
     resolve_pcgn_final_consonant,
@@ -94,3 +97,32 @@ def test_pcgn_final_consonant_schema_and_rule_registry():
         "source_locator": PCGN_FINAL_CONSONANT_TABLE_LOCATOR,
         "acceptance_boundary": "General rule only; caller supplies final position and absence of vowel/TOANDAKHIAT; BA and ALIF abstain",
     }]
+
+
+def test_pcgn_final_consonant_covers_every_supported_base_table_character():
+    for source, (row, romanization) in PCGN_CONSONANT_ROMANIZATION_ROWS.items():
+        if source in {"ប", "អ"}:
+            continue
+        result = resolve(source)
+        assert result.status == "GENERAL_RULE_APPLIED", source
+        assert result.base_table_row == row, source
+        assert result.base_romanization == romanization, source
+        assert result.romanization == romanization, source
+
+
+@pytest.mark.parametrize(
+    "context",
+    (
+        {"has_following_vowel_character": None, "has_toandakhiat": False},
+        {"has_following_vowel_character": False, "has_toandakhiat": None},
+        {"has_following_vowel_character": 0, "has_toandakhiat": False},
+        {"has_following_vowel_character": False, "has_toandakhiat": 1},
+        {"has_following_vowel_character": "false", "has_toandakhiat": False},
+    ),
+)
+def test_pcgn_final_consonant_rejects_non_boolean_context(context):
+    with pytest.raises(TypeError, match="must be explicit booleans"):
+        resolve_pcgn_final_consonant(
+            analyze_pcgn_orthographic_chunk("ក"),
+            **context,
+        )

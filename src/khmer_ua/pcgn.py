@@ -726,6 +726,11 @@ def resolve_pcgn_final_consonant(
     BA and ALIF are withheld because their special Note 3/4 context is not
     resolved by this generic coda rule.
     """
+    if type(has_following_vowel_character) is not bool or type(has_toandakhiat) is not bool:
+        raise TypeError(
+            "has_following_vowel_character and has_toandakhiat must be explicit booleans"
+        )
+
     def unresolved(reason: str) -> PCGNFinalConsonantDecision:
         return PCGNFinalConsonantDecision(
             syllable_position="FINAL",
