@@ -1191,3 +1191,17 @@ The integration branch reconciles PR #301 (Headley/SEALang seed provenance), #30
 - PR #304 exact-head Quality failures were due a legacy source-scope assertion requiring `3,286-line`; the integration branch keeps this literal while retaining the expanded row/duplicate/variant audit. Re-run exact-head checks before merge.
 - Main at integration start `db02740d57705c08966c87a6b31a5c874c9edc86` passed Quality [43970083315] (417 Python + 70 subtests), Chromium [43970082825] and Pages [43970082889]. Those checks are not evidence for the new integration branch.
 - No dataset/model/audio payload, IPA gold labels, Ukrainian mappings or runtime code changed. Independent gold remains 0; accuracy null.
+
+ 
+## Final consolidated-source merge verification — 2026-11-17
+
+- PR [#307](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/307) merged by squash as `43bdeb27821c9308d9b29b693c2cdbbafb72fa7b` from exact head `bf80a8cd8a96dee2ffae5acf2c6f7d9b38317cd0`, based on `db02740d57705c08966c87a6b31a5c874c9edc86`.
+- Exact PR-head Quality [43970804968] SUCCESS: **417 Python tests + 70 subtests**, IPA corpus structural validation, Node/web checks and production build.
+- Exact PR-head Chromium [43970804939] SUCCESS: **12/12 Playwright tests**.
+- Exact-main Quality [43970986954] SUCCESS: **417 Python tests + 70 subtests**, corpus validation, Node/web checks and production build.
+- Exact-main Chromium [43970986386] SUCCESS: **12/12 Playwright tests**.
+- Exact-main GitHub Pages [43970986366] SUCCESS: production build, Chromium production exercise, deployment and published-site/runtime-asset smoke.
+- PRs #301, #303 and #304 were closed as superseded by #307. Their source branches were intentionally preserved; no force-push or branch deletion occurred. PR #307 leaves no open PRs at this checkpoint.
+- Issue #104 remains OPEN. No experts were contacted or recruited. `KHM-IPA-CONVENTION-001` remains PARTIAL / `DRAFT_NOT_APPROVED`; `KHM-GOLD-001` remains BLOCKED, adjudicated gold=0 and empirical accuracy=null.
+- Undermind's semantic/deep-search operation could not be continued in this session because its free usage limit was reached; the tool reported reset at 2026-11-16 23:30 UTC (2026-11-17 01:30 Kyiv time). No Undermind search result is claimed for this continuation.
+- No local checkout/tests were run. All code/test/build/browser/deployment evidence above is from GitHub Actions. No external data, model weights, audio, IPA labels or Ukrainian mappings were imported.
