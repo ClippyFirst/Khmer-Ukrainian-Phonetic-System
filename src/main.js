@@ -390,7 +390,7 @@ function convert(text, profile) {
     },
     uncertainty: item.status === "PUNCTUATION" || item.status === "PROPOSED"
       ? []
-      : [{ status: item.status, note: item.note ?? "", unresolved_graphemes: item.analysis?.unknown ?? item.analysis?.graphemes?.filter((g) => g.kind === "unknown").map((g) => g.text) ?? [] }],
+      : [{ status: item.status, note: item.note ?? "", unresolved_graphemes: item.analysis?.graphemes?.slice(1).map((g) => g.text) ?? item.analysis?.unknown ?? [] }],
   }));
 
   return {
