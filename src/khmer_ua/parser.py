@@ -38,6 +38,11 @@ def _starts_new_orthographic_syllable(chars, i):
         return False
     if chars[i-1] == COENG:
         return False
+    # Unicode 18 Chapter 16 documents subscript independent-vowel sequences
+    # with a following coda consonant (for example, ផ្ឯម) as one orthographic
+    # unit. Do not split immediately after the subscript independent vowel.
+    if i >= 2 and chars[i-2] == COENG and chars[i-1] in INDEPENDENT_VOWELS:
+        return False
     if i + 1 < len(chars) and chars[i+1] == COENG:
         return False
     previous_kind = next((x["kind"] for x in SIGNS if x["char"] == chars[i-1]), None)
