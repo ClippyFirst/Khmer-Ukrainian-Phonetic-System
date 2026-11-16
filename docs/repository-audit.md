@@ -1093,3 +1093,8 @@ A dedicated branch adds a bounded independent-vowel + final-consonant assembler.
 - Quality [43911193804], Chromium [43911193963], Pages build/deploy and deployed runtime smoke [43911194149] all SUCCESS. Quality reports 377 Python tests + 70 subtests; corpus validation, web checks, production build and browser checks passed. No local test run is claimed.
 - No open PRs. Issue #104 remains OPEN and blocks the first independently adjudicated IPA gold pilot (gold count 0; accuracy null). Recruitment, convention approval, blind intake, rights-cleared source selection and adjudication require human participants.
 - Repository remains a deployed engineering/research prototype, not linguistically release-ready. Full segmentation/word romanization, complete IPA coverage, expert-reviewed Ukrainian target policy, root LICENSE/metadata decision, branch protection and manual accessibility review remain incomplete or owner-gated.
+
+
+## LOC Khmer word-division reconciliation — 2026-11-16
+
+Official LOC sources distinguish historical/versioned word-division formulations: 1989 and ALA-LC 1997 Note 10 specify the shortest written form that can stand alone; ALA-LC 2013 Note 8 says any word can be separated when romanizing. Both preserve original-language division for non-Pali/Sanskrit loans. BGN/PCGN 1972 Note 9 concerns the independent vowel ឧ and is unrelated. ALA-LC notes do not define a complete segmentation algorithm or lexicon; maximal matching and orthographic syllable segmentation are insufficient evidence of compliance. See `docs/audits/current/LOC-KHMER-WORD-DIVISION-EVIDENCE-2026-11-16.md`. Implementation remains blocked/evidence-limited; no runtime change was made.
