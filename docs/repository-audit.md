@@ -1039,3 +1039,14 @@ Added `data/khmer/romanization_pcgn_independent_vowels.csv` with source-located 
 ## PR #259 exact-main closeout — 2026-11-16
 
 PR #259 merged as `458026f080bca31edeec87c2009245213ab667c7`. PR-head push Quality [43826670914], PR Quality [43826697643], Chromium [43826697687], exact-main Quality [43826837012], Chromium [43826837160] and Pages [43826837175] all SUCCESS. Exact-main `pytest -q`: 332 passed, 70 subtests passed; web checks, production build, Chromium exercise and deployed-site/runtime-asset smoke passed. The new independent-vowel CSV is a source registry only; no language behavior or acceptance status changed. PR #258 was closed as superseded due to a stale-base documentation conflict; no work was discarded.
+
+
+## Current branch inventory refresh — 2026-11-16
+
+Live `main` is `2e005a3e804e878deb66007d857d2d9361c8e4de`; there are no open PRs. Exact-main Quality [43827176347], Chromium [43827176391] and Pages [43827176423] all succeeded.
+
+The repository branch endpoint returns 125 refs (one `main`, 124 non-main). This is a count of retained refs, not 124 merge candidates. Sampled comparisons against current main confirm that many are old divergent snapshots: Note 2 shifter branch 16 ahead/43 behind; practical-adapter verified branch 29 ahead/109 behind; typed-IPA hybrid bridge 10 ahead/75 behind; old repository-information-architecture branch 4 ahead/86 behind. The independent-vowel source-register branch 12 ahead/3 behind has already had its source registry integrated through PR #259. These branch tips are not safe to merge wholesale; use current main as the only integration base.
+
+No open PR remains. The connected GitHub tool surface does not provide branch deletion, and no branch was deleted or force-updated. Keep one active task branch based on main; historical refs remain preserved until an owner chooses an archival/deletion policy. This is consistent with the earlier historical branch comparison closeout, but refreshes its inventory count.
+
+The next hard blocker is human, not engineering: issue #104 remains open; independent adjudicated IPA gold is 0 and accuracy is null. The expert convention, independent annotators/adjudicator, curator, blind intake, source rights and 30-lexeme pilot cannot be completed by repository automation. Root LICENSE/pyproject metadata reconciliation and main branch protection remain owner decisions.
