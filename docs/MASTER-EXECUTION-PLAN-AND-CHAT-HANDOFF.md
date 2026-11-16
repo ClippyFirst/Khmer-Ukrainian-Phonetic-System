@@ -2984,3 +2984,11 @@ This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in th
 
 - Main: 6df8c6c176e0098f97a9f4ab1f9583b0bb7caa68. PR #267 merged; exact-main Quality [43888801455], Chromium [43888801448], and Pages build/deploy with deployed-site/runtime smoke [43888801373] all SUCCESS. Quality: 354 Python tests + 70 subtests; browser visible-results smoke and deployed runtime smoke passed.
 - Open PRs at this checkpoint: 0. Issue #104 remains OPEN; independent adjudicated IPA gold remains 0 and empirical accuracy remains null. Root LICENSE/MIT metadata and branch protection remain owner-level blockers. Repository readiness remains research foundation + deployed engineering prototype, not linguistically release-ready.
+
+
+## Continuation — bounded PCGN Note 4 Alif dependent-vowel closed syllable — 2026-11-16
+
+- Base main: 52baf5b9a26d8b2054afd9519f2b4187a114ec52. Dedicated branch: feat/pcgn-alif-dependent-closed-syllable-assembly-2026-11-16.
+- Added assemble_pcgn_glottal_dependent_closed_syllable to compose the existing Note 4 Alif carrier, A-series normal dependent-vowel, and general final-consonant resolvers for a caller-supplied onset + vowel + one-consonant coda.
+- Caller supplies onset-only, onset-plus-vowel, full-syllable, and coda-only chunks plus explicit Note 4 context booleans. Exact token boundaries and component identities are checked; unsupported final contexts abstain. Optional apostrophe spelling is retained as an explicit full-output alternative.
+- Added strict schema, focused tests covering every normal dependent-vowel table pattern with a supported coda, package exports and documentation updates. IPA/Ukrainian remain null; no segmentation, coda guessing or phonetic rule is added. Hosted CI pending.

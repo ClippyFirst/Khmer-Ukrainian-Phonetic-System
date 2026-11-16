@@ -885,3 +885,13 @@ Added assemble_pcgn_glottal_open_syllable to compose the source-located Note 4 A
 - Primary source: BGN/PCGN 1972, Consonant Characters row 22 and Note 4 (p. 5), plus Independent/Dependent Vowel Characters table (pp. 2–3): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 - Boundary: orthographic PCGN Latin only. IPA and Ukrainian remain null; no word segmentation, coda handling or phonetic transcription is generated.
 - Status: DONE_VERIFIED for this bounded API. PR #267 merged as 6df8c6c176e0098f97a9f4ab1f9583b0bb7caa68. PR-head Quality [43888596780] and Chromium [43888596962] passed (354 Python tests + 70 subtests); exact-main Quality [43888801455], Chromium [43888801448], and Pages [43888801373] all passed, including deployed-site/runtime smoke. KHM-ROM-ENGINE-001 remains PARTIAL.
+
+
+## Bounded PCGN Note 4 Alif dependent-vowel closed-syllable assembly — 2026-11-16
+
+Added assemble_pcgn_glottal_dependent_closed_syllable to compose the Note 4 Alif carrier, normal A-series dependent-vowel and general final-consonant components for one caller-supplied closed syllable. Caller supplies onset-only, onset-plus-vowel, full-syllable and coda-only chunks, as well as explicit boolean Note 4 word-position/following-vowel context. Exact token boundaries and source-component identity are checked. Only one unmarked final consonant supported by the existing generic final resolver is accepted; special/unsupported coda contexts abstain. Optional apostrophe spelling remains an explicit full-output alternative when Note 4 allows it.
+
+- API: src/khmer_ua/pcgn.py::assemble_pcgn_glottal_dependent_closed_syllable.
+- Contract: schemas/pcgn-glottal-dependent-closed-syllable-assembly.schema.json; tests: tests/test_pcgn_glottal_dependent_closed_syllable_assembly.py.
+- Primary source: BGN/PCGN 1972, Consonant Characters row 22 and Note 4 (p. 5), Independent/Dependent Vowel Characters table (pp. 2–3), and final-consonant no-following-vowel rule (p. 2): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+- Boundary: orthographic PCGN Latin only. IPA/Ukrainian remain null; no word segmentation or coda inference is generated. Hosted CI pending; status remains PARTIAL until verified.
