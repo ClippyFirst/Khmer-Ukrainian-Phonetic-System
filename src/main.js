@@ -179,6 +179,52 @@ function scanOrthographicComponents(raw) {
   return { schema: "khmer-orthographic-components/v1", source_text: raw, offset_unit: "unicode_code_point", status, notes, components };
 }
 
+
+function parseOrthographicSyllable(raw) {
+  const scan = scanOrthographicComponents(raw);
+  const items = scan.components;
+  const spans = items.map((item) => [item.start, item.end]);
+  const result = (status, notes = []) => ({
+    schema: "khmer-orthographic-syllable/v1",
+    source_text: raw,
+    offset_unit: "unicode_code_point",
+    status,
+    grammar: "B {R | C} {S {R}}* {{Z} V} {O} {S}",
+    component_spans: spans,
+    notes,
+  });
+  if (scan.status === "INVALID_OR_UNSUPPORTED") return result("INVALID_OR_UNSUPPORTED", scan.notes);
+  if (items.filter((item) => item.role === "BASE").length !== 1) {
+    return result("EVIDENCE_LIMITED", ["The supplied span contains multiple un-subscripted bases or no unique base; Unicode component order does not determine syllable boundaries or coda roles."]);
+  }
+  const roles = items.map((item) => item.role);
+  let i = 0;
+  if (!roles.length || roles[0] !== "BASE") return result("INVALID_ORDER", ["A syllable must begin with B (base character)."]);
+  i += 1;
+  if (i < items.length && roles[i] === "FORMAT_CONTROL") {
+    if (items[i].text !== "\u200c" || i + 1 >= items.length || roles[i + 1] !== "SHIFTER") {
+      return result("INVALID_ORDER", ["A format control is only accepted before V, or as the documented ZWNJ-before-shifter exception."]);
+    }
+    i += 2;
+  } else if (i < items.length && ["ROBAT", "SHIFTER"].includes(roles[i])) {
+    i += 1;
+  }
+  while (i < items.length && roles[i] === "SUBSCRIPT") {
+    i += 1;
+    if (i < items.length && roles[i] === "ROBAT") i += 1;
+  }
+  if (i < items.length && roles[i] === "FORMAT_CONTROL") {
+    if (i + 1 >= items.length || roles[i + 1] !== "VOWEL") return result("INVALID_ORDER", ["Z must immediately precede a dependent vowel V in this production."]);
+    i += 2;
+  } else if (i < items.length && roles[i] === "VOWEL") {
+    i += 1;
+  }
+  if (i < items.length && roles[i] === "OTHER_SIGN") i += 1;
+  if (i < items.length && roles[i] === "SUBSCRIPT") i += 1;
+  if (i !== items.length) return result("INVALID_ORDER", ["Component " + roles[i] + " at code-point offset " + items[i].start + " is not permitted at this position by Unicode 18 §16.4."]);
+  return result("PARSED", ["Single-base component order conforms to the Unicode 18 §16.4 production; this does not establish pronunciation or word boundaries."]);
+}
+
 function parseSyllable(raw) {
   const orthographic_structure = scanOrthographicComponents(raw);
   const chars = [...raw];
@@ -503,7 +549,7 @@ function convert(text, profile) {
   };
 }
 
-export { convert, tokenize, parseSyllable, scanOrthographicComponents, mapIpa, getStatusNotice };
+export { convert, tokenize, parseSyllable, scanOrthographicComponents, parseOrthographicSyllable, mapIpa, getStatusNotice };
 
 if (typeof document !== "undefined") {
   const $ = (id) => document.getElementById(id);
