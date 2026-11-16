@@ -128,7 +128,7 @@ def test_unicode_18_subscript_independent_vowel_examples_preserve_parse_trees():
     for source in ("ឱ្យ", "ឱ្ម", "ហ្ឫទ័យ"):
         result = parse_orthographic_syllables(source)
         assert result.status == "AMBIGUOUS"
-        assert result.parse_count == 2
+        assert result.to_dict()["parse_count"] == 2
         assert result.syllables is None
         assert all(
             any("SUBSCRIPT_CLUSTER" in item.grammar_roles or "TRAILING_SUBSCRIPT" in item.grammar_roles
