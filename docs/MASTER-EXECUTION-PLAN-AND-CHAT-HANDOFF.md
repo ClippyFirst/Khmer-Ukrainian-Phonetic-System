@@ -3163,16 +3163,29 @@ The shared `khmer-phonetic-result/v1` payload is specified in `schemas/phonetic-
 
 ## Unicode 18 Khmer parser and packed-forest completion — 2026-11-16
 
-The source-reconciliation checkpoint above was superseded by implementation. Main commit d773dd7f0bcc0b6ab0f7a241e2b7b9857e2aef72 contains the canonical Python/browser Unicode 18 §16.4 parser, grammar-role alternatives, packed derivation representation, and rejected component spans/reasons. It builds on the component scanner and the §16.4.1 subscript-independent-vowel primitive.
+The source-reconciliation checkpoint above was superseded by implementation. Main commit 8ec4460a0af291dcba10563912f8fcd0c3f784fd contains the canonical Python/browser Unicode 18 §16.4 parser, grammar-role alternatives, packed derivation representation, and rejected component spans/reasons. It builds on the component scanner and the §16.4.1 subscript-independent-vowel primitive.
 
 - Python: src/khmer_ua/orthographic_syllables.py.
 - Browser: src/orthographic-syllables.js.
 - Schema: schemas/orthographic-syllables.schema.json.
 - The parser preserves complete segmentation alternatives and local grammar-role alternatives without Cartesian expansion, exact source text and Unicode code-point offsets, derivation counts, and rejected spans/reasons. Ambiguous results do not select a preferred parse.
 - Shared fixtures cover all Unicode 18 Figure 16-3 examples, §16.4.1 shifter and join-control examples, subscript independent vowels, robat, deprecated/discouraged code points, and the repetition sign that remains outside the syllable grammar.
-- Exact-main Quality [43962887689] SUCCESS: 416 Python tests + 70 subtests; IPA corpus structural validation, Node/web checks and production build passed. Chromium [43962887588] SUCCESS. Pages deploy/runtime smoke [43962887592] SUCCESS.
+- Exact-main Quality [43963765593] SUCCESS: 416 Python tests + 70 subtests; IPA corpus structural validation, Node/web checks and production build passed. Chromium [43963765334] SUCCESS. Pages deploy/runtime smoke [43963765391] SUCCESS.
 - KHM-ORTHO-BNF-PARSER-001 = DONE_VERIFIED. This is orthographic structure only, not phonological syllabification, LOC word segmentation, IPA or Ukrainian output.
 - TN #61 v2 source metadata is registered as unicode-tn61-khmer-encoding-structure-v2, with its date/version, independent non-normative status and Unicode Terms of Use limitations. KHM-ORTHO-TN61-MODERN-PROFILE-001 remains TODO / NON_NORMATIVE; no TN61-derived constraints are mixed into the Unicode 18 parser.
-- PR #292 was closed as duplicate after the equivalent diagnostics were merged independently to main; its branch remains preserved. The remaining source-registry/documentation reconciliation is being handled on a dedicated branch.
+- PR #292 was closed as duplicate after equivalent diagnostics were merged independently to main; its branch remains preserved. PR #294 merged as 8ec4460a0af291dcba10563912f8fcd0c3f784fd, adding the TN #61 v2 source-registry entry, provenance test and documentation reconciliation. Exact-main Quality [43963765593] passed 417 Python tests + 70 subtests; Chromium [43963765334] and Pages [43963765391] passed.
 - Issue #104 remains OPEN; independent adjudicated IPA gold remains 0. The repository is a research/engineering prototype, not release-ready.
 - All cited checks were run by GitHub Actions; no local checkout/test execution is claimed.
+
+
+## Final post-merge checkpoint — 2026-11-16
+
+- Final main: 8ec4460a0af291dcba10563912f8fcd0c3f784fd.
+- PR #294 merged: TN #61 v2 metadata registered with version/date, author/contributors, official landing/PDF URLs, independent non-normative status, Terms of Use URL, and Technical Notes policy URL; provenance test and README/audit/handoff updates merged.
+- Exact-main Quality [43963765593] SUCCESS: 417 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build.
+- Exact-main Chromium [43963765334] SUCCESS.
+- Exact-main GitHub Pages deploy and published-resource smoke [43963765391] SUCCESS.
+- PR #286, #288, #289 and #292 were closed as duplicate/superseded; their branches remain preserved. PR #294 is merged. No force-pushes or user-branch deletions were performed.
+- KHM-ORTHO-BNF-PARSER-001 = DONE_VERIFIED. TN #61 Modern Khmer profile, LOC word division, phonological syllabification, independent IPA gold and Ukrainian output remain TODO/BLOCKED/EVIDENCE_LIMITED as specified in the registers.
+- Issue #104 remains OPEN. Independent adjudicated IPA gold remains 0.
+- No local tests were run; all cited verification is from GitHub Actions.
