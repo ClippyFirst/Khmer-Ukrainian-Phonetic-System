@@ -108,6 +108,8 @@ def test_unicode_tn61_v2_is_registered_as_non_normative_and_rights_scoped():
     assert note["version"] == "2"
     assert note["date"] == "2025-02-06"
     assert note["url"] == "https://www.unicode.org/notes/tn61/tn61-2.html"
+    assert note["license_url"] == "https://www.unicode.org/copyright.html"
+    assert note["status_basis_url"] == "https://www.unicode.org/notes/about-notes.html"
     assert note["status"] == "NON_NORMATIVE_TECHNICAL_NOTE"
     assert "not part of the Unicode Standard" in note["limitations"]
     assert "permission" in note["license"].lower()
