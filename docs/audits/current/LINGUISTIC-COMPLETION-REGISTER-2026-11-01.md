@@ -1233,3 +1233,10 @@ PR #252 merged as `16fbbde6238e03290507056388b539f54622d236`. Final PR-head push
 ## Exact-main verification — PR #255 / final-consonant context contract — 2026-11-16
 
 PR #255 merged as `47679154526fa32c5edd9d62ca084de5af4759dd`. PR-head push Quality [43825412435], PR Quality [43825430244], Chromium [43825430217], exact-main Quality [43825536547], Chromium [43825536580] and Pages [43825536491] all SUCCESS. The resolver rejects non-boolean caller context and tests all supported base consonants. This does not change `KHM-ROM-PCGN-FINAL-CONSONANT-001 = PARTIAL`, `KHM-ROM-ENGINE-001 = PARTIAL`, independent IPA gold = 0, or accuracy = null. Issue #104 remains OPEN.
+
+
+## PCGN independent-vowel source evidence — 2026-11-16
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-PCGN-INDEPENDENT-VOWELS-001 | PARTIAL | Runtime mapping `PCGN_INDEPENDENT_VOWEL_ROWS`; auditable source register `data/khmer/romanization_pcgn_independent_vowels.csv`; parity/Note 9 test in `tests/test_pcgn_independent_vowel_resolution.py`. Primary source: BGN/PCGN 1972, Independent/Dependent Vowel Characters table, pp. 2–3, Note 9 p. 5. | Rows 3, 4, 7, 14–22 only. `ឧ` retains both `ŏ`/`ŭ` alternatives without selection. Component romanization only; no IPA/Ukrainian output or empirical accuracy claim. |
