@@ -59,6 +59,7 @@ from .practical import map_segment, map_sequence, map_ipa_string, explain_segmen
 from .phonetic_result import PhoneticResult, PhoneticUnitResult, PhoneticUncertainty
 from .word_boundaries import BoundaryEvidence, BoundaryCandidate, WordBoundaryAnalysis
 from .orthographic_structure import KhmerOrthographicComponent, KhmerOrthographicScan, scan_orthographic_components
+from .orthographic_syllables import KhmerOrthographicSyllable, KhmerOrthographicSyllableParse, parse_orthographic_syllables
 from .rule_engine import RuleBasedKhmerEngine
 from .hybrid import HybridKhmerEngine, create_hybrid_engine, make_mekongphon_backend, make_command_backend
 
@@ -122,6 +123,9 @@ __all__ = [
     "KhmerOrthographicComponent",
     "KhmerOrthographicScan",
     "scan_orthographic_components",
+    "KhmerOrthographicSyllable",
+    "KhmerOrthographicSyllableParse",
+    "parse_orthographic_syllables",
     "PhoneticResult",
     "PhoneticUnitResult",
     "PhoneticUncertainty",

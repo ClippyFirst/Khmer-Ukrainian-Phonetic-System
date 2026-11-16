@@ -1,0 +1,67 @@
+from khmer_ua.orthographic_syllables import parse_orthographic_syllables
+
+
+def test_unicode_18_examples_parse_and_reconstruct():
+    examples = {
+        "ខ្ញុំ": ["ខ្ញុំ"],
+        "ច្រើន": ["ច្រើ", "ន"],
+        "សង្គ្រាម": ["ស", "ង្រា", "ម"],
+        "ហើយ": ["ហើយ"],
+        "សញ្ញា": ["ស", "ញ្ញា"],
+        "ស៊ី": ["ស៊ី"],
+        "ប៉ី": ["ប៉ី"],
+        "ផ្ឯម": ["ផ្ឯ", "ម"],
+        "អាយ៌": ["អា", "យ៌"],
+    }
+    for source, expected in examples.items():
+        result = parse_orthographic_syllables(source)
+        assert result.status == "PARSED"
+        assert [item.source_text for item in result.syllables] == expected
+        assert "".join(item.source_text for item in result.syllables) == source
+        assert all(item.source_text == source[item.start:item.end] for item in result.syllables)
+        assert all(item.end > item.start for item in result.syllables)
+        assert "not phonological syllables" in result.notes[0]
+
+
+def test_unicode_18_textual_zwnj_before_shifter_exception_is_explicit():
+    result = parse_orthographic_syllables("ប\u200c៊")
+    assert result.status == "PARSED"
+    assert result.syllables[0].grammar_extensions == (
+        "U+200C-before-shifter (§16.4.1 textual exception)",
+    )
+
+
+def test_multiple_base_scanner_limit_is_resolved_by_bnf_boundaries():
+    result = parse_orthographic_syllables("សង្គ្រាម")
+    assert result.status == "PARSED"
+    assert [item.source_text for item in result.syllables] == ["ស", "ង្រា", "ម"]
+
+
+def test_invalid_coeng_and_unknown_characters_fail_closed():
+    assert parse_orthographic_syllables("ក្").status == "INVALID_OR_UNSUPPORTED"
+    assert parse_orthographic_syllables("កx").status == "INVALID_OR_UNSUPPORTED"
+
+
+def test_known_but_nonconforming_component_order_is_evidence_limited():
+    result = parse_orthographic_syllables("កេិ")
+    assert result.status == "EVIDENCE_LIMITED"
+    assert result.alternatives == ()
+
+
+def test_offsets_are_exact_code_points_and_input_is_not_normalized():
+    source = "ខ្ញុំ"
+    result = parse_orthographic_syllables(source)
+    assert result.syllables[0].start == 0
+    assert result.syllables[0].end == len(source)
+    assert result.source_text == source
+
+
+def test_schema_matches_serialized_parse_contract():
+    import json
+    from pathlib import Path
+
+    schema = json.loads(Path("schemas/orthographic-syllables.schema.json").read_text(encoding="utf-8"))
+    payload = parse_orthographic_syllables("ខ្ញុំ").to_dict()
+    assert payload["schema"] == schema["properties"]["schema"]["const"]
+    assert set(payload) == set(schema["required"])
+    assert set(payload["syllables"][0]) == set(schema["$defs"]["syllable"]["required"])

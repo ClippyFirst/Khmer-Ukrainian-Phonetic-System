@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { convert, parseSyllable, scanOrthographicComponents, tokenize, getStatusNotice } from "../src/main.js";
+import { parseOrthographicSyllables } from "../src/orthographic-syllables.js";
 
 const adversarial = "ក គ កា គា កូ គូ កី គី កេ គេ កែ គែ កើ គើ កៅ គៅ ប ប៉ ប៊ ផ ព ត ថ ទ ធ ច ឆ ជ ឈ ស ហ វ";
 
@@ -195,3 +196,38 @@ assert.equal(subscriptIndependentVowel.status, "ESTABLISHED_STRUCTURE");
 assert.equal(subscriptIndependentVowel.syllabification_status, "NOT_ESTABLISHED");
 assert.equal(subscriptIndependentVowel.orthographic_structure.status, "EVIDENCE_LIMITED");
 assert.equal(subscriptIndependentVowel.ipa, undefined, "subscript independent-vowel structure must not manufacture IPA");
+
+
+
+// Unicode 18 §16.4 orthographic-syllable grammar parser: structural only.
+const grammarExamples = new Map([
+  ["ខ្ញុំ", ["ខ្ញុំ"]],
+  ["ច្រើន", ["ច្រើ", "ន"]],
+  ["សង្គ្រាម", ["ស", "ង្រា", "ម"]],
+  ["ហើយ", ["ហើយ"]],
+  ["សញ្ញា", ["ស", "ញ្ញា"]],
+  ["ស៊ី", ["ស៊ី"]],
+  ["ប៉ី", ["ប៉ី"]],
+  ["ផ្ឯម", ["ផ្ឯ", "ម"]],
+  ["អាយ៌", ["អា", "យ៌"]],
+]);
+for (const [source, expected] of grammarExamples) {
+  const parsed = parseOrthographicSyllables(source);
+  assert.equal(parsed.status, "PARSED", "Unicode 18 grammar example must parse: " + source);
+  assert.deepEqual(parsed.syllables.map((item) => item.source_text), expected);
+  assert.equal(parsed.syllables.map((item) => item.source_text).join(""), source);
+  assert.ok(parsed.syllables.every((item) => item.end > item.start));
+  assert.ok(parsed.syllables.every((item) => [...item.source_text].length === item.end - item.start));
+}
+const documentedShifterControl = parseOrthographicSyllables("ប\u200C៊");
+assert.equal(documentedShifterControl.status, "PARSED");
+assert.deepEqual(documentedShifterControl.syllables[0].grammar_extensions, [
+  "U+200C-before-shifter (§16.4.1 textual exception)",
+]);
+assert.equal(parseOrthographicSyllables("ក្").status, "INVALID_OR_UNSUPPORTED");
+assert.equal(parseOrthographicSyllables("កx").status, "INVALID_OR_UNSUPPORTED");
+assert.equal(parseOrthographicSyllables("កេិ").status, "EVIDENCE_LIMITED");
+const grammarOffsets = parseOrthographicSyllables("ខ្ញុំ");
+assert.deepEqual(grammarOffsets.syllables[0].components.map((item) => [item.start, item.end]), [[0, 1], [1, 3], [3, 4], [4, 5]]);
+assert.equal(grammarOffsets.grammar_profile, "unicode-18.0.0-ch16.4-plus-ch16.4.1-shifter-control");
+console.log("Unicode 18 Khmer orthographic-syllable parser: PASS");
