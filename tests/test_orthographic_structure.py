@@ -12,7 +12,7 @@ def test_unicode_18_component_roles_and_exact_offsets():
         ("VOWEL", "ុ", 3, 4),
         ("OTHER_SIGN", "ំ", 4, 5),
     ]
-    assert scan.protected_spans == ((0, 1), (1, 3), (3, 4), (4, 5))
+    assert scan.component_spans == ((0, 1), (1, 3), (3, 4), (4, 5))
     assert scan.to_dict()["offset_unit"] == "unicode_code_point"
 
 
@@ -70,3 +70,14 @@ def test_scanner_offsets_are_codepoints_and_input_is_not_normalized():
     assert scan.components[1].end == 2
     assert scan.components[2].start == 2
     assert scan.components[2].end == 4
+
+
+def test_component_schema_matches_serialized_scan_contract():
+    import json
+    from pathlib import Path
+
+    schema = json.loads(Path("schemas/orthographic-components.schema.json").read_text(encoding="utf-8"))
+    payload = scan_orthographic_components("ខ្ញុំ").to_dict()
+    assert payload["schema"] == schema["properties"]["schema"]["const"]
+    assert set(payload) == set(schema["required"])
+    assert all(set(component) == set(schema["properties"]["components"]["items"]["required"]) for component in payload["components"])
