@@ -147,9 +147,16 @@ function parseSyllable(raw) {
       index += 2;
       continue;
     }
-    if (VOWEL_SIGNS.has(char)) vowelSigns.push(char);
-    else if (!SIGN_BY_CHAR[char]) unknown.push(char);
-    graphemes.push({ text: char, kind: SIGN_BY_CHAR[char]?.kind ?? "unknown" });
+    if (isKhmerConsonant(char)) {
+      // A conservative orthographic unit may contain more than one base
+      // consonant before a validated syllable boundary is available. Preserve
+      // known consonants as structure; never mislabel them as unknown glyphs.
+      graphemes.push({ text: char, kind: "consonant" });
+    } else {
+      if (VOWEL_SIGNS.has(char)) vowelSigns.push(char);
+      else if (!SIGN_BY_CHAR[char]) unknown.push(char);
+      graphemes.push({ text: char, kind: SIGN_BY_CHAR[char]?.kind ?? "unknown" });
+    }
     index += 1;
   }
 
