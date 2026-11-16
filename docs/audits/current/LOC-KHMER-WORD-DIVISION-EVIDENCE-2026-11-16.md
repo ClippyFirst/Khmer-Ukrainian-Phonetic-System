@@ -74,3 +74,8 @@ The interface deliberately does **not** implement a word segmenter and does not 
 A boundary inside a protected cluster is rejected. Multiple viable candidates remain AMBIGUOUS. Proposed or unresolved candidates never populate `selected_boundaries`. The module does not infer cluster spans, lexical independence, word origins, or boundaries.
 
 **Acceptance:** `KHM-WORD-BOUNDARY-EVIDENCE-001 = DONE_VERIFIED` after exact-head CI. This closes only the data-contract/interface task. Profile selection, licensed lexical evidence, actual segmentation and independent boundary gold remain open under the ledger above.
+
+
+## Post-merge verification — 2026-11-16
+
+The profile-neutral evidence interface was merged in PR #281 as `50ae3538a624cf78781411c08ebcf51f73fcb5c2`. Exact-main Quality `43940735723`, browser smoke `43940735738`, and Pages deploy `43940735610` succeeded. This verifies the data contract and its engineering integration only; it does not satisfy the still-open profile-selection, licensed-lexicon, boundary-annotation or segmentation-conformance gates.
