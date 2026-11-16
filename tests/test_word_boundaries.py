@@ -90,3 +90,20 @@ def test_rejected_candidate_does_not_override_one_adjudicated_candidate():
 def test_profile_id_and_version_must_be_selected_together():
     with pytest.raises(ValueError, match="both be set"):
         WordBoundaryAnalysis("កម្ពុជា", profile_id="ala-lc-khmer")
+
+
+def test_boundary_evidence_payload_matches_published_schema_shape():
+    import json
+    from pathlib import Path
+
+    schema = json.loads(Path("schemas/word-boundary-evidence.schema.json").read_text(encoding="utf-8"))
+    result = WordBoundaryAnalysis(
+        source_text="កម្ពុជា",
+        candidates=(BoundaryCandidate("candidate-1", (2,), "PROPOSED"),),
+    ).to_dict()
+    assert result["schema"] == schema["properties"]["schema"]["const"]
+    assert set(result) == set(schema["properties"])
+    assert set(result["candidates"][0]) == set(schema["$defs"]["candidate"]["properties"])
+    assert result["candidates"][0]["evidence"] == []
+    assert set(result["profile"]) == {"id", "version"}
+    assert set(result["candidates"][0]) == {"candidate_id", "boundaries", "status", "note", "evidence"}
