@@ -378,7 +378,12 @@ function parseOrthographicSequence(raw) {
     const key = JSON.stringify(spans);
     if (!boundaryAlternatives.some((candidate) => JSON.stringify(candidate) === key)) boundaryAlternatives.push(spans);
   }
-  const ambiguousBase = items.some((item) => item.status === "AMBIGUOUS_BASE_ROLE");
+  const ambiguousComponents = items.filter((item) => item.status === "AMBIGUOUS_BASE_ROLE");
+  const ambiguousBase = ambiguousComponents.length > 0;
+  for (const item of ambiguousComponents) rejected.push({
+    start: item.start, end: item.end,
+    reason: "Potential coda-versus-next-syllable base role is not determined by Unicode 18 §16.4; this candidate boundary is not selected.",
+  });
   const status = truncated || ambiguousBase ? "EVIDENCE_LIMITED"
     : !alternatives.length ? "INVALID_ORDER"
       : boundaryAlternatives.length > 1 ? "AMBIGUOUS" : "PARSED";
@@ -396,6 +401,7 @@ function parseOrthographicSequence(raw) {
     status,
     alternatives: alternatives.map((syllables) => ({ syllables })),
     boundary_alternatives: boundaryAlternatives,
+    selected_alternative: null,
     rejected_spans: rejected,
     notes,
     truncated,
