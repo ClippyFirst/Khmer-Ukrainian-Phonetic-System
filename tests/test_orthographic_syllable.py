@@ -81,3 +81,24 @@ def test_unicode_18_parse_forest_exposes_rejected_order_and_no_ipa():
     assert "ipa" not in forest.to_dict()
     assert "ukrainian" not in forest.to_dict()
     assert forest.rejected_spans[0]["start"] == 2
+
+
+def test_unicode_18_examples_have_exact_candidate_boundary_parse_sets():
+    expected = {
+        "ខ្ញុំ": (((0, 5),),),
+        "ច្រើន": (((0, 4), (4, 5)),),
+        "សង្គ្រាម": (((0, 1), (1, 7), (7, 8)),),
+        "ហើ្យ": (((0, 4),),),
+        "សញ្ញា": (((0, 1), (1, 5)),),
+        "ស៊ី": (((0, 3),),),
+        "ប៉ី": (((0, 3),),),
+        "ម៉្ងៃ": (((0, 5),),),
+        "ប‌៊ីយែរ": (((0, 4), (4, 6), (6, 7)),),
+        "ផ្ឯម": (((0, 3), (3, 4)),),
+        "អាយ៌": (((0, 2), (2, 4)),),
+        "ពត៌មាន": (((0, 1), (1, 3), (3, 5), (5, 6)),),
+    }
+    for source, candidate_paths in expected.items():
+        forest = parse_orthographic_sequence(source)
+        assert forest.boundary_alternatives == candidate_paths, (source, forest.to_dict())
+        assert "".join(source[start:end] for path in forest.boundary_alternatives for start, end in path) == source
