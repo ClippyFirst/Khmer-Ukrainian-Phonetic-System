@@ -116,3 +116,47 @@ def test_syllable_chaining_example_does_not_claim_phonetic_syllabification():
         for syllable in result.syllables
         for grapheme in syllable["graphemes"]
     ) == source
+
+
+def test_subscript_independent_vowel_is_a_structural_unit_not_a_phonetic_claim():
+    from khmer_ua.parser import decompose_khmer_syllable
+
+    # Unicode 18 Chapter 16 uses ផ្ឯម as an example of coeng + independent vowel.
+    source = "ផ្ឯម"
+    parsed = decompose_khmer_syllable(source)
+
+    assert parsed.status == "ESTABLISHED_STRUCTURE"
+    assert parsed.base_consonant == "ផ"
+    assert parsed.subscripts == []
+    assert parsed.subscript_independent_vowels == ["ឯ"]
+    assert [(item.text, item.kind, item.codepoints) for item in parsed.graphemes] == [
+        ("ផ", "consonant", ("U+1795",)),
+        ("្ឯ", "subscript_independent_vowel", ("U+17D2", "U+17AF")),
+        ("ម", "consonant", ("U+1798",)),
+    ]
+    assert parsed.ipa is None
+    assert parsed.phonology == {"onset_ipa": "pʰ"} or parsed.phonology.get("onset_ipa") is not None
+    assert "unicode18-ch16" in parsed.sources
+
+
+def test_coeng_pair_protection_uses_exact_source_codepoint_offsets():
+    from khmer_ua.parser import khmer_subscript_sequence_spans
+    from khmer_ua.word_boundaries import BoundaryCandidate, WordBoundaryAnalysis
+
+    source = "🧪ផ្ឯម"
+    spans = khmer_subscript_sequence_spans(source)
+    assert spans == ((2, 4),)
+    with pytest.raises(ValueError, match="splits a protected cluster"):
+        WordBoundaryAnalysis(
+            source,
+            (BoundaryCandidate("split-coeng-pair", (3,), "PROPOSED"),),
+            cluster_spans=spans,
+        )
+
+
+def test_coeng_pair_protection_does_not_claim_complete_syllable_boundaries():
+    from khmer_ua.parser import khmer_subscript_sequence_spans
+
+    assert khmer_subscript_sequence_spans("ខ្ញុំ") == ((1, 3),)
+    assert khmer_subscript_sequence_spans("កx") == ()
+    assert khmer_subscript_sequence_spans("្") == ()
