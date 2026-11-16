@@ -59,14 +59,13 @@ def test_offsets_are_exact_code_points_and_input_is_not_normalized():
 def test_subscript_independent_vowel_example_preserves_role_ambiguity():
     result = parse_orthographic_syllables("ផ្ឯម")
     assert result.status == "AMBIGUOUS"
-    assert result.to_dict()["parse_count"] == 2
+    assert result.to_dict()["parse_count"] == "2"
+    assert result.to_dict()["segmentation_count"] == 1
+    assert len(result.alternatives) == 1
+    assert tuple(item.source_text for item in result.alternatives[0].syllables) == ("ផ្ឯ", "ម")
     assert {
-        tuple(item.source_text for item in alternative.syllables)
-        for alternative in result.alternatives
-    } == {("ផ្ឯ", "ម")}
-    assert {
-        alternative.syllables[0].grammar_roles
-        for alternative in result.alternatives
+        item.grammar_roles
+        for item in result.alternatives[0].syllables[0].grammar_alternatives
     } == {
         ("BASE", "SUBSCRIPT_CLUSTER"),
         ("BASE", "TRAILING_SUBSCRIPT"),
@@ -79,13 +78,24 @@ def test_bnf_component_role_ambiguity_is_preserved_as_two_parse_trees():
     assert result.syllables is None
     assert result.to_dict()["parse_count"] == 2
     alternatives = {
-        alternative.syllables[0].grammar_roles
-        for alternative in result.alternatives
+        item.grammar_roles
+        for item in result.alternatives[0].syllables[0].grammar_alternatives
     }
     assert alternatives == {
         ("BASE", "SUBSCRIPT_CLUSTER"),
         ("BASE", "TRAILING_SUBSCRIPT"),
     }
+
+
+def test_packed_forest_avoids_cartesian_expansion_for_many_ambiguous_syllables():
+    source = "ក្ក" * 20
+    result = parse_orthographic_syllables(source)
+    payload = result.to_dict()
+    assert result.status == "AMBIGUOUS"
+    assert payload["parse_count"] == str(2 ** 20)
+    assert payload["segmentation_count"] == 1
+    assert len(result.alternatives[0].syllables) == 20
+    assert all(len(item.grammar_alternatives) == 2 for item in result.alternatives[0].syllables)
 
 
 def test_component_roles_distinguish_cluster_and_trailing_subscript():
@@ -107,4 +117,6 @@ def test_schema_matches_serialized_parse_contract():
     payload = parse_orthographic_syllables("ខ្ញុំ").to_dict()
     assert payload["schema"] == schema["properties"]["schema"]["const"]
     assert set(payload) == set(schema["required"])
+    assert payload["parse_count"] == "1"
+    assert payload["segmentation_count"] == 1
     assert set(payload["syllables"][0]) == set(schema["$defs"]["syllable"]["required"])
