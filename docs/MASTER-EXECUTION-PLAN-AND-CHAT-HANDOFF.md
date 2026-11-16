@@ -3096,3 +3096,10 @@ This change ports architectural patterns from the Lao engine, not Lao phonologic
 The reported `ព្រះរាជាណាចក្រ` false `Unknown character(s)` state has now been traced to the browser parser's unit assumption: the conservative tokenizer can keep several known Khmer base consonants in one orthographic chunk, but the parser previously treated every post-base consonant outside a COENG pair as unknown. The parser now records every recognized consonant as a consonant grapheme and withholds phonetic output when the chunk cannot be confidently syllabified. This is a structural-recognition correction, not a new pronunciation rule; the absence of a lexical IPA fixture still yields NOT_ESTABLISHED.
 
 The shared `khmer-phonetic-result/v1` payload is specified in `schemas/phonetic-result.schema.json`. Both runtime implementations expose the same unit keys, rule trace, provenance lanes and uncertainty shape; Python and browser tests assert the published contract shape.
+
+## Profile-neutral Khmer word-boundary evidence interface — 2026-11-16
+
+- Added `src/khmer_ua/word_boundaries.py`, package exports and `schemas/word-boundary-evidence.schema.json`.
+- `KHM-WORD-BOUNDARY-EVIDENCE-001`: profile-neutral evidence contract; source offsets are Unicode code points; caller-supplied protected cluster spans prevent boundaries from splitting a grapheme cluster; competing candidates remain explicit; every selected adjudicated boundary requires per-boundary adjudicated evidence and a source locator.
+- The interface never tokenizes, selects a candidate from longest match, infers loan origin, or claims ALA-LC conformance. Profile ID/version remain paired and optional pending the owner's explicit 1997-vs-2013 decision.
+- Acceptance after exact-head CI: DONE_VERIFIED for the evidence container/schema/tests only. Word segmentation remains TODO/EVIDENCE_LIMITED; rights-cleared lexical evidence and independent boundary annotations remain BLOCKED; no word segmentation output has been added to the service.
