@@ -157,6 +157,16 @@ def _analyze_unit(unit: str) -> dict[str, Any]:
         }
 
     structure = analyze_structure(unit)
+    if structure.status == "INVALID_OR_UNSUPPORTED":
+        return {
+            "source": unit, "ipa": None, "ukrainian": None,
+            "status": "INVALID_OR_UNSUPPORTED",
+            "rule_trace": ["KHMER_STRUCTURAL_VALIDATION_FAILED"],
+            "reason": "Unsupported or malformed source code point/sequence; inspect the structural grapheme trace.",
+            "evidence": [],
+            "structure": structure.phonological_representation,
+        }
+
     if len(structure.syllables) == 1:
         syllable = structure.syllables[0]
         if (
