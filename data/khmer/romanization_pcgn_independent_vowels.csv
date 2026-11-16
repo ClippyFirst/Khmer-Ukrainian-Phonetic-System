@@ -1,13 +1,13 @@
-table_row,source_characters,romanization,status,romanization_options,source_locator,acceptance_boundary
-3,ឥ,ĕ,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 3 (p. 2),Independent-vowel component only; no IPA or Ukrainian output
-4,ឦ,ei,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 4 (p. 2),Independent-vowel component only; no IPA or Ukrainian output
-7,ឧ,,UNRESOLVED,ŏ|ŭ,PCGN 1972 Independent/Dependent Vowel Characters table row 7 (p. 2) and Note 9 (p. 5),Preserve both source alternatives; do not select without lexical/reference evidence; no IPA or Ukrainian output
-14,ឯ,ê,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 14 (p. 2),Independent-vowel component only; no IPA or Ukrainian output
-15,ឰ,ai,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 15 (p. 2),Independent-vowel component only; no IPA or Ukrainian output
-16,ឱ|ឲ,aô,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 16 (p. 3),Both listed source characters share the table value; no IPA or Ukrainian output
-17,ឳ,au,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 17 (p. 3),Independent-vowel component only; no IPA or Ukrainian output
-18,ឪ,âu,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 18 (p. 3),Independent-vowel component only; no IPA or Ukrainian output
-19,ឫ,rœ̆,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 19 (p. 3),Independent-vowel component only; no IPA or Ukrainian output
-20,ឬ,rœ,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 20 (p. 3),Independent-vowel component only; no IPA or Ukrainian output
-21,ឭ,lœ̆,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 21 (p. 3),Independent-vowel component only; no IPA or Ukrainian output
-22,ឮ,lœ,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 22 (p. 3),Independent-vowel component only; no IPA or Ukrainian output
+table_row,source_characters,romanization,status,romanization_options,source_locator,acceptance_boundary,source_url
+3,ឥ,ĕ,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 3 (p. 2),Independent-vowel component only; no IPA or Ukrainian output,https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf
+4,ឦ,ei,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 4 (p. 2),Independent-vowel component only; no IPA or Ukrainian output,https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf
+7,ឧ,,UNRESOLVED,ŏ|ŭ,PCGN 1972 Independent/Dependent Vowel Characters table row 7 (p. 2) and Note 9 (p. 5),Preserve both source alternatives; do not select without lexical/reference evidence; no IPA or Ukrainian output,https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf
+14,ឯ,ê,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 14 (p. 2),Independent-vowel component only; no IPA or Ukrainian output,https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf
+15,ឰ,ai,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 15 (p. 2),Independent-vowel component only; no IPA or Ukrainian output,https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf
+16,ឱ|ឲ,aô,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 16 (p. 3),Both listed source characters share the table value; no IPA or Ukrainian output,https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf
+17,ឳ,au,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 17 (p. 3),Independent-vowel component only; no IPA or Ukrainian output,https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf
+18,ឪ,âu,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 18 (p. 3),Independent-vowel component only; no IPA or Ukrainian output,https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf
+19,ឫ,rœ̆,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 19 (p. 3),Independent-vowel component only; no IPA or Ukrainian output,https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf
+20,ឬ,rœ,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 20 (p. 3),Independent-vowel component only; no IPA or Ukrainian output,https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf
+21,ឭ,lœ̆,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 21 (p. 3),Independent-vowel component only; no IPA or Ukrainian output,https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf
+22,ឮ,lœ,RESOLVED,,PCGN 1972 Independent/Dependent Vowel Characters table row 22 (p. 3),Independent-vowel component only; no IPA or Ukrainian output,https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf
