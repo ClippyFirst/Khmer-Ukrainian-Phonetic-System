@@ -850,3 +850,15 @@ This bounded addition does **not** discover syllable or word boundaries in runni
 - Contract: `schemas/pcgn-syllable-assembly.schema.json`; regression coverage: `tests/test_pcgn_syllable_assembly.py`.
 - Primary source: BGN/PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2), Note 3, and Independent/Dependent Vowel Characters table (pp. 2–3): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 - Status: `DONE_VERIFIED` for this bounded API. PR #264 merged as `231b8f031ae130828018b18dbdf1c36c6ac47e6a`; exact-head Quality [43880147090] and Chromium [43880147081] passed, with push Quality [43880136584] also passing. Quality reports 338 Python tests + 70 subtests; web checks and production build passed. `KHM-ROM-ENGINE-001` remains PARTIAL because no general syllable segmentation, coda assembly or whole-word romanizer is claimed.
+
+
+## Bounded PCGN Note 5 closed-syllable assembly — 2026-11-16
+
+A second bounded assembler, `assemble_pcgn_shortened_closed_syllable`, composes the existing onset, Note 5 shortened-vowel and final-consonant resolvers for the three exact PCGN Note 5 shapes: inherent+BANTOC, AA+BANTOC, and SAMYOK SANNYA+coda. The caller supplies onset-only, full-syllable and coda-only chunks plus the Note 5 coda class. The implementation checks exact token boundaries, requires one unmarked final consonant, and cross-checks the supplied coda class against its resolved PCGN romanization (`k`, `ng`, `h`, or `other`) before selecting the `eă`/`oă` branch.
+
+Coda-bearing syllables outside those exact Note 5 shapes, unsupported final consonants (including BA and ALIF under the current final-consonant resolver), malformed chunks, inconsistent coda classes and all ambiguous structures abstain. This remains orthographic BGN/PCGN Latin output only; it does not infer word boundaries or generate IPA/Ukrainian output.
+
+- API: `src/khmer_ua/pcgn.py::assemble_pcgn_shortened_closed_syllable`.
+- Contract: `schemas/pcgn-closed-syllable-assembly.schema.json`; tests: `tests/test_pcgn_closed_syllable_assembly.py`.
+- Primary source: BGN/PCGN 1972, Notes §5 and the shortened-vowel entries in the vowel table: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+- Status on this branch: implementation and source-backed component composition added; exact-head CI is pending. General syllabification, other coda patterns and whole-word romanization remain incomplete.
