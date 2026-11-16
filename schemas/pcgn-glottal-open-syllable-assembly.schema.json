@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BGN/PCGN 1972 Note 4 Alif open-syllable assembly",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_text", "normalized_text", "onset_text", "word_initial",
+    "followed_by_vowel_letter", "series", "onset_romanization",
+    "vowel_romanization", "romanization", "romanization_options",
+    "vowel_table_row", "status", "ipa", "ukrainian", "source_locators", "warnings"
+  ],
+  "properties": {
+    "source_text": {"type": "string"},
+    "normalized_text": {"type": "string"},
+    "onset_text": {"type": "string"},
+    "word_initial": {"type": ["boolean", "null"]},
+    "followed_by_vowel_letter": {"type": ["boolean", "null"]},
+    "series": {"enum": ["â", null]},
+    "onset_romanization": {"type": ["string", "null"]},
+    "vowel_romanization": {"type": ["string", "null"]},
+    "romanization": {"type": ["string", "null"]},
+    "romanization_options": {
+      "type": "array", "items": {"type": "string"},
+      "minItems": 0, "maxItems": 2, "uniqueItems": true
+    },
+    "vowel_table_row": {"type": ["integer", "null"]},
+    "status": {"enum": ["RESOLVED", "UNRESOLVED"]},
+    "ipa": {"const": null},
+    "ukrainian": {"const": null},
+    "source_locators": {
+      "const": [
+        "PCGN 1972, Consonant Characters row 22 and Note 4 (p. 5)",
+        "PCGN 1972, Independent/Dependent Vowel Characters table (pp. 2–3)"
+      ]
+    },
+    "warnings": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "RESOLVED"}}, "required": ["status"]},
+      "then": {
+        "properties": {
+          "word_initial": {"type": "boolean"},
+          "followed_by_vowel_letter": {"type": "boolean"},
+          "series": {"const": "â"},
+          "onset_romanization": {"const": "’"},
+          "vowel_romanization": {"type": "string"},
+          "romanization": {"type": "string"},
+          "romanization_options": {"minItems": 1}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "UNRESOLVED"}}, "required": ["status"]},
+      "then": {
+        "properties": {
+          "series": {"const": null}, "onset_romanization": {"const": null},
+          "vowel_romanization": {"const": null}, "romanization": {"const": null},
+          "romanization_options": {"maxItems": 0}
+        }
+      }
+    }
+  ]
+}
