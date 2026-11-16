@@ -8,6 +8,14 @@
     "status": "ESTABLISHED"
   },
   {
+    "id": "unicode18-uax29",
+    "type": "authoritative_standard",
+    "title": "Unicode Standard Annex #29, Unicode 18.0.0, Revision 49",
+    "url": "https://www.unicode.org/reports/tr29/tr29-49.html",
+    "scope": "Default extended grapheme-cluster and word-boundary rules; documentation that Khmer word boundaries require tailoring and that script-specific orthographic syllable units may require additional tailoring",
+    "status": "ESTABLISHED"
+  },
+  {
     "id": "unicode17-ch16",
     "type": "authoritative_standard",
     "title": "Unicode Standard 17.0.0, Chapter 16: South and Southeast Asian Scripts — Khmer",
