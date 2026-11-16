@@ -144,6 +144,8 @@ def decompose_khmer_syllable(raw: str) -> KhmerSyllable:
         s.confidence=0.9 if s.status=="ESTABLISHED_STRUCTURE" else 0.6
     elif s.independent_vowel:
         s.sources=["unicode17-ch16"]
+        if s.subscript_independent_vowels:
+            s.sources.append("unicode18-ch16")
         s.status="ESTABLISHED_STRUCTURE"
         s.confidence=0.9
     else:
