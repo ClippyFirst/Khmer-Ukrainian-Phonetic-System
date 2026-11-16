@@ -1434,3 +1434,15 @@ PR #300 merged as `b60a65179ffbb593fca8f3eb2c07a1c81e6e8489` (final PR head `076
 | ID | Status | Evidence | Acceptance boundary |
 |---|---|---|---|
 | KHM-IPA-CONVENTION-001 | PARTIAL (draft merged; expert approval blocked) | PR [#306](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/306) merged as `4d7e7bd045544d2a6d407511679761a7b0b839a1`. Exact PR-head Quality [43969775235] SUCCESS (417 Python + 70 subtests; corpus structural validation, Node/web checks, production build); Chromium [43969775186] SUCCESS (12/12 Playwright). The draft is `docs/ipa-gold/khmer-pph-careful-citation-ipa-v1-draft.md`; Minegishi 1985 source registered with pp. 43–53 and 55–66 locators. | The sheet remains `DRAFT_NOT_APPROVED`; `PHONETIC_BROAD` is only a proposal. Requires qualified target-profile expert approval/replacement and independent challenge review. No gold labels or annotations created. `KHM-GOLD-001` remains BLOCKED; gold=0; accuracy=null. |
+
+ 
+### Consolidated external Khmer source audit — 2026-11-17
+
+| ID | Status | Evidence / boundary |
+|---|---|---|
+| KHMER-MEKONGPHON-001 | PARTIAL | 8,040-row seed lexicon audited (8,026 Headley words + 10 numerals + 4 punctuation); 7,940/100 lexical split; no per-item source IDs; sentence labels are longest-match dictionary pseudo-labels over OPUS, not independent speech transcription. Dataset rights unknown; Headley profile/convention not equivalent to approved contemporary Phnom Penh profile. External comparator only; no import/gold. |
+| KHMER-OPEN-DICT-IPA-001 | PARTIAL | 3,286 rows, 3,261 unique spellings, 25 repeated keys (one divergent), 63 multi-pronunciation rows. CC BY-NC-SA 4.0 third-party data; preserve alternatives; comparator only and non-commercial. |
+| KHMER-ACOUSTIC-MODEL-001 | BLOCKED | Pinned upstream repo exposes only six-line sample dictionary; full dictionary, model archive, 137-hour audio corpus and manual alignments absent. Conflicting counts (29,204/33,091) and data-license claims (CC BY-SA 4.0/CC BY 4.0); no official MFA model entry. |
+| KHM-GOLD-001 | BLOCKED | Independent expert-adjudicated IPA gold remains 0; empirical accuracy remains null. |
+
+No external data/model/audio was imported. No source candidate is promoted to gold. Source metadata is consolidated on the 2026-11-17 integration branch; exact-head CI is pending.

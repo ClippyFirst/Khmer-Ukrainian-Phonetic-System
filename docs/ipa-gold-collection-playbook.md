@@ -207,3 +207,14 @@ Two stronger current prospective reviewer leads are now documented. They are not
 The Royal University of Phnom Penh Department of Linguistics is also a credible institutional referral route: its official programme describes postgraduate work in phonetics, phonology, Khmer language and dialect documentation. This is an institutional route, not evidence that any specific faculty member has accepted the project. https://www.rupp.edu.kh/academics/faculties_and_institutes/faculty_of_social_science_and_humanities/department_of_linguistics/ma-Lgs
 
 **Recruitment status:** no one has been contacted, recruited or approved. Obtain explicit confirmation of target-profile competence, IPA expertise, role independence, availability and terms. Two independent annotators, a separate adjudicator and a non-annotating curator remain necessary.
+
+ 
+## External candidate screening: additional Khmer sources — 2026-11-17
+
+The source registry now records three additional evidence boundaries:
+
+- **MekongPhon / Headley–SEALang:** historical dictionary-derived phonemic candidate only. Preserve the 8,040-row lexicon and its word-level split as source facts, not as an importable corpus. No per-entry provenance, verified dataset license, or approved conversion from Headley's notation to the project IPA/register contract exists. The OPUS sentence pairs are dictionary-generated pseudo-labels, not independent speech annotations.
+- **open-dict-data/ipa-dict Khmer:** third-party CC BY-NC-SA 4.0 comparator only. Keep duplicate spellings and all alternative readings. The file's broad phonemic notation is not narrow phonetic gold; the non-commercial/share-alike terms preclude treating it as an unrestricted-release source.
+- **Khmer Acoustic Model:** blocked until the full versioned dictionary/model/audio artifacts, checksums, artifact-specific rights, corpus manifest and item-level provenance are supplied. A six-line sample and forced-alignment metrics cannot validate G2P or IPA accuracy.
+
+None of these sources authorizes annotation or import into `records.jsonl` / `gold.tsv`. Candidate comparisons must remain isolated from blind expert pilot/test material and must record source revision, variant policy, profile mismatch and rights status.
