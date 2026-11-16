@@ -29,7 +29,7 @@ def test_rule_fallback_is_repeatable_and_explicitly_proposed():
 def test_unknown_mixed_material_is_not_guessed():
     result = RuleBasedKhmerEngine().analyze("កx")
     assert result["ipa"] is None
-    assert result["status"] == "NOT_ESTABLISHED"
+    assert result["status"] == "INVALID_OR_UNSUPPORTED"
 
 
 def test_hybrid_wrapper_preserves_rule_engine_as_final_authority():
@@ -57,9 +57,9 @@ def test_hybrid_factory_accepts_only_typed_provider_candidates():
 def test_mixed_input_preserves_supported_units_and_marks_only_unresolved_units():
     result = RuleBasedKhmerEngine().analyze("ខ្មែរ ☃")
 
-    assert result["ipa"] == "kʰmae ⟦NOT_ESTABLISHED⟧"
+    assert result["ipa"] == "kʰmae ⟦INVALID_OR_UNSUPPORTED⟧"
     assert result["ukrainian"] == "к'мае ⟦НЕВСТАНОВЛЕНО⟧"
-    assert result["status"] == "NOT_ESTABLISHED"
+    assert result["status"] == "EVIDENCE_LIMITED"
     assert result["complete"] is False
     assert result["partial"] is True
 
@@ -69,8 +69,8 @@ def test_mixed_input_preserves_supported_units_and_marks_only_unresolved_units()
     assert typed["units"][0]["ipa"] == "kʰmae"
     assert typed["units"][0]["provenance"]["phonology"] == ["wiktionary:khmae"]
     assert typed["units"][0]["provenance"]["target_policy"] == ["data/ukrainian/practical-policy.json"]
-    assert typed["units"][1]["status"] == "NOT_ESTABLISHED"
-    assert typed["units"][1]["uncertainty"][0]["status"] == "NOT_ESTABLISHED"
+    assert typed["units"][1]["status"] == "INVALID_OR_UNSUPPORTED"
+    assert typed["units"][1]["uncertainty"][0]["status"] == "INVALID_OR_UNSUPPORTED"
 
 
 def test_reported_khmer_spelling_is_structural_not_phonetically_established():
