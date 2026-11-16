@@ -369,7 +369,7 @@ function convert(text, profile) {
     kind: item.status === "PUNCTUATION" ? "separator" : "phonetic-unit",
     source: item.source,
     status: item.status,
-    ipa: item.status !== "PUNCTUATION" && /^\\/.*\\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa,
+    ipa: item.status !== "PUNCTUATION" && /^\/.*\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa,
     ukrainian: item.ua,
     profile,
     provenance: {
