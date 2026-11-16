@@ -1152,3 +1152,10 @@ Unicode Standard 18.0.0 §16.4 gives the formal component-order BNF `B {R | C} {
 Main commit 8ec4460a0af291dcba10563912f8fcd0c3f784fd contains the canonical Python/browser Unicode 18 §16.4 packed parser, grammar-role alternatives, exact source offsets and rejected spans/reasons. Exact-main Quality [43963765593] passed 417 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build; Chromium [43963765334] and Pages deploy/runtime smoke [43963765391] passed.
 
 KHM-ORTHO-BNF-PARSER-001 is DONE_VERIFIED for orthographic structure only. LOC word segmentation, phonological syllabification, IPA gold and Ukrainian output remain separate and incomplete. TN #61 v2 is registered as unicode-tn61-khmer-encoding-structure-v2 with non-normative status and Terms-of-Use limitations; its separate Modern Khmer profile remains TODO. PR #292 was closed as duplicate after equivalent diagnostics were merged independently; its branch remains preserved. Issue #104 remains OPEN; independent IPA gold remains 0.
+
+
+## Final post-handoff main verification — 2026-11-16
+
+PR #296 merged as 1cecfa86e098fb3e96a7a55954010840f28ddb84. Exact-main Quality [43964140244] passed 417 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build; Chromium [43964140341] and Pages deploy/runtime smoke [43964140290] passed. The parser and source-registry work is verified on the exact post-handoff main SHA.
+
+TN #61 v2 is registered as a non-normative source with rights/status locators; its Modern Khmer profile remains TODO. KHM-ORTHO-BNF-PARSER-001 is DONE_VERIFIED. LOC word division, phonological syllabification, adjudicated IPA gold and Ukrainian output remain incomplete. Issue #104 remains OPEN; independent IPA gold remains 0. No release is authorized by these engineering checks.
