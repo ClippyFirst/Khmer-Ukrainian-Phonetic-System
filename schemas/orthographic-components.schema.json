@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Khmer orthographic component scan",
+  "type": "object",
+  "required": [
+    "schema",
+    "source_text",
+    "offset_unit",
+    "status",
+    "notes",
+    "components"
+  ],
+  "properties": {
+    "schema": {
+      "const": "khmer-orthographic-components/v1"
+    },
+    "source_text": {
+      "type": "string"
+    },
+    "offset_unit": {
+      "const": "unicode_code_point"
+    },
+    "status": {
+      "enum": [
+        "ESTABLISHED_STRUCTURE",
+        "EVIDENCE_LIMITED",
+        "INVALID_OR_UNSUPPORTED"
+      ]
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "role",
+          "text",
+          "start",
+          "end",
+          "codepoints",
+          "status"
+        ],
+        "properties": {
+          "role": {
+            "enum": [
+              "BASE",
+              "SUBSCRIPT",
+              "ROBAT",
+              "SHIFTER",
+              "VOWEL",
+              "FORMAT_CONTROL",
+              "OTHER_SIGN",
+              "UNSUPPORTED"
+            ]
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "start": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "end": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "codepoints": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^U\\+[0-9A-F]{4,6}$"
+            }
+          },
+          "status": {
+            "enum": [
+              "RECOGNIZED",
+              "AMBIGUOUS_BASE_ROLE",
+              "MALFORMED_COENG",
+              "UNMODELED_CHARACTER"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
