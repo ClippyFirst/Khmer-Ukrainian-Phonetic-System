@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { convert, parseSyllable, scanOrthographicComponents, parseOrthographicSyllable, tokenize, getStatusNotice } from "../src/main.js";
+import { convert, parseSyllable, scanOrthographicComponents, parseOrthographicSyllable, parseOrthographicSequence, tokenize, getStatusNotice } from "../src/main.js";
 
 const adversarial = "ក គ កា គា កូ គូ កី គី កេ គេ កែ គែ កើ គើ កៅ គៅ ប ប៉ ប៊ ផ ព ត ថ ទ ធ ច ឆ ជ ឈ ស ហ វ";
 
@@ -205,3 +205,22 @@ assert.equal(parseOrthographicSyllable("កាី").status, "INVALID_ORDER");
 assert.equal(parseOrthographicSyllable("ច្រើន").status, "EVIDENCE_LIMITED");
 assert.equal(parseOrthographicSyllable("សង្គ្រាម").status, "EVIDENCE_LIMITED");
 assert.equal(parseOrthographicSyllable("ក្").status, "INVALID_OR_UNSUPPORTED");
+
+
+const forestSingle = parseOrthographicSequence("ផ្ឯ");
+assert.equal(forestSingle.status, "PARSED");
+assert.deepEqual(forestSingle.boundary_alternatives, [[[0, 3]]]);
+assert.equal(forestSingle.alternatives.length, 2);
+const forestAmbiguous = parseOrthographicSequence("ច្រើន");
+assert.equal(forestAmbiguous.status, "EVIDENCE_LIMITED");
+assert.deepEqual(forestAmbiguous.boundary_alternatives, [[[0, 4], [4, 5]]]);
+const forestInvalid = parseOrthographicSequence("កាី");
+assert.equal(forestInvalid.status, "INVALID_ORDER");
+assert.ok(forestInvalid.rejected_spans.length > 0);
+for (const source of ["ខ្ញុំ", "ច្រើន", "សង្គ្រាម", "ហើ្យ", "សញ្ញា", "ស៊ី", "ប៉ី", "ម៉្ងៃ", "ប‌៊ីយែរ", "ផ្ឯម", "អាយ៌", "ពត៌មាន"]) {
+  const forest = parseOrthographicSequence(source);
+  assert.ok(["PARSED", "EVIDENCE_LIMITED", "AMBIGUOUS"].includes(forest.status), source);
+  for (const path of forest.boundary_alternatives) {
+    assert.equal(path.map(([start, end]) => [...source].slice(start, end).join("")).join(""), source);
+  }
+}
