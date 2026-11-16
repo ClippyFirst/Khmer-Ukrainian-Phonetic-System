@@ -818,3 +818,8 @@ Schema: `schemas/pcgn-final-consonant-decision.schema.json`; tests: `tests/test_
 Source: BGN/PCGN 1972 Agreement, p. 2: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 
 Status: `KHM-ROM-PCGN-FINAL-CONSONANT-001 = PARTIAL`; the source's “generally” qualifier is preserved, and the resolver emits no complete syllable, IPA or Ukrainian output.
+
+
+## Exact-main verification — PR #255 / PCGN final-consonant input contract — 2026-11-16
+
+PR #255 merged as `47679154526fa32c5edd9d62ca084de5af4759dd`. PR-head push Quality [43825412435], PR Quality [43825430244], PR Chromium [43825430217] and exact-main Quality [43825536547], Chromium [43825536580], Pages [43825536491] all SUCCESS. Final-consonant context flags now require actual booleans; exhaustive base-character tests were added. `KHM-ROM-PCGN-FINAL-CONSONANT-001` remains PARTIAL and emits no IPA/Ukrainian result.

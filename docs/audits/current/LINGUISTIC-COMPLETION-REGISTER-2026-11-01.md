@@ -1228,3 +1228,8 @@ PR #252 merged as `16fbbde6238e03290507056388b539f54622d236`. Final PR-head push
 | ID | Status | Evidence | Acceptance boundary |
 |---|---|---|---|
 | KHM-ROM-PCGN-FINAL-CONSONANT-001 | PARTIAL | `resolve_pcgn_final_consonant`, `PCGNFinalConsonantDecision`, schema `schemas/pcgn-final-consonant-decision.schema.json`, tests `tests/test_pcgn_final_consonant_resolution.py`, rule registry `data/khmer/romanization_pcgn_final_consonant.csv`. Primary source: BGN/PCGN 1972, p. 2 final-consonant statement. | Explicit final position and caller-confirmed absence of vowel character/TOANDAKHIAT; one base plus at most one foot. BA/ALIF abstain. “Generally” is preserved as a qualified rule. No syllable segmentation, IPA or Ukrainian output. |
+
+
+## Exact-main verification — PR #255 / final-consonant context contract — 2026-11-16
+
+PR #255 merged as `47679154526fa32c5edd9d62ca084de5af4759dd`. PR-head push Quality [43825412435], PR Quality [43825430244], Chromium [43825430217], exact-main Quality [43825536547], Chromium [43825536580] and Pages [43825536491] all SUCCESS. The resolver rejects non-boolean caller context and tests all supported base consonants. This does not change `KHM-ROM-PCGN-FINAL-CONSONANT-001 = PARTIAL`, `KHM-ROM-ENGINE-001 = PARTIAL`, independent IPA gold = 0, or accuracy = null. Issue #104 remains OPEN.
