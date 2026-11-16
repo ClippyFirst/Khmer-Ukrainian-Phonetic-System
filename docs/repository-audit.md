@@ -1034,3 +1034,8 @@ PR #256 merged as `dee4881da4cfb01b6da0ff5e857af67cade14cb1`. PR-head push Quali
 ## PCGN independent-vowel table source registry — 2026-11-16
 
 Added `data/khmer/romanization_pcgn_independent_vowels.csv` with source-located rows 3, 4, 7 and 14–22 from the official BGN/PCGN 1972 table. Row 7 keeps `ឧ` unresolved with both `ŏ` and `ŭ` alternatives. A regression test checks exact parity with the runtime mapping and primary source URL. This is traceability/registry work only; no behavior or linguistic acceptance status is promoted.
+
+
+## PR #259 exact-main closeout — 2026-11-16
+
+PR #259 merged as `458026f080bca31edeec87c2009245213ab667c7`. PR-head push Quality [43826670914], PR Quality [43826697643], Chromium [43826697687], exact-main Quality [43826837012], Chromium [43826837160] and Pages [43826837175] all SUCCESS. Exact-main `pytest -q`: 332 passed, 70 subtests passed; web checks, production build, Chromium exercise and deployed-site/runtime-asset smoke passed. The new independent-vowel CSV is a source registry only; no language behavior or acceptance status changed. PR #258 was closed as superseded due to a stale-base documentation conflict; no work was discarded.

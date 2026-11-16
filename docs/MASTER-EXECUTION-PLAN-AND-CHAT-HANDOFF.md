@@ -2874,3 +2874,13 @@ Status: `KHM-ROM-PCGN-FINAL-CONSONANT-001 = PARTIAL`. No syllable segmentation, 
 - Each row records the table row, source character(s), romanization or alternatives, acceptance boundary, exact page locator and official primary-source URL.
 - Added a regression check that the source registry matches `PCGN_INDEPENDENT_VOWEL_ROWS` exactly and preserves the Note 9 ambiguity. No runtime mapping changed; no IPA/Ukrainian output or accuracy claim is added.
 - `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` and `KHM-ROM-ENGINE-001` remain PARTIAL.
+
+
+## PR #259 closeout — PCGN independent-vowel source register — 2026-11-16
+
+- PR [#259](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/259) merged by squash as `458026f080bca31edeec87c2009245213ab667c7`; exact current `main` verified at this SHA. No open PRs.
+- PR-head `e9ced1775d4382a2a7be3bcbc01c5c51c0b34a2f`: push Quality [43826670914], PR Quality [43826697643], Chromium [43826697687] all SUCCESS.
+- Exact post-merge main: Quality [43826837012], Chromium [43826837160] and Pages build/deploy [43826837175] all SUCCESS. Pages included production-site Chromium exercise and deployed-site/runtime-asset smoke.
+- Exact-main Quality log: `pytest -q` — 332 passed, 70 subtests passed; `npm run check` and production build passed.
+- The CSV is a source/evidence register, not a runtime mapping change. Note 9 `ឧ` remains unresolved with alternatives `ŏ`/`ŭ`. `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` and `KHM-ROM-ENGINE-001` remain PARTIAL.
+- The earlier PR #258 was closed without merge because its branch had a stale-base documentation conflict after PR #257; the changes were preserved on a clean branch and merged as PR #259.

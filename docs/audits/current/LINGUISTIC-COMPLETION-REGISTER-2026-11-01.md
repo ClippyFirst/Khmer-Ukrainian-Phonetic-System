@@ -1245,3 +1245,8 @@ PR #256 merged as `dee4881da4cfb01b6da0ff5e857af67cade14cb1`. PR-head push Quali
 | ID | Status | Evidence | Acceptance boundary |
 |---|---|---|---|
 | KHM-ROM-PCGN-INDEPENDENT-VOWELS-001 | PARTIAL | Runtime mapping `PCGN_INDEPENDENT_VOWEL_ROWS`; auditable source register `data/khmer/romanization_pcgn_independent_vowels.csv`; parity/Note 9 test in `tests/test_pcgn_independent_vowel_resolution.py`. Primary source: BGN/PCGN 1972, Independent/Dependent Vowel Characters table, pp. 2–3, Note 9 p. 5. | Rows 3, 4, 7, 14–22 only. `ឧ` retains both `ŏ`/`ŭ` alternatives without selection. Component romanization only; no IPA/Ukrainian output or empirical accuracy claim. |
+
+
+## Exact-main verification — PR #259 — 2026-11-16
+
+PR #259 merged as `458026f080bca31edeec87c2009245213ab667c7`. PR-head push Quality [43826670914], PR Quality [43826697643], Chromium [43826697687], exact-main Quality [43826837012], Chromium [43826837160] and Pages [43826837175] all SUCCESS. Exact-main `pytest -q`: 332 passed, 70 subtests passed; web checks, production build and deployed-site/runtime-asset smoke passed. The new CSV verifies existing independent-vowel runtime rows and preserves Note 9 ambiguity; `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001 = PARTIAL`, `KHM-ROM-ENGINE-001 = PARTIAL`, IPA gold = 0 and accuracy = null remain unchanged. Issue #104 remains OPEN.
