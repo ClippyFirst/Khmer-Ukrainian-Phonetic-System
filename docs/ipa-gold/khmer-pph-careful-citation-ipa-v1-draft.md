@@ -105,5 +105,5 @@ Approval must include reviewer identity under a private project record, affiliat
 - [Vat20] Chem, Vatho. 2020. “The Standard Khmer Vowel System: An Acoustic Study.” *Insight: Cambodia Journal of Basic and Applied Research* 2(2): 93–121. DOI: https://doi.org/10.61945/cjbar.2020.2.2.3.
 - [Mam25] Mam, Sothornin, Pittayawat Pittayaporn & Sireemas Maspong. 2025. “Phonologization of Pitch in Phnom Penh and Standard Khmer for Cluster and Disyllabic Words.” DOI: https://doi.org/10.21437/TAI.2025-29.
 - [Kir14] Kirby, James P. 2014. “Incipient tonogenesis in Phnom Penh Khmer: Acoustic and perceptual studies.” *Journal of Phonetics* 45: 69–85. DOI: https://doi.org/10.1016/j.wocn.2014.02.001.
-- [Kir15] Kirby, James P. 2018. “Acoustic transitions in Khmer word-initial clusters.” Supplementary materials/audio: https://doi.org/10.7488/DS/2454.
+- [Kir18] Kirby, James P. 2018. “Acoustic transitions in Khmer word-initial clusters.” Supplementary materials/audio: https://doi.org/10.7488/DS/2454.
 - [Sod18] Sodimana, Keshan Sanjaya et al. 2018. “A Step-by-Step Process for Building TTS Voices Using Open Source Data and Frameworks for Bangla, Javanese, Khmer, Nepali, Sinhala, and Sundanese.” DOI: https://doi.org/10.21437/SLTU.2018-14.
