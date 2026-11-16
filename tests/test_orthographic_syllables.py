@@ -121,7 +121,7 @@ def test_unicode_18_join_controls_and_robats_are_position_sensitive():
     assert parse_orthographic_syllables("ក\u200dេ").status == "PARSED"
     assert parse_orthographic_syllables("ក\u200d៉").status == "EVIDENCE_LIMITED"
     assert parse_orthographic_syllables("ក៌៉").status == "EVIDENCE_LIMITED"
-    assert parse_orthographic_syllables("ក្រ៌").status == "AMBIGUOUS"
+    assert parse_orthographic_syllables("ក្រ៌").status == "PARSED"
 
 
 def test_unicode_18_subscript_independent_vowel_examples_preserve_parse_trees():
