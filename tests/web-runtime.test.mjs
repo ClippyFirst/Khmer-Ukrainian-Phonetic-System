@@ -57,6 +57,8 @@ const kingdomAnalysis = parseSyllable(kingdom);
 assert.notEqual(kingdomAnalysis.status, "INVALID_OR_UNSUPPORTED", "the visible Khmer code points in the reported input are all represented in the orthographic inventory");
 assert.deepEqual(kingdomAnalysis.unknown, [], "known Khmer graphemes and coeng sequences must not be misreported as unknown");
 assert.equal(kingdomAnalysis.graphemes.map((g) => g.text).join(""), kingdom, "the structural trace must account for every source code point");
+assert.ok(kingdomAnalysis.additional_consonants.length > 0, "additional known consonants must remain structural rather than being classified as unknown");
+assert.equal(kingdomAnalysis.syllabification_status, "NOT_ESTABLISHED", "multiple consonants in one conservative chunk must not trigger guessed syllable boundaries");
 const kingdomResult = convert(kingdom, "khmer-pph-careful-citation-v1");
 assert.equal(kingdomResult.source, kingdom);
 assert.ok(kingdomResult.units.every((unit) => unit.status !== "INVALID_OR_UNSUPPORTED"), "lack of a lexical IPA fixture is NOT_ESTABLISHED, not malformed Unicode");
