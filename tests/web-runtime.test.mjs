@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { convert, parseSyllable, scanOrthographicComponents, tokenize, getStatusNotice } from "../src/main.js";
+import { convert, parseSyllable, scanOrthographicComponents, parseOrthographicSyllable, tokenize, getStatusNotice } from "../src/main.js";
 
 const adversarial = "ក គ កា គា កូ គូ កី គី កេ គេ កែ គែ កើ គើ កៅ គៅ ប ប៉ ប៊ ផ ព ត ថ ទ ធ ច ឆ ជ ឈ ស ហ វ";
 
@@ -195,3 +195,13 @@ assert.equal(subscriptIndependentVowel.status, "ESTABLISHED_STRUCTURE");
 assert.equal(subscriptIndependentVowel.syllabification_status, "NOT_ESTABLISHED");
 assert.equal(subscriptIndependentVowel.orthographic_structure.status, "EVIDENCE_LIMITED");
 assert.equal(subscriptIndependentVowel.ipa, undefined, "subscript independent-vowel structure must not manufacture IPA");
+
+
+const bnfCases = ["ខ្ញុំ", "ស៊ី", "ប៉ី", "ក៌", "ផ្ឯ"];
+for (const source of bnfCases) assert.equal(parseOrthographicSyllable(source).status, "PARSED", source);
+assert.equal(parseOrthographicSyllable("ប‌៊").status, "PARSED");
+assert.equal(parseOrthographicSyllable("កា៉").status, "INVALID_ORDER");
+assert.equal(parseOrthographicSyllable("កាី").status, "INVALID_ORDER");
+assert.equal(parseOrthographicSyllable("ច្រើន").status, "EVIDENCE_LIMITED");
+assert.equal(parseOrthographicSyllable("សង្គ្រាម").status, "EVIDENCE_LIMITED");
+assert.equal(parseOrthographicSyllable("ក្").status, "INVALID_OR_UNSUPPORTED");
