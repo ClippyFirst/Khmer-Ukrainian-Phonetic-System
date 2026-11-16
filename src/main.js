@@ -384,7 +384,6 @@ function convert(text, profile) {
     item.status === "PROPOSED" && !/⟦/.test(item.ipa) && !/⟦/.test(item.ua)
   );
   const phoneticResults = rendered.map((item) => ({
-    kind: item.status === "PUNCTUATION" ? "separator" : "phonetic-unit",
     source: item.source,
     status: item.status,
     rule_trace: item.rule_trace ?? [],
