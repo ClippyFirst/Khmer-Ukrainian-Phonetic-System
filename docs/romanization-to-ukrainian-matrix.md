@@ -929,3 +929,10 @@ Added assemble_pcgn_independent_vowel_closed_syllable to compose a listed indepe
 - Primary source: BGN/PCGN 1972, Independent/Dependent Vowel Characters table and Note 9 (pp. 2–3), plus final-consonant no-following-vowel rule (p. 2): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 - Boundary: orthographic PCGN Latin only. IPA/Ukrainian remain null; no word/syllable segmentation or coda inference is generated.
 - Status: DONE_VERIFIED for this bounded API. PR #275 merged as 0e408e4d2ce18228e7b8327ddc71af5bdb302f72. PR-head Quality [43910476719] and Chromium [43910476885] passed (377 Python tests + 70 subtests); exact-main Quality [43910647111], Chromium [43910647145], and Pages [43910647200] all passed, including deployed-site/runtime smoke. KHM-ROM-ENGINE-001 remains PARTIAL.
+
+
+## ALA-LC word division is versioned and is not a generic Khmer segmenter — 2026-11-16
+
+Do not treat “LOC word segmentation” as one timeless rule. ALA-LC 1997 Note 10 says to use the shortest written form that can stand alone as a word, including Pali/Sanskrit loans; other loan-words retain original-language divisions. The surfaced ALA-LC 2013 table changes this to “any word can be separated when romanizing” in Note 8, again preserving the original-language division for other loan-words. The 1989 LOC *Cataloging Service Bulletin* p. 54 Note 10 corroborates the earlier wording. BGN/PCGN 1972 Note 9 is unrelated and concerns ឧ (ŏ/ŭ).
+
+Neither LOC version supplies a dictionary or complete segmentation algorithm. Longest-match or bidirectional maximal matching can at most propose candidate boundaries; it cannot establish lexical standalone status, source-language loan-word treatment or ambiguity by itself. The previously inspected LaoNLP route remains unsuitable as a drop-in: orthographic syllable segmentation is not lexical word segmentation. See [the detailed evidence and acceptance contract](audits/current/LOC-KHMER-WORD-DIVISION-EVIDENCE-2026-11-16.md). Runtime remains unchanged and word segmentation remains incomplete.
