@@ -631,8 +631,8 @@ The unit-test discovery gap is closed. This does not resolve the lossy ASCII rom
 
 | ID | Status | Evidence | Acceptance boundary |
 |---|---|---|---|
-| KHMER-GOOGLE-TTS-001 | PARTIAL (format and rights unresolved) | Pinned Google Language Resources files recorded; bounded lexicon extraction found Latin-script spelling keys in the inspected subset; companion phone inventory is feature-annotated. | Full-file script audit, Khmer-specific data license, dialect and IPA convention review required. Not accepted as Khmer-script G2P or standard IPA. |
-| KHMER-OPENSLR42-001 | PARTIAL (audio lead; metadata discrepancy) | OpenSLR lists a male-speaker archive and CC BY-SA 4.0; 2018 paper reports 17 female speakers, 2,906 files and 3:58:00. | Obtain archive manifest/checksum, reconcile speaker metadata, verify included license and transcription scope. Audio/transcripts are not IPA gold. |
+| KHMER-GOOGLE-TTS-001 | PARTIAL (full file audited; profile and rights unresolved) | Full pinned 69,415-row lexicon audit: 69,405 unique spellings (62,175 Khmer-script, 7,230 Latin); 10 duplicate keys each have divergent readings and no third disambiguation label; 54 used phonemic tokens all match the 56-phone inventory. Festival prompt index adds 2,748 utterance rows/16 speaker-ID prefixes without gender labels. Lexicon file header declares CC BY 4.0. Exact current-head Quality [43965941851] SUCCESS (417 Python tests + 70 subtests, corpus validation, Node/web checks, production build); Chromium [43965941825] SUCCESS (12/12). | Resolve 70,671 paper count vs 69,415 snapshot, 2,748/16 prompt-index discrepancy, target variety and phonemic convention, item-level provenance, duplicate semantics and companion phonology.json license. Candidate comparator only, not IPA gold. |
+| KHMER-OPENSLR42-001 | PARTIAL (audio lead; metadata discrepancy) | OpenSLR lists a male-speaker archive and linked CC BY-SA 4.0 LICENSE; 2018 paper reports 17 female speakers/2,906 files/3:58:00; pinned Google Festival prompt index has 2,748 rows/16 speaker-ID prefixes and no gender labels. | Obtain archive manifest/checksum, reconcile repository/paper/provider versions and speaker metadata, verify archive-internal license and transcription scope. Audio/transcripts are not IPA gold. |
 
 | ID | Status | Evidence | Acceptance boundary |
 |---|---|---|---|
@@ -1395,3 +1395,21 @@ Orthographic parsing does not implement phonological syllabification, LOC word d
 KHM-ORTHO-BNF-PARSER-001 is DONE_VERIFIED on main commit 8ec4460a0af291dcba10563912f8fcd0c3f784fd. Exact-main Quality [43963765593] passed 417 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build; Chromium [43963765334] passed; Pages deploy/runtime smoke [43963765391] passed. The Python/browser packed parser preserves complete boundary alternatives and grammar-role derivations, exact code-point offsets, source reconstruction and rejected spans/reasons.
 
 TN #61 v2 is registered as unicode-tn61-khmer-encoding-structure-v2 with its date/version, independent non-normative status and Terms-of-Use limitations. The Modern Khmer validation profile remains TODO; no TN61-derived rules are mixed into the Unicode 18 parser.
+
+## Google Khmer TTS lexicon — full-file evidence checkpoint — 2026-11-16
+
+- The pinned archived Google Language Resources lexicon was fully inspected, not sampled: 69,415 rows, 69,405 unique spellings (62,175 Khmer-script; 7,230 Latin-script). Ten spelling keys each have two divergent readings; every row has two columns despite the header's optional third-label description.
+- All 54 phonemic tokens used by the lexicon occur in the companion 56-phone JSON inventory. This is structural symbol-set consistency, not a claim of IPA correctness or independent annotation.
+- The lexicon file itself declares CC BY 4.0. The companion phonology JSON's file-level rights remain ambiguous between the repository's Apache-2.0 default and the paper's broad CC BY 4.0 data statement. The paper reports 70,671 entries, not the 69,415 present in the pinned file, and supplies no target dialect or per-item provenance.
+- `KHMER-GOOGLE-TTS-001 = PARTIAL`; use only as a candidate phonemic comparator pending profile/convention/provenance/rights review. Do not promote to IPA gold. Issue #104 remains OPEN; gold=0; accuracy=null.
+
+### KHMER-GOOGLE-TTS-001 — exact final-head verification — 2026-11-16
+
+- PR #300 final head `65bbc704a5bcf6906f5d57841a625e6f9a2b0f29`, six source/documentation files only.
+- Quality [43965487859] SUCCESS: **417 Python tests + 70 subtests**, independent IPA corpus structural validation, Node/web checks and production build.
+- Khmer browser smoke [43965487827] SUCCESS: deterministic web checks, production build and Chromium visible-result checks. No local tests or Pages deployment are claimed.
+- This closes the engineering verification for the source audit only. `KHMER-GOOGLE-TTS-001 = PARTIAL` remains so until target-variety/convention, per-item provenance, duplicate semantics, 70,671-vs-69,415 snapshot discrepancy and companion `phonology.json` license scope are resolved. `KHM-GOLD-001 = BLOCKED`; gold=0; accuracy=null; Issue #104 remains OPEN.
+
+### Verification boundary after documentation closeout — 2026-11-16
+
+The last completed hosted checks belong to code-bearing documentation/source-record head `65bbc704a5bcf6906f5d57841a625e6f9a2b0f29`: Quality [43965487859] SUCCESS (417 Python + 70 subtests) and Chromium [43965487827] SUCCESS (12/12 Playwright tests). Three subsequent commits updated only the canonical handoff, linguistic completion register and repository audit; the current PR #300 head is `bac8b70210ca01241bec73b516f55abdc278cb98` (12 commits ahead, 0 behind base `941fbf0ed01ae79c2a8be0c02f1870b68e19134a`). The final three commits do not alter source registry, runtime, test files, generated artifacts or corpus payload. The workflow-run lookup exposed no run associated with `bac8b702...`, so **do not describe the last successful checks as exact-head checks for the current PR head**. PR #300 remains OPEN; compare reports no divergence from base, but GitHub's PR snapshot currently reports `mergeable=false`; no merge was attempted.
