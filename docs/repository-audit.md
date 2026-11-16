@@ -1029,3 +1029,8 @@ PR [#255](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/2
 ## PR #256 exact-main closeout — 2026-11-16
 
 PR #256 merged as `dee4881da4cfb01b6da0ff5e857af67cade14cb1`. PR-head push Quality [43825693046], PR Quality [43825710166], Chromium [43825710160], exact-main Quality [43825806168], Chromium [43825806361] and Pages [43825806234] all SUCCESS. Exact-main `pytest -q`: 331 passed, 70 subtests passed; `npm run check`, production build, production Chromium exercise and deployed-site/runtime-asset smoke passed. Documentation-only closeout; no linguistic status promotion.
+
+
+## PCGN independent-vowel table source registry — 2026-11-16
+
+Added `data/khmer/romanization_pcgn_independent_vowels.csv` with source-located rows 3, 4, 7 and 14–22 from the official BGN/PCGN 1972 table. Row 7 keeps `ឧ` unresolved with both `ŏ` and `ŭ` alternatives. A regression test checks exact parity with the runtime mapping and primary source URL. This is traceability/registry work only; no behavior or linguistic acceptance status is promoted.

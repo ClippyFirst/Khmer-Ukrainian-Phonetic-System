@@ -2865,3 +2865,12 @@ Status: `KHM-ROM-PCGN-FINAL-CONSONANT-001 = PARTIAL`. No syllable segmentation, 
 - Exact-main Quality log: `pytest -q` — 331 passed, 70 subtests passed; `npm run check` and production build passed. The separate Chromium smoke and Pages deployment also passed.
 - PR #256 is documentation-only. PR #255's context-type hardening remains an engineering-only improvement; `KHM-ROM-PCGN-FINAL-CONSONANT-001` and `KHM-ROM-ENGINE-001` remain PARTIAL.
 - Research gate remains unchanged: issue #104 OPEN, independent adjudicated IPA gold = 0, accuracy = null. Root `LICENSE` is still absent.
+
+
+## PCGN independent-vowel source registry — 2026-11-16
+
+- Added `data/khmer/romanization_pcgn_independent_vowels.csv` for the exact independent-character rows present in the BGN/PCGN 1972 table: 3, 4, 7, and 14–22.
+- Row 7 `ឧ` remains explicitly UNRESOLVED with both source alternatives `ŏ|ŭ`; no lexical/reference selection is made.
+- Each row records the table row, source character(s), romanization or alternatives, acceptance boundary, exact page locator and official primary-source URL.
+- Added a regression check that the source registry matches `PCGN_INDEPENDENT_VOWEL_ROWS` exactly and preserves the Note 9 ambiguity. No runtime mapping changed; no IPA/Ukrainian output or accuracy claim is added.
+- `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` and `KHM-ROM-ENGINE-001` remain PARTIAL.

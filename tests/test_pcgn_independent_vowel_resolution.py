@@ -1,6 +1,10 @@
 from __future__ import annotations
 
+import csv
+from pathlib import Path
+
 from khmer_ua.pcgn import (
+    PCGN_INDEPENDENT_VOWEL_ROWS,
     analyze_pcgn_orthographic_chunk,
     resolve_pcgn_independent_vowel,
 )
@@ -82,3 +86,34 @@ def test_pcgn_note9_alternatives_are_not_selected_without_a_reference():
     assert result.romanization is None
     assert result.romanization_options == ("ŏ", "ŭ")
     assert "PCGN_NOTE_9_Ŏ_OR_Ŭ_REQUIRES_REFERENCE_SELECTION" in result.warnings
+
+
+def test_pcgn_independent_vowel_source_registry_matches_runtime_rows_and_note9():
+    root = Path(__file__).resolve().parents[1]
+    with (root / "data/khmer/romanization_pcgn_independent_vowels.csv").open(
+        encoding="utf-8", newline=""
+    ) as stream:
+        rows = list(csv.DictReader(stream))
+
+    resolved = {}
+    unresolved = []
+    for row in rows:
+        source_characters = row["source_characters"].split("|")
+        assert row["source_locator"].startswith("PCGN 1972 Independent/Dependent Vowel Characters table")
+        assert row["source_url"] == "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf"
+        assert row["acceptance_boundary"]
+        if row["status"] == "RESOLVED":
+            assert row["romanization"]
+            assert row["romanization_options"] == ""
+            for character in source_characters:
+                resolved[character] = (int(row["table_row"]), row["romanization"])
+        else:
+            assert row["status"] == "UNRESOLVED"
+            assert row["romanization"] == ""
+            assert row["romanization_options"].split("|") == ["ŏ", "ŭ"]
+            assert source_characters == ["ឧ"]
+            unresolved.append(row)
+
+    assert resolved == PCGN_INDEPENDENT_VOWEL_ROWS
+    assert len(unresolved) == 1
+    assert unresolved[0]["table_row"] == "7"
