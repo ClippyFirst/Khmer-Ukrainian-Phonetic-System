@@ -467,5 +467,25 @@
     "scope": "Publisher preview excerpt discusses CVF and CCVF syllable patterns, short/long nuclei and final consonants. The retrieved excerpt states that short or long vowels are possible when a final is present and that open monosyllables require a long nucleus.",
     "status": "PREVIEW_INCONSISTENT_CODA_INVENTORY",
     "limitations": "The retrieved preview excerpt lists /r/ among permitted finals and then also lists /r/ among excluded finals. Do not use this excerpt to settle the coda inventory until the full text or an author/publisher correction resolves the contradiction."
+  },
+  {
+    "id": "alalc-khmer-1989-csb43",
+    "type": "historical_library_cataloguing_romanization_guidance",
+    "title": "Cataloging Service Bulletin No. 43 (Winter 1989), Khmer Romanization",
+    "year": 1989,
+    "url": "https://www.loc.gov/aba/publications/FreeCSB/CSB_043.pdf",
+    "scope": "Historical Library of Congress Khmer romanization notes; page 54, Note 10 describes romanization word division using the shortest written form that can stand alone as a word, including Pali and Sanskrit loan-words, while other loan-words retain original-language divisions.",
+    "status": "HISTORICAL_RULE_EVIDENCE",
+    "limitations": "This is a 1989 policy snapshot, not proof that the same wording remains the current ALA-LC rule. Compare the 1997 ALA-LC table's Note 10 and the 2013 table's Note 8 before implementing a versioned profile."
+  },
+  {
+    "id": "alalc-khmer-2013",
+    "type": "library_cataloguing_romanization_reference",
+    "title": "Khmer Romanization Table, 2013 version (ALA-LC)",
+    "year": 2013,
+    "url": "https://www.loc.gov/catdir/cpso/romanization/khmer.pdf",
+    "scope": "Current surfaced ALA-LC Khmer cataloguing table; Note 8 says Khmer words are not written separately and any word can be separated when romanizing; Pali/Sanskrit loans follow the same rule, while other loans are divided according to their original language.",
+    "status": "PRIMARY_RULE_EVIDENCE",
+    "limitations": "This is a distinct ALA-LC profile, not BGN/PCGN 1972 or Cambodia's national 1995/1997 system. The note does not supply a lexical segmentation algorithm, dictionary, boundary annotations or deterministic treatment of ambiguous compounds."
   }
 ]
