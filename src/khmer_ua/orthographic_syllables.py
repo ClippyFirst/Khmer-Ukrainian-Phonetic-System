@@ -68,6 +68,7 @@ class KhmerOrthographicSyllableParse:
     alternatives: tuple[KhmerOrthographicParseAlternative, ...]
     derivation_count: int
     notes: tuple[str, ...] = ()
+    rejected_spans: tuple[dict, ...] = ()
 
     @property
     def syllables(self) -> tuple[KhmerOrthographicSyllable, ...] | None:
@@ -87,6 +88,7 @@ class KhmerOrthographicSyllableParse:
             "syllables": [item.to_dict() for item in self.syllables] if self.syllables is not None else None,
             "alternatives": [item.to_dict() for item in self.alternatives],
             "notes": list(self.notes),
+            "rejected_spans": list(self.rejected_spans),
         }
 
 
@@ -171,6 +173,52 @@ def _syllable_matches(
     return tuple(sorted(matches, key=lambda item: (item[0], item[1].grammar_roles, item[1].grammar_extensions)))
 
 
+
+def _rejected_spans(
+    components: tuple[KhmerOrthographicComponent, ...],
+) -> tuple[dict, ...]:
+    """Locate the first component preventing a complete packed-forest path."""
+    size = len(components)
+    for start, component in enumerate(components):
+        if component.role != "BASE":
+            continue
+        matches = _syllable_matches(components, start)
+        viable_next = [
+            end for end, _alternative in matches
+            if end == size or _role(components, end) == "BASE"
+        ]
+        if viable_next:
+            continue
+        invalid_ends = [
+            end for end, _alternative in matches
+            if end < size and _role(components, end) != "BASE"
+        ]
+        if invalid_ends:
+            rejected = components[max(invalid_ends)]
+            detail = (
+                f"{rejected.status} component {rejected.text!r}"
+                if rejected.status in {"MALFORMED_COENG", "UNMODELED_CHARACTER"}
+                else rejected.role
+            )
+            return ({
+                "start": rejected.start,
+                "end": rejected.end,
+                "reason": (
+                    f"{detail} at this position prevents a complete "
+                    "Unicode 18 §16.4 component-order production."
+                ),
+            },)
+    unsupported = [
+        item for item in components
+        if item.status in {"MALFORMED_COENG", "UNMODELED_CHARACTER"}
+    ]
+    return tuple({
+        "start": item.start,
+        "end": item.end,
+        "reason": f"{item.status} component {item.text!r} is outside the modeled Unicode 18 grammar inventory.",
+    } for item in unsupported)
+
+
 def parse_orthographic_syllables(text: str) -> KhmerOrthographicSyllableParse:
     """Return a packed forest of all complete Unicode 18 parses.
 
@@ -184,12 +232,14 @@ def parse_orthographic_syllables(text: str) -> KhmerOrthographicSyllableParse:
     if not text or scan.status == "INVALID_OR_UNSUPPORTED":
         return KhmerOrthographicSyllableParse(
             text, "INVALID_OR_UNSUPPORTED", (), 0,
-            scan.notes or ("No complete Khmer orthographic structure was found.",)
+            scan.notes or ("No complete Khmer orthographic structure was found.",),
+            _rejected_spans(components),
         )
     if not components or components[0].role != "BASE":
         return KhmerOrthographicSyllableParse(
             text, "INVALID_OR_UNSUPPORTED", (), 0,
-            ("A Unicode 18 orthographic syllable must begin with a base character.",)
+            ("A Unicode 18 orthographic syllable must begin with a base character.",),
+            ({"start": components[0].start, "end": components[0].end, "reason": "The first component is not a base character (B)."},) if components else (),
         )
 
     size = len(components)
@@ -219,12 +269,14 @@ def parse_orthographic_syllables(text: str) -> KhmerOrthographicSyllableParse:
     if not paths:
         return KhmerOrthographicSyllableParse(
             text, "EVIDENCE_LIMITED", (), 0,
-            ("Recognized components do not form a complete sequence under the Unicode 18 §16.4 ordering formula; no boundary was guessed.",)
+            ("Recognized components do not form a complete sequence under the Unicode 18 §16.4 ordering formula; no boundary was guessed.",),
+            _rejected_spans(components),
         )
     if len(paths) > MAX_SEGMENTATION_ALTERNATIVES:
         return KhmerOrthographicSyllableParse(
             text, "EVIDENCE_LIMITED", (), 0,
-            ("The number of distinct syllable-boundary segmentations exceeded the configured limit.",)
+            ("The number of distinct syllable-boundary segmentations exceeded the configured limit.",),
+            ({"start": 0, "end": len(text), "reason": "The configured segmentation-alternative limit was reached; the forest is incomplete."},),
         )
 
     alternatives = []
