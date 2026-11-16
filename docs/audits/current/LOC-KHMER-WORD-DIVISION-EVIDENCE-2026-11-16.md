@@ -89,6 +89,9 @@ The parser now records the pair as one `KhmerGrapheme(kind="subscript_independen
 
 Unicode UAX #29 extended grapheme clusters remain a default text-segmentation model, not a complete Khmer orthographic-syllable grammar. The Unicode Standard's Khmer chapter separately documents the encoding structure and component order. This change therefore adds a narrowly scoped structural primitive and does not claim full grapheme-cluster or syllable segmentation.
 
-**Task ledger update:** `KHM-STRUCT-SUBSCRIPT-INDEPENDENT-VOWEL-001 = PARTIAL` pending exact-head hosted Python/quality and browser checks. The existing profile-neutral word-boundary interface can consume the returned spans as protected intervals, but still does not infer lexical boundaries.
+**Task ledger update:** `KHM-STRUCT-SUBSCRIPT-INDEPENDENT-VOWEL-001 = DONE_VERIFIED` after exact PR-head and exact-main hosted Python/quality, browser, and Pages checks. The existing profile-neutral word-boundary interface can consume the returned spans as protected intervals, but still does not infer lexical boundaries.
 
 **Primary source:** Unicode Standard 18.0.0, Chapter 16, §16.4.1, Khmer Subscript Consonants and Subscript Independent Vowel Signs: https://www.unicode.org/versions/Unicode18.0.0/core-spec/chapter-16/ . The Unicode chapter describes COENG + following code point as a single unit for most processing purposes. The implementation protects only that two-code-point pair.
+
+
+**Post-merge verification:** PR #282 merged as `dd94f637674ad5ce599ee439584b88b6dba4db1e`. Exact-main Quality [43947114555] succeeded (393 Python tests + 70 subtests, corpus validation, Node/web checks and production build); Chromium [43947114448] succeeded; Pages build/deploy and deployed-runtime smoke [43947114535] succeeded. This closes only the structural subscript-independent-vowel task. The word-segmentation evidence blockers and Issue #104 remain open.
