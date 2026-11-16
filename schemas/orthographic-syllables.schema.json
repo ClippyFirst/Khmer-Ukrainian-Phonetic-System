@@ -11,7 +11,8 @@
     "parse_count",
     "syllables",
     "alternatives",
-    "notes"
+    "notes",
+    "rejected_spans"
   ],
   "properties": {
     "schema": {
@@ -73,6 +74,19 @@
       "type": "array",
       "items": {
         "type": "string"
+      }
+    },
+    "rejected_spans": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["start", "end", "reason"],
+        "properties": {
+          "start": {"type": "integer", "minimum": 0},
+          "end": {"type": "integer", "minimum": 1},
+          "reason": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
       }
     }
   },
