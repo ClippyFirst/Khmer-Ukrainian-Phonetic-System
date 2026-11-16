@@ -74,5 +74,7 @@ def test_unicode_18_parse_forest_exposes_rejected_order_and_no_ipa():
     forest = parse_orthographic_sequence("កាី")
     assert forest.status == "INVALID_ORDER"
     assert forest.rejected_spans
+    assert forest.rejected_spans[0]["start"] == 2
+    assert forest.rejected_spans[0]["end"] == 3
     assert "ipa" not in forest.to_dict()
     assert "ukrainian" not in forest.to_dict()
