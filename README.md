@@ -159,7 +159,7 @@ Implemented:
 
 - Unicode normalization;
 - conservative Khmer grapheme parsing;
-- coeng/subscript recognition;
+- coeng/subscript recognition, including the structurally distinct subscript-independent-vowel form;
 - consonant class/register metadata;
 - independent/dependent vowel recognition;
 - structural Unicode validation;
@@ -282,3 +282,8 @@ The optional Python `HybridKhmerEngine` collects explicitly injected external IP
 
 
 The Khmer-script romanization path now brackets any Khmer letters or combining marks that remain in the upstream Latin output and marks the result PARTIAL; Khmer punctuation is preserved. This is an output-integrity safeguard only: it does not restore omitted PCGN diacritics or make the upstream ASCII romanizer contextually conformant.
+
+
+### Khmer subscript independent-vowel structure — 2026-11-16
+
+The structural parser recognizes a Unicode-encoded subscript independent vowel after U+17D2 COENG (for example, the Unicode Standard 18.0.0 Chapter 16 orthographic example ផ្ឯម). It records the sequence as `subscript_independent_vowel`, preserves its two code points and exposes `khmer_subscript_sequence_spans()` for exact-source code-point protection. This is a structural parsing improvement only: it does not establish pronunciation, IPA, Ukrainian output, complete orthographic-syllable segmentation, or word boundaries. See the [Unicode 18 Khmer structure source](https://www.unicode.org/versions/Unicode18.0.0/core-spec/chapter-16/) and the current [LOC word-division evidence audit](docs/audits/current/LOC-KHMER-WORD-DIVISION-EVIDENCE-2026-11-16.md).

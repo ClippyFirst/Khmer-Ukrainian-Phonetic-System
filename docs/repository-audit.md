@@ -1125,3 +1125,8 @@ Exact-main verification for the typed-result, partial-output and Unicode changes
 ## 2026-11-16 — Khmer boundary-evidence interface post-merge checkpoint
 
 PR #281 is merged as `50ae3538a624cf78781411c08ebcf51f73fcb5c2`. Exact-main Quality run `43940735723`, Chromium browser run `43940735738`, and GitHub Pages build/deploy run `43940735610` all succeeded on that SHA. The boundary evidence contract, Python tests, Node checks, production build, browser smoke and Pages deployment are verified. No local test execution is claimed. The interface is evidence-only; no word segmenter or LOC conformance is claimed. The independent profile decision and licensed/adjudicated lexical boundary evidence remain outstanding.
+
+
+## Khmer subscript independent-vowel parsing — 2026-11-16
+
+The parser now recognizes a documented Khmer structural form that was previously rejected: a subscript independent vowel encoded as U+17D2 COENG plus a modeled independent vowel (Unicode Standard 18.0.0 Chapter 16 §16.4.1, example ផ្ឯម). The parser preserves the pair as one typed grapheme record, exposes exact-source code-point spans for the encoded pair, and records the Unicode 18 structural source. This is not full orthographic-syllable parsing or word segmentation and adds no IPA or Ukrainian output. Acceptance remains pending exact-head CI in the current feature branch.

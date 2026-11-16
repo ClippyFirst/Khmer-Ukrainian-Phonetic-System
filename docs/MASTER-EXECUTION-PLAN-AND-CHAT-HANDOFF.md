@@ -3110,3 +3110,13 @@ The shared `khmer-phonetic-result/v1` payload is specified in `schemas/phonetic-
 - Quality verified Python tests, independent IPA gold corpus structure, Node web checks and production build. Browser smoke verified visible output in Chromium. Pages workflow built the site, exercised the production site in Chromium, deployed it, and verified deployment.
 - The change adds only a profile-neutral evidence interface; it does not change segmentation or linguistic outputs. Open PR count after merge: 0.
 - The boundary evidence interface is DONE_VERIFIED; profile selection, licensed lexical resources and independently adjudicated boundary data remain TODO/BLOCKED as recorded in the LOC evidence audit.
+
+
+## Khmer subscript independent-vowel structural support — 2026-11-16
+
+- Starting main: `784d1a14f9464022b42104f5c41b6277464bdcc9`; dedicated branch: `feat/khmer-subscript-independent-vowels-2026-11-16`.
+- Source finding: Unicode Standard 18.0.0 Chapter 16 §16.4.1 documents subscript independent vowels and uses `ផ្ឯម` as an orthographic example. The parser accepted COENG only before consonants, so this source-documented structure was rejected as malformed.
+- Implementation: `KhmerSyllable.subscript_independent_vowels`; `KhmerGrapheme(kind="subscript_independent_vowel")`; Unicode 18 source registry record; public `khmer_subscript_sequence_spans()` helper with exact-source code-point offsets; regression tests ensure the COENG pair is protected and the phonetic representation remains `phoneticization_not_yet_established`.
+- Scope limit: helper spans cover only U+17D2 plus the following modeled consonant/independent vowel. They do not represent complete Khmer grapheme clusters, full orthographic syllables, word boundaries, IPA or Ukrainian output. The feature is structural only.
+- Task `KHM-STRUCT-SUBSCRIPT-INDEPENDENT-VOWEL-001` = PARTIAL until exact-head CI. No local test execution is claimed; the environment has no repository checkout.
+- Next gate: exact PR-head CI; if green, merge and rerun exact-main Quality, browser smoke and Pages deploy, then update this task to DONE_VERIFIED with run IDs and final SHA. The human word-boundary annotation gate in Issue #104 remains independent and open.

@@ -79,3 +79,16 @@ A boundary inside a protected cluster is rejected. Multiple viable candidates re
 ## Post-merge verification — 2026-11-16
 
 The profile-neutral evidence interface was merged in PR #281 as `50ae3538a624cf78781411c08ebcf51f73fcb5c2`. Exact-main Quality `43940735723`, browser smoke `43940735738`, and Pages deploy `43940735610` succeeded. This verifies the data contract and its engineering integration only; it does not satisfy the still-open profile-selection, licensed-lexicon, boundary-annotation or segmentation-conformance gates.
+
+
+## Khmer subscript-pair structure checkpoint — 2026-11-16
+
+Unicode Standard 18.0.0 Chapter 16, section 16.4.1, documents subscript independent-vowel signs and gives `ផ្ឯម` as an orthographic example (base consonant + U+17D2 COENG + U+17AF independent vowel + consonant). The parser previously accepted COENG only when followed by a modeled consonant, incorrectly treating this documented subscript-independent-vowel sequence as malformed.
+
+The parser now records the pair as one `KhmerGrapheme(kind="subscript_independent_vowel")`, retains a separate `subscript_independent_vowels` field, adds the Unicode 18 source locator for this feature, and exposes `khmer_subscript_sequence_spans()` with exact-source Unicode code-point offsets. Those spans cover only the encoded COENG + following-character pair. They are not complete orthographic-syllable spans, and they must not be interpreted as word boundaries. No IPA or Ukrainian value is added; phoneticization remains explicitly not established for the example.
+
+Unicode UAX #29 extended grapheme clusters remain a default text-segmentation model, not a complete Khmer orthographic-syllable grammar. The Unicode Standard's Khmer chapter separately documents the encoding structure and component order. This change therefore adds a narrowly scoped structural primitive and does not claim full grapheme-cluster or syllable segmentation.
+
+**Task ledger update:** `KHM-STRUCT-SUBSCRIPT-INDEPENDENT-VOWEL-001 = PARTIAL` pending exact-head hosted Python/quality and browser checks. The existing profile-neutral word-boundary interface can consume the returned spans as protected intervals, but still does not infer lexical boundaries.
+
+**Primary source:** Unicode Standard 18.0.0, Chapter 16, §16.4.1, Khmer Subscript Consonants and Subscript Independent Vowel Signs: https://www.unicode.org/versions/Unicode18.0.0/core-spec/chapter-16/ . The Unicode chapter describes COENG + following code point as a single unit for most processing purposes. The implementation protects only that two-code-point pair.

@@ -15,6 +15,7 @@ class KhmerSyllable:
     base_consonant: str | None = None
     register: str | None = None
     subscripts: list[str] = field(default_factory=list)
+    subscript_independent_vowels: list[str] = field(default_factory=list)
     vowel_signs: list[str] = field(default_factory=list)
     independent_vowel: str | None = None
     inherent_vowel: str | None = None

@@ -2,7 +2,7 @@ MODEL_VERSION = "0.2.0"
 SCHEMA_VERSION = "0.1.0"
 DATA_VERSION = "2026-10-05-research-finalization"
 
-from .parser import analyze, normalize_khmer
+from .parser import analyze, normalize_khmer, khmer_subscript_sequence_spans
 from .pcgn import (
     PCGNOrthographicAnalysis,
     PCGNSeriesDecision,
@@ -63,6 +63,7 @@ from .hybrid import HybridKhmerEngine, create_hybrid_engine, make_mekongphon_bac
 
 __all__ = [
     "analyze",
+    "khmer_subscript_sequence_spans",
     "PCGNOrthographicAnalysis",
     "PCGNToken",
     "PCGNSeriesDecision",
