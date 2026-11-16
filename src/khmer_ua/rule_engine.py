@@ -62,7 +62,7 @@ def _tokenize_input(text: str) -> list[str]:
             continue
 
         remainder = "".join(characters[index:])
-        fixture = next(
+        fixture = None if index > 0 and characters[index - 1] == "្" else next(
             (
                 key for key in fixture_keys
                 if remainder.startswith(key)
@@ -163,6 +163,13 @@ def _analyze_unit(unit: str) -> dict[str, Any]:
             "status": "INVALID_OR_UNSUPPORTED",
             "rule_trace": ["KHMER_STRUCTURAL_VALIDATION_FAILED"],
             "reason": "Unsupported or malformed source code point/sequence; inspect the structural grapheme trace.",
+            "provisional_ipa": None,
+            "provisional_ukrainian": "?",
+            "fallback_status": "UNKNOWN",
+            "fallback_trace": [{
+                "source": unit, "ipa": None, "ukrainian": "?", "status": "UNKNOWN",
+                "position": None, "rule_id": None, "unresolved_graphemes": list(unit),
+            }],
             "evidence": [],
             "structure": structure.phonological_representation,
         }
