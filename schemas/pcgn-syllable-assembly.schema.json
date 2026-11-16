@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BGN/PCGN 1972 explicitly caller-segmented open CV syllable assembly",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["source_text", "normalized_text", "onset_text", "series", "onset_romanization", "vowel_romanization", "romanization", "onset_base", "onset_subscript", "onset_table_rows", "vowel_table_row", "status", "ipa", "ukrainian", "source_locators", "warnings"],
+  "properties": {
+    "source_text": {"type": "string"},
+    "normalized_text": {"type": "string"},
+    "onset_text": {"type": "string"},
+    "series": {"enum": ["â", "ô", null]},
+    "onset_romanization": {"type": ["string", "null"]},
+    "vowel_romanization": {"type": ["string", "null"]},
+    "romanization": {"type": ["string", "null"]},
+    "onset_base": {"type": ["string", "null"]},
+    "onset_subscript": {"type": ["string", "null"]},
+    "onset_table_rows": {"type": "array", "items": {"type": "integer", "minimum": 1, "maximum": 21}, "maxItems": 2, "uniqueItems": true},
+    "vowel_table_row": {"type": ["integer", "null"], "enum": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, null]},
+    "status": {"enum": ["RESOLVED", "UNRESOLVED"]},
+    "ipa": {"const": null},
+    "ukrainian": {"const": null},
+    "source_locators": {"type": "array", "items": {"type": "string"}, "minItems": 2, "uniqueItems": true},
+    "warnings": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "RESOLVED"}}, "required": ["status"]},
+      "then": {"properties": {"series": {"enum": ["â", "ô"]}, "onset_romanization": {"type": "string", "minLength": 1}, "vowel_romanization": {"type": "string", "minLength": 1}, "romanization": {"type": "string", "minLength": 1}, "onset_base": {"type": "string", "minLength": 1}, "onset_table_rows": {"minItems": 1}, "vowel_table_row": {"type": "integer"}}}
+    },
+    {
+      "if": {"properties": {"status": {"const": "UNRESOLVED"}}, "required": ["status"]},
+      "then": {"properties": {"series": {"const": null}, "onset_romanization": {"const": null}, "vowel_romanization": {"const": null}, "romanization": {"const": null}, "vowel_table_row": {"const": null}, "onset_table_rows": {"maxItems": 0}}}
+    }
+  ]
+}
