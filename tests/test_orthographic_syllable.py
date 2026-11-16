@@ -50,6 +50,8 @@ def test_unicode_18_parse_forest_keeps_multiple_base_candidates_unselected():
     forest = parse_orthographic_sequence(source)
     assert forest.status == "EVIDENCE_LIMITED"
     assert forest.boundary_alternatives == (((0, 4), (4, 5)),)
+    assert forest.to_dict()["selected_alternative"] is None
+    assert any(item["start"] == 4 and "coda-versus-next-syllable" in item["reason"] for item in forest.rejected_spans)
     reconstructed = "".join(
         source[start:end]
         for path in forest.boundary_alternatives
@@ -78,3 +80,4 @@ def test_unicode_18_parse_forest_exposes_rejected_order_and_no_ipa():
     assert forest.rejected_spans[0]["end"] == 3
     assert "ipa" not in forest.to_dict()
     assert "ukrainian" not in forest.to_dict()
+    assert forest.rejected_spans[0]["start"] == 2
