@@ -236,9 +236,9 @@ assert.equal(parseOrthographicSyllables("ក្").status, "INVALID_OR_UNSUPPORTE
 assert.equal(parseOrthographicSyllables("កx").status, "INVALID_OR_UNSUPPORTED");
 assert.equal(parseOrthographicSyllables("ឣ").status, "INVALID_OR_UNSUPPORTED");
 assert.equal(parseOrthographicSyllables("ឤ").status, "INVALID_OR_UNSUPPORTED");
-assert.equal(parseOrthographicSyllables("\\u17B4").status, "INVALID_OR_UNSUPPORTED");
-assert.equal(parseOrthographicSyllables("\\u17B5").status, "INVALID_OR_UNSUPPORTED");
-assert.equal(parseOrthographicSyllables("\\u17D8").status, "INVALID_OR_UNSUPPORTED");
+assert.equal(parseOrthographicSyllables("\u17B4").status, "INVALID_OR_UNSUPPORTED");
+assert.equal(parseOrthographicSyllables("\u17B5").status, "INVALID_OR_UNSUPPORTED");
+assert.equal(parseOrthographicSyllables("\u17D8").status, "INVALID_OR_UNSUPPORTED");
 assert.equal(parseOrthographicSyllables("កេិ").status, "EVIDENCE_LIMITED");
 assert.deepEqual(parseOrthographicSyllables("កេិ").rejected_spans.map((item) => [item.start, item.end]), [[2, 3]]);
 const grammarOffsets = parseOrthographicSyllables("ខ្ញុំ");
@@ -296,9 +296,9 @@ assert.ok(manyAmbiguousSyllables.alternatives[0].syllables.every((syllable) =>
 console.log("Unicode 18 Khmer packed parse forest: PASS");
 
 
-assert.equal(parseOrthographicSyllables("ក\\u200Cេ").status, "PARSED");
-assert.equal(parseOrthographicSyllables("ក\\u200Dេ").status, "PARSED");
-assert.equal(parseOrthographicSyllables("ក\\u200D៉").status, "EVIDENCE_LIMITED");
+assert.equal(parseOrthographicSyllables("ក\u200Cេ").status, "PARSED");
+assert.equal(parseOrthographicSyllables("ក\u200Dេ").status, "PARSED");
+assert.equal(parseOrthographicSyllables("ក\u200D៉").status, "EVIDENCE_LIMITED");
 assert.equal(parseOrthographicSyllables("ក៌៉").status, "EVIDENCE_LIMITED");
 assert.equal(parseOrthographicSyllables("ក្រ៌").status, "PARSED");
 for (const source of ["ឱ្យ", "ឱ្ម", "ហ្ឫទ័យ", "ប្រតឺងអ‌៊ឹះ", "ប្រតឺងអ៊ឹះ"]) {
