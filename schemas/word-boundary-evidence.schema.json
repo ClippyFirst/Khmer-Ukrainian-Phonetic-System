@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Khmer word-boundary evidence (profile-neutral; not a segmenter)",
+  "type": "object",
+  "required": [
+    "schema",
+    "offset_unit",
+    "source_text",
+    "profile",
+    "cluster_spans",
+    "status",
+    "selected_boundaries",
+    "candidates"
+  ],
+  "properties": {
+    "schema": {
+      "const": "khmer-word-boundary-evidence/v1"
+    },
+    "offset_unit": {
+      "const": "unicode_codepoint"
+    },
+    "source_text": {
+      "type": "string"
+    },
+    "profile": {
+      "type": "object",
+      "required": [
+        "id",
+        "version"
+      ],
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "cluster_spans": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "start",
+          "end"
+        ],
+        "properties": {
+          "start": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "end": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "status": {
+      "enum": [
+        "NO_CANDIDATES",
+        "AMBIGUOUS",
+        "ADJUDICATED",
+        "UNRESOLVED",
+        "PROVISIONAL"
+      ]
+    },
+    "selected_boundaries": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "integer",
+        "minimum": 1
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/candidate"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "candidate": {
+      "type": "object",
+      "required": [
+        "candidate_id",
+        "boundaries",
+        "status",
+        "note",
+        "evidence"
+      ],
+      "properties": {
+        "candidate_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "boundaries": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "uniqueItems": true
+        },
+        "status": {
+          "enum": [
+            "PROPOSED",
+            "ADJUDICATED",
+            "REJECTED",
+            "UNRESOLVED"
+          ]
+        },
+        "note": {
+          "type": "string"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "offset",
+              "status",
+              "evidence_type",
+              "source_locator",
+              "note",
+              "language_of_origin"
+            ],
+            "properties": {
+              "offset": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "status": {
+                "enum": [
+                  "OBSERVED",
+                  "PROPOSED",
+                  "ADJUDICATED",
+                  "REJECTED",
+                  "UNRESOLVED"
+                ]
+              },
+              "evidence_type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source_locator": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "note": {
+                "type": "string"
+              },
+              "language_of_origin": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
