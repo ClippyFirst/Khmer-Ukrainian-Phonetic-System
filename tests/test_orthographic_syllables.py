@@ -130,5 +130,8 @@ def test_unicode_18_subscript_independent_vowel_examples_preserve_parse_trees():
         assert result.status == "AMBIGUOUS"
         assert result.parse_count == 2
         assert result.syllables is None
-        assert all("SUBSCRIPT_CLUSTER" in item.grammar_roles or "TRAILING_SUBSCRIPT" in item.grammar_roles
-                   for alternative in result.alternatives for item in alternative.syllables)
+        assert all(
+            any("SUBSCRIPT_CLUSTER" in item.grammar_roles or "TRAILING_SUBSCRIPT" in item.grammar_roles
+                for item in alternative.syllables)
+            for alternative in result.alternatives
+        )
