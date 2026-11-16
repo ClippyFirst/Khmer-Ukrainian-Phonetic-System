@@ -1392,6 +1392,6 @@ Orthographic parsing does not implement phonological syllabification, LOC word d
 
 ## Unicode 18 parser post-merge verification — 2026-11-16
 
-KHM-ORTHO-BNF-PARSER-001 is DONE_VERIFIED on main commit 8ec4460a0af291dcba10563912f8fcd0c3f784fd. Exact-main Quality [43963765593] passed 416 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build; Chromium [43963765334] passed; Pages deploy/runtime smoke [43963765391] passed. The Python/browser packed parser preserves complete boundary alternatives and grammar-role derivations, exact code-point offsets, source reconstruction and rejected spans/reasons.
+KHM-ORTHO-BNF-PARSER-001 is DONE_VERIFIED on main commit 8ec4460a0af291dcba10563912f8fcd0c3f784fd. Exact-main Quality [43963765593] passed 417 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build; Chromium [43963765334] passed; Pages deploy/runtime smoke [43963765391] passed. The Python/browser packed parser preserves complete boundary alternatives and grammar-role derivations, exact code-point offsets, source reconstruction and rejected spans/reasons.
 
 TN #61 v2 is registered as unicode-tn61-khmer-encoding-structure-v2 with its date/version, independent non-normative status and Terms-of-Use limitations. The Modern Khmer validation profile remains TODO; no TN61-derived rules are mixed into the Unicode 18 parser.
