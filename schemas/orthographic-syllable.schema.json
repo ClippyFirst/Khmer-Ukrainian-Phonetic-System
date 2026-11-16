@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Khmer orthographic syllable parse",
+  "type": "object",
+  "required": ["schema", "source_text", "offset_unit", "status", "grammar", "component_spans", "notes"],
+  "properties": {
+    "schema": {"const": "khmer-orthographic-syllable/v1"},
+    "source_text": {"type": "string"},
+    "offset_unit": {"const": "unicode_code_point"},
+    "status": {"enum": ["PARSED", "INVALID_ORDER", "INVALID_OR_UNSUPPORTED", "EVIDENCE_LIMITED"]},
+    "grammar": {"const": "B {R | C} {S {R}}* {{Z} V} {O} {S}"},
+    "component_spans": {"type": "array", "items": {"type": "array", "prefixItems": [{"type": "integer", "minimum": 0}, {"type": "integer", "minimum": 1}], "minItems": 2, "maxItems": 2}},
+    "notes": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}
