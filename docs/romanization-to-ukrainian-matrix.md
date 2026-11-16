@@ -894,4 +894,5 @@ Added assemble_pcgn_glottal_dependent_closed_syllable to compose the Note 4 Alif
 - API: src/khmer_ua/pcgn.py::assemble_pcgn_glottal_dependent_closed_syllable.
 - Contract: schemas/pcgn-glottal-dependent-closed-syllable-assembly.schema.json; tests: tests/test_pcgn_glottal_dependent_closed_syllable_assembly.py.
 - Primary source: BGN/PCGN 1972, Consonant Characters row 22 and Note 4 (p. 5), Independent/Dependent Vowel Characters table (pp. 2–3), and final-consonant no-following-vowel rule (p. 2): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
-- Boundary: orthographic PCGN Latin only. IPA/Ukrainian remain null; no word segmentation or coda inference is generated. Hosted CI pending; status remains PARTIAL until verified.
+- Boundary: orthographic PCGN Latin only. IPA/Ukrainian remain null; no word segmentation or coda inference is generated.
+- Status: DONE_VERIFIED for this bounded API. PR #269 merged as 482ed151dc99d3fd20714a606c9ad25aa209a99e. PR-head Quality [43889912149] and Chromium [43889912018] passed (360 Python tests + 70 subtests); exact-main Quality [43890093477], Chromium [43890093456], and Pages [43890093482] all passed, including deployed-site/runtime smoke. KHM-ROM-ENGINE-001 remains PARTIAL.
