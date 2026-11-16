@@ -34,6 +34,7 @@ class PhoneticUnitResult:
 
     def to_dict(self) -> dict[str, Any]:
         value = asdict(self)
+        value["rule_trace"] = list(self.rule_trace)
         value["provenance"] = {
             key: list(items) for key, items in self.provenance.items()
         }
