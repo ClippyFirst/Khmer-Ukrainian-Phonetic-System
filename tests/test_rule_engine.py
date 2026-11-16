@@ -52,3 +52,41 @@ def test_hybrid_factory_accepts_only_typed_provider_candidates():
     result = create_hybrid_engine({"external-model": provider}).analyze("ខ្មែរ")
     assert result["external_candidates"][0]["provider"] == "external-model"
     assert result["ipa"] == RuleBasedKhmerEngine().analyze("ខ្មែរ")["ipa"]
+
+
+def test_mixed_input_preserves_supported_units_and_marks_only_unresolved_units():
+    result = RuleBasedKhmerEngine().analyze("ខ្មែរ ☃")
+
+    assert result["ipa"] == "kʰmae ⟦NOT_ESTABLISHED⟧"
+    assert result["ukrainian"] == "к'мае ⟦НЕВСТАНОВЛЕНО⟧"
+    assert result["status"] == "NOT_ESTABLISHED"
+    assert result["complete"] is False
+    assert result["partial"] is True
+
+    typed = result["phonetic_result"]
+    assert typed["schema"] == "khmer-phonetic-result/v1"
+    assert typed["partial"] is True
+    assert typed["units"][0]["ipa"] == "kʰmae"
+    assert typed["units"][0]["provenance"]["phonology"] == ["wiktionary:khmae"]
+    assert typed["units"][0]["provenance"]["target_policy"] == ["data/ukrainian/practical-policy.json"]
+    assert typed["units"][1]["status"] == "NOT_ESTABLISHED"
+    assert typed["units"][1]["uncertainty"][0]["status"] == "NOT_ESTABLISHED"
+
+
+def test_reported_khmer_spelling_is_structural_not_phonetically_established():
+    result = RuleBasedKhmerEngine().analyze("ព្រះរាជាណាចក្រ")
+
+    assert result["complete"] is False
+    assert result["ipa"].count("⟦NOT_ESTABLISHED⟧") >= 1
+    assert all(unit["status"] != "INVALID_OR_UNSUPPORTED" for unit in result["units"])
+
+
+def test_python_engine_preserves_punctuation_and_source_order():
+    result = RuleBasedKhmerEngine().analyze("ខ្មែរ, ☃!")
+
+    assert result["units"][0]["source"] == "ខ្មែរ"
+    assert result["units"][1]["source"] == ","
+    assert result["units"][2]["source"] == " "
+    assert result["units"][3]["source"] == "☃"
+    assert result["units"][4]["source"] == "!"
+    assert result["ipa"] == "kʰmae, ⟦NOT_ESTABLISHED⟧!"
