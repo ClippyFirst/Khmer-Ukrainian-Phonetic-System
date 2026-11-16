@@ -194,6 +194,7 @@ function renderFixture(fixture, profile) {
       note: fixture.note,
       profile,
       mapping_check: null,
+      evidence: fixture.evidence ?? [],
     };
   }
 
@@ -222,6 +223,7 @@ function renderFixture(fixture, profile) {
     note: fixture.note + " Профіль: " + profile + ".",
     profile,
     mapping_check: fixture.ua ? { policy_render: mapped.value, lexical_render: fixture.ua, agrees: true } : null,
+    evidence: fixture.evidence ?? [],
   };
 }
 
@@ -351,23 +353,51 @@ function convert(text, profile) {
   const evidenceLimited = linguistic.filter((item) => item.status === "EVIDENCE_LIMITED").length;
   const notEstablished = linguistic.filter((item) => item.status === "NOT_ESTABLISHED").length;
   const invalid = linguistic.filter((item) => item.status === "INVALID_OR_UNSUPPORTED").length;
-  // Keep aggregate output honest: unresolved units must not be concatenated
-  // with partial candidates in a way that resembles a complete transcription.
-  // Per-unit diagnostics remain available for research and inspection.
-  const aggregateUnresolved = linguistic.some((item) =>
-    !["PROPOSED", "PROVISIONAL", "ESTABLISHED_STRUCTURE"].includes(item.status)
-    || /⟦/.test(item.ipa)
-    || /⟦/.test(item.ua)
+  // Keep every unit aligned through the complete IPA-first pipeline. Unknown
+  // units retain explicit markers at their own positions; neighboring results
+  // are never discarded and the overall status still signals incompleteness.
+  const ipa = rendered.map((item) => item.ipa).join("");
+  const ua = rendered.map((item) => item.ua).join("");
+  const complete = linguistic.every((item) =>
+    item.status === "PROPOSED" && !/⟦/.test(item.ipa) && !/⟦/.test(item.ua)
   );
+  const phoneticResults = rendered.map((item) => ({
+    kind: item.status === "PUNCTUATION" ? "separator" : "phonetic-unit",
+    source: item.source,
+    status: item.status,
+    ipa: item.ipa,
+    ukrainian: item.ua,
+    profile,
+    provenance: {
+      phonology: item.evidence ?? [],
+      structure: item.analysis ? ["unicode17-ch16"] : [],
+      target_policy: item.mapping_check ? ["data/ukrainian/practical-policy.json"] : [],
+    },
+    uncertainty: item.status === "PUNCTUATION" || item.status === "PROPOSED"
+      ? []
+      : [{ status: item.status, note: item.note ?? "", unresolved_graphemes: item.analysis?.unknown ?? item.analysis?.graphemes?.filter((g) => g.kind === "unknown").map((g) => g.text) ?? [] }],
+  }));
 
   return {
     source: normalized,
-    ipa: aggregateUnresolved ? "⟦ВИМОВУ НЕ ВСТАНОВЛЕНО ДЛЯ ЧАСТИНИ ВВОДУ⟧" : rendered.map((item) => item.ipa).join(""),
-    ua: aggregateUnresolved ? "⟦ТРАНСКРИПЦІЮ НЕ ВСТАНОВЛЕНО ДЛЯ ЧАСТИНИ ВВОДУ⟧" : rendered.map((item) => item.ua).join(""),
+    ipa,
+    ua,
+    complete,
+    partial: !complete && resolved.length > 0,
     status: combineStatus(linguistic),
-    note: `Локальний аналіз: ${resolved.length} одиниць мають зафіксовану IPA та проєктну українську форму; ${unresolved.length} потребують окремого встановлення або перевірки (${notEstablished} не встановлено, ${evidenceLimited} з обмеженою доказовістю, ${invalid} некоректних/непідтримуваних). Некоректна одиниця більше не робить весь змішаний результат INVALID OR UNSUPPORTED; її стан ізольовано на рівні одиниці.${unresolvedNames.length ? ` Невстановлені/проблемні одиниці: ${unresolvedNames.join(" · ")}.` : ""}`,
+    note: "Локальний аналіз: " + resolved.length + " одиниць мають зафіксовану IPA та проєктну українську форму; "
+      + unresolved.length + " потребують окремого встановлення або перевірки (" + notEstablished
+      + " не встановлено, " + evidenceLimited + " з обмеженою доказовістю, " + invalid
+      + " некоректних/непідтримуваних). Невизначеність позначено на місці відповідної одиниці; сусідні результати збережено."
+      + (unresolvedNames.length ? " Невстановлені/проблемні одиниці: " + unresolvedNames.join(" · ") + "." : ""),
     profile,
     units: rendered,
+    phonetic_result: {
+      schema: "khmer-phonetic-result/v1",
+      pipeline: ["source-orthography", "structural-analysis", "source-phonology", "ipa", "ukrainian-target-adaptation"],
+      complete,
+      units: phoneticResults,
+    },
     analyses,
     vowelModel: vowels.coverage_policy,
   };
