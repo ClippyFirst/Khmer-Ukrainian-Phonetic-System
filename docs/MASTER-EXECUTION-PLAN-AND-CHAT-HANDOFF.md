@@ -3053,3 +3053,12 @@ This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in th
 - Current open PR count: 0. Issue #104 remains OPEN and is the hard human research gate: convention approval, two independent Khmer annotators, adjudicator, curator, blind intake, rights-cleared 30-item lexeme pilot, independent annotation/adjudication. Gold remains empty; empirical accuracy remains null.
 - Engineering status remains partial: bounded PCGN component/syllable adapters are verified individually, but general syllable/word segmentation, complete PCGN word romanization, complete source-phonology-to-IPA coverage and independently reviewed Ukrainian target validation are not complete. Root LICENSE/pyproject MIT reconciliation, branch protection and manual accessibility review remain governance/owner tasks.
 - Readiness: research foundation + deployed engineering prototype; not linguistically validated or production-ready. Hosted GitHub Actions only.
+
+
+## LOC word-division evidence checkpoint — 2026-11-16
+
+- Current main base: `61371ea27d7fce63add2070792d60195f0850e35`. Dedicated research branch: `research/loc-khmer-word-division-2026-11-16`.
+- Primary-source reconciliation: LOC 1989 Khmer Note 10 and ALA-LC 1997 Note 10 use the shortest written form that can stand alone; ALA-LC 2013 Note 8 instead says any word can be separated when romanizing. Both distinguish Pali/Sanskrit from other loan-words, whose original-language divisions are retained. BGN/PCGN 1972 Note 9 is a separate ŏ/ŭ independent-vowel ambiguity.
+- Added a dedicated evidence/acceptance audit and source-registry records. No runtime segmentation, syllable parsing, IPA, Ukrainian output, corpus or accuracy claims were changed.
+- `KHM-ROM-LOC-WORD-DIVISION-EVIDENCE-001` = DONE_VERIFIED (primary-source comparison only). `KHM-ROM-LOC-WORD-SEGMENTATION-001` = BLOCKED/TODO pending explicit profile selection, licensed lexical evidence, loan-word metadata and independent boundary annotation. Longest-match and LaoNLP are not accepted as normative implementations.
+- Next feasible work: inspect existing profile selection and lexical-resource governance, then prepare a typed boundary-evidence interface only if it can remain profile-neutral and fail-closed. Do not build a canonical LOC segmenter or claim conformance without the required lexicon and annotation evidence.
