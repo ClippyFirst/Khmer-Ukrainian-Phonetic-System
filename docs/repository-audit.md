@@ -1075,3 +1075,8 @@ A new dedicated branch adds a bounded Alif + normal dependent vowel + one suppor
 ## 2026-11-16 continuation — Note 4 + Note 5 Alif shortened closed syllable adapter
 
 A dedicated branch adds a bounded Alif + Note 5 shortened-vowel + one supported coda assembler for exactly the three source-listed patterns. It composes existing Note 4, Note 5 and final-consonant resolvers, requires caller-supplied context/coda class, cross-checks the coda class against resolved PCGN romanization, and preserves optional apostrophe output. Schema and focused tests are included. This remains PCGN orthographic Latin only; no IPA/Ukrainian output or automatic segmentation is introduced. Acceptance is DONE_VERIFIED for this bounded API: PR #271 merged as 9957081db4149ff316695273d8dd525985bd34fd; exact PR-head Quality [43891125460] and Chromium [43891125490], plus exact-main Quality [43891297907], Chromium [43891298013] and Pages [43891297884] all passed. Full PCGN segmentation/word assembly remains PARTIAL; this adapter is not an IPA or Ukrainian transcription path.
+
+
+## 2026-11-16 continuation — Note 6 ROBAT closed-syllable adapter
+
+A dedicated branch adds a bounded ROBAT-coda syllable assembler. It composes existing consonant, inherent/dependent-vowel and Note 6 ROBAT resolvers, uses an explicit bare marked-coda chunk to establish the consonant's PCGN value, and validates all caller-supplied boundaries. The official thôrm example and a dependent-vowel case are tested. No automatic segmentation or IPA/Ukrainian output is introduced. Exact-head hosted CI pending.
