@@ -282,7 +282,7 @@ class RuleBasedKhmerEngine:
             for syllable in structure.get("syllables", []):
                 unresolved_graphemes.extend(
                     grapheme["text"] for grapheme in syllable.get("graphemes", [])
-                    if grapheme.get("kind") in {"sign_or_unknown", "unmodeled_letter", "unparsed_after_unsupported"}
+                    if grapheme["text"] != syllable.get("base_consonant")
                 )
             uncertainty = ()
             if status not in {"PROPOSED", "PUNCTUATION"} or source_ipa is None or source_ua is None:
