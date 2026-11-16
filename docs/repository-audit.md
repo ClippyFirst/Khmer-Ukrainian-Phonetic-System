@@ -1065,3 +1065,8 @@ The next hard blocker is human, not engineering: issue #104 remains open; indepe
 ## 2026-11-16 continuation — Note 4 Alif syllable adapter
 
 A dedicated branch adds a bounded Alif + ordinary dependent-vowel PCGN open-syllable adapter. It reuses the existing Note 4 and dependent-vowel resolvers, validates caller-supplied boundaries, requires explicit Note 4 context booleans, and preserves optional apostrophe spellings as alternatives. New schema and focused regression tests are present. The result remains PCGN orthographic Latin only; no IPA/Ukrainian path or segmentation is introduced. Acceptance is DONE_VERIFIED for this bounded API: PR #267 merged as 6df8c6c176e0098f97a9f4ab1f9583b0bb7caa68; exact PR-head Quality [43888596780] and Chromium [43888596962], plus exact-main Quality [43888801455], Chromium [43888801448] and Pages [43888801373] all passed. Full PCGN segmentation/word assembly remains PARTIAL; this adapter is not an IPA or Ukrainian transcription path.
+
+
+## 2026-11-16 continuation — Note 4 Alif closed syllable adapter
+
+A new dedicated branch adds a bounded Alif + normal dependent vowel + one supported final-consonant assembler. It composes existing Note 4, dependent-vowel and final-consonant resolvers, validates caller-supplied boundaries, requires explicit context flags, and preserves the optional apostrophe as an alternative. Tests/schema cover all current normal dependent-vowel patterns with the bounded generic coda rule. This remains PCGN orthographic Latin only; no IPA/Ukrainian output or automatic segmentation is introduced. Exact-head hosted CI pending.
