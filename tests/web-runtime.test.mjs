@@ -210,6 +210,9 @@ const grammarExamples = new Map([
   ["ស៊ី", ["ស៊ី"]],
   ["ប៉ី", ["ប៉ី"]],
   ["អាយ៌", ["អា", "យ៌"]],
+  ["ម៉្ងៃ", ["ម៉្ងៃ"]],
+  ["ប‌៊ីយែរ", ["ប‌៊ី", "យែ", "រ"]],
+  ["ពត៌មាន", ["ព", "ត៌", "មា", "ន"]],
 ]);
 for (const [source, expected] of grammarExamples) {
   const parsed = parseOrthographicSyllables(source);
@@ -226,7 +229,21 @@ assert.deepEqual(documentedShifterControl.syllables[0].grammar_extensions, [
 ]);
 assert.equal(parseOrthographicSyllables("ក្").status, "INVALID_OR_UNSUPPORTED");
 assert.equal(parseOrthographicSyllables("កx").status, "INVALID_OR_UNSUPPORTED");
+assert.equal(parseOrthographicSyllables("ឣ").status, "INVALID_OR_UNSUPPORTED");
+assert.equal(parseOrthographicSyllables("ឤ").status, "INVALID_OR_UNSUPPORTED");
 assert.equal(parseOrthographicSyllables("កេិ").status, "EVIDENCE_LIMITED");
+assert.deepEqual(parseOrthographicSyllables("កេិ").rejected_spans.map((item) => [item.start, item.end]), [[2, 3]]);
+assert.equal(parseOrthographicSyllables("ក\\u200Cេ").status, "PARSED");
+assert.equal(parseOrthographicSyllables("ក\\u200Dេ").status, "PARSED");
+assert.equal(parseOrthographicSyllables("ក\\u200D៉").status, "EVIDENCE_LIMITED");
+assert.equal(parseOrthographicSyllables("ក៌៉").status, "EVIDENCE_LIMITED");
+assert.equal(parseOrthographicSyllables("ក្រ៌").status, "AMBIGUOUS");
+for (const source of ["ឱ្យ", "ឱ្ម", "ហ្ឫទ័យ"]) {
+  const result = parseOrthographicSyllables(source);
+  assert.equal(result.status, "AMBIGUOUS");
+  assert.equal(result.parse_count, 2);
+  assert.equal(result.syllables, null);
+}
 const grammarOffsets = parseOrthographicSyllables("ខ្ញុំ");
 assert.deepEqual(grammarOffsets.syllables[0].components.map((item) => [item.start, item.end]), [[0, 1], [1, 3], [3, 4], [4, 5]]);
 assert.equal(grammarOffsets.grammar_profile, "unicode-18.0.0-ch16.4-plus-ch16.4.1-shifter-control");
