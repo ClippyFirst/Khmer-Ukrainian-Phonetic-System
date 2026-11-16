@@ -266,7 +266,7 @@ class RuleBasedKhmerEngine:
             source_ipa = unit.get("ipa")
             source_ua = unit.get("ukrainian")
             ipa_value = source_ipa if source_ipa is not None else f"⟦{status}⟧"
-            ua_value = source_ua if source_ua is not None else _UNKNOWN_UKRAINIAN
+            ua_value = source_ua if source_ua is not None else ("⟦НЕПІДТРИМУЄТЬСЯ⟧" if status == "INVALID_OR_UNSUPPORTED" else _UNKNOWN_UKRAINIAN)
             structure = unit.get("structure", {})
             structural_sources = ["unicode17-ch16"] if structure else []
             phonology_sources = list(unit.get("evidence", []))
@@ -313,7 +313,7 @@ class RuleBasedKhmerEngine:
                 for unit in rendered
             )
             ukrainian = "".join(
-                unit["ukrainian"] if unit.get("ukrainian") is not None else _UNKNOWN_UKRAINIAN
+                unit["ukrainian"] if unit.get("ukrainian") is not None else ("⟦НЕПІДТРИМУЄТЬСЯ⟧" if unit["status"] == "INVALID_OR_UNSUPPORTED" else _UNKNOWN_UKRAINIAN)
                 for unit in rendered
             )
 
