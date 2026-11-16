@@ -17,7 +17,7 @@ def test_pcgn_open_syllable_assembles_source_located_cv_components():
     cases = (
         ("ក", "កា", "ka", "â", 2),
         ("គ", "គា", "kéa", "ô", 2),
-        ("ថ្ម", "ថ្មា", "thméa", "ô", 2),
+        ("ថ្ម", "ថ្មា", "thma", "â", 2),
     )
     for onset, syllable, expected, series, vowel_row in cases:
         result = assemble(onset, syllable)
@@ -34,8 +34,8 @@ def test_pcgn_open_syllable_assembles_source_located_cv_components():
 def test_pcgn_open_syllable_uses_series_after_note2_note3_cluster_selection():
     result = assemble("ថ៊្ម", "ថ៊្មា")
     assert result.status == "RESOLVED"
-    assert result.series == "â"
-    assert result.romanization == "thma"
+    assert result.series == "ô"
+    assert result.romanization == "thméa"
 
 
 def test_pcgn_open_syllable_rejects_onset_that_does_not_match_exact_prefix():
