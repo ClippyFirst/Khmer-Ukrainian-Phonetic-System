@@ -12,6 +12,9 @@ def test_unicode_18_examples_parse_and_reconstruct():
         "ស៊ី": ["ស៊ី"],
         "ប៉ី": ["ប៉ី"],
         "អាយ៌": ["អា", "យ៌"],
+        "ម៉្ងៃ": ["ម៉្ងៃ"],
+        "ប‌៊ីយែរ": ["ប‌៊ី", "យែ", "រ"],
+        "ពត៌មាន": ["ព", "ត៌", "មា", "ន"],
     }
     for source, expected in examples.items():
         result = parse_orthographic_syllables(source)
@@ -40,12 +43,15 @@ def test_multiple_base_scanner_limit_is_resolved_by_bnf_boundaries():
 def test_invalid_coeng_and_unknown_characters_fail_closed():
     assert parse_orthographic_syllables("ក្").status == "INVALID_OR_UNSUPPORTED"
     assert parse_orthographic_syllables("កx").status == "INVALID_OR_UNSUPPORTED"
+    assert parse_orthographic_syllables("ឣ").status == "INVALID_OR_UNSUPPORTED"
+    assert parse_orthographic_syllables("ឤ").status == "INVALID_OR_UNSUPPORTED"
 
 
 def test_known_but_nonconforming_component_order_is_evidence_limited():
     result = parse_orthographic_syllables("កេិ")
     assert result.status == "EVIDENCE_LIMITED"
     assert result.alternatives == ()
+    assert result.rejected_spans == ({"start": 2, "end": 3, "reason": "VOWEL at this position prevents a complete Unicode 18 §16.4 component-order production."},)
 
 
 def test_offsets_are_exact_code_points_and_input_is_not_normalized():
@@ -108,3 +114,21 @@ def test_schema_matches_serialized_parse_contract():
     assert payload["schema"] == schema["properties"]["schema"]["const"]
     assert set(payload) == set(schema["required"])
     assert set(payload["syllables"][0]) == set(schema["$defs"]["syllable"]["required"])
+
+
+def test_unicode_18_join_controls_and_robats_are_position_sensitive():
+    assert parse_orthographic_syllables("ក\u200cេ").status == "PARSED"
+    assert parse_orthographic_syllables("ក\u200dេ").status == "PARSED"
+    assert parse_orthographic_syllables("ក\u200d៉").status == "EVIDENCE_LIMITED"
+    assert parse_orthographic_syllables("ក៌៉").status == "EVIDENCE_LIMITED"
+    assert parse_orthographic_syllables("ក្រ៌").status == "AMBIGUOUS"
+
+
+def test_unicode_18_subscript_independent_vowel_examples_preserve_parse_trees():
+    for source in ("ឱ្យ", "ឱ្ម", "ហ្ឫទ័យ"):
+        result = parse_orthographic_syllables(source)
+        assert result.status == "AMBIGUOUS"
+        assert result.parse_count == 2
+        assert result.syllables is None
+        assert all("SUBSCRIPT_CLUSTER" in item.grammar_roles or "TRAILING_SUBSCRIPT" in item.grammar_roles
+                   for alternative in result.alternatives for item in alternative.syllables)
