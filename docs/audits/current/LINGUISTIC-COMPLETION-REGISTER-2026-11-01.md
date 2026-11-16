@@ -1279,3 +1279,8 @@ The latest branch listing has 127 refs (main + 126 non-main), all non-main tips 
 
 
 | KHM-ROM-PCGN-OPEN-CV-001 | DONE_VERIFIED (bounded API) | PR [#264](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/264) merged as `231b8f031ae130828018b18dbdf1c36c6ac47e6a`. Exact PR-head Quality [43880147090] and Chromium [43880147081] passed; push Quality [43880136584] passed. 338 Python tests + 70 subtests passed; web checks and production build passed. | Verified only for explicitly caller-segmented open CV chunks using a supported dependent-vowel pattern. Coda-bearing, shortened, independent-vowel, special-mark, Alif and ambiguous cases abstain. No word segmentation, IPA or Ukrainian output. `KHM-ROM-ENGINE-001` remains PARTIAL. |
+
+
+### Exact-main closeout — PR #264 and documentation checkpoint — 2026-11-16
+
+PR #264 merged as `231b8f031ae130828018b18dbdf1c36c6ac47e6a`. The documentation closeout produced exact main `5c17d9b1b0d1bbfc079b6d5811749488ca3daad1`. On that SHA, Quality [43880417655](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43880417655), Chromium [43880417532](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43880417532), and Pages build/deploy plus deployed-site/runtime smoke [43880417474](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43880417474) all SUCCESS. Quality reports 338 Python tests + 70 subtests passed; web checks and production build passed. This is engineering verification for the bounded open-CV assembler, not full PCGN or linguistic release validation. Hosted CI only.
