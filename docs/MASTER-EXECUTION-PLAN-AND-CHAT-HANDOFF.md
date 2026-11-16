@@ -2958,3 +2958,13 @@ This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in th
 - Live branch listing: 131 refs total (main + 130 non-main), all non-main tips unique. Systematically compared all 130 non-main refs against exact main; open PR count 0.
 - Most historical refs are divergent because of squash merges and retained task snapshots. File-level summaries plus representative content checks found older PCGN, direct-romanization, mixed-script, practical-adapter, coverage and external-IPA branches to be already integrated or stale. The independent-vowel CSV and several test/source files are byte-identical to main. No historical ref was force-updated, deleted or merged wholesale.
 - `KHM-BRANCH-AUDIT-001`: ancestry inventory DONE_VERIFIED; complete changed-file and PR-ancestry reconciliation remains PARTIAL. Preserve refs until the owner chooses an archival policy; branch deletion is not exposed by the connected GitHub operations.
+
+
+## Final continuation closeout — 2026-11-16
+
+- Final verified baseline before this closeout note: `main` `7a8c1b263ec1e8fa5a8a1395908c661ed5311d42`.
+- PR #264 (open-CV assembler), #265 (Note 5 shortened closed syllables), and #266 (normal dependent-vowel closed syllables) are merged. No open PRs.
+- Exact-main Quality [43884065012](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43884065012), Chromium [43884065118](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43884065118), and Pages build/deploy plus deployed-site/runtime smoke [43884065234](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43884065234) all SUCCESS on `7a8c1b263ec1e8fa5a8a1395908c661ed5311d42`. Quality: 347 Python tests + 70 subtests; web checks and production build passed. Browser smoke: 11/11 passed. Pages deployment and runtime asset smoke passed.
+- Historical refs: 131 total (main + 130 non-main), 130/130 ancestry comparisons completed, 130 unique non-main tips, zero open PRs. Full content-level review remains PARTIAL; no historical branch was force-updated, deleted or merged wholesale.
+- Linguistic status remains partial prototype: full Khmer syllable/word segmentation and source→IPA phonology are incomplete. Issue #104 is still the hard human blocker: independent expert convention, two annotators, adjudicator, curator, blind intake and 30 rights-cleared lexeme groups. Gold remains 0; accuracy remains null.
+- Owner blockers remain: root `LICENSE` absent despite MIT metadata, and branch protection configuration. Neither was changed. No local checkout or local test execution is claimed; all verification above is hosted GitHub Actions evidence.
