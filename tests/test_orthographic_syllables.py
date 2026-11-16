@@ -12,6 +12,13 @@ def test_unicode_18_examples_parse_and_reconstruct():
         "ស៊ី": ["ស៊ី"],
         "ប៉ី": ["ប៉ី"],
         "អាយ៌": ["អា", "យ៌"],
+        "ម៉្ងៃ": ["ម៉្ងៃ"],
+        "ប‌៊ីយែរ": ["ប‌៊ី", "យែ", "រ"],
+        "ពត៌មាន": ["ព", "ត៌", "មា", "ន"],
+        "រាជរ្សី": ["រា", "ជ", "រ្សី"],
+        "ម៊្ហែត": ["ម៊្ហែ", "ត"],
+        "វ‌ិទូ": ["វ‌ិ", "ទូ"],
+        "វ‍ិទូ": ["វ‍ិ", "ទូ"],
     }
     for source, expected in examples.items():
         result = parse_orthographic_syllables(source)
@@ -40,12 +47,19 @@ def test_multiple_base_scanner_limit_is_resolved_by_bnf_boundaries():
 def test_invalid_coeng_and_unknown_characters_fail_closed():
     assert parse_orthographic_syllables("ក្").status == "INVALID_OR_UNSUPPORTED"
     assert parse_orthographic_syllables("កx").status == "INVALID_OR_UNSUPPORTED"
+    for unsupported in ("ឣ", "ឤ", "\u17B4", "\u17B5", "\u17D8"):
+        assert parse_orthographic_syllables(unsupported).status == "INVALID_OR_UNSUPPORTED"
 
 
 def test_known_but_nonconforming_component_order_is_evidence_limited():
     result = parse_orthographic_syllables("កេិ")
     assert result.status == "EVIDENCE_LIMITED"
     assert result.alternatives == ()
+    assert result.rejected_spans == ({
+        "start": 2,
+        "end": 3,
+        "reason": "VOWEL at this position prevents a complete Unicode 18 §16.4 component-order production.",
+    },)
 
 
 def test_offsets_are_exact_code_points_and_input_is_not_normalized():
@@ -118,6 +132,42 @@ def test_schema_matches_serialized_parse_contract():
     payload = parse_orthographic_syllables("ខ្ញុំ").to_dict()
     assert payload["schema"] == schema["properties"]["schema"]["const"]
     assert set(payload) == set(schema["required"])
+    assert payload["rejected_spans"] == []
     assert payload["parse_count"] == "1"
     assert payload["segmentation_count"] == 1
     assert set(payload["syllables"][0]) == set(schema["$defs"]["syllable"]["required"])
+
+
+def test_unicode_18_join_controls_and_robats_are_position_sensitive():
+    assert parse_orthographic_syllables("ក\u200cេ").status == "PARSED"
+    assert parse_orthographic_syllables("ក\u200dេ").status == "PARSED"
+    assert parse_orthographic_syllables("ក\u200d៉").status == "EVIDENCE_LIMITED"
+    assert parse_orthographic_syllables("ក៌៉").status == "EVIDENCE_LIMITED"
+    assert parse_orthographic_syllables("ក្រ៌").status == "PARSED"
+
+
+def test_unicode_18_subscript_independent_vowel_examples_preserve_parse_trees():
+    for source in ("ឱ្យ", "ឱ្ម", "ហ្ឫទ័យ", "ប្រតឺងអ\u200c៊ឹះ", "ប្រតឺងអ៊ឹះ"):
+        result = parse_orthographic_syllables(source)
+        assert result.status == "AMBIGUOUS"
+        assert result.to_dict()["parse_count"] == "2"
+        assert result.to_dict()["segmentation_count"] == 1
+        assert result.syllables is None
+        assert any(
+            any(
+                "SUBSCRIPT_CLUSTER" in grammar_alt.grammar_roles
+                or "TRAILING_SUBSCRIPT" in grammar_alt.grammar_roles
+                for grammar_alt in item.grammar_alternatives
+            )
+            for item in result.alternatives[0].syllables
+        )
+
+
+def test_unicode_18_repetition_sign_is_rejected_with_exact_span():
+    result = parse_orthographic_syllables("ម៊្ហែតៗ")
+    assert result.status == "INVALID_OR_UNSUPPORTED"
+    assert result.rejected_spans == ({
+        "start": 6,
+        "end": 7,
+        "reason": "UNSUPPORTED at this position prevents a complete Unicode 18 §16.4 component-order production.",
+    },)
