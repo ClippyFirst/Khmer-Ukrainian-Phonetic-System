@@ -5,7 +5,7 @@ def test_unicode_18_examples_parse_and_reconstruct():
     examples = {
         "ខ្ញុំ": ["ខ្ញុំ"],
         "ច្រើន": ["ច្រើ", "ន"],
-        "សង្គ្រាម": ["ស", "ង្រា", "ម"],
+        "សង្គ្រាម": ["ស", "ង្គ្រា", "ម"],
         "ហើយ": ["ហើយ"],
         "សញ្ញា": ["ស", "ញ្ញា"],
         "ស៊ី": ["ស៊ី"],
@@ -34,7 +34,7 @@ def test_unicode_18_textual_zwnj_before_shifter_exception_is_explicit():
 def test_multiple_base_scanner_limit_is_resolved_by_bnf_boundaries():
     result = parse_orthographic_syllables("សង្គ្រាម")
     assert result.status == "PARSED"
-    assert [item.source_text for item in result.syllables] == ["ស", "ង្រា", "ម"]
+    assert [item.source_text for item in result.syllables] == ["ស", "ង្គ្រា", "ម"]
 
 
 def test_invalid_coeng_and_unknown_characters_fail_closed():

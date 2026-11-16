@@ -203,7 +203,7 @@ assert.equal(subscriptIndependentVowel.ipa, undefined, "subscript independent-vo
 const grammarExamples = new Map([
   ["ខ្ញុំ", ["ខ្ញុំ"]],
   ["ច្រើន", ["ច្រើ", "ន"]],
-  ["សង្គ្រាម", ["ស", "ង្រា", "ម"]],
+  ["សង្គ្រាម", ["ស", "ង្គ្រា", "ម"]],
   ["ហើយ", ["ហើយ"]],
   ["សញ្ញា", ["ស", "ញ្ញា"]],
   ["ស៊ី", ["ស៊ី"]],
