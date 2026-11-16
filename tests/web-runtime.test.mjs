@@ -227,3 +227,24 @@ for (const source of ["ខ្ញុំ", "ច្រើន", "សង្គ្រ�
     assert.equal(path.map(([start, end]) => [...source].slice(start, end).join("")).join(""), source);
   }
 }
+
+
+const expectedUnicode18Boundaries = {
+  "ខ្ញុំ": [[[0, 5]]],
+  "ច្រើន": [[[0, 4], [4, 5]]],
+  "សង្គ្រាម": [[[0, 1], [1, 7], [7, 8]]],
+  "ហើ្យ": [[[0, 4]]],
+  "សញ្ញា": [[[0, 1], [1, 5]]],
+  "ស៊ី": [[[0, 3]]],
+  "ប៉ី": [[[0, 3]]],
+  "ម៉្ងៃ": [[[0, 5]]],
+  "ប‌៊ីយែរ": [[[0, 4], [4, 6], [6, 7]]],
+  "ផ្ឯម": [[[0, 3], [3, 4]]],
+  "អាយ៌": [[[0, 2], [2, 4]]],
+  "ពត៌មាន": [[[0, 1], [1, 3], [3, 5], [5, 6]]],
+};
+for (const [source, expected] of Object.entries(expectedUnicode18Boundaries)) {
+  const forest = parseOrthographicSequence(source);
+  assert.deepEqual(forest.boundary_alternatives, expected, source);
+  assert.equal(expected[0].map(([start, end]) => [...source].slice(start, end).join("")).join(""), source);
+}
