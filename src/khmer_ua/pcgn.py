@@ -2863,3 +2863,144 @@ def assemble_pcgn_robat_closed_syllable(
             "NO_WORD_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT",
         ),
     )
+
+
+
+PCGN_INDEPENDENT_VOWEL_CLOSED_SYLLABLE_LOCATORS = (
+    PCGN_INDEPENDENT_VOWEL_TABLE_LOCATOR,
+    PCGN_FINAL_CONSONANT_TABLE_LOCATOR,
+)
+
+
+@dataclass(frozen=True)
+class PCGNIndependentVowelClosedSyllableAssembly:
+    """A caller-segmented closed syllable with one independent vowel."""
+
+    source_text: str
+    normalized_text: str
+    vowel_chunk_text: str
+    coda_text: str
+    independent_vowel: str | None
+    vowel_romanization: str | None
+    vowel_table_row: int | None
+    coda_romanization: str | None
+    coda_table_row: int | None
+    romanization: str | None
+    romanization_options: tuple[str, ...]
+    status: Literal["RESOLVED", "UNRESOLVED"]
+    ipa: None
+    ukrainian: None
+    source_locators: tuple[str, ...]
+    warnings: tuple[str, ...]
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+def assemble_pcgn_independent_vowel_closed_syllable(
+    vowel_analysis: PCGNOrthographicAnalysis,
+    syllable_analysis: PCGNOrthographicAnalysis,
+    coda_analysis: PCGNOrthographicAnalysis,
+) -> PCGNIndependentVowelClosedSyllableAssembly:
+    """Assemble one explicit independent-vowel + final-coda syllable.
+
+    The caller supplies the independent-vowel-only chunk, complete syllable,
+    and final-consonant-only chunk. Exact token prefix/suffix and component
+    identity are validated. The independent-vowel resolver must select one
+    listed PCGN value (Note 9's ឧ remains unresolved); the final consonant
+    must satisfy the existing generic no-following-vowel/no-TOANDAKHIAT rule.
+    No syllable or word boundaries are inferred.
+    """
+    def unresolved(reason: str) -> PCGNIndependentVowelClosedSyllableAssembly:
+        return PCGNIndependentVowelClosedSyllableAssembly(
+            source_text=syllable_analysis.raw_text,
+            normalized_text=syllable_analysis.normalized_text,
+            vowel_chunk_text=vowel_analysis.raw_text,
+            coda_text=coda_analysis.raw_text,
+            independent_vowel=(
+                vowel_analysis.independent_vowels[0]
+                if len(vowel_analysis.independent_vowels) == 1
+                else None
+            ),
+            vowel_romanization=None,
+            vowel_table_row=None,
+            coda_romanization=None,
+            coda_table_row=None,
+            romanization=None,
+            romanization_options=(),
+            status="UNRESOLVED",
+            ipa=None,
+            ukrainian=None,
+            source_locators=PCGN_INDEPENDENT_VOWEL_CLOSED_SYLLABLE_LOCATORS,
+            warnings=(reason, "NO_WORD_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT"),
+        )
+
+    analyses = (vowel_analysis, syllable_analysis, coda_analysis)
+    if any(analysis.status != "STRUCTURE_ONLY" for analysis in analyses):
+        return unresolved("UNSUPPORTED_OR_UNRESOLVED_ORTHOGRAPHIC_COMPONENT")
+
+    vowel_tokens = tuple(vowel_analysis.tokens)
+    syllable_tokens = tuple(syllable_analysis.tokens)
+    coda_tokens = tuple(coda_analysis.tokens)
+    if (
+        len(vowel_tokens) != 1
+        or vowel_tokens[0].kind != "independent_vowel"
+        or len(vowel_analysis.independent_vowels) != 1
+        or vowel_analysis.base_consonants
+        or vowel_analysis.subscript_consonants
+        or vowel_analysis.dependent_vowel_signs
+        or vowel_analysis.register_shifters
+        or vowel_analysis.shortening_marks
+        or vowel_analysis.robat_positions
+        or vowel_analysis.ahsda_positions
+        or vowel_analysis.toandakhiat_positions
+    ):
+        return unresolved("VOWEL_CHUNK_MUST_BE_ONE_STANDALONE_INDEPENDENT_VOWEL")
+    if not coda_tokens or syllable_tokens[:1] != vowel_tokens or syllable_tokens[1:] != coda_tokens:
+        return unresolved("COMPLETE_SYLLABLE_MUST_EQUAL_EXACT_INDEPENDENT_VOWEL_PLUS_CODA_CHUNKS")
+    if (
+        syllable_analysis.independent_vowels != vowel_analysis.independent_vowels
+        or syllable_analysis.base_consonants != coda_analysis.base_consonants
+        or syllable_analysis.subscript_consonants != coda_analysis.subscript_consonants
+        or syllable_analysis.dependent_vowel_signs
+        or syllable_analysis.register_shifters
+        or syllable_analysis.shortening_marks
+        or syllable_analysis.robat_positions
+        or syllable_analysis.ahsda_positions
+        or syllable_analysis.toandakhiat_positions
+    ):
+        return unresolved("SYLLABLE_COMPONENTS_DO_NOT_MATCH_INDEPENDENT_VOWEL_AND_CODA_CHUNKS")
+
+    vowel = resolve_pcgn_independent_vowel(vowel_analysis)
+    if vowel.status != "RESOLVED" or vowel.romanization is None:
+        return unresolved(vowel.warnings[0])
+    final = resolve_pcgn_final_consonant(
+        coda_analysis,
+        has_following_vowel_character=False,
+        has_toandakhiat=False,
+    )
+    if final.status != "GENERAL_RULE_APPLIED" or final.romanization is None:
+        return unresolved(final.warnings[0])
+
+    return PCGNIndependentVowelClosedSyllableAssembly(
+        source_text=syllable_analysis.raw_text,
+        normalized_text=syllable_analysis.normalized_text,
+        vowel_chunk_text=vowel_analysis.raw_text,
+        coda_text=coda_analysis.raw_text,
+        independent_vowel=vowel.source_character,
+        vowel_romanization=vowel.romanization,
+        vowel_table_row=vowel.source_table_row,
+        coda_romanization=final.romanization,
+        coda_table_row=final.base_table_row,
+        romanization=vowel.romanization + final.romanization,
+        romanization_options=(),
+        status="RESOLVED",
+        ipa=None,
+        ukrainian=None,
+        source_locators=PCGN_INDEPENDENT_VOWEL_CLOSED_SYLLABLE_LOCATORS,
+        warnings=(
+            "CALLER_SUPPLIED_INDEPENDENT_VOWEL_SYLLABLE_AND_FINAL_CODA_BOUNDARIES",
+            "PCGN_INDEPENDENT_VOWEL_TABLE_VALUE_AND_GENERIC_FINAL_CONSONANT_RULE_APPLIED",
+            "NO_WORD_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT",
+        ),
+    )
