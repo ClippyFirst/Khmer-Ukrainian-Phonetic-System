@@ -2857,6 +2857,16 @@ Status: `KHM-ROM-PCGN-FINAL-CONSONANT-001 = PARTIAL`. No syllable segmentation, 
 - External gate unchanged: issue #104 remains OPEN; independent adjudicated IPA gold remains 0 and accuracy remains null. Root `LICENSE` remains absent; no license choice is made here.
 
 
+## Documentation closeout — PR #256 — 2026-11-16
+
+- PR [#256](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/256) merged by squash as `dee4881da4cfb01b6da0ff5e857af67cade14cb1`; exact current `main` verified at this SHA. No open PRs.
+- PR-head `be23692a11c716e5022e11f6af092bf38b05157b`: push Quality [43825693046], PR Quality [43825710166] and Chromium [43825710160] all SUCCESS.
+- Exact post-merge main: Quality [43825806168], Chromium [43825806361] and Pages build/deploy [43825806234] all SUCCESS. Pages included production-site Chromium exercise and deployed-site/runtime-asset smoke.
+- Exact-main Quality log: `pytest -q` — 331 passed, 70 subtests passed; `npm run check` and production build passed. The separate Chromium smoke and Pages deployment also passed.
+- PR #256 is documentation-only. PR #255's context-type hardening remains an engineering-only improvement; `KHM-ROM-PCGN-FINAL-CONSONANT-001` and `KHM-ROM-ENGINE-001` remain PARTIAL.
+- Research gate remains unchanged: issue #104 OPEN, independent adjudicated IPA gold = 0, accuracy = null. Root `LICENSE` is still absent.
+
+
 ## PCGN independent-vowel source registry — 2026-11-16
 
 - Added `data/khmer/romanization_pcgn_independent_vowels.csv` for the exact independent-character rows present in the BGN/PCGN 1972 table: 3, 4, 7, and 14–22.
