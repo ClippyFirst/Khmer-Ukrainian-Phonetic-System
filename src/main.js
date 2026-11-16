@@ -226,6 +226,31 @@ function parseOrthographicSyllable(raw) {
 }
 
 
+
+function firstRejectedOrthographicComponent(items, start) {
+  let i = start + 1;
+  if (i < items.length && items[i].role === "FORMAT_CONTROL") {
+    if (i + 1 < items.length && items[i].text === "\u200c" && items[i + 1].role === "SHIFTER") i += 2;
+    else if (i + 1 < items.length && items[i + 1].role === "VOWEL") i += 2;
+    else return items[i];
+  } else if (i < items.length && ["ROBAT", "SHIFTER"].includes(items[i].role)) {
+    i += 1;
+  }
+  while (i < items.length && items[i].role === "SUBSCRIPT") {
+    i += 1;
+    if (i < items.length && items[i].role === "ROBAT") i += 1;
+  }
+  if (i < items.length && items[i].role === "FORMAT_CONTROL") {
+    if (i + 1 < items.length && items[i + 1].role === "VOWEL") i += 2;
+    else return items[i];
+  } else if (i < items.length && items[i].role === "VOWEL") {
+    i += 1;
+  }
+  if (i < items.length && items[i].role === "OTHER_SIGN") i += 1;
+  if (i < items.length && items[i].role === "SUBSCRIPT") i += 1;
+  return i < items.length ? items[i] : items[items.length - 1];
+}
+
 function parseOrthographicSequence(raw) {
   const scan = scanOrthographicComponents(raw);
   const items = scan.components;
@@ -304,8 +329,8 @@ function parseOrthographicSequence(raw) {
     const paths = [];
     const syllables = matches(position);
     if (!syllables.length) {
-      const item = items[position];
-      rejected.push({ start: item.start, end: item.end, reason: item.role + " cannot begin a Unicode 18 §16.4 production." });
+      const item = firstRejectedOrthographicComponent(items, position);
+      rejected.push({ start: item.start, end: item.end, reason: item.role + " at this position prevents a complete Unicode 18 §16.4 production." });
       memo.set(position, []);
       return [];
     }
