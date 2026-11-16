@@ -3119,7 +3119,7 @@ The shared `khmer-phonetic-result/v1` payload is specified in `schemas/phonetic-
 - Implementation: `KhmerSyllable.subscript_independent_vowels`; `KhmerGrapheme(kind="subscript_independent_vowel")`; Unicode 18 source registry record; public `khmer_subscript_sequence_spans()` helper with exact-source code-point offsets; regression tests ensure the COENG pair is protected and the phonetic representation remains `phoneticization_not_yet_established`.
 - Scope limit: helper spans cover only U+17D2 plus the following modeled consonant/independent vowel. They do not represent complete Khmer grapheme clusters, full orthographic syllables, word boundaries, IPA or Ukrainian output. The feature is structural only.
 - Task `KHM-STRUCT-SUBSCRIPT-INDEPENDENT-VOWEL-001` = DONE_VERIFIED after exact PR-head and exact-main CI. No local test execution is claimed; the environment has no repository checkout.
-- Next gate: exact PR-head CI; if green, merge and rerun exact-main Quality, browser smoke and Pages deploy, then update this task to DONE_VERIFIED with run IDs and final SHA. The human word-boundary annotation gate in Issue #104 remains independent and open.
+- Post-merge exact-head/main verification is recorded above. The human word-boundary annotation gate in Issue #104 remains independent and open.
 
 
 ### Exact-main verification — Khmer subscript independent-vowel structure — 2026-11-16
@@ -3129,3 +3129,13 @@ The shared `khmer-phonetic-result/v1` payload is specified in `schemas/phonetic-
 - Exact-main Quality log: **393 Python tests passed, 70 subtests passed**; independent IPA gold corpus structure validation, Node/web checks and production build passed. Chromium smoke and production-site Chromium exercise passed. Pages deploy and deployed runtime asset smoke passed.
 - An initial Quality run failed only because the new test omitted `import pytest`; this was corrected in commit `1988cfb3e7df99873b8c340d8c5676bf0d536231` and all subsequent exact-head/exact-main checks passed. No failures are hidden or counted as successful.
 - `KHM-STRUCT-SUBSCRIPT-INDEPENDENT-VOWEL-001 = DONE_VERIFIED`. The helper protects only COENG + following modeled subscript character; full Khmer orthographic syllable segmentation and LOC word segmentation remain unimplemented. Issue #104 remains OPEN and requires human annotation/adjudication. No local test execution is claimed.
+
+
+## Unicode 18 Khmer orthographic-component scanner — 2026-11-16
+
+- Starting exact main: `aa02c23094f4e9c796e236b46d9a359655d34735`; dedicated branch: `feat/khmer-orthographic-component-scanner-2026-11-16`.
+- Primary source: Unicode Standard 18.0.0 Chapter 16 §16.4 gives the Khmer component-order BNF `B {R | C} {S {R}}* {{Z} V} {O} {S}`, defines base, robat, shifter, subscript, dependent vowel, join controls and other signs, and documents examples such as `ខ្ញុំ`, `ច្រើន`, `សង្គ្រាម`, `ហើ្យ`, `សញ្ញា`, `ស៊ី`, `ប៉ី`, `ម៉្ងៃ`, `ប‌៊ីយែរ`, `ផ្ឯម`, `អាយ៌` and `ពត៌មាន`. UAX #29 Revision 49 explains default grapheme-cluster rules and states that Khmer word boundaries require tailoring; it also notes that orthographic-syllable units may require additional tailoring.
+- Implementation: new `src/khmer_ua/orthographic_structure.py` and public `scan_orthographic_components()`; typed `KhmerOrthographicComponent/Scan`; schema `schemas/orthographic-components.schema.json`; Python `analyze()` adds a per-unit structural component trace; browser runtime mirrors the same role labels, codepoint offsets and statuses; regression fixtures cover Unicode 18 examples and supplementary-plane offsets.
+- Scope is deliberately a lossless component scanner, **not a completed BNF parser or syllabifier**. It does not choose whether multiple un-subscripted base letters represent coda material or a new syllable; such scans are `EVIDENCE_LIMITED`. It does not infer word boundaries, validate all component ordering, create pronunciation or change IPA/Ukrainian results. Component spans are not full grapheme-cluster/syllable spans and must not be passed as if they were complete cluster protections to the word-boundary API.
+- Task `KHM-ORTHO-COMPONENT-SCAN-001 = PARTIAL` pending exact PR-head CI. Acceptance for DONE_VERIFIED is implementation + schema/API tests + Python/browser parity and hosted Quality/Chromium checks. Full syllable grammar, ambiguous base/coda resolution, and LOC word segmentation remain separate tasks.
+- No local tests are claimed; the connector session has no local repository checkout. Issue #104 remains open for human phonetic annotation/adjudication.
