@@ -121,7 +121,7 @@ function parseSyllable(raw) {
       return { status: "INVALID_OR_UNSUPPORTED", raw, unknown: [], unknown_codepoints: [], reason: "Khmer combining structure cannot begin a standalone orthographic unit." };
     }
     if (SIGN_BY_CHAR[first]) return { status: "NOT_ESTABLISHED", raw, unknown: [], unknown_codepoints: [], reason: "Відомий знак без базового приголосного; його вимову окремо не встановлено." };
-    return { status: "INVALID_OR_UNSUPPORTED", raw, unknown: chars, unknown_codepoints: unknownCodepoints(chars), reason: "Немає підтримуваного кмерського базового приголосного або відомого знака." };
+    return { status: "INVALID_OR_UNSUPPORTED", raw, unknown: chars, unknown_codepoints: unknownCodepoints(chars), reason: "Немає підтримуваного кмерського базового приголосного або відомого знака: " + unknownCodepoints(chars).join(", ") + "." };
   }
   let index = 1;
   const base = first;
@@ -140,7 +140,7 @@ function parseSyllable(raw) {
     if (char === COENG) {
       const sub = chars[index + 1];
       if (!sub || !isKhmerConsonant(sub)) {
-        return { status: "INVALID_OR_UNSUPPORTED", raw, reason: "Malformed coeng sequence." };
+        return { status: "INVALID_OR_UNSUPPORTED", raw, unknown: sub ? [COENG, sub] : [COENG], unknown_codepoints: unknownCodepoints(sub ? [COENG, sub] : [COENG]), reason: "Malformed coeng sequence: " + unknownCodepoints(sub ? [COENG, sub] : [COENG]).join(", ") + "." };
       }
       subscripts.push(sub);
       graphemes.push({ text: COENG + sub, kind: "subscript" });
@@ -215,6 +215,7 @@ function renderFixture(fixture, profile) {
       note: "УВАГА: лексична українська форма не збігається з канонічною IPA → українська політикою. Суперечливий override не використовується; показано канонічний результат політики.",
       profile,
       mapping_check: { policy_render: mapped.value, lexical_render: fixture.ua ?? null, agrees: false },
+      evidence: fixture.evidence ?? [],
     };
   }
 
