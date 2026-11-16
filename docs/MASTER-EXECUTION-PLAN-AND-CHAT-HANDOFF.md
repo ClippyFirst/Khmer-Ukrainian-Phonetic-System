@@ -3159,3 +3159,16 @@ The shared `khmer-phonetic-result/v1` payload is specified in `schemas/phonetic-
 - New audit: `docs/audits/current/UNICODE-KHMER-ORTHOGRAPHIC-SYLLABLE-GRAMMAR-2026-11-16.md`. Task `KHM-ORTHO-BNF-PARSER-001` remains TODO; source reconciliation is DONE_VERIFIED. No code, IPA, Ukrainian output, corpus labels or generated artifacts changed.
 - Main baseline inspected: `567c105ac453ff95f1e2a567b8f5e992bda9d6b0`. Exact-main Quality [43953751661], browser smoke [43953751879] and Pages deploy/runtime smoke [43953751433] all completed SUCCESS on this SHA. This resolves the prior PENDING Pages note from the previous handoff.
 - Local clone/test execution was attempted but blocked because this execution environment could not resolve github.com. The docs-only change must receive exact-head hosted CI; no local tests are claimed.
+
+
+## Unicode 18 Khmer orthographic-syllable parser — implementation continuation — 2026-11-16
+
+- The canonical parser was added directly to main in 60038d07649d07938ece62438ffb9bd18311bf87; follow-up 674b4626ce4f33c8318790d0a8ddc24c3f8cb02b preserves both grammar-role assignments for the repeated S {R} and final S productions. Do not replace this implementation with duplicate prototypes from closed PRs #286/#288.
+- Python: src/khmer_ua/orthographic_syllables.py; browser: src/orthographic-syllables.js; schema: schemas/orthographic-syllables.schema.json.
+- The parser uses Unicode 18 §16.4 and Appendix A.2 semantics, returns all complete alternatives, preserves exact half-open code-point spans and source text, and does not choose a best parse when ambiguous. Grammar roles make both S-production assignments inspectable. The ZWNJ-before-shifter exception is explicitly traced as a §16.4.1 textual extension.
+- Exact-main 674b462: Quality [43960705479] SUCCESS (412 Python tests + 70 subtests, Node/web checks and production build); Chromium [43960705665] SUCCESS; Pages deploy/runtime smoke [43960705407] SUCCESS.
+- PR #289, “fix: add rejected spans to Khmer orthographic parser”, is open. It extends the canonical implementation with rejected_spans, exact failure offsets/reasons, and broader shared fixtures. Exact branch-head Quality [43961282376] SUCCESS (414 Python tests + 70 subtests, Node/web checks and build); PR-head Chromium and exact-main verification remain pending.
+- PR #286 and PR #288 were closed as duplicate/superseded work after reconciling concurrent main commits; their feature branches remain preserved. No user branch was deleted or force-updated.
+- KHM-ORTHO-BNF-PARSER-001 is PARTIAL until PR #289 is verified and merged. KHM-ORTHO-TN61-MODERN-PROFILE-001 remains TODO / NON_NORMATIVE; do not conflate TN #61 v2 with Unicode normative grammar.
+- Issue #104 remains OPEN; independent IPA gold remains 0. This work does not implement phonological syllabification, LOC word division, pronunciation, IPA or Ukrainian output. Repository remains a research/engineering prototype, not release-ready.
+- All checks cited above ran in GitHub Actions; no local checkout/test execution is claimed.
