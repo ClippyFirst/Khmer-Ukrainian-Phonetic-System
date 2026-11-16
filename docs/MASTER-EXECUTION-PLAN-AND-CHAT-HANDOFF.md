@@ -2855,3 +2855,12 @@ Status: `KHM-ROM-PCGN-FINAL-CONSONANT-001 = PARTIAL`. No syllable segmentation, 
 - The final-consonant resolver now raises `TypeError` unless both caller-supplied context flags are actual booleans; it no longer accepts `None`, numeric or string lookalikes as negative evidence. Regression coverage iterates every supported base character, excluding BA/ALIF which intentionally abstain under the generic rule.
 - Scope remains a bounded PCGN component. No syllable segmentation, complete PCGN output, IPA/Ukrainian output or accuracy claim was added. `KHM-ROM-PCGN-FINAL-CONSONANT-001` and `KHM-ROM-ENGINE-001` remain PARTIAL.
 - External gate unchanged: issue #104 remains OPEN; independent adjudicated IPA gold remains 0 and accuracy remains null. Root `LICENSE` remains absent; no license choice is made here.
+
+
+## PCGN independent-vowel source registry — 2026-11-16
+
+- Added `data/khmer/romanization_pcgn_independent_vowels.csv` for the exact independent-character rows present in the BGN/PCGN 1972 table: 3, 4, 7, and 14–22.
+- Row 7 `ឧ` remains explicitly UNRESOLVED with both source alternatives `ŏ|ŭ`; no lexical/reference selection is made.
+- Each row records the table row, source character(s), romanization or alternatives, acceptance boundary, exact page locator and official primary-source URL.
+- Added a regression check that the source registry matches `PCGN_INDEPENDENT_VOWEL_ROWS` exactly and preserves the Note 9 ambiguity. No runtime mapping changed; no IPA/Ukrainian output or accuracy claim is added.
+- `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` and `KHM-ROM-ENGINE-001` remain PARTIAL.
