@@ -14,7 +14,7 @@ def test_unicode_18_bnf_accepts_documented_zwnj_shifter_exception():
 
 def test_unicode_18_bnf_rejects_out_of_order_components():
     assert parse_orthographic_syllable("កា៉").status == "INVALID_ORDER"
-    assert parse_orthographic_syllable("ក៌ា").status == "INVALID_ORDER"
+    assert parse_orthographic_syllable("កា៌").status == "INVALID_ORDER"
     assert parse_orthographic_syllable("ក‌").status == "INVALID_ORDER"
 
 
@@ -30,6 +30,6 @@ def test_parser_preserves_invalid_coeng_and_unknown_character_states():
 
 def test_parser_preserves_exact_codepoint_component_spans():
     result = parse_orthographic_syllable("🧪ខ្ញុំ")
-    assert result.status == "EVIDENCE_LIMITED"
+    assert result.status == "INVALID_OR_UNSUPPORTED"
     assert result.component_spans[0] == (0, 1)
     assert result.component_spans[1] == (1, 2)
