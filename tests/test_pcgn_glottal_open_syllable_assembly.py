@@ -100,5 +100,10 @@ def test_pcgn_note4_assembler_schema_keeps_optional_romanization_and_no_phonetic
     }
     assert schema["properties"]["ipa"]["const"] is None
     assert schema["properties"]["ukrainian"]["const"] is None
-    assert schema["properties"]["romanization_options"]["minItems"] == 1
+    assert schema["properties"]["romanization_options"]["minItems"] == 0
     assert schema["properties"]["romanization_options"]["maxItems"] == 2
+    resolved = next(
+        item["then"] for item in schema["allOf"]
+        if item.get("if", {}).get("properties", {}).get("status", {}).get("const") == "RESOLVED"
+    )
+    assert resolved["properties"]["romanization_options"]["minItems"] == 1
