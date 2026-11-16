@@ -80,7 +80,9 @@ assert.ok(unresolved, "mixed input must isolate an unresolved unit rather than h
 assert.equal(mixed.units.find((x) => x.source === "ក")?.ua, "ка");
 assert.equal(mixed.units.find((x) => x.source === "គ")?.ua, "ко");
 assert.equal(mixed.phonetic_result.schema, "khmer-phonetic-result/v1");
+assert.equal(mixed.phonetic_result.partial, true);
 assert.deepEqual(mixed.phonetic_result.pipeline, ["source-orthography", "structural-analysis", "source-phonology", "ipa", "ukrainian-target-adaptation"]);
+assert.equal(mixed.phonetic_result.units[0].ipa, "kɑː", "typed result stores bare IPA, without display delimiters");
 assert.equal(mixed.phonetic_result.units.length, mixed.units.length);
 assert.equal(mixed.phonetic_result.units[0].provenance.structure[0], "unicode17-ch16");
 assert.equal(mixed.phonetic_result.units[2].uncertainty[0].status, "INVALID_OR_UNSUPPORTED");
