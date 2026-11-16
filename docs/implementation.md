@@ -10,3 +10,6 @@ The parser iterates Unicode code points, not UTF-16 code units, and exposes U+ c
 
 
 The Python `RuleBasedKhmerEngine` uses the same versioned result contract through `khmer_ua.phonetic_result` (`PhoneticResult`, `PhoneticUnitResult`, and `PhoneticUncertainty`). It segments input conservatively, prioritizes exact lexical fixtures, preserves separators, and returns per-unit IPA/UA status and provenance. For mixed input, resolved neighboring units remain visible while unsupported units receive local markers. The Python public API keeps legacy top-level fields for compatibility and adds `phonetic_result`, `complete`, `partial`, and `units`.
+
+
+The reported `ព្រះរាជាណាចក្រ` false `Unknown character(s)` state has now been traced to the browser parser's unit assumption: the conservative tokenizer can keep several known Khmer base consonants in one orthographic chunk, but the parser previously treated every post-base consonant outside a COENG pair as unknown. The parser now records every recognized consonant as a consonant grapheme and withholds phonetic output when the chunk cannot be confidently syllabified. This is a structural-recognition correction, not a new pronunciation rule; the absence of a lexical IPA fixture still yields NOT_ESTABLISHED.
