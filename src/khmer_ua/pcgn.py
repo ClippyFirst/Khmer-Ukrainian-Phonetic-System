@@ -1673,6 +1673,8 @@ __all__ = [
     "assemble_pcgn_glottal_dependent_closed_syllable",
     "PCGNGlottalShortenedClosedSyllableAssembly",
     "assemble_pcgn_glottal_shortened_closed_syllable",
+    "PCGNRObatClosedSyllableAssembly",
+    "assemble_pcgn_robat_closed_syllable",
     "PCGN_WEAK_SUBSCRIPTS",
     "PCGN_NO_SUBSCRIPT_FOR",
     "resolve_pcgn_series",
@@ -2680,6 +2682,184 @@ def assemble_pcgn_glottal_shortened_closed_syllable(
             "OPTIONAL_APOSTROPHE_VARIANT_PRESERVED_WHEN_NOTE_4_ALLOWS",
             "PCGN_NOTE_5_SHORTENED_VOWEL_AND_FINAL_CODA_ASSEMBLED",
             "CODA_CLASS_CROSS_CHECKED_AGAINST_PCGN_CONSONANT_ROMANIZATION",
+            "NO_WORD_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT",
+        ),
+    )
+
+
+PCGN_ROBAT_CLOSED_SYLLABLE_LOCATORS = (
+    PCGN_CONSONANT_TABLE_LOCATOR,
+    PCGN_INHERENT_VOWEL_TABLE_LOCATOR,
+    PCGN_DEPENDENT_VOWEL_TABLE_LOCATOR,
+    PCGN_ROBAT_TABLE_LOCATOR,
+)
+
+
+@dataclass(frozen=True)
+class PCGNRObatClosedSyllableAssembly:
+    """A caller-segmented syllable with a final ROBAT-marked consonant."""
+
+    source_text: str
+    normalized_text: str
+    onset_text: str
+    vowel_chunk_text: str
+    coda_text: str
+    marked_coda_text: str
+    series: Literal["â", "ô"] | None
+    onset_romanization: str | None
+    vowel_romanization: str | None
+    marked_coda_consonant_romanization: str | None
+    coda_romanization: str | None
+    romanization: str | None
+    onset_table_rows: tuple[int, ...]
+    vowel_table_row: int | None
+    coda_table_row: int | None
+    status: Literal["RESOLVED", "UNRESOLVED"]
+    ipa: None
+    ukrainian: None
+    source_locators: tuple[str, ...]
+    warnings: tuple[str, ...]
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+def assemble_pcgn_robat_closed_syllable(
+    onset_analysis: PCGNOrthographicAnalysis,
+    vowel_analysis: PCGNOrthographicAnalysis,
+    syllable_analysis: PCGNOrthographicAnalysis,
+    coda_analysis: PCGNOrthographicAnalysis,
+    marked_coda_analysis: PCGNOrthographicAnalysis,
+) -> PCGNRObatClosedSyllableAssembly:
+    """Assemble one explicit syllable whose final consonant carries ROBAT.
+
+    The caller supplies onset-only, onset-plus-vowel (or onset-only for an
+    inherent vowel), complete syllable, marked-coda-plus-ROBAT, and bare
+    marked-coda chunks. Exact token boundaries are checked. The existing
+    consonant, inherent/dependent vowel and Note 6 resolvers are composed;
+    no syllable or word boundary is inferred. Output is PCGN orthographic
+    Latin only, never IPA or Ukrainian.
+    """
+    def unresolved(reason: str) -> PCGNRObatClosedSyllableAssembly:
+        return PCGNRObatClosedSyllableAssembly(
+            source_text=syllable_analysis.raw_text,
+            normalized_text=syllable_analysis.normalized_text,
+            onset_text=onset_analysis.raw_text,
+            vowel_chunk_text=vowel_analysis.raw_text,
+            coda_text=coda_analysis.raw_text,
+            marked_coda_text=marked_coda_analysis.raw_text,
+            series=None,
+            onset_romanization=None,
+            vowel_romanization=None,
+            marked_coda_consonant_romanization=None,
+            coda_romanization=None,
+            romanization=None,
+            onset_table_rows=(),
+            vowel_table_row=None,
+            coda_table_row=None,
+            status="UNRESOLVED",
+            ipa=None,
+            ukrainian=None,
+            source_locators=PCGN_ROBAT_CLOSED_SYLLABLE_LOCATORS,
+            warnings=(reason, "NO_WORD_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT"),
+        )
+
+    analyses = (onset_analysis, vowel_analysis, syllable_analysis, coda_analysis, marked_coda_analysis)
+    if any(analysis.status != "STRUCTURE_ONLY" for analysis in analyses):
+        return unresolved("UNSUPPORTED_OR_UNRESOLVED_ORTHOGRAPHIC_COMPONENT")
+
+    onset_tokens = tuple(onset_analysis.tokens)
+    vowel_tokens = tuple(vowel_analysis.tokens)
+    syllable_tokens = tuple(syllable_analysis.tokens)
+    coda_tokens = tuple(coda_analysis.tokens)
+    marked_tokens = tuple(marked_coda_analysis.tokens)
+    if not onset_tokens or vowel_tokens[:len(onset_tokens)] != onset_tokens:
+        return unresolved("CALLER_ONSET_MUST_MATCH_EXACT_VOWEL_CHUNK_PREFIX")
+    vowel_tail = vowel_tokens[len(onset_tokens):]
+    if any(token.kind != "dependent_vowel" for token in vowel_tail):
+        return unresolved("VOWEL_CHUNK_MUST_CONTAIN_ONLY_DEPENDENT_VOWEL_SIGNS_AFTER_ONSET")
+    if syllable_tokens[:len(vowel_tokens)] != vowel_tokens or syllable_tokens[len(vowel_tokens):] != coda_tokens:
+        return unresolved("COMPLETE_SYLLABLE_MUST_EQUAL_VOWEL_CHUNK_PLUS_EXACT_ROBAT_CODA")
+    if (
+        len(marked_tokens) != 1
+        or marked_tokens[0].kind != "unstacked_consonant"
+        or len(coda_tokens) != 2
+        or coda_tokens[0] != marked_tokens[0]
+        or coda_tokens[1].kind != "robat"
+        or coda_analysis.robat_positions != (len(coda_analysis.normalized_text) - 1,)
+    ):
+        return unresolved("ROBAT_CODA_MUST_EQUAL_ONE_MARKED_UNSTACKED_CONSONANT_PLUS_FINAL_ROBAT")
+    if (
+        coda_analysis.base_consonants != marked_coda_analysis.base_consonants
+        or coda_analysis.subscript_consonants
+        or coda_analysis.dependent_vowel_signs
+        or coda_analysis.independent_vowels
+        or coda_analysis.shortening_marks
+        or coda_analysis.ahsda_positions
+        or coda_analysis.toandakhiat_positions
+        or syllable_analysis.base_consonants != onset_analysis.base_consonants + marked_coda_analysis.base_consonants
+        or syllable_analysis.subscript_consonants != onset_analysis.subscript_consonants
+        or syllable_analysis.register_shifters != onset_analysis.register_shifters
+        or vowel_analysis.base_consonants != onset_analysis.base_consonants
+        or vowel_analysis.subscript_consonants != onset_analysis.subscript_consonants
+        or vowel_analysis.register_shifters != onset_analysis.register_shifters
+    ):
+        return unresolved("ONSET_VOWEL_AND_ROBAT_CODA_COMPONENTS_DO_NOT_MATCH_CALLER_CHUNKS")
+
+    series = resolve_pcgn_series(onset_analysis)
+    onset = resolve_pcgn_consonant(onset_analysis)
+    marked_coda = resolve_pcgn_consonant(marked_coda_analysis)
+    if series.status != "RESOLVED" or onset.status != "RESOLVED" or marked_coda.status != "RESOLVED":
+        reason = (
+            series.warnings[0] if series.status != "RESOLVED"
+            else onset.warnings[0] if onset.status != "RESOLVED"
+            else marked_coda.warnings[0]
+        )
+        return unresolved(reason)
+
+    if vowel_tail:
+        vowel = resolve_pcgn_dependent_vowel(vowel_analysis, series)
+        if vowel.status != "RESOLVED" or vowel.romanization is None:
+            return unresolved(vowel.warnings[0])
+        vowel_value = vowel.romanization
+        vowel_row = vowel.source_table_row
+    else:
+        inherent = resolve_pcgn_inherent_vowel(onset_analysis, "NON_FINAL")
+        if inherent.status != "RESOLVED" or inherent.romanization is None:
+            return unresolved(inherent.warnings[0])
+        vowel_value = inherent.romanization
+        vowel_row = inherent.source_table_row
+
+    robat = resolve_pcgn_robat(coda_analysis, marked_coda.romanization)
+    if robat.status != "RESOLVED" or robat.romanization is None:
+        return unresolved(robat.warnings[0])
+    onset_rows = (onset.base_table_row,) + (
+        (onset.subscript_table_row,) if onset.subscript_table_row is not None else ()
+    )
+    return PCGNRObatClosedSyllableAssembly(
+        source_text=syllable_analysis.raw_text,
+        normalized_text=syllable_analysis.normalized_text,
+        onset_text=onset_analysis.raw_text,
+        vowel_chunk_text=vowel_analysis.raw_text,
+        coda_text=coda_analysis.raw_text,
+        marked_coda_text=marked_coda_analysis.raw_text,
+        series=series.series,
+        onset_romanization=onset.romanization,
+        vowel_romanization=vowel_value,
+        marked_coda_consonant_romanization=marked_coda.romanization,
+        coda_romanization=robat.romanization,
+        romanization=onset.romanization + vowel_value + robat.romanization,
+        onset_table_rows=onset_rows,
+        vowel_table_row=vowel_row,
+        coda_table_row=marked_coda.base_table_row,
+        status="RESOLVED",
+        ipa=None,
+        ukrainian=None,
+        source_locators=PCGN_ROBAT_CLOSED_SYLLABLE_LOCATORS,
+        warnings=(
+            "CALLER_SUPPLIED_ONSET_VOWEL_SYLLABLE_AND_ROBAT_CODA_BOUNDARIES",
+            "PCGN_NOTE_6_ROBAT_COMPONENT_RESOLVED_FROM_MARKED_CONSONANT_TABLE_VALUE",
+            "INHERENT_OR_NORMAL_DEPENDENT_VOWEL_COMPONENT_ASSEMBLED",
             "NO_WORD_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT",
         ),
     )
