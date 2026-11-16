@@ -19,7 +19,7 @@
     "coda_romanization": {"type": ["string", "null"]},
     "coda_table_row": {"type": ["integer", "null"]},
     "romanization": {"type": ["string", "null"]},
-    "romanization_options": {"type": "array", "items": {"type": "string"}, "maxItems": 0},
+    "romanization_options": {"type": "array", "items": {"type": "string"}, "maxItems": 2},
     "status": {"enum": ["RESOLVED", "UNRESOLVED"]},
     "ipa": {"const": null},
     "ukrainian": {"const": null},
