@@ -16,6 +16,12 @@ The practical Ukrainian layer is a project proposal. It is not an official Ukrai
 
 The shared Ukrainian target conventions are maintained in the canonical [foreign IPA → Ukrainian adaptation policy](https://github.com/ClippyFirst/Ukrainian-Phonetic-Inventory/blob/main/docs/foreign-target-adaptation.md). This Khmer adapter applies the aspiration apostrophe and distinguishes /h/ → г, /ɡ/ → ґ and /x/ → х; it also preserves Ukrainian affricate and palatalization sequences where the source IPA supports them.
 
+## Live service — GitHub Pages only
+
+**[Open the Khmer → Ukrainian web service](https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/)**
+
+The public static service is hosted exclusively on GitHub Pages. Deployment is performed by `.github/workflows/pages.yml` from `main`; the workflow builds with Vite, runs web checks and production Chromium smoke tests, uploads the `dist/` artifact, deploys with `actions/deploy-pages`, and verifies both public HTML pages plus their JavaScript and CSS assets. No Vercel, Netlify, external application server, runtime API, analytics or telemetry is used.
+
 ## Web service
 
 The system page now includes an evidence coverage dashboard generated from `reports/khmer-coverage-audit.json`. It exposes the dependent-vowel × consonant-series inventory and clearly distinguishes source-attested examples from unresolved cells and source conflicts. The dashboard is an evidence-status view, not a pronunciation-accuracy score.
