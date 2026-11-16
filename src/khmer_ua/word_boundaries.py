@@ -55,6 +55,9 @@ class BoundaryCandidate:
             adjudicated_offsets = {item.offset for item in self.evidence if item.status == "ADJUDICATED"}
             if not set(self.boundaries).issubset(adjudicated_offsets):
                 raise ValueError("Every adjudicated boundary requires adjudicated evidence.")
+            for item in self.evidence:
+                if item.offset in self.boundaries and item.status == "ADJUDICATED" and not item.source_locator:
+                    raise ValueError("Adjudicated boundary evidence requires a source_locator.")
 
 
 @dataclass(frozen=True)
@@ -70,6 +73,8 @@ class WordBoundaryAnalysis:
             raise TypeError("source_text must be a string.")
         if (self.profile_id is None) != (self.profile_version is None):
             raise ValueError("profile_id and profile_version must either both be set or both be null.")
+        if self.profile_id is not None and (not self.profile_id.strip() or not self.profile_version.strip()):
+            raise ValueError("Selected profile ID and version must be non-empty.")
         previous_end = 0
         for span in self.cluster_spans:
             if len(span) != 2:
