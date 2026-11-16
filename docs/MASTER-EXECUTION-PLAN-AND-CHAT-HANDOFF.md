@@ -3223,3 +3223,18 @@ The source-reconciliation checkpoint above was superseded by implementation. Mai
 - The changes after pre-follow-up head `65bbc704a5bcf6906f5d57841a625e6f9a2b0f29` include source-registry and playbook additions for the 2,748-row/16-speaker Festival prompt index, plus the corpus-contract entry; do not describe all subsequent commits as handoff/register/repository-audit-only.
 - The six-file diff is source metadata and documentation only. No runtime, test source, generated artifacts, audio/lexicon payload, IPA gold labels or Ukrainian mapping changed. No local checkout/tests, Pages deployment or production deployment are claimed.
 - PR #300 remains OPEN and unmerged. No force-push or branch deletion was performed.
+
+ 
+## Final post-PR #300 mainline checkpoint — 2026-11-16
+
+- PR #300, “research: complete Google Khmer TTS lexicon audit”, merged by squash as **`b60a65179ffbb593fca8f3eb2c07a1c81e6e8489`**. Final PR head was `07608ca77a06eee741f2988f4e8611d5ebb26880`; issue #300 is closed. No force-push or branch deletion was performed.
+- Exact-main Quality [43966413597] SUCCESS: **417 Python tests + 70 subtests**, independent IPA corpus structural validation, Node/web checks and production build.
+- Exact-main Chromium smoke [43966413730] SUCCESS: **12/12 Playwright tests**, including Khmer input/output, local unsupported-grapheme handling, romanization separation, accessibility names and keyboard activation.
+- Exact-main GitHub Pages build/deploy/runtime smoke [43966413612] SUCCESS: production build, Chromium exercise, artifact upload, deploy and published-site/runtime-asset smoke all passed.
+- PR #300 changed source metadata and research/acceptance documentation only. No runtime, generated artifact, lexicon/audio payload, IPA gold labels or Ukrainian mappings were changed or imported.
+- The pinned Google Khmer lexicon remains `KHMER-GOOGLE-TTS-001 = PARTIAL`, candidate phonemic comparator only. The paper reports 70,671 entries vs 69,415 snapshot rows. The snapshot has 69,405 unique spellings, ten divergent duplicate keys, 54 used tokens matching a 56-phone inventory, and a CC BY 4.0 header on the lexicon file. Companion `phonology.json` rights remain unresolved.
+- The companion Festival prompt index has 2,748 utterance records / 16 pseudonymous speaker-ID prefixes and no gender labels. This differs from the paper's 2,906 files / 17 female speakers and the current OpenSLR page's male-only archive. The prompt index is not a manifest; archive version, checksums and speaker mapping remain unresolved.
+- Sodimana et al. (2018) full-text review confirms that its word collection, phonemic transcription guidelines and QC description are general across six languages; it does not provide Khmer-specific annotator, variety, notation, QC/agreement or per-entry provenance. Chem (2020) offers a four-speaker Phnom Penh vowel study but explicitly notes that “Standard Khmer” lacks a clear-cut definition; it cannot validate the Google lexicon as project-profile gold.
+- Issue #104 has been updated with the full source audit and the additional Festival prompt-index discrepancy. Independent adjudicated IPA gold remains 0; empirical accuracy remains null. `KHM-GOLD-001 = BLOCKED`.
+- Research synthesis stored in the Undermind Khmer workspace: `/analysis/google-khmer-lexicon-profile-and-evidence-audit.md`.
+- No local checkout or local tests were run; all code/CI verification above is from GitHub Actions.
