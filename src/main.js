@@ -72,7 +72,7 @@ function tokenize(text) {
     }
 
     const remainder = chars.slice(index).join("");
-    const fixtureKey = fixtureKeys.find((key) => {
+    const fixtureKey = chars[index - 1] === COENG ? undefined : fixtureKeys.find((key) => {
       if (!remainder.startsWith(key)) return false;
       const next = chars[index + [...key].length];
       return next === undefined || isSeparator(next);
