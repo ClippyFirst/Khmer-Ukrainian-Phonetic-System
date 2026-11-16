@@ -237,10 +237,11 @@ console.log("Unicode 18 Khmer orthographic-syllable parser: PASS");
 // A single COENG pair can occupy either S production; retain both parse trees.
 const ambiguousCoeng = parseOrthographicSyllables("ក្ក");
 assert.equal(ambiguousCoeng.status, "AMBIGUOUS");
-assert.equal(ambiguousCoeng.parse_count, 2);
+assert.equal(ambiguousCoeng.parse_count, "2");
+assert.equal(ambiguousCoeng.segmentation_count, 1);
 assert.equal(ambiguousCoeng.syllables, null);
 assert.deepEqual(
-  ambiguousCoeng.alternatives.map((alternative) => alternative.syllables[0].grammar_roles).sort(),
+  ambiguousCoeng.alternatives[0].syllables[0].grammar_alternatives.map((alternative) => alternative.grammar_roles).sort(),
   [["BASE", "SUBSCRIPT_CLUSTER"], ["BASE", "TRAILING_SUBSCRIPT"]].sort(),
 );
 assert.deepEqual(
@@ -257,15 +258,25 @@ console.log("Unicode 18 Khmer ambiguous grammar parse forest: PASS");
 
 const subscriptIndependentVowelParse = parseOrthographicSyllables("ផ្ឯម");
 assert.equal(subscriptIndependentVowelParse.status, "AMBIGUOUS");
-assert.equal(subscriptIndependentVowelParse.parse_count, 2);
+assert.equal(subscriptIndependentVowelParse.parse_count, "2");
+assert.equal(subscriptIndependentVowelParse.segmentation_count, 1);
 assert.deepEqual(
-  subscriptIndependentVowelParse.alternatives.map((alternative) =>
-    alternative.syllables.map((syllable) => syllable.source_text)),
-  [["ផ្ឯ", "ម"], ["ផ្ឯ", "ម"]],
+  subscriptIndependentVowelParse.alternatives[0].syllables.map((syllable) => syllable.source_text),
+  ["ផ្ឯ", "ម"],
 );
 assert.deepEqual(
-  subscriptIndependentVowelParse.alternatives.map((alternative) =>
-    alternative.syllables[0].grammar_roles).sort(),
+  subscriptIndependentVowelParse.alternatives[0].syllables[0].grammar_alternatives.map((alternative) =>
+    alternative.grammar_roles).sort(),
   [["BASE", "SUBSCRIPT_CLUSTER"], ["BASE", "TRAILING_SUBSCRIPT"]].sort(),
 );
 console.log("Unicode 18 Khmer subscript-independent-vowel ambiguity: PASS");
+
+
+const manyAmbiguousSyllables = parseOrthographicSyllables("ក្ក".repeat(20));
+assert.equal(manyAmbiguousSyllables.status, "AMBIGUOUS");
+assert.equal(manyAmbiguousSyllables.parse_count, String(2 ** 20));
+assert.equal(manyAmbiguousSyllables.segmentation_count, 1);
+assert.equal(manyAmbiguousSyllables.alternatives[0].syllables.length, 20);
+assert.ok(manyAmbiguousSyllables.alternatives[0].syllables.every((syllable) =>
+  syllable.grammar_alternatives.length === 2));
+console.log("Unicode 18 Khmer packed parse forest: PASS");
