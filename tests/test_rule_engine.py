@@ -69,8 +69,9 @@ def test_mixed_input_preserves_supported_units_and_marks_only_unresolved_units()
     assert typed["units"][0]["ipa"] == "kʰmae"
     assert typed["units"][0]["provenance"]["phonology"] == ["wiktionary:khmae"]
     assert typed["units"][0]["provenance"]["target_policy"] == ["data/ukrainian/practical-policy.json"]
-    assert typed["units"][1]["status"] == "INVALID_OR_UNSUPPORTED"
-    assert typed["units"][1]["uncertainty"][0]["status"] == "INVALID_OR_UNSUPPORTED"
+    assert typed["units"][1]["status"] == "PUNCTUATION"
+    assert typed["units"][2]["status"] == "INVALID_OR_UNSUPPORTED"
+    assert typed["units"][2]["uncertainty"][0]["status"] == "INVALID_OR_UNSUPPORTED"
 
 
 def test_reported_khmer_spelling_is_structural_not_phonetically_established():
