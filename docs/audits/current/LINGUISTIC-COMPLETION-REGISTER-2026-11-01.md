@@ -1402,3 +1402,10 @@ TN #61 v2 is registered as unicode-tn61-khmer-encoding-structure-v2 with its dat
 - All 54 phonemic tokens used by the lexicon occur in the companion 56-phone JSON inventory. This is structural symbol-set consistency, not a claim of IPA correctness or independent annotation.
 - The lexicon file itself declares CC BY 4.0. The companion phonology JSON's file-level rights remain ambiguous between the repository's Apache-2.0 default and the paper's broad CC BY 4.0 data statement. The paper reports 70,671 entries, not the 69,415 present in the pinned file, and supplies no target dialect or per-item provenance.
 - `KHMER-GOOGLE-TTS-001 = PARTIAL`; use only as a candidate phonemic comparator pending profile/convention/provenance/rights review. Do not promote to IPA gold. Issue #104 remains OPEN; gold=0; accuracy=null.
+
+### KHMER-GOOGLE-TTS-001 — exact final-head verification — 2026-11-16
+
+- PR #300 final head `65bbc704a5bcf6906f5d57841a625e6f9a2b0f29`, six source/documentation files only.
+- Quality [43965487859] SUCCESS: **417 Python tests + 70 subtests**, independent IPA corpus structural validation, Node/web checks and production build.
+- Khmer browser smoke [43965487827] SUCCESS: deterministic web checks, production build and Chromium visible-result checks. No local tests or Pages deployment are claimed.
+- This closes the engineering verification for the source audit only. `KHMER-GOOGLE-TTS-001 = PARTIAL` remains so until target-variety/convention, per-item provenance, duplicate semantics, 70,671-vs-69,415 snapshot discrepancy and companion `phonology.json` license scope are resolved. `KHM-GOLD-001 = BLOCKED`; gold=0; accuracy=null; Issue #104 remains OPEN.
