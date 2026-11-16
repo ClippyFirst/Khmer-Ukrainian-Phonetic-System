@@ -103,4 +103,7 @@ The repository now has a component inventory in `src/khmer_ua/orthographic_struc
 
 **Important limitation:** the scanner does not yet parse the complete BNF or split a continuous Khmer string into orthographic syllables. It leaves multiple un-subscripted base letters unresolved because the source string alone may not establish coda versus next-syllable role. Its individual component spans are not complete orthographic-cluster spans and are not automatically valid inputs to the word-boundary interface's protected-cluster field. It creates no word boundaries, lexicon entries or IPA.
 
-**Task ledger:** `KHM-ORTHO-COMPONENT-SCAN-001 = PARTIAL` pending exact-head CI. Full orthographic-syllable parsing and lexical word segmentation remain distinct tasks. The human evidence gate in Issue #104 remains open.
+**Task ledger:** `KHM-ORTHO-COMPONENT-SCAN-001 = DONE_VERIFIED` for the component inventory and cross-runtime schema/API only; full orthographic-syllable BNF parsing and word segmentation remain open. Full orthographic-syllable parsing and lexical word segmentation remain distinct tasks. The human evidence gate in Issue #104 remains open.
+
+
+**Exact-main evidence:** PR #283 merged as `bdc15daf6f7c40a6c088e306343a421b9347e9c1`. Exact PR-head Quality [43953219338] and Chromium [43953219579] succeeded. Exact-main Quality [43953449784] passed 402 Python tests + 70 subtests, independent IPA corpus structure validation, Node/web checks and production build; Chromium [43953449807] succeeded; Pages deploy and deployed runtime smoke [43953450103] succeeded. No local test execution is claimed.
