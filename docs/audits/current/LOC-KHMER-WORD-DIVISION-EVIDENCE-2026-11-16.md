@@ -113,6 +113,11 @@ The repository now has a component inventory in `src/khmer_ua/orthographic_struc
 
 The complete Unicode 18 §16.4 parser is merged in main as 8ec4460a0af291dcba10563912f8fcd0c3f784fd. It builds on the component scanner and subscript-independent-vowel primitive, retains complete segmentation alternatives and local grammar-role alternatives in a packed forest, reports derivation counts, preserves source text/code-point offsets, and includes rejected component spans/reasons. Python and browser implementations share the schema contract.
 
-Exact-main verification: Quality [43963765593] passed 416 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build; Chromium [43963765334] passed; Pages deploy/runtime smoke [43963765391] passed.
+Exact-main verification: Quality [43963765593] passed 417 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build; Chromium [43963765334] passed; Pages deploy/runtime smoke [43963765391] passed.
 
 This closes only Unicode orthographic-syllable parsing. It does not select ALA-LC 1997 or 2013, infer lexical independence, classify loan words, choose LOC boundaries, or create a segmenter. The profile-neutral word-boundary evidence interface remains separate; the parser's syllable spans may be candidate protected intervals only after explicit profile selection and review. Licensed lexical evidence, adjudicated word boundaries and held-out evaluation remain blocked.
+
+
+## Final parser/handoff verification — 2026-11-16
+
+PR #296 merged the final handoff as 1cecfa86e098fb3e96a7a55954010840f28ddb84. Exact-main Quality [43964140244] passed 417 Python tests + 70 subtests; Chromium [43964140341] passed; Pages deploy/runtime smoke [43964140290] passed. This verifies the current parser and documentation state only. The Unicode parser returns orthographic-syllable candidates; LOC lexical word boundaries still require a separately selected profile, reviewed protected-cluster policy, licensed lexical evidence, adjudicated examples and held-out evaluation. Issue #104 remains OPEN.
