@@ -1103,3 +1103,11 @@ Official LOC sources distinguish historical/versioned word-division formulations
 ## Public hosting verification — 2026-11-16
 
 The service is live exclusively on GitHub Pages: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/. Exact deployed source SHA: `8feb14a3cf96fa2e1aafd00ea045d5fddb2e3c4a`. Pages workflow run 43930778763 completed successfully: Vite build, web checks, production Chromium exercise, Pages artifact upload, deploy-pages action, and deployed HTTP smoke checks for both `index.html` and `system.html`, including JS/CSS runtime assets. No alternative hosting platform or application server is used. Linguistic release status remains research-grade/evidence-limited.
+
+
+## Typed partial-result and Unicode audit — 2026-11-16
+
+- The previous browser aggregate replaced the complete IPA/Ukrainian strings with one global placeholder whenever any unit was unresolved. That contradicted the repository's per-unit integrity requirement and discarded independently usable neighboring results. The adapter now keeps source-aligned local markers and preserves resolved units while setting explicit `complete` / `partial` metadata.
+- The browser result now exposes a versioned, provenance-aware `khmer-phonetic-result/v1` contract with distinct structural, phonological and target-policy provenance lanes. Structural Unicode evidence is not treated as pronunciation evidence.
+- Browser parsing now iterates Unicode code points and records U+ diagnostics for unsupported code points. The visible spelling `ព្រះរាជាណាចក្រ` is covered by a regression that checks complete structural trace reconstruction and prevents a missing lexical IPA fixture from being mislabeled as malformed Unicode.
+- **Engineering status: PARTIAL pending exact-head CI.** The conservative tokenizer remains heuristic; complete Khmer syllable/word segmentation and contextual orthography → IPA are not established. Python/browser typed-result parity is not yet implemented. Independent adjudicated IPA gold remains 0; empirical accuracy remains null.
