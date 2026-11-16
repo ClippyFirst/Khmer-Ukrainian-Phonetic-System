@@ -3136,8 +3136,8 @@ The shared `khmer-phonetic-result/v1` payload is specified in `schemas/phonetic-
 - Starting exact main: `aa02c23094f4e9c796e236b46d9a359655d34735`; dedicated branch: `feat/khmer-orthographic-component-scanner-2026-11-16`.
 - Primary source: Unicode Standard 18.0.0 Chapter 16 §16.4 gives the Khmer component-order BNF `B {R | C} {S {R}}* {{Z} V} {O} {S}`, defines base, robat, shifter, subscript, dependent vowel, join controls and other signs, and documents examples such as `ខ្ញុំ`, `ច្រើន`, `សង្គ្រាម`, `ហើ្យ`, `សញ្ញា`, `ស៊ី`, `ប៉ី`, `ម៉្ងៃ`, `ប‌៊ីយែរ`, `ផ្ឯម`, `អាយ៌` and `ពត៌មាន`. UAX #29 Revision 49 explains default grapheme-cluster rules and states that Khmer word boundaries require tailoring; it also notes that orthographic-syllable units may require additional tailoring.
 - Implementation: new `src/khmer_ua/orthographic_structure.py` and public `scan_orthographic_components()`; typed `KhmerOrthographicComponent/Scan`; schema `schemas/orthographic-components.schema.json`; Python `analyze()` adds a per-unit structural component trace; browser runtime mirrors the same role labels, codepoint offsets and statuses; regression fixtures cover Unicode 18 examples and supplementary-plane offsets.
-- Scope is deliberately a lossless component scanner, **not a completed BNF parser or syllabifier**. It does not choose whether multiple un-subscripted base letters represent coda material or a new syllable; such scans are `EVIDENCE_LIMITED`. It does not infer word boundaries, validate all component ordering, create pronunciation or change IPA/Ukrainian results. Component spans are not full grapheme-cluster/syllable spans and must not be passed as if they were complete cluster protections to the word-boundary API.
-- Task `KHM-ORTHO-COMPONENT-SCAN-001 = PARTIAL` pending exact PR-head CI. Acceptance for DONE_VERIFIED is implementation + schema/API tests + Python/browser parity and hosted Quality/Chromium checks. Full syllable grammar, ambiguous base/coda resolution, and LOC word segmentation remain separate tasks.
+- The scanner itself remains a lossless component layer, not a syllabifier. The separate Unicode 18 BNF parser now consumes it, validates component order, and returns packed orthographic-syllable alternatives. Neither component spans nor syllable spans infer lexical word boundaries, pronunciation, IPA or Ukrainian output. Do not pass scanner component spans as complete cluster protections to the word-boundary API.
+- Task `KHM-ORTHO-COMPONENT-SCAN-001 = DONE_VERIFIED` for the scanner contract. The separate `KHM-ORTHO-BNF-PARSER-001` is now DONE_VERIFIED for Unicode 18 orthographic parsing; LOC word segmentation remains separate.
 - No local tests are claimed; the connector session has no local repository checkout. Issue #104 remains open for human phonetic annotation/adjudication.
 
 
@@ -3159,3 +3159,20 @@ The shared `khmer-phonetic-result/v1` payload is specified in `schemas/phonetic-
 - New audit: `docs/audits/current/UNICODE-KHMER-ORTHOGRAPHIC-SYLLABLE-GRAMMAR-2026-11-16.md`. Task `KHM-ORTHO-BNF-PARSER-001` remains TODO; source reconciliation is DONE_VERIFIED. No code, IPA, Ukrainian output, corpus labels or generated artifacts changed.
 - Main baseline inspected: `567c105ac453ff95f1e2a567b8f5e992bda9d6b0`. Exact-main Quality [43953751661], browser smoke [43953751879] and Pages deploy/runtime smoke [43953751433] all completed SUCCESS on this SHA. This resolves the prior PENDING Pages note from the previous handoff.
 - Local clone/test execution was attempted but blocked because this execution environment could not resolve github.com. The docs-only change must receive exact-head hosted CI; no local tests are claimed.
+
+
+## Unicode 18 Khmer parser and packed-forest completion — 2026-11-16
+
+The source-reconciliation checkpoint above was superseded by implementation. Main commit d773dd7f0bcc0b6ab0f7a241e2b7b9857e2aef72 contains the canonical Python/browser Unicode 18 §16.4 parser, grammar-role alternatives, packed derivation representation, and rejected component spans/reasons. It builds on the component scanner and the §16.4.1 subscript-independent-vowel primitive.
+
+- Python: src/khmer_ua/orthographic_syllables.py.
+- Browser: src/orthographic-syllables.js.
+- Schema: schemas/orthographic-syllables.schema.json.
+- The parser preserves complete segmentation alternatives and local grammar-role alternatives without Cartesian expansion, exact source text and Unicode code-point offsets, derivation counts, and rejected spans/reasons. Ambiguous results do not select a preferred parse.
+- Shared fixtures cover all Unicode 18 Figure 16-3 examples, §16.4.1 shifter and join-control examples, subscript independent vowels, robat, deprecated/discouraged code points, and the repetition sign that remains outside the syllable grammar.
+- Exact-main Quality [43962887689] SUCCESS: 416 Python tests + 70 subtests; IPA corpus structural validation, Node/web checks and production build passed. Chromium [43962887588] SUCCESS. Pages deploy/runtime smoke [43962887592] SUCCESS.
+- KHM-ORTHO-BNF-PARSER-001 = DONE_VERIFIED. This is orthographic structure only, not phonological syllabification, LOC word segmentation, IPA or Ukrainian output.
+- TN #61 v2 source metadata is registered as unicode-tn61-khmer-encoding-structure-v2, with its date/version, independent non-normative status and Unicode Terms of Use limitations. KHM-ORTHO-TN61-MODERN-PROFILE-001 remains TODO / NON_NORMATIVE; no TN61-derived constraints are mixed into the Unicode 18 parser.
+- PR #292 was closed as duplicate after the equivalent diagnostics were merged independently to main; its branch remains preserved. The remaining source-registry/documentation reconciliation is being handled on a dedicated branch.
+- Issue #104 remains OPEN; independent adjudicated IPA gold remains 0. The repository is a research/engineering prototype, not release-ready.
+- All cited checks were run by GitHub Actions; no local checkout/test execution is claimed.

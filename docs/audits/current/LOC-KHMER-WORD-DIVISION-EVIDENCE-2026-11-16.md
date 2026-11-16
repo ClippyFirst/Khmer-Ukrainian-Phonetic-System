@@ -101,9 +101,18 @@ Unicode UAX #29 extended grapheme clusters remain a default text-segmentation mo
 
 The repository now has a component inventory in `src/khmer_ua/orthographic_structure.py`, mirrored by the browser runtime and serialized as `khmer-orthographic-components/v1`. It identifies base letters, COENG subscript pairs, robat, register shifters, dependent vowels, join controls and other modeled signs with exact code-point offsets. Unicode 18 Chapter 16 §16.4 is the primary source for the component roles and order; UAX #29 Revision 49 is registered separately for default grapheme and word boundary behavior.
 
-**Important limitation:** the scanner does not yet parse the complete BNF or split a continuous Khmer string into orthographic syllables. It leaves multiple un-subscripted base letters unresolved because the source string alone may not establish coda versus next-syllable role. Its individual component spans are not complete orthographic-cluster spans and are not automatically valid inputs to the word-boundary interface's protected-cluster field. It creates no word boundaries, lexicon entries or IPA.
+**Current parser boundary:** the scanner remains the lossless component layer; the canonical Unicode 18 §16.4 parser now validates component order and returns packed orthographic-syllable alternatives with exact code-point spans. Ambiguous grammar-role assignments are preserved, and unsupported ordering is not repaired heuristically. These are orthographic-syllable candidates, not lexical words, phonological syllables or LOC boundaries. They are not automatically inserted into the word-boundary interface as protected clusters; that requires explicit profile selection and review.
 
-**Task ledger:** `KHM-ORTHO-COMPONENT-SCAN-001 = DONE_VERIFIED` for the component inventory and cross-runtime schema/API only; full orthographic-syllable BNF parsing and word segmentation remain open. Full orthographic-syllable parsing and lexical word segmentation remain distinct tasks. The human evidence gate in Issue #104 remains open.
+**Task ledger:** `KHM-ORTHO-COMPONENT-SCAN-001 = DONE_VERIFIED`; `KHM-ORTHO-BNF-PARSER-001 = DONE_VERIFIED` for Unicode 18 structural parsing and packed alternatives; LOC profile selection, lexical word segmentation and the human evidence gate in Issue #104 remain open.
 
 
 **Exact-main evidence:** PR #283 merged as `bdc15daf6f7c40a6c088e306343a421b9347e9c1`. Exact PR-head Quality [43953219338] and Chromium [43953219579] succeeded. Exact-main Quality [43953449784] passed 402 Python tests + 70 subtests, independent IPA corpus structure validation, Node/web checks and production build; Chromium [43953449807] succeeded; Pages deploy and deployed runtime smoke [43953450103] succeeded. No local test execution is claimed.
+
+
+## Unicode 18 orthographic-syllable parser — post-merge status — 2026-11-16
+
+The complete Unicode 18 §16.4 parser is merged in main as d773dd7f0bcc0b6ab0f7a241e2b7b9857e2aef72. It builds on the component scanner and subscript-independent-vowel primitive, retains complete segmentation alternatives and local grammar-role alternatives in a packed forest, reports derivation counts, preserves source text/code-point offsets, and includes rejected component spans/reasons. Python and browser implementations share the schema contract.
+
+Exact-main verification: Quality [43962887689] passed 416 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build; Chromium [43962887588] passed; Pages deploy/runtime smoke [43962887592] passed.
+
+This closes only Unicode orthographic-syllable parsing. It does not select ALA-LC 1997 or 2013, infer lexical independence, classify loan words, choose LOC boundaries, or create a segmenter. The profile-neutral word-boundary evidence interface remains separate; the parser's syllable spans may be candidate protected intervals only after explicit profile selection and review. Licensed lexical evidence, adjudicated word boundaries and held-out evaluation remain blocked.
