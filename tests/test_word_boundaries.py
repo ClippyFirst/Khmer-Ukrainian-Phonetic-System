@@ -107,3 +107,12 @@ def test_boundary_evidence_payload_matches_published_schema_shape():
     assert result["candidates"][0]["evidence"] == []
     assert set(result["profile"]) == {"id", "version"}
     assert set(result["candidates"][0]) == {"candidate_id", "boundaries", "status", "note", "evidence"}
+
+
+def test_adjudicated_boundary_requires_a_source_locator():
+    evidence = BoundaryEvidence(2, "ADJUDICATED", "human_adjudication")
+    with pytest.raises(ValueError, match="source_locator"):
+        WordBoundaryAnalysis(
+            "កម្ពុជា",
+            (BoundaryCandidate("adjudicated", (2,), "ADJUDICATED", (evidence,)),),
+        )
