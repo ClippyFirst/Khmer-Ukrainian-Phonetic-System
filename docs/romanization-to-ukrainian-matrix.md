@@ -862,3 +862,15 @@ Coda-bearing syllables outside those exact Note 5 shapes, unsupported final cons
 - Contract: `schemas/pcgn-closed-syllable-assembly.schema.json`; tests: `tests/test_pcgn_closed_syllable_assembly.py`.
 - Primary source: BGN/PCGN 1972, Notes §5 and the shortened-vowel entries in the vowel table: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 - Status on this branch: implementation and source-backed component composition added; exact-head CI is pending. General syllabification, other coda patterns and whole-word romanization remain incomplete.
+
+
+## Bounded PCGN normal dependent-vowel closed-syllable assembly — 2026-11-16
+
+The new `assemble_pcgn_dependent_closed_syllable` composes the existing Note 2–3 series, consonant-onset, normal dependent-vowel and final-consonant resolvers. The caller supplies four explicit chunks: onset-only, onset-plus-vowel, complete syllable, and coda-only. Exact token-prefix and final-token relationships are checked before the components are concatenated. The regression suite exercises all 17 normal dependent-vowel table patterns in both series against an explicit final consonant.
+
+Only normal dependent-vowel forms and one unmarked final consonant are accepted. Independent/shortened vowels, special marks, Alif, unsupported codas, malformed chunks and mismatched caller boundaries abstain. This remains BGN/PCGN orthographic Latin output; no word segmentation, IPA or Ukrainian output is generated.
+
+- API: `src/khmer_ua/pcgn.py::assemble_pcgn_dependent_closed_syllable`.
+- Contract: `schemas/pcgn-dependent-closed-syllable-assembly.schema.json`; tests: `tests/test_pcgn_dependent_closed_syllable_assembly.py`.
+- Primary source: BGN/PCGN 1972, consonant/subscript and dependent-vowel tables, pp. 1–3: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+- Status on this branch: implementation and tests added; exact-head hosted CI pending. `KHM-ROM-ENGINE-001` remains PARTIAL pending general segmentation, broader coda patterns and whole-word output.

@@ -1666,6 +1666,7 @@ __all__ = [
     "PCGNGlottalOnsetDecision",
     "PCGNSyllableAssembly",
     "PCGNClosedSyllableAssembly",
+    "PCGNDependentClosedSyllableAssembly",
     "PCGN_WEAK_SUBSCRIPTS",
     "PCGN_NO_SUBSCRIPT_FOR",
     "resolve_pcgn_series",
@@ -1679,6 +1680,7 @@ __all__ = [
     "analyze_pcgn_orthographic_chunk",
     "assemble_pcgn_open_syllable",
     "assemble_pcgn_shortened_closed_syllable",
+    "assemble_pcgn_dependent_closed_syllable",
 ]
 
 
@@ -2005,6 +2007,179 @@ def assemble_pcgn_shortened_closed_syllable(
             "CALLER_SUPPLIED_ONSET_SYLLABLE_AND_CODA_BOUNDARIES",
             "PCGN_NOTE_5_SHORTENED_VOWEL_AND_FINAL_CONSONANT_COMPONENTS_ASSEMBLED",
             "CODA_CLASS_CROSS_CHECKED_AGAINST_PCGN_CONSONANT_ROMANIZATION",
+            "NO_WORD_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT",
+        ),
+    )
+
+
+PCGN_DEPENDENT_CLOSED_SYLLABLE_ASSEMBLY_LOCATORS = (
+    PCGN_CONSONANT_TABLE_LOCATOR,
+    PCGN_DEPENDENT_VOWEL_TABLE_LOCATOR,
+    PCGN_FINAL_CONSONANT_TABLE_LOCATOR,
+)
+
+
+@dataclass(frozen=True)
+class PCGNDependentClosedSyllableAssembly:
+    """A caller-segmented closed syllable with an ordinary dependent vowel."""
+
+    source_text: str
+    normalized_text: str
+    onset_text: str
+    vowel_chunk_text: str
+    coda_text: str
+    series: Literal["â", "ô"] | None
+    onset_romanization: str | None
+    vowel_romanization: str | None
+    coda_romanization: str | None
+    romanization: str | None
+    onset_table_rows: tuple[int, ...]
+    vowel_table_row: int | None
+    coda_table_row: int | None
+    status: Literal["RESOLVED", "UNRESOLVED"]
+    ipa: None
+    ukrainian: None
+    source_locators: tuple[str, ...]
+    warnings: tuple[str, ...]
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+def assemble_pcgn_dependent_closed_syllable(
+    onset_analysis: PCGNOrthographicAnalysis,
+    vowel_analysis: PCGNOrthographicAnalysis,
+    syllable_analysis: PCGNOrthographicAnalysis,
+    coda_analysis: PCGNOrthographicAnalysis,
+) -> PCGNDependentClosedSyllableAssembly:
+    """Assemble an explicitly segmented onset + dependent vowel + final coda.
+
+    The caller supplies four chunks: onset-only, onset-plus-normal-dependent-
+    vowel, complete syllable, and coda-only. Exact token-prefix relationships
+    are checked before the existing Note 2–3 series, consonant, dependent-
+    vowel and final-consonant resolvers are composed.
+
+    Only one unmarked final consonant and a normal dependent-vowel table
+    pattern are accepted. Shortened/independent vowels, special marks, Alif,
+    unsupported codas and ambiguous or malformed structures abstain. This
+    is orthographic BGN/PCGN output, not IPA or Ukrainian transcription.
+    """
+    def unresolved(reason: str) -> PCGNDependentClosedSyllableAssembly:
+        return PCGNDependentClosedSyllableAssembly(
+            source_text=syllable_analysis.raw_text,
+            normalized_text=syllable_analysis.normalized_text,
+            onset_text=onset_analysis.raw_text,
+            vowel_chunk_text=vowel_analysis.raw_text,
+            coda_text=coda_analysis.raw_text,
+            series=None,
+            onset_romanization=None,
+            vowel_romanization=None,
+            coda_romanization=None,
+            romanization=None,
+            onset_table_rows=(),
+            vowel_table_row=None,
+            coda_table_row=None,
+            status="UNRESOLVED",
+            ipa=None,
+            ukrainian=None,
+            source_locators=PCGN_DEPENDENT_CLOSED_SYLLABLE_ASSEMBLY_LOCATORS,
+            warnings=(reason, "NO_WORD_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT"),
+        )
+
+    analyses = (onset_analysis, vowel_analysis, syllable_analysis, coda_analysis)
+    if any(analysis.status != "STRUCTURE_ONLY" for analysis in analyses):
+        return unresolved("UNSUPPORTED_OR_UNRESOLVED_ORTHOGRAPHIC_COMPONENT")
+
+    if (
+        len(coda_analysis.tokens) != 1
+        or coda_analysis.tokens[0].kind != "unstacked_consonant"
+        or len(coda_analysis.base_consonants) != 1
+        or coda_analysis.subscript_consonants
+        or coda_analysis.register_shifters
+        or coda_analysis.dependent_vowel_signs
+        or coda_analysis.independent_vowels
+        or coda_analysis.shortening_marks
+        or coda_analysis.robat_positions
+        or coda_analysis.ahsda_positions
+        or coda_analysis.toandakhiat_positions
+    ):
+        return unresolved("CODA_MUST_BE_ONE_UNMARKED_UNSTACKED_CONSONANT")
+
+    onset_tokens = tuple(onset_analysis.tokens)
+    vowel_tokens = tuple(vowel_analysis.tokens)
+    syllable_tokens = tuple(syllable_analysis.tokens)
+    if not onset_tokens or vowel_tokens[:len(onset_tokens)] != onset_tokens:
+        return unresolved("CALLER_ONSET_MUST_MATCH_EXACT_VOWEL_CHUNK_PREFIX")
+    if any(token.kind != "dependent_vowel" for token in vowel_tokens[len(onset_tokens):]):
+        return unresolved("VOWEL_CHUNK_MUST_CONTAIN_ONLY_NORMAL_DEPENDENT_VOWEL_SIGNS_AFTER_ONSET")
+    if (
+        not vowel_tokens[len(onset_tokens):]
+        or syllable_tokens[:len(vowel_tokens)] != vowel_tokens
+        or syllable_tokens[len(vowel_tokens):] != tuple(coda_analysis.tokens)
+    ):
+        return unresolved("COMPLETE_SYLLABLE_MUST_EQUAL_VOWEL_CHUNK_PLUS_EXACT_FINAL_CODA")
+
+    if (
+        vowel_analysis.base_consonants != onset_analysis.base_consonants
+        or vowel_analysis.subscript_consonants != onset_analysis.subscript_consonants
+        or vowel_analysis.register_shifters != onset_analysis.register_shifters
+        or syllable_analysis.base_consonants
+        != onset_analysis.base_consonants + coda_analysis.base_consonants
+        or syllable_analysis.subscript_consonants != onset_analysis.subscript_consonants
+        or syllable_analysis.register_shifters != onset_analysis.register_shifters
+    ):
+        return unresolved("ONSET_VOWEL_AND_CODA_COMPONENTS_DO_NOT_MATCH_CALLER_CHUNKS")
+
+    series = resolve_pcgn_series(onset_analysis)
+    onset = resolve_pcgn_consonant(onset_analysis)
+    vowel = resolve_pcgn_dependent_vowel(vowel_analysis, series)
+    final = resolve_pcgn_final_consonant(
+        coda_analysis,
+        has_following_vowel_character=False,
+        has_toandakhiat=False,
+    )
+    if (
+        series.status != "RESOLVED"
+        or onset.status != "RESOLVED"
+        or vowel.status != "RESOLVED"
+        or final.status != "GENERAL_RULE_APPLIED"
+    ):
+        reason = (
+            series.warnings[0]
+            if series.status != "RESOLVED"
+            else onset.warnings[0]
+            if onset.status != "RESOLVED"
+            else vowel.warnings[0]
+            if vowel.status != "RESOLVED"
+            else final.warnings[0]
+        )
+        return unresolved(reason)
+
+    onset_rows = (onset.base_table_row,) + (
+        (onset.subscript_table_row,) if onset.subscript_table_row is not None else ()
+    )
+    return PCGNDependentClosedSyllableAssembly(
+        source_text=syllable_analysis.raw_text,
+        normalized_text=syllable_analysis.normalized_text,
+        onset_text=onset_analysis.raw_text,
+        vowel_chunk_text=vowel_analysis.raw_text,
+        coda_text=coda_analysis.raw_text,
+        series=series.series,
+        onset_romanization=onset.romanization,
+        vowel_romanization=vowel.romanization,
+        coda_romanization=final.romanization,
+        romanization=onset.romanization + vowel.romanization + final.romanization,
+        onset_table_rows=onset_rows,
+        vowel_table_row=vowel.source_table_row,
+        coda_table_row=final.base_table_row,
+        status="RESOLVED",
+        ipa=None,
+        ukrainian=None,
+        source_locators=PCGN_DEPENDENT_CLOSED_SYLLABLE_ASSEMBLY_LOCATORS,
+        warnings=(
+            "CALLER_SUPPLIED_ONSET_VOWEL_SYLLABLE_AND_CODA_BOUNDARIES",
+            "NORMAL_DEPENDENT_VOWEL_AND_FINAL_CONSONANT_COMPONENTS_ASSEMBLED",
+            "PCGN_FINAL_NO_FOLLOWING_VOWEL_RULE_APPLIED_TO_EXPLICIT_FINAL_CHUNK",
             "NO_WORD_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT",
         ),
     )

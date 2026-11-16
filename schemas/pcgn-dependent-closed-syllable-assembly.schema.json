@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BGN/PCGN 1972 caller-segmented normal dependent-vowel closed syllable assembly",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["source_text", "normalized_text", "onset_text", "vowel_chunk_text", "coda_text", "series", "onset_romanization", "vowel_romanization", "coda_romanization", "romanization", "onset_table_rows", "vowel_table_row", "coda_table_row", "status", "ipa", "ukrainian", "source_locators", "warnings"],
+  "properties": {
+    "source_text": {"type": "string"},
+    "normalized_text": {"type": "string"},
+    "onset_text": {"type": "string"},
+    "vowel_chunk_text": {"type": "string"},
+    "coda_text": {"type": "string"},
+    "series": {"enum": ["â", "ô", null]},
+    "onset_romanization": {"type": ["string", "null"]},
+    "vowel_romanization": {"type": ["string", "null"]},
+    "coda_romanization": {"type": ["string", "null"]},
+    "romanization": {"type": ["string", "null"]},
+    "onset_table_rows": {"type": "array", "items": {"type": "integer", "minimum": 1, "maximum": 21}, "maxItems": 2, "uniqueItems": true},
+    "vowel_table_row": {"type": ["integer", "null"], "enum": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, null]},
+    "coda_table_row": {"type": ["integer", "null"], "minimum": 1, "maximum": 21},
+    "status": {"enum": ["RESOLVED", "UNRESOLVED"]},
+    "ipa": {"const": null},
+    "ukrainian": {"const": null},
+    "source_locators": {"type": "array", "items": {"type": "string"}, "minItems": 3, "uniqueItems": true},
+    "warnings": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "RESOLVED"}}, "required": ["status"]},
+      "then": {"properties": {"series": {"enum": ["â", "ô"]}, "onset_romanization": {"type": "string", "minLength": 1}, "vowel_romanization": {"type": "string", "minLength": 1}, "coda_romanization": {"type": "string", "minLength": 1}, "romanization": {"type": "string", "minLength": 1}, "onset_table_rows": {"minItems": 1}, "vowel_table_row": {"type": "integer"}, "coda_table_row": {"type": "integer"}}}
+    },
+    {
+      "if": {"properties": {"status": {"const": "UNRESOLVED"}}, "required": ["status"]},
+      "then": {"properties": {"series": {"const": null}, "onset_romanization": {"const": null}, "vowel_romanization": {"const": null}, "coda_romanization": {"const": null}, "romanization": {"const": null}, "onset_table_rows": {"maxItems": 0}, "vowel_table_row": {"const": null}, "coda_table_row": {"const": null}}}
+    }
+  ]
+}
