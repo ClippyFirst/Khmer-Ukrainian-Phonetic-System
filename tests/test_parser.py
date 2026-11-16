@@ -135,8 +135,12 @@ def test_subscript_independent_vowel_is_a_structural_unit_not_a_phonetic_claim()
         ("ម", "consonant", ("U+1798",)),
     ]
     assert parsed.ipa is None
-    from khmer_ua.parser import analyze
-    assert analyze(source).phonetic_representation == {"status": "phoneticization_not_yet_established"}
+    from khmer_ua.parser import analyze, segment_syllables
+    assert segment_syllables(source) == [source]
+    analyzed = analyze(source)
+    assert len(analyzed.syllables) == 1
+    assert analyzed.syllables[0]["subscript_independent_vowels"] == ["ឯ"]
+    assert analyzed.phonetic_representation == {"status": "phoneticization_not_yet_established"}
     assert "unicode18-ch16" in parsed.sources
 
 
