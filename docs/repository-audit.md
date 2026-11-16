@@ -1134,7 +1134,7 @@ The parser now recognizes a documented Khmer structural form that was previously
 
 ## Unicode 18 Khmer orthographic-component scanner — 2026-11-16
 
-The current feature branch adds a lossless component scanner based on Unicode 18 Chapter 16's Khmer component inventory and documented order. It emits source-preserving typed components and code-point spans in both Python and browser runtimes. It intentionally reports multiple un-subscripted base consonants as `EVIDENCE_LIMITED` rather than guessing whether they are codas or new orthographic syllables. This is not yet a full BNF parser, syllabifier, grapheme-cluster segmenter or word segmenter. UAX #29 Revision 49 confirms that Khmer word segmentation requires tailoring; it does not define this project's lexical boundary algorithm. Exact-head CI is pending.
+At the time of the original scanner audit, the feature branch added a lossless component scanner based on Unicode 18 Chapter 16's Khmer component inventory and documented order. It emitted source-preserving typed components and code-point spans in both Python and browser runtimes. That historical scanner was not yet a full BNF parser, syllabifier, grapheme-cluster segmenter or word segmenter. The parser implementation and current verification are recorded in the final closeout section below.
 
 
 ## Exact-main verification — Khmer orthographic component scanner — 2026-11-16
@@ -1145,3 +1145,16 @@ PR #283 merged as `bdc15daf6f7c40a6c088e306343a421b9347e9c1`. Exact-main Quality
 ## Unicode 18 orthographic-syllable grammar reconciliation — 2026-11-16
 
 Unicode Standard 18.0.0 §16.4 gives the formal component-order BNF `B {R | C} {S {R}}* {{Z} V} {O} {S}`; Appendix A.2 defines its extended-BNF operators. The merged PR #283 scanner remains correctly scoped as a component inventory, not a complete grammar parser. Unicode Technical Note #61 v2 (February 2025) is a separate non-normative implementation guideline that proposes a tighter Modern Khmer encoding structure and discusses Middle Khmer separately. The parser follow-up must keep these source layers distinct, preserve all viable parses and ambiguity, and avoid conflating orthographic syllables with phonological syllables or lexical words. Detailed source reconciliation and acceptance contract: `docs/audits/current/UNICODE-KHMER-ORTHOGRAPHIC-SYLLABLE-GRAMMAR-2026-11-16.md`. Exact-main baseline `567c105ac453ff95f1e2a567b8f5e992bda9d6b0`: Quality 43953751661, Chromium 43953751879, Pages 43953751433 all SUCCESS. No runtime change in this documentation-only work.
+
+
+## Unicode 18 Khmer orthographic-syllable parser — final implementation closeout, 2026-11-16
+
+The former BNF TODO is implemented as a separate Python/browser parser over the existing lossless component scanner. It validates Unicode Standard 18 §16.4 using Appendix A.2 EBNF semantics; emits khmer-orthographic-syllables/v1; preserves exact Unicode code-point spans and source text; packs local grammar-role ambiguity; returns exact derivation counts and rejected spans/reasons; and fails closed on unsupported ordering. It does not create phonological syllables, lexical words, IPA or Ukrainian output.
+
+Merged implementation sequence: PR #285 (initial BNF parser), #287 (explicit S-production ambiguity), #290 (packed parse forest), #291 (rejected spans), and #293 (status-specific rejection reasons and remaining Unicode example). PR #289 and #292 were closed as superseded after their unique work was ported; PR #286 and #288 were closed as redundant/superseded. Their branches were preserved. No user branches were deleted.
+
+Exact implementation main: d773dd7f0bcc0b6ab0f7a241e2b7b9857e2aef72. Quality 43962887689 SUCCESS (416 Python tests + 70 subtests; IPA corpus structure validation, Node/web checks and production build); Chromium smoke 43962887588 SUCCESS; Pages deployment and deployed-runtime smoke 43962887592 SUCCESS. The 128 distinct-boundary-path cap is explicit and returns EVIDENCE_LIMITED, never a guessed parse.
+
+Unicode Technical Note #61 v2 is represented in data/khmer/sources.json as unicode-tn61-v2, with official version/date/authors, non-normative scope and rights status. Its optional Modern Khmer profile remains TODO and must not be conflated with Unicode 18. The note is governed by Unicode Terms of Use; no public redistribution or reuse permission is asserted.
+
+Remaining independent blockers: TN #61 profile transcription/validation; lexical word segmentation and LOC adjudication; independent Khmer IPA gold. Issue #104 remains OPEN: two qualified annotators, an independent adjudicator, curator and private blind intake are not recruited; gold JSONL remains empty and empirical accuracy remains null. No local clone/test execution was possible in this session because github.com DNS resolution was unavailable; all reported tests are hosted GitHub Actions results.

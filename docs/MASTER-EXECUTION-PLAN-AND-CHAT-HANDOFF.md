@@ -3156,6 +3156,48 @@ The shared `khmer-phonetic-result/v1` payload is specified in `schemas/phonetic-
 - Reconciled the exact Unicode Standard 18.0.0 §16.4 formula `B {R | C} {S {R}}* {{Z} V} {O} {S}` with Appendix A.2's extended-BNF semantics (braces = optional group; `*` = zero or more). This confirms the existing Python/browser component scanner is not a full parser: it inventories components but does not validate order, derive complete syllable spans, or retain alternative parses.
 - Inspected Unicode Technical Note #61, Version 2 (February 2025), §§“Orthographic Syllable Structure”, “Coengs”, “Triisap and Muusikatoan”, “Vowels” and “Signs”. It is explicitly non-normative implementation guidance; it proposes a tighter Modern Khmer structure and separately treats Middle Khmer. Do not conflate it with the Unicode Standard's broader BNF.
 - Established the next parser contract: a separate Unicode-18 grammar implementation over the existing scanner, exact code-point spans, lossless reconstruction, all viable parses/packed parse forest (no greedy choice), explicit ambiguity, and separate orthographic vs phonological/word boundaries. A TN #61 v2 Modern Khmer profile may be added only as a separately named non-normative validator.
-- New audit: `docs/audits/current/UNICODE-KHMER-ORTHOGRAPHIC-SYLLABLE-GRAMMAR-2026-11-16.md`. Task `KHM-ORTHO-BNF-PARSER-001` remains TODO; source reconciliation is DONE_VERIFIED. No code, IPA, Ukrainian output, corpus labels or generated artifacts changed.
+- New audit: `docs/audits/current/UNICODE-KHMER-ORTHOGRAPHIC-SYLLABLE-GRAMMAR-2026-11-16.md`. At the time of this source-only reconciliation, `KHM-ORTHO-BNF-PARSER-001` remained TODO; that historical state was superseded by the implementation closeout below. No code, IPA, Ukrainian output, corpus labels or generated artifacts changed in that documentation-only PR.
 - Main baseline inspected: `567c105ac453ff95f1e2a567b8f5e992bda9d6b0`. Exact-main Quality [43953751661], browser smoke [43953751879] and Pages deploy/runtime smoke [43953751433] all completed SUCCESS on this SHA. This resolves the prior PENDING Pages note from the previous handoff.
 - Local clone/test execution was attempted but blocked because this execution environment could not resolve github.com. The docs-only change must receive exact-head hosted CI; no local tests are claimed.
+
+
+## Unicode 18 Khmer parser — final implementation handoff, 2026-11-16
+
+### Repository state
+
+- Starting default-branch baseline for this continuation: 567c105ac453ff95f1e2a567b8f5e992bda9d6b0.
+- Final implementation main before this documentation/source-registry closeout: d773dd7f0bcc0b6ab0f7a241e2b7b9857e2aef72.
+- PRs merged: #284 (source reconciliation), #285 (Unicode 18 BNF parser), #287 (component-role ambiguity), #290 (packed parse forest), #291 (rejected spans), #293 (detailed rejection reasons and remaining Unicode example).
+- PRs #289 and #292 closed as superseded after their unique work was ported; #286 and #288 closed as redundant/superseded. All feature branches were preserved; no user branches were deleted. No open PRs remain after this closeout.
+
+### Implemented
+
+- Python and browser JavaScript implement Unicode Standard 18 §16.4 with Appendix A.2 semantics over the existing lossless component scanner.
+- Versioned output: khmer-orthographic-syllables/v1; schema: schemas/orthographic-syllables.schema.json.
+- Exact half-open Unicode code-point offsets; source reconstruction without normalization; typed component and grammar roles; explicit PARSED, AMBIGUOUS, EVIDENCE_LIMITED, and INVALID_OR_UNSUPPORTED statuses.
+- The repeated {S {R}}* and final {S} productions can consume the same COENG component. The parser retains both grammar-role alternatives instead of choosing one.
+- Local role alternatives are packed per syllable. parse_count is the exact decimal derivation count; segmentation_count counts distinct boundary paths. A 20-unit regression preserves 2^20 derivations without expanding the Cartesian product.
+- rejected_spans reports exact offsets and reasons for malformed/unmodeled components and invalid ordering.
+- More than 128 distinct boundary segmentations returns EVIDENCE_LIMITED with a diagnostic span. It never selects a best parse.
+- The parser is structural only. It does not infer phonological syllables, lexical words, IPA or Ukrainian output.
+
+### Verification on exact implementation main
+
+| Check | Run | Result |
+|---|---:|---|
+| Quality | 43962887689 | SUCCESS — 416 Python tests + 70 subtests, Node/web checks, IPA corpus structure validation, production build |
+| Chromium smoke | 43962887588 | SUCCESS |
+| GitHub Pages deploy + deployed-runtime smoke | 43962887592 | SUCCESS |
+
+No local test run is claimed: the environment could not resolve github.com. The cited evidence is from hosted GitHub Actions on exact implementation main.
+
+### Source registry and remaining work
+
+- Added unicode-tn61-v2 to data/khmer/sources.json, with official version/date/authors, non-normative scope and rights restrictions. Unicode Technical Note #61 v2 remains a separate reference, not the Unicode Standard; its optional Modern Khmer profile is still TODO. Public reuse of the note's prose, examples or sample implementation is not authorized by the reviewed Terms of Use.
+- KHM-ORTHO-BNF-PARSER-001: DONE_VERIFIED.
+- KHM-ORTHO-TN61-SOURCE-REGISTRY-001: DONE_VERIFIED.
+- KHM-ORTHO-TN61-MODERN-PROFILE-001: TODO / NON_NORMATIVE.
+- Lexical word segmentation and LOC adjudication remain separate evidence tasks.
+- Issue #104 remains OPEN: two qualified annotators, an independent adjudicator, curator and private blind intake are not recruited. Gold JSONL remains empty; empirical accuracy remains null.
+
+Next genuine blocker: human linguistic recruitment/adjudication for the IPA gold pilot, plus a separately scoped, rights-reviewed TN #61 v2 profile if the project elects to implement it.
