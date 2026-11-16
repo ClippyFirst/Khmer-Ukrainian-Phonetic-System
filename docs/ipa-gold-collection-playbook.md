@@ -159,6 +159,13 @@ These are **audio/transcript candidates**, not IPA gold. Sentence-level recordin
 - Rights remain unresolved: root README says CC BY-SA 4.0 for the dictionary, dictionary README says CC BY 4.0, and root LICENSE is MIT for code. The full data file is absent, so the actual licensed artifact cannot be identified. The six-line sample is not representative and must not be imported as gold.
 - Decision: keep the source `BLOCKED_SOURCE_INCOMPLETE_RIGHTS_CONFLICT`. Require the full versioned dictionary and model, checksums, corpus manifest, item-level source/rights records, authoritative licence, stable paper references, target profile and specialist validation before any import or benchmark. Acoustic alignment metrics are not G2P/IPA accuracy.
 
+### Open-dict IPA dictionary (aakanee.com) — exact file audit
+
+- Pinned upstream: [open-dict-data/ipa-dict, `data/km.txt`](https://github.com/open-dict-data/ipa-dict/blob/972cd67dd5f96bc5660e28070cde26e3928abcd7/data/km.txt). The file has 3,286 tab-separated rows, 3,261 unique Khmer spellings, 25 repeated keys (one with divergent readings), and 63 rows with multiple pronunciations.
+- The upstream README says its language transcriptions are broadly phonemic rather than highly detailed; the Khmer file is extracted from the Khmer-English Dictionary at aakanee.com. Aakanee's site states that all its content is under CC BY-NC-SA 4.0. The repository-wide MIT licence does not override this third-party data licence.
+- No item-level source URLs, dialect/region labels, per-entry validation or transcription-convention specification accompany the Khmer file. Preserve all duplicate keys and alternatives; do not collapse the one divergent duplicate or the 63 multi-reading rows.
+- Decision: retain as `EXTERNAL_COMPARATOR_NONCOMMERCIAL_ONLY`, not project gold. The broad phonemic notation is not narrow phonetic gold, and CC BY-NC-SA 4.0 is incompatible with unrestricted commercial redistribution. Use only after explicit approval of attribution/share-alike/non-commercial obligations and expert review of the target profile/convention.
+
 ### Kirby 2015 — Phnom Penh acoustic recordings and supplementary data
 
 - Audio item: https://datashare.ed.ac.uk/items/fe218489-ad49-4986-b175-721cb9959500 (DOI 10.7488/ds/321). DataShare item metadata declares **CC BY 4.0**. The archive is 461.93 MB and contains 24-bit, 44.1 kHz recordings of 16 Phnom Penh Khmer speakers from July 2011, with segmented Praat TextGrids; the provider lists MD5 `8688e68e76e8269b8bbf5d19020a230b`.
