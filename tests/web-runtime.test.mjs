@@ -99,6 +99,7 @@ assert.equal(mixed.phonetic_result.units[0].provenance.phonology[0], "wiktionary
 assert.equal(mixed.phonetic_result.units[2].uncertainty[0].status, "INVALID_OR_UNSUPPORTED");
 assert.ok(phoneticSchema.required.every((key) => Object.hasOwn(mixed.phonetic_result, key)));
 assert.ok(phoneticSchema.$defs.unit.required.every((key) => Object.hasOwn(mixed.phonetic_result.units[0], key)));
+assert.deepEqual(Object.keys(mixed.phonetic_result.units[0]).sort(), Object.keys(phoneticSchema.$defs.unit.properties).sort());
 
 console.log("web-runtime regression tests: PASS");
 
