@@ -172,5 +172,5 @@ def test_unicode_18_repetition_sign_is_rejected_with_exact_span():
     assert result.rejected_spans == ({
         "start": 6,
         "end": 7,
-        "reason": "UNSUPPORTED at this position prevents a complete Unicode 18 §16.4 component-order production.",
+        "reason": "UNMODELED_CHARACTER component 'ៗ' at this position prevents a complete Unicode 18 §16.4 component-order production.",
     },)
