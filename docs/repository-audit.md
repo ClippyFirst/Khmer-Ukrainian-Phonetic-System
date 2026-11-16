@@ -1070,3 +1070,8 @@ A dedicated branch adds a bounded Alif + ordinary dependent-vowel PCGN open-syll
 ## 2026-11-16 continuation — Note 4 Alif closed syllable adapter
 
 A new dedicated branch adds a bounded Alif + normal dependent vowel + one supported final-consonant assembler. It composes existing Note 4, dependent-vowel and final-consonant resolvers, validates caller-supplied boundaries, requires explicit context flags, and preserves the optional apostrophe as an alternative. Tests/schema cover all current normal dependent-vowel patterns with the bounded generic coda rule. This remains PCGN orthographic Latin only; no IPA/Ukrainian output or automatic segmentation is introduced. Acceptance is DONE_VERIFIED for this bounded API: PR #269 merged as 482ed151dc99d3fd20714a606c9ad25aa209a99e; exact PR-head Quality [43889912149] and Chromium [43889912018], plus exact-main Quality [43890093477], Chromium [43890093456] and Pages [43890093482] all passed. Full PCGN segmentation/word assembly remains PARTIAL; this adapter is not an IPA or Ukrainian transcription path.
+
+
+## 2026-11-16 continuation — Note 4 + Note 5 Alif shortened closed syllable adapter
+
+A dedicated branch adds a bounded Alif + Note 5 shortened-vowel + one supported coda assembler for exactly the three source-listed patterns. It composes existing Note 4, Note 5 and final-consonant resolvers, requires caller-supplied context/coda class, cross-checks the coda class against resolved PCGN romanization, and preserves optional apostrophe output. Schema and focused tests are included. This remains PCGN orthographic Latin only; no IPA/Ukrainian output or automatic segmentation is introduced. Exact-head hosted CI pending.

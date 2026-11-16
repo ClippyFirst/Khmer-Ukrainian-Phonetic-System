@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BGN/PCGN 1972 Note 4 + Note 5 Alif shortened closed-syllable assembly",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_text", "normalized_text", "onset_text", "coda_text", "word_initial",
+    "followed_by_vowel_letter", "series", "pattern", "shortening_mark", "coda_class",
+    "onset_romanization", "vowel_romanization", "coda_romanization", "romanization",
+    "romanization_options", "vowel_table_row", "coda_table_row", "status", "ipa",
+    "ukrainian", "source_locators", "warnings"
+  ],
+  "properties": {
+    "source_text": {"type": "string"},
+    "normalized_text": {"type": "string"},
+    "onset_text": {"type": "string"},
+    "coda_text": {"type": "string"},
+    "word_initial": {"type": ["boolean", "null"]},
+    "followed_by_vowel_letter": {"type": ["boolean", "null"]},
+    "series": {"enum": ["â", null]},
+    "pattern": {"enum": ["INHERENT_BANTOC", "AA_BANTOC", "SAMYOK_CODA", null]},
+    "shortening_mark": {"enum": ["់", "័", null]},
+    "coda_class": {"enum": ["k", "ng", "h", "other", null]},
+    "onset_romanization": {"type": ["string", "null"]},
+    "vowel_romanization": {"type": ["string", "null"]},
+    "coda_romanization": {"type": ["string", "null"]},
+    "romanization": {"type": ["string", "null"]},
+    "romanization_options": {"type": "array", "items": {"type": "string"}, "minItems": 0, "maxItems": 2, "uniqueItems": true},
+    "vowel_table_row": {"type": ["integer", "null"]},
+    "coda_table_row": {"type": ["integer", "null"]},
+    "status": {"enum": ["RESOLVED", "UNRESOLVED"]},
+    "ipa": {"const": null},
+    "ukrainian": {"const": null},
+    "source_locators": {"const": [
+      "PCGN 1972, Consonant Characters row 22 and Note 4 (p. 5)",
+      "PCGN 1972, Independent/Dependent Vowel Characters table rows 1–2, Note 5",
+      "PCGN 1972, final-consonant no-following-vowel rule (p. 2) with consonant table (pp. 1–2)"
+    ]},
+    "warnings": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+  },
+  "allOf": [
+    {"if": {"properties": {"status": {"const": "RESOLVED"}}, "required": ["status"]}, "then": {"properties": {
+      "word_initial": {"type": "boolean"}, "followed_by_vowel_letter": {"type": "boolean"},
+      "series": {"const": "â"}, "pattern": {"type": "string"}, "shortening_mark": {"type": "string"},
+      "coda_class": {"enum": ["k", "ng", "h", "other"]}, "onset_romanization": {"const": "’"},
+      "vowel_romanization": {"type": "string"}, "coda_romanization": {"type": "string"},
+      "romanization": {"type": "string"}, "romanization_options": {"minItems": 1}
+    }}},
+    {"if": {"properties": {"status": {"const": "UNRESOLVED"}}, "required": ["status"]}, "then": {"properties": {
+      "series": {"const": null}, "pattern": {"const": null}, "shortening_mark": {"const": null},
+      "onset_romanization": {"const": null}, "vowel_romanization": {"const": null},
+      "coda_romanization": {"const": null}, "romanization": {"const": null}, "romanization_options": {"maxItems": 0}
+    }}}
+  ]
+}

@@ -2999,3 +2999,11 @@ This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in th
 
 - Main: 482ed151dc99d3fd20714a606c9ad25aa209a99e. PR #269 merged; exact-main Quality [43890093477], Chromium [43890093456], and Pages build/deploy with deployed-site/runtime smoke [43890093482] all SUCCESS. Quality: 360 Python tests + 70 subtests; browser visible-results and deployed runtime smoke passed.
 - PR #267 (Alif open-syllable adapter) and PR #269 (Alif normal dependent closed-syllable adapter) are merged. Issue #104 remains OPEN; independent adjudicated IPA gold remains 0 and empirical accuracy remains null. Readiness remains engineering/research prototype, not linguistically release-ready.
+
+
+## Continuation — bounded PCGN Note 4 + Note 5 Alif shortened closed syllables — 2026-11-16
+
+- Base main: 977286115e0e3e7e2325010c9c0a3d08a959b710. Dedicated branch: feat/pcgn-alif-shortened-closed-syllable-assembly-2026-11-16.
+- Added assemble_pcgn_glottal_shortened_closed_syllable to compose the existing Note 4 Alif carrier, Note 5 shortened-vowel resolver and general final-consonant resolver for the three exact Note 5 shapes: inherent+BANTOC, AA+BANTOC and SAMYOK+coda.
+- Caller supplies the Alif onset, full syllable, coda-only chunk, coda class and explicit Note 4 context booleans. Exact coda token, final-consonant romanization and coda class are cross-checked. Optional apostrophe spelling is retained as a full-output alternative.
+- Added strict schema, regression tests for all three Note 5 shapes and abstention cases, package exports and documentation. Orthographic PCGN Latin only; IPA/Ukrainian remain null. Hosted CI pending.
