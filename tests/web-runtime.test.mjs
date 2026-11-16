@@ -210,6 +210,13 @@ const grammarExamples = new Map([
   ["ស៊ី", ["ស៊ី"]],
   ["ប៉ី", ["ប៉ី"]],
   ["អាយ៌", ["អា", "យ៌"]],
+  ["ម៉្ងៃ", ["ម៉្ងៃ"]],
+  ["ប‌៊ីយែរ", ["ប‌៊ី", "យែ", "រ"]],
+  ["ពត៌មាន", ["ព", "ត៌", "មា", "ន"]],
+  ["រាជរ្សី", ["រា", "ជ", "រ្សី"]],
+  ["ម៊្ហែត", ["ម៊្ហែ", "ត"]],
+  ["វ‌ិទូ", ["វ‌ិ", "ទូ"]],
+  ["វ‍ិទូ", ["វ‍ិ", "ទូ"]],
 ]);
 for (const [source, expected] of grammarExamples) {
   const parsed = parseOrthographicSyllables(source);
@@ -226,7 +233,16 @@ assert.deepEqual(documentedShifterControl.syllables[0].grammar_extensions, [
 ]);
 assert.equal(parseOrthographicSyllables("ក្").status, "INVALID_OR_UNSUPPORTED");
 assert.equal(parseOrthographicSyllables("កx").status, "INVALID_OR_UNSUPPORTED");
+for (const unsupported of ["ឣ", "ឤ", "\u17B4", "\u17B5", "\u17D8"]) {
+  assert.equal(parseOrthographicSyllables(unsupported).status, "INVALID_OR_UNSUPPORTED");
+}
 assert.equal(parseOrthographicSyllables("កេិ").status, "EVIDENCE_LIMITED");
+assert.deepEqual(parseOrthographicSyllables("កេិ").rejected_spans.map((item) => [item.start, item.end]), [[2, 3]]);
+assert.equal(parseOrthographicSyllables("ក\u200Cេ").status, "PARSED");
+assert.equal(parseOrthographicSyllables("ក\u200Dេ").status, "PARSED");
+assert.equal(parseOrthographicSyllables("ក\u200D៉").status, "EVIDENCE_LIMITED");
+assert.equal(parseOrthographicSyllables("ក៌៉").status, "EVIDENCE_LIMITED");
+assert.equal(parseOrthographicSyllables("ក្រ៌").status, "PARSED");
 const grammarOffsets = parseOrthographicSyllables("ខ្ញុំ");
 assert.deepEqual(grammarOffsets.syllables[0].components.map((item) => [item.start, item.end]), [[0, 1], [1, 3], [3, 4], [4, 5]]);
 assert.equal(grammarOffsets.grammar_profile, "unicode-18.0.0-ch16.4-plus-ch16.4.1-shifter-control");
@@ -280,3 +296,9 @@ assert.equal(manyAmbiguousSyllables.alternatives[0].syllables.length, 20);
 assert.ok(manyAmbiguousSyllables.alternatives[0].syllables.every((syllable) =>
   syllable.grammar_alternatives.length === 2));
 console.log("Unicode 18 Khmer packed parse forest: PASS");
+
+
+const repetitionMark = parseOrthographicSyllables("ម៊្ហែតៗ");
+assert.equal(repetitionMark.status, "INVALID_OR_UNSUPPORTED");
+assert.deepEqual(repetitionMark.rejected_spans.map((item) => [item.start, item.end]), [[6, 7]]);
+console.log("Unicode 18 Khmer rejected-span diagnostics: PASS");

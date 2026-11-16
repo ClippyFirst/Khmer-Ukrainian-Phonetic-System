@@ -12,7 +12,8 @@
     "segmentation_count",
     "syllables",
     "alternatives",
-    "notes"
+    "notes",
+    "rejected_spans"
   ],
   "properties": {
     "schema": {
@@ -79,6 +80,32 @@
     "segmentation_count": {
       "type": "integer",
       "minimum": 0
+    },
+    "rejected_spans": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "start",
+          "end",
+          "reason"
+        ],
+        "properties": {
+          "start": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "end": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
     }
   },
   "$defs": {
