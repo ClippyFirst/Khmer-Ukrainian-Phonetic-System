@@ -72,8 +72,8 @@ class KhmerOrthographicScan:
         }
 
     @property
-    def protected_spans(self) -> tuple[tuple[int, int], ...]:
-        """Atomic encoded component spans, not complete syllable or word spans."""
+    def component_spans(self) -> tuple[tuple[int, int], ...]:
+        """Atomic component spans, not complete grapheme-cluster or syllable spans."""
         return tuple((item.start, item.end) for item in self.components)
 
 
