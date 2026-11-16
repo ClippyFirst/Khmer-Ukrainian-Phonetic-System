@@ -3006,4 +3006,11 @@ This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in th
 - Base main: 977286115e0e3e7e2325010c9c0a3d08a959b710. Dedicated branch: feat/pcgn-alif-shortened-closed-syllable-assembly-2026-11-16.
 - Added assemble_pcgn_glottal_shortened_closed_syllable to compose the existing Note 4 Alif carrier, Note 5 shortened-vowel resolver and general final-consonant resolver for the three exact Note 5 shapes: inherent+BANTOC, AA+BANTOC and SAMYOK+coda.
 - Caller supplies the Alif onset, full syllable, coda-only chunk, coda class and explicit Note 4 context booleans. Exact coda token, final-consonant romanization and coda class are cross-checked. Optional apostrophe spelling is retained as a full-output alternative.
-- Added strict schema, regression tests for all three Note 5 shapes and abstention cases, package exports and documentation. Orthographic PCGN Latin only; IPA/Ukrainian remain null. Hosted CI pending.
+- Added strict schema, regression tests for all three Note 5 shapes and abstention cases, package exports and documentation. Orthographic PCGN Latin only; IPA/Ukrainian remain null.
+- PR #271 squash-merged as 9957081db4149ff316695273d8dd525985bd34fd. Exact PR-head Quality [43891125460] and Chromium [43891125490] passed on 43d25e026da0ed22ffcb62ec8e810e28e302d5b3: 368 Python tests + 70 subtests, corpus validation, web checks, production build and visible-results Chromium smoke all passed. Exact-main Quality [43891297907], Chromium [43891298013], and Pages build/deploy/runtime smoke [43891297884] all SUCCESS on 9957081db4149ff316695273d8dd525985bd34fd.
+- KHM-ROM-PCGN-ALIF-NOTE5-001 is DONE_VERIFIED for the three exact Note 5 patterns with one supported coda and explicit Note 4 context. KHM-ROM-ENGINE-001 remains PARTIAL. Hosted GitHub Actions only; no local test execution is claimed.
+
+## Exact-main checkpoint after PR #271 — 2026-11-16
+
+- Main: 9957081db4149ff316695273d8dd525985bd34fd. PR #271 merged; exact-main Quality [43891297907], Chromium [43891298013], and Pages build/deploy with deployed-site/runtime smoke [43891297884] all SUCCESS. Quality: 368 Python tests + 70 subtests; browser visible-results and deployed runtime smoke passed.
+- PR #267, #269 and #271 now cover bounded Note 4 Alif open-CV, ordinary dependent-vowel closed, and Note 5 shortened closed forms. General segmentation, broader codas and full word romanization remain PARTIAL.
