@@ -833,3 +833,8 @@ PR #256 merged as `dee4881da4cfb01b6da0ff5e857af67cade14cb1`. PR-head push Quali
 ## PCGN independent-vowel source registry — 2026-11-16
 
 The independent-vowel resolver now has an auditable CSV source register for BGN/PCGN 1972 table rows 3, 4, 7 and 14–22. All mapped entries match the existing runtime constant; Note 9 row 7 (`ឧ`) retains unresolved alternatives `ŏ|ŭ`. The new test checks row-by-row parity and the official source URL. This does not change `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001 = PARTIAL`; no IPA/Ukrainian output is generated.
+
+
+## Exact-main verification — PR #259 PCGN independent-vowel source register — 2026-11-16
+
+PR #259 merged as `458026f080bca31edeec87c2009245213ab667c7`. PR-head push Quality [43826670914], PR Quality [43826697643], Chromium [43826697687], exact-main Quality [43826837012], Chromium [43826837160] and Pages [43826837175] all SUCCESS. Exact-main Python: 332 passed, 70 subtests passed; web checks, production build and deployed-site smoke passed. The CSV records source table rows 3, 4, 7 and 14–22; Note 9's `ឧ` remains unresolved. No IPA or Ukrainian result was added.
