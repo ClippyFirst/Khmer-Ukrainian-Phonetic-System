@@ -520,6 +520,8 @@
     "scope": "Non-normative technical analysis of Modern Khmer encoding and orthographic-syllable structure, including coengs, consonant shifters, vowel/sign ordering, canonical equivalence, deprecated/discouraged sequences, and shaping. Used only as background for a separately versioned Modern Khmer profile.",
     "status": "NON_NORMATIVE_TECHNICAL_NOTE",
     "license": "Unicode Terms of Use apply. Public reproduction, modification, or distribution beyond permitted personal/internal use requires permission unless specifically licensed. This registry records source metadata only and does not reproduce the PDF text or regular expressions.",
-    "limitations": "Unicode Technical Notes are independently prepared, are not part of the Unicode Standard or a Unicode specification, and do not imply UTC or Unicode Consortium endorsement. The note is an encoding proposal/analysis, not a universal phonological grammar or a replacement for Unicode 18 §16.4. No TN #61-derived grammar is implemented by the current parser; any future use must be a separately versioned profile with independent review. Verify that version 2 remains current before future implementation."
+    "limitations": "Unicode Technical Notes are independently prepared, are not part of the Unicode Standard or a Unicode specification, and do not imply UTC or Unicode Consortium endorsement. The note is an encoding proposal/analysis, not a universal phonological grammar or a replacement for Unicode 18 §16.4. No TN #61-derived grammar is implemented by the current parser; any future use must be a separately versioned profile with independent review. Verify that version 2 remains current before future implementation.",
+    "license_url": "https://www.unicode.org/copyright.html",
+    "status_basis_url": "https://www.unicode.org/notes/about-notes.html"
   }
 ]
