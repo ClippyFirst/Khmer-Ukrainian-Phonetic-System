@@ -1050,3 +1050,13 @@ The repository branch endpoint returns 125 refs (one `main`, 124 non-main). This
 No open PR remains. The connected GitHub tool surface does not provide branch deletion, and no branch was deleted or force-updated. Keep one active task branch based on main; historical refs remain preserved until an owner chooses an archival/deletion policy. This is consistent with the earlier historical branch comparison closeout, but refreshes its inventory count.
 
 The next hard blocker is human, not engineering: issue #104 remains open; independent adjudicated IPA gold is 0 and accuracy is null. The expert convention, independent annotators/adjudicator, curator, blind intake, source rights and 30-lexeme pilot cannot be completed by repository automation. Root LICENSE/pyproject metadata reconciliation and main branch protection remain owner decisions.
+
+
+## Systematic historical branch ancestry comparison — 2026-11-16
+
+- Exact `main` at comparison: `44c2168e9b4a3f818ad2259f663792a4fc86229b`.
+- Live branch listing: 131 refs total, `main` + 130 non-main; all non-main tips have unique SHAs. Compared every non-main ref against exact main: **130/130**. Open PR count: **0**.
+- Comparison results are predominantly `diverged` because the repository uses squash merges and retained historical task snapshots; ahead/behind counts do not by themselves imply unmerged work. Per-branch file summaries were inspected, and high-risk representative files were compared directly.
+- Spot checks: PCGN consonant, dependent-vowel, final-coda and independent-vowel source tables/test suites are already present in main; old PCGN branches carry stale versions of `pcgn.py` and note registries. The independent-vowel source-register branches have the exact same CSV as main. Practical-adapter `practical.py` matches main while its historical `rule_engine.py` is older. The old direct-BGN/PCGN and mixed-script runtime files are smaller/older than main; the output-guard fix file matches main. Coverage report JSON and external registry test/schema files match main; historical coverage/benchmark scripts and external-IPA registry data are older. Old parser branch tests omit a newer main test.
+- Disposition: no open PR requires action; no historical branch is a safe blanket merge. PRs #264–#266 are merged and their branch refs are retained. Other historical refs remain untouched because the connected GitHub operations do not expose branch deletion and the owner has not supplied an archival policy.
+- `KHM-BRANCH-AUDIT-001` remains PARTIAL: ancestry inventory DONE_VERIFIED; complete file-level content/PR-ancestry audit remains outstanding.
