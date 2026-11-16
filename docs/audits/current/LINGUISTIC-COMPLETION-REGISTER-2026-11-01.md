@@ -1398,4 +1398,4 @@ The canonical Python/browser parser applies Unicode 18 §16.4 over the lossless 
 - Exact-main Quality [43961645417] SUCCESS; Chromium [43961645412] SUCCESS; Pages deploy/runtime smoke [43961645406] SUCCESS.
 - PR #292 adds rejected_spans with code-point offsets/reasons and shared fixtures for all Figure 16-3 examples, shifters, ZWJ/ZWNJ ligature controls, robat, subscript independent vowels, discouraged U+17A3/U+17A4/U+17B4/U+17B5/U+17D8, and the unsupported repetition mark. Branch-head Quality [43962089465] SUCCESS: 416 Python tests + 70 subtests; Node/web checks and production build passed. PR-head Chromium and exact-main post-merge checks are pending.
 
-The parser remains orthographic only. TN #61 v2 Modern Khmer profile is still TODO / NON_NORMATIVE. Phonological syllabification, LOC word division, IPA gold and Ukrainian output remain outside this task.
+The parser remains orthographic only. TN #61 v2 is registered as unicode-tn61-khmer-encoding-structure-v2; its Modern Khmer profile is still TODO / NON_NORMATIVE. Phonological syllabification, LOC word division, IPA gold and Ukrainian output remain outside this task.
