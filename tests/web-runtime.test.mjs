@@ -4,6 +4,8 @@ import { convert, parseSyllable, tokenize, getStatusNotice } from "../src/main.j
 
 const adversarial = "ក គ កា គា កូ គូ កី គី កេ គេ កែ គែ កើ គើ កៅ គៅ ប ប៉ ប៊ ផ ព ត ថ ទ ធ ច ឆ ជ ឈ ស ហ វ";
 
+const phoneticSchema = JSON.parse(readFileSync(new URL("../schemas/phonetic-result.schema.json", import.meta.url), "utf8"));
+assert.equal(phoneticSchema.properties.schema.const, "khmer-phonetic-result/v1");
 const serviceHtml = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 assert.doesNotMatch(serviceHtml, /source-result|source-card/u, "the original Khmer input must not be duplicated as a fourth output card");
 assert.match(serviceHtml, /id="mode-phonetic"/u, "the phonetic mode must be selectable");
@@ -95,6 +97,8 @@ assert.deepEqual(mixed.phonetic_result.units[0].rule_trace, ["KHMER_LEXICAL_FIXT
 assert.equal(mixed.phonetic_result.units.length, mixed.units.length);
 assert.equal(mixed.phonetic_result.units[0].provenance.phonology[0], "wiktionary:ka", "lexical provenance must remain distinct from structural Unicode provenance");
 assert.equal(mixed.phonetic_result.units[2].uncertainty[0].status, "INVALID_OR_UNSUPPORTED");
+assert.ok(phoneticSchema.required.every((key) => Object.hasOwn(mixed.phonetic_result, key)));
+assert.ok(phoneticSchema.$defs.unit.required.every((key) => Object.hasOwn(mixed.phonetic_result.units[0], key)));
 
 console.log("web-runtime regression tests: PASS");
 
