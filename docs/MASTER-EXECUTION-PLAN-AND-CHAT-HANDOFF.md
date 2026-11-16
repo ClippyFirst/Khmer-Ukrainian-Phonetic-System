@@ -3139,3 +3139,13 @@ The shared `khmer-phonetic-result/v1` payload is specified in `schemas/phonetic-
 - Scope is deliberately a lossless component scanner, **not a completed BNF parser or syllabifier**. It does not choose whether multiple un-subscripted base letters represent coda material or a new syllable; such scans are `EVIDENCE_LIMITED`. It does not infer word boundaries, validate all component ordering, create pronunciation or change IPA/Ukrainian results. Component spans are not full grapheme-cluster/syllable spans and must not be passed as if they were complete cluster protections to the word-boundary API.
 - Task `KHM-ORTHO-COMPONENT-SCAN-001 = PARTIAL` pending exact PR-head CI. Acceptance for DONE_VERIFIED is implementation + schema/API tests + Python/browser parity and hosted Quality/Chromium checks. Full syllable grammar, ambiguous base/coda resolution, and LOC word segmentation remain separate tasks.
 - No local tests are claimed; the connector session has no local repository checkout. Issue #104 remains open for human phonetic annotation/adjudication.
+
+
+### Post-merge verification — Unicode 18 Khmer orthographic component scanner — 2026-11-16
+
+- PR [#283](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/283) merged by squash as `bdc15daf6f7c40a6c088e306343a421b9347e9c1`; exact PR head `06255d5140c27b0534395ee19c7087cca8fabd0c`; starting main `aa02c23094f4e9c796e236b46d9a359655d34735`.
+- Exact PR-head Quality [43953219338] and Chromium [43953219579] succeeded. Exact-main Quality [43953449784], Chromium [43953449807], and Pages deploy/runtime smoke [43953450103] all succeeded on the merge commit.
+- Exact-main Quality log: **402 Python tests passed, 70 subtests passed**; IPA corpus engineering validation, Node/web checks and production build passed. Chromium visible-results smoke passed. Pages production-site Chromium exercise, deploy action and deployed runtime-asset smoke passed.
+- `KHM-ORTHO-COMPONENT-SCAN-001 = DONE_VERIFIED` for the component scanner and Python/browser parity contract only. It does not close full BNF parsing, complete orthographic-syllable segmentation, lexical word segmentation, IPA coverage or Issue #104.
+- Open PRs: 0. Historical PR #64 was closed unmerged on 2026-11-02; its old CSS snapshot was not merged. Its branch ref remains preserved. Feature branch `feat/khmer-orthographic-component-scanner-2026-11-16` also remains preserved; no branch deletion or force update performed.
+- Main after this code merge: `bdc15daf6f7c40a6c088e306343a421b9347e9c1`. The documentation-only reconciliation below may advance main and must receive its own exact-main verification.
