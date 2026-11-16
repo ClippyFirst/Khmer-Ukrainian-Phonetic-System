@@ -219,11 +219,13 @@ def parse_orthographic_syllables(text: str) -> KhmerOrthographicSyllableParse:
         return KhmerOrthographicSyllableParse(
             text, "EVIDENCE_LIMITED", (),
             ("Recognized components do not form a complete sequence under the Unicode 18 §16.4 ordering formula; no boundary was guessed.",),
+            _rejected_spans(components),
         )
     if len(paths) > MAX_PARSE_ALTERNATIVES:
         return KhmerOrthographicSyllableParse(
             text, "EVIDENCE_LIMITED", (),
             ("The parse forest exceeded the configured alternative limit.",),
+            ({"start": 0, "end": len(text), "reason": "The configured parse-alternative limit was reached; the forest is incomplete."},),
         )
 
     alternatives = []
