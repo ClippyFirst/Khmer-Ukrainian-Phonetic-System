@@ -3074,3 +3074,25 @@ This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in th
 - Mainline Quality run [43930778812](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43930778812) completed SUCCESS, including Python tests, web checks and production build.
 - The separate browser-smoke workflow [43930778773](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43930778773) was still running its Chromium installation at the time of this record; the Pages workflow itself independently completed its production Chromium exercise successfully.
 - Hosting is live, but linguistic readiness is unchanged: this remains a research-grade, evidence-limited prototype. Deployment success is not linguistic validation or empirical accuracy.
+
+
+## Khmer phonetic-result architecture and partial-output correction — 2026-11-16
+
+**Base:** `main` at `ba54c791ad71b06e99c4255bb93bfd26ae1533bb`.  
+**Working branch:** `fix/khmer-typed-partial-phonetic-results-2026-11-16`.
+
+This change ports architectural patterns from the Lao engine, not Lao phonological rules:
+
+- **KHMER-RESULT-CONTRACT-001 — DONE_VERIFIED (Quality checks run 43937440225):** browser output now exposes a versioned `khmer-phonetic-result/v1` object. Each source unit has its own status, IPA, Ukrainian rendering, profile, structural/phonological/target-policy provenance lanes, and explicit uncertainty. The declared pipeline is source orthography → structural analysis → source phonology → IPA → Ukrainian target adaptation.
+- **KHMER-PARTIAL-AGGREGATE-001 — DONE_VERIFIED (Quality checks 43937440225; browser smoke 43937440523):** aggregate IPA and Ukrainian strings preserve supported neighboring results and place explicit unresolved markers only at unsupported units. Overall `complete`, `partial`, and status fields remain separate; a mixed result cannot be mistaken for a complete transcription.
+- **KHMER-UNICODE-DIAGNOSTICS-001 — DONE_VERIFIED (Quality checks 43937440225; browser smoke 43937440523):** browser parsing now iterates Unicode code points rather than UTF-16 code units and includes exact U+ code-point diagnostics for unsupported graphemes. The reported visible string `ព្រះរាជាណាចក្រ` is added as a regression: every visible character is present in the orthographic inventory, so lack of a lexical IPA fixture must remain NOT_ESTABLISHED rather than INVALID_OR_UNSUPPORTED. The test also checks lossless grapheme accounting and a supplementary-plane unsupported symbol.
+- Existing lexical IPA fixtures, the canonical IPA → Ukrainian policy, uncertainty statuses, and the separate BGN/PCGN romanization route are preserved. No new Khmer pronunciation or Ukrainian candidate has been invented.
+
+**Still PARTIAL / TODO:** the browser tokenizer remains a conservative orthographic-unit heuristic, not a validated Khmer word/syllable segmenter; the complete contextual orthography → IPA engine and vowel/rime/coda matrix remain incomplete; the Python and browser engines now emit the matching versioned typed-result contract; exact-head cross-runtime regression verification remains pending; independent adjudicated IPA gold remains 0 and empirical accuracy remains null. Do not transfer Lao syllable or tone rules into Khmer.
+
+**Verification:** exact branch-head SHA `8dd60350e37d9047fa7dcb57587b175d028d847f` passed Quality checks run `43937440225` and Khmer browser smoke run `43937440523`. Quality workflow includes Python tests, corpus/schema checks, Node web checks and production build; browser workflow includes deterministic checks, production build and Chromium tests. No local checkout was available, so no local test run is claimed. The PR is still open and these checks do not mean the live Pages deployment has changed. Next engineering acceptance gate is merge plus Pages deploy verification on the resulting main SHA. Linguistic acceptance separately requires expert-reviewed Khmer segmentation/phonology and the existing double-annotation/adjudication process.
+
+
+The reported `ព្រះរាជាណាចក្រ` false `Unknown character(s)` state has now been traced to the browser parser's unit assumption: the conservative tokenizer can keep several known Khmer base consonants in one orthographic chunk, but the parser previously treated every post-base consonant outside a COENG pair as unknown. The parser now records every recognized consonant as a consonant grapheme and withholds phonetic output when the chunk cannot be confidently syllabified. This is a structural-recognition correction, not a new pronunciation rule; the absence of a lexical IPA fixture still yields NOT_ESTABLISHED.
+
+The shared `khmer-phonetic-result/v1` payload is specified in `schemas/phonetic-result.schema.json`. Both runtime implementations expose the same unit keys, rule trace, provenance lanes and uncertainty shape; Python and browser tests assert the published contract shape.

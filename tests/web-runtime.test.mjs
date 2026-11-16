@@ -4,6 +4,8 @@ import { convert, parseSyllable, tokenize, getStatusNotice } from "../src/main.j
 
 const adversarial = "ក គ កា គា កូ គូ កី គី កេ គេ កែ គែ កើ គើ កៅ គៅ ប ប៉ ប៊ ផ ព ត ថ ទ ធ ច ឆ ជ ឈ ស ហ វ";
 
+const phoneticSchema = JSON.parse(readFileSync(new URL("../schemas/phonetic-result.schema.json", import.meta.url), "utf8"));
+assert.equal(phoneticSchema.properties.schema.const, "khmer-phonetic-result/v1");
 const serviceHtml = readFileSync(new URL("../index.html", import.meta.url), "utf8");
 assert.doesNotMatch(serviceHtml, /source-result|source-card/u, "the original Khmer input must not be duplicated as a fourth output card");
 assert.match(serviceHtml, /id="mode-phonetic"/u, "the phonetic mode must be selectable");
@@ -46,6 +48,27 @@ assert.deepEqual(
 assert.equal(parseSyllable("កx").status, "INVALID_OR_UNSUPPORTED");
 assert.deepEqual(parseSyllable("កx").unknown, ["x"]);
 assert.equal(parseSyllable("កx").ipa, undefined);
+const coengSubscriptFixtureCollision = tokenize("ក្ក");
+assert.deepEqual(coengSubscriptFixtureCollision, ["ក្ក"], "a lexical fixture must never split a consonant following COENG from its orthographic base");
+const coengSubscriptResult = convert("ក្ក", "khmer-pph-careful-citation-v1");
+assert.equal(coengSubscriptResult.units.length, 1);
+assert.equal(coengSubscriptResult.units[0].status, "NOT_ESTABLISHED", "a structurally valid cluster without IPA evidence is unresolved, not malformed");
+
+const kingdom = "ព្រះរាជាណាចក្រ";
+const kingdomAnalysis = parseSyllable(kingdom);
+assert.notEqual(kingdomAnalysis.status, "INVALID_OR_UNSUPPORTED", "the visible Khmer code points in the reported input are all represented in the orthographic inventory");
+assert.deepEqual(kingdomAnalysis.unknown, [], "known Khmer graphemes and coeng sequences must not be misreported as unknown");
+assert.equal(kingdomAnalysis.graphemes.map((g) => g.text).join(""), kingdom, "the structural trace must account for every source code point");
+assert.ok(kingdomAnalysis.additional_consonants.length > 0, "additional known consonants must remain structural rather than being classified as unknown");
+assert.equal(kingdomAnalysis.syllabification_status, "NOT_ESTABLISHED", "multiple consonants in one conservative chunk must not trigger guessed syllable boundaries");
+const kingdomResult = convert(kingdom, "khmer-pph-careful-citation-v1");
+assert.equal(kingdomResult.source, kingdom);
+assert.ok(kingdomResult.units.every((unit) => unit.status !== "INVALID_OR_UNSUPPORTED"), "lack of a lexical IPA fixture is NOT_ESTABLISHED, not malformed Unicode");
+assert.equal(kingdomResult.complete, false, "structural recognition must not be mistaken for established pronunciation");
+const astralUnsupported = parseSyllable("🧪");
+assert.deepEqual(astralUnsupported.unknown, ["🧪"], "unsupported supplementary-plane characters must be reported as one code point, not UTF-16 surrogates");
+assert.deepEqual(astralUnsupported.unknown_codepoints, ["U+1F9EA"]);
+
 const mixedScriptUnit = convert("កx", "khmer-pph-careful-citation-v1");
 assert.equal(mixedScriptUnit.status, "INVALID_OR_UNSUPPORTED");
 assert.equal(mixedScriptUnit.units.length, 1);
@@ -58,12 +81,25 @@ assert.equal(parseSyllable("ក៊").register_rule, "NON_STANDARD_SHIFTER_USE");
 
 const mixed = convert("ក ☃ គ", "khmer-pph-careful-citation-v1");
 assert.equal(mixed.status, "EVIDENCE_LIMITED");
-assert.equal(mixed.ipa, "⟦ВИМОВУ НЕ ВСТАНОВЛЕНО ДЛЯ ЧАСТИНИ ВВОДУ⟧");
-assert.equal(mixed.ua, "⟦ТРАНСКРИПЦІЮ НЕ ВСТАНОВЛЕНО ДЛЯ ЧАСТИНИ ВВОДУ⟧");
+assert.equal(mixed.complete, false);
+assert.equal(mixed.partial, true);
+assert.equal(mixed.ipa, "/kɑː/ ⟦INVALID_OR_UNSUPPORTED⟧ /kɔː/");
+assert.equal(mixed.ua, "ка ⟦НЕПІДТРИМУЄТЬСЯ⟧ ко");
 const unresolved = mixed.units.find((x) => x.status === "NOT_ESTABLISHED" || x.status === "INVALID_OR_UNSUPPORTED");
 assert.ok(unresolved, "mixed input must isolate an unresolved unit rather than hiding neighboring evidence-backed units");
 assert.equal(mixed.units.find((x) => x.source === "ក")?.ua, "ка");
 assert.equal(mixed.units.find((x) => x.source === "គ")?.ua, "ко");
+assert.equal(mixed.phonetic_result.schema, "khmer-phonetic-result/v1");
+assert.equal(mixed.phonetic_result.partial, true);
+assert.deepEqual(mixed.phonetic_result.pipeline, ["source-orthography", "structural-analysis", "source-phonology", "ipa", "ukrainian-target-adaptation"]);
+assert.equal(mixed.phonetic_result.units[0].ipa, "kɑː", "typed result stores bare IPA, without display delimiters");
+assert.deepEqual(mixed.phonetic_result.units[0].rule_trace, ["KHMER_LEXICAL_FIXTURE", "IPA_TO_UKRAINIAN_LONGEST_MATCH"]);
+assert.equal(mixed.phonetic_result.units.length, mixed.units.length);
+assert.equal(mixed.phonetic_result.units[0].provenance.phonology[0], "wiktionary:ka", "lexical provenance must remain distinct from structural Unicode provenance");
+assert.equal(mixed.phonetic_result.units[2].uncertainty[0].status, "INVALID_OR_UNSUPPORTED");
+assert.ok(phoneticSchema.required.every((key) => Object.hasOwn(mixed.phonetic_result, key)));
+assert.ok(phoneticSchema.$defs.unit.required.every((key) => Object.hasOwn(mixed.phonetic_result.units[0], key)));
+assert.deepEqual(Object.keys(mixed.phonetic_result.units[0]).sort(), Object.keys(phoneticSchema.$defs.unit.properties).sort());
 
 console.log("web-runtime regression tests: PASS");
 
@@ -112,8 +148,12 @@ const greetingResult = convert(greetingSentence, "khmer-pph-careful-citation-v1"
 assert.equal(greetingResult.source, greetingSentence.normalize("NFC"));
 assert.equal(greetingResult.units.map((unit) => unit.source).join(""), greetingSentence.normalize("NFC"));
 assert.ok(greetingResult.units.length > 0);
-assert.equal(greetingResult.ipa, "⟦ВИМОВУ НЕ ВСТАНОВЛЕНО ДЛЯ ЧАСТИНИ ВВОДУ⟧");
-assert.equal(greetingResult.ua, "⟦ТРАНСКРИПЦІЮ НЕ ВСТАНОВЛЕНО ДЛЯ ЧАСТИНИ ВВОДУ⟧");
+assert.equal(greetingResult.complete, false);
+assert.ok(!greetingResult.ipa.includes("⟦ВИМОВУ НЕ ВСТАНОВЛЕНО ДЛЯ ЧАСТИНИ ВВОДУ⟧"));
+assert.ok(!greetingResult.ua.includes("⟦ТРАНСКРИПЦІЮ НЕ ВСТАНОВЛЕНО ДЛЯ ЧАСТИНИ ВВОДУ⟧"));
+assert.ok(greetingResult.ipa.includes("/kam.pu.ciə/"), "known lexical IPA must survive an unresolved neighboring unit");
+assert.ok(greetingResult.ua.includes("кампутьіє"), "known IPA-derived Ukrainian output must survive an unresolved neighboring unit");
+assert.ok(greetingResult.ipa.includes("⟦NOT_ESTABLISHED⟧"), "unresolved units must remain explicitly marked in place");
 console.log("full Khmer sentence integrity: PASS");
 
 const unicodePunctuation = "ក。គ";

@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Khmer IPA-first phonetic result",
+  "type": "object",
+  "required": [
+    "schema",
+    "pipeline",
+    "complete",
+    "partial",
+    "units"
+  ],
+  "properties": {
+    "schema": {
+      "const": "khmer-phonetic-result/v1"
+    },
+    "pipeline": {
+      "const": [
+        "source-orthography",
+        "structural-analysis",
+        "source-phonology",
+        "ipa",
+        "ukrainian-target-adaptation"
+      ]
+    },
+    "complete": {
+      "type": "boolean"
+    },
+    "partial": {
+      "type": "boolean"
+    },
+    "units": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/unit"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "unit": {
+      "type": "object",
+      "required": [
+        "source",
+        "status",
+        "ipa",
+        "ukrainian",
+        "profile",
+        "rule_trace",
+        "provenance",
+        "uncertainty"
+      ],
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "PUNCTUATION",
+            "PROPOSED",
+            "PROVISIONAL",
+            "ESTABLISHED_STRUCTURE",
+            "NOT_ESTABLISHED",
+            "EVIDENCE_LIMITED",
+            "INVALID_OR_UNSUPPORTED"
+          ]
+        },
+        "ipa": {
+          "type": "string",
+          "description": "Bare IPA without outer / or [] delimiters; explicit marker if not established."
+        },
+        "ukrainian": {
+          "type": "string",
+          "description": "IPA-derived Ukrainian form or an explicit local uncertainty marker."
+        },
+        "profile": {
+          "type": "string"
+        },
+        "rule_trace": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "provenance": {
+          "type": "object",
+          "required": [
+            "structure",
+            "phonology",
+            "target_policy"
+          ],
+          "properties": {
+            "structure": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "phonology": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "target_policy": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "uncertainty": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "status",
+              "note",
+              "unresolved_graphemes"
+            ],
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              },
+              "unresolved_graphemes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

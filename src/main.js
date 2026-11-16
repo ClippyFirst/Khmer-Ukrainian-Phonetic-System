@@ -72,7 +72,7 @@ function tokenize(text) {
     }
 
     const remainder = chars.slice(index).join("");
-    const fixtureKey = fixtureKeys.find((key) => {
+    const fixtureKey = chars[index - 1] === COENG ? undefined : fixtureKeys.find((key) => {
       if (!remainder.startsWith(key)) return false;
       const next = chars[index + [...key].length];
       return next === undefined || isSeparator(next);
@@ -112,41 +112,53 @@ function resolveRegister(base, raw) {
 }
 
 function parseSyllable(raw) {
-  if (!raw) return { status: "NOT_ESTABLISHED", raw };
-  if (!isKhmerConsonant(raw[0])) {
-    if (raw[0] === COENG || SHIFTERS.has(raw[0])) {
-      return { status: "INVALID_OR_UNSUPPORTED", raw, reason: "Khmer combining structure cannot begin a standalone orthographic unit." };
+  const chars = [...raw];
+  if (!chars.length) return { status: "NOT_ESTABLISHED", raw };
+  const first = chars[0];
+  const unknownCodepoints = (values) => values.map((char) => "U+" + char.codePointAt(0).toString(16).toUpperCase().padStart(4, "0"));
+  if (!isKhmerConsonant(first)) {
+    if (first === COENG || SHIFTERS.has(first)) {
+      return { status: "INVALID_OR_UNSUPPORTED", raw, unknown: [], unknown_codepoints: [], reason: "Khmer combining structure cannot begin a standalone orthographic unit." };
     }
-    if (SIGN_BY_CHAR[raw[0]]) return { status: "NOT_ESTABLISHED", raw, reason: "Відомий знак без базового приголосного; його вимову окремо не встановлено." };
-    return { status: "INVALID_OR_UNSUPPORTED", raw, reason: "Немає підтримуваного кмерського базового приголосного або відомого знака." };
+    if (SIGN_BY_CHAR[first]) return { status: "NOT_ESTABLISHED", raw, unknown: [], unknown_codepoints: [], reason: "Відомий знак без базового приголосного; його вимову окремо не встановлено." };
+    return { status: "INVALID_OR_UNSUPPORTED", raw, unknown: chars, unknown_codepoints: unknownCodepoints(chars), reason: "Немає підтримуваного кмерського базового приголосного або відомого знака: " + unknownCodepoints(chars).join(", ") + "." };
   }
   let index = 1;
-  const base = raw[0];
+  const base = first;
   const subscripts = [];
+  const additionalConsonants = [];
   const vowelSigns = [];
   const unknown = [];
   const graphemes = [{ text: base, kind: "consonant" }];
 
-  while (index < raw.length) {
-    const char = raw[index];
+  while (index < chars.length) {
+    const char = chars[index];
     if (char === ZWNJ) {
       graphemes.push({ text: char, kind: "format_control" });
       index += 1;
       continue;
     }
     if (char === COENG) {
-      const sub = raw[index + 1];
+      const sub = chars[index + 1];
       if (!sub || !isKhmerConsonant(sub)) {
-        return { status: "INVALID_OR_UNSUPPORTED", raw, reason: "Malformed coeng sequence." };
+        return { status: "INVALID_OR_UNSUPPORTED", raw, unknown: sub ? [COENG, sub] : [COENG], unknown_codepoints: unknownCodepoints(sub ? [COENG, sub] : [COENG]), reason: "Malformed coeng sequence: " + unknownCodepoints(sub ? [COENG, sub] : [COENG]).join(", ") + "." };
       }
       subscripts.push(sub);
       graphemes.push({ text: COENG + sub, kind: "subscript" });
       index += 2;
       continue;
     }
-    if (VOWEL_SIGNS.has(char)) vowelSigns.push(char);
-    else if (!SIGN_BY_CHAR[char]) unknown.push(char);
-    graphemes.push({ text: char, kind: SIGN_BY_CHAR[char]?.kind ?? "unknown" });
+    if (isKhmerConsonant(char)) {
+      // A conservative orthographic unit may contain more than one base
+      // consonant before a validated syllable boundary is available. Preserve
+      // known consonants as structure; never mislabel them as unknown glyphs.
+      additionalConsonants.push(char);
+      graphemes.push({ text: char, kind: "consonant" });
+    } else {
+      if (VOWEL_SIGNS.has(char)) vowelSigns.push(char);
+      else if (!SIGN_BY_CHAR[char]) unknown.push(char);
+      graphemes.push({ text: char, kind: SIGN_BY_CHAR[char]?.kind ?? "unknown" });
+    }
     index += 1;
   }
 
@@ -154,9 +166,9 @@ function parseSyllable(raw) {
   // the recognized base consonant. Match the Python parser's fail-closed rule.
   if (unknown.length) {
     return {
-      status: "INVALID_OR_UNSUPPORTED", raw, base, subscripts, vowelSigns,
-      unknown, graphemes,
-      reason: "Unknown character(s) inside Khmer orthographic unit.",
+      status: "INVALID_OR_UNSUPPORTED", raw, base, subscripts, additionalConsonants, vowelSigns,
+      unknown, unknown_codepoints: unknownCodepoints(unknown), graphemes,
+      reason: "Unknown character(s) inside Khmer orthographic unit: " + unknownCodepoints(unknown).join(", ") + ".",
     };
   }
   const register = resolveRegister(CONSONANTS[base], raw);
@@ -167,6 +179,8 @@ function parseSyllable(raw) {
     register: register.register,
     register_rule: register.rule,
     subscripts,
+    additional_consonants: additionalConsonants,
+    syllabification_status: additionalConsonants.length ? "NOT_ESTABLISHED" : "NOT_ASSESSED",
     vowelSigns,
     unknown,
     graphemes,
@@ -191,9 +205,11 @@ function renderFixture(fixture, profile) {
       ipa: "⟦EVIDENCE_LIMITED⟧",
       ua: "⟦НЕВСТАНОВЛЕНО⟧",
       status: fixture.status,
+      rule_trace: ["KHMER_LEXICAL_FIXTURE_WITHHELD"],
       note: fixture.note,
       profile,
       mapping_check: null,
+      evidence: fixture.evidence ?? [],
     };
   }
 
@@ -208,9 +224,11 @@ function renderFixture(fixture, profile) {
       ipa: "/" + ipa + "/",
       ua: mapped.value ?? "⟦НЕВСТАНОВЛЕНО⟧",
       status: "EVIDENCE_LIMITED",
+      rule_trace: ["KHMER_LEXICAL_FIXTURE", "IPA_TO_UKRAINIAN_LONGEST_MATCH", "LEXICAL_TARGET_CONFLICT"],
       note: "УВАГА: лексична українська форма не збігається з канонічною IPA → українська політикою. Суперечливий override не використовується; показано канонічний результат політики.",
       profile,
       mapping_check: { policy_render: mapped.value, lexical_render: fixture.ua ?? null, agrees: false },
+      evidence: fixture.evidence ?? [],
     };
   }
 
@@ -219,15 +237,17 @@ function renderFixture(fixture, profile) {
     ipa: "/" + ipa + "/",
     ua: mapped.value,
     status: fixture.status,
+    rule_trace: ["KHMER_LEXICAL_FIXTURE", "IPA_TO_UKRAINIAN_LONGEST_MATCH"],
     note: fixture.note + " Профіль: " + profile + ".",
     profile,
     mapping_check: fixture.ua ? { policy_render: mapped.value, lexical_render: fixture.ua, agrees: true } : null,
+    evidence: fixture.evidence ?? [],
   };
 }
 
 function deriveDeterministicIpa(analysis) {
   if (analysis.status === "INVALID_OR_UNSUPPORTED") return null;
-  if (analysis.subscripts?.length || analysis.vowelSigns?.length || analysis.unknown?.length) return null;
+  if (analysis.subscripts?.length || analysis.additional_consonants?.length || analysis.vowelSigns?.length || analysis.unknown?.length) return null;
   if (analysis.register_rule === "MULTIPLE_REGISTER_SHIFTERS" || analysis.register_rule === "MISPLACED_REGISTER_SHIFTER" || analysis.register_rule === "NON_STANDARD_SHIFTER_USE") return null;
 
   const onset = analysis.onset_ipa;
@@ -245,6 +265,7 @@ function renderUnknownUnit(unit, profile) {
       ipa: "⟦INVALID_OR_UNSUPPORTED⟧",
       ua: "⟦НЕПІДТРИМУЄТЬСЯ⟧",
       status: "INVALID_OR_UNSUPPORTED",
+      rule_trace: ["KHMER_UNICODE_VALIDATION_FAILED"],
       note: analysis.reason ?? "Некоректна або непідтримувана Unicode-послідовність.",
       analysis,
       profile,
@@ -261,6 +282,7 @@ function renderUnknownUnit(unit, profile) {
         ipa: "/" + profiledIpa + "/",
         ua: mapped.value,
         status: "PROPOSED",
+        rule_trace: ["KHMER_REGISTER_SERIES_INHERENT_VOWEL", "IPA_TO_UKRAINIAN_LONGEST_MATCH"],
         note: "Вимову виведено з документованої структури: базовий приголосний + встановлений регістр/шифтер + притаманна голосна серії. Українська форма є проєктною; результат не є лексичним винятком.",
         analysis,
         profile,
@@ -280,6 +302,7 @@ function renderUnknownUnit(unit, profile) {
         ipa: "⟦NOT_ESTABLISHED⟧",
         ua: "⟦НЕВСТАНОВЛЕНО⟧",
         status: "NOT_ESTABLISHED",
+        rule_trace: ["KHMER_STRUCTURE_PARSED", "IPA_NOT_ESTABLISHED", "ONSET_ONLY_PREVIEW"],
         note: "Канонічну вимову не встановлено. Окрема низькодостовірна підказка містить лише IPA початкового приголосного; голосну, підрядкові приголосні, фіналь і тон не виведено.",
         analysis,
         profile,
@@ -297,6 +320,7 @@ function renderUnknownUnit(unit, profile) {
     ipa: "⟦NOT_ESTABLISHED⟧",
     ua: "⟦НЕВСТАНОВЛЕНО⟧",
     status: analysis.status === "EVIDENCE_LIMITED" ? "EVIDENCE_LIMITED" : "NOT_ESTABLISHED",
+    rule_trace: ["KHMER_STRUCTURE_PARSED", "IPA_NOT_ESTABLISHED"],
     note: "Структуру запису розпізнано, але для цієї одиниці немає достатньо встановленої орфографія → IPA моделі. Система не вгадує вимову.",
     analysis,
     profile,
@@ -351,23 +375,52 @@ function convert(text, profile) {
   const evidenceLimited = linguistic.filter((item) => item.status === "EVIDENCE_LIMITED").length;
   const notEstablished = linguistic.filter((item) => item.status === "NOT_ESTABLISHED").length;
   const invalid = linguistic.filter((item) => item.status === "INVALID_OR_UNSUPPORTED").length;
-  // Keep aggregate output honest: unresolved units must not be concatenated
-  // with partial candidates in a way that resembles a complete transcription.
-  // Per-unit diagnostics remain available for research and inspection.
-  const aggregateUnresolved = linguistic.some((item) =>
-    !["PROPOSED", "PROVISIONAL", "ESTABLISHED_STRUCTURE"].includes(item.status)
-    || /⟦/.test(item.ipa)
-    || /⟦/.test(item.ua)
+  // Keep every unit aligned through the complete IPA-first pipeline. Unknown
+  // units retain explicit markers at their own positions; neighboring results
+  // are never discarded and the overall status still signals incompleteness.
+  const ipa = rendered.map((item) => item.ipa).join("");
+  const ua = rendered.map((item) => item.ua).join("");
+  const complete = linguistic.length > 0 && linguistic.every((item) =>
+    item.status === "PROPOSED" && !/⟦/.test(item.ipa) && !/⟦/.test(item.ua)
   );
+  const phoneticResults = rendered.map((item) => ({
+    source: item.source,
+    status: item.status,
+    rule_trace: item.rule_trace ?? [],
+    ipa: item.status !== "PUNCTUATION" && /^\/.*\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa,
+    ukrainian: item.ua,
+    profile,
+    provenance: {
+      phonology: item.evidence ?? [],
+      structure: item.analysis ? ["unicode17-ch16"] : [],
+      target_policy: item.mapping_check ? ["data/ukrainian/practical-policy.json"] : [],
+    },
+    uncertainty: item.status === "PUNCTUATION" || item.status === "PROPOSED"
+      ? []
+      : [{ status: item.status, note: item.note ?? "", unresolved_graphemes: item.analysis?.graphemes?.slice(1).map((g) => g.text) ?? item.analysis?.unknown ?? [] }],
+  }));
 
   return {
     source: normalized,
-    ipa: aggregateUnresolved ? "⟦ВИМОВУ НЕ ВСТАНОВЛЕНО ДЛЯ ЧАСТИНИ ВВОДУ⟧" : rendered.map((item) => item.ipa).join(""),
-    ua: aggregateUnresolved ? "⟦ТРАНСКРИПЦІЮ НЕ ВСТАНОВЛЕНО ДЛЯ ЧАСТИНИ ВВОДУ⟧" : rendered.map((item) => item.ua).join(""),
+    ipa,
+    ua,
+    complete,
+    partial: !complete && resolved.length > 0,
     status: combineStatus(linguistic),
-    note: `Локальний аналіз: ${resolved.length} одиниць мають зафіксовану IPA та проєктну українську форму; ${unresolved.length} потребують окремого встановлення або перевірки (${notEstablished} не встановлено, ${evidenceLimited} з обмеженою доказовістю, ${invalid} некоректних/непідтримуваних). Некоректна одиниця більше не робить весь змішаний результат INVALID OR UNSUPPORTED; її стан ізольовано на рівні одиниці.${unresolvedNames.length ? ` Невстановлені/проблемні одиниці: ${unresolvedNames.join(" · ")}.` : ""}`,
+    note: "Локальний аналіз: " + resolved.length + " одиниць мають зафіксовану IPA та проєктну українську форму; "
+      + unresolved.length + " потребують окремого встановлення або перевірки (" + notEstablished
+      + " не встановлено, " + evidenceLimited + " з обмеженою доказовістю, " + invalid
+      + " некоректних/непідтримуваних). Невизначеність позначено на місці відповідної одиниці; сусідні результати збережено."
+      + (unresolvedNames.length ? " Невстановлені/проблемні одиниці: " + unresolvedNames.join(" · ") + "." : ""),
     profile,
     units: rendered,
+    phonetic_result: {
+      schema: "khmer-phonetic-result/v1",
+      pipeline: ["source-orthography", "structural-analysis", "source-phonology", "ipa", "ukrainian-target-adaptation"],
+      complete,
+      partial: !complete && resolved.length > 0,
+      units: phoneticResults,
+    },
     analyses,
     vowelModel: vowels.coverage_policy,
   };
