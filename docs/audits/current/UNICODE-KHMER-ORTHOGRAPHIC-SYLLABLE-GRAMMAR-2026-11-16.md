@@ -11,7 +11,7 @@ Unicode Standard 18.0.0, Chapter 16 §16.4, gives the component-order formula:
 
 where B is a base character; R is robat; C is a consonant shifter; S is a subscript consonant or independent-vowel sign; V is a dependent vowel; Z is ZWJ or ZWNJ; and O is any other sign. Unicode Standard 18 Appendix A.2 defines braces as optional groups and `*` as zero or more repetitions. This is a real formal ordering contract, not a heuristic boundary rule.
 
-The existing `khmer-orthographic-components/v1` implementation is only a lossless scanner. It classifies component candidates and preserves exact code-point offsets; it does not validate the BNF sequence, identify complete syllable spans, or enumerate alternative parses. Its `EVIDENCE_LIMITED` response for multiple un-subscripted bases is therefore intentional and must not be reinterpreted as a completed parser.
+The canonical parser now applies this BNF over the existing lossless `khmer-orthographic-components/v1` scanner. It returns complete orthographic-syllable segmentations and packs local grammar-role alternatives (including repeated-S versus trailing-S assignments) without Cartesian expansion. Exact source text and Unicode code-point offsets are preserved; ambiguity is explicit and no preferred parse is selected.
 
 ## Important source distinction
 
@@ -23,7 +23,7 @@ with (among other rules) up to two pre-vowel coengs, coeng-ro ordering, a cluste
 
 Do not silently substitute TN #61 for Unicode Standard 18 §16.4, or present the note's proposed Modern Khmer restrictions as normative Unicode requirements. Conversely, do not treat the broad Unicode BNF alone as a complete Modern Khmer validity profile. They are different evidence layers and must remain separately identified in code and output provenance.
 
-## Parser contract to implement
+## Parser contract and implementation acceptance
 
 1. Preserve the existing scanner as the lossless lexical/component layer; do not duplicate its Unicode inventory.
 2. Add a typed parser result with exact source text and half-open Unicode code-point spans. Do not normalize source text implicitly.
@@ -51,8 +51,8 @@ TN #61 v2 §§“Orthographic Syllable Structure”, “Coengs”, “Triisap an
 |---|---|---|
 | Lossless component inventory and code-point spans | DONE_VERIFIED | `KHM-ORTHO-COMPONENT-SCAN-001`, PR #283, Python/browser schema and exact-main CI. |
 | Reconcile Unicode 18 BNF syntax and TN #61 scope/status | DONE_VERIFIED | This source audit; Unicode Standard 18 Appendix A.2 and Chapter 16 §16.4; TN #61 v2 dated February 2025. |
-| Unicode 18 BNF parser and ambiguous parse forest | TODO | Must implement the exact grammar, return all viable parses, preserve offsets, and pass shared Python/browser fixtures on exact-head and exact-main CI. |
-| Modern Khmer TN #61 v2 validation profile | TODO / NON_NORMATIVE | Requires a separately versioned profile and full source-located transcription of its regex constraints and exceptions; cannot be labelled Unicode normative. |
+| Unicode 18 BNF parser and ambiguous parse forest | DONE_VERIFIED | Packed Python/browser parser applies §16.4 and Appendix A.2; retains complete segmentation and grammar-role alternatives, exact offsets/source reconstruction, rejected spans/reasons, and shared Unicode 18 fixtures; exact-main Quality/Chromium/Pages passed. |
+| Modern Khmer TN #61 v2 validation profile | TODO / NON_NORMATIVE | Source metadata is registered as `unicode-tn61-khmer-encoding-structure-v2`. Requires a separately versioned profile and source-located review of its constraints/exceptions; cannot be labelled Unicode normative. |
 | Phonological syllabification and word segmentation | BLOCKED / SEPARATE | Requires linguistic/lexical evidence and independent annotation; neither grammar supplies a complete lexical word segmenter. |
 | IPA gold and empirical accuracy | BLOCKED | Issue #104's independent annotation/adjudication gates remain open; gold remains empty. |
 
@@ -64,7 +64,7 @@ TN #61 v2 §§“Orthographic Syllable Structure”, “Coengs”, “Triisap an
 
 ## Verification boundary
 
-This is a source/methodology reconciliation only. No runtime parser, schema, corpus labels, pronunciation data or generated artifact was changed. No local checkout is available in this session; the next code change must be verified by the repository's full hosted Quality, browser and Pages workflows on the exact branch head and then exact main.
+Parser implementation and rejection diagnostics are now merged in main commit `7f1fb11477de13029af1c42bf3a86419c87f4f44`. Exact-main Quality [43962337294] passed 416 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build. Exact-main Chromium [43962337195] and Pages deploy/runtime smoke [43962337152] also passed. Local tests were not run; all verification cited here is from GitHub Actions. TN #61 v2 remains a separately scoped non-normative profile TODO; no IPA gold, phonological syllabification or LOC word division was added.
 
 
 ### Implementation completion note — 2026-11-16
