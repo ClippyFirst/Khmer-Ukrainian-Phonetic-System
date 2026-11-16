@@ -232,7 +232,7 @@ class RuleBasedKhmerEngine:
         tokens = _tokenize_input(normalized)
         rendered: list[dict[str, Any]] = []
         for token in tokens:
-            if _is_separator(token):
+            if len(token) == 1 and _is_separator(token):
                 rendered.append({
                     "source": token, "ipa": token, "ukrainian": token,
                     "status": "PUNCTUATION", "rule_trace": [], "reason": "", "evidence": [],
