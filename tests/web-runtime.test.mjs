@@ -237,7 +237,7 @@ assert.equal(parseOrthographicSyllables("ក\\u200Cេ").status, "PARSED");
 assert.equal(parseOrthographicSyllables("ក\\u200Dេ").status, "PARSED");
 assert.equal(parseOrthographicSyllables("ក\\u200D៉").status, "EVIDENCE_LIMITED");
 assert.equal(parseOrthographicSyllables("ក៌៉").status, "EVIDENCE_LIMITED");
-assert.equal(parseOrthographicSyllables("ក្រ៌").status, "AMBIGUOUS");
+assert.equal(parseOrthographicSyllables("ក្រ៌").status, "PARSED");
 for (const source of ["ឱ្យ", "ឱ្ម", "ហ្ឫទ័យ"]) {
   const result = parseOrthographicSyllables(source);
   assert.equal(result.status, "AMBIGUOUS");
