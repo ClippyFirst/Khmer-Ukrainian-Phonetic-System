@@ -66,7 +66,7 @@ TN #61 v2 §§“Orthographic Syllable Structure”, “Coengs”, “Triisap an
 
 ## Verification boundary
 
-Parser implementation and rejection diagnostics are now merged in main commit `8ec4460a0af291dcba10563912f8fcd0c3f784fd`. Exact-main Quality [43963765593] passed 416 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build. Exact-main Chromium [43963765334] and Pages deploy/runtime smoke [43963765391] also passed. Local tests were not run; all verification cited here is from GitHub Actions. TN #61 v2 remains a separately scoped non-normative profile TODO; no IPA gold, phonological syllabification or LOC word division was added.
+Parser implementation and rejection diagnostics are now merged in main commit `8ec4460a0af291dcba10563912f8fcd0c3f784fd`. Exact-main Quality [43963765593] passed 417 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build. Exact-main Chromium [43963765334] and Pages deploy/runtime smoke [43963765391] also passed. Local tests were not run; all verification cited here is from GitHub Actions. TN #61 v2 remains a separately scoped non-normative profile TODO; no IPA gold, phonological syllabification or LOC word division was added.
 
 
 ### Implementation completion note — 2026-11-16
@@ -76,8 +76,15 @@ The Unicode 18 orthographic parser and its rejection diagnostics are now DONE_VE
 Shared fixtures cover all Figure 16-3 examples, the §16.4.1 shifter and join-control examples, subscript independent vowels, robat, and explicit unsupported/deprecated code points. The external repetition sign in ម៊្ហែតៗ remains outside the modeled syllable inventory and is reported as unsupported rather than swallowed by a generic O fallback.
 
 Exact-main verification:
-- Quality [43963765593] SUCCESS: 416 Python tests + 70 subtests; IPA corpus structural validation, Node/web checks, production build.
+- Quality [43963765593] SUCCESS: 417 Python tests + 70 subtests; IPA corpus structural validation, Node/web checks, production build.
 - Chromium [43963765334] SUCCESS.
 - Pages deploy/runtime smoke [43963765391] SUCCESS.
 
 TN #61 v2 source metadata is registered as unicode-tn61-khmer-encoding-structure-v2 with its independent/non-normative status and Unicode Terms of Use limitations. It remains a separate profile TODO and is not used to modify the Unicode 18 parser.
+
+
+### Final post-handoff merge verification — 2026-11-16
+
+PR #296 merged the final handoff documentation as main commit 1cecfa86e098fb3e96a7a55954010840f28ddb84. Exact-main Quality [43964140244] SUCCESS: 417 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build; Chromium [43964140341] SUCCESS; Pages deploy/runtime smoke [43964140290] SUCCESS. This verifies the source-registry and handoff changes on the exact post-merge main SHA.
+
+The official TN #61 v2 landing page identifies version 2 dated 2025-02-06 as latest and says the note is the author's responsibility, not a Unicode Consortium endorsement. Unicode Terms of Use restrict public reproduction/modification beyond permitted personal/internal use absent broader permission. The repository registers metadata and source links only; no PDF text or regex is copied. KHM-ORTHO-TN61-MODERN-PROFILE-001 remains TODO / NON_NORMATIVE.
