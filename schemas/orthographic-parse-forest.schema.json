@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Khmer orthographic parse forest",
   "type": "object",
-  "required": ["schema", "source_text", "offset_unit", "status", "grammar", "alternatives", "boundary_alternatives", "rejected_spans", "notes", "truncated"],
+  "required": ["schema", "source_text", "offset_unit", "status", "grammar", "alternatives", "boundary_alternatives", "selected_alternative", "rejected_spans", "notes", "truncated"],
   "properties": {
     "schema": {"const": "khmer-orthographic-parse-forest/v1"},
     "source_text": {"type": "string"},
@@ -11,6 +11,7 @@
     "grammar": {"const": "B {R | C} {S {R}}* {{Z} V} {O} {S}"},
     "alternatives": {"type": "array", "items": {"type": "object", "required": ["syllables"], "properties": {"syllables": {"type": "array", "items": {"type": "object", "required": ["span", "base", "initial_robat_or_shifter", "subscript_chain", "vowel", "other_sign", "final_subscript"], "properties": {"span": {"$ref": "#/$defs/span"}, "base": {"$ref": "#/$defs/span"}, "initial_robat_or_shifter": {}, "subscript_chain": {"type": "array"}, "vowel": {}, "other_sign": {}, "final_subscript": {}}, "additionalProperties": false}}, "additionalProperties": false}},
     "boundary_alternatives": {"type": "array", "items": {"type": "array", "items": {"$ref": "#/$defs/span"}}},
+    "selected_alternative": {"type": "null"},
     "rejected_spans": {"type": "array", "items": {"type": "object", "required": ["start", "end", "reason"], "properties": {"start": {"type": "integer", "minimum": 0}, "end": {"type": "integer", "minimum": 1}, "reason": {"type": "string"}}, "additionalProperties": false}},
     "notes": {"type": "array", "items": {"type": "string"}},
     "truncated": {"type": "boolean"}
