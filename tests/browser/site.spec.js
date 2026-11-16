@@ -12,12 +12,22 @@ test("Khmer input renders IPA and Ukrainian output without a DOM exception", asy
   expect(pageErrors).toEqual([]);
 });
 
-test("unsupported mixed input remains visibly withheld", async ({ page }) => {
+test("unsupported grapheme is marked locally", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("កx");
   await expect(page.locator("#results")).toBeVisible();
   await expect(page.locator("#status")).toHaveText("INVALID OR UNSUPPORTED");
-  await expect(page.locator("#ua-result")).toHaveText("⟦ТРАНСКРИПЦІЮ НЕ ВСТАНОВЛЕНО ДЛЯ ЧАСТИНИ ВВОДУ⟧");
+  await expect(page.locator("#ipa-result")).toHaveText("⟦INVALID_OR_UNSUPPORTED⟧");
+  await expect(page.locator("#ua-result")).toHaveText("⟦НЕПІДТРИМУЄТЬСЯ⟧");
+});
+
+test("one unsupported unit does not hide neighboring IPA and Ukrainian output", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("ក ☃ គ");
+  await expect(page.locator("#results")).toBeVisible();
+  await expect(page.locator("#status")).toHaveText("EVIDENCE LIMITED");
+  await expect(page.locator("#ipa-result")).toHaveText("/kɑː/ ⟦INVALID_OR_UNSUPPORTED⟧ /kɔː/");
+  await expect(page.locator("#ua-result")).toHaveText("ка ⟦НЕПІДТРИМУЄТЬСЯ⟧ ко");
 });
 
 test("clear control restores the empty state", async ({ page }) => {
