@@ -14,7 +14,7 @@ def test_unicode_18_bnf_accepts_documented_zwnj_shifter_exception():
 
 def test_unicode_18_bnf_rejects_out_of_order_components():
     assert parse_orthographic_syllable("កា៉").status == "INVALID_ORDER"
-    assert parse_orthographic_syllable("កា៌").status == "INVALID_ORDER"
+    assert parse_orthographic_syllable("កាី").status == "INVALID_ORDER"
     assert parse_orthographic_syllable("ក‌").status == "INVALID_ORDER"
 
 
