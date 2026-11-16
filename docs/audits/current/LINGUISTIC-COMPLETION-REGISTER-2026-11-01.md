@@ -1235,6 +1235,11 @@ PR #252 merged as `16fbbde6238e03290507056388b539f54622d236`. Final PR-head push
 PR #255 merged as `47679154526fa32c5edd9d62ca084de5af4759dd`. PR-head push Quality [43825412435], PR Quality [43825430244], Chromium [43825430217], exact-main Quality [43825536547], Chromium [43825536580] and Pages [43825536491] all SUCCESS. The resolver rejects non-boolean caller context and tests all supported base consonants. This does not change `KHM-ROM-PCGN-FINAL-CONSONANT-001 = PARTIAL`, `KHM-ROM-ENGINE-001 = PARTIAL`, independent IPA gold = 0, or accuracy = null. Issue #104 remains OPEN.
 
 
+## Exact-main verification — PR #256 documentation closeout — 2026-11-16
+
+PR #256 merged as `dee4881da4cfb01b6da0ff5e857af67cade14cb1`. PR-head push Quality [43825693046], PR Quality [43825710166], Chromium [43825710160], exact-main Quality [43825806168], Chromium [43825806361] and Pages [43825806234] all SUCCESS. Exact-main `pytest -q`: 331 passed, 70 subtests passed; `npm run check`, production build, production Chromium exercise and deployed-site/runtime-asset smoke passed. This documentation-only closeout does not change `KHM-ROM-PCGN-FINAL-CONSONANT-001 = PARTIAL`, `KHM-ROM-ENGINE-001 = PARTIAL`, IPA gold = 0 or accuracy = null. Issue #104 remains OPEN.
+
+
 ## PCGN independent-vowel source evidence — 2026-11-16
 
 | ID | Status | Evidence | Acceptance boundary |
