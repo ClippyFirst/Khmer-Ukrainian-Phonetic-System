@@ -1145,3 +1145,10 @@ PR #283 merged as `bdc15daf6f7c40a6c088e306343a421b9347e9c1`. Exact-main Quality
 ## Unicode 18 orthographic-syllable grammar reconciliation — 2026-11-16
 
 Unicode Standard 18.0.0 §16.4 gives the formal component-order BNF `B {R | C} {S {R}}* {{Z} V} {O} {S}`; Appendix A.2 defines its extended-BNF operators. The merged PR #283 scanner remains correctly scoped as a component inventory, not a complete grammar parser. Unicode Technical Note #61 v2 (February 2025) is a separate non-normative implementation guideline that proposes a tighter Modern Khmer encoding structure and discusses Middle Khmer separately. The parser follow-up must keep these source layers distinct, preserve all viable parses and ambiguity, and avoid conflating orthographic syllables with phonological syllables or lexical words. Detailed source reconciliation and acceptance contract: `docs/audits/current/UNICODE-KHMER-ORTHOGRAPHIC-SYLLABLE-GRAMMAR-2026-11-16.md`. Exact-main baseline `567c105ac453ff95f1e2a567b8f5e992bda9d6b0`: Quality 43953751661, Chromium 43953751879, Pages 43953751433 all SUCCESS. No runtime change in this documentation-only work.
+
+
+## Unicode 18 Khmer parser completion — 2026-11-16
+
+Main commit 7f1fb11477de13029af1c42bf3a86419c87f4f44 contains the canonical Python/browser Unicode 18 §16.4 parser, packed grammar-role alternatives, exact source offsets and rejected spans/reasons. Exact-main Quality [43962337294] passed 416 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build; Chromium [43962337195] and Pages deploy/runtime smoke [43962337152] passed.
+
+KHM-ORTHO-BNF-PARSER-001 is DONE_VERIFIED for orthographic structure only. LOC word segmentation, phonological syllabification, IPA gold and Ukrainian output remain separate and incomplete. TN #61 v2 is registered as unicode-tn61-khmer-encoding-structure-v2 with non-normative status and Terms-of-Use limitations; its separate Modern Khmer profile remains TODO. PR #292 was closed as duplicate after equivalent diagnostics were merged independently; its branch remains preserved. Issue #104 remains OPEN; independent IPA gold remains 0.
