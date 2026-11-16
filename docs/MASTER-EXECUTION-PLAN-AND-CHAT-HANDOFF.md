@@ -3272,4 +3272,18 @@ A single integration branch now reconciles the overlapping evidence from PRs #30
 ### Integration and verification boundary
 The source registry and canonical research docs were consolidated on `research/khmer-source-audit-integration-2026-11-17`, based on main `db02740d57705c08966c87a6b31a5c874c9edc86`. The PR #304 exact-head Quality runs failed because a legacy integrity test still required the literal `3,286-line` phrase in the source scope; the integrated registry preserves that compatibility phrase. The new integration branch must pass exact-head Quality and browser checks before merge. Prior main Quality [43970083315] SUCCESS (417 Python tests + 70 subtests), Chromium [43970082825] SUCCESS, and Pages deploy [43970082889] SUCCESS are exact for the pre-integration main SHA above.
 
-PR #301, #303 and #304 remain open pending this consolidated integration; their branches are preserved. Do not close them until the integration PR has passed and merged. `KHM-GOLD-001 = BLOCKED`: independently adjudicated gold remains 0; empirical accuracy remains null.
+PR #301, #303 and #304 were closed as superseded after PR #307 merged; their branches are preserved. Do not close them until the integration PR has passed and merged. `KHM-GOLD-001 = BLOCKED`: independently adjudicated gold remains 0; empirical accuracy remains null.
+
+ 
+## Final consolidated-source merge verification — 2026-11-17
+
+- PR [#307](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/307) merged by squash as `43bdeb27821c9308d9b29b693c2cdbbafb72fa7b` from exact head `bf80a8cd8a96dee2ffae5acf2c6f7d9b38317cd0`, based on `db02740d57705c08966c87a6b31a5c874c9edc86`.
+- Exact PR-head Quality [43970804968] SUCCESS: **417 Python tests + 70 subtests**, IPA corpus structural validation, Node/web checks and production build.
+- Exact PR-head Chromium [43970804939] SUCCESS: **12/12 Playwright tests**.
+- Exact-main Quality [43970986954] SUCCESS: **417 Python tests + 70 subtests**, corpus validation, Node/web checks and production build.
+- Exact-main Chromium [43970986386] SUCCESS: **12/12 Playwright tests**.
+- Exact-main GitHub Pages [43970986366] SUCCESS: production build, Chromium production exercise, deployment and published-site/runtime-asset smoke.
+- PRs #301, #303 and #304 were closed as superseded by #307. Their source branches were intentionally preserved; no force-push or branch deletion occurred. PR #307 leaves no open PRs at this checkpoint.
+- Issue #104 remains OPEN. No experts were contacted or recruited. `KHM-IPA-CONVENTION-001` remains PARTIAL / `DRAFT_NOT_APPROVED`; `KHM-GOLD-001` remains BLOCKED, adjudicated gold=0 and empirical accuracy=null.
+- Undermind's semantic/deep-search operation could not be continued in this session because its free usage limit was reached; the tool reported reset at 2026-11-16 23:30 UTC (2026-11-17 01:30 Kyiv time). No Undermind search result is claimed for this continuation.
+- No local checkout/tests were run. All code/test/build/browser/deployment evidence above is from GitHub Actions. No external data, model weights, audio, IPA labels or Ukrainian mappings were imported.
