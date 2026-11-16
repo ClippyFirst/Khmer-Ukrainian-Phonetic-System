@@ -362,7 +362,7 @@ function convert(text, profile) {
   // are never discarded and the overall status still signals incompleteness.
   const ipa = rendered.map((item) => item.ipa).join("");
   const ua = rendered.map((item) => item.ua).join("");
-  const complete = linguistic.every((item) =>
+  const complete = linguistic.length > 0 && linguistic.every((item) =>
     item.status === "PROPOSED" && !/⟦/.test(item.ipa) && !/⟦/.test(item.ua)
   );
   const phoneticResults = rendered.map((item) => ({
