@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BGN/PCGN 1972 independent-vowel closed-syllable assembly",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_text", "normalized_text", "vowel_chunk_text", "coda_text", "independent_vowel",
+    "vowel_romanization", "vowel_table_row", "coda_romanization", "coda_table_row",
+    "romanization", "romanization_options", "status", "ipa", "ukrainian", "source_locators", "warnings"
+  ],
+  "properties": {
+    "source_text": {"type": "string"},
+    "normalized_text": {"type": "string"},
+    "vowel_chunk_text": {"type": "string"},
+    "coda_text": {"type": "string"},
+    "independent_vowel": {"type": ["string", "null"]},
+    "vowel_romanization": {"type": ["string", "null"]},
+    "vowel_table_row": {"type": ["integer", "null"]},
+    "coda_romanization": {"type": ["string", "null"]},
+    "coda_table_row": {"type": ["integer", "null"]},
+    "romanization": {"type": ["string", "null"]},
+    "romanization_options": {"type": "array", "items": {"type": "string"}, "maxItems": 2},
+    "status": {"enum": ["RESOLVED", "UNRESOLVED"]},
+    "ipa": {"const": null},
+    "ukrainian": {"const": null},
+    "source_locators": {"const": [
+      "PCGN 1972, Independent/Dependent Vowel Characters table (pp. 2–3), Note 9",
+      "PCGN 1972, final-consonant no-following-vowel rule (p. 2) with consonant table (pp. 1–2)"
+    ]},
+    "warnings": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+  },
+  "allOf": [
+    {"if": {"properties": {"status": {"const": "RESOLVED"}}, "required": ["status"]}, "then": {"properties": {
+      "independent_vowel": {"type": "string"}, "vowel_romanization": {"type": "string"},
+      "vowel_table_row": {"type": "integer"}, "coda_romanization": {"type": "string"},
+      "coda_table_row": {"type": "integer"}, "romanization": {"type": "string"}
+    }}},
+    {"if": {"properties": {"status": {"const": "UNRESOLVED"}}, "required": ["status"]}, "then": {"properties": {
+      "vowel_romanization": {"const": null}, "vowel_table_row": {"const": null},
+      "coda_romanization": {"const": null}, "coda_table_row": {"const": null}, "romanization": {"const": null}
+    }}}
+  ]
+}

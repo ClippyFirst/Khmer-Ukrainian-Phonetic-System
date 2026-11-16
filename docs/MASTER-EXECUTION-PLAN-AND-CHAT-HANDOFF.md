@@ -3029,3 +3029,11 @@ This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in th
 
 - Main: 4fee1db13201b9e171b08daa1d4a45f73a396b86. PR #273 merged; exact-main Quality [43892575946], Chromium [43892575968], and Pages build/deploy with deployed-site/runtime smoke [43892575864] all SUCCESS. Quality: 372 Python tests + 70 subtests; browser visible-results and deployed runtime smoke passed.
 - Bounded Note 4 Alif and Note 5 assemblies remain separate from IPA transcription. Note 6 ROBAT composition now has a bounded whole-syllable API for explicit caller-supplied chunks. General segmentation and whole-word PCGN output remain incomplete.
+
+
+## Continuation — bounded PCGN independent-vowel closed-syllable assembly — 2026-11-16
+
+- Base main: a9ef890bca4b68fcf319a089157309680b0a9e45. Dedicated branch: feat/pcgn-independent-vowel-closed-syllable-assembly-2026-11-16.
+- Added assemble_pcgn_independent_vowel_closed_syllable to compose one listed independent-vowel component with one final consonant under the existing generic PCGN no-following-vowel/no-TOANDAKHIAT rule.
+- Caller supplies the independent-vowel-only chunk, complete syllable chunk and coda-only chunk. Exact token prefix/suffix and component identities are validated; no segmentation is inferred. All currently mapped independent vowels are tested with a supported coda. Note 9 ឧ remains unresolved and retains its explicit ŏ/ŭ alternatives.
+- Added strict schema, focused tests, package exports and in-place project records. Orthographic PCGN Latin only; IPA/Ukrainian remain null. Hosted CI pending.
