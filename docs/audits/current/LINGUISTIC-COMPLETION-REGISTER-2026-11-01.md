@@ -1368,3 +1368,12 @@ PR #282 merged as `dd94f637674ad5ce599ee439584b88b6dba4db1e`. Exact-main Quality
 | KHM-ORTHO-COMPONENT-SCAN-001 | PARTIAL | New Python/browser component scanner, public API, `khmer-orthographic-components/v1` schema and Unicode 18 example tests on branch `feat/khmer-orthographic-component-scanner-2026-11-16`. It classifies known base letters, subscript pairs, robat, shifters, dependent vowels, join controls and other signs with exact code-point spans. It deliberately withholds ambiguous multiple-base parsing. Acceptance requires exact-head Python/browser CI and main verification; full Unicode BNF parsing, syllable segmentation and word boundaries are not included. |
 
 The scanner is structural only. No IPA labels, Ukrainian outputs, lexical boundaries or gold records were added. Unicode 18 Chapter 16 §16.4 supplies the component inventory/order; UAX #29 Revision 49 supplies default grapheme/word segmentation guidance but does not remove the need for Khmer-specific syllable/word tailoring.
+
+
+### KHM-ORTHO-COMPONENT-SCAN-001 — DONE_VERIFIED (component scanner scope only)
+
+PR #283 merged as `bdc15daf6f7c40a6c088e306343a421b9347e9c1`. The Python and browser runtimes expose the same `khmer-orthographic-components/v1` roles/statuses and exact Unicode code-point offsets. The scanner identifies modeled bases, COENG subscript pairs, robat, shifters, dependent vowels, join controls and other modeled signs; ambiguous multiple-base spans remain `EVIDENCE_LIMITED`.
+
+Exact PR-head Quality [43953219338] and Chromium [43953219579] succeeded. Exact-main Quality [43953449784] passed 402 Python tests + 70 subtests, IPA corpus engineering validation, Node/web checks and build; Chromium [43953449807] and Pages deploy/runtime smoke [43953450103] succeeded.
+
+Acceptance boundary: this does not complete Unicode BNF sequence validation, full Khmer orthographic-syllable segmentation, word segmentation, pronunciation, IPA coverage or Ukrainian target validation. Independent IPA gold remains 0 and empirical accuracy remains null.
