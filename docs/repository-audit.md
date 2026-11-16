@@ -1178,3 +1178,7 @@ No repository-level dataset license is declared. The paper's LREC CC BY-NC 4.0 a
 ## Khmer Acoustic Model release recheck — 2026-11-16
 
 Pinned upstream `chemvatho/Khmer-acoustic-model@2714994b41ccf875c5b6f6182b48a72f13632dbf` has only a six-line sample dictionary; the advertised full dictionary, model archive, audio corpus and manual alignment annotations are absent. Root README claims 29,204 entries and CC BY-SA 4.0; `dictionary/README.md` claims 33,091 entries and CC BY 4.0; root LICENSE is MIT for code. The training notebook points to a personal Google Drive corpus/dictionary path, and the official MFA model registry has no `khmer_mfa` entry. The README's Interspeech 2026 citation is marked “in preparation” by the author elsewhere and not found in the official ISCA archive. The full data/model release is not independently inspectable or reproducible; keep both Khmer Acoustic Model source records BLOCKED for import/gold. No external artifact was downloaded.
+
+## Khmer open-dict IPA source audit — 2026-11-16
+
+Pinned `open-dict-data/ipa-dict/data/km.txt` has 3,286 rows, 3,261 unique spellings, 25 repeated keys (one divergent) and 63 multi-pronunciation rows. Upstream credits source the Khmer data to aakanee.com under CC BY-NC-SA 4.0; upstream describes its transcription as broadly phonemic. No dialect/profile, detailed transcription convention, per-item source locators or per-entry validation are supplied. Retain as `EXTERNAL_COMPARATOR_NONCOMMERCIAL_ONLY`; preserve alternatives and do not import into gold or unrestricted commercial corpus.
