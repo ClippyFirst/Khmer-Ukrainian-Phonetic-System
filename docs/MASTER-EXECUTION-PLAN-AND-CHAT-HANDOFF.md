@@ -3236,3 +3236,10 @@ The source-reconciliation checkpoint above was superseded by implementation. Mai
 - Reproducibility gap: split script writes `*_cleaned.csv` names, committed files use `khmer_train.csv` / `khmer_eval.csv`, and `convert_khmer.py` references `data/khmer_train.csv` and `data/khmer_ipa.csv`, absent from the inspected pinned tree. The paper describes 100-entry lexicon holdout and removal of exact train-sentence overlap, but the current snapshot does not fully reproduce the sentence-corpus generation path.
 - No external rows, audio, model weights, IPA labels or gold records imported; no engine/runtime or generated artifacts changed. `KHMER-MEKONGPHON-001 = PARTIAL`; rights/profile/per-item provenance/reproducibility remain blockers. Independent adjudicated gold remains 0; accuracy remains null.
 - This continuation branch is stacked on PR #300's current head `07608ca77a06eee741f2988f4e8611d5ebb26880` to avoid conflict with the ongoing Google/OpenSLR source-audit PR. Merge order, if accepted, is #300 then this follow-up; no merge was attempted.
+
+### Additional Headley source-profile finding — 2026-11-16
+
+- Jenner's 1979 review of Headley et al. (1977), DOI [10.15144/PL-C49.431](https://doi.org/10.15144/PL-C49.431), quotes the dictionary's pronunciation target as “Standard Khmer as spoken by educated persons throughout the Khmer-speaking area” (p. 432). This is a broad educated-standard profile, not a Phnom Penh-only profile.
+- Jenner describes the dictionary's entries as phonemic transcriptions, notes alternate pronunciations, and reports Headley excludes register from his vowel-inventory analysis; some vowel-length/diphthong notation is convention-specific. The paper's label “IPA” should therefore not be treated as a ready-made conversion to the project's typed IPA/register contract.
+- The online Jenner review is CC BY-SA 4.0; this license applies to the review, not Headley's 1977 dictionary. Source/dataset rights remain UNKNOWN.
+- Disposition unchanged: MekongPhon is a candidate historical dictionary reference only; no gold or runtime import. Contemporary Phnom Penh careful-citation mapping requires expert item-level adjudication.
