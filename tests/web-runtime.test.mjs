@@ -174,6 +174,7 @@ console.log("Unicode punctuation boundary preservation: PASS");
 
 const orthographicComponents = scanOrthographicComponents("ខ្ញុំ");
 assert.equal(orthographicComponents.schema, "khmer-orthographic-components/v1");
+assert.equal(typeof orthographicComponents.source_text, "string");
 assert.equal(orthographicComponents.status, "ESTABLISHED_STRUCTURE");
 assert.deepEqual(orthographicComponents.components.map((item) => [item.role, item.text, item.start, item.end]), [
   ["BASE", "ខ", 0, 1], ["SUBSCRIPT", "្ញ", 1, 3], ["VOWEL", "ុ", 3, 4], ["OTHER_SIGN", "ំ", 4, 5],
