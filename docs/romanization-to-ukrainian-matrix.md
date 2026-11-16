@@ -874,3 +874,13 @@ Only normal dependent-vowel forms and one unmarked final consonant are accepted.
 - Contract: `schemas/pcgn-dependent-closed-syllable-assembly.schema.json`; tests: `tests/test_pcgn_dependent_closed_syllable_assembly.py`.
 - Primary source: BGN/PCGN 1972, consonant/subscript and dependent-vowel tables, pp. 1–3: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 - Status: `DONE_VERIFIED` for the bounded normal dependent closed-syllable API. PR #266 merged as `84880d6c241bfc22e8e095a7cb90f2d32759ced1`; exact PR-head Quality [43882269923] and Chromium [43882269991], plus push Quality [43882139617], passed (347 Python tests + 70 subtests). Exact-main Quality [43882558236], Chromium [43882558488] and Pages [43882558294] also passed on `8df4f5ca146f82d6f8c3892ae686f6f58f7bbaeb`. `KHM-ROM-ENGINE-001` remains PARTIAL pending general segmentation, broader coda patterns and whole-word output.
+
+
+## Bounded PCGN Note 4 Alif open-syllable assembly — 2026-11-16
+
+Added assemble_pcgn_glottal_open_syllable to compose the source-located Note 4 Alif carrier component with a normal dependent-vowel component for one caller-supplied open syllable. The caller supplies the standalone Alif onset chunk, complete syllable chunk, and explicit boolean word-initial/following-vowel context. Exact onset-token prefix and dependent-vowel-only tail checks are required. The existing Note 4 optional-apostrophe condition is retained as two output alternatives when applicable; neither alternative is silently discarded.
+
+- API: src/khmer_ua/pcgn.py::assemble_pcgn_glottal_open_syllable.
+- Contract: schemas/pcgn-glottal-open-syllable-assembly.schema.json; tests: tests/test_pcgn_glottal_open_syllable_assembly.py.
+- Primary source: BGN/PCGN 1972, Consonant Characters row 22 and Note 4 (p. 5), plus Independent/Dependent Vowel Characters table (pp. 2–3): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+- Boundary: orthographic PCGN Latin only. IPA and Ukrainian remain null; no word segmentation, coda handling or phonetic transcription is generated. Hosted CI pending; status remains PARTIAL until verified.
