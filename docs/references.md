@@ -38,6 +38,13 @@
 
 - [Khmer Acoustic Model](https://github.com/chemvatho/Khmer-acoustic-model) — upstream technical repository for acoustic/forced-alignment resources and a pronunciation-dictionary lead. It is not cited as a peer-reviewed 2026 paper; the full dictionary is absent from the inspected tree and its README/dictionary licence statements conflict.
 
+
+
+## Khmer Unicode structural standards
+
+16. Unicode Consortium. *The Unicode Standard, Version 18.0.0*, Chapter 16 §16.4, Khmer; Appendix A.2, Extended BNF. The chapter defines Khmer component order and identifies the Unicode 18 BNF; Appendix A.2 defines optional braces and repetition semantics. https://unicode.org/versions/Unicode18.0.0/core-spec/chapter-16/ and https://unicode.org/versions/Unicode18.0.0/core-spec/appendix-a/
+17. Hosken, Martin, with Norbert Lindenberg and Makara Sok (February 2025). *Unicode Technical Note #61: Khmer Encoding Structure*, Version 2. Non-normative implementation guidance proposing a tighter Modern Khmer encoding structure and treating Middle Khmer separately. https://www.unicode.org/notes/tn61/utn61-Khmer_Encoding_Structure_V2.pdf
+
 ## Evidence discipline
 
 References are attached to claims according to scope. A dataset-item licence is not inherited by the article, source dictionaries or derived data. Project-specific Ukrainian correspondences are design decisions and are not presented as established national standards.

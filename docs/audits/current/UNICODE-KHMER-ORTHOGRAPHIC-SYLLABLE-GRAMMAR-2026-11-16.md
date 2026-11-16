@@ -1,0 +1,63 @@
+# Unicode Khmer orthographic-syllable grammar reconciliation
+
+**Date:** 2026-11-16  
+**Scope:** Modern Khmer structural parsing only. This document does not define phonetic syllables, words, pronunciation, IPA, or Ukrainian output.
+
+## Finding
+
+Unicode Standard 18.0.0, Chapter 16 §16.4, gives the component-order formula:
+
+`B {R | C} {S {R}}* {{Z} V} {O} {S}`
+
+where B is a base character; R is robat; C is a consonant shifter; S is a subscript consonant or independent-vowel sign; V is a dependent vowel; Z is ZWJ or ZWNJ; and O is any other sign. Unicode Standard 18 Appendix A.2 defines braces as optional groups and `*` as zero or more repetitions. This is a real formal ordering contract, not a heuristic boundary rule.
+
+The existing `khmer-orthographic-components/v1` implementation is only a lossless scanner. It classifies component candidates and preserves exact code-point offsets; it does not validate the BNF sequence, identify complete syllable spans, or enumerate alternative parses. Its `EVIDENCE_LIMITED` response for multiple un-subscripted bases is therefore intentional and must not be reinterpreted as a completed parser.
+
+## Important source distinction
+
+Unicode Technical Note #61, *Khmer Encoding Structure*, Version 2 (Martin Hosken; February 2025) is an implementation guideline, not a normative Unicode Standard annex. It explicitly discusses Modern Khmer separately from Middle Khmer and other languages written in Khmer script. Its Modern Khmer proposal gives a more constrained structure:
+
+`Syllable = Base Robat? Coengs? Shifter? Vowels Modifiers Final?`
+
+with (among other rules) up to two pre-vowel coengs, coeng-ro ordering, a cluster-final shifter, structured vowel positions, at most two non-spacing signs and one spacing final. It also describes syllable chaining: one phonetic syllable boundary can occur within a sequence that is treated as a single orthographic structure in some analyses. The note documents that earlier Unicode, Microsoft and HarfBuzz structures differed and that the proposed encoding order is intended to remove ambiguities.
+
+Do not silently substitute TN #61 for Unicode Standard 18 §16.4, or present the note's proposed Modern Khmer restrictions as normative Unicode requirements. Conversely, do not treat the broad Unicode BNF alone as a complete Modern Khmer validity profile. They are different evidence layers and must remain separately identified in code and output provenance.
+
+## Parser contract to implement
+
+1. Preserve the existing scanner as the lossless lexical/component layer; do not duplicate its Unicode inventory.
+2. Add a typed parser result with exact source text and half-open Unicode code-point spans. Do not normalize source text implicitly.
+3. Implement the Unicode 18 BNF as a distinct grammar/profile, with its terminal categories traceable to the scanner. Braces and repetition must follow Unicode Appendix A.2 semantics.
+4. Parse continuous input without greedy commitment. Return all viable orthographic-syllable segmentations (or a packed parse forest with equivalent inspectable alternatives), explicit ambiguity status, and rejected spans/reasons. A single best parse must never be selected without independent evidence.
+5. Keep orthographic syllables distinct from phonological syllables. Do not infer word boundaries or use syllable boundaries as lexical boundaries.
+6. Add a separately named Modern Khmer TN #61 v2 validation profile only if its exact rule set is transcribed and source-located. Mark it PROPOSED/NON_NORMATIVE; do not merge its constraints into the Unicode 18 grammar.
+7. Treat ZWJ/ZWNJ placement, shifter placement, robat/coeng combinations, multiple vowels, modifiers/finals, deprecated code points and Middle Khmer exceptions as explicit profile cases. A generic “other sign” fallback must not make an illegal order appear valid.
+8. Maintain Python/browser semantic parity and source reconstruction. Extend shared structural fixtures with every Unicode 18 §16.4 example and TN #61 v2 positive/negative examples; tests must assert candidate parse sets, not just one chosen output.
+9. Do not generate IPA or Ukrainian output from this parser. Its output is structural evidence only.
+
+## Evidence examples already available
+
+Unicode 18 §16.4 examples include `ខ្ញុំ`, `ច្រើន`, `សង្គ្រាម`, `ហើយ`, `សញ្ញា`, `ស៊ី`, and `ប៉ី`. §16.4.1 also documents subscript-independent-vowel forms such as `ផ្ឯម` and subscripted vowels attached to independent-vowel bases. These must be represented as structural examples only; the IPA strings printed in the Standard are not a project-adjudicated gold corpus.
+
+TN #61 v2 §§“Orthographic Syllable Structure”, “Coengs”, “Triisap and Muusikatoan”, “Vowels”, and “Signs” provide the proposed Modern Khmer grammar and constraints. The note's Appendix 2 separately discusses Middle Khmer; those exceptions must not be silently folded into the Modern Khmer profile.
+
+## Task ledger
+
+| Task | Status | Evidence / acceptance |
+|---|---|---|
+| Lossless component inventory and code-point spans | DONE_VERIFIED | `KHM-ORTHO-COMPONENT-SCAN-001`, PR #283, Python/browser schema and exact-main CI. |
+| Reconcile Unicode 18 BNF syntax and TN #61 scope/status | DONE_VERIFIED | This source audit; Unicode Standard 18 Appendix A.2 and Chapter 16 §16.4; TN #61 v2 dated February 2025. |
+| Unicode 18 BNF parser and ambiguous parse forest | TODO | Must implement the exact grammar, return all viable parses, preserve offsets, and pass shared Python/browser fixtures on exact-head and exact-main CI. |
+| Modern Khmer TN #61 v2 validation profile | TODO / NON_NORMATIVE | Requires a separately versioned profile and full source-located transcription of its regex constraints and exceptions; cannot be labelled Unicode normative. |
+| Phonological syllabification and word segmentation | BLOCKED / SEPARATE | Requires linguistic/lexical evidence and independent annotation; neither grammar supplies a complete lexical word segmenter. |
+| IPA gold and empirical accuracy | BLOCKED | Issue #104's independent annotation/adjudication gates remain open; gold remains empty. |
+
+## Primary sources
+
+- Unicode Consortium, *The Unicode Standard, Version 18.0.0*, Chapter 16 §16.4 Khmer: https://unicode.org/versions/Unicode18.0.0/core-spec/chapter-16/
+- Unicode Consortium, *The Unicode Standard, Version 18.0.0*, Appendix A.2 Extended BNF: https://unicode.org/versions/Unicode18.0.0/core-spec/appendix-a/
+- Hosken, Martin, with Norbert Lindenberg and Makara Sok (February 2025), *Unicode Technical Note #61: Khmer Encoding Structure*, Version 2: https://www.unicode.org/notes/tn61/utn61-Khmer_Encoding_Structure_V2.pdf
+
+## Verification boundary
+
+This is a source/methodology reconciliation only. No runtime parser, schema, corpus labels, pronunciation data or generated artifact was changed. No local checkout is available in this session; the next code change must be verified by the repository's full hosted Quality, browser and Pages workflows on the exact branch head and then exact main.
