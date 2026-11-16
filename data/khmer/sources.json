@@ -283,7 +283,7 @@
     "status": "EXTERNAL_COMPARATOR_NONCOMMERCIAL_ONLY",
     "license": "CC BY-NC-SA 4.0 for the third-party Khmer data as identified in the upstream Credits; repository-wide MIT license does not override third-party data terms.",
     "license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
-    "limitations": "Not independent human double annotation or adjudicated gold. No target dialect/profile, item-level source locators, transcription protocol or per-entry validation evidence is supplied. Preserve all duplicate keys and alternative readings; do not collapse the one divergent duplicate or the 63 multi-pronunciation rows. Broad phonemic transcription is not narrow phonetic gold. CC BY-NC-SA 4.0 is non-commercial and share-alike; unsuitable for unrestricted commercial distribution. Keep as an external comparator only unless the project owner approves the licence obligations and the source profile/convention is independently reviewed."
+    "limitations": "Not project gold. Not independent human double annotation or adjudicated gold. No target dialect/profile, item-level source locators, transcription protocol or per-entry validation evidence is supplied. Preserve all duplicate keys and alternative readings; do not collapse the one divergent duplicate or the 63 multi-pronunciation rows. Broad phonemic transcription is not narrow phonetic gold. CC BY-NC-SA 4.0 is non-commercial and share-alike; unsuitable for unrestricted commercial distribution. Keep as an external comparator only unless the project owner approves the licence obligations and the source profile/convention is independently reviewed."
   },
   {
     "id": "phonsobon-khmer-g2p-2026",
