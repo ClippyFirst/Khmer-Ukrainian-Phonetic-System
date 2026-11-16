@@ -111,8 +111,8 @@ The repository now has a component inventory in `src/khmer_ua/orthographic_struc
 
 ## Unicode 18 orthographic-syllable parser — post-merge status — 2026-11-16
 
-The complete Unicode 18 §16.4 parser is merged in main as d773dd7f0bcc0b6ab0f7a241e2b7b9857e2aef72. It builds on the component scanner and subscript-independent-vowel primitive, retains complete segmentation alternatives and local grammar-role alternatives in a packed forest, reports derivation counts, preserves source text/code-point offsets, and includes rejected component spans/reasons. Python and browser implementations share the schema contract.
+The complete Unicode 18 §16.4 parser is merged in main as 8ec4460a0af291dcba10563912f8fcd0c3f784fd. It builds on the component scanner and subscript-independent-vowel primitive, retains complete segmentation alternatives and local grammar-role alternatives in a packed forest, reports derivation counts, preserves source text/code-point offsets, and includes rejected component spans/reasons. Python and browser implementations share the schema contract.
 
-Exact-main verification: Quality [43962887689] passed 416 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build; Chromium [43962887588] passed; Pages deploy/runtime smoke [43962887592] passed.
+Exact-main verification: Quality [43963765593] passed 416 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build; Chromium [43963765334] passed; Pages deploy/runtime smoke [43963765391] passed.
 
 This closes only Unicode orthographic-syllable parsing. It does not select ALA-LC 1997 or 2013, infer lexical independence, classify loan words, choose LOC boundaries, or create a segmenter. The profile-neutral word-boundary evidence interface remains separate; the parser's syllable spans may be candidate protected intervals only after explicit profile selection and review. Licensed lexical evidence, adjudicated word boundaries and held-out evaluation remain blocked.
