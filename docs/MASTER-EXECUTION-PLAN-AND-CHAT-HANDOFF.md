@@ -2845,3 +2845,13 @@ Artifacts: `schemas/pcgn-final-consonant-decision.schema.json`, `tests/test_pcgn
 Primary source: BGN/PCGN 1972 Agreement, p. 2, explanatory paragraph following the vowel table: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 
 Status: `KHM-ROM-PCGN-FINAL-CONSONANT-001 = PARTIAL`. No syllable segmentation, complete PCGN word, IPA or Ukrainian output is generated.
+
+
+## PR #255 closeout — PCGN final-consonant context contract — 2026-11-16
+
+- PR [#255](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/255) merged by squash as `47679154526fa32c5edd9d62ca084de5af4759dd`; exact current `main` verified at this SHA. No open PRs.
+- PR-head `8a9056d4b4a9909ee1e46bee62a0d87ab6d06090`: push Quality [43825412435], PR Quality [43825430244] and Chromium [43825430217] all SUCCESS.
+- Exact post-merge main: Quality [43825536547], Chromium [43825536580], Pages build/deploy [43825536491] all SUCCESS. Pages included production-site Chromium exercise and deployed-site/runtime-asset smoke.
+- The final-consonant resolver now raises `TypeError` unless both caller-supplied context flags are actual booleans; it no longer accepts `None`, numeric or string lookalikes as negative evidence. Regression coverage iterates every supported base character, excluding BA/ALIF which intentionally abstain under the generic rule.
+- Scope remains a bounded PCGN component. No syllable segmentation, complete PCGN output, IPA/Ukrainian output or accuracy claim was added. `KHM-ROM-PCGN-FINAL-CONSONANT-001` and `KHM-ROM-ENGINE-001` remain PARTIAL.
+- External gate unchanged: issue #104 remains OPEN; independent adjudicated IPA gold remains 0 and accuracy remains null. Root `LICENSE` remains absent; no license choice is made here.
