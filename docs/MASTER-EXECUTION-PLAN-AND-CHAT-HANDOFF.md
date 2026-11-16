@@ -3208,7 +3208,7 @@ The source-reconciliation checkpoint above was superseded by implementation. Mai
 - The five-file change is source-registry/documentation-only. No runtime, generated artifacts, lexicon rows, audio, phonological labels, IPA gold or Ukrainian output changed. JSON source registry parsed during editing. No local repository checkout or local tests are claimed.
 - PR #300 remains OPEN; no merge or deployment was performed. The candidate resource remains PARTIAL, not gold. Next blocker is specialist confirmation of phonemic convention/profile and item-level provenance, plus resolution of the paper-vs-snapshot count and companion JSON license; Issue #104 still requires the external human convention/recruitment/blind annotation/adjudication process.
 
-### Final exact-head CI closeout — Google Khmer lexicon audit — 2026-11-16
+### Pre-follow-up exact-head CI checkpoint — Google Khmer lexicon audit — 2026-11-16
 
 - PR #300 final head: `65bbc704a5bcf6906f5d57841a625e6f9a2b0f29` (six changed files: source registry, master handoff, linguistic completion register, IPA collection playbook, IPA corpus contract and repository audit).
 - Exact-head Quality run [43965487859](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43965487859) SUCCESS: `417 passed, 70 subtests passed`; independent IPA corpus structural validation, Node/web checks and production site build passed.
@@ -3216,6 +3216,10 @@ The source-reconciliation checkpoint above was superseded by implementation. Mai
 - These are hosted PR-head checks only. No main merge, Pages deployment, local checkout or local test run is claimed. PR #300 remains OPEN and mergeable at the time of this checkpoint.
 - The final six-file diff is documentation/source-metadata only; no runtime, generated artifact, dataset payload, IPA labels, Ukrainian mapping or gold corpus rows changed. `KHMER-GOOGLE-TTS-001 = PARTIAL`; `KHM-GOLD-001 = BLOCKED`; independent adjudicated gold remains 0 and accuracy remains null.
 
-### Verification boundary after documentation closeout — 2026-11-16
+### Current PR #300 verification boundary — 2026-11-16
 
-The last completed hosted checks belong to code-bearing documentation/source-record head `65bbc704a5bcf6906f5d57841a625e6f9a2b0f29`: Quality [43965487859] SUCCESS (417 Python + 70 subtests) and Chromium [43965487827] SUCCESS (12/12 Playwright tests). Three subsequent commits updated only the canonical handoff, linguistic completion register and repository audit; the current PR #300 head is `bac8b70210ca01241bec73b516f55abdc278cb98` (12 commits ahead, 0 behind base `941fbf0ed01ae79c2a8be0c02f1870b68e19134a`). The final three commits do not alter source registry, runtime, test files, generated artifacts or corpus payload. The workflow-run lookup exposed no run associated with `bac8b702...`, so **do not describe the last successful checks as exact-head checks for the current PR head**. PR #300 remains OPEN; compare reports no divergence from base, but GitHub's PR snapshot currently reports `mergeable=false`; no merge was attempted.
+- Current head at this checkpoint: `10e579f554f86eb32fa72b14067a24861a2b760e`, 17 commits ahead / 0 behind base `941fbf0ed01ae79c2a8be0c02f1870b68e19134a`; six changed files: source registry, master handoff, completion register, IPA collection playbook, IPA corpus contract and repository audit.
+- Exact-head Quality [43965941851] SUCCESS: 417 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build. Exact-head Khmer browser smoke [43965941825] SUCCESS: 12/12 Playwright tests, including visible-result and accessibility-name/keyboard checks.
+- The changes after pre-follow-up head `65bbc704a5bcf6906f5d57841a625e6f9a2b0f29` include source-registry and playbook additions for the 2,748-row/16-speaker Festival prompt index, plus the corpus-contract entry; do not describe all subsequent commits as handoff/register/repository-audit-only.
+- The six-file diff is source metadata and documentation only. No runtime, test source, generated artifacts, audio/lexicon payload, IPA gold labels or Ukrainian mapping changed. No local checkout/tests, Pages deployment or production deployment are claimed.
+- PR #300 remains OPEN and unmerged. No force-push or branch deletion was performed.
