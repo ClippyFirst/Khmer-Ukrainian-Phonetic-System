@@ -1269,3 +1269,10 @@ PR [#261](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/2
 ### Readiness classification — 2026-11-16
 
 The repository is a research foundation with a deployed engineering prototype. It is not linguistically release-ready. The current code is not a complete BGN/PCGN Khmer syllable romanizer, the IPA gold corpus is empty, and no empirical accuracy claim is supportable. The human gate in issue #104 and owner decisions on root licensing metadata and main branch protection remain open.
+
+
+### Live-main verification refresh — PR #262 — 2026-11-16
+
+PR [#262](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/262) merged as `17657f91f650e4e5f2213bc3546eaefcb7c95202`. On this exact main SHA, Quality [43847284065](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43847284065), Khmer browser smoke [43847284004](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43847284004), and Pages build/deploy [43847283928](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43847283928) all SUCCESS. Quality workflow completed corpus structural validation, Python tests, web checks and site build; browser smoke and deployment completed. Hosted CI only.
+
+The latest branch listing has 127 refs (main + 126 non-main), all non-main tips distinct by SHA. This is not a complete ancestry/content reconciliation; `KHM-BRANCH-AUDIT-001` remains PARTIAL. Issue #104 remains OPEN; no expert convention, recruitment, blind pilot or adjudicated gold was added. Gold remains 0 and empirical accuracy remains null. Linguistic release readiness is not established.
