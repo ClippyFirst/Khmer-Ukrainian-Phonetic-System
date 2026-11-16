@@ -225,6 +225,158 @@ function parseOrthographicSyllable(raw) {
   return result("PARSED", ["Single-base component order conforms to the Unicode 18 §16.4 production; this does not establish pronunciation or word boundaries."]);
 }
 
+
+function parseOrthographicSequence(raw) {
+  const scan = scanOrthographicComponents(raw);
+  const items = scan.components;
+  const rejected = [];
+  let truncated = false;
+  const ref = (item) => [item.start, item.end];
+  const matches = (start) => {
+    if (!items[start] || items[start].role !== "BASE") return [];
+    const output = [];
+    const initialOptions = [[start + 1, null]];
+    if (start + 1 < items.length && ["ROBAT", "SHIFTER"].includes(items[start + 1].role)) {
+      initialOptions.push([start + 2, ref(items[start + 1])]);
+    } else if (start + 2 < items.length && items[start + 1].role === "FORMAT_CONTROL"
+      && items[start + 1].text === "\u200c" && items[start + 2].role === "SHIFTER") {
+      initialOptions.push([start + 3, [ref(items[start + 1]), ref(items[start + 2])]]);
+    }
+    for (const [afterInitial, initial] of initialOptions) {
+      const chainStates = [[afterInitial, []]];
+      let cursor = afterInitial;
+      const chain = [];
+      while (cursor < items.length && items[cursor].role === "SUBSCRIPT") {
+        const subscript = ref(items[cursor++]);
+        let robat = null;
+        if (cursor < items.length && items[cursor].role === "ROBAT") robat = ref(items[cursor++]);
+        chain.push({ subscript, robat });
+        chainStates.push([cursor, [...chain]]);
+      }
+      for (const [afterChain, subscriptChain] of chainStates) {
+        const vowelOptions = [[afterChain, null]];
+        if (afterChain < items.length && items[afterChain].role === "VOWEL") {
+          vowelOptions.push([afterChain + 1, { format_control: null, vowel: ref(items[afterChain]) }]);
+        }
+        if (afterChain + 1 < items.length && items[afterChain].role === "FORMAT_CONTROL"
+          && items[afterChain + 1].role === "VOWEL") {
+          vowelOptions.push([afterChain + 2, { format_control: ref(items[afterChain]), vowel: ref(items[afterChain + 1]) }]);
+        }
+        for (const [afterVowel, vowel] of vowelOptions) {
+          const otherOptions = [[afterVowel, null]];
+          if (afterVowel < items.length && items[afterVowel].role === "OTHER_SIGN") {
+            otherOptions.push([afterVowel + 1, ref(items[afterVowel])]);
+          }
+          for (const [afterOther, otherSign] of otherOptions) {
+            const finalOptions = [[afterOther, null]];
+            if (afterOther < items.length && items[afterOther].role === "SUBSCRIPT") {
+              finalOptions.push([afterOther + 1, ref(items[afterOther])]);
+            }
+            for (const [end, finalSubscript] of finalOptions) {
+              if (end === items.length || items[end].role === "BASE") {
+                output.push({
+                  span: [items[start].start, items[end - 1].end],
+                  base: ref(items[start]),
+                  initial_robat_or_shifter: initial,
+                  subscript_chain: subscriptChain,
+                  vowel,
+                  other_sign: otherSign,
+                  final_subscript: finalSubscript,
+                });
+              }
+            }
+          }
+        }
+      }
+    }
+    const seen = new Set();
+    return output.filter((item) => {
+      const key = JSON.stringify(item);
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  };
+  const memo = new Map();
+  const parseFrom = (position) => {
+    if (position === items.length) return [[]];
+    if (memo.has(position)) return memo.get(position);
+    const paths = [];
+    const syllables = matches(position);
+    if (!syllables.length) {
+      const item = items[position];
+      rejected.push({ start: item.start, end: item.end, reason: item.role + " cannot begin a Unicode 18 §16.4 production." });
+      memo.set(position, []);
+      return [];
+    }
+    for (const syllable of syllables) {
+      const endComponent = items.findIndex((item) => item.start === syllable.span[1]);
+      let tails;
+      if (endComponent < 0 || endComponent === items.length) tails = [[]];
+      else if (items[endComponent].role === "BASE") tails = parseFrom(endComponent);
+      else {
+        const item = items[endComponent];
+        rejected.push({ start: item.start, end: item.end, reason: item.role + " remains after a complete production and cannot begin the next one." });
+        tails = [];
+      }
+      for (const tail of tails) {
+        if (paths.length >= 256) { truncated = true; break; }
+        paths.push([syllable, ...tail]);
+      }
+      if (truncated) break;
+    }
+    const unique = [];
+    const seen = new Set();
+    for (const path of paths) {
+      const key = JSON.stringify(path);
+      if (!seen.has(key)) { seen.add(key); unique.push(path); }
+    }
+    memo.set(position, unique);
+    return unique;
+  };
+  const base = {
+    schema: "khmer-orthographic-parse-forest/v1",
+    source_text: raw,
+    offset_unit: "unicode_code_point",
+    grammar: "B {R | C} {S {R}}* {{Z} V} {O} {S}",
+  };
+  if (scan.status === "INVALID_OR_UNSUPPORTED") {
+    return { ...base, status: "INVALID_OR_UNSUPPORTED", alternatives: [], boundary_alternatives: [], rejected_spans: [], notes: scan.notes, truncated: false };
+  }
+  if (!items.length || items[0].role !== "BASE") {
+    return { ...base, status: "INVALID_ORDER", alternatives: [], boundary_alternatives: [], rejected_spans: [{ start: 0, end: [...raw].length, reason: "A sequence must begin with B (base character)." }], notes: ["The first component is not a modeled base character."], truncated: false };
+  }
+  const alternatives = parseFrom(0);
+  const boundaryAlternatives = [];
+  for (const path of alternatives) {
+    const spans = path.map((item) => item.span);
+    const key = JSON.stringify(spans);
+    if (!boundaryAlternatives.some((candidate) => JSON.stringify(candidate) === key)) boundaryAlternatives.push(spans);
+  }
+  const ambiguousBase = items.some((item) => item.status === "AMBIGUOUS_BASE_ROLE");
+  const status = truncated || ambiguousBase ? "EVIDENCE_LIMITED"
+    : !alternatives.length ? "INVALID_ORDER"
+      : boundaryAlternatives.length > 1 ? "AMBIGUOUS" : "PARSED";
+  const notes = truncated
+    ? ["Parse forest exceeded the configured alternative cap; no alternative was selected."]
+    : !alternatives.length
+      ? ["No complete parse of the supplied component sequence satisfies Unicode 18 §16.4."]
+      : ambiguousBase
+        ? ["The scanner marks one or more un-subscripted bases as role-ambiguous; candidate parses are retained without selecting syllable boundaries."]
+        : boundaryAlternatives.length > 1
+          ? ["Multiple complete boundary segmentations satisfy the component-order grammar; all are retained."]
+          : ["A complete component-order parse was found. These are orthographic candidates, not phonological syllables or word boundaries."];
+  return {
+    ...base,
+    status,
+    alternatives: alternatives.map((syllables) => ({ syllables })),
+    boundary_alternatives: boundaryAlternatives,
+    rejected_spans: rejected,
+    notes,
+    truncated,
+  };
+}
+
 function parseSyllable(raw) {
   const orthographic_structure = scanOrthographicComponents(raw);
   const chars = [...raw];
@@ -549,7 +701,7 @@ function convert(text, profile) {
   };
 }
 
-export { convert, tokenize, parseSyllable, scanOrthographicComponents, parseOrthographicSyllable, mapIpa, getStatusNotice };
+export { convert, tokenize, parseSyllable, scanOrthographicComponents, parseOrthographicSyllable, parseOrthographicSequence, mapIpa, getStatusNotice };
 
 if (typeof document !== "undefined") {
   const $ = (id) => document.getElementById(id);
