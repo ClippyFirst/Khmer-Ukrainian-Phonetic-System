@@ -1384,7 +1384,14 @@ Acceptance boundary: this does not complete Unicode BNF sequence validation, ful
 | Task ID | Status | Scope / acceptance |
 |---|---|---|
 | KHM-ORTHO-COMPONENT-SCAN-001 | DONE_VERIFIED | Lossless Python/browser component inventory, exact code-point spans and versioned schema; PR #283 and exact-main CI verified. This does not validate the full BNF. |
-| KHM-ORTHO-BNF-PARSER-001 | TODO | Implement Unicode 18 §16.4 BNF with Appendix A.2 semantics over the existing component scanner; return all viable parse alternatives/packed forest, preserve offsets and source reconstruction, and pass shared Python/browser examples on exact-head and exact-main CI. |
-| KHM-ORTHO-TN61-MODERN-PROFILE-001 | TODO / NON_NORMATIVE | Optional separately versioned Modern Khmer validator based on Unicode TN #61 v2; keep distinct from normative Unicode 18 BNF and record its proposed/non-normative status. |
+| KHM-ORTHO-BNF-PARSER-001 | DONE_VERIFIED | Unicode 18 §16.4/Appendix A.2 Python/browser packed parser; all complete segmentation and grammar-role alternatives, exact code-point offsets, source reconstruction, rejected spans/reasons, shared examples; exact-main Quality/Chromium/Pages passed on 7f1fb11. |
+| KHM-ORTHO-TN61-MODERN-PROFILE-001 | TODO / NON_NORMATIVE | Source metadata registered as unicode-tn61-khmer-encoding-structure-v2. Optional separately versioned Modern Khmer validator; keep distinct from normative Unicode 18 BNF and record its proposed/non-normative status. |
 
-Orthographic parsing does not implement phonological syllabification, LOC word division, IPA or Ukrainian output. The source reconciliation and detailed acceptance contract are in `docs/audits/current/UNICODE-KHMER-ORTHOGRAPHIC-SYLLABLE-GRAMMAR-2026-11-16.md`. No source corpus or gold labels were added.
+Orthographic parsing does not implement phonological syllabification, LOC word division, IPA or Ukrainian output. The source reconciliation and detailed acceptance contract are in `docs/audits/current/UNICODE-KHMER-ORTHOGRAPHIC-SYLLABLE-GRAMMAR-2026-11-16.md`. TN #61 v2 is registered as non-normative metadata only; no source corpus or gold labels were added.
+
+
+## Unicode 18 parser post-merge verification — 2026-11-16
+
+KHM-ORTHO-BNF-PARSER-001 is DONE_VERIFIED on main commit 7f1fb11477de13029af1c42bf3a86419c87f4f44. Exact-main Quality [43962337294] passed 416 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build; Chromium [43962337195] passed; Pages deploy/runtime smoke [43962337152] passed. The Python/browser packed parser preserves complete boundary alternatives and grammar-role derivations, exact code-point offsets, source reconstruction and rejected spans/reasons.
+
+TN #61 v2 is registered as unicode-tn61-khmer-encoding-structure-v2 with its date/version, independent non-normative status and Terms-of-Use limitations. The Modern Khmer validation profile remains TODO; no TN61-derived rules are mixed into the Unicode 18 parser.
