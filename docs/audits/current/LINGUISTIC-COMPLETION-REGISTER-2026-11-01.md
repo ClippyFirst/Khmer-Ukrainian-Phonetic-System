@@ -631,7 +631,7 @@ The unit-test discovery gap is closed. This does not resolve the lossy ASCII rom
 
 | ID | Status | Evidence | Acceptance boundary |
 |---|---|---|---|
-| KHMER-GOOGLE-TTS-001 | PARTIAL (format and rights unresolved) | Pinned Google Language Resources files recorded; bounded lexicon extraction found Latin-script spelling keys in the inspected subset; companion phone inventory is feature-annotated. | Full-file script audit, Khmer-specific data license, dialect and IPA convention review required. Not accepted as Khmer-script G2P or standard IPA. |
+| KHMER-GOOGLE-TTS-001 | PARTIAL (full file audited; profile and rights unresolved) | Full pinned 69,415-row lexicon audit: 69,405 unique spellings (62,175 Khmer-script, 7,230 Latin); 10 duplicate keys each have divergent readings and no third disambiguation label; 54 used phonemic tokens all match the 56-phone inventory. Lexicon file header declares CC BY 4.0. | Resolve 70,671 paper count vs 69,415 snapshot, target variety and phonemic convention, item-level provenance, duplicate semantics and companion phonology.json license. Candidate comparator only, not IPA gold. |
 | KHMER-OPENSLR42-001 | PARTIAL (audio lead; metadata discrepancy) | OpenSLR lists a male-speaker archive and CC BY-SA 4.0; 2018 paper reports 17 female speakers, 2,906 files and 3:58:00. | Obtain archive manifest/checksum, reconcile speaker metadata, verify included license and transcription scope. Audio/transcripts are not IPA gold. |
 
 | ID | Status | Evidence | Acceptance boundary |
@@ -1395,3 +1395,10 @@ Orthographic parsing does not implement phonological syllabification, LOC word d
 KHM-ORTHO-BNF-PARSER-001 is DONE_VERIFIED on main commit 8ec4460a0af291dcba10563912f8fcd0c3f784fd. Exact-main Quality [43963765593] passed 417 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build; Chromium [43963765334] passed; Pages deploy/runtime smoke [43963765391] passed. The Python/browser packed parser preserves complete boundary alternatives and grammar-role derivations, exact code-point offsets, source reconstruction and rejected spans/reasons.
 
 TN #61 v2 is registered as unicode-tn61-khmer-encoding-structure-v2 with its date/version, independent non-normative status and Terms-of-Use limitations. The Modern Khmer validation profile remains TODO; no TN61-derived rules are mixed into the Unicode 18 parser.
+
+## Google Khmer TTS lexicon — full-file evidence checkpoint — 2026-11-16
+
+- The pinned archived Google Language Resources lexicon was fully inspected, not sampled: 69,415 rows, 69,405 unique spellings (62,175 Khmer-script; 7,230 Latin-script). Ten spelling keys each have two divergent readings; every row has two columns despite the header's optional third-label description.
+- All 54 phonemic tokens used by the lexicon occur in the companion 56-phone JSON inventory. This is structural symbol-set consistency, not a claim of IPA correctness or independent annotation.
+- The lexicon file itself declares CC BY 4.0. The companion phonology JSON's file-level rights remain ambiguous between the repository's Apache-2.0 default and the paper's broad CC BY 4.0 data statement. The paper reports 70,671 entries, not the 69,415 present in the pinned file, and supplies no target dialect or per-item provenance.
+- `KHMER-GOOGLE-TTS-001 = PARTIAL`; use only as a candidate phonemic comparator pending profile/convention/provenance/rights review. Do not promote to IPA gold. Issue #104 remains OPEN; gold=0; accuracy=null.
