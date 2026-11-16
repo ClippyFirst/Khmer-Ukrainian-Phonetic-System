@@ -28,8 +28,8 @@ class PhoneticUnitResult:
     ipa: str
     ukrainian: str
     profile: str
-    rule_trace: tuple[str, ...] = ()
     provenance: dict[str, tuple[str, ...]]
+    rule_trace: tuple[str, ...] = ()
     uncertainty: tuple[PhoneticUncertainty, ...] = ()
 
     def to_dict(self) -> dict[str, Any]:
