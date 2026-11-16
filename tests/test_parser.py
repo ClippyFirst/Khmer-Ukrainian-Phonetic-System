@@ -1,3 +1,5 @@
+import pytest
+
 from khmer_ua.parser import analyze
 from khmer_ua.normalize import normalize_khmer
 
