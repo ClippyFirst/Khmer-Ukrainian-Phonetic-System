@@ -135,7 +135,8 @@ def test_subscript_independent_vowel_is_a_structural_unit_not_a_phonetic_claim()
         ("ម", "consonant", ("U+1798",)),
     ]
     assert parsed.ipa is None
-    assert parsed.phonology == {"onset_ipa": "pʰ"} or parsed.phonology.get("onset_ipa") is not None
+    from khmer_ua.parser import analyze
+    assert analyze(source).phonetic_representation == {"status": "phoneticization_not_yet_established"}
     assert "unicode18-ch16" in parsed.sources
 
 
