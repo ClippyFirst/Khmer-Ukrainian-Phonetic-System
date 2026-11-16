@@ -144,7 +144,7 @@
       "eval_blob_sha": "63963d08a63e9a4aa592b7312d118539f8df043d",
       "eval_rows": 100,
       "split_script": "pipeline/split_lexicon.py",
-      "split_script_blob_sha": "",
+      "split_script_blob_sha": "560795620004f636bccaca3fead4b77a3285c951",
       "random_seed": 1234,
       "held_out_lexicon_rows": 100
     },
