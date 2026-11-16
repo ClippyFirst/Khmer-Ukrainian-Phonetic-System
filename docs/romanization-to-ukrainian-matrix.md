@@ -861,7 +861,7 @@ Coda-bearing syllables outside those exact Note 5 shapes, unsupported final cons
 - API: `src/khmer_ua/pcgn.py::assemble_pcgn_shortened_closed_syllable`.
 - Contract: `schemas/pcgn-closed-syllable-assembly.schema.json`; tests: `tests/test_pcgn_closed_syllable_assembly.py`.
 - Primary source: BGN/PCGN 1972, Notes §5 and the shortened-vowel entries in the vowel table: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
-- Status on this branch: implementation and source-backed component composition added; exact-head CI is pending. General syllabification, other coda patterns and whole-word romanization remain incomplete.
+- Status: `DONE_VERIFIED` for the bounded Note 5 API. PR #265 merged as `664c210d957b0666e5ca85032fb49466018cbf78`; exact PR-head Quality [43881403475] and Chromium [43881403279], push Quality [43881383045], and exact-main Quality [43881564395], Chromium [43881564314] and Pages [43881564668] all passed. General syllabification, other coda patterns and whole-word romanization remain incomplete.
 
 
 ## Bounded PCGN normal dependent-vowel closed-syllable assembly — 2026-11-16
@@ -873,4 +873,4 @@ Only normal dependent-vowel forms and one unmarked final consonant are accepted.
 - API: `src/khmer_ua/pcgn.py::assemble_pcgn_dependent_closed_syllable`.
 - Contract: `schemas/pcgn-dependent-closed-syllable-assembly.schema.json`; tests: `tests/test_pcgn_dependent_closed_syllable_assembly.py`.
 - Primary source: BGN/PCGN 1972, consonant/subscript and dependent-vowel tables, pp. 1–3: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
-- Status on this branch: implementation and tests added; exact-head hosted CI pending. `KHM-ROM-ENGINE-001` remains PARTIAL pending general segmentation, broader coda patterns and whole-word output.
+- Status: `DONE_VERIFIED` for the bounded normal dependent closed-syllable API. PR #266 merged as `84880d6c241bfc22e8e095a7cb90f2d32759ced1`; exact PR-head Quality [43882269923] and Chromium [43882269991], plus push Quality [43882139617], passed (347 Python tests + 70 subtests). Exact-main post-merge workflows are pending at this checkpoint. `KHM-ROM-ENGINE-001` remains PARTIAL pending general segmentation, broader coda patterns and whole-word output.
