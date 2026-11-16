@@ -369,7 +369,7 @@ function convert(text, profile) {
     kind: item.status === "PUNCTUATION" ? "separator" : "phonetic-unit",
     source: item.source,
     status: item.status,
-    ipa: item.ipa,
+    ipa: item.status !== "PUNCTUATION" && /^\\/.*\\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa,
     ukrainian: item.ua,
     profile,
     provenance: {
@@ -400,6 +400,7 @@ function convert(text, profile) {
       schema: "khmer-phonetic-result/v1",
       pipeline: ["source-orthography", "structural-analysis", "source-phonology", "ipa", "ukrainian-target-adaptation"],
       complete,
+      partial: !complete && resolved.length > 0,
       units: phoneticResults,
     },
     analyses,
