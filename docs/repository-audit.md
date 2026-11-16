@@ -1179,3 +1179,15 @@ The source-registry and documentation changes do not modify the deterministic ru
 ## Khmer IPA convention draft — merged checkpoint — 2026-11-17
 
 PR #306 merged as `4d7e7bd045544d2a6d407511679761a7b0b839a1` (five documentation/source metadata files). Exact PR-head Quality [43969775235] SUCCESS: 417 Python tests + 70 subtests, corpus structural validation, Node/web checks and production build. Exact PR-head Chromium [43969775186] SUCCESS: 12/12 Playwright tests. The new convention sheet remains `DRAFT_NOT_APPROVED`, proposing `PHONETIC_BROAD` only for specialist review. No runtime, generated artifacts, corpus labels or external data changed. No expert was contacted/recruited; KHM-GOLD-001 remains BLOCKED, gold=0, accuracy=null. PR #305 was superseded and closed with its branch preserved.
+
+ 
+## Consolidated external Khmer source audit — 2026-11-17
+
+The integration branch reconciles PR #301 (Headley/SEALang seed provenance), #303 (MekongPhon rights/reproducibility) and #304 (Khmer Acoustic Model artifacts) without importing external payloads.
+
+- MekongPhon pinned seed: 8,040 rows, 8,040 unique keys; 8,026 Headley word entries + 10 numerals + 4 punctuation. 7,940/100 split is word-level, not sentence-level. The 1.3m sentence pairs reported in the paper are not in the pinned repository and are generated from OPUS text by dictionary longest-match lookup. Rights unknown; no per-row source locator; Headley profile and notation are not approved contemporary Phnom Penh typed IPA. Candidate comparator only.
+- open-dict-data/ipa-dict Khmer: 3,286 rows, 3,261 unique spellings, 25 repeated keys (one divergent), 63 multi-pronunciation rows. Third-party Khmer data identified as CC BY-NC-SA 4.0; retain variants; not unrestricted-commercial eligible and not gold.
+- chemvatho/Khmer-acoustic-model: only six-line sample dictionary present; advertised full dictionary, model archive, 137-hour audio and manual alignment annotations absent. README reports 29,204 vs dictionary README 33,091; license declarations conflict (CC BY-SA 4.0 vs CC BY 4.0), root MIT covers code. Official MFA model registry lacks `khmer_mfa`. Blocked for import/benchmark/gold.
+- PR #304 exact-head Quality failures were due a legacy source-scope assertion requiring `3,286-line`; the integration branch keeps this literal while retaining the expanded row/duplicate/variant audit. Re-run exact-head checks before merge.
+- Main at integration start `db02740d57705c08966c87a6b31a5c874c9edc86` passed Quality [43970083315] (417 Python + 70 subtests), Chromium [43970082825] and Pages [43970082889]. Those checks are not evidence for the new integration branch.
+- No dataset/model/audio payload, IPA gold labels, Ukrainian mappings or runtime code changed. Independent gold remains 0; accuracy null.
