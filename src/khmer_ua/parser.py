@@ -14,6 +14,22 @@ INDEPENDENT_VOWELS={x["char"] for x in SIGNS if x.get("kind")=="independent_vowe
 def _lookup(ch):
     return next((x for x in CONSONANTS if x["char"]==ch), None)
 
+
+def khmer_subscript_sequence_spans(text: str) -> tuple[tuple[int, int], ...]:
+    """Return exact-source spans for Unicode-structured COENG + following units.
+
+    The returned half-open code-point intervals protect only the encoded
+    subscript pair. They are not complete orthographic-syllable or word spans.
+    A pair is recognized only when the following code point is a modeled Khmer
+    consonant or independent vowel; malformed sequences are left unprotected.
+    """
+    chars = list(text)
+    return tuple(
+        (index, index + 2)
+        for index, char in enumerate(chars[:-1])
+        if char == COENG and (_lookup(chars[index + 1]) or chars[index + 1] in INDEPENDENT_VOWELS)
+    )
+
 def _starts_new_orthographic_syllable(chars, i):
     """Conservatively split explicit Khmer syllable boundaries."""
     if not _lookup(chars[i]):
@@ -66,7 +82,7 @@ def decompose_khmer_syllable(raw: str) -> KhmerSyllable:
             i+=1
             continue
         if ch==COENG:
-            if i+1>=len(chars) or not _lookup(chars[i+1]):
+            if i+1>=len(chars) or not (_lookup(chars[i+1]) or chars[i+1] in INDEPENDENT_VOWELS):
                 # Preserve malformed coeng and every following code point in
                 # the trace. Structural failure must never erase source text.
                 for remaining in chars[i:]:
@@ -78,8 +94,13 @@ def decompose_khmer_syllable(raw: str) -> KhmerSyllable:
                 s.sources=["unicode17-ch16"]
                 return s
             sub=chars[i+1]
-            s.subscripts.append(sub)
-            s.graphemes.append(KhmerGrapheme(COENG+sub,"subscript",(f"U+{ord(COENG):04X}",f"U+{ord(sub):04X}")))
+            if _lookup(sub):
+                s.subscripts.append(sub)
+                kind = "subscript"
+            else:
+                s.subscript_independent_vowels.append(sub)
+                kind = "subscript_independent_vowel"
+            s.graphemes.append(KhmerGrapheme(COENG+sub,kind,(f"U+{ord(COENG):04X}",f"U+{ord(sub):04X}")))
             i+=2
             continue
         c=_lookup(ch)
@@ -117,6 +138,8 @@ def decompose_khmer_syllable(raw: str) -> KhmerSyllable:
         if shifter_rule:
             s.phonology["register_shifter"]=shifter_rule
         s.sources=["unicode17-ch16"]
+        if s.subscript_independent_vowels:
+            s.sources.append("unicode18-ch16")
         s.status="ESTABLISHED_STRUCTURE" if shifter_rule not in {"MULTIPLE_REGISTER_SHIFTERS", "MISPLACED_REGISTER_SHIFTER", "NON_STANDARD_SHIFTER_USE"} else "EVIDENCE_LIMITED"
         s.confidence=0.9 if s.status=="ESTABLISHED_STRUCTURE" else 0.6
     elif s.independent_vowel:
@@ -139,7 +162,7 @@ def analyze(text: str) -> AnalysisResult:
             "raw_text":s.raw_text,"normalized_text":s.normalized_text,
             "graphemes":[{"text":g.text,"kind":g.kind,"codepoints":g.codepoints} for g in s.graphemes],
             "base_consonant":s.base_consonant,"register":s.register,
-            "subscripts":s.subscripts,"vowel_signs":s.vowel_signs,
+            "subscripts":s.subscripts,"subscript_independent_vowels":s.subscript_independent_vowels,"vowel_signs":s.vowel_signs,
             "independent_vowel":s.independent_vowel,"inherent_vowel":s.inherent_vowel,
             "phonology":s.phonology,
             "status":s.status,"confidence":s.confidence,"sources":s.sources})
