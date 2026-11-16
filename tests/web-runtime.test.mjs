@@ -214,9 +214,12 @@ assert.equal(forestSingle.alternatives.length, 2);
 const forestAmbiguous = parseOrthographicSequence("ច្រើន");
 assert.equal(forestAmbiguous.status, "EVIDENCE_LIMITED");
 assert.deepEqual(forestAmbiguous.boundary_alternatives, [[[0, 4], [4, 5]]]);
+assert.equal(forestAmbiguous.selected_alternative, null);
+assert.ok(forestAmbiguous.rejected_spans.some((item) => item.start === 4 && item.reason.includes("coda-versus-next-syllable")));
 const forestInvalid = parseOrthographicSequence("កាី");
 assert.equal(forestInvalid.status, "INVALID_ORDER");
 assert.ok(forestInvalid.rejected_spans.length > 0);
+assert.equal(forestInvalid.rejected_spans[0].start, 2);
 for (const source of ["ខ្ញុំ", "ច្រើន", "សង្គ្រាម", "ហើ្យ", "សញ្ញា", "ស៊ី", "ប៉ី", "ម៉្ងៃ", "ប‌៊ីយែរ", "ផ្ឯម", "អាយ៌", "ពត៌មាន"]) {
   const forest = parseOrthographicSequence(source);
   assert.ok(["PARSED", "EVIDENCE_LIMITED", "AMBIGUOUS"].includes(forest.status), source);
