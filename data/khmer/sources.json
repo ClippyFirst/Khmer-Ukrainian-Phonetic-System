@@ -1,5 +1,13 @@
 [
   {
+    "id": "unicode18-ch16",
+    "type": "authoritative_standard",
+    "title": "Unicode Standard 18.0.0, Chapter 16: Southeast Asia-I — Khmer",
+    "url": "https://www.unicode.org/versions/Unicode18.0.0/core-spec/chapter-16/",
+    "scope": "Khmer subscript consonant and independent-vowel encoding; orthographic-syllable component order; structural treatment of COENG plus following subscript character",
+    "status": "ESTABLISHED"
+  },
+  {
     "id": "unicode17-ch16",
     "type": "authoritative_standard",
     "title": "Unicode Standard 17.0.0, Chapter 16: South and Southeast Asian Scripts — Khmer",
