@@ -1667,6 +1667,8 @@ __all__ = [
     "PCGNSyllableAssembly",
     "PCGNClosedSyllableAssembly",
     "PCGNDependentClosedSyllableAssembly",
+    "PCGNGlottalOpenSyllableAssembly",
+    "assemble_pcgn_glottal_open_syllable",
     "PCGN_WEAK_SUBSCRIPTS",
     "PCGN_NO_SUBSCRIPT_FOR",
     "resolve_pcgn_series",
@@ -2180,6 +2182,135 @@ def assemble_pcgn_dependent_closed_syllable(
             "CALLER_SUPPLIED_ONSET_VOWEL_SYLLABLE_AND_CODA_BOUNDARIES",
             "NORMAL_DEPENDENT_VOWEL_AND_FINAL_CONSONANT_COMPONENTS_ASSEMBLED",
             "PCGN_FINAL_NO_FOLLOWING_VOWEL_RULE_APPLIED_TO_EXPLICIT_FINAL_CHUNK",
+            "NO_WORD_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT",
+        ),
+    )
+
+
+PCGN_GLOTTAL_OPEN_SYLLABLE_LOCATORS = (
+    PCGN_GLOTTAL_ONSET_TABLE_LOCATOR,
+    PCGN_DEPENDENT_VOWEL_TABLE_LOCATOR,
+)
+
+
+@dataclass(frozen=True)
+class PCGNGlottalOpenSyllableAssembly:
+    """A caller-segmented open syllable with the Note 4 Alif carrier."""
+
+    source_text: str
+    normalized_text: str
+    onset_text: str
+    word_initial: bool | None
+    followed_by_vowel_letter: bool | None
+    series: Literal["â"] | None
+    onset_romanization: str | None
+    vowel_romanization: str | None
+    romanization: str | None
+    romanization_options: tuple[str, ...]
+    vowel_table_row: int | None
+    status: Literal["RESOLVED", "UNRESOLVED"]
+    ipa: None
+    ukrainian: None
+    source_locators: tuple[str, ...]
+    warnings: tuple[str, ...]
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+def assemble_pcgn_glottal_open_syllable(
+    onset_analysis: PCGNOrthographicAnalysis,
+    syllable_analysis: PCGNOrthographicAnalysis,
+    word_initial: bool | None,
+    followed_by_vowel_letter: bool | None,
+) -> PCGNGlottalOpenSyllableAssembly:
+    """Assemble one explicitly supplied Alif + dependent-vowel open syllable.
+
+    The caller supplies the standalone Alif onset, the complete open-syllable
+    chunk, and the two Note 4 context flags. The exact onset token prefix and
+    remaining dependent-vowel tokens are checked. Note 4's optional initial
+    apostrophe is preserved as an explicit output alternative; it is never
+    silently discarded. This is orthographic PCGN Latin only, not IPA or
+    Ukrainian transcription, and no word/syllable boundaries are inferred.
+    """
+    def unresolved(reason: str) -> PCGNGlottalOpenSyllableAssembly:
+        return PCGNGlottalOpenSyllableAssembly(
+            source_text=syllable_analysis.raw_text,
+            normalized_text=syllable_analysis.normalized_text,
+            onset_text=onset_analysis.raw_text,
+            word_initial=word_initial if isinstance(word_initial, bool) else None,
+            followed_by_vowel_letter=(
+                followed_by_vowel_letter
+                if isinstance(followed_by_vowel_letter, bool)
+                else None
+            ),
+            series=None,
+            onset_romanization=None,
+            vowel_romanization=None,
+            romanization=None,
+            romanization_options=(),
+            vowel_table_row=None,
+            status="UNRESOLVED",
+            ipa=None,
+            ukrainian=None,
+            source_locators=PCGN_GLOTTAL_OPEN_SYLLABLE_LOCATORS,
+            warnings=(reason, "NO_WORD_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT"),
+        )
+
+    if onset_analysis.status != "STRUCTURE_ONLY" or syllable_analysis.status != "STRUCTURE_ONLY":
+        return unresolved("UNSUPPORTED_OR_UNRESOLVED_ORTHOGRAPHIC_COMPONENT")
+
+    onset_tokens = tuple(onset_analysis.tokens)
+    syllable_tokens = tuple(syllable_analysis.tokens)
+    if not onset_tokens or syllable_tokens[:len(onset_tokens)] != onset_tokens:
+        return unresolved("CALLER_ALIF_ONSET_MUST_MATCH_EXACT_SYLLABLE_TOKEN_PREFIX")
+    tail = syllable_tokens[len(onset_tokens):]
+    if not tail or any(token.kind != "dependent_vowel" for token in tail):
+        return unresolved("ALIF_OPEN_SYLLABLE_REQUIRES_ONLY_DEPENDENT_VOWEL_TOKENS_AFTER_ONSET")
+    if (
+        syllable_analysis.base_consonants != onset_analysis.base_consonants
+        or syllable_analysis.subscript_consonants
+        or syllable_analysis.register_shifters != onset_analysis.register_shifters
+        or tuple(token.text for token in tail) != syllable_analysis.dependent_vowel_signs
+    ):
+        return unresolved("ALIF_ONSET_AND_DEPENDENT_VOWEL_CHUNKS_DO_NOT_MATCH")
+
+    glottal = resolve_pcgn_glottal_onset(
+        onset_analysis,
+        word_initial,
+        followed_by_vowel_letter,
+    )
+    series = resolve_pcgn_series(onset_analysis)
+    if glottal.status != "RESOLVED":
+        return unresolved(glottal.warnings[0])
+    if series.status != "RESOLVED" or series.series != "â":
+        return unresolved("PCGN_NOTE_4_REQUIRES_THE_A_SERIES_ONSET_CARRIER")
+    vowel = resolve_pcgn_dependent_vowel(syllable_analysis, series)
+    if vowel.status != "RESOLVED" or vowel.romanization is None:
+        return unresolved(vowel.warnings[0])
+
+    options = tuple(glottal_option + vowel.romanization for glottal_option in glottal.romanization_options)
+    return PCGNGlottalOpenSyllableAssembly(
+        source_text=syllable_analysis.raw_text,
+        normalized_text=syllable_analysis.normalized_text,
+        onset_text=onset_analysis.raw_text,
+        word_initial=word_initial,
+        followed_by_vowel_letter=followed_by_vowel_letter,
+        series="â",
+        onset_romanization=glottal.romanization,
+        vowel_romanization=vowel.romanization,
+        romanization=options[0],
+        romanization_options=options,
+        vowel_table_row=vowel.source_table_row,
+        status="RESOLVED",
+        ipa=None,
+        ukrainian=None,
+        source_locators=PCGN_GLOTTAL_OPEN_SYLLABLE_LOCATORS,
+        warnings=(
+            "CALLER_SUPPLIED_ALIF_ONSET_AND_OPEN_SYLLABLE_BOUNDARIES",
+            "PCGN_NOTE_4_GLottal_APOSTROPHE_CONTEXT_APPLIED".upper(),
+            "OPTIONAL_APOSTROPHE_VARIANT_PRESERVED_WHEN_NOTE_4_ALLOWS",
+            "A_SERIES_DEPENDENT_VOWEL_COMPONENT_ASSEMBLED",
             "NO_WORD_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT",
         ),
     )
