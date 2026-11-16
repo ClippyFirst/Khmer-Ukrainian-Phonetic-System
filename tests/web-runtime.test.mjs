@@ -46,6 +46,12 @@ assert.deepEqual(
 assert.equal(parseSyllable("កx").status, "INVALID_OR_UNSUPPORTED");
 assert.deepEqual(parseSyllable("កx").unknown, ["x"]);
 assert.equal(parseSyllable("កx").ipa, undefined);
+const coengSubscriptFixtureCollision = tokenize("ក្ក");
+assert.deepEqual(coengSubscriptFixtureCollision, ["ក្ក"], "a lexical fixture must never split a consonant following COENG from its orthographic base");
+const coengSubscriptResult = convert("ក្ក", "khmer-pph-careful-citation-v1");
+assert.equal(coengSubscriptResult.units.length, 1);
+assert.equal(coengSubscriptResult.units[0].status, "NOT_ESTABLISHED", "a structurally valid cluster without IPA evidence is unresolved, not malformed");
+
 const kingdom = "ព្រះរាជាណាចក្រ";
 const kingdomAnalysis = parseSyllable(kingdom);
 assert.notEqual(kingdomAnalysis.status, "INVALID_OR_UNSUPPORTED", "the visible Khmer code points in the reported input are all represented in the orthographic inventory");
