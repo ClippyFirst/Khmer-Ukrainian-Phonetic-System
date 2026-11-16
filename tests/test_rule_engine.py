@@ -92,3 +92,23 @@ def test_python_engine_preserves_punctuation_and_source_order():
     assert result["units"][3]["source"] == "☃"
     assert result["units"][4]["source"] == "!"
     assert result["ipa"] == "kʰmae, ⟦INVALID_OR_UNSUPPORTED⟧!"
+
+
+def test_typed_phonetic_result_matches_published_json_schema_shape():
+    import json
+    from pathlib import Path
+
+    schema = json.loads(Path("schemas/phonetic-result.schema.json").read_text(encoding="utf-8"))
+    result = RuleBasedKhmerEngine().analyze("ខ្មែរ ☃")["phonetic_result"]
+    assert result["schema"] == schema["properties"]["schema"]["const"]
+    assert result["pipeline"] == schema["properties"]["pipeline"]["const"]
+    assert set(schema["required"]).issubset(result)
+    assert result["units"]
+    unit_schema = schema["$defs"]["unit"]
+    for unit in result["units"]:
+        assert set(unit_schema["required"]).issubset(unit)
+        assert set(unit["provenance"]) == {"structure", "phonology", "target_policy"}
+        assert isinstance(unit["rule_trace"], list)
+        assert isinstance(unit["uncertainty"], list)
+        for uncertainty in unit["uncertainty"]:
+            assert set(unit_schema["properties"]["uncertainty"]["items"]["required"]).issubset(uncertainty)
