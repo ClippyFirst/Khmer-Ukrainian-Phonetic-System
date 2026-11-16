@@ -49,9 +49,28 @@ The LaoNLP route previously inspected is not accepted as a drop-in implementatio
 
 | Task | Status | Reason / acceptance |
 |---|---|---|
+| Define a profile-neutral, provenance-bearing boundary-evidence payload | DONE_VERIFIED | `schemas/word-boundary-evidence.schema.json` and `src/khmer_ua/word_boundaries.py`; validates code-point offsets, caller-protected cluster spans, competing candidates and adjudication evidence; never chooses a segmentation. |
 | Locate and compare LOC 1989/1997/2013 word-division wording | DONE_VERIFIED | Primary LOC sources checked; note numbering and wording differences recorded above. |
 | Select one canonical LOC profile/version for runtime | TODO | Project owner/product decision; require explicit profile selection. |
 | Build lexical boundary evidence/lexicon with provenance and loan-word classes | BLOCKED | No reviewed, rights-cleared lexicon or boundary gold set is available. |
 | Implement deterministic profile-aware word segmentation | TODO / EVIDENCE_LIMITED | Only after profile and lexical evidence are established; uncertain cases must remain ambiguous. |
 | Evaluate LaoNLP or another segmenter as a candidate generator | DEFERRED | No conformance claim; can be reconsidered after a licensed annotated evaluation set exists. |
 | Claim LOC-conformant segmentation or empirical accuracy | BLOCKED | No independent boundary annotation/adjudication or held-out test set. |
+
+
+## Profile-neutral boundary-evidence interface — 2026-11-16
+
+A typed evidence container is now available at `src/khmer_ua/word_boundaries.py`, exported from the package and specified by `schemas/word-boundary-evidence.schema.json`.
+
+The interface deliberately does **not** implement a word segmenter and does not select ALA-LC 1997 or 2013. It records:
+
+- exact source text and Unicode code-point offsets;
+- optional paired profile identifier/version (both absent until selected);
+- protected orthographic-cluster spans supplied by an upstream reviewed parser;
+- one or more competing boundary candidates;
+- per-boundary evidence type, source locator, status and loan-language metadata;
+- an adjudicated candidate only when each selected boundary has explicit adjudicated evidence.
+
+A boundary inside a protected cluster is rejected. Multiple viable candidates remain AMBIGUOUS. Proposed or unresolved candidates never populate `selected_boundaries`. The module does not infer cluster spans, lexical independence, word origins, or boundaries.
+
+**Acceptance:** `KHM-WORD-BOUNDARY-EVIDENCE-001 = DONE_VERIFIED` after exact-head CI. This closes only the data-contract/interface task. Profile selection, licensed lexical evidence, actual segmentation and independent boundary gold remain open under the ledger above.
