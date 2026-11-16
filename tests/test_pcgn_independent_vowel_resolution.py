@@ -100,6 +100,7 @@ def test_pcgn_independent_vowel_source_registry_matches_runtime_rows_and_note9()
     for row in rows:
         source_characters = row["source_characters"].split("|")
         assert row["source_locator"].startswith("PCGN 1972 Independent/Dependent Vowel Characters table")
+        assert row["source_url"] == "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf"
         assert row["acceptance_boundary"]
         if row["status"] == "RESOLVED":
             assert row["romanization"]
