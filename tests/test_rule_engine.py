@@ -107,6 +107,7 @@ def test_typed_phonetic_result_matches_published_json_schema_shape():
     unit_schema = schema["$defs"]["unit"]
     for unit in result["units"]:
         assert set(unit_schema["required"]).issubset(unit)
+        assert set(unit) == set(unit_schema["properties"])
         assert set(unit["provenance"]) == {"structure", "phonology", "target_policy"}
         assert isinstance(unit["rule_trace"], list)
         assert isinstance(unit["uncertainty"], list)
