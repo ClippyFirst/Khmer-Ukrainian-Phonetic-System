@@ -58,7 +58,7 @@ def test_mixed_input_preserves_supported_units_and_marks_only_unresolved_units()
     result = RuleBasedKhmerEngine().analyze("ខ្មែរ ☃")
 
     assert result["ipa"] == "kʰmae ⟦INVALID_OR_UNSUPPORTED⟧"
-    assert result["ukrainian"] == "к'мае ⟦НЕВСТАНОВЛЕНО⟧"
+    assert result["ukrainian"] == "к'мае ⟦НЕПІДТРИМУЄТЬСЯ⟧"
     assert result["status"] == "EVIDENCE_LIMITED"
     assert result["complete"] is False
     assert result["partial"] is True
@@ -89,4 +89,4 @@ def test_python_engine_preserves_punctuation_and_source_order():
     assert result["units"][2]["source"] == " "
     assert result["units"][3]["source"] == "☃"
     assert result["units"][4]["source"] == "!"
-    assert result["ipa"] == "kʰmae, ⟦NOT_ESTABLISHED⟧!"
+    assert result["ipa"] == "kʰmae, ⟦INVALID_OR_UNSUPPORTED⟧!"
