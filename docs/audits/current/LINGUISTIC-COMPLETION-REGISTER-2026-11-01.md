@@ -1395,3 +1395,12 @@ Orthographic parsing does not implement phonological syllabification, LOC word d
 KHM-ORTHO-BNF-PARSER-001 is DONE_VERIFIED on main commit d773dd7f0bcc0b6ab0f7a241e2b7b9857e2aef72. Exact-main Quality [43962887689] passed 416 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build; Chromium [43962887588] passed; Pages deploy/runtime smoke [43962887592] passed. The Python/browser packed parser preserves complete boundary alternatives and grammar-role derivations, exact code-point offsets, source reconstruction and rejected spans/reasons.
 
 TN #61 v2 is registered as unicode-tn61-khmer-encoding-structure-v2 with its date/version, independent non-normative status and Terms-of-Use limitations. The Modern Khmer validation profile remains TODO; no TN61-derived rules are mixed into the Unicode 18 parser.
+
+## Unicode TN #61 v2 provenance — post-merge checkpoint — 2026-11-16
+
+- PR #294 merged as `8ec4460a0af291dcba10563912f8fcd0c3f784fd`; exact PR head `fb70b9d9bd1db4f4e31f89304a9205aa76bdb5e6`.
+- Exact PR-head Quality [43963572735] SUCCESS: 417 Python tests + 70 subtests, corpus structural validation, Node/web checks and production build. Exact PR-head Chromium [43963572699] SUCCESS: 12 browser tests.
+- Source record `unicode-tn61-khmer-encoding-structure-v2` is DONE_VERIFIED for bibliographic/provenance metadata only: v2 dated 2025-02-06, author and contributors, latest-version link, non-normative status, scoped description and Terms-of-Use/status-basis URLs. The official TN #61 landing page still lists v2 as latest.
+- This does **not** implement the Modern Khmer TN #61 profile. `KHM-ORTHO-TN61-MODERN-PROFILE-001 = TODO / NON_NORMATIVE`; a public validator remains outside current acceptance until source-located review and permission for any reproduction/modification are resolved. No TN #61 regex or PDF text is copied into the repository.
+- The Unicode 18 parser remains DONE_VERIFIED for orthographic structure only. Phonological syllabification, LOC word division, IPA gold and Ukrainian output remain separate; Issue #104 is still OPEN; independent IPA gold remains 0 and accuracy null.
+- Exact-main push workflow evidence on merge SHA `8ec4460a0af291dcba10563912f8fcd0c3f784fd` was not available through the PR-only workflow-run listing in this session; post-merge Quality/Chromium/Pages are NOT VERIFIED here. No local tests are claimed.
