@@ -34,9 +34,11 @@ Do not generate a theoretical Cartesian product. Every item must be an attested 
 
 ## Khmer convention sheet
 
-Approve a versioned sheet specifying target variety, speaker context, citation vs connected speech, IPA kind, first/second series representation, vowel quality and length, diphthongs/offglides, syllable boundaries, coda realization, stress/prominence, /r/-loss scope, phonation/aspiration/F0, uncertainty, and variant policy.
+A source-grounded **expert-review draft** now exists at [docs/ipa-gold/khmer-pph-careful-citation-ipa-v1-draft.md](ipa-gold/khmer-pph-careful-citation-ipa-v1-draft.md). It proposes a single `PHONETIC_BROAD` annotation kind and conservative handling of series, vowels, length, diphthongs, codas, stress, F0, phonation and /r/-loss. Its status is `DRAFT_NOT_APPROVED`; it is not permission to start annotation. A qualified Khmer phonetician/phonologist must approve or replace the proposal, a second reviewer should challenge it, and the version/sign-off evidence must be recorded before any gold collection.
 
-Chem (2020) provides acoustic evidence on Phnom Penh vowels, duration, and coda effects, but is not a complete orthography-to-IPA lexicon: https://www.cjbar.rupp.edu.kh/index.php/cjbar/article/view/36. Kirby (2014) documents incipient F0-based contrasts and multiple acoustic cues in Phnom Penh speech; do not reduce all colloquial /r/-loss tokens to one categorical replacement: https://www.sciencedirect.com/science/article/pii/S0095447014000163.
+The draft synthesizes Minegishi (1985), Chem (2020), Kirby (2014/2015), Mam et al. (2025), and the limitations of Sodimana et al. (2018). Minegishi gives a systematic but partial account of series-conditioned vowel readings and coda effects, while distinguishing formal/school from colloquial Phnom Penh outcomes: https://doi.org/10.11435/GENGO1939.1985.88_41. Chem's final acoustic sample comprises four selected Phnom Penh speakers and formal frame reading; it measures F1/F2 and duration, not F0 or stress, and does not supply a complete IPA policy: https://doi.org/10.61945/cjbar.2020.2.2.3. Mam et al. compare PPK and Standard Khmer with five Greater Phnom Penh speakers and report possible F0 phonologization in a bounded cluster/disyllable task, not a general citation-form tone rule: https://doi.org/10.21437/TAI.2025-29. Kirby (2014) documents multiple cues associated with colloquial /r/-loss; do not reduce them to one spelling-based replacement: https://doi.org/10.1016/j.wocn.2014.02.001.
+
+The draft explicitly keeps all unsupported values unresolved. It does not define a complete phoneme table and must not be treated as approved merely because it is versioned or committed.
 
 ## Candidate external references — do not auto-import
 
