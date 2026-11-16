@@ -232,3 +232,24 @@ const grammarOffsets = parseOrthographicSyllables("ខ្ញុំ");
 assert.deepEqual(grammarOffsets.syllables[0].components.map((item) => [item.start, item.end]), [[0, 1], [1, 3], [3, 4], [4, 5]]);
 assert.equal(grammarOffsets.grammar_profile, "unicode-18.0.0-ch16.4-plus-ch16.4.1-shifter-control");
 console.log("Unicode 18 Khmer orthographic-syllable parser: PASS");
+
+
+
+// A single COENG pair can occupy either S production; retain both parse trees.
+const ambiguousCoeng = parseOrthographicSyllables("ក្ក");
+assert.equal(ambiguousCoeng.status, "AMBIGUOUS");
+assert.equal(ambiguousCoeng.parse_count, 2);
+assert.equal(ambiguousCoeng.syllables, null);
+assert.deepEqual(
+  ambiguousCoeng.alternatives.map((alternative) => alternative.syllables[0].grammar_roles).sort(),
+  [["BASE", "SUBSCRIPT_CLUSTER"], ["BASE", "TRAILING_SUBSCRIPT"]].sort(),
+);
+assert.deepEqual(
+  parseOrthographicSyllables("ខ្ញុំ").syllables[0].grammar_roles,
+  ["BASE", "SUBSCRIPT_CLUSTER", "DEPENDENT_VOWEL", "OTHER_SIGN"],
+);
+assert.deepEqual(
+  parseOrthographicSyllables("ហើ្យ").syllables[0].grammar_roles,
+  ["BASE", "DEPENDENT_VOWEL", "TRAILING_SUBSCRIPT"],
+);
+console.log("Unicode 18 Khmer ambiguous grammar parse forest: PASS");

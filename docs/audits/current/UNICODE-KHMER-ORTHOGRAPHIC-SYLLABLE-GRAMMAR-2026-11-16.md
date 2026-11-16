@@ -32,8 +32,12 @@ Do not silently substitute TN #61 for Unicode Standard 18 §16.4, or present the
 5. Keep orthographic syllables distinct from phonological syllables. Do not infer word boundaries or use syllable boundaries as lexical boundaries.
 6. Add a separately named Modern Khmer TN #61 v2 validation profile only if its exact rule set is transcribed and source-located. Mark it PROPOSED/NON_NORMATIVE; do not merge its constraints into the Unicode 18 grammar.
 7. Treat ZWJ/ZWNJ placement, shifter placement, robat/coeng combinations, multiple vowels, modifiers/finals, deprecated code points and Middle Khmer exceptions as explicit profile cases. A generic “other sign” fallback must not make an illegal order appear valid.
-8. Maintain Python/browser semantic parity and source reconstruction. Extend shared structural fixtures with every Unicode 18 §16.4 example and TN #61 v2 positive/negative examples; tests must assert candidate parse sets, not just one chosen output.
+8. Maintain Python/browser semantic parity and source reconstruction. Extend shared structural fixtures with every Unicode 18 §16.4 example and TN #61 v2 positive/negative examples; tests must assert candidate parse trees and component-role assignments, not just one chosen output.
 9. Do not generate IPA or Ukrainian output from this parser. Its output is structural evidence only.
+
+## BNF ambiguity and role assignments
+
+The BNF uses `S` both in the repeated `{S {R}}*` group and as a final optional `{S}`. For a base followed by one COENG pair (for example `ក្ក`), both productions can consume the same subscript component. The parser must therefore preserve two parse trees with distinct component roles (`SUBSCRIPT_CLUSTER` and `TRAILING_SUBSCRIPT`) even though the source span and syllable boundary are identical. Choosing one role would silently discard grammar ambiguity.
 
 ## Evidence examples already available
 

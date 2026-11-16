@@ -57,6 +57,32 @@ def test_offsets_are_exact_code_points_and_input_is_not_normalized():
     assert result.source_text == source
 
 
+def test_bnf_component_role_ambiguity_is_preserved_as_two_parse_trees():
+    result = parse_orthographic_syllables("ក្ក")
+    assert result.status == "AMBIGUOUS"
+    assert result.syllables is None
+    assert result.to_dict()["parse_count"] == 2
+    alternatives = {
+        alternative.syllables[0].grammar_roles
+        for alternative in result.alternatives
+    }
+    assert alternatives == {
+        ("BASE", "SUBSCRIPT_CLUSTER"),
+        ("BASE", "TRAILING_SUBSCRIPT"),
+    }
+
+
+def test_component_roles_distinguish_cluster_and_trailing_subscript():
+    cluster = parse_orthographic_syllables("ខ្ញុំ")
+    assert cluster.syllables[0].grammar_roles == (
+        "BASE", "SUBSCRIPT_CLUSTER", "DEPENDENT_VOWEL", "OTHER_SIGN"
+    )
+    trailing = parse_orthographic_syllables("ហើ្យ")
+    assert trailing.syllables[0].grammar_roles == (
+        "BASE", "DEPENDENT_VOWEL", "TRAILING_SUBSCRIPT"
+    )
+
+
 def test_schema_matches_serialized_parse_contract():
     import json
     from pathlib import Path
