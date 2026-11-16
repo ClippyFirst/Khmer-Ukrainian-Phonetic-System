@@ -255,16 +255,16 @@ console.log("Unicode 18 Khmer ambiguous grammar parse forest: PASS");
 
 
 
-const subscriptIndependentVowel = parseOrthographicSyllables("ផ្ឯម");
-assert.equal(subscriptIndependentVowel.status, "AMBIGUOUS");
-assert.equal(subscriptIndependentVowel.parse_count, 2);
+const subscriptIndependentVowelParse = parseOrthographicSyllables("ផ្ឯម");
+assert.equal(subscriptIndependentVowelParse.status, "AMBIGUOUS");
+assert.equal(subscriptIndependentVowelParse.parse_count, 2);
 assert.deepEqual(
-  subscriptIndependentVowel.alternatives.map((alternative) =>
+  subscriptIndependentVowelParse.alternatives.map((alternative) =>
     alternative.syllables.map((syllable) => syllable.source_text)),
   [["ផ្ឯ", "ម"], ["ផ្ឯ", "ម"]],
 );
 assert.deepEqual(
-  subscriptIndependentVowel.alternatives.map((alternative) =>
+  subscriptIndependentVowelParse.alternatives.map((alternative) =>
     alternative.syllables[0].grammar_roles).sort(),
   [["BASE", "SUBSCRIPT_CLUSTER"], ["BASE", "TRAILING_SUBSCRIPT"]].sort(),
 );
