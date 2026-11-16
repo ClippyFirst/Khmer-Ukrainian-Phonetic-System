@@ -81,3 +81,11 @@ Exact-main verification:
 - Pages deploy/runtime smoke [43962887592] SUCCESS.
 
 TN #61 v2 source metadata is registered as unicode-tn61-khmer-encoding-structure-v2 with its independent/non-normative status and Unicode Terms of Use limitations. It remains a separate profile TODO and is not used to modify the Unicode 18 parser.
+
+### TN #61 v2 source-registry merge checkpoint — 2026-11-16
+
+PR #294 merged as `8ec4460a0af291dcba10563912f8fcd0c3f784fd` (exact PR head `fb70b9d9bd1db4f4e31f89304a9205aa76bdb5e6`). The change registers the current TN #61 v2 metadata and links the Unicode Technical Notes policy and Terms of Use; it adds a regression test for version/date/status/rights locators. No TN #61 rule or regex is implemented or copied.
+
+Exact PR-head Quality [43963572735] SUCCESS (417 Python tests + 70 subtests, corpus validation, Node/web checks and production build); exact PR-head Chromium [43963572699] SUCCESS (12 browser tests). The official TN #61 landing page identifies v2 dated 2025-02-06 as latest and explicitly states that the note is author-responsible and not a Unicode Consortium endorsement. The Terms of Use restrict public reproduction/modification absent broader permission. Accordingly, `KHM-ORTHO-TN61-MODERN-PROFILE-001` remains TODO / NON_NORMATIVE; metadata registration does not close the validator task.
+
+Main now points to `8ec4460a0af291dcba10563912f8fcd0c3f784fd`. Main-push workflow records for this merge SHA were not exposed by the PR-only workflow-run listing available in this session, so post-merge Quality/Chromium/Pages are not claimed. The Unicode 18 §16.4 parser's prior exact-main evidence remains as recorded above; no parser/runtime files changed in PR #294.
