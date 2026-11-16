@@ -201,7 +201,7 @@ const bnfCases = ["ខ្ញុំ", "ស៊ី", "ប៉ី", "ក៌", "ផ្
 for (const source of bnfCases) assert.equal(parseOrthographicSyllable(source).status, "PARSED", source);
 assert.equal(parseOrthographicSyllable("ប‌៊").status, "PARSED");
 assert.equal(parseOrthographicSyllable("កា៉").status, "INVALID_ORDER");
-assert.equal(parseOrthographicSyllable("ក៌ា").status, "INVALID_ORDER");
+assert.equal(parseOrthographicSyllable("កា៌").status, "INVALID_ORDER");
 assert.equal(parseOrthographicSyllable("ច្រើន").status, "EVIDENCE_LIMITED");
 assert.equal(parseOrthographicSyllable("សង្គ្រាម").status, "EVIDENCE_LIMITED");
 assert.equal(parseOrthographicSyllable("ក្").status, "INVALID_OR_UNSUPPORTED");
