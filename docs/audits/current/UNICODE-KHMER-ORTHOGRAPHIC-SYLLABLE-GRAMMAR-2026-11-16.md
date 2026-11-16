@@ -51,7 +51,7 @@ TN #61 v2 §§“Orthographic Syllable Structure”, “Coengs”, “Triisap an
 |---|---|---|
 | Lossless component inventory and code-point spans | DONE_VERIFIED | `KHM-ORTHO-COMPONENT-SCAN-001`, PR #283, Python/browser schema and exact-main CI. |
 | Reconcile Unicode 18 BNF syntax and TN #61 scope/status | DONE_VERIFIED | This source audit; Unicode Standard 18 Appendix A.2 and Chapter 16 §16.4; TN #61 v2 dated February 2025. |
-| Unicode 18 BNF parser and ambiguous parse forest | TODO | Must implement the exact grammar, return all viable parses, preserve offsets, and pass shared Python/browser fixtures on exact-head and exact-main CI. |
+| Unicode 18 BNF parser and ambiguous parse forest | PARTIAL | Packed parser is merged in 8b0ff5a after 60038d0/674b462; exact-main Quality/Chromium/Pages all pass. PR #292 adds rejected-span diagnostics and the remaining Unicode 18 examples; exact branch-head Quality passed, PR-head checks pending. |
 | Modern Khmer TN #61 v2 validation profile | TODO / NON_NORMATIVE | Requires a separately versioned profile and full source-located transcription of its regex constraints and exceptions; cannot be labelled Unicode normative. |
 | Phonological syllabification and word segmentation | BLOCKED / SEPARATE | Requires linguistic/lexical evidence and independent annotation; neither grammar supplies a complete lexical word segmenter. |
 | IPA gold and empirical accuracy | BLOCKED | Issue #104's independent annotation/adjudication gates remain open; gold remains empty. |
@@ -65,3 +65,6 @@ TN #61 v2 §§“Orthographic Syllable Structure”, “Coengs”, “Triisap an
 ## Verification boundary
 
 This is a source/methodology reconciliation only. No runtime parser, schema, corpus labels, pronunciation data or generated artifact was changed. No local checkout is available in this session; the next code change must be verified by the repository's full hosted Quality, browser and Pages workflows on the exact branch head and then exact main.
+
+
+Implementation update (2026-11-16): the canonical Python/browser parser now uses a packed parse forest. It preserves all boundary alternatives and local grammar-role alternatives without expanding their Cartesian product, reports exact derivation counts, and retains source text and Unicode code-point offsets. The ZWNJ-before-shifter exception is explicitly traced as a §16.4.1 textual extension. Main commit 8b0ff5afb6b9f583da8b3e1d37fcb878537c02b0 passed Quality [43961645417], Chromium [43961645412], and Pages [43961645406]. PR #292 adds rejected component spans/reasons and full §16.4/§16.4.1 shared examples; exact branch-head Quality passed [43962089465] (416 Python tests + 70 subtests, Node/web checks, production build). PR-head Chromium and exact-main verification remain pending. TN #61 v2 remains a separate TODO / NON_NORMATIVE profile. No IPA, Ukrainian output, phonological syllabification, lexical word segmentation, or gold labels were added. Local tests were not run; all verification cited here is from GitHub Actions.
