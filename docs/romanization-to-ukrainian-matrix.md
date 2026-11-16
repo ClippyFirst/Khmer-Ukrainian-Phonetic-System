@@ -927,4 +927,5 @@ Added assemble_pcgn_independent_vowel_closed_syllable to compose a listed indepe
 - API: src/khmer_ua/pcgn.py::assemble_pcgn_independent_vowel_closed_syllable.
 - Contract: schemas/pcgn-independent-vowel-closed-syllable-assembly.schema.json; tests: tests/test_pcgn_independent_vowel_closed_syllable_assembly.py.
 - Primary source: BGN/PCGN 1972, Independent/Dependent Vowel Characters table and Note 9 (pp. 2–3), plus final-consonant no-following-vowel rule (p. 2): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
-- Boundary: orthographic PCGN Latin only. IPA/Ukrainian remain null; no word/syllable segmentation or coda inference is generated. Hosted CI pending; status remains PARTIAL until verified.
+- Boundary: orthographic PCGN Latin only. IPA/Ukrainian remain null; no word/syllable segmentation or coda inference is generated.
+- Status: DONE_VERIFIED for this bounded API. PR #275 merged as 0e408e4d2ce18228e7b8327ddc71af5bdb302f72. PR-head Quality [43910476719] and Chromium [43910476885] passed (377 Python tests + 70 subtests); exact-main Quality [43910647111], Chromium [43910647145], and Pages [43910647200] all passed, including deployed-site/runtime smoke. KHM-ROM-ENGINE-001 remains PARTIAL.
