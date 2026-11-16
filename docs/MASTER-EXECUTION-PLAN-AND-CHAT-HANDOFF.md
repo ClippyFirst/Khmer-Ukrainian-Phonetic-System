@@ -3118,5 +3118,14 @@ The shared `khmer-phonetic-result/v1` payload is specified in `schemas/phonetic-
 - Source finding: Unicode Standard 18.0.0 Chapter 16 §16.4.1 documents subscript independent vowels and uses `ផ្ឯម` as an orthographic example. The parser accepted COENG only before consonants, so this source-documented structure was rejected as malformed.
 - Implementation: `KhmerSyllable.subscript_independent_vowels`; `KhmerGrapheme(kind="subscript_independent_vowel")`; Unicode 18 source registry record; public `khmer_subscript_sequence_spans()` helper with exact-source code-point offsets; regression tests ensure the COENG pair is protected and the phonetic representation remains `phoneticization_not_yet_established`.
 - Scope limit: helper spans cover only U+17D2 plus the following modeled consonant/independent vowel. They do not represent complete Khmer grapheme clusters, full orthographic syllables, word boundaries, IPA or Ukrainian output. The feature is structural only.
-- Task `KHM-STRUCT-SUBSCRIPT-INDEPENDENT-VOWEL-001` = PARTIAL until exact-head CI. No local test execution is claimed; the environment has no repository checkout.
+- Task `KHM-STRUCT-SUBSCRIPT-INDEPENDENT-VOWEL-001` = DONE_VERIFIED after exact PR-head and exact-main CI. No local test execution is claimed; the environment has no repository checkout.
 - Next gate: exact PR-head CI; if green, merge and rerun exact-main Quality, browser smoke and Pages deploy, then update this task to DONE_VERIFIED with run IDs and final SHA. The human word-boundary annotation gate in Issue #104 remains independent and open.
+
+
+### Exact-main verification — Khmer subscript independent-vowel structure — 2026-11-16
+
+- PR [#282](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/282) merged by squash as `dd94f637674ad5ce599ee439584b88b6dba4db1e`; PR head `1988cfb3e7df99873b8c340d8c5676bf0d536231`; starting main `784d1a14f9464022b42104f5c41b6277464bdcc9`.
+- Exact PR-head Quality [43946963677] and Chromium [43946963832] passed. Exact-main Quality [43947114555], Chromium [43947114448], and Pages build/deploy/deployed-runtime smoke [43947114535] all SUCCESS on the merge commit.
+- Exact-main Quality log: **393 Python tests passed, 70 subtests passed**; independent IPA gold corpus structure validation, Node/web checks and production build passed. Chromium smoke and production-site Chromium exercise passed. Pages deploy and deployed runtime asset smoke passed.
+- An initial Quality run failed only because the new test omitted `import pytest`; this was corrected in commit `1988cfb3e7df99873b8c340d8c5676bf0d536231` and all subsequent exact-head/exact-main checks passed. No failures are hidden or counted as successful.
+- `KHM-STRUCT-SUBSCRIPT-INDEPENDENT-VOWEL-001 = DONE_VERIFIED`. The helper protects only COENG + following modeled subscript character; full Khmer orthographic syllable segmentation and LOC word segmentation remain unimplemented. Issue #104 remains OPEN and requires human annotation/adjudication. No local test execution is claimed.
