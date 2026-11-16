@@ -523,5 +523,19 @@
     "limitations": "Unicode Technical Notes are independently prepared, are not part of the Unicode Standard or a Unicode specification, and do not imply UTC or Unicode Consortium endorsement. The note is an encoding proposal/analysis, not a universal phonological grammar or a replacement for Unicode 18 §16.4. No TN #61-derived grammar is implemented by the current parser; any future use must be a separately versioned profile with independent review. Verify that version 2 remains current before future implementation.",
     "license_url": "https://www.unicode.org/copyright.html",
     "status_basis_url": "https://www.unicode.org/notes/about-notes.html"
+  },
+  {
+    "id": "minegishi1985-modern-khmer-orthography-dialects",
+    "type": "specialist_phonology_and_dialect_description",
+    "title": "Modern Khmer Orthography and Its Dialects",
+    "author": "Makoto Minegishi",
+    "year": 1985,
+    "doi": "10.11435/GENGO1939.1985.88_41",
+    "url": "https://doi.org/10.11435/GENGO1939.1985.88_41",
+    "scope": "Systematic account of modern Khmer consonant-letter classes, inherent/dependent vowel readings, coda-conditioned vowel values, checked vowels and dialect vowel mergers; distinguishes formal/school pronunciation from colloquial Phnom Penh for specific contrasts.",
+    "status": "SPECIALIST_PRIMARY_DESCRIPTION",
+    "license": "Publisher terms apply; metadata registration only. No text or tables reproduced.",
+    "limitations": "A systematic partial mapping framework, not a complete formal IPA/G2P algorithm. Orthographic class labels do not consistently describe modern phonetic voicing. Dialect survey is preliminary and includes non-Phnom Penh patterns. Requires combination with current target-profile acoustic evidence and specialist approval.",
+    "locators": "Sections 1–2, pp. 43–53 (series and vowel-sign rules, coda conditioning, checked vowels); Section 3, pp. 55–66 (dialect survey and vowel mergers)."
   }
 ]
