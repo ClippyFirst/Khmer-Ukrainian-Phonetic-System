@@ -3062,3 +3062,15 @@ This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in th
 - Added a dedicated evidence/acceptance audit and source-registry records. No runtime segmentation, syllable parsing, IPA, Ukrainian output, corpus or accuracy claims were changed.
 - `KHM-ROM-LOC-WORD-DIVISION-EVIDENCE-001` = DONE_VERIFIED (primary-source comparison only). `KHM-ROM-LOC-WORD-SEGMENTATION-001` = BLOCKED/TODO pending explicit profile selection, licensed lexical evidence, loan-word metadata and independent boundary annotation. Longest-match and LaoNLP are not accepted as normative implementations.
 - Next feasible work: inspect existing profile selection and lexical-resource governance, then prepare a typed boundary-evidence interface only if it can remain profile-neutral and fail-closed. Do not build a canonical LOC segmenter or claim conformance without the required lexicon and annotation evidence.
+
+
+## GitHub Pages live-service deployment — 2026-11-16
+
+- Public service: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/
+- Hosting decision: GitHub Pages only. No Vercel/Netlify or separate application server is used or authorized for this service.
+- Source commit deployed: `8feb14a3cf96fa2e1aafd00ea045d5fddb2e3c4a` (PR #278 squash merge).
+- Deployment workflow: `Deploy site to GitHub Pages`, run [43930778763](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43930778763), completed SUCCESS. Build, npm web checks, Vite production build, production Chromium exercise, Pages artifact upload and deployment all succeeded.
+- Deployed-runtime smoke succeeded: fetched `/` and `/system.html`; verified the service input element and module script, system page title, and non-empty JS/CSS assets. Workflow resolved the canonical Pages URL above.
+- Mainline Quality run [43930778812](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43930778812) completed SUCCESS, including Python tests, web checks and production build.
+- The separate browser-smoke workflow [43930778773](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43930778773) was still running its Chromium installation at the time of this record; the Pages workflow itself independently completed its production Chromium exercise successfully.
+- Hosting is live, but linguistic readiness is unchanged: this remains a research-grade, evidence-limited prototype. Deployment success is not linguistic validation or empirical accuracy.
