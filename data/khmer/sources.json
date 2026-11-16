@@ -240,7 +240,7 @@
     "year": 2026,
     "url": "https://github.com/open-dict-data/ipa-dict/blob/972cd67dd5f96bc5660e28070cde26e3928abcd7/data/km.txt",
     "upstream_commit": "972cd67dd5f96bc5660e28070cde26e3928abcd7",
-    "scope": "Pinned open-dict-data/ipa-dict commit 972cd67dd5f96bc5660e28070cde26e3928abcd7, file data/km.txt: 3,286 tab-separated Khmer orthography/pronunciation rows, 3,261 unique spellings, 25 repeated keys (one with divergent readings), and 63 rows containing multiple pronunciations. The file is slash-delimited and the upstream README describes its language data as broadly phonemic rather than highly detailed. Credits identify the source as the Khmer-English Dictionary at aakanee.com; the Aakanee site itself states that its content is CC BY-NC-SA 4.0.",
+    "scope": "Pinned open-dict-data/ipa-dict commit 972cd67dd5f96bc5660e28070cde26e3928abcd7, file data/km.txt: 3,286-line (3,286-row) tab-separated Khmer orthography/pronunciation file, 3,261 unique spellings, 25 repeated keys (one with divergent readings), and 63 rows containing multiple pronunciations. The file is slash-delimited and the upstream README describes its language data as broadly phonemic rather than highly detailed. Credits identify the source as the Khmer-English Dictionary at aakanee.com; the Aakanee site itself states that its content is CC BY-NC-SA 4.0.",
     "status": "EXTERNAL_COMPARATOR_NONCOMMERCIAL_ONLY",
     "license": "CC BY-NC-SA 4.0 for the third-party Khmer data as identified in the upstream Credits; repository-wide MIT license does not override third-party data terms.",
     "license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
