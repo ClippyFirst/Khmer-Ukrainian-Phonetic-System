@@ -907,3 +907,13 @@ Added assemble_pcgn_glottal_shortened_closed_syllable for the three exact Note 5
 - Primary source: BGN/PCGN 1972, Consonant Characters row 22 and Note 4 (p. 5), shortened-vowel table rows 1–2 and Note 5, and final-consonant no-following-vowel rule (p. 2): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
 - Boundary: orthographic PCGN Latin only. IPA/Ukrainian remain null; no word segmentation or coda inference is generated.
 - Status: DONE_VERIFIED for the three exact Note 5 patterns with one supported coda and explicit Note 4 context. PR #271 merged as 9957081db4149ff316695273d8dd525985bd34fd. PR-head Quality [43891125460] and Chromium [43891125490] passed (368 Python tests + 70 subtests); exact-main Quality [43891297907], Chromium [43891298013], and Pages [43891297884] all passed, including deployed-site/runtime smoke. KHM-ROM-ENGINE-001 remains PARTIAL.
+
+
+## Bounded PCGN Note 6 ROBAT closed-syllable assembly — 2026-11-16
+
+Added assemble_pcgn_robat_closed_syllable to compose an explicitly caller-segmented onset, inherent or ordinary dependent vowel, and final consonant marked by ROBAT. The caller supplies onset-only, onset-plus-vowel, complete syllable, ROBAT-marked coda and bare marked-coda chunks. The adapter validates exact token relationships, resolves the bare coda through the existing consonant table, and supplies that result to the Note 6 ROBAT resolver. It covers the guide's example (ធម៌ → thôrm) and one normal dependent-vowel case; other boundaries and unsupported contexts abstain.
+
+- API: src/khmer_ua/pcgn.py::assemble_pcgn_robat_closed_syllable.
+- Contract: schemas/pcgn-robat-closed-syllable-assembly.schema.json; tests: tests/test_pcgn_robat_closed_syllable_assembly.py.
+- Primary source: BGN/PCGN 1972, consonant table and Notes 2–3, inherent/dependent vowel table, Diacritical Marks table row 4 and Note 6: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+- Boundary: orthographic PCGN Latin only. IPA/Ukrainian remain null; no automatic segmentation or whole-word output is claimed. Hosted CI pending; status remains PARTIAL until verified.

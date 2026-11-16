@@ -3014,3 +3014,11 @@ This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in th
 
 - Main: 9957081db4149ff316695273d8dd525985bd34fd. PR #271 merged; exact-main Quality [43891297907], Chromium [43891298013], and Pages build/deploy with deployed-site/runtime smoke [43891297884] all SUCCESS. Quality: 368 Python tests + 70 subtests; browser visible-results and deployed runtime smoke passed.
 - PR #267, #269 and #271 now cover bounded Note 4 Alif open-CV, ordinary dependent-vowel closed, and Note 5 shortened closed forms. General segmentation, broader codas and full word romanization remain PARTIAL.
+
+
+## Continuation — bounded PCGN Note 6 ROBAT closed-syllable assembly — 2026-11-16
+
+- Base main: 268be193eb7af2be19740ec3bd0c3dbffd4582f1. Dedicated branch: feat/pcgn-robat-closed-syllable-assembly-2026-11-16.
+- Added assemble_pcgn_robat_closed_syllable to compose an explicitly supplied onset, inherent or ordinary dependent vowel, and final consonant bearing ROBAT. It derives the marked coda's PCGN consonant component from a separate bare-coda chunk and composes the existing Note 6 r+C resolver.
+- Exact onset/vowel/syllable/coda/bare-coda token relationships are checked. The official Note 6 example (ធម៌ → thôrm) and one dependent-vowel case are covered. This does not infer syllable or word boundaries.
+- Added strict schema, focused tests, package exports and project records. Orthographic PCGN Latin only; IPA/Ukrainian remain null. Hosted CI pending.
