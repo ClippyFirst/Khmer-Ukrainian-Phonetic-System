@@ -150,6 +150,37 @@ def _syllable_matches(items, start: int):
     return unique
 
 
+
+def _first_rejected_component(items, start: int):
+    """Locate the first token left outside the ordered production for diagnostics."""
+    i = start + 1
+    if i < len(items) and items[i].role == "FORMAT_CONTROL":
+        if i + 1 < len(items) and items[i].text == "\u200c" and items[i + 1].role == "SHIFTER":
+            i += 2
+        elif i + 1 < len(items) and items[i + 1].role == "VOWEL":
+            i += 2
+        else:
+            return items[i]
+    elif i < len(items) and items[i].role in {"ROBAT", "SHIFTER"}:
+        i += 1
+    while i < len(items) and items[i].role == "SUBSCRIPT":
+        i += 1
+        if i < len(items) and items[i].role == "ROBAT":
+            i += 1
+    if i < len(items) and items[i].role == "FORMAT_CONTROL":
+        if i + 1 < len(items) and items[i + 1].role == "VOWEL":
+            i += 2
+        else:
+            return items[i]
+    elif i < len(items) and items[i].role == "VOWEL":
+        i += 1
+    if i < len(items) and items[i].role == "OTHER_SIGN":
+        i += 1
+    if i < len(items) and items[i].role == "SUBSCRIPT":
+        i += 1
+    return items[i] if i < len(items) else items[-1]
+
+
 def parse_orthographic_sequence(text: str) -> KhmerOrthographicParseForest:
     """Parse a continuous source span and retain every viable BNF parse path.
 
@@ -180,11 +211,11 @@ def parse_orthographic_sequence(text: str) -> KhmerOrthographicParseForest:
         paths = []
         matches = _syllable_matches(items, position)
         if not matches:
-            item = items[position]
+            item = _first_rejected_component(items, position)
             rejected.append({
                 "start": item.start,
                 "end": item.end,
-                "reason": f"{item.role} cannot begin a Unicode 18 §16.4 production.",
+                "reason": f"{item.role} at this position prevents a complete Unicode 18 §16.4 production.",
             })
             return ()
         for match in matches:
