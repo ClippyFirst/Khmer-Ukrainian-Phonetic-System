@@ -3037,3 +3037,10 @@ This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in th
 - Added assemble_pcgn_independent_vowel_closed_syllable to compose one listed independent-vowel component with one final consonant under the existing generic PCGN no-following-vowel/no-TOANDAKHIAT rule.
 - Caller supplies the independent-vowel-only chunk, complete syllable chunk and coda-only chunk. Exact token prefix/suffix and component identities are validated; no segmentation is inferred. All currently mapped independent vowels are tested with a supported coda. Note 9 ឧ remains unresolved and retains its explicit ŏ/ŭ alternatives.
 - Added strict schema, focused tests, package exports and in-place project records. Orthographic PCGN Latin only; IPA/Ukrainian remain null. Hosted CI pending.
+
+
+## Exact-main checkpoint after PR #275 — 2026-11-16
+
+- Main: 0e408e4d2ce18228e7b8327ddc71af5bdb302f72. PR #275 merged; exact PR-head Quality [43910476719] and Chromium [43910476885] passed on f0385ec3846f5ce2a4616f2c65e06142c20e6fe2 (377 Python tests + 70 subtests). Exact-main Quality [43910647111], Chromium [43910647145], and Pages build/deploy/runtime smoke [43910647200] all SUCCESS.
+- KHM-ROM-PCGN-INDEPENDENT-CLOSED-001 is DONE_VERIFIED for the bounded listed independent-vowel + one supported final-coda API. Note 9 ឧ remains unresolved with ŏ/ŭ alternatives. KHM-ROM-ENGINE-001 remains PARTIAL: no general word/syllable segmentation, complete PCGN word romanizer or full phonological IPA coverage is claimed.
+- Issue #104 remains OPEN; independent adjudicated IPA gold remains 0 and empirical accuracy remains null. Root LICENSE/MIT metadata and main branch protection remain owner-level blockers. Readiness remains research foundation + deployed engineering prototype, not linguistically release-ready. Hosted GitHub Actions only; no local checkout/test execution claimed.
