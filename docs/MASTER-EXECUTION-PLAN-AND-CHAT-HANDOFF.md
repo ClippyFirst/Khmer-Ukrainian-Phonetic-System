@@ -3103,3 +3103,10 @@ The shared `khmer-phonetic-result/v1` payload is specified in `schemas/phonetic-
 - `KHM-WORD-BOUNDARY-EVIDENCE-001`: profile-neutral evidence contract; source offsets are Unicode code points; caller-supplied protected cluster spans prevent boundaries from splitting a grapheme cluster; competing candidates remain explicit; every selected adjudicated boundary requires per-boundary adjudicated evidence and a source locator.
 - The interface never tokenizes, selects a candidate from longest match, infers loan origin, or claims ALA-LC conformance. Profile ID/version remain paired and optional pending the owner's explicit 1997-vs-2013 decision.
 - Acceptance after exact-head CI: DONE_VERIFIED for the evidence container/schema/tests only. Word segmentation remains TODO/EVIDENCE_LIMITED; rights-cleared lexical evidence and independent boundary annotations remain BLOCKED; no word segmentation output has been added to the service.
+## Post-merge verification — profile-neutral Khmer boundary evidence — 2026-11-16
+
+- PR #281 merged to `main` as `50ae3538a624cf78781411c08ebcf51f73fcb5c2`.
+- Exact-main Quality checks [43940735723], Khmer browser smoke [43940735738], and GitHub Pages build/deploy [43940735610] all SUCCESS on the merge SHA.
+- Quality verified Python tests, independent IPA gold corpus structure, Node web checks and production build. Browser smoke verified visible output in Chromium. Pages workflow built the site, exercised the production site in Chromium, deployed it, and verified deployment.
+- The change adds only a profile-neutral evidence interface; it does not change segmentation or linguistic outputs. Open PR count after merge: 0.
+- The boundary evidence interface is DONE_VERIFIED; profile selection, licensed lexical resources and independently adjudicated boundary data remain TODO/BLOCKED as recorded in the LOC evidence audit.
