@@ -1085,3 +1085,11 @@ A dedicated branch adds a bounded ROBAT-coda syllable assembler. It composes exi
 ## 2026-11-16 continuation — independent-vowel closed-syllable adapter
 
 A dedicated branch adds a bounded independent-vowel + final-consonant assembler. It composes the listed independent-vowel resolver with the existing generic final-consonant resolver, validates caller-supplied chunk boundaries and preserves Note 9's unresolved ŏ/ŭ alternatives. It is orthographic PCGN Latin only; no IPA/Ukrainian output or automatic segmentation is introduced. Acceptance is DONE_VERIFIED for this bounded API: PR #275 merged as 0e408e4d2ce18228e7b8327ddc71af5bdb302f72; exact PR-head Quality [43910476719] and Chromium [43910476885], plus exact-main Quality [43910647111], Chromium [43910647145] and Pages [43910647200] all passed. The independent-vowel component's Note 9 ambiguity remains unresolved; no IPA/Ukrainian or automatic segmentation is claimed.
+
+
+## Exact-main verification checkpoint — 2026-11-16 evening
+
+- Exact main SHA: `0c74b5cbc55b269156a15a4694b8f8f2149b78c1`.
+- Quality [43911193804], Chromium [43911193963], Pages build/deploy and deployed runtime smoke [43911194149] all SUCCESS. Quality reports 377 Python tests + 70 subtests; corpus validation, web checks, production build and browser checks passed. No local test run is claimed.
+- No open PRs. Issue #104 remains OPEN and blocks the first independently adjudicated IPA gold pilot (gold count 0; accuracy null). Recruitment, convention approval, blind intake, rights-cleared source selection and adjudication require human participants.
+- Repository remains a deployed engineering/research prototype, not linguistically release-ready. Full segmentation/word romanization, complete IPA coverage, expert-reviewed Ukrainian target policy, root LICENSE/metadata decision, branch protection and manual accessibility review remain incomplete or owner-gated.
