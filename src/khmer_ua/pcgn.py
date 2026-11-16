@@ -1673,7 +1673,7 @@ __all__ = [
     "assemble_pcgn_glottal_dependent_closed_syllable",
     "PCGNGlottalShortenedClosedSyllableAssembly",
     "assemble_pcgn_glottal_shortened_closed_syllable",
-    "PCGNRObatClosedSyllableAssembly",
+    "PCGNRobatClosedSyllableAssembly",
     "assemble_pcgn_robat_closed_syllable",
     "PCGN_WEAK_SUBSCRIPTS",
     "PCGN_NO_SUBSCRIPT_FOR",
@@ -2696,7 +2696,7 @@ PCGN_ROBAT_CLOSED_SYLLABLE_LOCATORS = (
 
 
 @dataclass(frozen=True)
-class PCGNRObatClosedSyllableAssembly:
+class PCGNRobatClosedSyllableAssembly:
     """A caller-segmented syllable with a final ROBAT-marked consonant."""
 
     source_text: str
@@ -2730,7 +2730,7 @@ def assemble_pcgn_robat_closed_syllable(
     syllable_analysis: PCGNOrthographicAnalysis,
     coda_analysis: PCGNOrthographicAnalysis,
     marked_coda_analysis: PCGNOrthographicAnalysis,
-) -> PCGNRObatClosedSyllableAssembly:
+) -> PCGNRobatClosedSyllableAssembly:
     """Assemble one explicit syllable whose final consonant carries ROBAT.
 
     The caller supplies onset-only, onset-plus-vowel (or onset-only for an
@@ -2740,8 +2740,8 @@ def assemble_pcgn_robat_closed_syllable(
     no syllable or word boundary is inferred. Output is PCGN orthographic
     Latin only, never IPA or Ukrainian.
     """
-    def unresolved(reason: str) -> PCGNRObatClosedSyllableAssembly:
-        return PCGNRObatClosedSyllableAssembly(
+    def unresolved(reason: str) -> PCGNRobatClosedSyllableAssembly:
+        return PCGNRobatClosedSyllableAssembly(
             source_text=syllable_analysis.raw_text,
             normalized_text=syllable_analysis.normalized_text,
             onset_text=onset_analysis.raw_text,
@@ -2836,7 +2836,7 @@ def assemble_pcgn_robat_closed_syllable(
     onset_rows = (onset.base_table_row,) + (
         (onset.subscript_table_row,) if onset.subscript_table_row is not None else ()
     )
-    return PCGNRObatClosedSyllableAssembly(
+    return PCGNRobatClosedSyllableAssembly(
         source_text=syllable_analysis.raw_text,
         normalized_text=syllable_analysis.normalized_text,
         onset_text=onset_analysis.raw_text,
