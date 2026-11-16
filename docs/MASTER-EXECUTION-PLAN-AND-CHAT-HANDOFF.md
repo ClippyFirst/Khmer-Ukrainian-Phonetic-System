@@ -2920,3 +2920,13 @@ This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in th
 - Fresh GitHub branch listing: 127 refs total = `main` + 126 non-main refs. All 126 non-main tips had distinct SHAs in the listing. This is a ref inventory only; it is not a full ancestry/content audit and does not imply those tips should be merged. A systematic compare of all 126 refs was not completed in this run; branch-audit status remains PARTIAL. Historical refs are preserved.
 - Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains OPEN (last updated 2026-11-04). The convention sheet, two annotators, independent adjudicator, curator, blind intake and rights-cleared 30-item pilot remain unconfirmed. The corpus remains intentionally empty; accuracy remains unavailable. This is a human research dependency, not a CI defect.
 - This checkpoint supersedes earlier branch-count and main-SHA snapshots above. It does not change any linguistic acceptance status. Readiness remains research foundation + deployed engineering prototype, not linguistically release-ready.
+
+
+## Continuation checkpoint — explicit PCGN open-CV assembly — 2026-11-16
+
+- Base `main`: `956d9a56be2f8d961eb77d194ff5fd61fc4b5b5e`. Dedicated branch: `feat/pcgn-explicit-open-syllable-assembly-2026-11-16`.
+- Added `assemble_pcgn_open_syllable` in `src/khmer_ua/pcgn.py`. It joins the existing bounded consonant-onset and dependent-vowel resolvers only when the caller supplies matching onset and complete open-syllable chunks. It verifies the token-prefix relationship and refuses coda-bearing, shortened, independent-vowel, special-mark, Alif, malformed and ambiguous inputs.
+- Added JSON Schema `schemas/pcgn-syllable-assembly.schema.json` and focused regression tests `tests/test_pcgn_syllable_assembly.py`. Updated the romanization matrix and linguistic completion register with the bounded scope and source citation.
+- Output is BGN/PCGN orthographic Latin only. IPA and Ukrainian remain null; the existing IPA-first engine was not changed. No word segmentation, coda rules, empirical claims, IPA labels or gold records were introduced.
+- Verification boundary at this checkpoint: GitHub-hosted PR checks have not yet run; no local checkout or local test execution is available through this session. Do not mark the new task DONE_VERIFIED until exact-head Quality, Chromium and Pages results are inspected.
+- Remaining acceptance: hosted tests/build/browser checks; inspect exact diff and test results; keep `KHM-ROM-ENGINE-001` PARTIAL because general syllable parsing, codas and whole-word PCGN output remain incomplete.

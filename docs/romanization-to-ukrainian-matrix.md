@@ -838,3 +838,15 @@ The independent-vowel resolver now has an auditable CSV source register for BGN/
 ## Exact-main verification — PR #259 PCGN independent-vowel source register — 2026-11-16
 
 PR #259 merged as `458026f080bca31edeec87c2009245213ab667c7`. PR-head push Quality [43826670914], PR Quality [43826697643], Chromium [43826697687], exact-main Quality [43826837012], Chromium [43826837160] and Pages [43826837175] all SUCCESS. Exact-main Python: 332 passed, 70 subtests passed; web checks, production build and deployed-site smoke passed. The CSV records source table rows 3, 4, 7 and 14–22; Note 9's `ឧ` remains unresolved. No IPA or Ukrainian result was added.
+
+
+## Bounded PCGN open-CV assembly — 2026-11-16
+
+A new `assemble_pcgn_open_syllable` adapter composes the existing source-located PCGN onset-consonant and ordinary dependent-vowel component resolvers for one explicitly supplied open CV syllable. The caller supplies both an onset-only chunk and the complete syllable chunk; the implementation verifies that the onset tokens are an exact prefix and that the remaining tokens are only a supported dependent-vowel pattern. It then applies the existing Note 2–3 series resolver and concatenates the two already-resolved PCGN Latin components.
+
+This bounded addition does **not** discover syllable or word boundaries in running Khmer text, infer codas, process independent or shortened vowels, ROBAT/AHSDA/TOANDAKHIAT, or resolve the Alif carrier. Those inputs abstain. The result retains source text and component/table provenance and explicitly sets IPA and Ukrainian output to null: this is PCGN orthographic romanization, not a phonetic or Ukrainian transcription path. The existing IPA-first runtime remains separate and unchanged.
+
+- API: `src/khmer_ua/pcgn.py::assemble_pcgn_open_syllable`.
+- Contract: `schemas/pcgn-syllable-assembly.schema.json`; regression coverage: `tests/test_pcgn_syllable_assembly.py`.
+- Primary source: BGN/PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2), Note 3, and Independent/Dependent Vowel Characters table (pp. 2–3): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
+- Status: bounded implementation added on the feature branch; promotion to `DONE_VERIFIED` awaits exact-head hosted CI. `KHM-ROM-ENGINE-001` remains PARTIAL because no general syllable segmentation, coda assembly or whole-word romanizer is claimed.
