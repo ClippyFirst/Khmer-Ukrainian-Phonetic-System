@@ -2968,3 +2968,13 @@ This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in th
 - Historical refs: 131 total (main + 130 non-main), 130/130 ancestry comparisons completed, 130 unique non-main tips, zero open PRs. Full content-level review remains PARTIAL; no historical branch was force-updated, deleted or merged wholesale.
 - Linguistic status remains partial prototype: full Khmer syllable/word segmentation and source→IPA phonology are incomplete. Issue #104 is still the hard human blocker: independent expert convention, two annotators, adjudicator, curator, blind intake and 30 rights-cleared lexeme groups. Gold remains 0; accuracy remains null.
 - Owner blockers remain: root `LICENSE` absent despite MIT metadata, and branch protection configuration. Neither was changed. No local checkout or local test execution is claimed; all verification above is hosted GitHub Actions evidence.
+
+
+## Continuation — bounded PCGN Note 4 Alif open-syllable assembly — 2026-11-16
+
+- Base main: 9ba7b97e6d56f75166533f6978cc9586f718c234. Dedicated branch: feat/pcgn-glottal-open-syllable-assembly-2026-11-16.
+- Added assemble_pcgn_glottal_open_syllable to compose the existing Note 4 Alif carrier resolver and A-series dependent-vowel resolver for a caller-supplied standalone អ onset plus one open-syllable chunk. It checks exact onset token prefix and permits only the existing supported dependent-vowel token patterns.
+- Both Note 4 context flags (word_initial, followed_by_vowel_letter) remain mandatory explicit booleans. Where Note 4 allows an optional apostrophe, both full PCGN spellings are preserved in romanization_options; the implementation does not silently choose the apostrophe-free variant.
+- Added schema schemas/pcgn-glottal-open-syllable-assembly.schema.json, tests tests/test_pcgn_glottal_open_syllable_assembly.py, and package exports. Tests exercise all current normal dependent-vowel patterns in the A-series plus boundary/abstention cases.
+- Output is bounded BGN/PCGN orthographic Latin only; IPA and Ukrainian remain null. No word segmentation, independent-vowel selection, coda inference, phonetic rule or gold data was added. The IPA-first runtime remains separate.
+- Status pending hosted CI: KHM-ROM-PCGN-ALIF-ASSEMBLY-001 = PARTIAL until exact PR-head Quality and browser checks pass. KHM-ROM-ENGINE-001 remains PARTIAL.
