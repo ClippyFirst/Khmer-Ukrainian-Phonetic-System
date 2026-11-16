@@ -1121,3 +1121,7 @@ The reported `ព្រះរាជាណាចក្រ` false `Unknown charact
 The shared `khmer-phonetic-result/v1` payload is specified in `schemas/phonetic-result.schema.json`. Both runtime implementations expose the same unit keys, rule trace, provenance lanes and uncertainty shape; Python and browser tests assert the published contract shape.
 
 Exact-main verification for the typed-result, partial-output and Unicode changes: Quality checks `43938194107`, Khmer browser smoke `43938194161`, and Pages deploy `43938194109` all succeeded on `dbbd34a4af8c7d24d139d7d7f2442acf4b5328b0`. PR #280 is merged.
+
+## 2026-11-16 — Khmer boundary-evidence interface post-merge checkpoint
+
+PR #281 is merged as `50ae3538a624cf78781411c08ebcf51f73fcb5c2`. Exact-main Quality run `43940735723`, Chromium browser run `43940735738`, and GitHub Pages build/deploy run `43940735610` all succeeded on that SHA. The boundary evidence contract, Python tests, Node checks, production build, browser smoke and Pages deployment are verified. No local test execution is claimed. The interface is evidence-only; no word segmenter or LOC conformance is claimed. The independent profile decision and licensed/adjudicated lexical boundary evidence remain outstanding.
