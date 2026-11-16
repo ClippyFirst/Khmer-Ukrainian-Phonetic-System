@@ -916,4 +916,5 @@ Added assemble_pcgn_robat_closed_syllable to compose an explicitly caller-segmen
 - API: src/khmer_ua/pcgn.py::assemble_pcgn_robat_closed_syllable.
 - Contract: schemas/pcgn-robat-closed-syllable-assembly.schema.json; tests: tests/test_pcgn_robat_closed_syllable_assembly.py.
 - Primary source: BGN/PCGN 1972, consonant table and Notes 2–3, inherent/dependent vowel table, Diacritical Marks table row 4 and Note 6: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf.
-- Boundary: orthographic PCGN Latin only. IPA/Ukrainian remain null; no automatic segmentation or whole-word output is claimed. Hosted CI pending; status remains PARTIAL until verified.
+- Boundary: orthographic PCGN Latin only. IPA/Ukrainian remain null; no automatic segmentation or whole-word output is claimed.
+- Status: DONE_VERIFIED for the bounded caller-segmented inherent/ordinary-dependent vowel + final ROBAT coda API. PR #273 merged as 4fee1db13201b9e171b08daa1d4a45f73a396b86. PR-head Quality [43892380539] and Chromium [43892380533] passed (372 Python tests + 70 subtests); exact-main Quality [43892575946], Chromium [43892575968], and Pages [43892575864] all passed, including deployed-site/runtime smoke. KHM-ROM-ENGINE-001 remains PARTIAL.
