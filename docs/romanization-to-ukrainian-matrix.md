@@ -825,6 +825,11 @@ Status: `KHM-ROM-PCGN-FINAL-CONSONANT-001 = PARTIAL`; the source's “generally�
 PR #255 merged as `47679154526fa32c5edd9d62ca084de5af4759dd`. PR-head push Quality [43825412435], PR Quality [43825430244], PR Chromium [43825430217] and exact-main Quality [43825536547], Chromium [43825536580], Pages [43825536491] all SUCCESS. Final-consonant context flags now require actual booleans; exhaustive base-character tests were added. `KHM-ROM-PCGN-FINAL-CONSONANT-001` remains PARTIAL and emits no IPA/Ukrainian result.
 
 
+## Exact-main verification — PR #256 documentation closeout — 2026-11-16
+
+PR #256 merged as `dee4881da4cfb01b6da0ff5e857af67cade14cb1`. PR-head push Quality [43825693046], PR Quality [43825710166], Chromium [43825710160], exact-main Quality [43825806168], Chromium [43825806361] and Pages [43825806234] all SUCCESS. Exact-main Quality ran `pytest -q` (331 passed, 70 subtests passed), `npm run check` and the production build; Chromium smoke and deployed-site/runtime-asset smoke also passed. No language behavior changed in this docs-only PR.
+
+
 ## PCGN independent-vowel source registry — 2026-11-16
 
 The independent-vowel resolver now has an auditable CSV source register for BGN/PCGN 1972 table rows 3, 4, 7 and 14–22. All mapped entries match the existing runtime constant; Note 9 row 7 (`ឧ`) retains unresolved alternatives `ŏ|ŭ`. The new test checks row-by-row parity and the official source URL. This does not change `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001 = PARTIAL`; no IPA/Ukrainian output is generated.
