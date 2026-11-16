@@ -88,3 +88,8 @@ TN #61 v2 source metadata is registered as unicode-tn61-khmer-encoding-structure
 PR #296 merged the final handoff documentation as main commit 1cecfa86e098fb3e96a7a55954010840f28ddb84. Exact-main Quality [43964140244] SUCCESS: 417 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build; Chromium [43964140341] SUCCESS; Pages deploy/runtime smoke [43964140290] SUCCESS. This verifies the source-registry and handoff changes on the exact post-merge main SHA.
 
 The official TN #61 v2 landing page identifies version 2 dated 2025-02-06 as latest and says the note is the author's responsibility, not a Unicode Consortium endorsement. Unicode Terms of Use restrict public reproduction/modification beyond permitted personal/internal use absent broader permission. The repository registers metadata and source links only; no PDF text or regex is copied. KHM-ORTHO-TN61-MODERN-PROFILE-001 remains TODO / NON_NORMATIVE.
+
+
+### Latest exact-main checkpoint — count correction — 2026-11-16
+
+Main commit 941fbf0ed01ae79c2a8be0c02f1870b68e19134a corrected stale documentation counts only; no parser/runtime behavior changed. Exact-main Quality [43964597249] SUCCESS: 417 Python tests + 70 subtests; Chromium [43964597238] SUCCESS; Pages deploy/runtime smoke [43964597241] SUCCESS. The parser remains DONE_VERIFIED and the TN #61 Modern Khmer profile remains TODO / NON_NORMATIVE.
