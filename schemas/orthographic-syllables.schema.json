@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Khmer Unicode 18 orthographic syllable parse",
+  "type": "object",
+  "required": [
+    "schema",
+    "grammar_profile",
+    "source_text",
+    "offset_unit",
+    "status",
+    "parse_count",
+    "syllables",
+    "alternatives",
+    "notes"
+  ],
+  "properties": {
+    "schema": {
+      "const": "khmer-orthographic-syllables/v1"
+    },
+    "grammar_profile": {
+      "const": "unicode-18.0.0-ch16.4-plus-ch16.4.1-shifter-control"
+    },
+    "source_text": {
+      "type": "string"
+    },
+    "offset_unit": {
+      "const": "unicode_code_point"
+    },
+    "status": {
+      "enum": [
+        "PARSED",
+        "AMBIGUOUS",
+        "EVIDENCE_LIMITED",
+        "INVALID_OR_UNSUPPORTED"
+      ]
+    },
+    "parse_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "syllables": {
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/syllable"
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "alternatives": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "syllables"
+        ],
+        "properties": {
+          "syllables": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/syllable"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "component": {
+      "type": "object",
+      "required": [
+        "role",
+        "text",
+        "start",
+        "end",
+        "codepoints",
+        "status"
+      ],
+      "properties": {
+        "role": {
+          "enum": [
+            "BASE",
+            "SUBSCRIPT",
+            "ROBAT",
+            "SHIFTER",
+            "VOWEL",
+            "FORMAT_CONTROL",
+            "OTHER_SIGN",
+            "UNSUPPORTED"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "codepoints": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^U\\\\+[0-9A-F]{4,6}$"
+          }
+        },
+        "status": {
+          "enum": [
+            "RECOGNIZED",
+            "AMBIGUOUS_BASE_ROLE",
+            "MALFORMED_COENG",
+            "UNMODELED_CHARACTER"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "syllable": {
+      "type": "object",
+      "required": [
+        "start",
+        "end",
+        "source_text",
+        "components",
+        "grammar_extensions"
+      ],
+      "properties": {
+        "start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "source_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/component"
+          }
+        },
+        "grammar_extensions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

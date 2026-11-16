@@ -37,7 +37,7 @@ Do not silently substitute TN #61 for Unicode Standard 18 §16.4, or present the
 
 ## Evidence examples already available
 
-Unicode 18 §16.4 examples include `ខ្ញុំ`, `ច្រើន`, `សង្គ្រាម`, `ហើយ`, `សញ្ញា`, `ស៊ី`, and `ប៉ី`. §16.4.1 also documents subscript-independent-vowel forms such as `ផ្ឯម` and subscripted vowels attached to independent-vowel bases. These must be represented as structural examples only; the IPA strings printed in the Standard are not a project-adjudicated gold corpus.
+Unicode 18 §16.4 examples include `ខ្ញុំ`, `ច្រើន`, `សង្គ្រាម`, `ហើ្យ`, `សញ្ញា`, `ស៊ី`, and `ប៉ី`. §16.4.1 also documents subscript-independent-vowel forms such as `ផ្ឯម` and subscripted vowels attached to independent-vowel bases. These must be represented as structural examples only; the IPA strings printed in the Standard are not a project-adjudicated gold corpus. Unicode 18 Figure 16-3 spells “already” as `ហើ្យ` (U+17A0 U+17BE U+17D2 U+1799), with COENG + YO after the dependent vowel. The un-subscripted spelling `ហើយ` (U+17A0 U+17BE U+1799) instead parses as two orthographic syllables (`ហើ` + `យ`) under the BNF. This contrast is a regression requirement: a consonant after a vowel is not automatically absorbed as a coda; the encoded COENG pair is decisive.
 
 TN #61 v2 §§“Orthographic Syllable Structure”, “Coengs”, “Triisap and Muusikatoan”, “Vowels”, and “Signs” provide the proposed Modern Khmer grammar and constraints. The note's Appendix 2 separately discusses Middle Khmer; those exceptions must not be silently folded into the Modern Khmer profile.
 
