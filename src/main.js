@@ -126,6 +126,7 @@ function parseSyllable(raw) {
   let index = 1;
   const base = first;
   const subscripts = [];
+  const additionalConsonants = [];
   const vowelSigns = [];
   const unknown = [];
   const graphemes = [{ text: base, kind: "consonant" }];
@@ -151,6 +152,7 @@ function parseSyllable(raw) {
       // A conservative orthographic unit may contain more than one base
       // consonant before a validated syllable boundary is available. Preserve
       // known consonants as structure; never mislabel them as unknown glyphs.
+      additionalConsonants.push(char);
       graphemes.push({ text: char, kind: "consonant" });
     } else {
       if (VOWEL_SIGNS.has(char)) vowelSigns.push(char);
@@ -164,7 +166,7 @@ function parseSyllable(raw) {
   // the recognized base consonant. Match the Python parser's fail-closed rule.
   if (unknown.length) {
     return {
-      status: "INVALID_OR_UNSUPPORTED", raw, base, subscripts, vowelSigns,
+      status: "INVALID_OR_UNSUPPORTED", raw, base, subscripts, additionalConsonants, vowelSigns,
       unknown, unknown_codepoints: unknownCodepoints(unknown), graphemes,
       reason: "Unknown character(s) inside Khmer orthographic unit: " + unknownCodepoints(unknown).join(", ") + ".",
     };
@@ -177,6 +179,8 @@ function parseSyllable(raw) {
     register: register.register,
     register_rule: register.rule,
     subscripts,
+    additional_consonants: additionalConsonants,
+    syllabification_status: additionalConsonants.length ? "NOT_ESTABLISHED" : "NOT_ASSESSED",
     vowelSigns,
     unknown,
     graphemes,
@@ -240,7 +244,7 @@ function renderFixture(fixture, profile) {
 
 function deriveDeterministicIpa(analysis) {
   if (analysis.status === "INVALID_OR_UNSUPPORTED") return null;
-  if (analysis.subscripts?.length || analysis.vowelSigns?.length || analysis.unknown?.length) return null;
+  if (analysis.subscripts?.length || analysis.additional_consonants?.length || analysis.vowelSigns?.length || analysis.unknown?.length) return null;
   if (analysis.register_rule === "MULTIPLE_REGISTER_SHIFTERS" || analysis.register_rule === "MISPLACED_REGISTER_SHIFTER" || analysis.register_rule === "NON_STANDARD_SHIFTER_USE") return null;
 
   const onset = analysis.onset_ipa;
