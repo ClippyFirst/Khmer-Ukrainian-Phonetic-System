@@ -59,6 +59,7 @@ class KhmerOrthographicParseForest:
             "boundary_alternatives": [
                 [list(span) for span in path] for path in self.boundary_alternatives
             ],
+            "selected_alternative": None,
             "rejected_spans": list(self.rejected_spans),
             "notes": list(self.notes),
             "truncated": self.truncated,
@@ -251,7 +252,14 @@ def parse_orthographic_sequence(text: str) -> KhmerOrthographicParseForest:
         if spans not in boundary_paths:
             boundary_paths.append(spans)
 
-    ambiguous_base = any(item.status == "AMBIGUOUS_BASE_ROLE" for item in items)
+    ambiguous_components = [item for item in items if item.status == "AMBIGUOUS_BASE_ROLE"]
+    ambiguous_base = bool(ambiguous_components)
+    for item in ambiguous_components:
+        rejected.append({
+            "start": item.start,
+            "end": item.end,
+            "reason": "Potential coda-versus-next-syllable base role is not determined by Unicode 18 §16.4; this candidate boundary is not selected.",
+        })
     if truncated:
         status: Status = "EVIDENCE_LIMITED"
         notes = ("Parse forest exceeded the configured alternative cap; no alternative was selected.",)
