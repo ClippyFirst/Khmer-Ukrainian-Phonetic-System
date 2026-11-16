@@ -1352,3 +1352,10 @@ Primary LOC sources establish a version distinction that must precede segmentati
 | KHM-ROM-LOC-WORD-SEGMENTATION-001 | BLOCKED / TODO | LOC notes do not provide a machine segmentation algorithm or lexical inventory. LaoNLP syllable splitting/maximal matching is not equivalent to the LOC lexical criterion. | Select a versioned ALA-LC profile, obtain licensed lexicon and independent word-boundary annotations, preserve loan-word language classes and ambiguity, then implement/test. |
 
 No runtime behavior, IPA, Ukrainian output, corpus label or benchmark result changed. The PCGN Note 9 ambiguity remains independent and unchanged.
+
+
+### KHM-STRUCT-SUBSCRIPT-INDEPENDENT-VOWEL-001 — DONE_VERIFIED (structural scope only)
+
+The Khmer parser now recognizes Unicode Standard 18.0.0 Chapter 16 §16.4.1's documented subscript independent-vowel form (example `ផ្ឯម`). It preserves U+17D2 COENG + U+17AF as a typed `subscript_independent_vowel` grapheme, retains the following consonant in the same orthographic unit, records Unicode 18 provenance, and exposes exact-source code-point spans for the encoded pair. It does not establish IPA, Ukrainian output, complete Khmer syllable segmentation or word boundaries.
+
+PR #282 merged as `dd94f637674ad5ce599ee439584b88b6dba4db1e`. Exact-main Quality [43947114555] passed 393 Python tests + 70 subtests, independent IPA corpus structure validation, Node/web checks and production build; Chromium [43947114448] and Pages deploy/runtime smoke [43947114535] passed. Issue #104 remains OPEN; no independent lexical IPA gold or accuracy score is created by this task.
