@@ -183,7 +183,10 @@ def analyze(text: str) -> AnalysisResult:
     else:
         overall_status = "ESTABLISHED_STRUCTURE"
 
+    analysis_sources = ["unicode17-ch16"]
+    if any("unicode18-ch16" in syllable.sources for syllable in syllables):
+        analysis_sources.append("unicode18-ch16")
     return AnalysisResult(text,n,[],sg,{"syllables":sg},{"status":"phoneticization_not_yet_established"},
-                          None,[],[],None,[],[],["unicode17-ch16"],
+                          None,[],[],None,[],[],analysis_sources,
                           min((s.confidence for s in syllables),default=0.0),
                           overall_status)
