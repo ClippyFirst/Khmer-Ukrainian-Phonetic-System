@@ -22,8 +22,8 @@ def test_pcgn_note5_closed_syllable_assembles_all_supported_patterns():
     cases = (
         ("ច", "ចាក់", "ក", "k", "chăk", "AA_BANTOC", "â"),
         ("រ្ព", "រ្ពាក់", "ក", "k", "rpeăk", "AA_BANTOC", "ô"),
-        ("គ", "គាង់", "ង", "ng", "kéăng", "AA_BANTOC", "ô"),
-        ("គ", "គាហ់", "ហ", "h", "kéăh", "AA_BANTOC", "ô"),
+        ("គ", "គាង់", "ង", "ng", "keăng", "AA_BANTOC", "ô"),
+        ("គ", "គាហ់", "ហ", "h", "keăh", "AA_BANTOC", "ô"),
         ("ម", "មាត់", "ត", "other", "moăt", "AA_BANTOC", "ô"),
         ("ប", "បត់", "ត", "other", "bát", "INHERENT_BANTOC", "â"),
         ("គ", "គត់", "ត", "other", "kót", "INHERENT_BANTOC", "ô"),
