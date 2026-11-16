@@ -1664,6 +1664,7 @@ __all__ = [
     "PCGNAhsdaDecision",
     "PCGNToandakhiatDecision",
     "PCGNGlottalOnsetDecision",
+    "PCGNSyllableAssembly",
     "PCGN_WEAK_SUBSCRIPTS",
     "PCGN_NO_SUBSCRIPT_FOR",
     "resolve_pcgn_series",
@@ -1675,6 +1676,7 @@ __all__ = [
     "resolve_pcgn_toandakhiat",
     "resolve_pcgn_glottal_onset",
     "analyze_pcgn_orthographic_chunk",
+    "assemble_pcgn_open_syllable",
 ]
 
 
