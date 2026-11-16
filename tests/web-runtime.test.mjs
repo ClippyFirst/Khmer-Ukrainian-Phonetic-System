@@ -92,7 +92,7 @@ assert.equal(mixed.phonetic_result.partial, true);
 assert.deepEqual(mixed.phonetic_result.pipeline, ["source-orthography", "structural-analysis", "source-phonology", "ipa", "ukrainian-target-adaptation"]);
 assert.equal(mixed.phonetic_result.units[0].ipa, "kɑː", "typed result stores bare IPA, without display delimiters");
 assert.equal(mixed.phonetic_result.units.length, mixed.units.length);
-assert.equal(mixed.phonetic_result.units[0].provenance.structure[0], "unicode17-ch16");
+assert.equal(mixed.phonetic_result.units[0].provenance.phonology[0], "wiktionary:ka", "lexical provenance must remain distinct from structural Unicode provenance");
 assert.equal(mixed.phonetic_result.units[2].uncertainty[0].status, "INVALID_OR_UNSUPPORTED");
 
 console.log("web-runtime regression tests: PASS");
