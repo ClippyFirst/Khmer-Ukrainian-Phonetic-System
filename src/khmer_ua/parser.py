@@ -3,6 +3,7 @@ from .normalize import normalize_khmer
 from .data import CONSONANTS, SIGNS, SHIFTER_ELIGIBILITY
 from .model import KhmerGrapheme, KhmerSyllable, AnalysisResult
 from .phonology import resolve_effective_register
+from .orthographic_structure import scan_orthographic_components
 
 COENG="្"
 MUUSIKATOAN="៉"
@@ -165,6 +166,7 @@ def analyze(text: str) -> AnalysisResult:
     syllables=[decompose_khmer_syllable(x) for x in linguistic_units]
     sg=[]
     for s in syllables:
+        component_scan = scan_orthographic_components(s.normalized_text).to_dict()
         sg.append({
             "raw_text":s.raw_text,"normalized_text":s.normalized_text,
             "graphemes":[{"text":g.text,"kind":g.kind,"codepoints":g.codepoints} for g in s.graphemes],
@@ -172,7 +174,10 @@ def analyze(text: str) -> AnalysisResult:
             "subscripts":s.subscripts,"subscript_independent_vowels":s.subscript_independent_vowels,"vowel_signs":s.vowel_signs,
             "independent_vowel":s.independent_vowel,"inherent_vowel":s.inherent_vowel,
             "phonology":s.phonology,
-            "status":s.status,"confidence":s.confidence,"sources":s.sources})
+            "status":s.status,"confidence":s.confidence,"sources":s.sources,
+            "orthographic_structure_status":component_scan["status"],
+            "orthographic_components":component_scan["components"],
+            "orthographic_structure_notes":component_scan["notes"]})
     invalid_count=sum(1 for s in sg if s["status"]=="INVALID_OR_UNSUPPORTED")
     if not syllables:
         overall_status = "INVALID_OR_UNSUPPORTED"
