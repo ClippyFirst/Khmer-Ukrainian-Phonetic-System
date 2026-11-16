@@ -2,7 +2,7 @@ import { scanOrthographicComponents } from "./main.js";
 
 export const KHMER_ORTHOGRAPHIC_GRAMMAR_PROFILE =
   "unicode-18.0.0-ch16.4-plus-ch16.4.1-shifter-control";
-const MAX_PARSE_ALTERNATIVES = 128;
+const MAX_SEGMENTATION_ALTERNATIVES = 128;
 
 function roleAt(components, index) {
   return index < components.length ? components[index].role : null;
@@ -60,7 +60,7 @@ function syllableMatches(components, start) {
     }
   }
 
-  // {O} {S}; the final S is distinct from the repeated S production.
+  // {O} {S}
   const afterOther = new Map(afterVowel);
   for (const { index, extensions, grammarRoles } of afterVowel.values()) {
     if (roleAt(components, index) === "OTHER_SIGN") {
@@ -83,72 +83,94 @@ function syllableMatches(components, start) {
 export function parseOrthographicSyllables(sourceText) {
   const scan = scanOrthographicComponents(sourceText);
   const components = scan.components;
-  const makeResult = (status, alternatives, notes) => ({
+  const makeResult = (status, alternatives, derivationCount, notes) => ({
     schema: "khmer-orthographic-syllables/v1",
     grammar_profile: KHMER_ORTHOGRAPHIC_GRAMMAR_PROFILE,
     source_text: sourceText,
     offset_unit: "unicode_code_point",
     status,
-    parse_count: alternatives.length,
+    parse_count: String(derivationCount),
+    segmentation_count: alternatives.length,
     syllables: status === "PARSED" ? alternatives[0].syllables : null,
     alternatives,
     notes,
   });
   if (!sourceText || scan.status === "INVALID_OR_UNSUPPORTED") {
-    return makeResult("INVALID_OR_UNSUPPORTED", [], scan.notes.length ? scan.notes : ["No complete Khmer orthographic structure was found."]);
+    return makeResult("INVALID_OR_UNSUPPORTED", [], 0, scan.notes.length ? scan.notes : ["No complete Khmer orthographic structure was found."]);
   }
   if (!components.length || components[0].role !== "BASE") {
-    return makeResult("INVALID_OR_UNSUPPORTED", [], ["A Unicode 18 orthographic syllable must begin with a base character."]);
+    return makeResult("INVALID_OR_UNSUPPORTED", [], 0, ["A Unicode 18 orthographic syllable must begin with a base character."]);
   }
 
   const size = components.length;
   const pathsByIndex = new Map([[size, [[]]]]);
   for (let start = size - 1; start >= 0; start -= 1) {
     if (roleAt(components, start) !== "BASE") continue;
-    const paths = [];
+    const matchesByEnd = new Map();
     for (const match of syllableMatches(components, start)) {
       if (match.end !== size && roleAt(components, match.end) !== "BASE") continue;
-      for (const remainder of (pathsByIndex.get(match.end) ?? [])) {
-        paths.push([{
-          startIndex: start, endIndex: match.end,
-          extensions: match.extensions, grammarRoles: match.grammarRoles,
-        }, ...remainder]);
-        if (paths.length > MAX_PARSE_ALTERNATIVES) break;
+      if (!matchesByEnd.has(match.end)) matchesByEnd.set(match.end, new Map());
+      const key = JSON.stringify([match.extensions, match.grammarRoles]);
+      matchesByEnd.get(match.end).set(key, {
+        grammar_roles: match.grammarRoles,
+        grammar_extensions: match.extensions,
+      });
+    }
+
+    const paths = [];
+    for (const [end, packedMap] of [...matchesByEnd.entries()].sort((a, b) => a[0] - b[0])) {
+      const packed = [...packedMap.values()].sort((a, b) =>
+        a.grammar_roles.join("|").localeCompare(b.grammar_roles.join("|"))
+        || a.grammar_extensions.join("|").localeCompare(b.grammar_extensions.join("|")));
+      for (const remainder of (pathsByIndex.get(end) ?? [])) {
+        paths.push([{ startIndex: start, endIndex: end, grammarAlternatives: packed }, ...remainder]);
+        if (paths.length > MAX_SEGMENTATION_ALTERNATIVES) break;
       }
-      if (paths.length > MAX_PARSE_ALTERNATIVES) break;
+      if (paths.length > MAX_SEGMENTATION_ALTERNATIVES) break;
     }
     const unique = new Map(paths.map((path) => [
-      JSON.stringify(path.map((part) => [part.startIndex, part.endIndex, part.extensions, part.grammarRoles])), path,
+      JSON.stringify(path.map((part) => [
+        part.startIndex, part.endIndex, part.grammarAlternatives,
+      ])), path,
     ]));
     if (unique.size) pathsByIndex.set(start, [...unique.values()]);
   }
 
   const paths = pathsByIndex.get(0) ?? [];
   if (!paths.length) {
-    return makeResult("EVIDENCE_LIMITED", [], [
+    return makeResult("EVIDENCE_LIMITED", [], 0, [
       "Recognized components do not form a complete sequence under the Unicode 18 §16.4 ordering formula; no boundary was guessed.",
     ]);
   }
-  if (paths.length > MAX_PARSE_ALTERNATIVES) {
-    return makeResult("EVIDENCE_LIMITED", [], ["The parse forest exceeded the configured alternative limit."]);
+  if (paths.length > MAX_SEGMENTATION_ALTERNATIVES) {
+    return makeResult("EVIDENCE_LIMITED", [], 0, ["The number of distinct syllable-boundary segmentations exceeded the configured limit."]);
   }
 
   const chars = [...sourceText];
-  const alternatives = paths.map((path) => ({
-    syllables: path.map(({ startIndex, endIndex, extensions, grammarRoles }) => {
+  let derivationCount = 0n;
+  const alternatives = paths.map((path) => {
+    let pathDerivations = 1n;
+    const syllables = path.map(({ startIndex, endIndex, grammarAlternatives }) => {
       const selected = components.slice(startIndex, endIndex);
       const start = selected[0].start;
       const end = selected[selected.length - 1].end;
+      pathDerivations *= BigInt(grammarAlternatives.length);
+      const uniqueRoles = grammarAlternatives.length === 1 ? grammarAlternatives[0].grammar_roles : null;
+      const uniqueExtensions = grammarAlternatives.length === 1 ? grammarAlternatives[0].grammar_extensions : null;
       return {
         start, end, source_text: chars.slice(start, end).join(""),
-        components: selected, grammar_roles: grammarRoles,
-        grammar_extensions: extensions,
+        components: selected,
+        grammar_roles: uniqueRoles,
+        grammar_extensions: uniqueExtensions,
+        grammar_alternatives: grammarAlternatives,
       };
-    }),
-  }));
-  const status = alternatives.length > 1 ? "AMBIGUOUS" : "PARSED";
-  return makeResult(status, alternatives, [
+    });
+    derivationCount += pathDerivations;
+    return { syllables };
+  });
+  const status = derivationCount > 1n ? "AMBIGUOUS" : "PARSED";
+  return makeResult(status, alternatives, derivationCount, [
     "Orthographic syllables are not phonological syllables or lexical words.",
-    "All complete grammar parses and component-role assignments are retained; no best parse is selected.",
+    "All boundary paths and local grammar-role alternatives are retained in a packed forest; no best parse is selected.",
   ]);
 }
