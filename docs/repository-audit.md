@@ -168,7 +168,7 @@ Workflow [41233203184](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-S
 
 - Current main `1a6921fc75dd011bc8097f6636b8077fc7c59cff` passed Quality workflow [41243972009](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41243972009) and Pages deployment [41243971788](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41243971788). The deploy job's deployed-site/runtime smoke test passed.
 - Whole-text romanization coverage on main includes full/short sentences, native and ASCII numerals, Latin mixed text, whitespace and Khmer punctuation. The phonetic route continues to withhold unsupported contextual analyses rather than substituting romanization or guesses.
-- PR #64 remains open and unmerged because its branch is diverged and its stylesheet replacement is broader than the focused responsive change already merged in PR #78.
+- PR #64 was closed unmerged on 2026-11-02 because its branch was diverged and its stylesheet replacement was broader than the focused responsive change already merged in PR #78.
 - These checks establish software/build/deployment integrity, not full PCGN conformance or independent pronunciation accuracy. The Ukrainian romanization adapter and independent IPA gold remain incomplete.
 
 
@@ -1135,3 +1135,8 @@ The parser now recognizes a documented Khmer structural form that was previously
 ## Unicode 18 Khmer orthographic-component scanner — 2026-11-16
 
 The current feature branch adds a lossless component scanner based on Unicode 18 Chapter 16's Khmer component inventory and documented order. It emits source-preserving typed components and code-point spans in both Python and browser runtimes. It intentionally reports multiple un-subscripted base consonants as `EVIDENCE_LIMITED` rather than guessing whether they are codas or new orthographic syllables. This is not yet a full BNF parser, syllabifier, grapheme-cluster segmenter or word segmenter. UAX #29 Revision 49 confirms that Khmer word segmentation requires tailoring; it does not define this project's lexical boundary algorithm. Exact-head CI is pending.
+
+
+## Exact-main verification — Khmer orthographic component scanner — 2026-11-16
+
+PR #283 merged as `bdc15daf6f7c40a6c088e306343a421b9347e9c1`. Exact-main Quality [43953449784] SUCCESS (402 Python tests + 70 subtests; corpus engineering validation, Node/web checks, production build); Chromium [43953449807] SUCCESS; GitHub Pages deploy and deployed runtime smoke [43953450103] SUCCESS. The scanner is DONE_VERIFIED as a lossless component inventory with Python/browser parity. Full BNF validation and orthographic-syllable segmentation remain PARTIAL/TODO; lexical word segmentation and independent boundary/IPA gold remain evidence-blocked. Open PRs: 0; Issue #104 remains OPEN. Historical PR #64 is CLOSED unmerged; its branch is preserved.
