@@ -201,6 +201,7 @@ assert.equal(subscriptIndependentVowel.ipa, undefined, "subscript independent-vo
 
 // Unicode 18 §16.4 orthographic-syllable grammar parser: structural only.
 const grammarExamples = new Map([
+  ["ទេ", ["ទេ"]],
   ["ខ្ញុំ", ["ខ្ញុំ"]],
   ["ច្រើន", ["ច្រើ", "ន"]],
   ["សង្គ្រាម", ["ស", "ង្គ្រា", "ម"]],
@@ -213,6 +214,10 @@ const grammarExamples = new Map([
   ["ម៉្ងៃ", ["ម៉្ងៃ"]],
   ["ប‌៊ីយែរ", ["ប‌៊ី", "យែ", "រ"]],
   ["ពត៌មាន", ["ព", "ត៌", "មា", "ន"]],
+  ["រាជរ្សី", ["រា", "ជ", "រ្សី"]],
+  ["ម៊្ហែត", ["ម៊្ហែ", "ត"]],
+  ["វ‌ិទូ", ["វ‌ិ", "ទូ"]],
+  ["វ‍ិទូ", ["វ‍ិ", "ទូ"]],
 ]);
 for (const [source, expected] of grammarExamples) {
   const parsed = parseOrthographicSyllables(source);
@@ -231,6 +236,9 @@ assert.equal(parseOrthographicSyllables("ក្").status, "INVALID_OR_UNSUPPORTE
 assert.equal(parseOrthographicSyllables("កx").status, "INVALID_OR_UNSUPPORTED");
 assert.equal(parseOrthographicSyllables("ឣ").status, "INVALID_OR_UNSUPPORTED");
 assert.equal(parseOrthographicSyllables("ឤ").status, "INVALID_OR_UNSUPPORTED");
+assert.equal(parseOrthographicSyllables("\u17B4").status, "INVALID_OR_UNSUPPORTED");
+assert.equal(parseOrthographicSyllables("\u17B5").status, "INVALID_OR_UNSUPPORTED");
+assert.equal(parseOrthographicSyllables("\u17D8").status, "INVALID_OR_UNSUPPORTED");
 assert.equal(parseOrthographicSyllables("កេិ").status, "EVIDENCE_LIMITED");
 assert.deepEqual(parseOrthographicSyllables("កេិ").rejected_spans.map((item) => [item.start, item.end]), [[2, 3]]);
 assert.equal(parseOrthographicSyllables("ក\u200Cេ").status, "PARSED");
@@ -238,7 +246,7 @@ assert.equal(parseOrthographicSyllables("ក\u200Dេ").status, "PARSED");
 assert.equal(parseOrthographicSyllables("ក\u200D៉").status, "EVIDENCE_LIMITED");
 assert.equal(parseOrthographicSyllables("ក៌៉").status, "EVIDENCE_LIMITED");
 assert.equal(parseOrthographicSyllables("ក្រ៌").status, "PARSED");
-for (const source of ["ឱ្យ", "ឱ្ម", "ហ្ឫទ័យ"]) {
+for (const source of ["ឱ្យ", "ឱ្ម", "ហ្ឫទ័យ", "ប្រតឺងអ‌៊ឹះ", "ប្រតឺងអ៊ឹះ"]) {
   const result = parseOrthographicSyllables(source);
   assert.equal(result.status, "AMBIGUOUS");
   assert.equal(result.parse_count, 2);
@@ -286,3 +294,8 @@ assert.deepEqual(
   [["BASE", "SUBSCRIPT_CLUSTER"], ["BASE", "TRAILING_SUBSCRIPT"]].sort(),
 );
 console.log("Unicode 18 Khmer subscript-independent-vowel ambiguity: PASS");
+
+
+const repetitionMark = parseOrthographicSyllables("ម៊្ហែតៗ");
+assert.equal(repetitionMark.status, "INVALID_OR_UNSUPPORTED");
+assert.deepEqual(repetitionMark.rejected_spans.map((item) => [item.start, item.end]), [[6, 7]]);
