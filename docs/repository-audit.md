@@ -1098,3 +1098,8 @@ A dedicated branch adds a bounded independent-vowel + final-consonant assembler.
 ## LOC Khmer word-division reconciliation — 2026-11-16
 
 Official LOC sources distinguish historical/versioned word-division formulations: 1989 and ALA-LC 1997 Note 10 specify the shortest written form that can stand alone; ALA-LC 2013 Note 8 says any word can be separated when romanizing. Both preserve original-language division for non-Pali/Sanskrit loans. BGN/PCGN 1972 Note 9 concerns the independent vowel ឧ and is unrelated. ALA-LC notes do not define a complete segmentation algorithm or lexicon; maximal matching and orthographic syllable segmentation are insufficient evidence of compliance. See `docs/audits/current/LOC-KHMER-WORD-DIVISION-EVIDENCE-2026-11-16.md`. Implementation remains blocked/evidence-limited; no runtime change was made.
+
+
+## Public hosting verification — 2026-11-16
+
+The service is live exclusively on GitHub Pages: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/. Exact deployed source SHA: `8feb14a3cf96fa2e1aafd00ea045d5fddb2e3c4a`. Pages workflow run 43930778763 completed successfully: Vite build, web checks, production Chromium exercise, Pages artifact upload, deploy-pages action, and deployed HTTP smoke checks for both `index.html` and `system.html`, including JS/CSS runtime assets. No alternative hosting platform or application server is used. Linguistic release status remains research-grade/evidence-limited.
