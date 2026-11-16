@@ -137,6 +137,7 @@
         "end",
         "source_text",
         "components",
+        "grammar_roles",
         "grammar_extensions"
       ],
       "properties": {
@@ -162,6 +163,23 @@
           "type": "array",
           "items": {
             "type": "string"
+          }
+        },
+        "grammar_roles": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "BASE",
+              "INITIAL_ROBAT",
+              "INITIAL_SHIFTER",
+              "SHIFTER_CONTROL",
+              "SUBSCRIPT_CLUSTER",
+              "ROBAT_AFTER_SUBSCRIPT",
+              "JOIN_CONTROL_BEFORE_VOWEL",
+              "DEPENDENT_VOWEL",
+              "OTHER_SIGN",
+              "TRAILING_SUBSCRIPT"
+            ]
           }
         }
       },

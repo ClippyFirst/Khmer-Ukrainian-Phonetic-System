@@ -11,7 +11,6 @@ def test_unicode_18_examples_parse_and_reconstruct():
         "សញ្ញា": ["ស", "ញ្ញា"],
         "ស៊ី": ["ស៊ី"],
         "ប៉ី": ["ប៉ី"],
-        "ផ្ឯម": ["ផ្ឯ", "ម"],
         "អាយ៌": ["អា", "យ៌"],
     }
     for source, expected in examples.items():
@@ -55,6 +54,49 @@ def test_offsets_are_exact_code_points_and_input_is_not_normalized():
     assert result.syllables[0].start == 0
     assert result.syllables[0].end == len(source)
     assert result.source_text == source
+
+
+def test_subscript_independent_vowel_example_preserves_role_ambiguity():
+    result = parse_orthographic_syllables("ផ្ឯម")
+    assert result.status == "AMBIGUOUS"
+    assert result.to_dict()["parse_count"] == 2
+    assert {
+        tuple(item.source_text for item in alternative.syllables)
+        for alternative in result.alternatives
+    } == {("ផ្ឯ", "ម")}
+    assert {
+        alternative.syllables[0].grammar_roles
+        for alternative in result.alternatives
+    } == {
+        ("BASE", "SUBSCRIPT_CLUSTER"),
+        ("BASE", "TRAILING_SUBSCRIPT"),
+    }
+
+
+def test_bnf_component_role_ambiguity_is_preserved_as_two_parse_trees():
+    result = parse_orthographic_syllables("ក្ក")
+    assert result.status == "AMBIGUOUS"
+    assert result.syllables is None
+    assert result.to_dict()["parse_count"] == 2
+    alternatives = {
+        alternative.syllables[0].grammar_roles
+        for alternative in result.alternatives
+    }
+    assert alternatives == {
+        ("BASE", "SUBSCRIPT_CLUSTER"),
+        ("BASE", "TRAILING_SUBSCRIPT"),
+    }
+
+
+def test_component_roles_distinguish_cluster_and_trailing_subscript():
+    cluster = parse_orthographic_syllables("ខ្ញុំ")
+    assert cluster.syllables[0].grammar_roles == (
+        "BASE", "SUBSCRIPT_CLUSTER", "DEPENDENT_VOWEL", "OTHER_SIGN"
+    )
+    trailing = parse_orthographic_syllables("ហើ្យ")
+    assert trailing.syllables[0].grammar_roles == (
+        "BASE", "DEPENDENT_VOWEL", "TRAILING_SUBSCRIPT"
+    )
 
 
 def test_schema_matches_serialized_parse_contract():

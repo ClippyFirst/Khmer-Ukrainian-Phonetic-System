@@ -20,6 +20,7 @@ class KhmerOrthographicSyllable:
     end: int
     source_text: str
     components: tuple[KhmerOrthographicComponent, ...]
+    grammar_roles: tuple[str, ...]
     grammar_extensions: tuple[str, ...] = ()
 
     def to_dict(self) -> dict:
@@ -32,6 +33,7 @@ class KhmerOrthographicSyllable:
                  "codepoints": list(item.codepoints), "status": item.status}
                 for item in self.components
             ],
+            "grammar_roles": list(self.grammar_roles),
             "grammar_extensions": list(self.grammar_extensions),
         }
 
@@ -77,69 +79,86 @@ def _role(components: tuple[KhmerOrthographicComponent, ...], index: int) -> str
 
 def _syllable_matches(
     components: tuple[KhmerOrthographicComponent, ...], start: int
-) -> tuple[tuple[int, tuple[str, ...]], ...]:
+) -> tuple[tuple[int, tuple[str, ...], tuple[str, ...]], ...]:
     """Match B {R | C} {S {R}}* {{Z} V} {O} {S}.
 
-    Unicode 18 §16.4.1 also explicitly documents ZWNJ immediately before a
-    shifter. That textual exception is retained as a typed extension, not
-    silently folded into the BNF production.
+    The same SUBSCRIPT terminal can be assigned to the repeated S production
+    or the final S production. Both grammar trees are retained. Unicode 18
+    §16.4.1's ZWNJ-before-shifter exception is also explicitly traced.
     """
     if _role(components, start) != "BASE":
         return ()
-    states: set[tuple[int, tuple[str, ...]]] = {(start + 1, ())}
+    states: set[tuple[int, tuple[str, ...], tuple[str, ...]]] = {
+        (start + 1, (), ("BASE",))
+    }
 
     # {R | C}
-    for index, extensions in tuple(states):
+    for index, extensions, grammar_roles in tuple(states):
         role = _role(components, index)
-        if role in {"ROBAT", "SHIFTER"}:
-            states.add((index + 1, extensions))
+        if role == "ROBAT":
+            states.add((index + 1, extensions, grammar_roles + ("INITIAL_ROBAT",)))
+        elif role == "SHIFTER":
+            states.add((index + 1, extensions, grammar_roles + ("INITIAL_SHIFTER",)))
         if (
             role == "FORMAT_CONTROL"
             and components[index].text == "\u200c"
             and _role(components, index + 1) == "SHIFTER"
         ):
-            states.add((index + 2, extensions + ("U+200C-before-shifter (§16.4.1 textual exception)",)))
+            states.add((
+                index + 2,
+                extensions + ("U+200C-before-shifter (§16.4.1 textual exception)",),
+                grammar_roles + ("SHIFTER_CONTROL", "INITIAL_SHIFTER"),
+            ))
 
-    # {S {R}}*
+    # {S {R}}*: retain every number of repeated S components and their roles.
     queue = list(states)
     while queue:
-        index, extensions = queue.pop()
+        index, extensions, grammar_roles = queue.pop()
         if _role(components, index) != "SUBSCRIPT":
             continue
         next_index = index + 1
+        next_roles = grammar_roles + ("SUBSCRIPT_CLUSTER",)
         if _role(components, next_index) == "ROBAT":
             next_index += 1
-        state = (next_index, extensions)
+            next_roles += ("ROBAT_AFTER_SUBSCRIPT",)
+        state = (next_index, extensions, next_roles)
         if state not in states:
             states.add(state)
             queue.append(state)
 
     # {{Z} V}
     after_vowel = set(states)
-    for index, extensions in states:
+    for index, extensions, grammar_roles in states:
         if _role(components, index) == "VOWEL":
-            after_vowel.add((index + 1, extensions))
+            after_vowel.add((index + 1, extensions, grammar_roles + ("DEPENDENT_VOWEL",)))
         elif _role(components, index) == "FORMAT_CONTROL" and _role(components, index + 1) == "VOWEL":
-            after_vowel.add((index + 2, extensions))
+            after_vowel.add((
+                index + 2, extensions,
+                grammar_roles + ("JOIN_CONTROL_BEFORE_VOWEL", "DEPENDENT_VOWEL"),
+            ))
 
-    # {O} {S}
+    # {O}
     after_other = set(after_vowel)
-    for index, extensions in after_vowel:
+    for index, extensions, grammar_roles in after_vowel:
         if _role(components, index) == "OTHER_SIGN":
-            after_other.add((index + 1, extensions))
+            after_other.add((index + 1, extensions, grammar_roles + ("OTHER_SIGN",)))
+
+    # {S}: this is a distinct production from S in the repeated group above.
     completed = set(after_other)
-    for index, extensions in after_other:
+    for index, extensions, grammar_roles in after_other:
         if _role(components, index) == "SUBSCRIPT":
-            completed.add((index + 1, extensions))
-    return tuple(sorted(completed, key=lambda item: (item[0], item[1])))
+            completed.add((index + 1, extensions, grammar_roles + ("TRAILING_SUBSCRIPT",)))
+
+    return tuple(sorted(completed, key=lambda item: (item[0], item[2], item[1])))
 
 
 def parse_orthographic_syllables(text: str) -> KhmerOrthographicSyllableParse:
     """Return all complete Unicode 18 parses for one continuous Khmer text span.
 
     No normalization occurs. Offsets are half-open Unicode code-point offsets.
-    Adjacent un-subscripted bases may begin separate orthographic syllables;
-    this does not assert phonological syllable or lexical word boundaries.
+    Adjacent un-subscripted bases may begin separate orthographic syllables.
+    Parse alternatives include both syllable boundaries and component-role
+    assignments; no best parse is selected.
     """
     scan = scan_orthographic_components(text)
     components = scan.components
@@ -153,16 +172,16 @@ def parse_orthographic_syllables(text: str) -> KhmerOrthographicSyllableParse:
         )
 
     size = len(components)
-    paths_by_index: dict[int, list[tuple[tuple[int, int, tuple[str, ...]], ...]]] = {size: [()]}
+    paths_by_index: dict[int, list[tuple[tuple[int, int, tuple[str, ...], tuple[str, ...]], ...]]] = {size: [()]}
     for start in range(size - 1, -1, -1):
         if _role(components, start) != "BASE":
             continue
-        paths: list[tuple[tuple[int, int, tuple[str, ...]], ...]] = []
-        for end, extensions in _syllable_matches(components, start):
+        paths = []
+        for end, extensions, grammar_roles in _syllable_matches(components, start):
             if end != size and _role(components, end) != "BASE":
                 continue
             for remainder in paths_by_index.get(end, ()):
-                paths.append(((start, end, extensions),) + remainder)
+                paths.append(((start, end, extensions, grammar_roles),) + remainder)
                 if len(paths) > MAX_PARSE_ALTERNATIVES:
                     break
             if len(paths) > MAX_PARSE_ALTERNATIVES:
@@ -185,11 +204,11 @@ def parse_orthographic_syllables(text: str) -> KhmerOrthographicSyllableParse:
     alternatives = []
     for path in paths:
         syllables = []
-        for start_index, end_index, extensions in path:
+        for start_index, end_index, extensions, grammar_roles in path:
             selected = components[start_index:end_index]
             start, end = selected[0].start, selected[-1].end
             syllables.append(KhmerOrthographicSyllable(
-                start, end, text[start:end], selected, extensions
+                start, end, text[start:end], selected, grammar_roles, extensions
             ))
         alternatives.append(KhmerOrthographicParseAlternative(tuple(syllables)))
 
@@ -197,5 +216,5 @@ def parse_orthographic_syllables(text: str) -> KhmerOrthographicSyllableParse:
     return KhmerOrthographicSyllableParse(
         text, status, tuple(alternatives),
         ("Orthographic syllables are not phonological syllables or lexical words.",
-         "All complete grammar parses are retained; no best parse is selected."),
+         "All complete grammar parses and component-role assignments are retained; no best parse is selected."),
     )
