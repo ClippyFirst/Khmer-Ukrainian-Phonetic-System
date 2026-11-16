@@ -186,3 +186,12 @@ assert.ok(ambiguousOrthography.components.some((item) => item.status === "AMBIGU
 const supplementaryOffset = scanOrthographicComponents("🧪ខ្ញុំ");
 assert.deepEqual(supplementaryOffset.components.slice(0, 3).map((item) => [item.start, item.end]), [[0, 1], [1, 2], [2, 4]]);
 assert.equal(supplementaryOffset.offset_unit, "unicode_code_point");
+
+
+const subscriptIndependentVowel = parseSyllable("ផ្ឯម");
+assert.deepEqual(subscriptIndependentVowel.subscript_independent_vowels, ["ឯ"]);
+assert.deepEqual(subscriptIndependentVowel.subscripts, []);
+assert.equal(subscriptIndependentVowel.status, "ESTABLISHED_STRUCTURE");
+assert.equal(subscriptIndependentVowel.syllabification_status, "NOT_ESTABLISHED");
+assert.equal(subscriptIndependentVowel.orthographic_structure.status, "EVIDENCE_LIMITED");
+assert.equal(subscriptIndependentVowel.ipa, undefined, "subscript independent-vowel structure must not manufacture IPA");
