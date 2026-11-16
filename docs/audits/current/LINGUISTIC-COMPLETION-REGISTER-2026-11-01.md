@@ -1413,3 +1413,10 @@ TN #61 v2 is registered as unicode-tn61-khmer-encoding-structure-v2 with its dat
 ### Verification boundary after documentation closeout — 2026-11-16
 
 The last completed hosted checks belong to code-bearing documentation/source-record head `65bbc704a5bcf6906f5d57841a625e6f9a2b0f29`: Quality [43965487859] SUCCESS (417 Python + 70 subtests) and Chromium [43965487827] SUCCESS (12/12 Playwright tests). Three subsequent commits updated only the canonical handoff, linguistic completion register and repository audit; the current PR #300 head is `bac8b70210ca01241bec73b516f55abdc278cb98` (12 commits ahead, 0 behind base `941fbf0ed01ae79c2a8be0c02f1870b68e19134a`). The final three commits do not alter source registry, runtime, test files, generated artifacts or corpus payload. The workflow-run lookup exposed no run associated with `bac8b702...`, so **do not describe the last successful checks as exact-head checks for the current PR head**. PR #300 remains OPEN; compare reports no divergence from base, but GitHub's PR snapshot currently reports `mergeable=false`; no merge was attempted.
+
+## Khmer IPA convention sheet — evidence synthesis draft — 2026-11-17
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-IPA-CONVENTION-001 | PARTIAL (draft prepared; expert approval blocked) | New [expert-review draft](../../ipa-gold/khmer-pph-careful-citation-ipa-v1-draft.md). Synthesizes Minegishi 1985 (series-conditioned vowels/coda/dialect distinctions), Chem 2020 (4 selected PPK speakers, 61 formal frame-read items × 3; F1/F2/duration, no F0/stress), Kirby 2014 (multiple cues in colloquial /r/-loss), and Mam et al. 2025 (5 Greater Phnom Penh speakers, 50 words × 3; F0 in stressed rimes; possible PPK pitch phonologization, not a general citation-form tone rule). Source registry now includes Minegishi with exact page ranges. | Draft proposes PHONETIC_BROAD but is explicitly NOT_APPROVED. Requires a qualified target-profile Khmer phonetician/phonologist to approve or replace it, second independent review, complete symbol/feature policy and documented sign-off. No annotations may start under this draft. |
+
