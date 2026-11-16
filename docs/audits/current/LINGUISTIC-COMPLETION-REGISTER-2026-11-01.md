@@ -1340,3 +1340,15 @@ PR #273 merged as 4fee1db13201b9e171b08daa1d4a45f73a396b86. Exact PR-head Qualit
 Added assemble_pcgn_independent_vowel_closed_syllable for one caller-supplied listed independent vowel plus a final consonant. The caller supplies independent-vowel-only, complete-syllable and coda-only chunks; exact token boundaries and component identity are validated. The adapter composes the independent-vowel table resolver with the existing generic final-consonant rule, which is only invoked with explicit negative context for following vowel character and TOANDAKHIAT. All 12 mapped independent-vowel characters are covered with a supported coda. Note 9 ឧ remains unresolved and retains ŏ/ŭ alternatives. Schema/tests added. Orthographic PCGN Latin only; IPA/Ukrainian remain null; no segmentation is inferred.
 
 PR #275 merged as 0e408e4d2ce18228e7b8327ddc71af5bdb302f72. Exact PR-head Quality [43910476719] and Chromium [43910476885] passed on f0385ec3846f5ce2a4616f2c65e06142c20e6fe2: 377 Python tests + 70 subtests, corpus validation, web checks, production build and visible-results Chromium smoke all passed. Exact-main Quality [43910647111], Chromium [43910647145], and Pages build/deploy/runtime smoke [43910647200] all passed. Hosted GitHub Actions only; no local test execution claimed. KHM-ROM-ENGINE-001 remains PARTIAL.
+
+
+## ALA-LC Khmer word-division evidence reconciliation — 2026-11-16
+
+Primary LOC sources establish a version distinction that must precede segmentation work. The 1989 *Cataloging Service Bulletin* No. 43, Khmer p. 54 Note 10, and the ALA-LC Khmer 1997 table, pp. 97–98 Note 10, state the shortest written form that can stand alone as a word; both include Pali/Sanskrit loans and preserve original-language divisions for other loans. The ALA-LC 2013 table instead states at Note 8 that any word can be separated when romanizing, while retaining the loan-word distinction. The current 2013 wording is not to be silently rewritten as the 1997 algorithm. BGN/PCGN 1972 Note 9 is unrelated: it concerns ឧ = ŏ/ŭ.
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-LOC-WORD-DIVISION-EVIDENCE-001 | DONE_VERIFIED | Official LOC 1989, 1997 and 2013 primary documents located and compared; detailed audit: [LOC Khmer word-division evidence, 2026-11-16](LOC-KHMER-WORD-DIVISION-EVIDENCE-2026-11-16.md). | Evidence reconciliation only; no segmentation implementation or conformance claim. |
+| KHM-ROM-LOC-WORD-SEGMENTATION-001 | BLOCKED / TODO | LOC notes do not provide a machine segmentation algorithm or lexical inventory. LaoNLP syllable splitting/maximal matching is not equivalent to the LOC lexical criterion. | Select a versioned ALA-LC profile, obtain licensed lexicon and independent word-boundary annotations, preserve loan-word language classes and ambiguity, then implement/test. |
+
+No runtime behavior, IPA, Ukrainian output, corpus label or benchmark result changed. The PCGN Note 9 ambiguity remains independent and unchanged.
