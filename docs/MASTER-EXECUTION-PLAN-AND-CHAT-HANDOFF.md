@@ -3021,4 +3021,11 @@ This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in th
 - Base main: 268be193eb7af2be19740ec3bd0c3dbffd4582f1. Dedicated branch: feat/pcgn-robat-closed-syllable-assembly-2026-11-16.
 - Added assemble_pcgn_robat_closed_syllable to compose an explicitly supplied onset, inherent or ordinary dependent vowel, and final consonant bearing ROBAT. It derives the marked coda's PCGN consonant component from a separate bare-coda chunk and composes the existing Note 6 r+C resolver.
 - Exact onset/vowel/syllable/coda/bare-coda token relationships are checked. The official Note 6 example (ធម៌ → thôrm) and one dependent-vowel case are covered. This does not infer syllable or word boundaries.
-- Added strict schema, focused tests, package exports and project records. Orthographic PCGN Latin only; IPA/Ukrainian remain null. Hosted CI pending.
+- Added strict schema, focused tests, package exports and project records. Orthographic PCGN Latin only; IPA/Ukrainian remain null.
+- PR #273 squash-merged as 4fee1db13201b9e171b08daa1d4a45f73a396b86. Exact PR-head Quality [43892380539] and Chromium [43892380533] passed on e20241966e77957988ecccf72374b51dfd38b736: 372 Python tests + 70 subtests, corpus validation, web checks, production build and visible-results Chromium smoke all passed. Exact-main Quality [43892575946], Chromium [43892575968], and Pages build/deploy/runtime smoke [43892575864] all SUCCESS on 4fee1db13201b9e171b08daa1d4a45f73a396b86.
+- KHM-ROM-PCGN-ROBAT-ASSEMBLY-001 is DONE_VERIFIED for the bounded caller-segmented inherent/ordinary-dependent vowel + final ROBAT coda API. KHM-ROM-ENGINE-001 remains PARTIAL. Hosted GitHub Actions only; no local test execution is claimed.
+
+## Exact-main checkpoint after PR #273 — 2026-11-16
+
+- Main: 4fee1db13201b9e171b08daa1d4a45f73a396b86. PR #273 merged; exact-main Quality [43892575946], Chromium [43892575968], and Pages build/deploy with deployed-site/runtime smoke [43892575864] all SUCCESS. Quality: 372 Python tests + 70 subtests; browser visible-results and deployed runtime smoke passed.
+- Bounded Note 4 Alif and Note 5 assemblies remain separate from IPA transcription. Note 6 ROBAT composition now has a bounded whole-syllable API for explicit caller-supplied chunks. General segmentation and whole-word PCGN output remain incomplete.
