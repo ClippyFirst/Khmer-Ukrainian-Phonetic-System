@@ -1024,3 +1024,8 @@ PR #252 merged as `16fbbde6238e03290507056388b539f54622d236`. Final PR-head push
 ## PR #255 — final-consonant context type guard — 2026-11-16
 
 PR [#255](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/255) merged as `47679154526fa32c5edd9d62ca084de5af4759dd`. Non-boolean caller context values now raise `TypeError` before a PCGN decision can be emitted; tests cover invalid values and every supported base consonant. PR-head push Quality [43825412435], PR Quality [43825430244], PR Chromium [43825430217], exact-main Quality [43825536547], Chromium [43825536580] and Pages [43825536491] all SUCCESS. This is an input-contract hardening only; no linguistic scope/status promotion.
+
+
+## PR #256 exact-main closeout — 2026-11-16
+
+PR #256 merged as `dee4881da4cfb01b6da0ff5e857af67cade14cb1`. PR-head push Quality [43825693046], PR Quality [43825710166], Chromium [43825710160], exact-main Quality [43825806168], Chromium [43825806361] and Pages [43825806234] all SUCCESS. Exact-main `pytest -q`: 331 passed, 70 subtests passed; `npm run check`, production build, production Chromium exercise and deployed-site/runtime-asset smoke passed. Documentation-only closeout; no linguistic status promotion.
