@@ -47,7 +47,8 @@ def test_pcgn_independent_vowel_closed_syllable_keeps_note9_ambiguous_vowel_unre
     assert result.status == "UNRESOLVED"
     assert result.independent_vowel == "ឧ"
     assert result.romanization is None
-    assert result.romanization_options == ()
+    assert result.romanization_options == ("ŏ", "ŭ")
+    assert result.vowel_table_row == 7
     assert "PCGN_NOTE_9_Ŏ_OR_Ŭ_REQUIRES_REFERENCE_SELECTION" in result.warnings
 
 
@@ -79,4 +80,4 @@ def test_pcgn_independent_vowel_closed_syllable_schema_is_orthographic_only():
     }
     assert schema["properties"]["ipa"]["const"] is None
     assert schema["properties"]["ukrainian"]["const"] is None
-    assert schema["properties"]["romanization_options"]["maxItems"] == 0
+    assert schema["properties"]["romanization_options"]["maxItems"] == 2
