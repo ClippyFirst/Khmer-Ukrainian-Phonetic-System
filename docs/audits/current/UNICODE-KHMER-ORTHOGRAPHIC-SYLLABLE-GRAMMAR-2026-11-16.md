@@ -65,3 +65,17 @@ TN #61 v2 §§“Orthographic Syllable Structure”, “Coengs”, “Triisap an
 ## Verification boundary
 
 This is a source/methodology reconciliation only. No runtime parser, schema, corpus labels, pronunciation data or generated artifact was changed. No local checkout is available in this session; the next code change must be verified by the repository's full hosted Quality, browser and Pages workflows on the exact branch head and then exact main.
+
+
+### Implementation completion note — 2026-11-16
+
+The Unicode 18 orthographic parser and its rejection diagnostics are now DONE_VERIFIED on main commit 7f1fb11477de13029af1c42bf3a86419c87f4f44. The packed forest preserves grammar-role alternatives and derivation counts without expanding the Cartesian product. The Python and browser implementations expose the same typed contract, including rejected_spans with exact Unicode code-point offsets and reasons.
+
+Shared fixtures cover all Figure 16-3 examples, the §16.4.1 shifter and join-control examples, subscript independent vowels, robat, and explicit unsupported/deprecated code points. The external repetition sign in ម៊្ហែតៗ remains outside the modeled syllable inventory and is reported as unsupported rather than swallowed by a generic O fallback.
+
+Exact-main verification:
+- Quality [43962337294] SUCCESS: 416 Python tests + 70 subtests; IPA corpus structural validation, Node/web checks, production build.
+- Chromium [43962337195] SUCCESS.
+- Pages deploy/runtime smoke [43962337152] SUCCESS.
+
+TN #61 v2 source metadata is registered as unicode-tn61-khmer-encoding-structure-v2 with its independent/non-normative status and Unicode Terms of Use limitations. It remains a separate profile TODO and is not used to modify the Unicode 18 parser.
