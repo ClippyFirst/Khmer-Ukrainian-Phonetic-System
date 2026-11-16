@@ -2941,3 +2941,12 @@ This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in th
 - Output is orthographic BGN/PCGN Latin only; IPA and Ukrainian remain null. No automatic syllable/word segmentation, general coda support, phonetic mapping, gold labels or accuracy claims are added. The existing IPA-first engine is unchanged.
 - Verification pending: inspect exact PR-head Quality, Chromium and (after merge) Pages results. No local checkout or local test execution is claimed.
 - Acceptance is limited to the exact three Note 5 patterns and a single supported final consonant; `KHM-ROM-ENGINE-001` remains PARTIAL.
+
+
+## Continuation checkpoint — normal dependent-vowel closed-syllable assembly — 2026-11-16
+
+- Base main at branch creation: `664c210d957b0666e5ca85032fb49466018cbf78`. Dedicated branch: `feat/pcgn-normal-dependent-closed-syllable-assembly-2026-11-16`.
+- Added `assemble_pcgn_dependent_closed_syllable` in `src/khmer_ua/pcgn.py`. It composes existing series, onset, ordinary dependent-vowel and final-consonant resolvers for explicitly caller-segmented onset + vowel + coda chunks. The implementation verifies that onset and vowel chunks are exact token prefixes of the complete syllable and that the caller's coda is its final token.
+- Added `schemas/pcgn-dependent-closed-syllable-assembly.schema.json` and `tests/test_pcgn_dependent_closed_syllable_assembly.py`. The tests exercise all 17 normal dependent-vowel patterns in both â/ô series with a caller-supplied final coda, plus boundary and abstention cases.
+- Output remains orthographic BGN/PCGN Latin only; IPA and Ukrainian remain null. No word/syllable segmentation is inferred. Shortened/independent vowels and special marks abstain. The IPA-first engine is unchanged.
+- Exact-head hosted Quality, Chromium and Pages checks pending. No local checkout or local test execution is claimed. `KHM-ROM-ENGINE-001` remains PARTIAL.
