@@ -111,17 +111,86 @@ function resolveRegister(base, raw) {
   return { register: base.register, rule: "NON_STANDARD_SHIFTER_USE", status: "EVIDENCE_LIMITED" };
 }
 
-function parseSyllable(raw) {
+function scanOrthographicComponents(raw) {
   const chars = [...raw];
-  if (!chars.length) return { status: "NOT_ESTABLISHED", raw };
+  const independentVowels = new Set(signs.filter((item) => item.kind === "independent_vowel").map((item) => item.char));
+  const dependentVowels = new Set(signs.filter((item) => ["dependent_vowel", "composite_vowel"].includes(item.kind)).map((item) => item.char));
+  const shifters = new Set(signs.filter((item) => item.kind === "register_shifter").map((item) => item.char));
+  const components = [];
+  const notes = [];
+  let baseCount = 0;
+  let unsupported = false;
+
+  const add = (role, text, start, status = "RECOGNIZED") => components.push({
+    role, text, start, end: start + [...text].length,
+    codepoints: [...text].map((char) => "U+" + char.codePointAt(0).toString(16).toUpperCase().padStart(4, "0")),
+    status,
+  });
+
+  for (let index = 0; index < chars.length;) {
+    const char = chars[index];
+    if (char === COENG) {
+      const sub = chars[index + 1];
+      if (sub && (isKhmerConsonant(sub) || independentVowels.has(sub))) {
+        add("SUBSCRIPT", char + sub, index);
+        index += 2;
+        continue;
+      }
+      add("UNSUPPORTED", char, index, "MALFORMED_COENG");
+      notes.push("Malformed COENG at code-point offset " + index + ".");
+      unsupported = true;
+      index += 1;
+      continue;
+    }
+    if (isKhmerConsonant(char) || independentVowels.has(char)) {
+      baseCount += 1;
+      add("BASE", char, index, baseCount === 1 ? "RECOGNIZED" : "AMBIGUOUS_BASE_ROLE");
+    } else if (char === "\u17CC") {
+      add("ROBAT", char, index);
+    } else if (shifters.has(char)) {
+      add("SHIFTER", char, index);
+    } else if (char === ZWNJ || char === "\u200D") {
+      add("FORMAT_CONTROL", char, index);
+    } else if (dependentVowels.has(char)) {
+      add("VOWEL", char, index);
+    } else if (SIGN_BY_CHAR[char] && !["unmodeled_letter", "structural"].includes(SIGN_BY_CHAR[char].kind)) {
+      add("OTHER_SIGN", char, index);
+    } else {
+      add("UNSUPPORTED", char, index, "UNMODELED_CHARACTER");
+      notes.push("Unmodeled character U+" + char.codePointAt(0).toString(16).toUpperCase().padStart(4, "0") + " at code-point offset " + index + ".");
+      unsupported = true;
+    }
+    index += 1;
+  }
+
+  let status;
+  if (!chars.length || baseCount === 0) {
+    status = "INVALID_OR_UNSUPPORTED";
+    if (!chars.length) notes.push("Empty input has no Khmer orthographic base.");
+    else notes.push("No modeled Khmer consonant or independent-vowel base was found.");
+  } else if (unsupported) {
+    status = "INVALID_OR_UNSUPPORTED";
+  } else if (baseCount > 1) {
+    status = "EVIDENCE_LIMITED";
+    notes.push("Multiple un-subscripted base letters occur in one supplied span; the scanner preserves them but does not decide coda versus syllable boundary.");
+  } else {
+    status = "ESTABLISHED_STRUCTURE";
+  }
+  return { schema: "khmer-orthographic-components/v1", source_text: raw, offset_unit: "unicode_code_point", status, notes, components };
+}
+
+function parseSyllable(raw) {
+  const orthographic_structure = scanOrthographicComponents(raw);
+  const chars = [...raw];
+  if (!chars.length) return { status: "NOT_ESTABLISHED", raw, orthographic_structure };
   const first = chars[0];
   const unknownCodepoints = (values) => values.map((char) => "U+" + char.codePointAt(0).toString(16).toUpperCase().padStart(4, "0"));
   if (!isKhmerConsonant(first)) {
     if (first === COENG || SHIFTERS.has(first)) {
-      return { status: "INVALID_OR_UNSUPPORTED", raw, unknown: [], unknown_codepoints: [], reason: "Khmer combining structure cannot begin a standalone orthographic unit." };
+      return { status: "INVALID_OR_UNSUPPORTED", raw, unknown: [], unknown_codepoints: [], reason: "Khmer combining structure cannot begin a standalone orthographic unit.", orthographic_structure };
     }
-    if (SIGN_BY_CHAR[first]) return { status: "NOT_ESTABLISHED", raw, unknown: [], unknown_codepoints: [], reason: "Відомий знак без базового приголосного; його вимову окремо не встановлено." };
-    return { status: "INVALID_OR_UNSUPPORTED", raw, unknown: chars, unknown_codepoints: unknownCodepoints(chars), reason: "Немає підтримуваного кмерського базового приголосного або відомого знака: " + unknownCodepoints(chars).join(", ") + "." };
+    if (SIGN_BY_CHAR[first]) return { status: "NOT_ESTABLISHED", raw, unknown: [], unknown_codepoints: [], reason: "Відомий знак без базового приголосного; його вимову окремо не встановлено.", orthographic_structure };
+    return { status: "INVALID_OR_UNSUPPORTED", raw, unknown: chars, unknown_codepoints: unknownCodepoints(chars), reason: "Немає підтримуваного кмерського базового приголосного або відомого знака: " + unknownCodepoints(chars).join(", ") + ".", orthographic_structure };
   }
   let index = 1;
   const base = first;
@@ -141,7 +210,7 @@ function parseSyllable(raw) {
     if (char === COENG) {
       const sub = chars[index + 1];
       if (!sub || !isKhmerConsonant(sub)) {
-        return { status: "INVALID_OR_UNSUPPORTED", raw, unknown: sub ? [COENG, sub] : [COENG], unknown_codepoints: unknownCodepoints(sub ? [COENG, sub] : [COENG]), reason: "Malformed coeng sequence: " + unknownCodepoints(sub ? [COENG, sub] : [COENG]).join(", ") + "." };
+        return { status: "INVALID_OR_UNSUPPORTED", raw, unknown: sub ? [COENG, sub] : [COENG], unknown_codepoints: unknownCodepoints(sub ? [COENG, sub] : [COENG]), reason: "Malformed coeng sequence: " + unknownCodepoints(sub ? [COENG, sub] : [COENG]).join(", ") + ".", orthographic_structure };
       }
       subscripts.push(sub);
       graphemes.push({ text: COENG + sub, kind: "subscript" });
@@ -168,7 +237,7 @@ function parseSyllable(raw) {
     return {
       status: "INVALID_OR_UNSUPPORTED", raw, base, subscripts, additionalConsonants, vowelSigns,
       unknown, unknown_codepoints: unknownCodepoints(unknown), graphemes,
-      reason: "Unknown character(s) inside Khmer orthographic unit: " + unknownCodepoints(unknown).join(", ") + ".",
+      reason: "Unknown character(s) inside Khmer orthographic unit: " + unknownCodepoints(unknown).join(", ") + ".", orthographic_structure,
     };
   }
   const register = resolveRegister(CONSONANTS[base], raw);
@@ -184,6 +253,7 @@ function parseSyllable(raw) {
     vowelSigns,
     unknown,
     graphemes,
+    orthographic_structure,
     inherent_vowel: register.register === "first" ? "first-series" : register.register === "second" ? "second-series" : null,
     onset_ipa: base === "ប" && register.rule === "BA_TO_PA_EXCEPTION" ? "p" : CONSONANTS[base].onset_ipa,
   };
@@ -426,7 +496,7 @@ function convert(text, profile) {
   };
 }
 
-export { convert, tokenize, parseSyllable, mapIpa, getStatusNotice };
+export { convert, tokenize, parseSyllable, scanOrthographicComponents, mapIpa, getStatusNotice };
 
 if (typeof document !== "undefined") {
   const $ = (id) => document.getElementById(id);
