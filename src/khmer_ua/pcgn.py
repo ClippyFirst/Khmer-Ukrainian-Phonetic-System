@@ -2912,22 +2912,19 @@ def assemble_pcgn_independent_vowel_closed_syllable(
     No syllable or word boundaries are inferred.
     """
     def unresolved(reason: str) -> PCGNIndependentVowelClosedSyllableAssembly:
+        vowel_decision = resolve_pcgn_independent_vowel(vowel_analysis)
         return PCGNIndependentVowelClosedSyllableAssembly(
             source_text=syllable_analysis.raw_text,
             normalized_text=syllable_analysis.normalized_text,
             vowel_chunk_text=vowel_analysis.raw_text,
             coda_text=coda_analysis.raw_text,
-            independent_vowel=(
-                vowel_analysis.independent_vowels[0]
-                if len(vowel_analysis.independent_vowels) == 1
-                else None
-            ),
+            independent_vowel=vowel_decision.source_character,
             vowel_romanization=None,
-            vowel_table_row=None,
+            vowel_table_row=vowel_decision.source_table_row,
             coda_romanization=None,
             coda_table_row=None,
             romanization=None,
-            romanization_options=(),
+            romanization_options=vowel_decision.romanization_options,
             status="UNRESOLVED",
             ipa=None,
             ukrainian=None,
