@@ -80,10 +80,39 @@ function syllableMatches(components, start) {
       || a.extensions.join("|").localeCompare(b.extensions.join("|")));
 }
 
+
+function rejectedSpans(components) {
+  const size = components.length;
+  for (let start = 0; start < size; start += 1) {
+    if (roleAt(components, start) !== "BASE") continue;
+    const matches = syllableMatches(components, start);
+    const viableNext = matches.filter(({ end }) => end === size || roleAt(components, end) === "BASE");
+    if (viableNext.length) continue;
+    const invalidEnds = matches.filter(({ end }) => end < size && roleAt(components, end) !== "BASE").map(({ end }) => end);
+    if (invalidEnds.length) {
+      const rejected = components[Math.max(...invalidEnds)];
+      const detail = ["MALFORMED_COENG", "UNMODELED_CHARACTER"].includes(rejected.status)
+        ? rejected.status + " component " + rejected.text
+        : rejected.role;
+      return [{
+        start: rejected.start,
+        end: rejected.end,
+        reason: detail + " at this position prevents a complete Unicode 18 §16.4 component-order production.",
+      }];
+    }
+  }
+  return components.filter((item) => ["MALFORMED_COENG", "UNMODELED_CHARACTER"].includes(item.status))
+    .map((item) => ({
+      start: item.start,
+      end: item.end,
+      reason: item.status + " component " + item.text + " is outside the modeled Unicode 18 grammar inventory.",
+    }));
+}
+
 export function parseOrthographicSyllables(sourceText) {
   const scan = scanOrthographicComponents(sourceText);
   const components = scan.components;
-  const makeResult = (status, alternatives, derivationCount, notes) => ({
+  const makeResult = (status, alternatives, derivationCount, notes, rejected = []) => ({
     schema: "khmer-orthographic-syllables/v1",
     grammar_profile: KHMER_ORTHOGRAPHIC_GRAMMAR_PROFILE,
     source_text: sourceText,
@@ -94,12 +123,13 @@ export function parseOrthographicSyllables(sourceText) {
     syllables: status === "PARSED" ? alternatives[0].syllables : null,
     alternatives,
     notes,
+    rejected_spans: rejected,
   });
   if (!sourceText || scan.status === "INVALID_OR_UNSUPPORTED") {
-    return makeResult("INVALID_OR_UNSUPPORTED", [], 0, scan.notes.length ? scan.notes : ["No complete Khmer orthographic structure was found."]);
+    return makeResult("INVALID_OR_UNSUPPORTED", [], 0, scan.notes.length ? scan.notes : ["No complete Khmer orthographic structure was found."], rejectedSpans(components));
   }
   if (!components.length || components[0].role !== "BASE") {
-    return makeResult("INVALID_OR_UNSUPPORTED", [], 0, ["A Unicode 18 orthographic syllable must begin with a base character."]);
+    return makeResult("INVALID_OR_UNSUPPORTED", [], 0, ["A Unicode 18 orthographic syllable must begin with a base character."], components.length ? [{ start: components[0].start, end: components[0].end, reason: "The first component is not a base character (B)." }] : []);
   }
 
   const size = components.length;
@@ -140,10 +170,10 @@ export function parseOrthographicSyllables(sourceText) {
   if (!paths.length) {
     return makeResult("EVIDENCE_LIMITED", [], 0, [
       "Recognized components do not form a complete sequence under the Unicode 18 §16.4 ordering formula; no boundary was guessed.",
-    ]);
+    ], rejectedSpans(components));
   }
   if (paths.length > MAX_SEGMENTATION_ALTERNATIVES) {
-    return makeResult("EVIDENCE_LIMITED", [], 0, ["The number of distinct syllable-boundary segmentations exceeded the configured limit."]);
+    return makeResult("EVIDENCE_LIMITED", [], 0, ["The number of distinct syllable-boundary segmentations exceeded the configured limit."], [{ start: 0, end: [...sourceText].length, reason: "The configured segmentation-alternative limit was reached; the forest is incomplete." }]);
   }
 
   const chars = [...sourceText];
