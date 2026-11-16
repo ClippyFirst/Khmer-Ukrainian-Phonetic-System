@@ -1130,3 +1130,8 @@ PR #281 is merged as `50ae3538a624cf78781411c08ebcf51f73fcb5c2`. Exact-main Qual
 ## Khmer subscript independent-vowel parsing — 2026-11-16
 
 The parser now recognizes a documented Khmer structural form that was previously rejected: a subscript independent vowel encoded as U+17D2 COENG plus a modeled independent vowel (Unicode Standard 18.0.0 Chapter 16 §16.4.1, example ផ្ឯម). The parser preserves the pair as one typed grapheme record, exposes exact-source code-point spans for the encoded pair, and records the Unicode 18 structural source. This is not full orthographic-syllable parsing or word segmentation and adds no IPA or Ukrainian output. Acceptance is verified on exact PR head and exact main: PR #282 merged as `dd94f637674ad5ce599ee439584b88b6dba4db1e`; Quality `43947114555`, Chromium `43947114448`, and Pages deploy/runtime smoke `43947114535` all succeeded. Quality: 393 Python tests + 70 subtests. This is structural-only support, not IPA or word segmentation.
+
+
+## Unicode 18 Khmer orthographic-component scanner — 2026-11-16
+
+The current feature branch adds a lossless component scanner based on Unicode 18 Chapter 16's Khmer component inventory and documented order. It emits source-preserving typed components and code-point spans in both Python and browser runtimes. It intentionally reports multiple un-subscripted base consonants as `EVIDENCE_LIMITED` rather than guessing whether they are codas or new orthographic syllables. This is not yet a full BNF parser, syllabifier, grapheme-cluster segmenter or word segmenter. UAX #29 Revision 49 confirms that Khmer word segmentation requires tailoring; it does not define this project's lexical boundary algorithm. Exact-head CI is pending.

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { convert, parseSyllable, tokenize, getStatusNotice } from "../src/main.js";
+import { convert, parseSyllable, scanOrthographicComponents, tokenize, getStatusNotice } from "../src/main.js";
 
 const adversarial = "ក គ កា គា កូ គូ កី គី កេ គេ កែ គែ កើ គើ កៅ គៅ ប ប៉ ប៊ ផ ព ត ថ ទ ធ ច ឆ ជ ឈ ស ហ វ";
 
@@ -170,3 +170,28 @@ assert.equal(unicodePunctuationResult.ipa, "/kɑː/。/kɔː/");
 assert.equal(unicodePunctuationResult.ua, "ка。ко");
 console.log("Unicode punctuation boundary preservation: PASS");
 
+
+
+const orthographicComponents = scanOrthographicComponents("ខ្ញុំ");
+assert.equal(orthographicComponents.schema, "khmer-orthographic-components/v1");
+assert.equal(typeof orthographicComponents.source_text, "string");
+assert.equal(orthographicComponents.status, "ESTABLISHED_STRUCTURE");
+assert.deepEqual(orthographicComponents.components.map((item) => [item.role, item.text, item.start, item.end]), [
+  ["BASE", "ខ", 0, 1], ["SUBSCRIPT", "្ញ", 1, 3], ["VOWEL", "ុ", 3, 4], ["OTHER_SIGN", "ំ", 4, 5],
+]);
+assert.equal(parseSyllable("ខ្ញុំ").orthographic_structure.status, "ESTABLISHED_STRUCTURE");
+const ambiguousOrthography = scanOrthographicComponents("សង្គ្រាម");
+assert.equal(ambiguousOrthography.status, "EVIDENCE_LIMITED");
+assert.ok(ambiguousOrthography.components.some((item) => item.status === "AMBIGUOUS_BASE_ROLE"));
+const supplementaryOffset = scanOrthographicComponents("🧪ខ្ញុំ");
+assert.deepEqual(supplementaryOffset.components.slice(0, 3).map((item) => [item.start, item.end]), [[0, 1], [1, 2], [2, 4]]);
+assert.equal(supplementaryOffset.offset_unit, "unicode_code_point");
+
+
+const subscriptIndependentVowel = parseSyllable("ផ្ឯម");
+assert.deepEqual(subscriptIndependentVowel.subscript_independent_vowels, ["ឯ"]);
+assert.deepEqual(subscriptIndependentVowel.subscripts, []);
+assert.equal(subscriptIndependentVowel.status, "ESTABLISHED_STRUCTURE");
+assert.equal(subscriptIndependentVowel.syllabification_status, "NOT_ESTABLISHED");
+assert.equal(subscriptIndependentVowel.orthographic_structure.status, "EVIDENCE_LIMITED");
+assert.equal(subscriptIndependentVowel.ipa, undefined, "subscript independent-vowel structure must not manufacture IPA");

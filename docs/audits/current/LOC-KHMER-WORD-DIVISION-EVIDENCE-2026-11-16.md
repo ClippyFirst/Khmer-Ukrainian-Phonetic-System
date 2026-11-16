@@ -95,3 +95,12 @@ Unicode UAX #29 extended grapheme clusters remain a default text-segmentation mo
 
 
 **Post-merge verification:** PR #282 merged as `dd94f637674ad5ce599ee439584b88b6dba4db1e`. Exact-main Quality [43947114555] succeeded (393 Python tests + 70 subtests, corpus validation, Node/web checks and production build); Chromium [43947114448] succeeded; Pages build/deploy and deployed-runtime smoke [43947114535] succeeded. This closes only the structural subscript-independent-vowel task. The word-segmentation evidence blockers and Issue #104 remain open.
+
+
+## Unicode 18 orthographic component scan — 2026-11-16
+
+The repository now has a component inventory in `src/khmer_ua/orthographic_structure.py`, mirrored by the browser runtime and serialized as `khmer-orthographic-components/v1`. It identifies base letters, COENG subscript pairs, robat, register shifters, dependent vowels, join controls and other modeled signs with exact code-point offsets. Unicode 18 Chapter 16 §16.4 is the primary source for the component roles and order; UAX #29 Revision 49 is registered separately for default grapheme and word boundary behavior.
+
+**Important limitation:** the scanner does not yet parse the complete BNF or split a continuous Khmer string into orthographic syllables. It leaves multiple un-subscripted base letters unresolved because the source string alone may not establish coda versus next-syllable role. Its individual component spans are not complete orthographic-cluster spans and are not automatically valid inputs to the word-boundary interface's protected-cluster field. It creates no word boundaries, lexicon entries or IPA.
+
+**Task ledger:** `KHM-ORTHO-COMPONENT-SCAN-001 = PARTIAL` pending exact-head CI. Full orthographic-syllable parsing and lexical word segmentation remain distinct tasks. The human evidence gate in Issue #104 remains open.

@@ -168,3 +168,16 @@ def test_coeng_pair_protection_does_not_claim_complete_syllable_boundaries():
     assert khmer_subscript_sequence_spans("ខ្ញុំ") == ((1, 3),)
     assert khmer_subscript_sequence_spans("កx") == ()
     assert khmer_subscript_sequence_spans("្") == ()
+
+
+def test_analysis_exposes_orthographic_component_scan_without_changing_ipa_claims():
+    result = analyze("ខ្ញុំ")
+    syllable = result.syllables[0]
+    assert syllable["orthographic_structure_status"] == "ESTABLISHED_STRUCTURE"
+    assert [(item["role"], item["text"], item["start"], item["end"]) for item in syllable["orthographic_components"]] == [
+        ("BASE", "ខ", 0, 1),
+        ("SUBSCRIPT", "្ញ", 1, 3),
+        ("VOWEL", "ុ", 3, 4),
+        ("OTHER_SIGN", "ំ", 4, 5),
+    ]
+    assert result.phonetic_representation == {"status": "phoneticization_not_yet_established"}

@@ -287,3 +287,10 @@ The Khmer-script romanization path now brackets any Khmer letters or combining m
 ### Khmer subscript independent-vowel structure — 2026-11-16
 
 The structural parser recognizes a Unicode-encoded subscript independent vowel after U+17D2 COENG (for example, the Unicode Standard 18.0.0 Chapter 16 orthographic example ផ្ឯម). It records the sequence as `subscript_independent_vowel`, preserves its two code points and exposes `khmer_subscript_sequence_spans()` for exact-source code-point protection. This is a structural parsing improvement only: it does not establish pronunciation, IPA, Ukrainian output, complete orthographic-syllable segmentation, or word boundaries. See the [Unicode 18 Khmer structure source](https://www.unicode.org/versions/Unicode18.0.0/core-spec/chapter-16/) and the current [LOC word-division evidence audit](docs/audits/current/LOC-KHMER-WORD-DIVISION-EVIDENCE-2026-11-16.md).
+
+
+### Unicode 18 Khmer orthographic-component scanner — 2026-11-16
+
+The Python and browser runtimes now expose a lossless component scan for Khmer orthography. It identifies modeled bases, COENG+subscript pairs (including subscript independent vowels), robat, register shifters, dependent vowel signs, format controls and other modeled signs, with exact Unicode code-point offsets. The payload schema is `schemas/orthographic-components.schema.json` (`khmer-orthographic-components/v1`).
+
+This is a component inventory, **not yet a complete orthographic-syllable parser**: multiple un-subscripted consonants remain `EVIDENCE_LIMITED` because a coda versus a new syllable boundary cannot be decided from the supplied span alone. The scanner does not validate the full Unicode BNF order, infer word boundaries, or generate IPA/Ukrainian output. UAX #29 default grapheme clusters are not a substitute for Khmer orthographic syllable grammar, and Khmer word segmentation needs separate tailoring and lexical evidence. See Unicode 18 Chapter 16 §16.4 and UAX #29 Revision 49.
