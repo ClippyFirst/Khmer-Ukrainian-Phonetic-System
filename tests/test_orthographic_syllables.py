@@ -3,6 +3,7 @@ from khmer_ua.orthographic_syllables import parse_orthographic_syllables
 
 def test_unicode_18_examples_parse_and_reconstruct():
     examples = {
+        "ទេ": ["ទេ"],
         "ខ្ញុំ": ["ខ្ញុំ"],
         "ច្រើន": ["ច្រើ", "ន"],
         "សង្គ្រាម": ["ស", "ង្គ្រា", "ម"],
@@ -47,6 +48,8 @@ def test_multiple_base_scanner_limit_is_resolved_by_bnf_boundaries():
 def test_invalid_coeng_and_unknown_characters_fail_closed():
     assert parse_orthographic_syllables("ក្").status == "INVALID_OR_UNSUPPORTED"
     assert parse_orthographic_syllables("កx").status == "INVALID_OR_UNSUPPORTED"
+    assert "UNMODELED_CHARACTER component" in parse_orthographic_syllables("កx").rejected_spans[0]["reason"]
+    assert "MALFORMED_COENG component" in parse_orthographic_syllables("ក្").rejected_spans[0]["reason"]
     for unsupported in ("ឣ", "ឤ", "\u17B4", "\u17B5", "\u17D8"):
         assert parse_orthographic_syllables(unsupported).status == "INVALID_OR_UNSUPPORTED"
 
@@ -169,5 +172,5 @@ def test_unicode_18_repetition_sign_is_rejected_with_exact_span():
     assert result.rejected_spans == ({
         "start": 6,
         "end": 7,
-        "reason": "UNSUPPORTED at this position prevents a complete Unicode 18 §16.4 component-order production.",
+        "reason": "UNMODELED_CHARACTER component 'ៗ' at this position prevents a complete Unicode 18 §16.4 component-order production.",
     },)

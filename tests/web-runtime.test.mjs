@@ -201,6 +201,7 @@ assert.equal(subscriptIndependentVowel.ipa, undefined, "subscript independent-vo
 
 // Unicode 18 §16.4 orthographic-syllable grammar parser: structural only.
 const grammarExamples = new Map([
+  ["ទេ", ["ទេ"]],
   ["ខ្ញុំ", ["ខ្ញុំ"]],
   ["ច្រើន", ["ច្រើ", "ន"]],
   ["សង្គ្រាម", ["ស", "ង្គ្រា", "ម"]],
@@ -233,6 +234,8 @@ assert.deepEqual(documentedShifterControl.syllables[0].grammar_extensions, [
 ]);
 assert.equal(parseOrthographicSyllables("ក្").status, "INVALID_OR_UNSUPPORTED");
 assert.equal(parseOrthographicSyllables("កx").status, "INVALID_OR_UNSUPPORTED");
+assert.match(parseOrthographicSyllables("កx").rejected_spans[0].reason, /UNMODELED_CHARACTER component/);
+assert.match(parseOrthographicSyllables("ក្").rejected_spans[0].reason, /MALFORMED_COENG component/);
 for (const unsupported of ["ឣ", "ឤ", "\u17B4", "\u17B5", "\u17D8"]) {
   assert.equal(parseOrthographicSyllables(unsupported).status, "INVALID_OR_UNSUPPORTED");
 }
@@ -301,4 +304,5 @@ console.log("Unicode 18 Khmer packed parse forest: PASS");
 const repetitionMark = parseOrthographicSyllables("ម៊្ហែតៗ");
 assert.equal(repetitionMark.status, "INVALID_OR_UNSUPPORTED");
 assert.deepEqual(repetitionMark.rejected_spans.map((item) => [item.start, item.end]), [[6, 7]]);
+assert.match(repetitionMark.rejected_spans[0].reason, /UNMODELED_CHARACTER component/);
 console.log("Unicode 18 Khmer rejected-span diagnostics: PASS");

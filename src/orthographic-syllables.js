@@ -93,10 +93,13 @@ function rejectedSpans(components) {
       .map(({ end }) => end);
     if (invalidEnds.length) {
       const rejected = components[Math.max(...invalidEnds)];
+      const detail = ["MALFORMED_COENG", "UNMODELED_CHARACTER"].includes(rejected.status)
+        ? rejected.status + " component " + rejected.text
+        : rejected.role;
       return [{
         start: rejected.start,
         end: rejected.end,
-        reason: rejected.role + " at this position prevents a complete Unicode 18 §16.4 component-order production.",
+        reason: detail + " at this position prevents a complete Unicode 18 §16.4 component-order production.",
       }];
     }
   }
