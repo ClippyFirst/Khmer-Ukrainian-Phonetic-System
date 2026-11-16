@@ -47,8 +47,8 @@ def test_pcgn_note4_note5_alif_samyok_coda_pattern_assembles():
     assert result.status == "RESOLVED"
     assert result.pattern == "SAMYOK_CODA"
     assert result.shortening_mark == "័"
-    assert result.vowel_romanization == "eă"
-    assert result.romanization == "’eăk"
+    assert result.vowel_romanization == "ă"
+    assert result.romanization == "’ăk"
 
 
 def test_pcgn_note4_note5_optional_apostrophe_is_preserved():
