@@ -3163,14 +3163,14 @@ The shared `khmer-phonetic-result/v1` payload is specified in `schemas/phonetic-
 
 ## Unicode 18 Khmer parser and packed-forest completion — 2026-11-16
 
-The source-reconciliation checkpoint above was superseded by implementation. Main commit 7f1fb11477de13029af1c42bf3a86419c87f4f44 contains the canonical Python/browser Unicode 18 §16.4 parser, grammar-role alternatives, packed derivation representation, and rejected component spans/reasons. It builds on the component scanner and the §16.4.1 subscript-independent-vowel primitive.
+The source-reconciliation checkpoint above was superseded by implementation. Main commit d773dd7f0bcc0b6ab0f7a241e2b7b9857e2aef72 contains the canonical Python/browser Unicode 18 §16.4 parser, grammar-role alternatives, packed derivation representation, and rejected component spans/reasons. It builds on the component scanner and the §16.4.1 subscript-independent-vowel primitive.
 
 - Python: src/khmer_ua/orthographic_syllables.py.
 - Browser: src/orthographic-syllables.js.
 - Schema: schemas/orthographic-syllables.schema.json.
 - The parser preserves complete segmentation alternatives and local grammar-role alternatives without Cartesian expansion, exact source text and Unicode code-point offsets, derivation counts, and rejected spans/reasons. Ambiguous results do not select a preferred parse.
 - Shared fixtures cover all Unicode 18 Figure 16-3 examples, §16.4.1 shifter and join-control examples, subscript independent vowels, robat, deprecated/discouraged code points, and the repetition sign that remains outside the syllable grammar.
-- Exact-main Quality [43962337294] SUCCESS: 416 Python tests + 70 subtests; IPA corpus structural validation, Node/web checks and production build passed. Chromium [43962337195] SUCCESS. Pages deploy/runtime smoke [43962337152] SUCCESS.
+- Exact-main Quality [43962887689] SUCCESS: 416 Python tests + 70 subtests; IPA corpus structural validation, Node/web checks and production build passed. Chromium [43962887588] SUCCESS. Pages deploy/runtime smoke [43962887592] SUCCESS.
 - KHM-ORTHO-BNF-PARSER-001 = DONE_VERIFIED. This is orthographic structure only, not phonological syllabification, LOC word segmentation, IPA or Ukrainian output.
 - TN #61 v2 source metadata is registered as unicode-tn61-khmer-encoding-structure-v2, with its date/version, independent non-normative status and Unicode Terms of Use limitations. KHM-ORTHO-TN61-MODERN-PROFILE-001 remains TODO / NON_NORMATIVE; no TN61-derived constraints are mixed into the Unicode 18 parser.
 - PR #292 was closed as duplicate after the equivalent diagnostics were merged independently to main; its branch remains preserved. The remaining source-registry/documentation reconciliation is being handled on a dedicated branch.
