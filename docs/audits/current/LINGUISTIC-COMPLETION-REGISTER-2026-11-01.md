@@ -1422,3 +1422,9 @@ PR #300 merged as `b60a65179ffbb593fca8f3eb2c07a1c81e6e8489` (final PR head `076
 `KHMER-GOOGLE-TTS-001 = PARTIAL`: source and prompt-index audits are complete, but this resource remains a candidate phonemic comparator, not IPA gold. The 70,671 paper count vs 69,415 lexicon rows and 2,906/17 paper audio metadata vs 2,748/16 Festival prompt index vs current male-only OpenSLR archive remain unresolved. Companion phonology JSON rights, target variety, phonemic convention and per-item provenance remain unresolved.
 
 `KHMER-OPENSLR42-001 = PARTIAL`: archive manifest/checksum and historical-version/speaker reconciliation remain required. `KHM-GOLD-001 = BLOCKED`: independent adjudicated gold remains 0; empirical accuracy remains null. Issue #104 remains OPEN. No local tests or data imports are claimed.
+
+## Khmer IPA convention sheet — evidence synthesis draft — 2026-11-17
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-IPA-CONVENTION-001 | PARTIAL (draft prepared; expert approval blocked) | New [expert-review draft](../../ipa-gold/khmer-pph-careful-citation-ipa-v1-draft.md). Synthesizes Minegishi 1985 (series-conditioned vowels/coda/dialect distinctions), Chem 2020 (four selected PPK speakers, 61 formal frame-read items × 3; F1/F2/duration, no F0/stress), Kirby 2014 (multiple cues in colloquial /r/-loss), and Mam et al. 2025 (five Greater Phnom Penh speakers, 50 words × 3; F0 in stressed rimes; possible PPK pitch phonologization, not a general citation-form tone rule). Source registry includes Minegishi with exact page ranges. | Draft proposes PHONETIC_BROAD but is explicitly NOT_APPROVED. Requires a qualified target-profile Khmer phonetician/phonologist to approve or replace it, second independent review, complete symbol/feature policy and documented sign-off. No annotations may start under this draft. |
