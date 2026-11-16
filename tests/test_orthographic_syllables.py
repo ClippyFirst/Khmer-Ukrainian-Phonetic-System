@@ -3,6 +3,7 @@ from khmer_ua.orthographic_syllables import parse_orthographic_syllables
 
 def test_unicode_18_examples_parse_and_reconstruct():
     examples = {
+        "ទេ": ["ទេ"],
         "ខ្ញុំ": ["ខ្ញុំ"],
         "ច្រើន": ["ច្រើ", "ន"],
         "សង្គ្រាម": ["ស", "ង្គ្រា", "ម"],
@@ -15,6 +16,10 @@ def test_unicode_18_examples_parse_and_reconstruct():
         "ម៉្ងៃ": ["ម៉្ងៃ"],
         "ប‌៊ីយែរ": ["ប‌៊ី", "យែ", "រ"],
         "ពត៌មាន": ["ព", "ត៌", "មា", "ន"],
+        "រាជរ្សី": ["រា", "ជ", "រ្សី"],
+        "ម៊្ហែត": ["ម៊្ហែ", "ត"],
+        "វ‌ិទូ": ["វ‌ិ", "ទូ"],
+        "វ‍ិទូ": ["វ‍ិ", "ទូ"],
     }
     for source, expected in examples.items():
         result = parse_orthographic_syllables(source)
@@ -45,6 +50,9 @@ def test_invalid_coeng_and_unknown_characters_fail_closed():
     assert parse_orthographic_syllables("កx").status == "INVALID_OR_UNSUPPORTED"
     assert parse_orthographic_syllables("ឣ").status == "INVALID_OR_UNSUPPORTED"
     assert parse_orthographic_syllables("ឤ").status == "INVALID_OR_UNSUPPORTED"
+    assert parse_orthographic_syllables("\u17B4").status == "INVALID_OR_UNSUPPORTED"
+    assert parse_orthographic_syllables("\u17B5").status == "INVALID_OR_UNSUPPORTED"
+    assert parse_orthographic_syllables("\u17D8").status == "INVALID_OR_UNSUPPORTED"
 
 
 def test_known_but_nonconforming_component_order_is_evidence_limited():
@@ -125,7 +133,7 @@ def test_unicode_18_join_controls_and_robats_are_position_sensitive():
 
 
 def test_unicode_18_subscript_independent_vowel_examples_preserve_parse_trees():
-    for source in ("ឱ្យ", "ឱ្ម", "ហ្ឫទ័យ"):
+    for source in ("ឱ្យ", "ឱ្ម", "ហ្ឫទ័យ", "ប្រតឺងអ‌៊ឹះ", "ប្រតឺងអ៊ឹះ"):
         result = parse_orthographic_syllables(source)
         assert result.status == "AMBIGUOUS"
         assert result.to_dict()["parse_count"] == 2
@@ -135,3 +143,13 @@ def test_unicode_18_subscript_independent_vowel_examples_preserve_parse_trees():
                 for item in alternative.syllables)
             for alternative in result.alternatives
         )
+
+
+def test_unicode_18_repetition_sign_is_not_misparsed_as_syllable_component():
+    result = parse_orthographic_syllables("ម៊្ហែតៗ")
+    assert result.status == "INVALID_OR_UNSUPPORTED"
+    assert result.rejected_spans == ({
+        "start": 6,
+        "end": 7,
+        "reason": "UNSUPPORTED at this position prevents a complete Unicode 18 §16.4 component-order production.",
+    },)
