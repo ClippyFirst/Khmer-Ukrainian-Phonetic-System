@@ -1145,3 +1145,10 @@ PR #283 merged as `bdc15daf6f7c40a6c088e306343a421b9347e9c1`. Exact-main Quality
 ## Unicode 18 orthographic-syllable grammar reconciliation — 2026-11-16
 
 Unicode Standard 18.0.0 §16.4 gives the formal component-order BNF `B {R | C} {S {R}}* {{Z} V} {O} {S}`; Appendix A.2 defines its extended-BNF operators. The merged PR #283 scanner remains correctly scoped as a component inventory, not a complete grammar parser. Unicode Technical Note #61 v2 (February 2025) is a separate non-normative implementation guideline that proposes a tighter Modern Khmer encoding structure and discusses Middle Khmer separately. The parser follow-up must keep these source layers distinct, preserve all viable parses and ambiguity, and avoid conflating orthographic syllables with phonological syllables or lexical words. Detailed source reconciliation and acceptance contract: `docs/audits/current/UNICODE-KHMER-ORTHOGRAPHIC-SYLLABLE-GRAMMAR-2026-11-16.md`. Exact-main baseline `567c105ac453ff95f1e2a567b8f5e992bda9d6b0`: Quality 43953751661, Chromium 43953751879, Pages 43953751433 all SUCCESS. No runtime change in this documentation-only work.
+
+
+## Unicode 18 Khmer parser and packed forest — 2026-11-16
+
+Main now contains the canonical Unicode 18 §16.4 parser (60038d0), grammar-role alternatives (674b462), and packed per-syllable alternatives with exact derivation counts (8b0ff5a). It retains all complete segmentation paths, exact code-point spans and source text, and does not select a best parse when ambiguous. Exact-main Quality [43961645417], Chromium [43961645412], and Pages [43961645406] all passed.
+
+PR #292 adds rejected component spans/reasons and expands shared Unicode 18 §16.4/§16.4.1 fixtures. Exact branch-head Quality [43962089465] passed (416 tests + 70 subtests, Node/web checks, production build); PR-head Chromium and exact-main verification remain pending. PR #286, #288, and #289 were closed as duplicate/superseded; their branches remain preserved. Issue #104 remains OPEN; IPA gold remains 0. TN #61 v2 remains a separately scoped non-normative TODO. No IPA, Ukrainian output, phonological syllabification or word segmentation was added.
