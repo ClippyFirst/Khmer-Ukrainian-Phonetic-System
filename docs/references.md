@@ -43,7 +43,7 @@
 ## Khmer Unicode structural standards
 
 16. Unicode Consortium. *The Unicode Standard, Version 18.0.0*, Chapter 16 §16.4, Khmer; Appendix A.2, Extended BNF. The chapter defines Khmer component order and identifies the Unicode 18 BNF; Appendix A.2 defines optional braces and repetition semantics. https://unicode.org/versions/Unicode18.0.0/core-spec/chapter-16/ and https://unicode.org/versions/Unicode18.0.0/core-spec/appendix-a/
-17. Hosken, Martin, with Norbert Lindenberg and Makara Sok (February 2025). *Unicode Technical Note #61: Khmer Encoding Structure*, Version 2. Non-normative implementation guidance proposing a tighter Modern Khmer encoding structure and treating Middle Khmer separately. https://www.unicode.org/notes/tn61/utn61-Khmer_Encoding_Structure_V2.pdf
+17. Hosken, Martin (SIL International, NPIC LSDU), with contributors Norbert Lindenberg and Makara Sok (2025-02-06). *Unicode Technical Note #61: Khmer Encoding Structure*, Version 2. Independently prepared, non-normative guidance; not part of the Unicode Standard and not an endorsement by Unicode. Its Modern Khmer proposal is distinct from Unicode 18 §16.4, and Middle Khmer is treated separately. Official version page: https://www.unicode.org/notes/tn61/tn61-2.html ; PDF: https://www.unicode.org/notes/tn61/utn61-Khmer_Encoding_Structure_V2.pdf . Rights: governed by Unicode Terms of Use; public redistribution, modification or incorporation of the note requires express permission unless a specific broader permission applies. The project tracks it as reference-only with unresolved public-reuse permission.
 
 ## Evidence discipline
 

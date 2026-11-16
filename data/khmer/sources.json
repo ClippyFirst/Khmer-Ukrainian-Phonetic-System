@@ -16,6 +16,29 @@
     "status": "ESTABLISHED"
   },
   {
+    "id": "unicode-tn61-v2",
+    "type": "unicode_technical_note",
+    "title": "Unicode Technical Note #61: Khmer Encoding Structure, Version 2",
+    "author": "Martin Hosken",
+    "contributors": [
+      "Norbert Lindenberg",
+      "Makara Sok"
+    ],
+    "organization": "SIL International, NPIC LSDU",
+    "year": 2025,
+    "date": "2025-02-06",
+    "version": "2",
+    "url": "https://www.unicode.org/notes/tn61/tn61-2.html",
+    "landing_page_url": "https://www.unicode.org/notes/tn61/",
+    "full_text_url": "https://www.unicode.org/notes/tn61/utn61-Khmer_Encoding_Structure_V2.pdf",
+    "previous_version_url": "https://www.unicode.org/notes/tn61/tn61-1.html",
+    "scope": "Independently prepared, non-normative Khmer encoding-structure proposal. Covers orthographic syllable structure, coengs, consonant shifters, vowels and signs, confusables, transition/normalization, a sample tester/normalizer, and a separate Middle Khmer appendix. It considers multiple languages written in Khmer script; its core proposal is Modern-Khmer-focused.",
+    "status": "SOURCE_LOCATED_RIGHTS_UNRESOLVED_NOT_IPA",
+    "rights_status": "PUBLIC_DISTRIBUTION_PERMISSION_NOT_ESTABLISHED",
+    "license": "Unicode Terms of Use; no SPDX open-source license asserted for this publication",
+    "limitations": "Unicode Technical Notes are independently prepared, not part of the Unicode Standard, not formally reviewed by Unicode technical committees, and publication does not imply Unicode Consortium endorsement. Unicode Terms of Use permit personal/internal copies but restrict public distribution, modification, or incorporation into products/publications without express written permission. Do not reproduce this note's prose, examples, or sample implementation in public project artifacts without permission. Treat its Modern Khmer proposal as a separate non-normative profile; the current runtime parser implements Unicode Standard 18 §16.4, not TN #61 v2."
+  },
+  {
     "id": "unicode17-ch16",
     "type": "authoritative_standard",
     "title": "Unicode Standard 17.0.0, Chapter 16: South and Southeast Asian Scripts — Khmer",

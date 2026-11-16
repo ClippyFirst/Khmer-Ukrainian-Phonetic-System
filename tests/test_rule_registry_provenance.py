@@ -98,3 +98,20 @@ def test_woznica_thesis_is_scoped_as_multi_region_evidence_not_phnom_penh_gold()
     assert "80" in thesis["scope"] and "speakers" in thesis["scope"]
     assert "not statistically representative" in thesis["limitations"].lower()
     assert "not a Phnom Penh-only" in thesis["limitations"]
+
+
+def test_unicode_tn61_v2_is_tracked_as_non_normative_rights_restricted_reference():
+    sources = json.loads((DATA / "sources.json").read_text(encoding="utf-8"))
+    by_id = {source["id"]: source for source in sources}
+    note = by_id["unicode-tn61-v2"]
+
+    assert note["version"] == "2"
+    assert note["date"] == "2025-02-06"
+    assert note["author"] == "Martin Hosken"
+    assert note["contributors"] == ["Norbert Lindenberg", "Makara Sok"]
+    assert note["url"] == "https://www.unicode.org/notes/tn61/tn61-2.html"
+    assert note["status"] == "SOURCE_LOCATED_RIGHTS_UNRESOLVED_NOT_IPA"
+    assert note["rights_status"] == "PUBLIC_DISTRIBUTION_PERMISSION_NOT_ESTABLISHED"
+    assert "not part of the Unicode Standard" in note["limitations"]
+    assert "public distribution" in note["limitations"]
+    assert "sample implementation" in note["limitations"]
