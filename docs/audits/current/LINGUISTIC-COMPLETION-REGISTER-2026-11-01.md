@@ -1384,7 +1384,19 @@ Acceptance boundary: this does not complete Unicode BNF sequence validation, ful
 | Task ID | Status | Scope / acceptance |
 |---|---|---|
 | KHM-ORTHO-COMPONENT-SCAN-001 | DONE_VERIFIED | Lossless Python/browser component inventory, exact code-point spans and versioned schema; PR #283 and exact-main CI verified. This does not validate the full BNF. |
-| KHM-ORTHO-BNF-PARSER-001 | TODO | Implement Unicode 18 §16.4 BNF with Appendix A.2 semantics over the existing component scanner; return all viable parse alternatives/packed forest, preserve offsets and source reconstruction, and pass shared Python/browser examples on exact-head and exact-main CI. |
+| KHM-ORTHO-BNF-PARSER-001 | PARTIAL | Canonical Unicode 18 parser and grammar-role parse forest are in main (60038d0, 674b462); exact-main Quality/Chromium/Pages passed. PR #289 adds exact rejected spans/reasons and the full §16.4/§16.4.1 fixture set; exact-head Quality passed, PR-head Chromium and exact-main checks pending. |
 | KHM-ORTHO-TN61-MODERN-PROFILE-001 | TODO / NON_NORMATIVE | Optional separately versioned Modern Khmer validator based on Unicode TN #61 v2; keep distinct from normative Unicode 18 BNF and record its proposed/non-normative status. |
 
 Orthographic parsing does not implement phonological syllabification, LOC word division, IPA or Ukrainian output. The source reconciliation and detailed acceptance contract are in `docs/audits/current/UNICODE-KHMER-ORTHOGRAPHIC-SYLLABLE-GRAMMAR-2026-11-16.md`. No source corpus or gold labels were added.
+
+
+### KHM-ORTHO-BNF-PARSER-001 — PARTIAL (implementation present; diagnostics PR pending)
+
+The canonical Python/browser parser applies Unicode 18 §16.4 over the existing lossless component scanner. It uses dynamic programming to retain all complete segmentation paths and separately preserves grammar-role alternatives for the repeated S {R} and final S productions. Exact source text and half-open Unicode code-point offsets are retained; ambiguous results do not select a preferred syllabification. The documented ZWNJ-before-shifter exception is separately traced.
+
+- Canonical parser commits: 60038d07649d07938ece62438ffb9bd18311bf87 and 674b4626ce4f33c8318790d0a8ddc24c3f8cb02b.
+- Exact-main Quality [43960705479] SUCCESS: 412 Python tests + 70 subtests; Node/web checks and production build passed.
+- Exact-main Chromium [43960705665] SUCCESS; Pages deploy/runtime smoke [43960705407] SUCCESS.
+- PR #289 adds rejected_spans with code-point offsets/reasons and shared fixtures for shifters, join controls, robat, subscript independent vowels, discouraged U+17A3/U+17A4, and multi-base examples. Branch-head Quality [43961282376] SUCCESS: 414 Python tests + 70 subtests; Node/web checks and production build passed. PR-head Chromium and exact-main post-merge checks are pending.
+
+The parser remains orthographic only. TN #61 v2 Modern Khmer profile is still TODO / NON_NORMATIVE. Phonological syllabification, LOC word division, IPA gold and Ukrainian output remain outside this task.
