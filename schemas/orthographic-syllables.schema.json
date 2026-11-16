@@ -9,6 +9,7 @@
     "offset_unit",
     "status",
     "parse_count",
+    "segmentation_count",
     "syllables",
     "alternatives",
     "notes"
@@ -35,8 +36,8 @@
       ]
     },
     "parse_count": {
-      "type": "integer",
-      "minimum": 0
+      "type": "string",
+      "pattern": "^[0-9]+$"
     },
     "syllables": {
       "oneOf": [
@@ -74,6 +75,10 @@
       "items": {
         "type": "string"
       }
+    },
+    "segmentation_count": {
+      "type": "integer",
+      "minimum": 0
     }
   },
   "$defs": {
@@ -138,7 +143,8 @@
         "source_text",
         "components",
         "grammar_roles",
-        "grammar_extensions"
+        "grammar_extensions",
+        "grammar_alternatives"
       ],
       "properties": {
         "start": {
@@ -160,26 +166,77 @@
           }
         },
         "grammar_extensions": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "grammar_roles": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "BASE",
+                  "INITIAL_ROBAT",
+                  "INITIAL_SHIFTER",
+                  "SHIFTER_CONTROL",
+                  "SUBSCRIPT_CLUSTER",
+                  "ROBAT_AFTER_SUBSCRIPT",
+                  "JOIN_CONTROL_BEFORE_VOWEL",
+                  "DEPENDENT_VOWEL",
+                  "OTHER_SIGN",
+                  "TRAILING_SUBSCRIPT"
+                ]
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "grammar_alternatives": {
           "type": "array",
+          "minItems": 1,
           "items": {
-            "enum": [
-              "BASE",
-              "INITIAL_ROBAT",
-              "INITIAL_SHIFTER",
-              "SHIFTER_CONTROL",
-              "SUBSCRIPT_CLUSTER",
-              "ROBAT_AFTER_SUBSCRIPT",
-              "JOIN_CONTROL_BEFORE_VOWEL",
-              "DEPENDENT_VOWEL",
-              "OTHER_SIGN",
-              "TRAILING_SUBSCRIPT"
-            ]
+            "type": "object",
+            "required": [
+              "grammar_roles",
+              "grammar_extensions"
+            ],
+            "properties": {
+              "grammar_roles": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "BASE",
+                    "INITIAL_ROBAT",
+                    "INITIAL_SHIFTER",
+                    "SHIFTER_CONTROL",
+                    "SUBSCRIPT_CLUSTER",
+                    "ROBAT_AFTER_SUBSCRIPT",
+                    "JOIN_CONTROL_BEFORE_VOWEL",
+                    "DEPENDENT_VOWEL",
+                    "OTHER_SIGN",
+                    "TRAILING_SUBSCRIPT"
+                  ]
+                }
+              },
+              "grammar_extensions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
           }
         }
       },
