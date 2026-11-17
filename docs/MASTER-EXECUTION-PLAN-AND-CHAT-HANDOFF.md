@@ -3415,3 +3415,17 @@ This is NOT Khmer lexical word segmentation. Spaces and punctuation remain prese
 Task ledger: KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 = PARTIAL until exact PR-head and post-merge Quality/Chromium/Pages verification succeeds. Linguistic coverage and lexical word segmentation remain separately blocked under Issue #104.
 
 Verification caveat: the first CI passes exposed two stale assertions that expected mixed-script text to invalidate its valid Khmer neighbor, contrary to the repository's local-uncertainty invariant. Those assertions were updated to require local isolation. An intermediate browser run also caught that the tokenizer edit had displaced the register-shifter resolver; the resolver was restored before final verification. Only the latest exact-head runs may be used for acceptance.
+
+
+## Mixed-script and Khmer-numeral token boundaries — exact PR-head verification — 2026-11-17
+
+PR [#316](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/316) head after regression corrections: `5eb9d23bdadf175fcb40561ff1de26f6f784ad2e`, based on main `0a79df6918e7e4e291ca28f9e758ac0c14acc742` (25 commits ahead, 0 behind at verification).
+
+- Quality [44079138980](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44079138980) SUCCESS: corpus structural validator reports the expected `NOT_READY_NO_ADJUDICATED_GOLD`; Python 422 passed + 70 subtests; `npm run check` and Vite production build passed.
+- Chromium [44079138905](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44079138905) SUCCESS: 13/13 Playwright tests, including mixed Latin/Khmer/numeral source-order preservation.
+- The first browser run on the earlier head failed because one pre-existing assertion still expected `កx` to erase the valid Khmer neighbor. The assertion was corrected to the local-uncertainty contract; the added mixed-script browser regression then passed on the exact latest head.
+- Review also found that U+200C ZERO WIDTH NON-JOINER was classified as an unrelated “other” script and could split a Khmer unit. Both Python and browser script-bucket classifiers now treat ZWNJ as transparent inside the current run; parser and browser-runtime regressions pass.
+- Numeric-only input remains `NON_LINGUISTIC`, preserved without a guessed reading, with `ipa_kind=NOT_APPLICABLE`. Foreign-script text remains explicitly unsupported as its own unit. This does not add lexical word segmentation, number reading, translation, IPA, lexical data or gold rows.
+- No local tests were run; all verification above is from exact PR-head GitHub Actions. No Pages deployment is claimed before merge.
+
+Task ledger remains PARTIAL until post-merge mainline Quality, Chromium and Pages checks complete. Linguistic coverage and blind-gold acceptance remain separate from this engineering fix; Issue #104 remains OPEN.
