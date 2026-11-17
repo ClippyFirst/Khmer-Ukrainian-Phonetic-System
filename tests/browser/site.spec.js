@@ -1,5 +1,58 @@
 import { test, expect } from "@playwright/test";
 
+async function contrastRatio(page, foregroundSelector, backgroundSelector) {
+  return page.evaluate(({ foregroundSelector, backgroundSelector }) => {
+    const foreground = document.querySelector(foregroundSelector);
+    const background = document.querySelector(backgroundSelector);
+    if (!foreground || !background) return null;
+    const parse = value => value.match(/[\\d.]+/g).slice(0, 3).map(Number);
+    const luminance = value => {
+      const [r, g, b] = parse(value).map(channel => {
+        const normalized = channel / 255;
+        return normalized <= 0.04045 ? normalized / 12.92 : ((normalized + 0.055) / 1.055) ** 2.4;
+      });
+      return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    };
+    const fg = luminance(getComputedStyle(foreground).color);
+    const bg = luminance(getComputedStyle(background).backgroundColor);
+    return (Math.max(fg, bg) + 0.05) / (Math.min(fg, bg) + 0.05);
+  }, { foregroundSelector, backgroundSelector });
+}
+
+test("key service-page text styles meet WCAG AA normal-text contrast", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("ក");
+  await page.keyboard.press("Tab");
+  const pairs = [
+    [".eyebrow", "body"],
+    [".hint", "textarea"],
+    [".num", ".workspace"],
+    [".meta > span", ".result-card"],
+    [".button.primary", ".button.primary"],
+    [".skip-link", ".skip-link"]
+  ];
+  for (const [foreground, background] of pairs) {
+    const ratio = await contrastRatio(page, foreground, background);
+    expect(ratio, `${foreground} against ${background}`).not.toBeNull();
+    expect(ratio, `${foreground} against ${background}: ${ratio}`).toBeGreaterThanOrEqual(4.5);
+  }
+});
+
+test("key methodology-page text styles meet WCAG AA normal-text contrast", async ({ page }) => {
+  await page.goto("/system.html");
+  await page.keyboard.press("Tab");
+  const pairs = [
+    [".doc .muted", "body"],
+    [".docno", "body"],
+    [".skip-link", ".skip-link"]
+  ];
+  for (const [foreground, background] of pairs) {
+    const ratio = await contrastRatio(page, foreground, background);
+    expect(ratio, `${foreground} against ${background}`).not.toBeNull();
+    expect(ratio, `${foreground} against ${background}: ${ratio}`).toBeGreaterThanOrEqual(4.5);
+  }
+});
+
 
 test("service page exposes a keyboard skip link to the main content", async ({ page }) => {
   await page.goto("/");
