@@ -1627,3 +1627,18 @@ Compared all 14 `fix/*` refs and the single `release/*` ref with main `8a84d6550
 | `release/deterministic-rule-engine-2026-11-11` | 15 ahead / 232 behind | Its initial rule engine (5,914 bytes) and hybrid shim are superseded by main's 16,220-byte rule engine and typed-IPA hybrid diagnostic implementation. No release branch is treated as a release candidate. |
 
 **Disposition:** all 14 `fix/*` and the single `release/*` refs have focused compare/content dispositions. Current main contains the later versions or exact matching implementation/data. No code, runtime, IPA, pronunciation, corpus or mapping changes were made by this audit. All branches remain preserved.
+
+
+## Documentation-branch family reconciliation — 2026-11-17
+
+Compared all **96** `docs/*` refs with main `5fbb8352165fe72124214541a00105730d8097a5`. This includes 35 `post-pr*` mainline checkpoints and 61 other documentation closeouts/reconciliation branches. The compare file lists show documentation-only changes, with a small number of README/AGENTS/architecture, source-registry metadata or test-provenance updates; no unintegrated runtime implementation was identified.
+
+Representative content checks confirmed:
+- The current master handoff is cumulative and longer than the historical checkpoint branches; inspected older checkpoints contain no unique handoff lines that are missing from main, except a mixed-script closeout note whose implementation and later status are already captured in current main documentation.
+- The 35 `post-pr*` branches touch only the master handoff, completion register, repository audit and/or romanization matrix. Their historical CI checkpoints are superseded by later mainline checkpoints.
+- The Khmer parser/source-registry handoff branches carry older source-registry snapshots; current main has the larger 49-record source registry. `tests/test_rule_registry_provenance.py` is byte-identical to main.
+- The Unicode/LOC parser final-state branches contain earlier verification counts and TODO wording; main records later parser completion and explicitly keeps lexical word division/TN #61 separate.
+- The repository-information-architecture branch's `AGENTS.md`, codebase map and methodology references are byte-identical to main; its README/architecture are earlier snapshots than current main.
+- The accessibility, romanization, PCGN assembly, parser, mixed-script and source-audit closeout branches are historical documentation snapshots of work already reflected in the current implementation, tests and audit registers.
+
+**Disposition:** all 96 `docs/*` refs have compare/file-scope dispositions. No documentation branch was merged wholesale; no code or source data was copied from a stale checkpoint. All branches remain preserved. This closes the `docs/*` family comparison pass, not the repository-wide branch audit until all other branch prefixes and PR ancestry have been reconciled.
