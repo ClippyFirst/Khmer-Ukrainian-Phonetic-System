@@ -1215,3 +1215,9 @@ Disposition: strong supporting audio candidate; not IPA gold and not automatical
 ## PR #309 exact-head engineering verification — 2026-11-17
 
 PR [#309](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/309), exact head `74622599f6128f34b3ee2fcd19e346b018d399e2`, passed hosted Quality workflow [44034902245](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44034902245): corpus structural validation; 417 Python tests + 70 subtests; Node web checks (including Unicode 18 parser and romanization/Ukrainian adapter checks); production Vite build. The workflow has a single Quality job; no browser/Playwright or Pages deployment check was triggered for this documentation-only change. No local tests were run. This verifies repository integrity/build compatibility, not the linguistic validity of the external audio source. No runtime or gold data changed.
+
+## Kirby source audit merge — 2026-11-17
+
+PR [#309](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/309) was squash-merged as `417ddfe598fc70913d9597dc5fb0b4dc7863d515`. Exact PR-head `a4ab13947e4ff060bf66b2b8a5c14ac432ae195c` passed Quality [44039162569] (417 Python tests + 70 subtests, IPA corpus validator, Node/web checks, Vite production build) and Chromium browser smoke [44039174297] (deterministic checks, production build and visible-result Chromium exercise). No Pages deployment or local tests are claimed. Post-merge mainline checks were queued at the time of this note.
+
+The merged addition registers the CC BY 4.0 Kirby Phnom Penh cluster recordings as a supporting audio candidate only. The archive and MD5 have not been locally verified; exact 79-item manifest and target-profile equivalence remain unresolved. No audio/IPA gold/runtime payload was imported. Gold remains 0 and empirical accuracy null.
