@@ -1341,3 +1341,12 @@ PR [#326](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/3
 Post-merge mainline Quality [44111679547] passed (**423 Python tests + 70 subtests**, Node/web checks and build). Pages [44111679525] passed, including production browser exercise, deploy and deployed-site/runtime smoke. Main is `c345860483b378c66434139b7923a47094875c5a`; open PR count is 0.
 
 The shared fallback fixture is an engineering regression only: Python checks API-level `null` canonical fields; browser checks rendered NOT_ESTABLISHED markers; both check the separate onset-only `k` → `к?` preview and rule/position provenance. Browser unit detail exposes `data-fallback-rule-id` and `data-fallback-position` for inspection. No new pronunciation rule, IPA label, Ukrainian canonical output, gold record or corpus data was added. The dedicated positional evidence registry remains TODO; broader vowel/subscript/coeng fallback remains blocked pending independently sourced positional rules. IPA convention remains `DRAFT_NOT_APPROVED`; independent adjudicated gold=0; empirical accuracy=null; Issue #104 OPEN. No local tests or human review are claimed.
+
+
+## Shared onset-fallback parity task acceptance — 2026-11-17
+
+The bounded cross-runtime regression task is now DONE_VERIFIED. PR #326 merged as `c345860483b378c66434139b7923a47094875c5a`; exact-head Quality [44111933616] and Chromium [44111963202] passed, with **423 Python tests + 70 subtests** and **14/14 Playwright tests**. Post-merge mainline at `c345860483b378c66434139b7923a47094875c5a` passed Quality [44111679547], Chromium [44111687227] and Pages [44111679525]. Documentation closeout PR #327 merged as `5a4f97c2c572020829b9c9eff7fad8a3c9d32e0c`; its exact-head Quality/Chromium passed, and final mainline Quality [44112202827], Chromium [44112202856] (14/14) and Pages [44112203152] all passed.
+
+`Browser regression` and `Exact-head CI and Chromium verification` are DONE_VERIFIED for this shared-fixture acceptance only. The broader onset fallback remains PARTIAL: the dedicated per-position evidence registry is still TODO, and vowel/subscript/coeng hints remain excluded absent independent positional evidence. This is not IPA gold; adjudicated gold=0 and empirical accuracy=null. No local tests, external expert review or pronunciation claims are made.
+
+Final main at this checkpoint: `5a4f97c2c572020829b9c9eff7fad8a3c9d32e0c`; open PRs=0; Issue #104 remains OPEN.
