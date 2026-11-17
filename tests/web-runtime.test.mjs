@@ -71,10 +71,13 @@ assert.deepEqual(astralUnsupported.unknown, ["🧪"], "unsupported supplementary
 assert.deepEqual(astralUnsupported.unknown_codepoints, ["U+1F9EA"]);
 
 const mixedScriptUnit = convert("កx", "khmer-pph-careful-citation-v1");
-assert.equal(mixedScriptUnit.status, "INVALID_OR_UNSUPPORTED");
-assert.equal(mixedScriptUnit.units.length, 1);
-assert.equal(mixedScriptUnit.units[0].status, "INVALID_OR_UNSUPPORTED");
-assert.equal(mixedScriptUnit.units[0].ipa, "⟦INVALID_OR_UNSUPPORTED⟧");
+assert.equal(mixedScriptUnit.status, "EVIDENCE_LIMITED");
+assert.equal(mixedScriptUnit.units.length, 2);
+assert.equal(mixedScriptUnit.units[0].source, "ក");
+assert.equal(mixedScriptUnit.units[0].status, "PROPOSED");
+assert.equal(mixedScriptUnit.units[1].source, "x");
+assert.equal(mixedScriptUnit.units[1].status, "INVALID_OR_UNSUPPORTED");
+assert.equal(mixedScriptUnit.ipa, "/kɑː/⟦INVALID_OR_UNSUPPORTED⟧");
 
 assert.equal(parseSyllable("ក៊").status, "EVIDENCE_LIMITED");
 assert.equal(parseSyllable("គ៉").status, "EVIDENCE_LIMITED");
