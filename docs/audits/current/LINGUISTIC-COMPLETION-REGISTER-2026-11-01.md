@@ -1679,3 +1679,12 @@ Acceptance is DONE_VERIFIED for the registry/schema/inventory-parity test artifa
 | KHM-UI-001 | PARTIAL | Automated semantics/keyboard smoke plus skip navigation are covered by Playwright; PR #331 adds explicit skip-link tests. | Manual screen-reader/assistive-technology review, complete keyboard traversal, contrast, zoom/reflow and real mobile-device review remain outstanding. |
 
 The skip-navigation task does not establish overall accessibility conformance. Issue #104 remains OPEN; IPA convention remains DRAFT_NOT_APPROVED; adjudicated gold=0; empirical accuracy=null.
+
+## WCAG AA contrast regression — 2026-11-17
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-UI-CONTRAST-001 | DONE_VERIFIED (representative text styles only) | PR #333 merged as `126899c81810750cc1c8a77667340606c10eab20`. Exact-head Quality [44149776508] passed (427 Python + 70 subtests); Chromium [44149776607] passed (18/18). Post-merge Quality [44150006145] passed (427 + 70); Chromium [44150005996] passed (18/18). | Tests assert at least 4.5:1 contrast for selected text/background pairs on both public pages. Corrected eyebrow red, input hint text and methodology muted text. |
+| KHM-UI-001 | PARTIAL | Skip navigation and representative contrast checks have automated Chromium coverage. | Full manual screen-reader/assistive-technology review, complete keyboard traversal, comprehensive text/non-text contrast, zoom/reflow and real mobile-device review remain outstanding. |
+
+The contrast task is bounded to the tested selectors and states; it does not claim full WCAG conformance. Pages deployment run [44150006152] must be checked for final completion before treating post-merge deployment verification as closed.
