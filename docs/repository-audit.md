@@ -1374,3 +1374,15 @@ This is a bounded keyboard-navigation improvement, not a complete accessibility 
 PR #333 adds browser regressions for representative text/background pairs on the service and methodology pages. Initial valid measurements identified eyebrow red at 4.24:1 on paper, methodology muted text at 3.68:1, and input hint text below 4.5:1. The palette was adjusted (`--red: #c12634`, hint `#6d6c65`, methodology muted text uses `--muted`) and both stylesheet cache keys were refreshed.
 
 Exact-head Quality [44149776508] passed (427 Python + 70 subtests); Chromium [44149776607] passed (18/18). Post-merge Quality [44150006145] passed (427 + 70); Chromium [44150005996] passed (18/18). This verifies only the named selectors and computed pairs, not complete WCAG conformance. Post-merge Pages [44150006152] SUCCESS: production build, browser exercise, deployment and deployed-site asset smoke checks passed. General accessibility remains PARTIAL pending manual and broader automated review.
+
+
+## PR #334 closeout and exact-main release checkpoint — 2026-11-17
+
+PR [#334](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/334) merged as `a51135d2c65791ae2b433070b71c482a9f49aa40`; PR-head `05aecb1f136c160e03ba8b8ea7dcabee70c58611` was based on `126899c81810750cc1c8a77667340606c10eab20`.
+
+Exact PR-head verification: Quality [44150526026] SUCCESS; Chromium [44150526069] SUCCESS (18/18). Post-merge exact-main verification:
+- Quality [44150735242] SUCCESS — 427 Python tests + 70 subtests, expected no-adjudicated-gold validator state, Node/web checks (24 tests) and Vite build.
+- Chromium [44150735206] SUCCESS — 18/18 Playwright tests.
+- Pages [44150735166] SUCCESS — production build/browser exercise, deployment of exact SHA `a51135d2c65791ae2b433070b71c482a9f49aa40`, and deployed HTML/JS/CSS smoke checks.
+
+The PR #334 change is documentation-only. No runtime or linguistic behavior changed. The automated accessibility evidence is bounded to representative contrast selectors and existing keyboard regressions; full accessibility status remains PARTIAL. The repository is engineering/build/deployment verified and research-ready as a partial prototype, not linguistically release-ready. Issue #104 remains OPEN; convention `DRAFT_NOT_APPROVED`; independent adjudicated gold=0; empirical accuracy=null. This checkpoint was verified through GitHub-hosted APIs and workflow logs; no local test run is claimed.
