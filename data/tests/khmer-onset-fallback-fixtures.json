@@ -1,0 +1,19 @@
+{
+  "schema": "khmer-onset-fallback-fixtures/v1",
+  "scope": "Shared regression expectations for the onset-only provisional preview. These values test an already registered consonant hint, not a pronunciation gold label.",
+  "cases": [
+    {
+      "id": "coeng-subscript-unresolved-onset",
+      "source": "ក្ក",
+      "canonical_status": "NOT_ESTABLISHED",
+      "canonical_ipa": "⟦NOT_ESTABLISHED⟧",
+      "canonical_ukrainian": "⟦НЕВСТАНОВЛЕНО⟧",
+      "fallback_status": "PROVISIONAL",
+      "provisional_ipa": "k",
+      "provisional_ukrainian": "к?",
+      "position": "onset",
+      "rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "uncertainty": "No vowel, subscript realization, coda or tone is inferred."
+    }
+  ]
+}
