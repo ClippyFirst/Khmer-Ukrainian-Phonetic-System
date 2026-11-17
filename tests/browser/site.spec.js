@@ -145,6 +145,7 @@ test("shared onset fallback fixture keeps canonical output unresolved", async ({
     await expect(page.locator("#ua-result")).toHaveText(item.canonical_ukrainian_display);
     await expect(page.locator("#status")).toHaveText("NOT ESTABLISHED");
     await expect(page.locator("#unit-details")).toContainText("Попередня підказка: " + item.provisional_ipa + " → " + item.provisional_ukrainian + " [PROVISIONAL]");
-    await expect(page.locator("#unit-details")).toContainText(item.rule_id);
+    await expect(page.locator(".unit-detail")).toHaveAttribute("data-fallback-rule-id", item.rule_id);
+    await expect(page.locator(".unit-detail")).toHaveAttribute("data-fallback-position", item.position);
   }
 });
