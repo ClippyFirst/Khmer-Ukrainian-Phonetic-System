@@ -141,8 +141,8 @@ test("shared onset fallback fixture keeps canonical output unresolved", async ({
   for (const item of fixture.cases) {
     await page.locator("#source").fill(item.source);
     await expect(page.locator("#results")).toBeVisible();
-    await expect(page.locator("#ipa-result")).toHaveText(item.canonical_ipa);
-    await expect(page.locator("#ua-result")).toHaveText(item.canonical_ukrainian);
+    await expect(page.locator("#ipa-result")).toHaveText(item.canonical_ipa_display);
+    await expect(page.locator("#ua-result")).toHaveText(item.canonical_ukrainian_display);
     await expect(page.locator("#status")).toHaveText("NOT ESTABLISHED");
     await expect(page.locator("#unit-details")).toContainText("Попередня підказка: " + item.provisional_ipa + " → " + item.provisional_ukrainian + " [PROVISIONAL]");
     await expect(page.locator("#unit-details")).toContainText(item.rule_id);
