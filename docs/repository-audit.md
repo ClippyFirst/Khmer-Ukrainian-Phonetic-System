@@ -1300,3 +1300,10 @@ PR [#319](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/3
 This closes the candidate-screening/documentation task only. Vatho is a strong candidate for primary Phnom Penh careful-citation convention review, with an acoustic-model/dictionary conflict to disclose. Kirby is a candidate for bounded PPK acoustic challenge review, not a native target-profile authority; his independence from Vatho still requires direct conflict screening. Hul/Butler co-authorship means they cannot be counted as independent from each other. No person was contacted or recruited. No IPA convention or data/gold was approved or changed.
 
 Issue #104 remains OPEN; IPA convention DRAFT_NOT_APPROVED; 30-item pilot BLOCKED; adjudicated gold=0; empirical accuracy=null. No local tests were run.
+
+
+## Final closeout — PR #320 — 2026-11-17
+
+PR [#320](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/320) merged as `06d0fc1c38889ea6c02d78f7f3274c835f2744e2`. Exact PR-head Quality [44081681961] SUCCESS (422 Python tests + 70 subtests, expected corpus validator state, Node/web checks and Vite build). Exact-main Quality [44081774790] SUCCESS (422 + 70 subtests), Chromium [44081774743] SUCCESS (13/13), and Pages [44081774768] SUCCESS (production browser, deploy and deployed-site/runtime-asset smoke).
+
+This is documentation closeout only. Candidate-screening deliverable is DONE_VERIFIED; no expert was contacted or recruited. IPA convention DRAFT_NOT_APPROVED; 30-item pilot BLOCKED; independent adjudicated gold=0; empirical accuracy=null; Issue #104 OPEN. No local tests were run.
