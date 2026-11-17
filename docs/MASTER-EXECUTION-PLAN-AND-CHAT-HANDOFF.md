@@ -3612,6 +3612,6 @@ The palette was corrected without changing layout or linguistic behavior:
 
 Two Playwright tests check representative text/background pairs against WCAG AA's **4.5:1** normal-text threshold. Exact PR head `6ad35d1345872552458d8510cc1a06649e116a5d`: Quality [44149776508] SUCCESS (**427 Python tests + 70 subtests**); Chromium [44149776607] SUCCESS (**18/18 Playwright tests**, including both new contrast checks).
 
-Post-merge main `126899c81810750cc1c8a77667340606c10eab20`: Quality [44150006145] SUCCESS (**427 Python + 70 subtests**); Chromium [44150005996] SUCCESS (**18/18**). Pages run [44150006152] was still running when this entry was prepared; record its final result only after checking the completed run.
+Post-merge main `126899c81810750cc1c8a77667340606c10eab20`: Quality [44150006145] SUCCESS (**427 Python + 70 subtests**); Chromium [44150005996] SUCCESS (**18/18**). Pages [44150006152] SUCCESS: production build, browser exercise, deployment of the exact main SHA and deployed-site HTML/JS/CSS smoke checks all passed.
 
 `KHM-UI-CONTRAST-001 = DONE_VERIFIED` for the specific measured text styles and tested foreground/background pairs only. This is not a complete WCAG audit: all page content, dynamic states, images, non-text contrast, browser zoom, high contrast modes and assistive technologies have not been exhaustively assessed. General `KHM-UI-001` remains PARTIAL. No phonological/IPA/romanization data or linguistic claims changed.
