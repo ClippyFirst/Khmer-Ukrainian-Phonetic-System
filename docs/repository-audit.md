@@ -1393,3 +1393,12 @@ The PR #334 change is documentation-only. No runtime or linguistic behavior chan
 PR [#336](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/336) merged as `c4cd8b1a17463f306b7c6dffbaad0f80685e5aa1`. It corrects the ALT/NOVA description against the primary NICT Khmer tokenization guideline v0.2: the convention is generally morpheme-level, and compounds are tokenized into components with shallow bracketing based on dictionary/syntactic diagnostics. It does not equate NOVA units with orthographic syllables or project phonetic units.
 
 Exact PR-head Quality [44170618296] and Chromium [44170618297] passed (427 Python tests + 70 subtests; 18/18 browser tests). Post-merge mainline Quality [44170796321], Chromium [44170796376], and Pages [44170796347] all passed. Pages deployed the exact main SHA and passed root/system HTML and JS/CSS asset smoke checks. No runtime or data changed; lexical segmentation remains BLOCKED pending target convention, rights/privacy review and independent adjudicated evaluation. No local tests are claimed because GitHub DNS resolution failed in the execution environment.
+
+
+## Live branch inventory refresh — 2026-11-17
+
+At exact main `35a98711902ec70a5a718eb16c6d07c128f978b2`, GitHub branch listing pages 1–3 returned 209 refs (main + 208 non-main). There are 208 unique tip SHAs total; one non-main branch, `data/integrate-positional-onset-evidence-register-2026-11-17`, points to the exact main SHA, so 207 non-main tips are distinct. Open PRs=0; the only open issue is #104.
+
+Focused checks confirmed the positional-onset registry is already integrated via PR #329, the PCGN independent-vowel CSV and parity test are byte-identical to main, and the direct BGN/PCGN feature branch is stale/diverged. No historical branch was deleted, force-updated or merged wholesale. The no-diff branch was preserved.
+
+`KHM-BRANCH-AUDIT-001` remains PARTIAL: this is a live ref inventory plus focused branch triage, not a full changed-file/commit/PR-ancestry reconciliation of all 208 non-main refs. The previously recorded 131-ref/130-comparison inventory is a historical checkpoint, not the current count. Preserve refs pending an owner archival policy.
