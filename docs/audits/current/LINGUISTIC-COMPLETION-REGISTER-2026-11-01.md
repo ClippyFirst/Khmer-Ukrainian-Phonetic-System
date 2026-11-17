@@ -521,11 +521,11 @@ The export and benchmark now preserve and validate the complete frozen split ide
 
 | Work item | Status | Evidence / acceptance |
 |---|---|---|
-| Python onset-only preview for unresolved Khmer units | PARTIAL | Separate provisional_ipa/provisional_ukrainian/fallback_status/fallback_trace; canonical ipa/ukrainian unchanged; regression for កា. Commit 352c22a55f526877dd136a982b2aa5ac03ff3838 |
+| Python onset-only preview for unresolved Khmer units | PARTIAL | Separate provisional_ipa/provisional_ukrainian/fallback_status/fallback_trace; canonical ipa/ukrainian unchanged. Shared COENG+subscript fixture added in data/tests/khmer-onset-fallback-fixtures.json; Python assertion added. |
 | Browser onset-only preview | PARTIAL | Same onset IPA → existing adapter → ? behavior; per-unit PROVISIONAL status. Commit 862aa061726b2bae6296199e4b655334bb6f609a |
-| Browser regression | PARTIAL | Source-contract assertions added; not yet an executable cross-runtime parity fixture. Commit 660915e4ed1f44eab04258957eee39537883aadd |
+| Browser regression | PARTIAL (shared fixture added; CI pending) | Playwright now reads the same structured COENG+subscript fallback fixture as Python and checks canonical abstention plus visible PROVISIONAL preview/rule ID. Exact-head Quality/Chromium runs are pending. |
 | Dedicated grapheme-position evidence registry | TODO | Register primary-source locator, profile, exact position, rule ID, scope and reviewer status for each provisional mapping |
-| Exact-head CI and Chromium verification | BLOCKED pending run | Runs 43099931373 and 43099931284 were queued; neither is verified as passed |
+| Exact-head CI and Chromium verification | PARTIAL / pending current PR runs | Historical queued runs are superseded; verify current exact-head Quality and Chromium workflows before upgrading the shared-fixture test. |
 | Full provisional vowel/subscript/coeng fallback | TODO | Only consonant onset hints are implemented; require independently sourced positional evidence before extending |
 
 
