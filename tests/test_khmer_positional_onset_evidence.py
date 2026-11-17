@@ -38,7 +38,7 @@ def test_entries_match_existing_consonant_onset_inventory_exactly():
         inventory = by_char[char]
         codepoint = f"U+{ord(char):04X}"
         assert entry["unicode_codepoint"] == codepoint
-        assert entry["entry_id"] == f"ONSET-{codepoint}"
+        assert entry["entry_id"] == f"ONSET-{ord(char):04X}"
         assert entry["position"] == "onset"
         assert entry["ipa_hint"] == inventory["onset_ipa"]
         assert entry["fallback_rule_id"] == "KHMER-PREVIEW-ONSET-IPA-V1"
