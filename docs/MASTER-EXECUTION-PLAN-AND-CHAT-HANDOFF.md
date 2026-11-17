@@ -3474,3 +3474,17 @@ The expert-shortlist revalidation is DONE_VERIFIED as a research/admin deliverab
 Issue #104 remains OPEN. IPA convention DRAFT_NOT_APPROVED; 30-item pilot BLOCKED; two annotators, independent adjudicator, non-annotating curator and private blind intake not recruited/confirmed; adjudicated gold=0; empirical accuracy=null. No local tests were run. No release was published and no Pages settings were changed.
 
 Final mainline checkpoint: `033e979c06c30aff5569750fae824f90484558ed`. PR #319 is merged; no open PRs remained at this checkpoint; Issue #104 remains the sole open issue.
+
+
+## Final closeout — PR #320 canonical handoff reconciliation — 2026-11-17
+
+PR [#320](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/320) merged by squash as `06d0fc1c38889ea6c02d78f7f3274c835f2744e2`. Exact PR-head Quality [44081681961](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44081681961) SUCCESS: 422 Python tests + 70 subtests, expected `NOT_READY_NO_ADJUDICATED_GOLD`, Node/web checks and Vite production build.
+
+Post-merge checks on the exact main commit `06d0fc1c38889ea6c02d78f7f3274c835f2744e2`:
+- Quality [44081774790](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44081774790) SUCCESS: 422 Python tests + 70 subtests, expected no-adjudicated-gold validator state, Node/web checks and Vite build.
+- Chromium [44081774743](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44081774743) SUCCESS: 13/13 Playwright tests.
+- Pages [44081774768](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44081774768) SUCCESS: production browser exercise, Pages deployment and deployed-site/runtime-asset smoke.
+
+The final source-backed expert shortlist and role/conflict boundaries are documented; candidate-screening task is DONE_VERIFIED only as documentation. No expert outreach, consent, recruitment, convention approval or annotation occurred. Issue #104 remains OPEN; IPA convention DRAFT_NOT_APPROVED; 30-item pilot BLOCKED; adjudicated gold=0; empirical accuracy=null. No local tests were run. No release or Pages settings were changed.
+
+Final mainline checkpoint for this session: `06d0fc1c38889ea6c02d78f7f3274c835f2744e2`. PRs #319 and #320 are merged. No open PRs remain; Issue #104 is the only open issue at this checkpoint.
