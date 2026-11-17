@@ -453,7 +453,7 @@ function convert(text, profile) {
   const rendered = units.map((unit) => {
     if (unit === ZWSP) return { source: unit, ipa: " ", ua: " ", status: "PUNCTUATION", note: "U+200B ZERO WIDTH SPACE трактовано як невидиму межу слова.", profile };
     if (PUNCTUATION.test(unit)) return { source: unit, ipa: unit, ua: unit, status: "PUNCTUATION", note: "", profile };
-    if (/^\\p{N}+$/u.test(unit)) return {
+    if (/^\p{N}+$/u.test(unit)) return {
       source: unit, ipa: unit, ua: unit, status: "NON_LINGUISTIC",
       note: "Числовий запис збережено без фонетичного читання; вимову чисел не встановлено.",
       rule_trace: ["NON_LINGUISTIC_NUMERAL_PASSTHROUGH"], profile,
