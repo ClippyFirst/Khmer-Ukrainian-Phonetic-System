@@ -1587,3 +1587,12 @@ This task's DONE_VERIFIED status applies only to deterministic script/numeral to
 | Sothornin Mam | PPK pitch/F0 evidence review | ChulaSEAL summary of 2025 study with five native PPK speakers. | Native-language status and complete convention expertise not established by inspected public sources. |
 
 All are leads only. No outreach, consent or appointment. This update does not satisfy IPA approval, annotator/adjudicator recruitment or pilot acceptance. KHM-IPA-CONVENTION-001 remains DRAFT_NOT_APPROVED; KHM-PILOT-30-LEXEMES-001 and KHM-GOLD-001 remain BLOCKED; adjudicated gold=0; empirical accuracy=null. See [the playbook](../../ipa-gold-collection-playbook.md) for role design and source links.
+
+
+## Expert shortlist revalidation — DONE_VERIFIED as candidate-screening deliverable — 2026-11-17
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-EXPERT-SHORTLIST-REVALIDATION-001 | DONE_VERIFIED (candidate screen only) | PR #319 merged as `033e979c06c30aff5569750fae824f90484558ed`. Exact-head Quality [44081155872] and Chromium [44081155831] passed; duplicate Quality [44081116226] passed. Post-merge main Quality [44081323278] passed (422 Python tests + 70 subtests, expected corpus validator state, Node/web checks, Vite build); Chromium [44081323386] passed (13/13); Pages [44081323295] passed (production browser, deploy and deployed-site/runtime-asset smoke). Candidate evidence and role/conflict limits are recorded in the playbook and Issue #104. | This status means the public-source shortlist is documented. It does not mean outreach, consent, recruitment, independent-review appointment, IPA approval, annotator recruitment or gold acceptance. No one was contacted. |
+
+Human acceptance gates remain open: IPA convention DRAFT_NOT_APPROVED; 30-item pilot BLOCKED; two annotators, separate adjudicator, non-annotating curator and private blind channel unconfirmed; adjudicated gold=0; empirical accuracy=null. Issue #104 remains OPEN. The Quality validator's `NOT_READY_NO_ADJUDICATED_GOLD` is the expected research state, not a test failure.
