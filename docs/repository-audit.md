@@ -1307,3 +1307,12 @@ Issue #104 remains OPEN; IPA convention DRAFT_NOT_APPROVED; 30-item pilot BLOCKE
 PR [#320](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/320) merged as `06d0fc1c38889ea6c02d78f7f3274c835f2744e2`. Exact PR-head Quality [44081681961] SUCCESS (422 Python tests + 70 subtests, expected corpus validator state, Node/web checks and Vite build). Exact-main Quality [44081774790] SUCCESS (422 + 70 subtests), Chromium [44081774743] SUCCESS (13/13), and Pages [44081774768] SUCCESS (production browser, deploy and deployed-site/runtime-asset smoke).
 
 This is documentation closeout only. Candidate-screening deliverable is DONE_VERIFIED; no expert was contacted or recruited. IPA convention DRAFT_NOT_APPROVED; 30-item pilot BLOCKED; independent adjudicated gold=0; empirical accuracy=null; Issue #104 OPEN. No local tests were run.
+
+
+## Khmer lexical word-segmentation evidence audit — 2026-11-17
+
+The mixed-script/numeral behavior is already fixed by PR #316; the residual issue in the supplied paragraph is lexical word segmentation, which must not be conflated with orthographic syllable parsing. A dedicated source-backed review is recorded in [KHMER-LEXICAL-SEGMENTATION-EVIDENCE-AUDIT-2026-11-17.md](audits/current/KHMER-LEXICAL-SEGMENTATION-EVIDENCE-AUDIT-2026-11-17.md).
+
+The review identifies ALT/NOVA's 20,000-sentence manual tokenization/POS corpus (Kaing et al. 2021; DOI 10.1145/3464378) and the khPOS corpus as candidate resources, but both are declared CC BY-NC-SA 4.0; ALT is translated from English Wikinews and khPOS metadata mentions student/voter-list sources. Sung & Hwang's F1 0.906 is specific to their own dataset/test setup; Tran et al.'s 92.3% concerns dictionary-entry syllable division, not running-text word boundaries. No corpus was imported or trained on.
+
+KHM-LEXICAL-WORD-SEGMENTATION-001 is BLOCKED pending tokenization convention/use approval, license/privacy/provenance review, rights-compatible corpus selection, independent annotation/adjudication and held-out evaluation. The existing word-boundary evidence model remains profile-neutral and abstaining; no runtime word segmenter is claimed.

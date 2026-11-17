@@ -3488,3 +3488,12 @@ Post-merge checks on the exact main commit `06d0fc1c38889ea6c02d78f7f3274c835f27
 The final source-backed expert shortlist and role/conflict boundaries are documented; candidate-screening task is DONE_VERIFIED only as documentation. No expert outreach, consent, recruitment, convention approval or annotation occurred. Issue #104 remains OPEN; IPA convention DRAFT_NOT_APPROVED; 30-item pilot BLOCKED; adjudicated gold=0; empirical accuracy=null. No local tests were run. No release or Pages settings were changed.
 
 Final mainline checkpoint for this session: `06d0fc1c38889ea6c02d78f7f3274c835f2744e2`. PRs #319 and #320 are merged. No open PRs remain; Issue #104 is the only open issue at this checkpoint.
+
+
+## Khmer lexical word-segmentation evidence audit — 2026-11-17
+
+The user-supplied sample confirms the already-merged PR #316 fix: adjacent Khmer/Latin/Khmer/numeral runs are isolated and reconstructed without source loss; foreign text stays unsupported and Khmer numerals pass through as NON_LINGUISTIC / NOT_APPLICABLE. The remaining visible limitation is lexical word segmentation, which is distinct from orthographic syllable segmentation and is not implemented by the G2P path.
+
+A new evidence audit is recorded at [KHMER-LEXICAL-SEGMENTATION-EVIDENCE-AUDIT-2026-11-17.md](audits/current/KHMER-LEXICAL-SEGMENTATION-EVIDENCE-AUDIT-2026-11-17.md). Key finding: a 20,000-sentence manually tokenized/POS-tagged ALT/NOVA corpus exists (Kaing et al. 2021; DOI 10.1145/3464378), as does the smaller khPOS corpus. Both are declared CC BY-NC-SA 4.0 in public dataset records; ALT's origin is translated English Wikinews. Their conventions, provenance, privacy and non-commercial/share-alike terms must be reviewed before reuse. Tran et al. (2017) is a syllable-database proposal, not a sentence-level lexical word-segmentation benchmark. Sung & Hwang (2016) report F1 0.906 without U+200B on their own manually segmented test data, but no reusable corpus/code release was established.
+
+Task ledger: KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 remains DONE_VERIFIED. KHM-LEXICAL-WORD-SEGMENTATION-001 is BLOCKED pending an explicit tokenization convention/use decision, license/privacy review, rights-compatible target-relevant corpus, independent double annotation/adjudication, and held-out boundary evaluation. The existing `word_boundaries.py` remains an evidence container and abstains unless exactly one candidate is adjudicated. No lexical segmenter, corpus import, word boundary, pronunciation or IPA claim was added.
