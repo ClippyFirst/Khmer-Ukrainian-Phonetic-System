@@ -1498,7 +1498,7 @@ Source status remains PARTIAL: existing Kirby audio and supplementary records ar
 | ID | Status | Evidence / acceptance boundary |
 |---|---|---|
 | KHM-SOK-ADAMS-2016-001 | DONE_VERIFIED (source audit only) | Full PACLIC 30 paper inspected (pp. 417–424); source registry and [dossier](../../ipa-gold/khmer-sok-adams-phonological-principles-audit.md) record two-stage careful-phonemic vs rapid-colloquial-phonetic design, rule families, data provenance, evaluation limits and rights uncertainty. No rules were transferred to runtime. |
-| KHM-SOK-ADAMS-RULE-TRANSFER-001 | TODO | Reconcile each candidate rule with current code, Unicode structural parser, primary linguistic sources and contemporary Phnom Penh careful-citation profile; acceptance requires source/page locator, typed phonological-vs-phonetic layer, expert review and regression cases. |
+| KHM-SOK-ADAMS-RULE-TRANSFER-001 | BLOCKED | Visual source audit and current-code comparison completed; remaining blocker is qualified contemporary Phnom Penh careful-citation review plus source-located, independently supported rule environments. | Transfer only individually approved rules with exact source/page locator, typed phonological-vs-phonetic layer, contemporary PPK evidence, positive/negative regression items and rights basis. |
 | KHM-SOK-ADAMS-DATA-REUSE-001 | DEFERRED | The 140-word validation set and 10,110-word dictionary comparison are not independent blind audio gold; no dataset rights or reproducible independent split established. Do not import or benchmark against them as project gold. |
 
 The reported 97.86% and 98.43% values are the paper's own results and do not alter repository accuracy (still null). Independent adjudicated gold remains 0; `KHM-IPA-CONVENTION-001` remains `DRAFT_NOT_APPROVED`; `KHM-GOLD-001` remains BLOCKED.
@@ -1626,3 +1626,13 @@ No corpus was copied or used for training. No lexical segmentation was implement
 | PR #322 lexical-segmentation evidence audit | DONE_VERIFIED (documentation/evidence audit only) | Merged as `1cb22c9dfb5ebec539c01544d9e4270b20293b2d`. Exact-main Quality [44087269233] SUCCESS: 422 Python tests + 70 subtests, corpus validator, Node/web checks and Vite build; Chromium [44087269259] SUCCESS: 13/13 Playwright; Pages [44087269174] SUCCESS: production Chromium exercise, deployment and deployed-site/runtime smoke. | Audit deliverable and exact-main engineering verification only. It does not implement lexical segmentation or resolve the human linguistic gates. |
 
 Current status remains: KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 = DONE_VERIFIED; KHM-LEXICAL-WORD-SEGMENTATION-001 = BLOCKED; IPA convention DRAFT_NOT_APPROVED; linguistic ipa_kind UNRESOLVED; independent adjudicated gold = 0; empirical accuracy = null. Issue #104 remains OPEN. No local tests, human accessibility QA, expert outreach, annotation or gold creation are claimed.
+
+
+## Sok & Adams visual rule-family audit — 2026-11-17
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-SOK-ADAMS-VISUAL-TABLE-AUDIT-001 | DONE_VERIFIED (source inspection only) | ACL Anthology PDF page images for printed pp. 419–422 visually inspected; Tables 4–6 and §§6.1–7 were classified by rule family and processing layer in the source dossier (../../ipa-gold/khmer-sok-adams-phonological-principles-audit.md). | Closes visual verification of the source's table/section layout only. No Khmer table cell values were transcribed into project data. |
+| KHM-SOK-ADAMS-RULE-TRANSFER-001 | BLOCKED | Existing runtime resolves bounded orthographic register/shifter context and inherent-vowel series only; it does not implement the paper's cluster assimilation, minor-to-major syllable dependency, BANTOC IPA vowel changes or listed sound-change/rapid-speech rules. The source's historical profile, table notation and lack of independent gold prevent automatic transfer. | Qualified target-profile reviewer must approve each rule family; provide exact source/page locator, typed phonological-vs-phonetic layer, contemporary PPK evidence, positive/negative regression items and rights basis before implementation. |
+
+The audit preserves the paper's §6 orthography-to-phonemic rules separately from §7 rapid/ordinary phonetic transitions. PCGN romanization shortening is not IPA evidence; final trill deletion is not interchangeable with onset /r/-loss. No runtime, test, corpus, IPA or Ukrainian mapping changed. Issue #104 remains OPEN; IPA convention remains DRAFT_NOT_APPROVED; adjudicated gold=0; empirical accuracy=null.

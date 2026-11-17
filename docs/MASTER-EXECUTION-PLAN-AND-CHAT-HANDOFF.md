@@ -3509,3 +3509,16 @@ All three workflows for that exact main SHA completed successfully:
 - Pages [44087269174](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44087269174): production browser exercise, artifact upload, deployment and deployed-site/runtime-asset smoke test all passed. The deploy job's final smoke-test step is confirmed SUCCESS.
 
 Current GitHub reconciliation at this checkpoint: `main` remains at the SHA above; no open pull requests; Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains open as the human IPA-pilot work item. The lexical segmentation evidence audit and `KHM-LEXICAL-WORD-SEGMENTATION-001 = BLOCKED` remain as recorded; no corpus, lexical segmenter, pronunciation rule, IPA label or gold row was added. No local checkout/tests or human accessibility QA are claimed. This closeout records hosted exact-main evidence only; it does not change linguistic release readiness.
+
+
+## Sok & Adams rule-transfer audit continuation — 2026-11-17
+
+Starting main: 460a3df4476f9f4beba7649909be101ef5331336. Dedicated branch: research/sok-adams-rule-transfer-audit-2026-11-17.
+
+The PACLIC 30 source was visually checked against the ACL Anthology PDF page images (printed pp. 419–422), including Tables 4–6 and §§6.1–7. The audit now separates existing orthographic series/shifter handling from unimplemented cluster-series assimilation, minor-to-major syllable influence, BANTOC-conditioned vowel changes, final sound-change rules, and rapid-speech phonetic transitions. It explicitly prevents PCGN transliteration shortening from being treated as phonological IPA evidence and prevents final trill deletion from being conflated with colloquial onset /r/-loss.
+
+No rule, IPA mapping, Ukrainian output, test fixture, corpus row or generated artifact was changed. The existing code only resolves a bounded orthographic register/shifter layer and returns an inherent-vowel series label; it does not implement the paper's full cluster, cross-syllable or sound-change system. The visual source-review subtask is DONE_VERIFIED; KHM-SOK-ADAMS-RULE-TRANSFER-001 is BLOCKED pending target-profile expert review and item-level positive/negative evidence. The full matrix is in the source audit (docs/ipa-gold/khmer-sok-adams-phonological-principles-audit.md).
+
+The paper's author-run 97.86%/98.43% scores remain non-comparable to project accuracy; its 140-word and dictionary-derived 10,110-word materials remain deferred, not project gold. No table values were copied from the PDF. Current linguistic status remains: IPA convention DRAFT_NOT_APPROVED; linguistic ipa_kind=UNRESOLVED; adjudicated gold=0; empirical accuracy=null; Issue #104 OPEN.
+
+Hosted exact-head CI and post-merge mainline checks are required for this documentation-only update. No local checkout or local tests are claimed. No external expert was contacted and no license or repository setting was changed.
