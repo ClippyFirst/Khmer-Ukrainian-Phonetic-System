@@ -1763,3 +1763,18 @@ A third focused pass compared five additional feature branches with exact main `
 | `feat/typed-ipa-hybrid-bridge-2026-11-15` | 10 ahead / 181 behind | `src/khmer_ua/hybrid.py` is byte-identical to main (blob SHA `3adb1adda7f9bbb95ec43c5db850dd2626a3a925`). The external-candidate bridge is already integrated as a diagnostic-only adapter behind typed IPA validation. |
 
 No code, runtime, IPA, pronunciation, corpus or Ukrainian mapping was changed in this audit. All historical refs remain preserved. `KHM-BRANCH-AUDIT-001` remains PARTIAL: 20 representative branches have focused dispositions, but the other historical refs still need complete changed-file/commit/PR-ancestry reconciliation. The profile-neutral boundary evidence module is not a lexical word segmenter; the typed IPA and hybrid modules do not establish adjudicated gold or empirical accuracy.
+
+
+## BGN/PCGN implementation-branch reconciliation — 2026-11-17
+
+A fourth focused pass compared five BGN/PCGN-related feature branches with exact main `59bdf452f15f440918e83a7c6aa4ac94f95f075f`. The representative branch content-review sample is now 25. These are implementation-history dispositions, not independent linguistic validation of the BGN/PCGN rules.
+
+| Branch | Compare to main | Content evidence and disposition |
+|---|---:|---|
+| `feat/pcgn-typed-orthographic-analysis-2026-11-15` | 17 ahead / 154 behind | The branch's initial `pcgn.py` module (7,915 bytes) and schema are earlier snapshots; main has the substantially expanded typed orthographic analysis implementation (120,449 bytes), updated schema and broader tests. No wholesale port. |
+| `feat/pcgn-note10-letter-inventory-20261115` | 18 ahead / 122 behind | `src/khmer_ua/pcgn_unicode.py` is byte-identical to main (blob SHA `2a1960dc5d54fab122e3f8d3a79d0094e01610b0`). The branch's PCGN notes CSV is an earlier version than main's updated 7,233-byte inventory; no data overwrite. |
+| `feat/pcgn-note2-cluster-shifters-2026-11-15` | 10 ahead / 143 behind | Its series-resolution test is an earlier version (6,274 bytes vs 7,401 on main); the shared `pcgn.py` module is substantially evolved on main. No isolated missing rule was established from the branch-level diff; no port. |
+| `feat/pcgn-series-resolution-note3-2026-11-15` | 16 ahead / 152 behind | Its orthographic-analysis test is an earlier version (6,105 bytes vs 6,273 on main); the current main module/schema/tests have moved beyond this snapshot. No wholesale port. |
+| `feat/pcgn-explicit-open-syllable-assembly-2026-11-16` | 8 ahead / 104 behind | Its open-syllable assembly schema is byte-identical to main (blob SHA `1ae644fb612f45f1f38051480e3fdada6a910a0a`). Its `pcgn.py` (71,015 bytes) is an earlier snapshot than main's 120,449-byte module. No port. |
+
+No PCGN rule, source evidence, IPA, pronunciation, corpus, Ukrainian mapping or runtime behavior was changed. The audit does not resolve any outstanding source interpretation or establish BGN/PCGN compliance. All historical refs remain preserved. `KHM-BRANCH-AUDIT-001` remains PARTIAL: 25 representative branches have focused dispositions, not a complete changed-file/commit/PR-ancestry audit of all historical refs.
