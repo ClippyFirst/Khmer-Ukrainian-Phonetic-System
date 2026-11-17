@@ -67,11 +67,14 @@ def test_mixed_input_preserves_supported_units_and_marks_only_unresolved_units()
     assert typed["schema"] == "khmer-phonetic-result/v1"
     assert typed["partial"] is True
     assert typed["units"][0]["ipa"] == "kʰmae"
+    assert typed["units"][0]["ipa_kind"] == "UNRESOLVED"
     assert typed["units"][0]["rule_trace"] == ["KHMER_LEXICAL_FIXTURE", "IPA_TO_UKRAINIAN_LONGEST_MATCH"]
     assert typed["units"][0]["provenance"]["phonology"] == ["wiktionary:khmae"]
     assert typed["units"][0]["provenance"]["target_policy"] == ["data/ukrainian/practical-policy.json"]
     assert typed["units"][1]["status"] == "PUNCTUATION"
+    assert typed["units"][1]["ipa_kind"] == "NOT_APPLICABLE"
     assert typed["units"][2]["status"] == "INVALID_OR_UNSUPPORTED"
+    assert typed["units"][2]["ipa_kind"] == "UNRESOLVED"
     assert typed["units"][2]["uncertainty"][0]["status"] == "INVALID_OR_UNSUPPORTED"
 
 
@@ -113,3 +116,12 @@ def test_typed_phonetic_result_matches_published_json_schema_shape():
         assert isinstance(unit["uncertainty"], list)
         for uncertainty in unit["uncertainty"]:
             assert set(unit_schema["properties"]["uncertainty"]["items"]["required"]).issubset(uncertainty)
+
+
+def test_internal_ipa_kind_stays_explicitly_unresolved_until_convention_approval():
+    result = RuleBasedKhmerEngine().analyze("ឆ")
+    assert result["ipa"] == "cʰɑː"
+    assert result["status"] == "PROPOSED"
+    unit = result["phonetic_result"]["units"][0]
+    assert unit["ipa_kind"] == "UNRESOLVED"
+    assert unit["profile"] == "khmer-pph-careful-citation-v1"
