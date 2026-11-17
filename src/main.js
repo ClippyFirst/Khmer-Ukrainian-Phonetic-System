@@ -463,6 +463,7 @@ function convert(text, profile) {
   const phoneticResults = rendered.map((item) => ({
     source: item.source,
     status: item.status,
+    ipa_kind: item.status === "PUNCTUATION" ? "NOT_APPLICABLE" : "UNRESOLVED",
     rule_trace: item.rule_trace ?? [],
     ipa: item.status !== "PUNCTUATION" && /^\/.*\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa,
     ukrainian: item.ua,
