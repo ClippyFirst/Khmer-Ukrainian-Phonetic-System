@@ -42,13 +42,13 @@ function startsNewOrthographicSyllable(chars, index) {
   return true;
 }
 
-const isNumeric = (char) => Boolean(char && /\\p{N}/u.test(char));
+const isNumeric = (char) => Boolean(char && /\p{N}/u.test(char));
 const scriptBucket = (char) => {
   if (!char) return null;
   if (isNumeric(char)) return "number";
-  if (/\\p{Script=Khmer}/u.test(char)) return "khmer";
-  if (/\\p{M}/u.test(char)) return null;
-  if (/\\p{L}/u.test(char)) return "foreign";
+  if (/\p{Script=Khmer}/u.test(char)) return "khmer";
+  if (/\p{M}/u.test(char)) return null;
+  if (/\p{L}/u.test(char)) return "foreign";
   return "other";
 };
 
