@@ -62,3 +62,10 @@ Implementation commits: 61e0246cf34e0319f72c9b04c5926b6e3b3ad1f5 (Python engine)
 ## Scope correction — 2026-11-11
 
 The fallback is a separate diagnostic preview, not a replacement for canonical IPA or Ukrainian output. The browser keeps the canonical unresolved marker in the main result and shows the onset-only preview in per-unit analysis details. The regression fixture is a consonant with an unresolved coeng/subscript structure (ក្ក), not ကា: the latter already follows the existing inherent-vowel rule and must not be treated as unresolved.
+
+
+## Shared Python/browser fallback regression fixture — 2026-11-17
+
+A shared machine-readable fixture now exercises the existing onset-only preview for an unresolved COENG+subscript unit (ក្ក). Python and Chromium tests read the same case. Python asserts the API's intentional `null` canonical fields; the browser asserts the corresponding rendered `NOT_ESTABLISHED` markers. Both assert the separate onset-only `k` → `к?` preview is visibly provisional and carries the same rule ID, exposed as inspectable unit-detail data attributes. This is a cross-runtime contract regression, not a pronunciation gold item and not a new grapheme-to-IPA rule.
+
+Fixture: `data/tests/khmer-onset-fallback-fixtures.json`. Acceptance remains limited to the existing onset hint. The fallback still has no dedicated source registry with per-rule locators/reviewer state, and there is no exhaustive positional inventory. No unsupported vowel, coda, subscript realization or tone is inferred.

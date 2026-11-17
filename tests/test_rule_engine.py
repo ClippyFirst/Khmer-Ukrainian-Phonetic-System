@@ -127,3 +127,26 @@ def test_internal_ipa_kind_stays_explicitly_unresolved_until_convention_approval
     unit = result["phonetic_result"]["units"][0]
     assert unit["ipa_kind"] == "UNRESOLVED"
     assert unit["profile"] == "khmer-pph-careful-citation-v1"
+
+
+def test_shared_onset_fallback_fixture_preserves_canonical_abstention():
+    import json
+    from pathlib import Path
+
+    fixture_path = Path("data/tests/khmer-onset-fallback-fixtures.json")
+    fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
+    assert fixture["schema"] == "khmer-onset-fallback-fixtures/v1"
+
+    for case in fixture["cases"]:
+        result = RuleBasedKhmerEngine().analyze(case["source"])
+        assert result["status"] == case["canonical_status"]
+        assert result["ipa"] == case["canonical_ipa_python"]
+        assert result["ukrainian"] == case["canonical_ukrainian_python"]
+        assert result["fallback_status"] == case["fallback_status"]
+        assert result["provisional_ipa"] == case["provisional_ipa"]
+        assert result["provisional_ukrainian"] == case["provisional_ukrainian"]
+        trace = result["fallback_trace"]
+        assert len(trace) == 1
+        assert trace[0]["position"] == case["position"]
+        assert trace[0]["rule_id"] == case["rule_id"]
+        assert trace[0]["status"] == "PROVISIONAL"
