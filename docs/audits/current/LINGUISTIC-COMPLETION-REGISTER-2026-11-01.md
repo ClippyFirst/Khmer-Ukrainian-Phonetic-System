@@ -1707,3 +1707,12 @@ The contrast task is bounded to the tested selectors and states; it does not cla
 | PR #336 exact-head and post-merge engineering checks | DONE_VERIFIED | PR-head Quality [44170618296] and Chromium [44170618297] SUCCESS; post-merge main Quality [44170796321], Chromium [44170796376], Pages [44170796347] SUCCESS. Quality: 427 Python tests + 70 subtests; Chromium: 18/18. Pages deployed exact main SHA and passed HTML/JS/CSS smoke checks. | No runtime, corpus, IPA or gold data changed. Gold remains 0; empirical accuracy remains null; Issue #104 remains OPEN. |
 
 Local clone/test execution was not possible because `github.com` DNS resolution failed in the execution environment; CI evidence above is the verification source.
+
+
+## Live branch inventory refresh — 2026-11-17
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-BRANCH-AUDIT-001 | PARTIAL (live inventory refreshed; full content audit outstanding) | GitHub branch listing pages 1–3: 209 refs total (main + 208 non-main), 208 unique tip SHAs total; one non-main ref points to the exact main SHA, leaving 207 distinct non-main tips. Open PRs=0; open issues=1 (#104). | The former 131-ref / 130-comparison snapshot is historical. This refresh did not compare every current branch's ancestry or reconcile every changed file/PR. Continue full content-level review; preserve branches and do not merge divergent snapshots wholesale. |
+
+Focused spot-checks: `data/khmer-onset-evidence-registry-2026-11-17` is already integrated through PR #329; PCGN independent-vowel CSV and test are byte-identical to main; the direct BGN/PCGN feature branch is stale/diverged and was not ported wholesale. No branch was deleted or force-updated. The one no-diff branch at main's SHA was preserved.

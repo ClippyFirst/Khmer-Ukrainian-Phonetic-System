@@ -3641,3 +3641,16 @@ PR [#336](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/3
 - GitHub Pages [44170796347](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44170796347) SUCCESS: deployed exact main SHA `c4cd8b1a17463f306b7c6dffbaad0f80685e5aa1`; production root, `system.html`, JavaScript and CSS asset smoke checks passed.
 
 This was a documentation/source-interpretation correction only. No runtime segmentation, corpus, IPA, Ukrainian mapping or generated artifact changed. The NICT Khmer NOVA v0.2 guideline now accurately appears as a generally morpheme-level convention with explicit compound handling; it remains distinct from orthographic syllables and project phonetic units. Local clone/test execution was blocked because this environment could not resolve `github.com`; all reported verification is from exact-head and post-merge GitHub Actions.
+
+
+## Live historical branch inventory refresh — 2026-11-17
+
+Exact `main` at this check: `35a98711902ec70a5a718eb16c6d07c128f978b2`.
+
+- GitHub branch listing pages 1–3 returned **209 refs**: `main` + 208 non-main refs.
+- There are **208 unique tip SHAs** across the 209 refs; 207 non-main refs have unique tips, while `data/integrate-positional-onset-evidence-register-2026-11-17` points to the same SHA as `main` (no file diff).
+- Open pull requests: **0**. Open issues: **1**, Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) (human expert IPA gold pilot).
+- Focused content checks in this continuation found the onset evidence registry already integrated through PR #329; PCGN independent-vowel CSV and its parity test are byte-identical to main; the direct BGN/PCGN feature branch is substantially stale and its current files do not justify wholesale porting. Existing parser/adapter research branches remain snapshots, not merge candidates.
+- No branch was deleted, force-updated or merged wholesale. One no-diff branch tip equal to main was preserved.
+
+**Status: `KHM-BRANCH-AUDIT-001 = PARTIAL`.** The live ref inventory is refreshed and the duplicate tip is identified, but a complete 208-branch changed-file/commit/PR-ancestry content reconciliation was not performed in this continuation. Earlier 130/130 ancestry comparison records are historical snapshots and must not be read as covering today's 208 non-main refs. Continue with batched compare/content review before claiming full branch-audit completion. Preserve all historical refs pending owner archival policy.
