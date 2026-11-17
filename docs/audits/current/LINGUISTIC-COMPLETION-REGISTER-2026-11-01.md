@@ -523,9 +523,9 @@ The export and benchmark now preserve and validate the complete frozen split ide
 |---|---|---|
 | Python onset-only preview for unresolved Khmer units | PARTIAL | Separate provisional_ipa/provisional_ukrainian/fallback_status/fallback_trace; canonical ipa/ukrainian unchanged. Shared COENG+subscript fixture added in data/tests/khmer-onset-fallback-fixtures.json; Python assertion added. |
 | Browser onset-only preview | PARTIAL | Same onset IPA → existing adapter → ? behavior; per-unit PROVISIONAL status. Commit 862aa061726b2bae6296199e4b655334bb6f609a |
-| Browser regression | PARTIAL (shared fixture added; CI pending) | Playwright now reads the same structured COENG+subscript fallback fixture as Python and checks canonical abstention plus visible PROVISIONAL preview/rule ID. Exact-head Quality/Chromium runs are pending. |
+| Browser regression | DONE_VERIFIED (bounded shared-fixture contract) | Python and Playwright consume `data/tests/khmer-onset-fallback-fixtures.json`; Python asserts API null canonical fields and the browser asserts rendered NOT_ESTABLISHED markers. Both verify the same provisional onset IPA/UA, status, rule ID and position. Exact-head Quality and Chromium passed; mainline Quality and Chromium passed. |
 | Dedicated grapheme-position evidence registry | TODO | Register primary-source locator, profile, exact position, rule ID, scope and reviewer status for each provisional mapping |
-| Exact-head CI and Chromium verification | PARTIAL / pending current PR runs | Historical queued runs are superseded; verify current exact-head Quality and Chromium workflows before upgrading the shared-fixture test. |
+| Exact-head CI and Chromium verification | DONE_VERIFIED for shared fixture | PR #326 exact-head Quality [44111933616] and Chromium [44111963202] SUCCESS; post-merge mainline Quality [44112202827] and Chromium [44112202856] SUCCESS. Mainline Pages [44112203152] SUCCESS. |
 | Full provisional vowel/subscript/coeng fallback | TODO | Only consonant onset hints are implemented; require independently sourced positional evidence before extending |
 
 
