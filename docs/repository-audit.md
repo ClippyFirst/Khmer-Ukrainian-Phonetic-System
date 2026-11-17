@@ -1421,3 +1421,10 @@ These findings support preserving rather than wholesale-merging the selected sta
 ## PR #338 verification — 2026-11-17
 
 PR [#338](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/338) merged as `f5c9c70661126b61a23d5435c8c4368215c36746`. Exact-head Quality [44173194420] and [44173216454] passed (427 Python tests + 70 subtests; expected no-adjudicated-gold validator state); Chromium [44173216381] passed 18/18. Post-merge mainline Quality [44173400187], Chromium [44173400043] (18/18), and Pages [44173400219] all passed, including production browser exercise, deployment and deployed-site/runtime-asset smoke. No runtime or linguistic behavior changed.
+## Final branch inventory and PR #339 mainline verification — 2026-11-17
+
+Fresh GitHub listing pages 1–3 after PR #339 returned 211 refs (main + 210 non-main), 211 unique tip SHAs, 0 open PRs and 1 open issue (#104). This supersedes the 209-ref snapshot immediately preceding the two audit documentation branches.
+
+PR [#339](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/339) merged as `b5a878f33dae74d34754c547580c5a494307cdce`. Exact-head Quality [44173798008] and [44173819190] passed (427 Python tests + 70 subtests); Chromium [44173818953] passed 18/18. Post-merge mainline Quality [44173970460], Chromium [44173970246] (18/18), and Pages [44173970271] all passed; Pages deployed the exact SHA and passed deployed-site HTML/JS/CSS smoke.
+
+The branch audit remains PARTIAL: 11 representative historical branches have focused content dispositions, but all 210 non-main refs have not undergone complete changed-file/commit/PR-ancestry reconciliation. No branch was deleted, force-updated or merged wholesale.
