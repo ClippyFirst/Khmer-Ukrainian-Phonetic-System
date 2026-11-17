@@ -53,28 +53,79 @@ def _starts_new_orthographic_syllable(chars, i):
             return False
     return True
 
+def _script_bucket(char: str) -> str | None:
+    """Classify a source character for safe mixed-script token boundaries.
+
+    Khmer letters/marks stay in the Khmer run. Combining marks inherit the
+    preceding run. Numbers are handled as separate non-phonetic literals.
+    Other letters are kept together as foreign-script runs.
+    """
+    codepoint = ord(char)
+    category = unicodedata.category(char)
+    if char == ZWNJ:
+        return None
+    if category.startswith("N"):
+        return "number"
+    if 0x1780 <= codepoint <= 0x17FF or 0x19E0 <= codepoint <= 0x19FF:
+        return "khmer"
+    if category.startswith("M"):
+        return None
+    if category.startswith("L"):
+        return "foreign"
+    return "other"
+
+
 def segment_syllables(text: str) -> list[str]:
-    units=[]; current=[]
-    chars=list(text)
-    i=0
-    while i < len(chars):
-        ch=chars[i]
-        if ch==ZWSP:
-            if current:
-                units.append("".join(current)); current=[]
-            units.append(ch); i+=1; continue
-        if ch.isspace() or unicodedata.category(ch).startswith("P"):
-            if current:
-                units.append("".join(current)); current=[]
-            units.append(ch); i+=1; continue
-        if current and _starts_new_orthographic_syllable(chars, i):
+    """Preserve separators and split Khmer, foreign-script and numeric runs.
+
+    Khmer orthographic segmentation remains conservative and is not lexical
+    word segmentation. Foreign-script text and numeric literals are isolated
+    so they cannot poison an adjacent Khmer orthographic unit.
+    """
+    units: list[str] = []
+    current: list[str] = []
+    current_bucket: str | None = None
+    chars = list(text)
+    i = 0
+
+    def flush() -> None:
+        nonlocal current_bucket
+        if current:
             units.append("".join(current))
-            current=[ch]
-        else:
-            current.append(ch)
-        i+=1
-    if current:
-        units.append("".join(current))
+            current.clear()
+        current_bucket = None
+
+    while i < len(chars):
+        ch = chars[i]
+        if ch == ZWSP or ch.isspace() or unicodedata.category(ch).startswith("P"):
+            flush()
+            units.append(ch)
+            i += 1
+            continue
+
+        bucket = _script_bucket(ch)
+        if bucket == "number":
+            flush()
+            numeric: list[str] = []
+            while i < len(chars) and unicodedata.category(chars[i]).startswith("N"):
+                numeric.append(chars[i])
+                i += 1
+            units.append("".join(numeric))
+            continue
+
+        effective_bucket = bucket or current_bucket or "other"
+        if current and current_bucket is not None and effective_bucket != current_bucket:
+            flush()
+        if not current:
+            current_bucket = effective_bucket
+
+        if current and effective_bucket == "khmer" and _starts_new_orthographic_syllable(chars, i):
+            flush()
+            current_bucket = "khmer"
+        current.append(ch)
+        i += 1
+
+    flush()
     return units
 
 def decompose_khmer_syllable(raw: str) -> KhmerSyllable:

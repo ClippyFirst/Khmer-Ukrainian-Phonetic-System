@@ -133,6 +133,15 @@ def _provisional_preview(structure: Any) -> dict[str, Any] | None:
 
 
 def _analyze_unit(unit: str) -> dict[str, Any]:
+    if unit and all(unicodedata.category(character).startswith("N") for character in unit):
+        return {
+            "source": unit, "ipa": unit, "ukrainian": unit,
+            "status": "NON_LINGUISTIC",
+            "rule_trace": ["NON_LINGUISTIC_NUMERAL_PASSTHROUGH"],
+            "reason": "Numeric literal preserved without phonetic reading; number pronunciation is not established.",
+            "evidence": [],
+        }
+
     fixture = _LEXICON.get(unit)
     if fixture is not None:
         raw_ipa = fixture.get("ipa")
@@ -214,6 +223,8 @@ def _analyze_unit(unit: str) -> dict[str, Any]:
 
 
 def _combine_status(units: list[dict[str, Any]]) -> str:
+    if not units:
+        return "NOT_ESTABLISHED"
     statuses = {unit["status"] for unit in units}
     invalid = sum(unit["status"] == "INVALID_OR_UNSUPPORTED" for unit in units)
     if invalid and invalid == len(units):
@@ -257,7 +268,7 @@ class RuleBasedKhmerEngine:
             else:
                 rendered.append(_analyze_unit(token))
 
-        linguistic = [unit for unit in rendered if unit["status"] != "PUNCTUATION"]
+        linguistic = [unit for unit in rendered if unit["status"] not in {"PUNCTUATION", "NON_LINGUISTIC"}]
         resolved = [unit for unit in linguistic if unit["status"] == "PROPOSED"]
         complete = bool(linguistic) and all(
             unit["status"] == "PROPOSED"
@@ -285,7 +296,7 @@ class RuleBasedKhmerEngine:
                     if grapheme["text"] != syllable.get("base_consonant")
                 )
             uncertainty = ()
-            if status not in {"PROPOSED", "PUNCTUATION"} or source_ipa is None or source_ua is None:
+            if status not in {"PROPOSED", "PUNCTUATION", "NON_LINGUISTIC"} or source_ipa is None or source_ua is None:
                 uncertainty = (PhoneticUncertainty(
                     status=status,
                     note=unit.get("reason", ""),
@@ -297,7 +308,7 @@ class RuleBasedKhmerEngine:
                 ipa=ipa_value,
                 ukrainian=ua_value,
                 profile=self.profile,
-                ipa_kind="NOT_APPLICABLE" if status == "PUNCTUATION" else "UNRESOLVED",
+                ipa_kind="NOT_APPLICABLE" if status in {"PUNCTUATION", "NON_LINGUISTIC"} else "UNRESOLVED",
                 rule_trace=tuple(unit.get("rule_trace", [])),
                 provenance={
                     "structure": tuple(structural_sources),

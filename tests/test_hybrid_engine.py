@@ -79,3 +79,29 @@ def test_factory_exports_typed_hybrid():
     engine = create_hybrid_engine({"provider": lambda _: typed("kʰmae")})
     assert isinstance(engine, HybridKhmerEngine)
     assert len(engine.analyze("ខ្មែរ")["external_candidates"]) == 1
+
+
+def test_rule_engine_keeps_foreign_script_and_numerals_out_of_adjacent_khmer_units():
+    result = RuleBasedKhmerEngine().analyze("កLlenguatgeគ៦១១")
+    units = result["units"]
+
+    assert "".join(unit["source"] for unit in units) == "កLlenguatgeគ៦១១"
+    assert [unit["source"] for unit in units] == ["ក", "Llenguatge", "គ", "៦១១"]
+    assert units[1]["status"] == "INVALID_OR_UNSUPPORTED"
+    assert units[3]["status"] == "NON_LINGUISTIC"
+    assert units[3]["ipa"] == "៦១១"
+    assert units[3]["ukrainian"] == "៦១១"
+    typed_numeral = result["phonetic_result"]["units"][3]
+    assert typed_numeral["ipa_kind"] == "NOT_APPLICABLE"
+    assert typed_numeral["uncertainty"] == []
+
+
+def test_numeral_only_input_is_preserved_without_claiming_phonetic_output():
+    result = RuleBasedKhmerEngine().analyze("៦១១")
+
+    assert result["status"] == "NOT_ESTABLISHED"
+    assert result["ipa"] == "៦១១"
+    assert result["ukrainian"] == "៦១១"
+    assert result["complete"] is False
+    assert result["units"][0]["status"] == "NON_LINGUISTIC"
+    assert result["phonetic_result"]["units"][0]["ipa_kind"] == "NOT_APPLICABLE"

@@ -1260,3 +1260,15 @@ A focused full-text review of Chem (2020) and Mam, Pittayaporn & Maspong (2025) 
 ## PR #314 merge and exact-head verification — 2026-11-17
 
 PR [#314](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/314) merged as `4760964618f05290560372b1ee60b4f7fba8ae72`. Exact PR-head Quality [44076405229] SUCCESS (418 Python tests + 70 subtests, corpus structural validation, Node/web checks and Vite build); Chromium [44076405251] SUCCESS (12/12 Playwright tests). Corpus validator correctly reports no adjudicated gold (`NOT_READY_NO_ADJUDICATED_GOLD`). The change is documentation/source-audit only; no Pages deployment was required, no local tests were run (DNS failure to github.com), and no runtime/data/gold/generated artifacts changed. Issue #104 remains open; IPA convention DRAFT_NOT_APPROVED; gold=0; empirical accuracy=null.
+
+
+## Mixed-script and numeric source-boundary audit — 2026-11-17
+
+The user-supplied Khmer paragraph exposed a tokenizer boundary defect: adjacent Latin text was swallowed by a Khmer run, and Khmer decimal digits attached to a word were sent through Khmer structural validation. The Python and browser tokenizers now isolate script transitions and consecutive Unicode numeric runs. Numeric runs are passed through unchanged as NON_LINGUISTIC with ipa_kind NOT_APPLICABLE; foreign-script runs remain explicit unsupported units. Tests verify source reconstruction and that valid Khmer neighbors retain their local outputs. This is a tokenizer/source-integrity correction, not a lexical segmenter or a new language/phonology capability. Khmer word division, non-Khmer transcription and number reading remain outside the implemented contract.
+
+
+## Mixed-script and numeric source-boundary correction — exact PR-head checks — 2026-11-17
+
+PR [#316](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/316) latest head `5eb9d23bdadf175fcb40561ff1de26f6f784ad2e` passes Quality [44079138980] (422 Python tests + 70 subtests, expected no-gold validator state, Node/web checks and Vite build) and Chromium [44079138905] (13/13 Playwright tests). The earlier browser failure was a stale assertion that expected the entire mixed input to be invalid; it was updated to assert local preservation, and the new mixed-script/numeral browser test passes.
+
+The script-run correction isolates Khmer, foreign-script and numeric runs while preserving exact concatenation/source order. U+200C ZERO WIDTH NON-JOINER is explicitly transparent within a run; this was added after review identified that treating it as an unrelated script would split a Khmer orthographic unit. Numeric literals are preserved as `NON_LINGUISTIC` with `ipa_kind=NOT_APPLICABLE`; no pronunciation is inferred. Foreign text remains unsupported. No lexical segmentation, translation, pronunciation data, IPA gold, or Ukrainian phonology was added. No local tests or post-merge Pages deployment are claimed yet.
