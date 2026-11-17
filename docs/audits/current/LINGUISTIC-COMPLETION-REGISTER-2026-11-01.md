@@ -1485,3 +1485,9 @@ No gold rows, IPA labels, audio payload, model output or Ukrainian mappings were
 | KHM-KIRBY-TONOGENESIS-SUPP-001 | PARTIAL | Enriched existing source record for [2011 supplementary dataset](../../ipa-gold/khmer-kirby-tonogenesis-datasets-audit.md), DOI 10.7488/ds/319, DataShare CC BY 4.0. Includes anonymised production/perception CSVs, KlattGrid stimuli, plots and R code. Bundle/schema not inspected; natural production measurements must be distinguished from synthetic stimuli and perceptual responses. Not IPA gold. |
 
 No audio or supplementary payload was downloaded/imported, no IPA labels were added, and no 30-item pilot entries were selected. Gold remains 0; empirical accuracy remains null. Specialist approval is still required for profile fit and any use of the reading condition.
+
+## KHM-KIRBY-TONOGENESIS — merge and engineering gate — 2026-11-17
+
+PR #310 merged as `4d568f712b8ac055809bc01e53ea7d257b79a6a0`. Exact PR head passed Quality (417 Python tests + 70 subtests, corpus structural validator, Node/web checks, Vite build) and Chromium (12/12 Playwright tests). Post-merge mainline Quality and Chromium also passed; existing Pages workflow deployed and smoke-tested root page, `system.html`, JS and CSS successfully. This confirms repository/build integrity only, not linguistic validity or profile acceptance.
+
+Source status remains PARTIAL: existing Kirby audio and supplementary records are enriched; archive not downloaded, provider MD5s not locally verified, Appendix A has romanized forms rather than Khmer-script orthography, archive folder membership not inspected, and no item-level token manifest. The likely 20 recruited → 4 excluded → 16 analyzed sample flow plausibly explains DataShare's 16-speaker metadata. No IPA labels or gold rows created. Issue #104 OPEN; convention `DRAFT_NOT_APPROVED`; gold=0; accuracy=null.
