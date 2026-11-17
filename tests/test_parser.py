@@ -196,3 +196,11 @@ def test_mixed_script_and_numeric_runs_are_isolated_without_source_loss():
     assert "៦១១" in units
     assert not any("L" in unit and "ក" in unit for unit in units)
     assert units[-2:] == ["៦១១", "។"]
+
+
+
+def test_zwnj_does_not_split_a_khmer_orthographic_unit():
+    from khmer_ua.parser import segment_syllables
+
+    source = "ប\u200C៊"
+    assert segment_syllables(source) == [source]
