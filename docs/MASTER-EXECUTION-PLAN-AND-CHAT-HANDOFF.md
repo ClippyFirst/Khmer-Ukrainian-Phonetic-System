@@ -3779,3 +3779,43 @@ A seventh focused pass compared five additional branches with main at `c01879e93
 | `feat/pcgn-alif-shortened-closed-syllable-assembly-2026-11-16` | 9 ahead / 83 behind | Its glottal-shortened closed-syllable schema is byte-identical to main (SHA `b96adf6a9eca3e6d638a5fcca11a4e32329da8f2`). Already integrated. |
 
 No PCGN rule, source evidence, IPA, pronunciation, corpus, Ukrainian mapping or runtime behavior changed. All historical refs remain preserved. These checks do not establish BGN/PCGN compliance or independent linguistic adjudication. `KHM-BRANCH-AUDIT-001` remains PARTIAL: 45 representative branches have focused dispositions; all remaining historical refs still require reconciliation.
+
+
+## Completion of the `feat/*` branch-family reconciliation — 2026-11-17
+
+The focused comparison pass now covers all **49 branches** returned by the repository's `feat/*` branch search. This is a family-specific completion checkpoint; it does not complete the repository-wide historical branch audit.
+
+Five final feature branches were dispositioned against main `af28e35f5522dd64ceb78289b02d279a74fa9a2f`:
+
+| Branch | Compare to main | Content evidence and disposition |
+|---|---:|---|
+| `feat/github-pages-hybrid-candidate-shell-2026-11-15` | 5 ahead / 115 behind | Contains a unique 8,305-byte browser-side `src/hybrid-engine.js` absent from main. Its old `src/main.js` imports that module, but the branch does not contain a dedicated test for it and its UI entrypoint is substantially behind current main. Main already has the Python typed-IPA hybrid diagnostic adapter. Preserve this as a candidate; do not port without a current-entrypoint browser contract proving that provider output remains diagnostic-only and cannot replace deterministic published output. |
+| `feat/pcgn-consonant-components-2026-11-15` | 17 ahead / 118 behind | Its consonant-decision schema is byte-identical to main (SHA `d5ca11b4f16e006fd84ef3f2f4c921531b016890`); main's shared PCGN implementation is later. Already integrated; no port. |
+| `feat/pcgn-note2-shifter-resolution-2026-11-15` | 16 ahead / 154 behind | Its orthographic-analysis and series-decision schemas and series-resolution tests are earlier than main (2,788 vs 2,913 bytes; 1,345 vs 1,402 bytes; 4,787 vs 7,401 bytes). Main has the evolved shared implementation and regression coverage. No port. |
+| `feat/pcgn-robat-closed-syllable-assembly-2026-11-16` | 11 ahead / 82 behind | Its Robat closed-syllable assembly schema is byte-identical to main (SHA `e87cafb871849dccadfa181668dfb537d41f7e3e`). Already integrated; no port. |
+| `feat/romanization-to-ukrainian-runtime-2026-11-12` | 12 ahead / 211 behind | Its `src/ukrainian-practical.js` is byte-identical to main (SHA `7d6ac30ca63ac240ef9aa74b7f9f303ec77e67c6`). Its old romanization renderer and tests are superseded by main's expanded diacritic-aware BGN/PCGN renderer, numeral handling, mixed-script guards and matrix-backed tests. No port. |
+
+**Disposition:** all 49 `feat/*` branches have now been compared and assigned a content disposition. The browser-side hybrid candidate is the one explicitly retained for possible future engineering review; all other inspected changes are integrated, superseded or not suitable for wholesale porting. No historical branch was deleted or force-updated.
+
+## Data-branch family reconciliation — 2026-11-17
+
+The four `data/*` refs were checked. The onset-registry integration branch points to the exact main tree; the onset evidence registry itself was already integrated by PR #329; the original PCGN independent-vowel source-register CSV/test are identical to main. The remaining `data/pcgn-independent-vowel-source-register-mainline-2026-11-16` branch is 6 ahead / 112 behind, and its `data/khmer/romanization_pcgn_independent_vowels.csv` is byte-identical to main (blob SHA `ff90ff957367595fefe245a7caa7a7e94a768504`). No data port is required. These evidence containers do not independently approve phonological interpretations.
+
+## Test-branch family reconciliation — 2026-11-17
+
+All ten `test/*` refs were compared with main. Their test-only changes are either byte-identical to main or earlier snapshots of tests now expanded on main; no regression fixture or acceptance assertion was found that justified a port.
+
+| Branch | Compare to main | Content evidence and disposition |
+|---|---:|---|
+| `test/complete-grapheme-accounting-2026-11-12` | 3 ahead / 218 behind | Its parser test is an older 2,450-byte snapshot; main's parser tests are 7,491 bytes and cover later structure/diagnostic behavior. No port. |
+| `test/ipa-display-contract-2026-10-24` | 1 ahead / 509 behind | `tests/test_ipa_display_contract.py` is byte-identical to main (SHA `005d4da8cd84d20bd17ddab1b3b9eeb84a2e590a`). Already integrated. |
+| `test/khmer-numeral-crosswalk-runtime-2026-11-12` | 6 ahead / 201 behind | Its romanization adapter test is an older subset; main's 13,109-byte test file includes the numeral crosswalk and later mixed-message/matrix regressions. No port. |
+| `test/khmer-onset-fallback-cross-runtime-fixture-2026-11-17` | 16 ahead / 19 behind | The fixture JSON and Python rule-engine test are byte-identical to main (SHAs `40b6bfc516523ae03f9b40b2dfdb48c40706f272` and `5ab81fea14e79d85ec0852b4ba67ca164cf24192`). The browser test file is an earlier snapshot than main's expanded 11,016-byte suite. |
+| `test/khmer-romanization-adapter-coverage-2026-11-12` | 2 ahead / 209 behind | Its romanization test is an earlier 2,689-byte subset of main's 13,109-byte test suite. No port. |
+| `test/khmer-romanization-canonical-matrix-parity-2026-11-12` | 4 ahead / 205 behind | Its test is an earlier 4,582-byte subset; main includes the expanded canonical matrix and cross-runtime assertions. No port. |
+| `test/khmer-romanization-whole-message-adapter-2026-11-12` | 4 ahead / 203 behind | Its test is an earlier 5,508-byte subset; main includes the later mixed-message, numeral and preservation coverage. No port. |
+| `test/khmer-vowel-ascii-alias-coverage-2026-11-12` | 2 ahead / 199 behind | Its test is an earlier 6,648-byte subset; main's suite is expanded to 13,109 bytes. No port. |
+| `test/khmer-vowel-matrix-runtime-crosswalk-2026-11-12` | 1 ahead / 198 behind | Its test is an earlier 8,210-byte subset; main's suite is expanded to 13,109 bytes. No port. |
+| `test/ui-accessibility-smoke-2026-11-15` | 2 ahead / 173 behind | Its browser test is an older 5,639-byte snapshot; main's current browser suite is 11,016 bytes and includes later skip-navigation/contrast and keyboard behavior. No port. |
+
+**Branch-family checkpoint:** all 49 `feat/*`, all 4 `data/*`, and all 10 `test/*` refs have focused comparisons/dispositions. The repository-wide `KHM-BRANCH-AUDIT-001` remains PARTIAL because other branch families (including research, documentation and earlier maintenance/audit refs) have not all undergone equivalent content/PR-ancestry reconciliation. All branches are preserved.
