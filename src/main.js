@@ -622,6 +622,8 @@ if (typeof document !== "undefined") {
     data.units.filter((unit) => unit.status !== "PUNCTUATION").forEach((unit) => {
       const card = document.createElement("article");
       card.className = "unit-detail";
+      card.dataset.fallbackRuleId = unit.fallback_trace?.[0]?.rule_id ?? "";
+      card.dataset.fallbackPosition = unit.fallback_trace?.[0]?.position ?? "";
       const heading = document.createElement("div");
       heading.className = "unit-detail-heading";
       const sourceLabel = document.createElement("strong");
