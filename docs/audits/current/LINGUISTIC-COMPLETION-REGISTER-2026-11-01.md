@@ -1558,3 +1558,12 @@ Final main SHA at this checkpoint: `4760964618f05290560372b1ee60b4f7fba8ae72`. N
 | KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 | PARTIAL | PR #316 adds Python/browser script-run isolation, numeric-run isolation, NON_LINGUISTIC passthrough with ipa_kind NOT_APPLICABLE, and source-reconstruction regressions. | Exact PR-head and post-merge Quality, Chromium and Pages checks must pass. Foreign-script units remain unsupported; Khmer word segmentation, number reading and foreign-language translation are not implemented. |
 
 The new status is structural/output handling only. It adds no IPA, lexical entries, pronunciation claims, word-boundary decisions or gold-corpus rows. Issue #104 and all human IPA/word-boundary adjudication gates remain open.
+
+
+## Mixed-script and Khmer-numeral boundaries — 2026-11-17
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 | PARTIAL | PR #316 exact head `5eb9d23bdadf175fcb40561ff1de26f6f784ad2e`; Quality [44079138980] SUCCESS (422 Python tests + 70 subtests, corpus validator, Node/web checks, Vite build); Chromium [44079138905] SUCCESS (13/13 Playwright). Tests cover source reconstruction, mixed Latin/Khmer/numeral boundaries and ZWNJ transparency. | Post-merge mainline Quality, Chromium and existing Pages deployment/smoke checks must pass. This remains source-boundary handling only; no lexical segmentation, number reading, foreign-language translation, IPA labels or gold rows. |
+
+The initial browser run on the prior PR head failed one stale assertion that expected mixed input to invalidate the valid Khmer neighbor; the assertion was corrected and the latest exact-head browser suite passed. Issue #104 remains OPEN; IPA convention remains DRAFT_NOT_APPROVED; adjudicated gold=0; empirical accuracy=null.
