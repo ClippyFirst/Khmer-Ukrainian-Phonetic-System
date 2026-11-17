@@ -37,6 +37,7 @@ This is the navigation map for the repository. It does not replace the canonical
 
 - [IPA gold corpus protocol](ipa-gold-corpus.md) — record lifecycle, provenance and acceptance rules.
 - [IPA gold collection playbook](ipa-gold-collection-playbook.md) — controlled collection and adjudication workflow.
+- [Phnom Penh phonetic literature full-text review](ipa-gold/khmer-phonetic-literature-fulltext-review-2026-11-17.md) — source-level limits and locators for Chem (2020) and Mam et al. (2025).
 - [Benchmarking and external IPA](benchmarking-and-external-ipa.md) — candidate diagnostics and evaluation boundaries.
 - [External IPA renderers](external-ipa-renderers.md) — external tool/resource inventory.
 - [Current external corpus triage](audits/current/EXTERNAL-PHONETIC-CORPUS-TRIAGE-2026-11-01.md).
