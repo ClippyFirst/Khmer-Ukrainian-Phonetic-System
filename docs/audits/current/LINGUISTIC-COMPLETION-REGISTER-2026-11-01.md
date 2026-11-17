@@ -1564,6 +1564,13 @@ The new status is structural/output handling only. It adds no IPA, lexical entri
 
 | ID | Status | Evidence | Acceptance boundary |
 |---|---|---|---|
-| KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 | PARTIAL | PR #316 exact head `5eb9d23bdadf175fcb40561ff1de26f6f784ad2e`; Quality [44079138980] SUCCESS (422 Python tests + 70 subtests, corpus validator, Node/web checks, Vite build); Chromium [44079138905] SUCCESS (13/13 Playwright). Tests cover source reconstruction, mixed Latin/Khmer/numeral boundaries and ZWNJ transparency. | Post-merge mainline Quality, Chromium and existing Pages deployment/smoke checks must pass. This remains source-boundary handling only; no lexical segmentation, number reading, foreign-language translation, IPA labels or gold rows. |
+| KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 | DONE_VERIFIED | PR #316 merged as `cca8612e98292ce2ee2f103e12bcce152d4b3416`. PR-head Quality [44079343371] and Chromium [44079343343] passed; post-merge Quality [44079454281] passed (422 Python tests + 70 subtests, validator, Node/web checks, Vite build), Chromium [44079454289] passed (13/13), and Pages [44079454302] passed (production browser, deploy and deployed-site/runtime-asset smoke). | Verified structural/output handling only: Khmer, foreign-script and numeric runs stay isolated with exact source reconstruction; foreign text remains unsupported; numbers pass through as NON_LINGUISTIC / NOT_APPLICABLE; U+200C ZWNJ stays within the Khmer run. No lexical segmentation, number reading, translation, IPA or gold data added. |
 
 The initial browser run on the prior PR head failed one stale assertion that expected mixed input to invalidate the valid Khmer neighbor; the assertion was corrected and the latest exact-head browser suite passed. Issue #104 remains OPEN; IPA convention remains DRAFT_NOT_APPROVED; adjudicated gold=0; empirical accuracy=null.
+
+
+### Post-merge verification — KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 — 2026-11-17
+
+DONE_VERIFIED at main `cca8612e98292ce2ee2f103e12bcce152d4b3416`. Mainline Quality [44079454281], Chromium [44079454289] and Pages [44079454302] all SUCCESS. Python 422 passed + 70 subtests; Chromium 13/13. The corpus validator's `NOT_READY_NO_ADJUDICATED_GOLD` is the expected research state, not a software failure.
+
+This task's DONE_VERIFIED status applies only to deterministic script/numeral token boundaries and non-linguistic passthrough. It does not close the human linguistic acceptance gates: IPA convention DRAFT_NOT_APPROVED; `ipa_kind` UNRESOLVED for linguistic units; independent adjudicated gold 0; empirical accuracy null; Issue #104 OPEN.
