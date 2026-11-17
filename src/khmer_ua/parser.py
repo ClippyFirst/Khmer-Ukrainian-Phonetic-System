@@ -62,6 +62,8 @@ def _script_bucket(char: str) -> str | None:
     """
     codepoint = ord(char)
     category = unicodedata.category(char)
+    if char == ZWNJ:
+        return None
     if category.startswith("N"):
         return "number"
     if 0x1780 <= codepoint <= 0x17FF or 0x19E0 <= codepoint <= 0x19FF:
