@@ -1574,3 +1574,16 @@ The initial browser run on the prior PR head failed one stale assertion that exp
 DONE_VERIFIED at main `cca8612e98292ce2ee2f103e12bcce152d4b3416`. Mainline Quality [44079454281], Chromium [44079454289] and Pages [44079454302] all SUCCESS. Python 422 passed + 70 subtests; Chromium 13/13. The corpus validator's `NOT_READY_NO_ADJUDICATED_GOLD` is the expected research state, not a software failure.
 
 This task's DONE_VERIFIED status applies only to deterministic script/numeral token boundaries and non-linguistic passthrough. It does not close the human linguistic acceptance gates: IPA convention DRAFT_NOT_APPROVED; `ipa_kind` UNRESOLVED for linguistic units; independent adjudicated gold 0; empirical accuracy null; Issue #104 OPEN.
+
+## Expert shortlist revalidation — 2026-11-17
+
+| Candidate | Potential scoped role | Evidence | Limit / conflict |
+|---|---|---|---|
+| Chem Vatho | Primary Phnom Penh careful-citation IPA convention reviewer | Current CV/profile identifies native Khmer, Dr. phil. in Phonetics (2025), Central Khmer phonetic-reduction dissertation, RUPP Khmer/linguistics teaching, Royal Academy linguistics committee, acoustic phonetics and IPA convention design; Phnom Penh IPA Illustration listed under revision. | Verify credentials/status and profile fit directly. Maintains Khmer acoustic-model/dictionary resource; disclose and exclude him from sole adjudication/independent validation of his own resource-derived items. |
+| James P. Kirby | Independent technical challenge reviewer for /r/-loss, F0/VOT, phonation, clusters and style boundaries | LMU profile: phonetics/speech science and Southeast Asian tone/register; peer-reviewed PPK tonogenesis and onset-pitch studies. | Not documented as native Khmer or full-profile authority; check collaboration/conflicts with Vatho before assigning independent status. |
+| Nielson Sophann Hul | Scoped laryngeal/implosive review | Cornell profile: PhD work on Khmer acoustic phonetics of laryngeal sounds; heritage Khmer teaching. | Co-authored forthcoming Khmer diphthong chapter with Becky Butler; not independent from her for review-count purposes. |
+| Becky Butler | Scoped sesquisyllable/cluster/diphthong review | UNC profile/publications: phonetics/phonology of mainland Southeast Asian languages; Khmer/Bunong sesquisyllable research. | Co-authored forthcoming Khmer diphthong chapter with Nielson Hul; not independent from him. |
+| Honglada Klaharn | Structural/phonological challenge only | 2019 Phnom Penh Khmer study reports ten native Phnom Penh speakers over 50; PhD Linguistics metadata. | No inspected evidence of experimental phonetics or IPA-convention expertise. |
+| Sothornin Mam | PPK pitch/F0 evidence review | ChulaSEAL summary of 2025 study with five native PPK speakers. | Native-language status and complete convention expertise not established by inspected public sources. |
+
+All are leads only. No outreach, consent or appointment. This update does not satisfy IPA approval, annotator/adjudicator recruitment or pilot acceptance. KHM-IPA-CONVENTION-001 remains DRAFT_NOT_APPROVED; KHM-PILOT-30-LEXEMES-001 and KHM-GOLD-001 remain BLOCKED; adjudicated gold=0; empirical accuracy=null. See [the playbook](../../ipa-gold-collection-playbook.md) for role design and source links.

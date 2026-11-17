@@ -241,3 +241,38 @@ The 2011 audio archive's 16-speaker description is plausibly explained by the pa
 Sok & Adams' PACLIC 30 paper ([source dossier](ipa-gold/khmer-sok-adams-phonological-principles-audit.md)) provides a useful precedent for separating orthography-to-phonemic output intended for careful speech from a second phonemic-to-phonetic stage for rapid colloquial speech. Its series-assimilation, vowel-modification and syllable-structure analyses can inform future rule review, but must not be copied directly into the current Phnom Penh careful-citation profile. In particular, aspiration/schwa transitions and minor-syllable reduction are explicitly part of its rapid-speech layer and must not leak into careful citation output.
 
 The paper's 140-word validation is hand-selected and based on Headley (1997) phonemic forms plus author-created phonetic forms; its larger 10,110-word evaluation is dictionary-derived. Its 97.86% / 98.43% figures are not independent project accuracy or IPA gold. The contribution's redistribution rights are unverified. Use it as a rule-system comparator only; do not import its data, labels, or tables.
+
+
+## Expert shortlist revalidation — current credentials and role separation — 2026-11-17
+
+This is a candidate-screening update only. No person has been contacted, consented, appointed, or approved a convention. Public biographies establish research fit, not availability or willingness.
+
+### Primary target-profile convention reviewer candidate: Chem Vatho
+
+The current first-person CV identifies Chem Vatho as a native Khmer speaker; reports a Dr. phil. in Phonetics from the University of Cologne (2022–2025) for a dissertation on phonetic reduction in Central Khmer; lists an MA in Linguistics and BA in Khmer Literature from the Royal University of Phnom Penh; and describes prior RUPP teaching in Khmer language/civilization and service on the Royal Academy of Cambodia Linguistics Committee. His stated methods include acoustic phonetics, segmental/prosodic annotation, IPA transcription and transcription-convention design. It also lists an Illustration of the IPA for Phnom Penh Khmer as under revision for the Journal of the International Phonetic Association. See his [current CV/profile](https://khmercorpus.com/about-me), the [University of Cologne project biography](https://cif.uni-koeln.de/projects/revitalizing-and-documenting-koelsch-from-archival-materials-to-an-ai-ready-speech-recognition-and-synthesis-system-chat-like-for-the-endangered-koelsch-dialect), and his [2020 Phnom Penh vowel study](https://doi.org/10.61945/cjbar.2020.2.2.3).
+
+**Fit:** strongest currently documented candidate to lead a scoped review of the contemporary Phnom Penh careful-citation IPA convention. Ask whether the under-revision IPA Illustration can be shared for review, its current status and scope, and whether it actually describes the project's selected careful-citation profile rather than a broader or changing Phnom Penh variety. His profile is partly self-reported; credentials and current affiliation should be confirmed directly before appointment.
+
+**Conflict/independence boundary:** Vatho created/maintains the Khmer acoustic-model and pronunciation-dictionary resource. If any of that resource's entries or audio are selected, he must disclose the relationship and must not be the sole adjudicator of those items or be counted as an independent validator of his own labels. Keep external model dictionary content out of project gold unless its exact artifact, provenance, rights and convention are independently cleared.
+
+### Independent phonetics challenge-review candidate: James P. Kirby
+
+The [LMU Munich profile](https://www.phonetik.uni-muenchen.de/~jkirby/about/) identifies Kirby as a linguist/speech scientist working on tone, register, sound change and East/Southeast Asian languages, with a PhD in Linguistics. His [Phnom Penh Khmer tonogenesis study](https://doi.org/10.1016/j.wocn.2014.02.001) and work on onset-F0/VOT interactions include direct evidence about /r/-loss, aspiration, breathiness, pitch and the difference between colloquial and reading pronunciations; his [2018 onset-pitch study](https://doi.org/10.1016/j.wocn.2018.09.009) compares Khmer with tonal languages.
+
+**Fit:** candidate for a bounded independent technical challenge of the PPK acoustic interpretation, /r/-loss, onset-F0, VOT, phonation, cluster-transition and speech-style boundaries. He is not documented as a native Khmer speaker and his published Khmer work is specialized; do not use him as the sole authority for native speaker judgments, the entire segment inventory, or the target convention. Public Edinburgh contact: j.kirby@ed.ac.uk; confirm current preferred contact/affiliation before outreach. No collaboration/conflict with the proposed primary reviewer has yet been ruled out; verify explicitly.
+
+### Other scoped candidates and independence constraints
+
+- **Nielson Sophann Hul:** Cornell's [official profile](https://as.cornell.edu/people/nielson-hul) documents PhD work on Khmer acoustic phonetics of laryngeal sounds and heritage-Khmer teaching. Candidate for a bounded implosive/laryngeal review, not automatically a whole-profile convention authority. His forthcoming Khmer diphthong chapter is co-authored with Becky Butler.
+- **Becky Butler:** UNC's official profile and publication list (already linked in Issue #104) support a mainland Southeast Asian phonetics/phonology and Khmer/Bunong sesquisyllable research fit. Candidate for syllable-structure/cluster/diphthong review, not established as a Phnom Penh careful-citation authority. Because she and Hul co-authored a forthcoming chapter, they must not automatically be counted as independent reviewers of each other's work.
+- **Honglada Klaharn:** the 2019 [Phnom Penh Khmer linguistics study](https://he02.tci-thaijo.org/index.php/Veridian-E-Journal/article/view/170728) reports data from ten native Phnom Penh speakers over 50 and describes phonology, morphology and syntax. The linked thesis metadata identifies a PhD in Linguistics. Candidate for structural/phonological challenge only; current public evidence does not establish experimental phonetics or IPA-convention expertise.
+- **Sothornin Mam:** ChulaSEAL's [TAI 2025 research summary](https://www.arts.chula.ac.th/chulaseal/2025/05/24/chulaseal-at-tai-2025-presenting-southeast-asian-tone-and-intonation-research-in-germany/) documents his PPK pitch study with five native speakers. Candidate for a scoped pitch/F0 evidence review; public evidence inspected here does not establish his native-language status, availability, or authority for the complete segmental convention.
+
+### Proposed role design (not yet accepted by any person)
+
+1. Invite Vatho to consider primary target-profile convention review, with his own resource/data conflicts disclosed.
+2. Invite Kirby to consider an independent, narrowly scoped challenge review of PPK phonetic evidence, subject to an explicit collaboration/conflict check and acceptance of the bounded scope.
+3. Use Hul/Butler only with their co-authorship relationship disclosed; do not count them as independent from each other.
+4. Keep annotators, adjudicator and non-annotating curator as separate people. No reviewer may adjudicate their own annotations or data.
+
+This shortlist reduces uncertainty about whom to approach but does not satisfy any recruitment or acceptance gate. The IPA sheet remains DRAFT_NOT_APPROVED; the 30-item pilot remains blocked; independent adjudicated gold remains 0; empirical accuracy remains null.
