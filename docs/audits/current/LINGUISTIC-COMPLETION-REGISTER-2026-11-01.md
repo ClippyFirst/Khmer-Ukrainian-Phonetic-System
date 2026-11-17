@@ -1670,3 +1670,12 @@ The registry mirrors `data/khmer/consonants.json`; it is not consumed by runtime
 PR [#329](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/329) merged as `841bf283eecf13b2e2ccc7f83f02a8c7617c7cdc`. Exact-head Quality [44118873208] and Chromium [44118873039] passed; Quality reports **427 Python tests + 70 subtests**. Post-merge mainline Quality [44119105502], Chromium [44119105743], and Pages build/deploy/deployed-site smoke [44119105718] all passed on the exact final main SHA.
 
 Acceptance is DONE_VERIFIED for the registry/schema/inventory-parity test artifact only. `KHM-POSITIONAL-ONSET-EVIDENCE-001` remains PARTIAL because its 33 entries cite a specialist descriptive source rather than primary phonetic evidence and are not independently reviewed or adjudicated for the project PPH profile. The registry is not runtime-consumed and grants only provisional onset-preview use. No canonical IPA/Ukrainian behavior or accuracy claim changes. Issue #104 remains OPEN; adjudicated gold=0; empirical accuracy=null.
+
+## PR #331 skip-navigation closeout — 2026-11-17
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-UI-SKIP-NAV-001 | DONE_VERIFIED (automated keyboard navigation contract) | PR #331 merged as `f594b48615a799b13ae19ad4c2c6453512b8c24d`. Exact-head Quality [44143747834] passed (427 Python + 70 subtests); Chromium [44143747746] passed (16/16). Post-merge Quality [44144068435], Chromium [44144068416] (16/16), and Pages [44144068336] all passed on the exact main SHA. | Both public pages provide a first-focusable skip link, visible on focus and targeting the main landmark. This closes only the implemented keyboard skip-navigation behavior. |
+| KHM-UI-001 | PARTIAL | Automated semantics/keyboard smoke plus skip navigation are covered by Playwright; PR #331 adds explicit skip-link tests. | Manual screen-reader/assistive-technology review, complete keyboard traversal, contrast, zoom/reflow and real mobile-device review remain outstanding. |
+
+The skip-navigation task does not establish overall accessibility conformance. Issue #104 remains OPEN; IPA convention remains DRAFT_NOT_APPROVED; adjudicated gold=0; empirical accuracy=null.
