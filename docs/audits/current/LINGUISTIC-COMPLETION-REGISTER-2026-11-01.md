@@ -1555,7 +1555,7 @@ Final main SHA at this checkpoint: `4760964618f05290560372b1ee60b4f7fba8ae72`. N
 
 | ID | Status | Evidence | Acceptance boundary |
 |---|---|---|---|
-| KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 | PARTIAL | PR #316 adds Python/browser script-run isolation, numeric-run isolation, NON_LINGUISTIC passthrough with ipa_kind NOT_APPLICABLE, and source-reconstruction regressions. | Exact PR-head and post-merge Quality, Chromium and Pages checks must pass. Foreign-script units remain unsupported; Khmer word segmentation, number reading and foreign-language translation are not implemented. |
+| KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 | DONE_VERIFIED | PR #316 merged as `cca8612e98292ce2ee2f103e12bcce152d4b3416`; exact PR-head Quality 44079343371 and Chromium 44079343343 passed; post-merge mainline Quality 44079454281, Chromium 44079454289 and Pages 44079454302 passed. | Engineering/source-integrity boundary only. Foreign-script units remain unsupported; Khmer lexical word segmentation, number reading and foreign-language transcription are not implemented. |
 
 The new status is structural/output handling only. It adds no IPA, lexical entries, pronunciation claims, word-boundary decisions or gold-corpus rows. Issue #104 and all human IPA/word-boundary adjudication gates remain open.
 
@@ -1564,6 +1564,15 @@ The new status is structural/output handling only. It adds no IPA, lexical entri
 
 | ID | Status | Evidence | Acceptance boundary |
 |---|---|---|---|
-| KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 | PARTIAL | PR #316 exact head `5eb9d23bdadf175fcb40561ff1de26f6f784ad2e`; Quality [44079138980] SUCCESS (422 Python tests + 70 subtests, corpus validator, Node/web checks, Vite build); Chromium [44079138905] SUCCESS (13/13 Playwright). Tests cover source reconstruction, mixed Latin/Khmer/numeral boundaries and ZWNJ transparency. | Post-merge mainline Quality, Chromium and existing Pages deployment/smoke checks must pass. This remains source-boundary handling only; no lexical segmentation, number reading, foreign-language translation, IPA labels or gold rows. |
+| KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 | DONE_VERIFIED | Final PR head `56f0dc922f0bf6cf63aabbf09abc1d9c25be7893`; Quality 44079343371 (422 + 70 subtests) and Chromium 44079343343 (13/13) passed. Post-merge mainline Quality 44079454281, Chromium 44079454289 and Pages 44079454302 passed. ZWNJ transparency, source reconstruction and numeric-only behavior are covered. | This remains source-boundary handling only; no lexical segmentation, number reading, foreign-language translation, IPA labels or gold rows. |
 
 The initial browser run on the prior PR head failed one stale assertion that expected mixed input to invalidate the valid Khmer neighbor; the assertion was corrected and the latest exact-head browser suite passed. Issue #104 remains OPEN; IPA convention remains DRAFT_NOT_APPROVED; adjudicated gold=0; empirical accuracy=null.
+
+
+## Mixed-script boundary task — post-merge acceptance — 2026-11-17
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 | DONE_VERIFIED | PR #316 merged as `cca8612e98292ce2ee2f103e12bcce152d4b3416`. PR-head Quality 44079343371 (422 Python tests + 70 subtests), Chromium 44079343343 (13/13); mainline Quality 44079454281, Chromium 44079454289 (13/13), Pages deployment/smoke 44079454302 all SUCCESS. | Input/output boundary correction only. Foreign text remains unsupported; numeric text is preserved as NON_LINGUISTIC; no number reading, lexical segmentation or new IPA data. |
+
+Issue #104 remains OPEN. IPA convention remains DRAFT_NOT_APPROVED; independent adjudicated gold=0; empirical accuracy=null.
