@@ -1265,3 +1265,10 @@ PR [#314](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/3
 ## Mixed-script and numeric source-boundary audit — 2026-11-17
 
 The user-supplied Khmer paragraph exposed a tokenizer boundary defect: adjacent Latin text was swallowed by a Khmer run, and Khmer decimal digits attached to a word were sent through Khmer structural validation. The Python and browser tokenizers now isolate script transitions and consecutive Unicode numeric runs. Numeric runs are passed through unchanged as NON_LINGUISTIC with ipa_kind NOT_APPLICABLE; foreign-script runs remain explicit unsupported units. Tests verify source reconstruction and that valid Khmer neighbors retain their local outputs. This is a tokenizer/source-integrity correction, not a lexical segmenter or a new language/phonology capability. Khmer word division, non-Khmer transcription and number reading remain outside the implemented contract.
+
+
+## Mixed-script and numeric source-boundary correction — exact PR-head checks — 2026-11-17
+
+PR [#316](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/316) latest head `5eb9d23bdadf175fcb40561ff1de26f6f784ad2e` passes Quality [44079138980] (422 Python tests + 70 subtests, expected no-gold validator state, Node/web checks and Vite build) and Chromium [44079138905] (13/13 Playwright tests). The earlier browser failure was a stale assertion that expected the entire mixed input to be invalid; it was updated to assert local preservation, and the new mixed-script/numeral browser test passes.
+
+The script-run correction isolates Khmer, foreign-script and numeric runs while preserving exact concatenation/source order. U+200C ZERO WIDTH NON-JOINER is explicitly transparent within a run; this was added after review identified that treating it as an unrelated script would split a Khmer orthographic unit. Numeric literals are preserved as `NON_LINGUISTIC` with `ipa_kind=NOT_APPLICABLE`; no pronunciation is inferred. Foreign text remains unsupported. No lexical segmentation, translation, pronunciation data, IPA gold, or Ukrainian phonology was added. No local tests or post-merge Pages deployment are claimed yet.
