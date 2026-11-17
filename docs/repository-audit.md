@@ -1291,3 +1291,12 @@ James P. Kirby's LMU profile and peer-reviewed Phnom Penh Khmer studies support 
 Sources: [Vatho profile/CV](https://khmercorpus.com/about-me), [LMU Kirby profile](https://www.phonetik.uni-muenchen.de/~jkirby/about/), [Cornell Hul profile](https://as.cornell.edu/people/nielson-hul), [ChulaSEAL TAI 2025](https://www.arts.chula.ac.th/chulaseal/2025/05/24/chulaseal-at-tai-2025-presenting-southeast-asian-tone-and-intonation-research-in-germany/), [Klaharn et al. (2019)](https://he02.tci-thaijo.org/index.php/Veridian-E-Journal/article/view/170728).
 
 No outreach occurred. This is not recruitment or expert approval. Issue #104 remains OPEN; IPA convention DRAFT_NOT_APPROVED; independent adjudicated gold=0; empirical accuracy=null.
+
+
+## PR #319 expert shortlist revalidation — exact mainline closeout — 2026-11-17
+
+PR [#319](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/319) merged as `033e979c06c30aff5569750fae824f90484558ed`. Exact PR-head Quality [44081155872] and Chromium [44081155831] passed; duplicate push Quality [44081116226] also passed. Exact post-merge mainline Quality [44081323278] SUCCESS (422 Python tests + 70 subtests, expected `NOT_READY_NO_ADJUDICATED_GOLD`, Node/web checks and Vite build), Chromium [44081323386] SUCCESS (13/13 Playwright), and Pages [44081323295] SUCCESS (production browser, deployment and deployed-site/runtime-asset smoke).
+
+This closes the candidate-screening/documentation task only. Vatho is a strong candidate for primary Phnom Penh careful-citation convention review, with an acoustic-model/dictionary conflict to disclose. Kirby is a candidate for bounded PPK acoustic challenge review, not a native target-profile authority; his independence from Vatho still requires direct conflict screening. Hul/Butler co-authorship means they cannot be counted as independent from each other. No person was contacted or recruited. No IPA convention or data/gold was approved or changed.
+
+Issue #104 remains OPEN; IPA convention DRAFT_NOT_APPROVED; 30-item pilot BLOCKED; adjudicated gold=0; empirical accuracy=null. No local tests were run.

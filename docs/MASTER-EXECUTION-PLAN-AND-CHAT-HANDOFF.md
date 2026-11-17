@@ -3453,3 +3453,24 @@ The current candidate screen is documented in [the IPA collection playbook](ipa-
 James P. Kirby is added as a candidate for independent, bounded challenge review of Phnom Penh Khmer /r/-loss, onset F0/VOT, aspiration, phonation, cluster transitions and speech-style distinctions. His LMU profile and peer-reviewed PPK work support this scope; he is not documented as a native Khmer speaker and cannot replace native target-profile authority. Check collaboration/conflicts with Vatho before treating him as independent. Nielson Hul and Becky Butler are not independent of each other because they co-authored a forthcoming Khmer diphthong chapter. Honglada Klaharn is a possible structural/phonological reviewer only; Sothornin Mam a pitch/F0 specialist candidate only. No one was contacted or recruited.
 
 This update changes no convention, runtime IPA, source dataset, rights status, gold record, or accuracy metric. Issue #104 remains OPEN; IPA convention DRAFT_NOT_APPROVED; 30-item pilot BLOCKED; adjudicated gold=0; empirical accuracy=null.
+
+
+## PR #319 expert shortlist revalidation — post-merge mainline verification — 2026-11-17
+
+PR [#319](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/319) merged by squash as `033e979c06c30aff5569750fae824f90484558ed` from exact head `5c66ee261dec27893e25e9f97e6875d54b58b62c`.
+
+Exact PR-head checks:
+- Quality [44081155872](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44081155872) SUCCESS: 422 Python tests + 70 subtests, expected corpus validator state `NOT_READY_NO_ADJUDICATED_GOLD`, Node/web checks and Vite build.
+- Chromium [44081155831](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44081155831) SUCCESS: 13/13 Playwright tests.
+- A duplicate push-triggered Quality run [44081116226](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44081116226) also completed SUCCESS with the same checks.
+
+Post-merge exact-main checks at `033e979c06c30aff5569750fae824f90484558ed`:
+- Quality [44081323278](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44081323278) SUCCESS: 422 Python tests + 70 subtests; expected no-adjudicated-gold validator state; Node/web checks and production Vite build.
+- Chromium [44081323386](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44081323386) SUCCESS: 13/13 Playwright tests.
+- Pages [44081323295](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44081323295) SUCCESS: production browser exercise, Pages deployment and deployed-site/runtime-asset smoke test.
+
+The expert-shortlist revalidation is DONE_VERIFIED as a research/admin deliverable only: source-backed candidate roles and conflict/independence boundaries are recorded in the playbook and Issue #104. It does not constitute recruitment, consent, convention approval, annotator appointment or adjudication. No one was contacted. No pronunciation rules, IPA labels, external data, source permissions, corpus records, gold labels or accuracy values changed.
+
+Issue #104 remains OPEN. IPA convention DRAFT_NOT_APPROVED; 30-item pilot BLOCKED; two annotators, independent adjudicator, non-annotating curator and private blind intake not recruited/confirmed; adjudicated gold=0; empirical accuracy=null. No local tests were run. No release was published and no Pages settings were changed.
+
+Final mainline checkpoint: `033e979c06c30aff5569750fae824f90484558ed`. PR #319 is merged; no open PRs remained at this checkpoint; Issue #104 remains the sole open issue.
