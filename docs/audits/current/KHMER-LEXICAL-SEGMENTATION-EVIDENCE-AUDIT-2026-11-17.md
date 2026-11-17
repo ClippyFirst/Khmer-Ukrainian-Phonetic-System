@@ -29,7 +29,7 @@ Sources:
 - https://zenodo.org/records/3937914
 - https://huggingface.co/datasets/SEACrowd/khmer_alt_pos
 
-The ALT materials describe NOVA surface tokenization and POS conventions. A NOVA token boundary should not be assumed to be a morpheme boundary, orthographic-syllable boundary, or the exact unit needed for this project's phonetic display. The guidelines must be read before mapping labels into project semantics.
+The Khmer tokenization guideline (version 0.2, December 2016) is more specific than a generic “surface tokenization” label. Section 3 defines a word token as a unit that cannot be further segmented without losing its meaning and says that, because Khmer is highly analytic, words are equal to morphemes in most cases (PDF pp. 2–3). It describes compounds as integrated meanings composed of two or more words; compound components are tokenized separately and the compound relation is marked with shallow bracketing. Section 5 discusses compound identification using Chuon Nath dictionary entries and syntactic insertion diagnostics (PDF pp. 10–11). Therefore NOVA is generally morpheme-level, but its compound/POS annotation convention is not a universal lexical standard and is not interchangeable with orthographic-syllable or phonetic units in this project.
 
 ### 2. A second manually segmented corpus exists, but needs separate provenance review
 
