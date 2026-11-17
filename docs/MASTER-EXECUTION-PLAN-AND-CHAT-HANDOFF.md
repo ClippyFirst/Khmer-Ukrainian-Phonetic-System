@@ -3429,3 +3429,19 @@ PR [#316](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/3
 - No local tests were run; all verification above is from exact PR-head GitHub Actions. No Pages deployment is claimed before merge.
 
 Task ledger remains PARTIAL until post-merge mainline Quality, Chromium and Pages checks complete. Linguistic coverage and blind-gold acceptance remain separate from this engineering fix; Issue #104 remains OPEN.
+
+
+## PR #316 post-merge mainline verification — 2026-11-17
+
+PR [#316](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/316) merged by squash as `cca8612e98292ce2ee2f103e12bcce152d4b3416` from exact PR head `56f0dc922f0bf6cf63aabbf09abc1d9c25be7893`. Mainline was 0 commits behind the PR head before merge.
+
+Post-merge workflows on the exact main commit all succeeded:
+- Quality [44079454281](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44079454281) SUCCESS: 422 Python tests + 70 subtests; corpus validator returned expected `NOT_READY_NO_ADJUDICATED_GOLD`; Node/web checks and Vite production build passed.
+- Chromium [44079454289](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44079454289) SUCCESS: 13/13 Playwright tests.
+- Pages [44079454302](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44079454302) SUCCESS: production browser exercise, GitHub Pages deployment and deployed-site/runtime-asset smoke test all passed.
+
+KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 is now DONE_VERIFIED for structural/output handling. The implementation preserves exact source order across Khmer, foreign-script and numeric runs; foreign text stays locally unsupported; numeric literals pass through as NON_LINGUISTIC with ipa_kind NOT_APPLICABLE; U+200C ZWNJ stays transparent inside Khmer runs. Python, Node/browser and deployed production checks passed.
+
+Scope boundary: this does not implement lexical word segmentation, foreign-language translation, number reading, new Khmer phonology/IPA, or independent gold. Issue #104 remains OPEN; IPA convention remains DRAFT_NOT_APPROVED; ipa_kind remains UNRESOLVED for linguistic units; adjudicated gold=0; empirical accuracy=null. No expert was contacted or recruited. No local tests were run; verification is from the named GitHub Actions runs. No release was published and no Pages settings were changed.
+
+Final mainline commit for this closeout: `cca8612e98292ce2ee2f103e12bcce152d4b3416`. PR #316 is merged; no open PRs remain at this checkpoint. The implementation branch was preserved.

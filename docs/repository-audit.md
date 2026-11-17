@@ -1272,3 +1272,12 @@ The user-supplied Khmer paragraph exposed a tokenizer boundary defect: adjacent 
 PR [#316](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/316) latest head `5eb9d23bdadf175fcb40561ff1de26f6f784ad2e` passes Quality [44079138980] (422 Python tests + 70 subtests, expected no-gold validator state, Node/web checks and Vite build) and Chromium [44079138905] (13/13 Playwright tests). The earlier browser failure was a stale assertion that expected the entire mixed input to be invalid; it was updated to assert local preservation, and the new mixed-script/numeral browser test passes.
 
 The script-run correction isolates Khmer, foreign-script and numeric runs while preserving exact concatenation/source order. U+200C ZERO WIDTH NON-JOINER is explicitly transparent within a run; this was added after review identified that treating it as an unrelated script would split a Khmer orthographic unit. Numeric literals are preserved as `NON_LINGUISTIC` with `ipa_kind=NOT_APPLICABLE`; no pronunciation is inferred. Foreign text remains unsupported. No lexical segmentation, translation, pronunciation data, IPA gold, or Ukrainian phonology was added. No local tests or post-merge Pages deployment are claimed yet.
+
+
+## PR #316 post-merge verification — 2026-11-17
+
+PR [#316](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/316) merged as `cca8612e98292ce2ee2f103e12bcce152d4b3416`. Exact PR-head Quality [44079343371] and Chromium [44079343343] passed; post-merge mainline Quality [44079454281] SUCCESS (422 Python tests + 70 subtests, corpus validator, Node/web checks and Vite build), Chromium [44079454289] SUCCESS (13/13), and Pages [44079454302] SUCCESS (production browser, deployment and deployed-site/runtime-asset smoke test).
+
+The mixed-script/numeral boundary task is DONE_VERIFIED as a structural/output-integrity improvement. Python and browser tokenizers split foreign-script and numeric runs from Khmer orthographic units while preserving source order; numeric literals remain unchanged and are typed NON_LINGUISTIC / NOT_APPLICABLE; foreign-script runs remain unsupported; U+200C ZWNJ is transparent within the current run. No word segmentation, number reading, translation or new phonological claim was introduced.
+
+Linguistic release gates are unchanged: Issue #104 OPEN; IPA convention DRAFT_NOT_APPROVED; linguistic ipa_kind UNRESOLVED; independent adjudicated gold 0; empirical accuracy null. No local tests or external expert engagement are claimed.
