@@ -21,6 +21,15 @@ test("unsupported grapheme is marked locally", async ({ page }) => {
   await expect(page.locator("#ua-result")).toHaveText("ка⟦НЕПІДТРИМУЄТЬСЯ⟧");
 });
 
+test("mixed scripts and Khmer numerals preserve neighboring output and source order", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("កLlenguatgeគ៦១១");
+  await expect(page.locator("#results")).toBeVisible();
+  await expect(page.locator("#status")).toHaveText("EVIDENCE LIMITED");
+  await expect(page.locator("#ipa-result")).toHaveText("/kɑː/⟦INVALID_OR_UNSUPPORTED⟧/kɔː/៦១១");
+  await expect(page.locator("#ua-result")).toHaveText("ка⟦НЕПІДТРИМУЄТЬСЯ⟧ко៦១១");
+});
+
 test("one unsupported unit does not hide neighboring IPA and Ukrainian output", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("ក ☃ គ");
