@@ -3379,3 +3379,39 @@ PR #301, #303 and #304 were closed as superseded after PR #307 merged; their bra
 - IPA convention remains `DRAFT_NOT_APPROVED`; internal `ipa_kind` remains `UNRESOLVED` for linguistic units pending qualified approval. Independent adjudicated IPA gold remains 0; empirical accuracy remains null; corpus validator correctly reports `NOT_READY_NO_ADJUDICATED_GOLD`.
 - Remaining blockers: qualified Phnom Penh Khmer phonetician + independent reviewer for IPA convention; independent annotators/adjudicator and curator for gold; rights-cleared audio/token-level archive inspection and item locators; archive retrieval was not attempted again in this continuation. No Sok & Adams dictionary data or labels were imported.
 - Current public site: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/ .
+
+
+## Full-text Phnom Penh phonetics evidence addendum — 2026-11-17
+
+- Added [the Chem (2020) and Mam et al. (2025) full-text review](ipa-gold/khmer-phonetic-literature-fulltext-review-2026-11-17.md). This records exact speaker/task/sample limitations and printed/PDF page locators, without promoting examples or study outputs to gold.
+- Chem's final vowel analysis uses four selected Phnom Penh speakers and 61 formal frame-read items; the complete item list is not published, unfamiliar-word substitutions are not itemized, and the paper's “Standard Khmer” definition and inventory notation require specialist review. It measures F1/F2 and duration, not F0/stress.
+- Mam et al. use five Greater Phnom Penh speakers and 50 cluster/disyllable targets in separate PPK/SK frame-reading tasks. The full wordlist is not published; the normalized F0/functional-PC findings support qualified discussion of pitch, not a categorical general tone rule or a complete citation-form IPA convention.
+- These findings refine the evidence boundary but do not produce source-exact 30 lexeme groups. The convention remains `DRAFT_NOT_APPROVED`; `ipa_kind=UNRESOLVED`; gold=0; empirical accuracy=null. Issue #104 remains open.
+- The repository's current default branch at start of this continuation was `50899bd3a5fd16338039287775fcfb0b9b2568d3`. A fresh branch `research/phonetic-literature-fulltext-review-2026-11-17` was created from that SHA. No local checkout or local tests were possible because DNS resolution for github.com failed in the execution container. No code, runtime rules, gold rows, source permissions or generated artifacts changed.
+
+
+## Post-merge closeout — full-text Phnom Penh phonetics review — 2026-11-17
+
+- PR [#314](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/314) was squash-merged as `4760964618f05290560372b1ee60b4f7fba8ae72` from exact head `6cbc2e8e515a455611dc3b3c032197129b6b7b26`; base was `50899bd3a5fd16338039287775fcfb0b9b2568d3`, 0 commits behind and 6 commits ahead before merge.
+- Exact PR-head Quality [44076405229](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44076405229) SUCCESS: corpus structural validation reported 0 records / 0 adjudicated records and expected `NOT_READY_NO_ADJUDICATED_GOLD`; Python 418 passed + 70 subtests; Node/web checks and Vite production build passed. Chromium [44076405251](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44076405251) SUCCESS: 12/12 Playwright tests.
+- This was a documentation/source-audit-only change. No Pages deployment was required or claimed; no runtime, test code, generated artifact, source permission, IPA label, gold row or Ukrainian mapping changed. Local checkout/tests could not run because the execution container could not resolve github.com; hosted PR-head CI supplied the verification evidence.
+- The merged literature review records Chem (2020) and Mam et al. (2025) method/sample limitations and confirms neither provides a complete source-exact 30-item pilot list. Issue #104 remains OPEN; IPA convention remains `DRAFT_NOT_APPROVED`; `ipa_kind` remains `UNRESOLVED`; adjudicated gold=0; empirical accuracy=null.
+- Additional expert discovery was recorded in issue #104: Dr. Becky Butler (UNC) is a prospective specialist for Khmer phonetic structure, sesquisyllables and diphthongs, but her public record does not establish specific contemporary Phnom Penh careful-citation authority or availability. No one was contacted or recruited.
+- Final mainline commit for this closeout: `4760964618f05290560372b1ee60b4f7fba8ae72`. The working branch for PR #314 is preserved; no branches were deleted.
+
+
+## Mixed-script and Khmer-numeral token boundary correction — 2026-11-17
+
+The supplied real-world paragraph exposed two source-boundary defects: Latin text adjacent to Khmer was absorbed into one Khmer analysis unit, and Khmer digits attached to a Khmer word were treated as malformed orthographic content.
+
+PR #316 (fix/mixed-script-numeral-token-boundaries-2026-11-17) changes the shared Python and browser tokenizers:
+- Script transitions now terminate the current run. Adjacent Latin text such as Llenguatge is retained as its own unsupported foreign-script unit; it no longer invalidates the Khmer unit before it or absorbs Khmer text after it.
+- Consecutive Unicode numeric characters, including Khmer digits, are isolated as one literal run.
+- Numeric literals are preserved unchanged in both display lanes with status NON_LINGUISTIC and ipa_kind: NOT_APPLICABLE. No number reading or pronunciation is inferred.
+- Python parser, deterministic engine, browser runtime and typed-result schema share the same local-boundary contract. Regression tests assert exact source reconstruction and preservation of valid neighboring Khmer results.
+
+This is NOT Khmer lexical word segmentation. Spaces and punctuation remain preserved; the orthographic syllable heuristic remains conservative; no LOC word-boundary profile, lexicon, IPA, or gold data was added. Foreign-language text is not translated or assigned Khmer IPA. It remains explicitly unsupported in the Khmer phonetic route.
+
+Task ledger: KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 = PARTIAL until exact PR-head and post-merge Quality/Chromium/Pages verification succeeds. Linguistic coverage and lexical word segmentation remain separately blocked under Issue #104.
+
+Verification caveat: the first CI passes exposed two stale assertions that expected mixed-script text to invalidate its valid Khmer neighbor, contrary to the repository's local-uncertainty invariant. Those assertions were updated to require local isolation. An intermediate browser run also caught that the tokenizer edit had displaced the register-shifter resolver; the resolver was restored before final verification. Only the latest exact-head runs may be used for acceptance.
