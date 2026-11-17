@@ -1,0 +1,232 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Khmer positional onset evidence registry",
+  "type": "object",
+  "required": [
+    "schema",
+    "registry_status",
+    "language",
+    "profile_scope",
+    "purpose",
+    "promotion_policy",
+    "sources",
+    "entries"
+  ],
+  "properties": {
+    "schema": {
+      "const": "khmer-positional-onset-evidence/v1"
+    },
+    "registry_status": {
+      "enum": [
+        "PARTIAL_SPECIALIST_REFERENCE_REGISTER",
+        "REVIEWED_PRIMARY_EVIDENCE_REGISTER"
+      ]
+    },
+    "language": {
+      "type": "object",
+      "required": [
+        "name",
+        "iso_639_3"
+      ],
+      "properties": {
+        "name": {
+          "const": "Khmer"
+        },
+        "iso_639_3": {
+          "const": "khm"
+        }
+      },
+      "additionalProperties": false
+    },
+    "profile_scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "promotion_policy": {
+      "type": "object",
+      "required": [
+        "allowed",
+        "prohibited",
+        "review_gate"
+      ],
+      "properties": {
+        "allowed": {
+          "const": "PROVISIONAL_ONSET_PREVIEW_ONLY"
+        },
+        "prohibited": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "review_gate": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "source_id",
+          "title",
+          "url",
+          "source_kind",
+          "primary_source",
+          "locator",
+          "limitations"
+        ],
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://"
+          },
+          "source_kind": {
+            "enum": [
+              "PRIMARY_PHONETIC_SOURCE",
+              "SPECIALIST_REFERENCE"
+            ]
+          },
+          "primary_source": {
+            "type": "boolean"
+          },
+          "locator": {
+            "type": "string",
+            "minLength": 1
+          },
+          "limitations": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/entry"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "required": [
+        "entry_id",
+        "grapheme",
+        "unicode_codepoint",
+        "position",
+        "ipa_hint",
+        "fallback_rule_id",
+        "evidence",
+        "review_status",
+        "profile_status",
+        "allowed_use",
+        "limitations"
+      ],
+      "properties": {
+        "entry_id": {
+          "type": "string",
+          "pattern": "^ONSET-[0-9A-F]{4,6}$"
+        },
+        "grapheme": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unicode_codepoint": {
+          "type": "string",
+          "pattern": "^U\\+[0-9A-F]{4,6}$"
+        },
+        "position": {
+          "const": "onset"
+        },
+        "ipa_hint": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fallback_rule_id": {
+          "const": "KHMER-PREVIEW-ONSET-IPA-V1"
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "source_id",
+              "source_kind",
+              "source_locator",
+              "scope"
+            ],
+            "properties": {
+              "source_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source_kind": {
+                "enum": [
+                  "PRIMARY_PHONETIC_SOURCE",
+                  "SPECIALIST_REFERENCE"
+                ]
+              },
+              "source_locator": {
+                "type": "string",
+                "minLength": 1
+              },
+              "scope": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "review_status": {
+          "enum": [
+            "NOT_INDEPENDENTLY_REVIEWED",
+            "INDEPENDENTLY_REVIEWED"
+          ]
+        },
+        "profile_status": {
+          "enum": [
+            "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+            "ADJUDICATED_FOR_PROJECT_PPH_PROFILE"
+          ]
+        },
+        "allowed_use": {
+          "const": "PROVISIONAL_ONSET_PREVIEW_ONLY"
+        },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

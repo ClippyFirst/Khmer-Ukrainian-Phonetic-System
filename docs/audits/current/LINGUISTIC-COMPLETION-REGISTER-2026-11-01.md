@@ -1654,3 +1654,12 @@ PR [#326](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/3
 Post-merge mainline Quality [44111679547] passed (**423 Python tests + 70 subtests**, Node/web checks and build). Pages [44111679525] passed, including production browser exercise, deploy and deployed-site/runtime smoke. Main is `c345860483b378c66434139b7923a47094875c5a`; open PR count is 0.
 
 The shared fallback fixture is an engineering regression only: Python checks API-level `null` canonical fields; browser checks rendered NOT_ESTABLISHED markers; both check the separate onset-only `k` → `к?` preview and rule/position provenance. Browser unit detail exposes `data-fallback-rule-id` and `data-fallback-position` for inspection. No new pronunciation rule, IPA label, Ukrainian canonical output, gold record or corpus data was added. The dedicated positional evidence registry remains TODO; broader vowel/subscript/coeng fallback remains blocked pending independently sourced positional rules. IPA convention remains `DRAFT_NOT_APPROVED`; independent adjudicated gold=0; empirical accuracy=null; Issue #104 OPEN. No local tests or human review are claimed.
+
+
+## Khmer positional onset evidence registry — 2026-11-17
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-POSITIONAL-ONSET-EVIDENCE-001 | PARTIAL | Added `data/khmer-positional-onset-evidence.json`, its JSON Schema, and `tests/test_khmer_positional_onset_evidence.py`. The 33 existing consonant onset hints are recorded with Unicode identity, onset position, fallback rule ID, per-character Basic consonants row locator, and explicit review/profile status. | Closes the evidence-container and inventory-parity portion only. The sole cited source is a specialist descriptive reference, not a primary phonetic source; no entry is independently reviewed or adjudicated for the project Phnom Penh careful-citation profile. Primary phonetic evidence and qualified target-profile review remain required before promotion or positional expansion. |
+
+The registry mirrors `data/khmer/consonants.json`; it is not consumed by runtime and adds no IPA, Ukrainian mapping, gold row, or pronunciation rule. All entries are restricted to `PROVISIONAL_ONSET_PREVIEW_ONLY`. Broader vowel/subscript/COENG fallback remains blocked. IPA convention remains `DRAFT_NOT_APPROVED`; independent adjudicated gold=0; empirical accuracy=null; Issue #104 OPEN.

@@ -1,0 +1,826 @@
+{
+  "schema": "khmer-positional-onset-evidence/v1",
+  "registry_status": "PARTIAL_SPECIALIST_REFERENCE_REGISTER",
+  "language": {
+    "name": "Khmer",
+    "iso_639_3": "khm"
+  },
+  "profile_scope": "General modern Khmer descriptive consonant-onset inventory; not adjudicated specifically for the project's Phnom Penh careful-citation profile.",
+  "purpose": "Trace the existing provisional onset-only hints to exact character rows in a specialist orthography reference. This registry is evidence metadata, not a pronunciation gold set or a runtime rule source.",
+  "promotion_policy": {
+    "allowed": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+    "prohibited": [
+      "canonical IPA promotion",
+      "canonical Ukrainian promotion",
+      "accuracy or supported-coverage scoring",
+      "coda or cluster realization",
+      "vowel, tone, or complete-syllable inference"
+    ],
+    "review_gate": "Primary phonetic evidence and qualified target-profile review are still required before any rule is promoted."
+  },
+  "sources": [
+    {
+      "source_id": "r12a-orthography",
+      "title": "Richard Ishida, Khmer (Cambodian) Orthography Notes",
+      "url": "https://r12a.github.io/scripts/khmr/km.html",
+      "source_kind": "SPECIALIST_REFERENCE",
+      "primary_source": false,
+      "locator": "Basic consonants table; individual character rows",
+      "limitations": "Descriptive reference with context-dependent and dialect-sensitive notes; not independent project adjudication."
+    }
+  ],
+  "entries": [
+    {
+      "entry_id": "ONSET-1780",
+      "grapheme": "ក",
+      "unicode_codepoint": "U+1780",
+      "position": "onset",
+      "ipa_hint": "k",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ក (U+1780)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-1781",
+      "grapheme": "ខ",
+      "unicode_codepoint": "U+1781",
+      "position": "onset",
+      "ipa_hint": "kʰ",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ខ (U+1781)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-1782",
+      "grapheme": "គ",
+      "unicode_codepoint": "U+1782",
+      "position": "onset",
+      "ipa_hint": "k",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row គ (U+1782)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-1783",
+      "grapheme": "ឃ",
+      "unicode_codepoint": "U+1783",
+      "position": "onset",
+      "ipa_hint": "kʰ",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ឃ (U+1783)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-1784",
+      "grapheme": "ង",
+      "unicode_codepoint": "U+1784",
+      "position": "onset",
+      "ipa_hint": "ŋ",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ង (U+1784)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-1785",
+      "grapheme": "ច",
+      "unicode_codepoint": "U+1785",
+      "position": "onset",
+      "ipa_hint": "c",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ច (U+1785)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-1786",
+      "grapheme": "ឆ",
+      "unicode_codepoint": "U+1786",
+      "position": "onset",
+      "ipa_hint": "cʰ",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ឆ (U+1786)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-1787",
+      "grapheme": "ជ",
+      "unicode_codepoint": "U+1787",
+      "position": "onset",
+      "ipa_hint": "c",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ជ (U+1787)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-1788",
+      "grapheme": "ឈ",
+      "unicode_codepoint": "U+1788",
+      "position": "onset",
+      "ipa_hint": "cʰ",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ឈ (U+1788)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-1789",
+      "grapheme": "ញ",
+      "unicode_codepoint": "U+1789",
+      "position": "onset",
+      "ipa_hint": "ɲ",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ញ (U+1789)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-178A",
+      "grapheme": "ដ",
+      "unicode_codepoint": "U+178A",
+      "position": "onset",
+      "ipa_hint": "ɗ",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ដ (U+178A)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-178B",
+      "grapheme": "ឋ",
+      "unicode_codepoint": "U+178B",
+      "position": "onset",
+      "ipa_hint": "tʰ",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ឋ (U+178B)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-178C",
+      "grapheme": "ឌ",
+      "unicode_codepoint": "U+178C",
+      "position": "onset",
+      "ipa_hint": "ɗ",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ឌ (U+178C)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-178D",
+      "grapheme": "ឍ",
+      "unicode_codepoint": "U+178D",
+      "position": "onset",
+      "ipa_hint": "tʰ",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ឍ (U+178D)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-178E",
+      "grapheme": "ណ",
+      "unicode_codepoint": "U+178E",
+      "position": "onset",
+      "ipa_hint": "n",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ណ (U+178E)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-178F",
+      "grapheme": "ត",
+      "unicode_codepoint": "U+178F",
+      "position": "onset",
+      "ipa_hint": "t",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ត (U+178F)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-1790",
+      "grapheme": "ថ",
+      "unicode_codepoint": "U+1790",
+      "position": "onset",
+      "ipa_hint": "tʰ",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ថ (U+1790)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-1791",
+      "grapheme": "ទ",
+      "unicode_codepoint": "U+1791",
+      "position": "onset",
+      "ipa_hint": "t",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ទ (U+1791)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-1792",
+      "grapheme": "ធ",
+      "unicode_codepoint": "U+1792",
+      "position": "onset",
+      "ipa_hint": "tʰ",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ធ (U+1792)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-1793",
+      "grapheme": "ន",
+      "unicode_codepoint": "U+1793",
+      "position": "onset",
+      "ipa_hint": "n",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ន (U+1793)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-1794",
+      "grapheme": "ប",
+      "unicode_codepoint": "U+1794",
+      "position": "onset",
+      "ipa_hint": "ɓ",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ប (U+1794)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-1795",
+      "grapheme": "ផ",
+      "unicode_codepoint": "U+1795",
+      "position": "onset",
+      "ipa_hint": "pʰ",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ផ (U+1795)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-1796",
+      "grapheme": "ព",
+      "unicode_codepoint": "U+1796",
+      "position": "onset",
+      "ipa_hint": "p",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ព (U+1796)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-1797",
+      "grapheme": "ភ",
+      "unicode_codepoint": "U+1797",
+      "position": "onset",
+      "ipa_hint": "pʰ",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ភ (U+1797)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-1798",
+      "grapheme": "ម",
+      "unicode_codepoint": "U+1798",
+      "position": "onset",
+      "ipa_hint": "m",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ម (U+1798)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-1799",
+      "grapheme": "យ",
+      "unicode_codepoint": "U+1799",
+      "position": "onset",
+      "ipa_hint": "j",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row យ (U+1799)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-179A",
+      "grapheme": "រ",
+      "unicode_codepoint": "U+179A",
+      "position": "onset",
+      "ipa_hint": "r",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row រ (U+179A)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-179B",
+      "grapheme": "ល",
+      "unicode_codepoint": "U+179B",
+      "position": "onset",
+      "ipa_hint": "l",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ល (U+179B)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-179C",
+      "grapheme": "វ",
+      "unicode_codepoint": "U+179C",
+      "position": "onset",
+      "ipa_hint": "ʋ",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row វ (U+179C)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-179F",
+      "grapheme": "ស",
+      "unicode_codepoint": "U+179F",
+      "position": "onset",
+      "ipa_hint": "s",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ស (U+179F)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-17A0",
+      "grapheme": "ហ",
+      "unicode_codepoint": "U+17A0",
+      "position": "onset",
+      "ipa_hint": "h",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ហ (U+17A0)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-17A1",
+      "grapheme": "ឡ",
+      "unicode_codepoint": "U+17A1",
+      "position": "onset",
+      "ipa_hint": "l",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row ឡ (U+17A1)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    },
+    {
+      "entry_id": "ONSET-17A2",
+      "grapheme": "អ",
+      "unicode_codepoint": "U+17A2",
+      "position": "onset",
+      "ipa_hint": "ʔ",
+      "fallback_rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
+      "evidence": [
+        {
+          "source_id": "r12a-orthography",
+          "source_kind": "SPECIALIST_REFERENCE",
+          "source_locator": "Khmer (Cambodian) Orthography Notes > Basic consonants > character row អ (U+17A2)",
+          "scope": "The basic-consonant table's onset consonant value; not a complete syllable or a context-free coda/cluster realization."
+        }
+      ],
+      "review_status": "NOT_INDEPENDENTLY_REVIEWED",
+      "profile_status": "NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE",
+      "allowed_use": "PROVISIONAL_ONSET_PREVIEW_ONLY",
+      "limitations": [
+        "Not IPA gold or an expert-approved project convention.",
+        "Does not resolve coda, cluster, subscript, coeng, vowel, register-conditioned nucleus, tone, or lexical variation.",
+        "Do not promote this hint to canonical IPA or supported-coverage metrics."
+      ]
+    }
+  ]
+}
