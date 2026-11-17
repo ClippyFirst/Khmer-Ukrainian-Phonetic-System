@@ -1360,3 +1360,11 @@ A bounded evidence-container implementation records all 33 current consonant ons
 ## PR #329 positional onset registry — final verification — 2026-11-17
 
 PR [#329](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/329) was squash-merged as `841bf283eecf13b2e2ccc7f83f02a8c7617c7cdc`. Exact-head Quality [44118873208] passed with **427 Python tests + 70 subtests**, and Chromium [44118873039] passed. Post-merge mainline Quality [44119105502], Chromium [44119105743], and Pages [44119105718] (build, deploy, deployed-site/runtime smoke) all passed. The evidence register contains 33 exact mirrors of existing onset inventory hints; it does not change runtime. Its acceptance is limited to a specialist-reference evidence container and tests. Primary phonetic evidence, project-profile review and independent adjudication remain outstanding. No IPA gold or empirical accuracy is claimed.
+
+## Skip-navigation accessibility improvement — 2026-11-17
+
+PR [#331](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/331) adds a keyboard-first skip link to both public pages. The link is the first focusable element, appears when focused, and targets `main#main-content`; the target receives programmatic focus. Regression coverage exercises Tab, visible focus state, Enter activation, fragment navigation and target focus on both `/` and `/system.html`.
+
+Exact PR-head Quality [44143747834] and Chromium [44143747746] passed (16/16 browser tests). Post-merge main Quality [44144068435], Chromium [44144068416] (16/16), and Pages deployment/deployed-asset smoke [44144068336] passed on `f594b48615a799b13ae19ad4c2c6453512b8c24d`.
+
+This is a bounded keyboard-navigation improvement, not a complete accessibility audit. Manual screen-reader/assistive-technology review, full keyboard traversal, contrast, zoom/reflow and real mobile-device checks remain PARTIAL/TODO. No local tests or human accessibility review are claimed. Linguistic release gates are unchanged: IPA convention DRAFT_NOT_APPROVED, independent adjudicated gold=0, empirical accuracy=null, Issue #104 OPEN.
