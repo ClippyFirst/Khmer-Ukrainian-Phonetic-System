@@ -3556,3 +3556,14 @@ The bounded cross-runtime regression task is now DONE_VERIFIED. PR #326 merged a
 `Browser regression` and `Exact-head CI and Chromium verification` are DONE_VERIFIED for this shared-fixture acceptance only. The broader onset fallback remains PARTIAL: the dedicated per-position evidence registry is still TODO, and vowel/subscript/coeng hints remain excluded absent independent positional evidence. This is not IPA gold; adjudicated gold=0 and empirical accuracy=null. No local tests, external expert review or pronunciation claims are made.
 
 Final main at this checkpoint: `5a4f97c2c572020829b9c9eff7fad8a3c9d32e0c`; open PRs=0; Issue #104 remains OPEN.
+
+
+## Khmer positional onset evidence registry continuation — 2026-11-17
+
+Starting main: `5afced05c22ffd359e8e9236fbb8a813403cd220`. Dedicated branch: `data/khmer-onset-evidence-registry-2026-11-17`.
+
+Implemented an evidence-only register for the 33 existing consonant onset hints: `data/khmer-positional-onset-evidence.json`; schema: `schemas/khmer-positional-onset-evidence.schema.json`; contract/parity tests: `tests/test_khmer_positional_onset_evidence.py`; audit note: `docs/audits/current/KHMER-POSITIONAL-ONSET-EVIDENCE-REGISTRY-2026-11-17.md`. Every entry identifies the grapheme/code point, onset position, current IPA hint, existing fallback rule ID, specialist-reference row locator, review status and target-profile status. Tests assert exact parity with `data/khmer/consonants.json` and prevent interpreting the registry as canonical or complete coverage.
+
+**Status: KHM-POSITIONAL-ONSET-EVIDENCE-001 = PARTIAL.** The registry is sourced to Richard Ishida's specialist descriptive *Basic consonants* table, not a primary phonetic source. Entries remain `NOT_INDEPENDENTLY_REVIEWED` and `NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE`; the registry is not consumed by runtime. Primary phonetic evidence and qualified target-profile review remain blockers. No new pronunciation rule, IPA label, Ukrainian mapping, corpus row or gold record was added. Vowel/subscript/COENG fallback remains blocked. Issue #104 remains OPEN; IPA convention `DRAFT_NOT_APPROVED`; adjudicated gold=0; empirical accuracy=null.
+
+Hosted exact-head Quality/Chromium and post-merge mainline checks are required. This session has no local checkout/test execution. Preserve the strict provisional-only boundary.
