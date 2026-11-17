@@ -3322,7 +3322,7 @@ PR #301, #303 and #304 were closed as superseded after PR #307 merged; their bra
 ## Continuation — Kirby 2011 Phnom Penh prosody source audit (2026-11-17)
 
 - Starting main: `10a475a1511d0729dd9d3ee10c3337fe2bd50531`; dedicated branch: `research/khmer-kirby-tonogenesis-audio-audit-2026-11-17`.
-- Registered two primary DataShare sources: Kirby 2011 audio (DOI 10.7488/ds/321, 461.93 MB, provider MD5 `8688e68e76e8269b8bbf5d19020a230b`) and supplementary production/perception data (DOI 10.7488/ds/319). Both full metadata records state CC BY 4.0.
+- Enriched the two existing source-registry records `kirby2015-audio` (DOI 10.7488/ds/321, 461.93 MB, provider MD5 `8688e68e76e8269b8bbf5d19020a230b`) and `kirby2015-supplementary` (DOI 10.7488/ds/319); no duplicate source records remain. Both DataShare full metadata records state CC BY 4.0.
 - DataShare audio metadata says 16 Phnom Penh speakers, WAV/TextGrid and Praat Pitch/Formant/PointProcess files. Associated Kirby (2014) paper §3.1 says 20 native Phnom Penh participants (13 female, 21–60), 41 lexical items and carrier-sentence self-paced reading plus repetition, three randomized repetitions. The 16-vs-20 discrepancy is unresolved and recorded explicitly.
 - Supplementary files include anonymised production/perception CSVs, KlattGrid stimuli, plots and R code. They are not IPA gold; synthetic stimuli and perception responses are not natural production tokens.
 - Detailed dossier: `docs/ipa-gold/khmer-kirby-tonogenesis-datasets-audit.md`. No archive or CSVs downloaded, no checksum verified locally, no item manifest extracted, no IPA labels or gold rows created. Issue #104 remains open; convention `DRAFT_NOT_APPROVED`; gold=0; accuracy=null.
