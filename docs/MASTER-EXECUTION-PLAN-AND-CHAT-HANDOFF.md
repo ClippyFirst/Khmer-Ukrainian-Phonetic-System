@@ -3412,7 +3412,7 @@ PR #316 (fix/mixed-script-numeral-token-boundaries-2026-11-17) changes the share
 
 This is NOT Khmer lexical word segmentation. Spaces and punctuation remain preserved; the orthographic syllable heuristic remains conservative; no LOC word-boundary profile, lexicon, IPA, or gold data was added. Foreign-language text is not translated or assigned Khmer IPA. It remains explicitly unsupported in the Khmer phonetic route.
 
-Task ledger: KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 = PARTIAL until exact PR-head and post-merge Quality/Chromium/Pages verification succeeds. Linguistic coverage and lexical word segmentation remain separately blocked under Issue #104.
+Task ledger: KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 = DONE_VERIFIED. Exact PR-head and post-merge mainline Quality, Chromium and Pages checks all pass. Linguistic coverage and lexical word segmentation remain separately blocked under Issue #104.
 
 Verification caveat: the first CI passes exposed two stale assertions that expected mixed-script text to invalidate its valid Khmer neighbor, contrary to the repository's local-uncertainty invariant. Those assertions were updated to require local isolation. An intermediate browser run also caught that the tokenizer edit had displaced the register-shifter resolver; the resolver was restored before final verification. Only the latest exact-head runs may be used for acceptance.
 
@@ -3428,4 +3428,14 @@ PR [#316](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/3
 - Numeric-only input remains `NON_LINGUISTIC`, preserved without a guessed reading, with `ipa_kind=NOT_APPLICABLE`. Foreign-script text remains explicitly unsupported as its own unit. This does not add lexical word segmentation, number reading, translation, IPA, lexical data or gold rows.
 - No local tests were run; all verification above is from exact PR-head GitHub Actions. No Pages deployment is claimed before merge.
 
-Task ledger remains PARTIAL until post-merge mainline Quality, Chromium and Pages checks complete. Linguistic coverage and blind-gold acceptance remain separate from this engineering fix; Issue #104 remains OPEN.
+Task ledger is DONE_VERIFIED for this engineering boundary fix. Linguistic coverage and blind-gold acceptance remain separate from this engineering fix; Issue #104 remains OPEN.
+
+
+## Post-merge closeout — mixed-script and Khmer-numeral boundaries — 2026-11-17
+
+- PR [#316](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/316) merged as `cca8612e98292ce2ee2f103e12bcce152d4b3416` from exact final head `56f0dc922f0bf6cf63aabbf09abc1d9c25be7893`; main before merge was `0a79df6918e7e4e291ca28f9e758ac0c14acc742`.
+- Exact PR-head Quality [44079343371](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44079343371) SUCCESS: 422 Python tests + 70 subtests, expected `NOT_READY_NO_ADJUDICATED_GOLD`, Node/web checks and Vite build. Chromium [44079343343](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44079343343) SUCCESS: 13/13 Playwright tests.
+- Post-merge mainline Quality [44079454281](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44079454281) SUCCESS: 422 Python tests + 70 subtests, expected no-gold validator state, Node/web checks and Vite build. Chromium [44079454289](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44079454289) SUCCESS: 13/13 Playwright tests.
+- Pages [44079454302](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44079454302) SUCCESS: production build and Chromium exercise, deployment, deployed-site and runtime-asset smoke tests. Public site: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/ .
+- Final engineering task status: `KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 = DONE_VERIFIED`. The work preserves Latin fragments as unsupported, numerals as `NON_LINGUISTIC` with `ipa_kind=NOT_APPLICABLE`, and ZWNJ within Khmer runs. No lexical word segmentation, number reading, foreign-language transcription, new IPA, gold labels or Ukrainian phonology was introduced.
+- Repository-wide linguistic blockers remain: Issue #104 OPEN; IPA convention `DRAFT_NOT_APPROVED`; adjudicated gold=0; empirical accuracy=null. This PR is an engineering/input-integrity fix, not a linguistic release gate closure.
