@@ -1524,3 +1524,16 @@ No IPA string, source label, Ukrainian mapping or gold row changed. The kind rem
 | KHM-GOLD-001 | BLOCKED | Independent adjudicated IPA gold remains 0; empirical accuracy remains null. Requires rights-cleared exact audio/token locators, two independent annotators, adjudicator and non-annotating curator. |
 
 Final main SHA: `c426d1c3bacd6edb303b2b4977e5b34c09b81620`. Source registry: 49 records / 49 unique IDs. No local tests, audio import, IPA gold rows, runtime pronunciation-rule changes or Ukrainian mapping changes were made by the source audit or IPA-kind contract repair. No open PRs; issue #104 remains OPEN; working branches retained.
+
+
+## Phnom Penh phonetic literature full-text review — 2026-11-17
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-CHEM-2020-FULLTEXT-001 | DONE_VERIFIED (source audit only) | Chem (2020) full text reviewed; four-speaker final sample, 61 formal frame-read items, unreported complete wordlist, non-itemized replacements, F1/F2/duration scope and inventory/notation limitations recorded with page locators in [the audit](../../ipa-gold/khmer-phonetic-literature-fulltext-review-2026-11-17.md). | Supports a bounded acoustic vowel discussion only; not a complete IPA convention or reproducible pilot wordlist. |
+| KHM-MAM-2025-FULLTEXT-001 | DONE_VERIFIED (source audit only) | Mam et al. (2025) full text reviewed; five Greater Phnom Penh speakers, 50 targets, PPK/SK frame tasks, normalized F0/functional-PC methods, incomplete wordlist and qualified “may have phonologized” conclusion recorded with locators in [the audit](../../ipa-gold/khmer-phonetic-literature-fulltext-review-2026-11-17.md). | Supports qualified pitch/F0 research only; does not establish a categorical general tone inventory or citation-form tone rule. |
+| KHM-PILOT-30-LEXEMES-001 | BLOCKED | Neither paper publishes the complete target wordlist with exact source-exact item/audio locators. | 30 attested groups with exact forms, glosses, locators, contrast rationale and rights; expert-approved convention/profile fit. |
+| KHM-IPA-KIND-APPROVAL-001 | BLOCKED | IPA convention remains DRAFT_NOT_APPROVED; runtime `ipa_kind` remains UNRESOLVED for linguistic units. | Written target-profile phonetician approval plus independent challenge review of the complete symbol/feature policy. |
+| KHM-GOLD-001 | BLOCKED | Independent adjudicated gold remains 0; empirical accuracy remains null. | Rights-cleared pilot items; two independent annotators; third adjudicator; non-annotating curator; private blind intake; provenance/schema/rights checks. |
+
+No pronunciation rule, IPA label, gold row, source permission, Ukrainian mapping or generated artifact changed in this review.
