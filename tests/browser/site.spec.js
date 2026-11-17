@@ -16,9 +16,9 @@ test("unsupported grapheme is marked locally", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("កx");
   await expect(page.locator("#results")).toBeVisible();
-  await expect(page.locator("#status")).toHaveText("INVALID OR UNSUPPORTED");
-  await expect(page.locator("#ipa-result")).toHaveText("⟦INVALID_OR_UNSUPPORTED⟧");
-  await expect(page.locator("#ua-result")).toHaveText("⟦НЕПІДТРИМУЄТЬСЯ⟧");
+  await expect(page.locator("#status")).toHaveText("EVIDENCE LIMITED");
+  await expect(page.locator("#ipa-result")).toHaveText("/kɑː/⟦INVALID_OR_UNSUPPORTED⟧");
+  await expect(page.locator("#ua-result")).toHaveText("ка⟦НЕПІДТРИМУЄТЬСЯ⟧");
 });
 
 test("one unsupported unit does not hide neighboring IPA and Ukrainian output", async ({ page }) => {
