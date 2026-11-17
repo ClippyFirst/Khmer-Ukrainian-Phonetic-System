@@ -1606,3 +1606,14 @@ Human acceptance gates remain open: IPA convention DRAFT_NOT_APPROVED; 30-item p
 | PR #320 handoff/audit/register closeout | DONE_VERIFIED | PR-head Quality [44081681961] SUCCESS; exact-main Quality [44081774790] SUCCESS (422 Python + 70 subtests), Chromium [44081774743] SUCCESS (13/13), Pages [44081774768] SUCCESS (production browser, deployment and smoke). Final main `06d0fc1c38889ea6c02d78f7f3274c835f2744e2`. |
 
 The corpus validator's `NOT_READY_NO_ADJUDICATED_GOLD` is the expected research state, not a software failure. Human gates remain open: IPA convention DRAFT_NOT_APPROVED, 30-item pilot BLOCKED, no recruited annotators/adjudicator/curator/private blind channel, gold=0, empirical accuracy=null. Issue #104 remains OPEN. No expert outreach or local tests are claimed.
+
+
+## Khmer lexical word-segmentation evidence review — 2026-11-17
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-LEXICAL-WORD-SEGMENTATION-001 | BLOCKED | ALT/NOVA 20,000-sentence manual tokenization/POS corpus (Kaing et al. 2021, DOI 10.1145/3464378); khPOS 12,000-sentence manually segmented corpus; existing profile-neutral boundary evidence model in `src/khmer_ua/word_boundaries.py`. | Approve tokenization convention and intended use; review CC BY-NC-SA 4.0 / privacy / provenance restrictions; select rights-compatible and target-relevant data; independently double-annotate/adjudicate pilot; report held-out boundary P/R/F1 and abstention. |
+
+Do not confuse word segmentation with orthographic-syllable segmentation or G2P. ALT/NOVA tokenization is a surface/morphological annotation convention; ALT is translated from English Wikinews. The khPOS card reports economics/news/politics plus student/voter-list sources, requiring provenance/privacy review. Tran et al. (2017) constructs a syllable database rather than evaluating sentence-level word boundaries; Sung & Hwang (2016) report F1 0.906 without U+200B on their own test set but no reusable release was established. See [the evidence audit](KHMER-LEXICAL-SEGMENTATION-EVIDENCE-AUDIT-2026-11-17.md).
+
+No corpus was copied or used for training. No lexical segmentation was implemented, no boundaries inferred for the user's paragraph, and no phonetic/IPA status changed. KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 remains DONE_VERIFIED independently.
