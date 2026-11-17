@@ -3732,3 +3732,23 @@ A fourth focused pass compared five BGN/PCGN-related feature branches with exact
 | `feat/pcgn-explicit-open-syllable-assembly-2026-11-16` | 8 ahead / 104 behind | Its open-syllable assembly schema is byte-identical to main (blob SHA `1ae644fb612f45f1f38051480e3fdada6a910a0a`). Its `pcgn.py` (71,015 bytes) is an earlier snapshot than main's 120,449-byte module. No port. |
 
 No PCGN rule, source evidence, IPA, pronunciation, corpus, Ukrainian mapping or runtime behavior was changed. The audit does not resolve any outstanding source interpretation or establish BGN/PCGN compliance. All historical refs remain preserved. `KHM-BRANCH-AUDIT-001` remains PARTIAL: 25 representative branches have focused dispositions, not a complete changed-file/commit/PR-ancestry audit of all historical refs.
+
+
+## BGN/PCGN vowel and syllable-assembly branch reconciliation — 2026-11-17
+
+A fifth focused pass compared ten additional BGN/PCGN feature branches with exact main `c01879e9326f96be24160e64bfd99fe78d4c2767`. The representative content-review sample is now 35 branches. These are code/schema integration findings only, not expert confirmation of the source's phonological rules.
+
+| Branch | Compare to main | Content evidence and disposition |
+|---|---:|---|
+| `feat/pcgn-ba-triisap-exception-20261115` | 11 ahead / 125 behind | Its `pcgn.py` is an earlier 44,833-byte snapshot; main has the later 120,449-byte implementation. The PCGN-note and series-decision changes are not justification to replace the newer module wholesale. |
+| `feat/pcgn-compound-vowel-subset-2026-11-15` | 10 ahead / 140 behind | Its dependent-vowel decision schema is byte-identical to main (blob SHA `d867242351b7d488202e38390acc7ac381b13fae`). The schema is already integrated. |
+| `feat/pcgn-dependent-vowel-subset-2026-11-15` | 9 ahead / 142 behind | Its dependent-vowel resolution test is an earlier version (3,398 bytes vs 4,041 on main); current main retains the evolved test/module. No port. |
+| `feat/pcgn-independent-vowel-subset-2026-11-15` | 8 ahead / 138 behind | Main's independent-vowel decision schema is evolved (3,634 bytes vs 1,591 on the branch); no older schema overwrite. |
+| `feat/pcgn-inherent-vowel-component-2026-11-15` | 18 ahead / 118 behind | Its `romanization_pcgn_inherent_vowel.csv` is byte-identical to main (blob SHA `90404b215dbc9e736e050d77b4439514c13d8f0e`). Data already integrated. |
+| `feat/pcgn-final-consonant-component-2026-11-15` | 14 ahead / 114 behind | Its final-consonant decision schema is byte-identical to main (blob SHA `1b5b4fe93d6289225f9d4c31d10a97b16cd65e6f`). Main's shared PCGN implementation and tests are later. |
+| `feat/pcgn-glottal-open-syllable-assembly-2026-11-16` | 9 ahead / 86 behind | Its glottal open-syllable assembly schema is byte-identical to main (blob SHA `f402418fa8dea5b3396c06c6f762574755af5f9b`). Already integrated. |
+| `feat/pcgn-independent-vowel-closed-syllable-assembly-2026-11-16` | 11 ahead / 78 behind | Its independent-vowel closed-syllable schema is byte-identical to main (blob SHA `900471e3872ef72adc5ffcc9ad203f727020a326`). Already integrated. |
+| `feat/pcgn-shortened-closed-syllable-assembly-2026-11-16` | 8 ahead / 99 behind | Its closed-syllable assembly schema is byte-identical to main (blob SHA `33e4619cf9f7ca4a9822a04b2afac8037e8e04a3`). Already integrated. |
+| `feat/pcgn-normal-dependent-closed-syllable-assembly-2026-11-16` | 7 ahead / 98 behind | Its dependent closed-syllable assembly schema is byte-identical to main (blob SHA `e97b27627c71951cc81154f94c083138608c3dcc`). Already integrated. |
+
+No PCGN rule, source evidence, IPA, pronunciation, corpus, Ukrainian mapping or runtime behavior was changed. All branches remain preserved. This audit does not claim BGN/PCGN compliance or independent linguistic adjudication. `KHM-BRANCH-AUDIT-001` remains PARTIAL: 35 representative branches now have focused dispositions; full reconciliation of the remaining historical refs is still outstanding.
