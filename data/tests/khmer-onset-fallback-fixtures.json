@@ -6,14 +6,16 @@
       "id": "coeng-subscript-unresolved-onset",
       "source": "ក្ក",
       "canonical_status": "NOT_ESTABLISHED",
-      "canonical_ipa": "⟦NOT_ESTABLISHED⟧",
-      "canonical_ukrainian": "⟦НЕВСТАНОВЛЕНО⟧",
       "fallback_status": "PROVISIONAL",
       "provisional_ipa": "k",
       "provisional_ukrainian": "к?",
       "position": "onset",
       "rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
-      "uncertainty": "No vowel, subscript realization, coda or tone is inferred."
+      "uncertainty": "No vowel, subscript realization, coda or tone is inferred.",
+      "canonical_ipa_python": null,
+      "canonical_ukrainian_python": null,
+      "canonical_ipa_display": "⟦NOT_ESTABLISHED⟧",
+      "canonical_ukrainian_display": "⟦НЕВСТАНОВЛЕНО⟧"
     }
   ]
 }
