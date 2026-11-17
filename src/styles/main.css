@@ -11,6 +11,9 @@ a{color:inherit}
 button,textarea,select{font:inherit}
 button{cursor:pointer}
 button:focus-visible,a:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.skip-link{position:fixed;z-index:1000;top:12px;left:12px;padding:10px 14px;transform:translateY(calc(-100% - 16px));background:var(--blue);color:#fff;font-weight:750;text-decoration:none}
+.skip-link:focus{transform:translateY(0);outline:3px solid var(--red);outline-offset:3px}
+#main-content:focus{outline:none}
 [hidden]{display:none!important}
 .shell{width:min(1120px,calc(100% - 48px));margin:0 auto;padding:28px 0 52px}
 .header{padding-bottom:34px}
