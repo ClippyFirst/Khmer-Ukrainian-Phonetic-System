@@ -181,3 +181,16 @@ def test_analysis_exposes_orthographic_component_scan_without_changing_ipa_claim
         ("OTHER_SIGN", "ំ", 4, 5),
     ]
     assert result.phonetic_representation == {"status": "phoneticization_not_yet_established"}
+
+
+def test_mixed_script_and_numeric_runs_are_isolated_without_source_loss():
+    from khmer_ua.parser import segment_syllables
+
+    source = "កLlenguatgeគឆ្នាំ៦១១។"
+    units = segment_syllables(source)
+
+    assert "".join(units) == source
+    assert "Llenguatge" in units
+    assert "៦១១" in units
+    assert not any("L" in unit and "ក" in unit for unit in units)
+    assert units[-2:] == ["៦១១", "។"]
