@@ -1386,3 +1386,10 @@ Exact PR-head verification: Quality [44150526026] SUCCESS; Chromium [44150526069
 - Pages [44150735166] SUCCESS — production build/browser exercise, deployment of exact SHA `a51135d2c65791ae2b433070b71c482a9f49aa40`, and deployed HTML/JS/CSS smoke checks.
 
 The PR #334 change is documentation-only. No runtime or linguistic behavior changed. The automated accessibility evidence is bounded to representative contrast selectors and existing keyboard regressions; full accessibility status remains PARTIAL. The repository is engineering/build/deployment verified and research-ready as a partial prototype, not linguistically release-ready. Issue #104 remains OPEN; convention `DRAFT_NOT_APPROVED`; independent adjudicated gold=0; empirical accuracy=null. This checkpoint was verified through GitHub-hosted APIs and workflow logs; no local test run is claimed.
+
+
+## PR #336 closeout — 2026-11-17
+
+PR [#336](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/336) merged as `c4cd8b1a17463f306b7c6dffbaad0f80685e5aa1`. It corrects the ALT/NOVA description against the primary NICT Khmer tokenization guideline v0.2: the convention is generally morpheme-level, and compounds are tokenized into components with shallow bracketing based on dictionary/syntactic diagnostics. It does not equate NOVA units with orthographic syllables or project phonetic units.
+
+Exact PR-head Quality [44170618296] and Chromium [44170618297] passed (427 Python tests + 70 subtests; 18/18 browser tests). Post-merge mainline Quality [44170796321], Chromium [44170796376], and Pages [44170796347] all passed. Pages deployed the exact main SHA and passed root/system HTML and JS/CSS asset smoke checks. No runtime or data changed; lexical segmentation remains BLOCKED pending target convention, rights/privacy review and independent adjudicated evaluation. No local tests are claimed because GitHub DNS resolution failed in the execution environment.
