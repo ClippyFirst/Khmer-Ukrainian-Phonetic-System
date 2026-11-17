@@ -3615,3 +3615,16 @@ Two Playwright tests check representative text/background pairs against WCAG AA'
 Post-merge main `126899c81810750cc1c8a77667340606c10eab20`: Quality [44150006145] SUCCESS (**427 Python + 70 subtests**); Chromium [44150005996] SUCCESS (**18/18**). Pages [44150006152] SUCCESS: production build, browser exercise, deployment of the exact main SHA and deployed-site HTML/JS/CSS smoke checks all passed.
 
 `KHM-UI-CONTRAST-001 = DONE_VERIFIED` for the specific measured text styles and tested foreground/background pairs only. This is not a complete WCAG audit: all page content, dynamic states, images, non-text contrast, browser zoom, high contrast modes and assistive technologies have not been exhaustively assessed. General `KHM-UI-001` remains PARTIAL. No phonological/IPA/romanization data or linguistic claims changed.
+
+
+## Final mainline verification after PR #334 — 2026-11-17
+
+PR [#334](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/334) was merged as `a51135d2c65791ae2b433070b71c482a9f49aa40`, based on `126899c81810750cc1c8a77667340606c10eab20`; its documentation branch head was `05aecb1f136c160e03ba8b8ea7dcabee70c58611`. The final post-merge mainline workflows are now verified against the exact merge SHA:
+
+- Quality [44150735242](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44150735242) — SUCCESS: **427 Python tests + 70 subtests**, corpus validator reports the expected `NOT_READY_NO_ADJUDICATED_GOLD`, 24 Node/web tests, and Vite production build.
+- Chromium [44150735206](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44150735206) — SUCCESS: **18/18 Playwright tests**, including representative WCAG AA contrast and skip-navigation regressions.
+- GitHub Pages [44150735166](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44150735166) — SUCCESS: production browser exercise, artifact upload, deployment of exact SHA `a51135d2c65791ae2b433070b71c482a9f49aa40`, and deployed HTML/JavaScript/CSS smoke checks.
+
+PR #334's exact-head Quality [44150526026] and Chromium [44150526069] also completed successfully on `05aecb1f136c160e03ba8b8ea7dcabee70c58611`; Chromium exercised 18/18 tests. The post-merge mainline evidence above is the release checkpoint. This session used GitHub-hosted repository/Actions evidence; no local checkout or local test execution is claimed.
+
+No linguistic status changed: IPA convention remains `DRAFT_NOT_APPROVED`; independent adjudicated IPA gold remains 0; empirical accuracy remains null; Issue #104 remains OPEN. Accessibility acceptance is limited to the named automated contrast pairs; `KHM-UI-001` remains PARTIAL pending manual screen-reader/assistive-technology review, complete keyboard traversal, zoom/reflow and real-device testing. Repository remains research-ready as an engineering-verified partial prototype, not linguistically release-ready.

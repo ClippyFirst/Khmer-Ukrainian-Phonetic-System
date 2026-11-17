@@ -1688,3 +1688,12 @@ The skip-navigation task does not establish overall accessibility conformance. I
 | KHM-UI-001 | PARTIAL | Skip navigation and representative contrast checks have automated Chromium coverage. | Full manual screen-reader/assistive-technology review, complete keyboard traversal, comprehensive text/non-text contrast, zoom/reflow and real mobile-device review remain outstanding. |
 
 The contrast task is bounded to the tested selectors and states; it does not claim full WCAG conformance. Pages [44150006152] SUCCESS: production build, browser exercise, exact-main deployment and deployed-site asset smoke checks passed.
+
+
+## PR #334 exact-main verification — 2026-11-17
+
+| Work | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| PR #334 documentation closeout and final mainline verification | DONE_VERIFIED (documentation/evidence synchronization only) | PR #334 merged as `a51135d2c65791ae2b433070b71c482a9f49aa40`. Exact PR-head Quality [44150526026] and Chromium [44150526069] passed on `05aecb1f136c160e03ba8b8ea7dcabee70c58611`; Chromium: 18/18. Post-merge Quality [44150735242] passed (427 Python tests + 70 subtests, expected `NOT_READY_NO_ADJUDICATED_GOLD`, 24 Node/web tests and Vite build); Chromium [44150735206] passed (18/18); Pages [44150735166] deployed the exact main SHA and passed deployed-site asset smoke checks. | Confirms exact-main engineering/deployment state and records PR #334's closeout. Does not complete general accessibility QA or any linguistic release gate. |
+
+`KHM-UI-CONTRAST-001` remains DONE_VERIFIED for the representative tested text/background pairs only. `KHM-UI-001` remains PARTIAL pending manual screen-reader/assistive-technology review, full keyboard traversal, comprehensive non-text/text contrast, zoom/reflow and real-device review. Issue #104 remains OPEN; IPA convention `DRAFT_NOT_APPROVED`; independent adjudicated gold=0; empirical accuracy=null. No local tests, human annotation, expert recruitment or external review are claimed.
