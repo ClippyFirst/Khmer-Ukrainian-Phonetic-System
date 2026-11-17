@@ -1502,3 +1502,13 @@ Source status remains PARTIAL: existing Kirby audio and supplementary records ar
 | KHM-SOK-ADAMS-DATA-REUSE-001 | DEFERRED | The 140-word validation set and 10,110-word dictionary comparison are not independent blind audio gold; no dataset rights or reproducible independent split established. Do not import or benchmark against them as project gold. |
 
 The reported 97.86% and 98.43% values are the paper's own results and do not alter repository accuracy (still null). Independent adjudicated gold remains 0; `KHM-IPA-CONVENTION-001` remains `DRAFT_NOT_APPROVED`; `KHM-GOLD-001` remains BLOCKED.
+
+
+## Explicit IPA transcription-kind contract — 2026-11-17
+
+| ID | Status | Evidence / acceptance |
+|---|---|---|
+| KHM-IPA-KIND-001 | DONE_VERIFIED (contract repair) | Added `ipa_kind` to every typed internal phonetic-result unit. Linguistic units are `UNRESOLVED` and punctuation is `NOT_APPLICABLE`; schema and regression tests enforce this. This avoids silently assigning PHONEMIC/PHONETIC_BROAD/PHONETIC_NARROW before convention approval. |
+| KHM-IPA-KIND-APPROVAL-001 | BLOCKED | A qualified Phnom Penh Khmer phonetician and independent reviewer must approve one kind and its full symbol/feature policy; only then can the internal value be promoted from `UNRESOLVED`. |
+
+No IPA string, source label, Ukrainian mapping or gold row changed. The kind remains explicitly unresolved; gold=0 and empirical accuracy=null.
