@@ -71,10 +71,13 @@ assert.deepEqual(astralUnsupported.unknown, ["🧪"], "unsupported supplementary
 assert.deepEqual(astralUnsupported.unknown_codepoints, ["U+1F9EA"]);
 
 const mixedScriptUnit = convert("កx", "khmer-pph-careful-citation-v1");
-assert.equal(mixedScriptUnit.status, "INVALID_OR_UNSUPPORTED");
-assert.equal(mixedScriptUnit.units.length, 1);
-assert.equal(mixedScriptUnit.units[0].status, "INVALID_OR_UNSUPPORTED");
-assert.equal(mixedScriptUnit.units[0].ipa, "⟦INVALID_OR_UNSUPPORTED⟧");
+assert.equal(mixedScriptUnit.status, "EVIDENCE_LIMITED");
+assert.equal(mixedScriptUnit.units.length, 2);
+assert.equal(mixedScriptUnit.units[0].source, "ក");
+assert.equal(mixedScriptUnit.units[0].status, "PROPOSED");
+assert.equal(mixedScriptUnit.units[1].source, "x");
+assert.equal(mixedScriptUnit.units[1].status, "INVALID_OR_UNSUPPORTED");
+assert.equal(mixedScriptUnit.ipa, "/kɑː/⟦INVALID_OR_UNSUPPORTED⟧");
 
 assert.equal(parseSyllable("ក៊").status, "EVIDENCE_LIMITED");
 assert.equal(parseSyllable("គ៉").status, "EVIDENCE_LIMITED");
@@ -104,6 +107,29 @@ assert.equal(mixed.phonetic_result.units[2].uncertainty[0].status, "INVALID_OR_U
 assert.ok(phoneticSchema.required.every((key) => Object.hasOwn(mixed.phonetic_result, key)));
 assert.ok(phoneticSchema.$defs.unit.required.every((key) => Object.hasOwn(mixed.phonetic_result.units[0], key)));
 assert.deepEqual(Object.keys(mixed.phonetic_result.units[0]).sort(), Object.keys(phoneticSchema.$defs.unit.properties).sort());
+
+
+const mixedScriptNumeralSource = "កLlenguatgeគ៦១១";
+const mixedScriptNumeralTokens = tokenize(mixedScriptNumeralSource);
+assert.deepEqual(mixedScriptNumeralTokens, ["ក", "Llenguatge", "គ", "៦១១"]);
+const mixedScriptNumeralResult = convert(mixedScriptNumeralSource, "khmer-pph-careful-citation-v1");
+assert.equal(mixedScriptNumeralResult.units.map((unit) => unit.source).join(""), mixedScriptNumeralSource);
+assert.deepEqual(mixedScriptNumeralResult.units.map((unit) => unit.status), [
+  "PROPOSED", "INVALID_OR_UNSUPPORTED", "PROPOSED", "NON_LINGUISTIC",
+]);
+assert.equal(mixedScriptNumeralResult.units[3].ipa, "៦១១");
+assert.equal(mixedScriptNumeralResult.units[3].ua, "៦១១");
+assert.equal(mixedScriptNumeralResult.phonetic_result.units[3].ipa_kind, "NOT_APPLICABLE");
+assert.deepEqual(mixedScriptNumeralResult.phonetic_result.units[3].uncertainty, []);
+assert.equal(mixedScriptNumeralResult.ipa, "/kɑː/⟦INVALID_OR_UNSUPPORTED⟧/kɔː/៦១១");
+const numeralOnlyResult = convert("៦១១", "khmer-pph-careful-citation-v1");
+assert.equal(numeralOnlyResult.status, "NOT_ESTABLISHED");
+assert.equal(numeralOnlyResult.complete, false);
+assert.equal(numeralOnlyResult.ipa, "៦១១");
+assert.equal(numeralOnlyResult.ua, "៦១១");
+assert.equal(numeralOnlyResult.phonetic_result.units[0].status, "NON_LINGUISTIC");
+assert.equal(numeralOnlyResult.phonetic_result.units[0].ipa_kind, "NOT_APPLICABLE");
+console.log("Mixed-script and Khmer numeral boundaries: PASS");
 
 console.log("web-runtime regression tests: PASS");
 

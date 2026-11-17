@@ -26,10 +26,12 @@ def test_rule_fallback_is_repeatable_and_explicitly_proposed():
     assert "KHMER_REGISTER_SERIES_INHERENT_VOWEL" in first["rule_trace"]
 
 
-def test_unknown_mixed_material_is_not_guessed():
+def test_unknown_mixed_material_is_isolated_without_erasing_supported_neighbor():
     result = RuleBasedKhmerEngine().analyze("កx")
-    assert result["ipa"] is None
-    assert result["status"] == "INVALID_OR_UNSUPPORTED"
+    assert result["ipa"] == "kɑː⟦INVALID_OR_UNSUPPORTED⟧"
+    assert result["ukrainian"] == "ка⟦НЕПІДТРИМУЄТЬСЯ⟧"
+    assert result["status"] == "EVIDENCE_LIMITED"
+    assert [unit["source"] for unit in result["units"]] == ["ក", "x"]
 
 
 def test_hybrid_wrapper_preserves_rule_engine_as_final_authority():

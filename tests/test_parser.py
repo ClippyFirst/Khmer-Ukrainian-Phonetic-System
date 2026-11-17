@@ -32,11 +32,13 @@ def test_complex_unicode_examples():
     assert r.syllables[0]["subscripts"] == ["គ","រ"]
 
 
-def test_unknown_non_khmer_material_does_not_pass_as_established_structure():
+def test_unknown_non_khmer_material_isolated_from_supported_neighbor():
     r = analyze("កx")
 
-    assert r.syllables[0]["status"] == "INVALID_OR_UNSUPPORTED"
-    assert r.status == "INVALID_OR_UNSUPPORTED"
+    assert [unit["raw_text"] for unit in r.syllables] == ["ក", "x"]
+    assert r.syllables[0]["status"] == "ESTABLISHED_STRUCTURE"
+    assert r.syllables[1]["status"] == "INVALID_OR_UNSUPPORTED"
+    assert r.status == "EVIDENCE_LIMITED"
     assert r.confidence == 0.0
 
 
@@ -181,3 +183,16 @@ def test_analysis_exposes_orthographic_component_scan_without_changing_ipa_claim
         ("OTHER_SIGN", "ំ", 4, 5),
     ]
     assert result.phonetic_representation == {"status": "phoneticization_not_yet_established"}
+
+
+def test_mixed_script_and_numeric_runs_are_isolated_without_source_loss():
+    from khmer_ua.parser import segment_syllables
+
+    source = "កLlenguatgeគឆ្នាំ៦១១។"
+    units = segment_syllables(source)
+
+    assert "".join(units) == source
+    assert "Llenguatge" in units
+    assert "៦១១" in units
+    assert not any("L" in unit and "ក" in unit for unit in units)
+    assert units[-2:] == ["៦១១", "។"]

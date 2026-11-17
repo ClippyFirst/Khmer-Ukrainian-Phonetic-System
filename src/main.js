@@ -42,9 +42,20 @@ function startsNewOrthographicSyllable(chars, index) {
   return true;
 }
 
+const isNumeric = (char) => Boolean(char && /\p{N}/u.test(char));
+const scriptBucket = (char) => {
+  if (!char) return null;
+  if (isNumeric(char)) return "number";
+  if (/\p{Script=Khmer}/u.test(char)) return "khmer";
+  if (/\p{M}/u.test(char)) return null;
+  if (/\p{L}/u.test(char)) return "foreign";
+  return "other";
+};
+
 function tokenize(text) {
   const units = [];
   let current = "";
+  let currentBucket = null;
   const chars = [...normalize(text)];
   const fixtureKeys = Object.keys(fixtures).sort((a, b) => [...b].length - [...a].length);
 
@@ -53,6 +64,7 @@ function tokenize(text) {
       units.push(current);
       current = "";
     }
+    currentBucket = null;
   };
 
   for (let index = 0; index < chars.length;) {
@@ -72,6 +84,17 @@ function tokenize(text) {
       continue;
     }
 
+    if (isNumeric(char)) {
+      flush();
+      let numeric = "";
+      while (index < chars.length && isNumeric(chars[index])) {
+        numeric += chars[index];
+        index += 1;
+      }
+      units.push(numeric);
+      continue;
+    }
+
     const remainder = chars.slice(index).join("");
     const fixtureKey = chars[index - 1] === COENG ? undefined : fixtureKeys.find((key) => {
       if (!remainder.startsWith(key)) return false;
@@ -86,12 +109,15 @@ function tokenize(text) {
       continue;
     }
 
-    if (current && startsNewOrthographicSyllable(chars, index)) {
-      units.push(current);
-      current = char;
-    } else {
-      current += char;
+    const bucket = scriptBucket(char) ?? currentBucket ?? "other";
+    if (current && currentBucket !== null && bucket !== currentBucket) flush();
+    if (!current) currentBucket = bucket;
+
+    if (current && bucket === "khmer" && startsNewOrthographicSyllable(chars, index)) {
+      flush();
+      currentBucket = "khmer";
     }
+    current += char;
     index += 1;
   }
   flush();
@@ -111,6 +137,7 @@ function resolveRegister(base, raw) {
   if (shifter === "៊" && base.register === "first") return { register: "second", rule: "TRIISAP", status: "ESTABLISHED_STRUCTURE" };
   return { register: base.register, rule: "NON_STANDARD_SHIFTER_USE", status: "EVIDENCE_LIMITED" };
 }
+
 
 function scanOrthographicComponents(raw) {
   const chars = [...raw];
@@ -405,6 +432,7 @@ function renderUnknownUnit(unit, profile) {
 }
 
 function combineStatus(items) {
+  if (!items.length) return "NOT_ESTABLISHED";
   const statuses = new Set(items.map((item) => item.status));
   const invalidCount = items.filter((item) => item.status === "INVALID_OR_UNSUPPORTED").length;
   if (invalidCount > 0 && invalidCount === items.length) return "INVALID_OR_UNSUPPORTED";
@@ -440,11 +468,16 @@ function convert(text, profile) {
   const rendered = units.map((unit) => {
     if (unit === ZWSP) return { source: unit, ipa: " ", ua: " ", status: "PUNCTUATION", note: "U+200B ZERO WIDTH SPACE трактовано як невидиму межу слова.", profile };
     if (PUNCTUATION.test(unit)) return { source: unit, ipa: unit, ua: unit, status: "PUNCTUATION", note: "", profile };
+    if (/^\p{N}+$/u.test(unit)) return {
+      source: unit, ipa: unit, ua: unit, status: "NON_LINGUISTIC",
+      note: "Числовий запис збережено без фонетичного читання; вимову чисел не встановлено.",
+      rule_trace: ["NON_LINGUISTIC_NUMERAL_PASSTHROUGH"], profile,
+    };
     const fixture = fixtures[unit];
     return fixture ? renderFixture(fixture, profile) : renderUnknownUnit(unit, profile);
   });
 
-  const linguistic = rendered.filter((item) => item.status !== "PUNCTUATION");
+  const linguistic = rendered.filter((item) => !["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status));
   const analyses = linguistic.map((item) => item.analysis).filter(Boolean);
   const resolved = linguistic.filter((item) => item.status === "PROPOSED");
   const unresolved = linguistic.filter((item) => item.status !== "PROPOSED");
@@ -463,7 +496,7 @@ function convert(text, profile) {
   const phoneticResults = rendered.map((item) => ({
     source: item.source,
     status: item.status,
-    ipa_kind: item.status === "PUNCTUATION" ? "NOT_APPLICABLE" : "UNRESOLVED",
+    ipa_kind: ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status) ? "NOT_APPLICABLE" : "UNRESOLVED",
     rule_trace: item.rule_trace ?? [],
     ipa: item.status !== "PUNCTUATION" && /^\/.*\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa,
     ukrainian: item.ua,
@@ -473,7 +506,7 @@ function convert(text, profile) {
       structure: item.analysis ? ["unicode17-ch16"] : [],
       target_policy: item.mapping_check ? ["data/ukrainian/practical-policy.json"] : [],
     },
-    uncertainty: item.status === "PUNCTUATION" || item.status === "PROPOSED"
+    uncertainty: ["PUNCTUATION", "NON_LINGUISTIC", "PROPOSED"].includes(item.status)
       ? []
       : [{ status: item.status, note: item.note ?? "", unresolved_graphemes: item.analysis?.graphemes?.slice(1).map((g) => g.text) ?? item.analysis?.unknown ?? [] }],
   }));

@@ -1549,3 +1549,12 @@ No pronunciation rule, IPA label, gold row, source permission, Ukrainian mapping
 | KHM-GOLD-001 | BLOCKED | Gold remains 0; empirical accuracy remains null; requires rights-cleared items, two independent annotators, separate adjudicator, curator and private blind intake. |
 
 Final main SHA at this checkpoint: `4760964618f05290560372b1ee60b4f7fba8ae72`. No Pages deployment was required for the documentation-only PR; no local test execution is claimed.
+
+
+## Mixed-script and Khmer-numeral token boundaries — 2026-11-17
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 | PARTIAL | PR #316 adds Python/browser script-run isolation, numeric-run isolation, NON_LINGUISTIC passthrough with ipa_kind NOT_APPLICABLE, and source-reconstruction regressions. | Exact PR-head and post-merge Quality, Chromium and Pages checks must pass. Foreign-script units remain unsupported; Khmer word segmentation, number reading and foreign-language translation are not implemented. |
+
+The new status is structural/output handling only. It adds no IPA, lexical entries, pronunciation claims, word-boundary decisions or gold-corpus rows. Issue #104 and all human IPA/word-boundary adjudication gates remain open.

@@ -3398,3 +3398,20 @@ PR #301, #303 and #304 were closed as superseded after PR #307 merged; their bra
 - The merged literature review records Chem (2020) and Mam et al. (2025) method/sample limitations and confirms neither provides a complete source-exact 30-item pilot list. Issue #104 remains OPEN; IPA convention remains `DRAFT_NOT_APPROVED`; `ipa_kind` remains `UNRESOLVED`; adjudicated gold=0; empirical accuracy=null.
 - Additional expert discovery was recorded in issue #104: Dr. Becky Butler (UNC) is a prospective specialist for Khmer phonetic structure, sesquisyllables and diphthongs, but her public record does not establish specific contemporary Phnom Penh careful-citation authority or availability. No one was contacted or recruited.
 - Final mainline commit for this closeout: `4760964618f05290560372b1ee60b4f7fba8ae72`. The working branch for PR #314 is preserved; no branches were deleted.
+
+
+## Mixed-script and Khmer-numeral token boundary correction — 2026-11-17
+
+The supplied real-world paragraph exposed two source-boundary defects: Latin text adjacent to Khmer was absorbed into one Khmer analysis unit, and Khmer digits attached to a Khmer word were treated as malformed orthographic content.
+
+PR #316 (fix/mixed-script-numeral-token-boundaries-2026-11-17) changes the shared Python and browser tokenizers:
+- Script transitions now terminate the current run. Adjacent Latin text such as Llenguatge is retained as its own unsupported foreign-script unit; it no longer invalidates the Khmer unit before it or absorbs Khmer text after it.
+- Consecutive Unicode numeric characters, including Khmer digits, are isolated as one literal run.
+- Numeric literals are preserved unchanged in both display lanes with status NON_LINGUISTIC and ipa_kind: NOT_APPLICABLE. No number reading or pronunciation is inferred.
+- Python parser, deterministic engine, browser runtime and typed-result schema share the same local-boundary contract. Regression tests assert exact source reconstruction and preservation of valid neighboring Khmer results.
+
+This is NOT Khmer lexical word segmentation. Spaces and punctuation remain preserved; the orthographic syllable heuristic remains conservative; no LOC word-boundary profile, lexicon, IPA, or gold data was added. Foreign-language text is not translated or assigned Khmer IPA. It remains explicitly unsupported in the Khmer phonetic route.
+
+Task ledger: KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 = PARTIAL until exact PR-head and post-merge Quality/Chromium/Pages verification succeeds. Linguistic coverage and lexical word segmentation remain separately blocked under Issue #104.
+
+Verification caveat: the first CI passes exposed two stale assertions that expected mixed-script text to invalidate its valid Khmer neighbor, contrary to the repository's local-uncertainty invariant. Those assertions were updated to require local isolation. An intermediate browser run also caught that the tokenizer edit had displaced the register-shifter resolver; the resolver was restored before final verification. Only the latest exact-head runs may be used for acceptance.
