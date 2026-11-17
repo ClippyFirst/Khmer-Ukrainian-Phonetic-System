@@ -3379,3 +3379,12 @@ PR #301, #303 and #304 were closed as superseded after PR #307 merged; their bra
 - IPA convention remains `DRAFT_NOT_APPROVED`; internal `ipa_kind` remains `UNRESOLVED` for linguistic units pending qualified approval. Independent adjudicated IPA gold remains 0; empirical accuracy remains null; corpus validator correctly reports `NOT_READY_NO_ADJUDICATED_GOLD`.
 - Remaining blockers: qualified Phnom Penh Khmer phonetician + independent reviewer for IPA convention; independent annotators/adjudicator and curator for gold; rights-cleared audio/token-level archive inspection and item locators; archive retrieval was not attempted again in this continuation. No Sok & Adams dictionary data or labels were imported.
 - Current public site: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/ .
+
+
+## Full-text Phnom Penh phonetics evidence addendum — 2026-11-17
+
+- Added [the Chem (2020) and Mam et al. (2025) full-text review](ipa-gold/khmer-phonetic-literature-fulltext-review-2026-11-17.md). This records exact speaker/task/sample limitations and printed/PDF page locators, without promoting examples or study outputs to gold.
+- Chem's final vowel analysis uses four selected Phnom Penh speakers and 61 formal frame-read items; the complete item list is not published, unfamiliar-word substitutions are not itemized, and the paper's “Standard Khmer” definition and inventory notation require specialist review. It measures F1/F2 and duration, not F0/stress.
+- Mam et al. use five Greater Phnom Penh speakers and 50 cluster/disyllable targets in separate PPK/SK frame-reading tasks. The full wordlist is not published; the normalized F0/functional-PC findings support qualified discussion of pitch, not a categorical general tone rule or a complete citation-form IPA convention.
+- These findings refine the evidence boundary but do not produce source-exact 30 lexeme groups. The convention remains `DRAFT_NOT_APPROVED`; `ipa_kind=UNRESOLVED`; gold=0; empirical accuracy=null. Issue #104 remains open.
+- The repository's current default branch at start of this continuation was `50899bd3a5fd16338039287775fcfb0b9b2568d3`. A fresh branch `research/phonetic-literature-fulltext-review-2026-11-17` was created from that SHA. No local checkout or local tests were possible because DNS resolution for github.com failed in the execution container. No code, runtime rules, gold rows, source permissions or generated artifacts changed.
