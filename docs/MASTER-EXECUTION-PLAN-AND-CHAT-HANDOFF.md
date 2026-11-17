@@ -3680,3 +3680,10 @@ The 209-ref inventory from the preceding refresh remains current at this checkpo
 ## PR #338 exact-main verification — 2026-11-17
 
 PR [#338](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/338) merged as `f5c9c70661126b61a23d5435c8c4368215c36746`. Exact PR-head Quality [44173194420] and [44173216454] passed; Quality reports 427 Python tests + 70 subtests and the expected `NOT_READY_NO_ADJUDICATED_GOLD` validator state. Exact PR-head Chromium [44173216381] passed 18/18. Post-merge mainline Quality [44173400187], Chromium [44173400043] (18/18), and Pages [44173400219] all passed; Pages completed production browser exercise, artifact upload, deployment and deployed-site/runtime asset smoke. No runtime or linguistic behavior changed.
+## Final branch inventory and PR #339 mainline closeout — 2026-11-17
+
+After the two audit-documentation branches used in this continuation were merged, a fresh GitHub listing (pages 1–3) returned **211 refs**: `main` + 210 non-main refs, with **211 unique tip SHAs** and no duplicate tips. Open PRs: **0**. Open issues: **1** (Issue #104). This supersedes the 209-ref snapshot recorded immediately before PR #339; that earlier count was accurate at its timestamp.
+
+PR [#339](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/339) merged as `b5a878f33dae74d34754c547580c5a494307cdce`. Exact PR-head Quality [44173798008] and [44173819190] passed (427 Python tests + 70 subtests; expected `NOT_READY_NO_ADJUDICATED_GOLD`); Chromium [44173818953] passed 18/18. Post-merge mainline Quality [44173970460] passed (427 + 70); Chromium [44173970246] passed 18/18; Pages [44173970271] passed production browser exercise, artifact upload, deployment of exact SHA `b5a878f33dae74d34754c547580c5a494307cdce`, and deployed HTML/JS/CSS smoke checks.
+
+No runtime or linguistic behavior changed. `KHM-BRANCH-AUDIT-001` remains PARTIAL: the inventory is current, 11 representative historical branches have focused content dispositions, but full content/PR-ancestry review of all 210 non-main refs is not complete. All branches remain preserved.
