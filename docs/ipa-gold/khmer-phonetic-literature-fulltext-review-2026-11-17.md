@@ -5,7 +5,7 @@
 
 ## Chem (2020): *The Standard Khmer Vowel System: An Acoustic Study*
 
-DOI: https://doi.org/10.61945/10.61945/cjbar.2020.2.2.3
+DOI: https://doi.org/10.61945/cjbar.2020.2.2.3
 
 ### Exact method and locators
 - The paper describes an initial observation stage of 21 native Khmer speakers (12 women), 168 lexical items, two repetitions, and formal/casual speech. It was used to select clearer-voiced speakers; see Methods, printed pp. 104–105 (PDF pp. 12–13).
