@@ -1560,3 +1560,45 @@ All ten `test/*` refs were compared with main. Their test-only changes are eithe
 | `test/ui-accessibility-smoke-2026-11-15` | 2 ahead / 173 behind | Its browser test is an older 5,639-byte snapshot; main's current browser suite is 11,016 bytes and includes later skip-navigation/contrast and keyboard behavior. No port. |
 
 **Branch-family checkpoint:** all 49 `feat/*`, all 4 `data/*`, and all 10 `test/*` refs have focused comparisons/dispositions. The repository-wide `KHM-BRANCH-AUDIT-001` remains PARTIAL because other branch families (including research, documentation and earlier maintenance/audit refs) have not all undergone equivalent content/PR-ancestry reconciliation. All branches are preserved.
+
+
+## Research-branch family reconciliation — 2026-11-17
+
+A focused content-level pass compared all 28 `research/*` refs with main `af28e35f5522dd64ceb78289b02d279a74fa9a2f`. The findings below distinguish source/data integration from research conclusions. No research branch was merged wholesale.
+
+| Branch | Compare to main | Content disposition |
+|---|---:|---|
+| `research/bgn-pcgn-ungegn-rule-diff-2026-11-15` | 5 ahead / 162 behind | Its rule-difference audit document is byte-identical to main (15,012 bytes). No port. |
+| `research/complete-external-g2p-registry-2026-11-15` | 6 ahead / 183 behind | Main's external-renderer registry contains the same 15 candidate IDs and later status metadata. No unique candidate or registry row to port. |
+| `research/expert-shortlist-revalidation-2026-11-17` | 5 ahead / 27 behind | Its IPA-gold collection playbook is byte-identical to main (42,914 bytes). Shortlist revalidation is already represented. |
+| `research/external-ipa-renderers-2026-10-24` | 7 ahead / 512 behind | Its initial 10-entry registry/schema/test work is superseded by main's 15-entry registry and current schema/test files. |
+| `research/google-khmer-lexicon-full-audit-2026-11-16` | 21 ahead / 50 behind | Its 46-record source registry is a strict subset of main's 49 records; no source ID is unique to the branch. The main playbook is the later full audit. |
+| `research/khmer-acoustic-model-release-audit-2026-11-16` | 26 ahead / 49 behind | Its 46 source records are a strict subset of main's 49; the playbook on main is longer and contains the later artifact/rights audit. No model output is promoted to gold. |
+| `research/khmer-engine-benchmark-expansion-2026-11-11` | 72 ahead / 231 behind | Its 15-candidate registry is superseded by main's 15-entry renamed/updated registry; the old combined workflow is superseded by current separate optional G2P/Goruut and pinned MekongPhon workflows. |
+| `research/khmer-hybrid-benchmarks-reconciled-2026-11-11` | 34 ahead / 220 behind | Its registry, benchmark and research-doc snapshots are superseded by main's current diagnostic harnesses, tests and evidence-limited reports. No wholesale port. |
+| `research/khmer-hybrid-engine-2026-11-11` | 91 ahead / 231 behind | Main contains the current hybrid-engine research documentation and typed-IPA diagnostic bridge; this branch is an older integration snapshot. No port. |
+| `research/khmer-ipa-convention-draft-2026-11-17` | 5 ahead / 49 behind | Its draft differs from the current draft only in earlier Kirby cluster-transition wording/citation. The v2 draft is the exact main file; status remains `DRAFT_NOT_APPROVED`. |
+| `research/khmer-ipa-convention-draft-v2-2026-11-17` | 7 ahead / 48 behind | Its 14,517-byte IPA convention draft is byte-identical to main. This is still a research proposal, not an approved annotation authority. |
+| `research/khmer-kirby-cluster-audio-audit-2026-11-17` | 9 ahead / 42 behind | The 6,187-byte cluster-audio source audit is byte-identical to main; the source registry on main contains the additional Sok-Adams entry. |
+| `research/khmer-kirby-tonogenesis-audio-audit-2026-11-17` | 26 ahead / 37 behind | The 9,422-byte tonogenesis dataset audit is byte-identical to main. It remains supporting phonetic evidence, not gold. |
+| `research/khmer-lexical-segmentation-evidence-2026-11-17` | 4 ahead / 24 behind | Its lexical-segmentation audit is an earlier 8,094-byte version; main has the expanded 8,641-byte audit and corrected NOVA tokenization scope. No port. |
+| `research/khmer-lexical-segmentation-evidence-mainline-2026-11-17` | 2 ahead / 10 behind | Compare reports no changed files against main; no separate content to port. |
+| `research/khmer-phonotactic-scope-2026-11-15` | 9 ahead / 181 behind | Its source registry (41 records) is a strict subset of main's 49; main's phonology and source docs are later. No phonological rule is promoted from this branch. |
+| `research/khmer-source-audit-integration-2026-11-17` | 7 ahead / 44 behind | Its 47 source records are a strict subset of main's 49; main's IPA corpus/playbook documents are expanded. No missing source ID. |
+| `research/khmer-unicode-syllable-grammar-2026-11-16` | 1 ahead / 59 behind | Its grammar audit predates the implemented Unicode 18 packed parser and later mainline verification. TN #61 v2 remains a separate non-normative profile TODO. |
+| `research/loc-khmer-word-division-2026-11-16` | 6 ahead / 78 behind | Its LOC word-division audit is an earlier 6,223-byte version; main has a 13,989-byte expanded evidence audit. Lexical segmentation remains blocked pending convention, licensed evidence and adjudication. |
+| `research/mekongphon-diagnostic-harness-2026-11-15` | 11 ahead / 189 behind | `scripts/benchmark_mekongphon_model.py` (11,923 bytes), its tests (4,069 bytes) and optional workflow are byte-identical to main. No port. |
+| `research/mekongphon-release-rights-audit-2026-11-16` | 10 ahead / 49 behind | Its playbook is an earlier 32,951-byte snapshot; main's 42,914-byte playbook incorporates the detailed pinned-repository and upstream-data-rights audit. Rights for the source lexicon remain unresolved. |
+| `research/mekongphon-seed-lexicon-audit-2026-11-16` | 34 ahead / 50 behind | Its playbook is an earlier 32,890-byte snapshot; main includes the expanded 8,040-row reconciliation, train/eval split, pipeline reproducibility and rights caveats. No seed labels are accepted as project gold. |
+| `research/pcgn-note-registry-2026-11-15` | 6 ahead / 160 behind | The PCGN note registry and tests are integrated in later mainline CSV/schema/test state. No port. |
+| `research/phon-sobon-and-lexicon-triage-2026-11-15` | 11 ahead / 184 behind | Its external corpus triage audit is byte-identical to main; its 35-record source registry is a strict subset of main's 49. |
+| `research/phonetic-literature-fulltext-review-2026-11-17` | 6 ahead / 31 behind | Its 7,598-byte Chem/Mam full-text review is byte-identical to main. The evidence limitations remain explicit. |
+| `research/sok-adams-khmer-phonology-audit-2026-11-17` | 7 ahead / 34 behind | Its 8,033-byte phonological-principles audit is an earlier snapshot; main has the expanded 13,073-byte review. Rule transfer remains a separate TODO. |
+| `research/sok-adams-rule-transfer-audit-2026-11-17` | 5 ahead / 22 behind | Its rule-transfer closeout is an earlier documentation snapshot; no code or evidence absent from the current main audit was identified. |
+| `research/ungegn-engine-candidate-review-2026-11-15` | 5 ahead / 163 behind | Its matrix/documentation snapshot is superseded by the current romanization matrix and source audit; no engine or linguistic rule was ported. |
+
+### Research-family evidence boundary
+
+Across the eight inspected `data/khmer/sources.json` research snapshots, every branch source ID is present in main; the branch snapshots contain 35–48 records versus 49 on main. The main registry therefore supersedes these branch versions without dropping a source ID. The external renderer registry likewise retains the 15 candidate concepts from the research branches, with current IDs/statuses.
+
+**Disposition:** all 28 `research/*` refs have focused compare/content dispositions. Their research findings are integrated, superseded by more complete mainline audits, or remain explicitly evidence-limited. No IPA gold, licensed dataset, model accuracy or phonological rule was fabricated or promoted. All research branches remain preserved.
