@@ -297,6 +297,7 @@ class RuleBasedKhmerEngine:
                 ipa=ipa_value,
                 ukrainian=ua_value,
                 profile=self.profile,
+                ipa_kind="NOT_APPLICABLE" if status == "PUNCTUATION" else "UNRESOLVED",
                 rule_trace=tuple(unit.get("rule_trace", [])),
                 provenance={
                     "structure": tuple(structural_sources),
