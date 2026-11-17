@@ -3531,3 +3531,10 @@ PR [#324](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/3
 The visual table audit is DONE_VERIFIED as source inspection only. `KHM-SOK-ADAMS-RULE-TRANSFER-001` remains BLOCKED pending qualified contemporary Phnom Penh careful-citation review and item-level positive/negative evidence. No phonological rule, IPA label, corpus row, Ukrainian mapping or generated artifact changed. Issue #104 remains OPEN; IPA convention remains `DRAFT_NOT_APPROVED`; adjudicated gold=0; empirical accuracy=null. No local tests or external expert outreach are claimed.
 
 Final main: `3f3352e94e993ab54a79c952bf6c1e7f9d187ae6`. No open PRs remain at this checkpoint. Repository is engineering/build verified and research-ready as a partial prototype, not linguistically release-ready.
+
+
+## Shared onset-fallback fixture continuation — 2026-11-17
+
+A dedicated branch `test/khmer-onset-fallback-cross-runtime-fixture-2026-11-17` adds `data/tests/khmer-onset-fallback-fixtures.json` for the unresolved COENG+subscript input `ក្ក`. Both Python and Playwright tests read the same structured case. They assert canonical IPA/Ukrainian abstention remains intact while the separately rendered onset hint is `k` → `к?`, `PROVISIONAL`, position `onset`, rule `KHMER-PREVIEW-ONSET-IPA-V1`. The fixture is explicitly a regression contract, not IPA gold or a new pronunciation rule.
+
+The fallback documentation and completion register were updated. Remaining gates: exact-head hosted Quality/Chromium verification; dedicated per-position evidence registry; and any broader vowel/subscript/coeng hints, which remain disallowed absent independently sourced positional evidence. No production runtime or canonical output changed. No local tests are claimed.
