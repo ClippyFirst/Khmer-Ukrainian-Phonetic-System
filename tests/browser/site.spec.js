@@ -5,7 +5,7 @@ async function contrastRatio(page, foregroundSelector, backgroundSelector) {
     const foreground = document.querySelector(foregroundSelector);
     const background = document.querySelector(backgroundSelector);
     if (!foreground || !background) return null;
-    const parse = value => value.match(/[\\d.]+/g).slice(0, 3).map(Number);
+    const parse = value => value.match(/[\d.]+/g).slice(0, 3).map(Number);
     const luminance = value => {
       const [r, g, b] = parse(value).map(channel => {
         const normalized = channel / 255;
