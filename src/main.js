@@ -44,7 +44,7 @@ function startsNewOrthographicSyllable(chars, index) {
 
 const isNumeric = (char) => Boolean(char && /\p{N}/u.test(char));
 const scriptBucket = (char) => {
-  if (!char) return null;
+  if (!char || char === ZWNJ) return null;
   if (isNumeric(char)) return "number";
   if (/\p{Script=Khmer}/u.test(char)) return "khmer";
   if (/\p{M}/u.test(char)) return null;
