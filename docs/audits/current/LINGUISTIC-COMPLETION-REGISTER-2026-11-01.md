@@ -1617,3 +1617,12 @@ The corpus validator's `NOT_READY_NO_ADJUDICATED_GOLD` is the expected research 
 Do not confuse word segmentation with orthographic-syllable segmentation or G2P. ALT/NOVA tokenization is a surface/morphological annotation convention; ALT is translated from English Wikinews. The khPOS card reports economics/news/politics plus student/voter-list sources, requiring provenance/privacy review. Tran et al. (2017) constructs a syllable database rather than evaluating sentence-level word boundaries; Sung & Hwang (2016) report F1 0.906 without U+200B on their own test set but no reusable release was established. See [the evidence audit](KHMER-LEXICAL-SEGMENTATION-EVIDENCE-AUDIT-2026-11-17.md).
 
 No corpus was copied or used for training. No lexical segmentation was implemented, no boundaries inferred for the user's paragraph, and no phonetic/IPA status changed. KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 remains DONE_VERIFIED independently.
+
+
+## PR #322 exact-main verification — 2026-11-17
+
+| Work | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| PR #322 lexical-segmentation evidence audit | DONE_VERIFIED (documentation/evidence audit only) | Merged as `1cb22c9dfb5ebec539c01544d9e4270b20293b2d`. Exact-main Quality [44087269233] SUCCESS: 422 Python tests + 70 subtests, corpus validator, Node/web checks and Vite build; Chromium [44087269259] SUCCESS: 13/13 Playwright; Pages [44087269174] SUCCESS: production Chromium exercise, deployment and deployed-site/runtime smoke. | Audit deliverable and exact-main engineering verification only. It does not implement lexical segmentation or resolve the human linguistic gates. |
+
+Current status remains: KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 = DONE_VERIFIED; KHM-LEXICAL-WORD-SEGMENTATION-001 = BLOCKED; IPA convention DRAFT_NOT_APPROVED; linguistic ipa_kind UNRESOLVED; independent adjudicated gold = 0; empirical accuracy = null. Issue #104 remains OPEN. No local tests, human accessibility QA, expert outreach, annotation or gold creation are claimed.
