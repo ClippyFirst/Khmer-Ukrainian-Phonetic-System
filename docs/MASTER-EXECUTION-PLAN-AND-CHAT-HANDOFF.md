@@ -3702,3 +3702,18 @@ A second focused pass compared four additional non-main branches with exact main
 | `feat/khmer-ukrainian-practical-adapter-final-2026-11-11` | 60 ahead / 215 behind | `src/khmer_ua/practical.py` and `data/ukrainian/practical-policy.json` blob SHAs exactly match main (`6476c3c17267adfc2215de5ffc6fe21d0cea588d` and `2388d93b8ec1f2c5b3b2cfc806acdb67197d8a3c`). Its implementation/policy is already integrated; no port. |
 
 No runtime, phonological, IPA, corpus or Ukrainian mapping changes were made in this audit. All reviewed historical branches remain preserved. `KHM-BRANCH-AUDIT-001` remains PARTIAL: 15 representative branches now have focused dispositions, while the other historical refs still require changed-file/commit/PR-ancestry reconciliation.
+
+
+## Typed-IPA, coverage and boundary-evidence branch reconciliation — 2026-11-17
+
+A third focused pass compared five additional feature branches with exact main `6b458be57c5a21e178c643352eb9958c240d23c1`. The representative content-review sample is now 20 branches. These comparisons do not constitute a full review of every historical ref.
+
+| Branch | Compare to main | Content evidence and disposition |
+|---|---:|---|
+| `feat/evidence-gated-coverage-audit-2026-10-21` | 17 ahead / 510 behind | Main has the evolved `scripts/coverage.py` implementation: its deterministic check/write path covers both internal and public coverage reports, while the branch version checks/writes only the internal report. No wholesale port. |
+| `feat/ipa-renderer-font-fallback-2026-10-24` | 2 ahead / 506 behind | Its stylesheet is an older compact CSS snapshot. Main has the later tokenized stylesheet and subsequent focus/contrast palette changes; no safe isolated renderer fallback change was demonstrated by the branch-level diff. No port. |
+| `feat/profile-neutral-khmer-boundary-evidence-2026-11-16` | 9 ahead / 68 behind | `src/khmer_ua/word_boundaries.py` is byte-identical to main (blob SHA `750cfa6fe561a4a92a67be70e35f842e26bb4f3f`). Boundary evidence container/schema/tests are already integrated; it still does not perform lexical segmentation. |
+| `feat/typed-ipa-candidate-validation-2026-11-15` | 12 ahead / 187 behind | `src/khmer_ua/ipa.py` is byte-identical to main (blob SHA `000f521f56de5bacc73ffddecc4a2f7cbbec3667`). Typed candidate validation is already integrated; it does not infer or promote pronunciation. |
+| `feat/typed-ipa-hybrid-bridge-2026-11-15` | 10 ahead / 181 behind | `src/khmer_ua/hybrid.py` is byte-identical to main (blob SHA `3adb1adda7f9bbb95ec43c5db850dd2626a3a925`). The external-candidate bridge is already integrated as a diagnostic-only adapter behind typed IPA validation. |
+
+No code, runtime, IPA, pronunciation, corpus or Ukrainian mapping was changed in this audit. All historical refs remain preserved. `KHM-BRANCH-AUDIT-001` remains PARTIAL: 20 representative branches have focused dispositions, but the other historical refs still need complete changed-file/commit/PR-ancestry reconciliation. The profile-neutral boundary evidence module is not a lexical word segmenter; the typed IPA and hybrid modules do not establish adjudicated gold or empirical accuracy.
