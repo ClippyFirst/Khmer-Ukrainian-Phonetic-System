@@ -1250,3 +1250,18 @@ Two merged PRs extended the repository's evidence and contract without inventing
 Mainline commit `c426d1c3bacd6edb303b2b4977e5b34c09b81620` passed Quality [44065655690] (418 Python tests + 70 subtests, corpus structural validation, Node/web checks and Vite build), Chromium [44065655890] (12/12 Playwright tests), and Pages [44065655951] (production build/browser, deployment and deployed-site/runtime-asset smoke). PR-head checks also passed for both PRs. The only observed warning is the existing non-blocking deprecated setuptools `project.license` TOML-table format.
 
 Registry has 49 unique source IDs. No open PRs; issue #104 remains open. Both working branches are preserved. IPA convention is still `DRAFT_NOT_APPROVED`; independent adjudicated gold=0; empirical accuracy=null. The repository is engineering/build verified and research-ready as a partial prototype, not linguistically release-ready.
+
+
+## Full-text Phnom Penh phonetics review — 2026-11-17
+
+A focused full-text review of Chem (2020) and Mam, Pittayaporn & Maspong (2025) is recorded in [the source addendum](ipa-gold/khmer-phonetic-literature-fulltext-review-2026-11-17.md). Chem's final acoustic analysis uses four selected Phnom Penh speakers and 61 formal frame-read items; the full wordlist and token-level replacement history are absent, and its vowel inventory/notation has internal inconsistencies. Mam et al. use five Greater Phnom Penh speakers and 50 cluster/disyllable targets in separate PPK/SK tasks; normalized F0 patterns suggest possible pitch phonologization but do not demonstrate a categorical general tone system. Neither paper supplies a complete source-exact 30-item pilot set or approved IPA convention. No labels, runtime rules, corpus rows or Ukrainian mappings were added. IPA convention remains DRAFT_NOT_APPROVED, gold=0, empirical accuracy=null.
+
+
+## PR #314 merge and exact-head verification — 2026-11-17
+
+PR [#314](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/314) merged as `4760964618f05290560372b1ee60b4f7fba8ae72`. Exact PR-head Quality [44076405229] SUCCESS (418 Python tests + 70 subtests, corpus structural validation, Node/web checks and Vite build); Chromium [44076405251] SUCCESS (12/12 Playwright tests). Corpus validator correctly reports no adjudicated gold (`NOT_READY_NO_ADJUDICATED_GOLD`). The change is documentation/source-audit only; no Pages deployment was required, no local tests were run (DNS failure to github.com), and no runtime/data/gold/generated artifacts changed. Issue #104 remains open; IPA convention DRAFT_NOT_APPROVED; gold=0; empirical accuracy=null.
+
+
+## Mixed-script and numeric source-boundary audit — 2026-11-17
+
+The user-supplied Khmer paragraph exposed a tokenizer boundary defect: adjacent Latin text was swallowed by a Khmer run, and Khmer decimal digits attached to a word were sent through Khmer structural validation. The Python and browser tokenizers now isolate script transitions and consecutive Unicode numeric runs. Numeric runs are passed through unchanged as NON_LINGUISTIC with ipa_kind NOT_APPLICABLE; foreign-script runs remain explicit unsupported units. Tests verify source reconstruction and that valid Khmer neighbors retain their local outputs. This is a tokenizer/source-integrity correction, not a lexical segmenter or a new language/phonology capability. Khmer word division, non-Khmer transcription and number reading remain outside the implemented contract.
