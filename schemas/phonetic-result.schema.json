@@ -61,7 +61,8 @@
             "ESTABLISHED_STRUCTURE",
             "NOT_ESTABLISHED",
             "EVIDENCE_LIMITED",
-            "INVALID_OR_UNSUPPORTED"
+            "INVALID_OR_UNSUPPORTED",
+            "NON_LINGUISTIC"
           ]
         },
         "ipa": {
