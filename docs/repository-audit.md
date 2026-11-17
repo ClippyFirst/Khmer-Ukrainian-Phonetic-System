@@ -1368,3 +1368,9 @@ PR [#331](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/3
 Exact PR-head Quality [44143747834] and Chromium [44143747746] passed (16/16 browser tests). Post-merge main Quality [44144068435], Chromium [44144068416] (16/16), and Pages deployment/deployed-asset smoke [44144068336] passed on `f594b48615a799b13ae19ad4c2c6453512b8c24d`.
 
 This is a bounded keyboard-navigation improvement, not a complete accessibility audit. Manual screen-reader/assistive-technology review, full keyboard traversal, contrast, zoom/reflow and real mobile-device checks remain PARTIAL/TODO. No local tests or human accessibility review are claimed. Linguistic release gates are unchanged: IPA convention DRAFT_NOT_APPROVED, independent adjudicated gold=0, empirical accuracy=null, Issue #104 OPEN.
+
+## WCAG AA text contrast — 2026-11-17
+
+PR #333 adds browser regressions for representative text/background pairs on the service and methodology pages. Initial valid measurements identified eyebrow red at 4.24:1 on paper, methodology muted text at 3.68:1, and input hint text below 4.5:1. The palette was adjusted (`--red: #c12634`, hint `#6d6c65`, methodology muted text uses `--muted`) and both stylesheet cache keys were refreshed.
+
+Exact-head Quality [44149776508] passed (427 Python + 70 subtests); Chromium [44149776607] passed (18/18). Post-merge Quality [44150006145] passed (427 + 70); Chromium [44150005996] passed (18/18). This verifies only the named selectors and computed pairs, not complete WCAG conformance. Post-merge Pages run [44150006152] must be checked for final deployment status. General accessibility remains PARTIAL pending manual and broader automated review.
