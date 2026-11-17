@@ -1402,3 +1402,22 @@ At exact main `35a98711902ec70a5a718eb16c6d07c128f978b2`, GitHub branch listing 
 Focused checks confirmed the positional-onset registry is already integrated via PR #329, the PCGN independent-vowel CSV and parity test are byte-identical to main, and the direct BGN/PCGN feature branch is stale/diverged. No historical branch was deleted, force-updated or merged wholesale. The no-diff branch was preserved.
 
 `KHM-BRANCH-AUDIT-001` remains PARTIAL: this is a live ref inventory plus focused branch triage, not a full changed-file/commit/PR-ancestry reconciliation of all 208 non-main refs. The previously recorded 131-ref/130-comparison inventory is a historical checkpoint, not the current count. Preserve refs pending an owner archival policy.
+
+## Selected historical branch content reconciliation — 2026-11-17
+
+Focused comparisons against exact main `f5c9c70661126b61a23d5435c8c4368215c36746` found:
+
+- The subscript-independent-vowel parser branch is an older parser/test snapshot; main now includes mixed-script/numeral run isolation and orthographic-component scan coverage.
+- The packed-parse-forest and rejected-span branches are older than main's parser/schema/browser contract, which includes explicit `rejected_spans` diagnostics and additional Unicode 18 regression cases.
+- The two BNF parser branches use the earlier singular `orthographic_syllable.py` module; main uses the later plural parser plus browser adapter.
+- The verified practical-adapter branch's `practical.py` and practical policy JSON are byte-identical to main.
+- The Ukrainian romanization matrix branch's two CSV files are line-identical to main.
+- The direct BGN/PCGN input branch is 24 ahead / 163 behind and lacks current mixed-script/numeral and residual-script guard work; no wholesale port is justified.
+- The PCGN independent-vowel source-register branch's CSV and parity test are byte-identical to main.
+- The positional-onset evidence branch was already integrated via PR #329.
+
+These findings support preserving rather than wholesale-merging the selected stale branches. The complete branch audit remains PARTIAL: this is an 11-branch focused content check, not a complete 208-ref content/PR-ancestry reconciliation.
+
+## PR #338 verification — 2026-11-17
+
+PR [#338](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/338) merged as `f5c9c70661126b61a23d5435c8c4368215c36746`. Exact-head Quality [44173194420] and [44173216454] passed (427 Python tests + 70 subtests; expected no-adjudicated-gold validator state); Chromium [44173216381] passed 18/18. Post-merge mainline Quality [44173400187], Chromium [44173400043] (18/18), and Pages [44173400219] all passed, including production browser exercise, deployment and deployed-site/runtime-asset smoke. No runtime or linguistic behavior changed.

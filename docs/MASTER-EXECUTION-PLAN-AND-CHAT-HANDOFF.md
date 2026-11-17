@@ -3654,3 +3654,29 @@ Exact `main` at this check: `35a98711902ec70a5a718eb16c6d07c128f978b2`.
 - No branch was deleted, force-updated or merged wholesale. One no-diff branch tip equal to main was preserved.
 
 **Status: `KHM-BRANCH-AUDIT-001 = PARTIAL`.** The live ref inventory is refreshed and the duplicate tip is identified, but a complete 208-branch changed-file/commit/PR-ancestry content reconciliation was not performed in this continuation. Earlier 130/130 ancestry comparison records are historical snapshots and must not be read as covering today's 208 non-main refs. Continue with batched compare/content review before claiming full branch-audit completion. Preserve all historical refs pending owner archival policy.
+
+## Selected historical branch content reconciliation — 2026-11-17
+
+A focused content-level pass was performed against exact main `f5c9c70661126b61a23d5435c8c4368215c36746` for the following high-risk non-documentation branches. These are representative dispositions, not a full audit of all 208 non-main refs.
+
+| Branch | Compare to main | Finding / disposition |
+|---|---:|---|
+| `feat/khmer-subscript-independent-vowels-2026-11-16` | 16 ahead / 62 behind | Older parser lacks current mixed-script/numeral run isolation and orthographic-component scan; tests also lack current per-unit isolation/structure assertions. Not ported. |
+| `feat/khmer-packed-parse-forest-2026-11-16` | 6 ahead / 49 behind | Current main's parser, JS adapter, schema and tests extend the branch with rejected-span diagnostics and more Unicode 18 regression coverage. Not ported. |
+| `feat/khmer-parser-rejected-spans-2026-11-16` | 5 ahead / 48 behind | Main already contains the rejected-span contract and expanded tests; branch is an earlier snapshot. Not ported. |
+| `feat/khmer-unicode18-syllable-parser-2026-11-16` | 3 ahead / 51 behind | Main has the later parser/schema/test state. Not ported. |
+| `feat/khmer-orthographic-bnf-parse-forest-2026-11-16` | 22 ahead / 51 behind | Uses the earlier singular `orthographic_syllable.py` path; main's later plural `orthographic_syllables.py` and browser adapter are the integrated implementation. Not ported. |
+| `feat/khmer-orthographic-bnf-parser-2026-11-16` | 11 ahead / 52 behind | Same earlier singular-module snapshot; no unique change justified against current main. Not ported. |
+| `feat/khmer-ukrainian-practical-adapter-verified-2026-11-11` | 29 ahead / 213 behind | `src/khmer_ua/practical.py` and `data/ukrainian/practical-policy.json` blob SHAs exactly match main. No code to port. |
+| `feat/khmer-romanization-ukrainian-matrix-completion-2026-11-12` | 14 ahead / 208 behind | Both romanization Ukrainian CSVs are line-identical to main; its matrix/docs are an older snapshot. No data to port. |
+| `feat/direct-bgn-pcgn-romanization-input-2026-11-15` | 24 ahead / 163 behind | Current main has newer residual-Khmer output guard, mixed-script/numeral isolation and broader tests. Not ported wholesale. |
+| `data/pcgn-independent-vowel-source-register-2026-11-16` | 12 ahead / 106 behind | CSV and parity test blob SHAs exactly match main; only stale documentation differs. No data/code to port. |
+| `data/khmer-onset-evidence-registry-2026-11-17` | 10 ahead / 9 behind | Its registry/schema/test/audit are already integrated through PR #329; no duplicate port. |
+
+The 209-ref inventory from the preceding refresh remains current at this checkpoint. Historical branches remain preserved; no wholesale merge, force-update or deletion was performed.
+
+**Status: `KHM-BRANCH-AUDIT-001 = PARTIAL`.** The table closes only these selected comparisons. Full 208-branch changed-file/commit/PR-ancestry reconciliation remains outstanding and must not be inferred from this representative sample.
+
+## PR #338 exact-main verification — 2026-11-17
+
+PR [#338](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/338) merged as `f5c9c70661126b61a23d5435c8c4368215c36746`. Exact PR-head Quality [44173194420] and [44173216454] passed; Quality reports 427 Python tests + 70 subtests and the expected `NOT_READY_NO_ADJUDICATED_GOLD` validator state. Exact PR-head Chromium [44173216381] passed 18/18. Post-merge mainline Quality [44173400187], Chromium [44173400043] (18/18), and Pages [44173400219] all passed; Pages completed production browser exercise, artifact upload, deployment and deployed-site/runtime asset smoke. No runtime or linguistic behavior changed.

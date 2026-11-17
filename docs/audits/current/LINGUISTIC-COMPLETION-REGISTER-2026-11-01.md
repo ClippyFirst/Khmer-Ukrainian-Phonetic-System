@@ -1716,3 +1716,13 @@ Local clone/test execution was not possible because `github.com` DNS resolution 
 | KHM-BRANCH-AUDIT-001 | PARTIAL (live inventory refreshed; full content audit outstanding) | GitHub branch listing pages 1–3: 209 refs total (main + 208 non-main), 208 unique tip SHAs total; one non-main ref points to the exact main SHA, leaving 207 distinct non-main tips. Open PRs=0; open issues=1 (#104). | The former 131-ref / 130-comparison snapshot is historical. This refresh did not compare every current branch's ancestry or reconcile every changed file/PR. Continue full content-level review; preserve branches and do not merge divergent snapshots wholesale. |
 
 Focused spot-checks: `data/khmer-onset-evidence-registry-2026-11-17` is already integrated through PR #329; PCGN independent-vowel CSV and test are byte-identical to main; the direct BGN/PCGN feature branch is stale/diverged and was not ported wholesale. No branch was deleted or force-updated. The one no-diff branch at main's SHA was preserved.
+
+## Selected historical branch content reconciliation — 2026-11-17
+
+| Work | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| Live branch inventory | DONE_VERIFIED (inventory only) | 209 refs; 208 unique tip SHAs; one non-main ref points to main's SHA; 0 open PRs; 1 open issue (#104). | Does not complete changed-file/commit/PR-ancestry review. |
+| Selected historical branch content triage | PARTIAL | Compared parser/parse-forest, direct BGN/PCGN, practical-adapter, romanization-matrix, PCGN registry and onset-registry branches against main. Parser branches are older snapshots missing current diagnostics/coverage; practical.py/policy and PCGN independent-vowel CSV/test are identical to main; onset registry already integrated by PR #329. | 11 representative branches triaged; remaining historical refs still require full content/PR-ancestry reconciliation. No branches deleted or merged wholesale. |
+| PR #338 exact-main inventory documentation | DONE_VERIFIED | PR-head Quality [44173194420] and [44173216454] SUCCESS (427 Python tests + 70 subtests; expected no-gold state); Chromium [44173216381] SUCCESS (18/18). Post-merge Quality [44173400187], Chromium [44173400043], Pages [44173400219] SUCCESS. | Documentation-only; no runtime, source data or IPA behavior changed. |
+
+`KHM-BRANCH-AUDIT-001` remains PARTIAL. The 209-ref count is the current inventory; the 130/130 comparison result in older entries is a historical snapshot, not a current full ancestry pass.
