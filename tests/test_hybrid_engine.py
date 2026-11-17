@@ -94,3 +94,14 @@ def test_rule_engine_keeps_foreign_script_and_numerals_out_of_adjacent_khmer_uni
     typed_numeral = result["phonetic_result"]["units"][3]
     assert typed_numeral["ipa_kind"] == "NOT_APPLICABLE"
     assert typed_numeral["uncertainty"] == []
+
+
+def test_numeral_only_input_is_preserved_without_claiming_phonetic_output():
+    result = RuleBasedKhmerEngine().analyze("៦១១")
+
+    assert result["status"] == "NOT_ESTABLISHED"
+    assert result["ipa"] == "៦១១"
+    assert result["ukrainian"] == "៦១១"
+    assert result["complete"] is False
+    assert result["units"][0]["status"] == "NON_LINGUISTIC"
+    assert result["phonetic_result"]["units"][0]["ipa_kind"] == "NOT_APPLICABLE"
