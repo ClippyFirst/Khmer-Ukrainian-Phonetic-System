@@ -148,7 +148,7 @@
       "properties": {
         "entry_id": {
           "type": "string",
-          "pattern": "^ONSET-U\\+[0-9A-F]{4,6}$"
+          "pattern": "^ONSET-[0-9A-F]{4,6}$"
         },
         "grapheme": {
           "type": "string",
