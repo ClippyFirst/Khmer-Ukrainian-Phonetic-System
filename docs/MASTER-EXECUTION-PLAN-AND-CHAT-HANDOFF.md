@@ -3628,3 +3628,16 @@ PR [#334](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/3
 PR #334's exact-head Quality [44150526026] and Chromium [44150526069] also completed successfully on `05aecb1f136c160e03ba8b8ea7dcabee70c58611`; Chromium exercised 18/18 tests. The post-merge mainline evidence above is the release checkpoint. This session used GitHub-hosted repository/Actions evidence; no local checkout or local test execution is claimed.
 
 No linguistic status changed: IPA convention remains `DRAFT_NOT_APPROVED`; independent adjudicated IPA gold remains 0; empirical accuracy remains null; Issue #104 remains OPEN. Accessibility acceptance is limited to the named automated contrast pairs; `KHM-UI-001` remains PARTIAL pending manual screen-reader/assistive-technology review, complete keyboard traversal, zoom/reflow and real-device testing. Repository remains research-ready as an engineering-verified partial prototype, not linguistically release-ready.
+
+
+## PR #336 exact-main verification and lexical-audit correction closeout — 2026-11-17
+
+PR [#336](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/336) merged as `c4cd8b1a17463f306b7c6dffbaad0f80685e5aa1`; exact PR head was `f5abd6dd14909ff5b89be5b004f023570ba262a7`.
+
+- Exact PR-head Quality [44170618296](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44170618296) SUCCESS: 427 Python tests + 70 subtests; corpus validator correctly reports `NOT_READY_NO_ADJUDICATED_GOLD`; `npm run check` and Vite production build passed.
+- Exact PR-head Chromium [44170618297](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44170618297) SUCCESS: 18/18 Playwright tests.
+- Post-merge mainline Quality [44170796321](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44170796321) SUCCESS: 427 Python tests + 70 subtests, expected no-adjudicated-gold validator state, `npm run check` and Vite build.
+- Post-merge mainline Chromium [44170796376](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44170796376) SUCCESS: 18/18 Playwright tests.
+- GitHub Pages [44170796347](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44170796347) SUCCESS: deployed exact main SHA `c4cd8b1a17463f306b7c6dffbaad0f80685e5aa1`; production root, `system.html`, JavaScript and CSS asset smoke checks passed.
+
+This was a documentation/source-interpretation correction only. No runtime segmentation, corpus, IPA, Ukrainian mapping or generated artifact changed. The NICT Khmer NOVA v0.2 guideline now accurately appears as a generally morpheme-level convention with explicit compound handling; it remains distinct from orthographic syllables and project phonetic units. Local clone/test execution was blocked because this environment could not resolve `github.com`; all reported verification is from exact-head and post-merge GitHub Actions.
