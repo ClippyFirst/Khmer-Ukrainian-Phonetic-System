@@ -3351,7 +3351,7 @@ PR #301, #303 and #304 were closed as superseded after PR #307 merged; their bra
 
 ## Sok & Adams (2016) Khmer phonological G2P source audit — 2026-11-17
 
-- Added source registry entry `sok-adams-2016-phonological` and dossier [`khmer-sok-adams-phonological-principles-audit.md`](docs/ipa-gold/khmer-sok-adams-phonological-principles-audit.md), based on the full ACL Anthology/PACLIC 30 paper (pp. 417–424).
+- Added source registry entry `sok-adams-2016-phonological` and dossier [`khmer-sok-adams-phonological-principles-audit.md`](ipa-gold/khmer-sok-adams-phonological-principles-audit.md), based on the full ACL Anthology/PACLIC 30 paper (pp. 417–424).
 - The paper explicitly separates orthography → phonemic transcription (intended as careful speech) from phonemic → phonetic transcription (rapid/ordinary colloquial speech). It describes series assimilation, vowel modification, syllable grouping, coda changes, cluster-transition aspiration/schwa, sonorant devoicing and minor-syllable reduction. This is a useful architectural precedent, not proof that its rules match the project's contemporary Phnom Penh careful-citation profile.
 - Methods: 140 hand-selected validation words; phonemic references drawn from Headley (1997), with phonetic forms manually produced by the authors. The larger 10,110-word comparison is dictionary-derived; 999 compounds and Pali/Sanskrit loans are outside the implemented scope. No independent blind double annotation, adjudication, IAA, recorded-speech test set or reproducible independent split is reported.
 - Reported 97.86% / 98.43% scores are author-run results on those data, not project accuracy and not a benchmark against independent speech gold. The paper's tables/notation include apparent OCR/typographic inconsistencies; do not copy phonetic mappings without visual page review and specialist approval.
@@ -3365,3 +3365,17 @@ PR #301, #303 and #304 were closed as superseded after PR #307 merged; their bra
 - Added additive `ipa_kind` to the typed result and JSON Schema. The deterministic engine now marks linguistic units `UNRESOLVED` until expert convention approval and punctuation `NOT_APPLICABLE`; it does not guess PHONEMIC or PHONETIC_BROAD.
 - Added regression assertions for lexical, proposed-rule, punctuation and invalid units. No IPA string, runtime pronunciation rule, Ukrainian mapping, corpus row or gold label changed.
 - Acceptance of a concrete IPA kind remains blocked on expert approval of `KHM-IPA-CONVENTION-001`.
+
+
+## Final continuation checkpoint — Sok & Adams audit + IPA-kind contract — 2026-11-17
+
+- Starting main commit for this continuation: `da47cfc15713d9cf6afb2dcd48d84a50450c79b9`.
+- PR [#311](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/311) merged as `10016150244821c1727d06312825aa625f4e1d42`: Sok & Adams (2016) full-text source audit and source-registry record. PR-head Quality [44064387019] SUCCESS (417 Python tests + 70 subtests, corpus structural validation, Node/web checks, Vite build); Chromium [44064386990] SUCCESS (12/12). Exact-main Quality [44064764141], Chromium [44064764016] and Pages deployment/smoke [44064764164] all SUCCESS.
+- PR [#312](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/312) merged as `c426d1c3bacd6edb303b2b4977e5b34c09b81620`: additive `ipa_kind` field in Python and browser typed results. Linguistic units now say `UNRESOLVED` and punctuation `NOT_APPLICABLE`; no output IPA string or Ukrainian mapping changed. PR-head Quality [44065466424] SUCCESS (418 Python tests + 70 subtests, corpus structural validation, Node/web checks, Vite build); Chromium [44065466500] SUCCESS (12/12). Exact-main Quality [44065655690] SUCCESS (418 + 70); Chromium [44065655890] SUCCESS (12/12); existing Pages build, production Chromium, deploy and deployed-site/runtime-asset smoke [44065655951] SUCCESS.
+- Source registry: 49 entries, 49 unique IDs; Sok & Adams source ID `sok-adams-2016-phonological`, rights UNKNOWN because no explicit open license was verified.
+- No local tests were run. All stated test/build/browser/deployment evidence is from the named GitHub Actions runs. No release was published and no Pages settings were changed.
+- The only CI warning observed was the existing non-blocking setuptools warning that `project.license` as a TOML table is deprecated. It was not changed in this scope.
+- PRs #311 and #312 are merged; no open PRs at this checkpoint. Both working branches are retained. Issue #104 remains OPEN.
+- IPA convention remains `DRAFT_NOT_APPROVED`; internal `ipa_kind` remains `UNRESOLVED` for linguistic units pending qualified approval. Independent adjudicated IPA gold remains 0; empirical accuracy remains null; corpus validator correctly reports `NOT_READY_NO_ADJUDICATED_GOLD`.
+- Remaining blockers: qualified Phnom Penh Khmer phonetician + independent reviewer for IPA convention; independent annotators/adjudicator and curator for gold; rights-cleared audio/token-level archive inspection and item locators; archive retrieval was not attempted again in this continuation. No Sok & Adams dictionary data or labels were imported.
+- Current public site: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/ .

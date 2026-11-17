@@ -1238,3 +1238,15 @@ The 16-speaker DataShare description is plausibly explained by Kirby (2014)'s 20
 The full PACLIC 30 paper is now registered and audited in [the source dossier](ipa-gold/khmer-sok-adams-phonological-principles-audit.md). It describes two distinct stages: orthography-to-phonemic forms intended for careful speech, followed by phonemic-to-phonetic rules for rapid/ordinary colloquial speech. Candidate rule families include onset-cluster series assimilation, minor-to-major syllable series effects, Bantoc-conditioned vowel modification, coda changes, cluster-transition aspiration/schwa and minor-syllable reduction.
 
 The separation of layers is architecturally relevant, but the paper's rule set is not automatically portable to the current contemporary Phnom Penh careful-citation profile. Its 140-word hand-selected validation set uses Headley (1997) phonemic references and author-created phonetic forms; its 10,110-word evaluation is dictionary-derived, with 999 compounds and Pali/Sanskrit loans outside scope. The reported 97.86% and 98.43% are not independent speech-gold benchmark scores. Tables contain notation/OCR inconsistencies that require visual page verification before any proposed rule transfer. The proceedings reserve copyright to the respective authors; no open license was verified. No runtime or corpus changes were made.
+
+
+## Final continuation audit — 2026-11-17
+
+Two merged PRs extended the repository's evidence and contract without inventing linguistic labels:
+
+- PR #311 registers and audits Sok & Adams (2016), PACLIC 30. It records the paper's two-stage careful phonemic vs rapid colloquial phonetic architecture, dictionary/Headley provenance, 140-word hand-selected validation, excluded compounds and loans, reported-score limitations and unknown redistribution rights. Its scores are not project accuracy and no rules/data were imported.
+- PR #312 repairs the typed result contract: both Python and browser runtimes now carry `ipa_kind`; linguistic units remain `UNRESOLVED` pending expert approval and punctuation is `NOT_APPLICABLE`. No IPA strings, Ukrainian mappings or phonological rules changed.
+
+Mainline commit `c426d1c3bacd6edb303b2b4977e5b34c09b81620` passed Quality [44065655690] (418 Python tests + 70 subtests, corpus structural validation, Node/web checks and Vite build), Chromium [44065655890] (12/12 Playwright tests), and Pages [44065655951] (production build/browser, deployment and deployed-site/runtime-asset smoke). PR-head checks also passed for both PRs. The only observed warning is the existing non-blocking deprecated setuptools `project.license` TOML-table format.
+
+Registry has 49 unique source IDs. No open PRs; issue #104 remains open. Both working branches are preserved. IPA convention is still `DRAFT_NOT_APPROVED`; independent adjudicated gold=0; empirical accuracy=null. The repository is engineering/build verified and research-ready as a partial prototype, not linguistically release-ready.
