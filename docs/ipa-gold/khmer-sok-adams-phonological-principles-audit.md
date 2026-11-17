@@ -75,7 +75,7 @@ The PACLIC 30 proceedings front matter (printed p. ii) says contributed-paper co
 |---|---|---|
 | Full-text source review | DONE_VERIFIED | ACL Anthology PDF, pp. 417–424 inspected |
 | Two-stage architecture relevance | DONE_VERIFIED | §§6–7 explicitly separate careful phonemic and rapid colloquial phonetic conversion |
-| Rule transfer to project | TODO | Each rule needs independent source/profile review and regression evidence |
+| Rule transfer to project | BLOCKED | Visual inspection and code comparison are complete, but the source's historical profile, incomplete table notation, unverified data reuse rights and absence of independent project gold prevent direct transfer. Each candidate rule needs contemporary target-profile expert approval and source-located positive/negative evidence. |
 | Reuse of 140-word set or 10,110-word data | DEFERRED | Provenance and independence are insufficient for project gold; rights for data extraction are not established |
 | Benchmark use of 97.86% / 98.43% | DEFERRED | Author-run dictionary/hand-selected evaluation is not comparable to the project's independent audio-based gold |
 | IPA convention approval | BLOCKED | Requires qualified Phnom Penh Khmer phonetician and independent reviewer |
