@@ -1476,3 +1476,12 @@ No IPA labels, model outputs, audio payload or Ukrainian mappings were added by 
 | KHM-KIRBY-CLUSTER-AUDIO-001 | PARTIAL | PR [#309](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/309) merged as `417ddfe598fc70913d9597dc5fb0b4dc7863d515`. Exact PR-head Quality [44039162569] SUCCESS (417 Python tests + 70 subtests, IPA corpus validator, Node/web checks, Vite build); Chromium [44039174297] SUCCESS. Source is CC BY 4.0 supporting audio, not IPA gold. Archive not downloaded; listed MD5 not locally verified; 79-item manifest and careful-citation profile equivalence remain open. |
 
 No gold rows, IPA labels, audio payload, model output or Ukrainian mappings were created. Issue #104 remains open; `KHM-IPA-CONVENTION-001 = PARTIAL / DRAFT_NOT_APPROVED`; `KHM-GOLD-001 = BLOCKED`; gold=0; empirical accuracy=null. Post-merge mainline checks are tracked separately from exact PR-head verification.
+
+## Kirby 2011 Phnom Penh tonogenesis datasets — 2026-11-17
+
+| ID | Status | Evidence / acceptance boundary |
+|---|---|---|
+| KHM-KIRBY-TONOGENESIS-AUDIO-001 | PARTIAL | Enriched existing source record for [2011 audio/TextGrid dataset](../../ipa-gold/khmer-kirby-tonogenesis-datasets-audit.md), DOI 10.7488/ds/321, DataShare CC BY 4.0. DataShare describes 16 Phnom Penh speakers; Kirby (2014) §3.1–3.2 reports 20 recruited participants (13 female, 21–60), 41 careful/read items × 3, separate 15 colloquial items × 3, and four participants excluded from further analysis for retaining /r/ in both conditions, leaving 16 analyzed. This plausibly reconciles the counts, but exact archive folder membership remains unverified. Appendix A provides romanized items/glosses, not Khmer-script forms. Supporting /r/-loss/prosody evidence only, not IPA gold. |
+| KHM-KIRBY-TONOGENESIS-SUPP-001 | PARTIAL | Enriched existing source record for [2011 supplementary dataset](../../ipa-gold/khmer-kirby-tonogenesis-datasets-audit.md), DOI 10.7488/ds/319, DataShare CC BY 4.0. Includes anonymised production/perception CSVs, KlattGrid stimuli, plots and R code. Bundle/schema not inspected; natural production measurements must be distinguished from synthetic stimuli and perceptual responses. Not IPA gold. |
+
+No audio or supplementary payload was downloaded/imported, no IPA labels were added, and no 30-item pilot entries were selected. Gold remains 0; empirical accuracy remains null. Specialist approval is still required for profile fit and any use of the reading condition.
