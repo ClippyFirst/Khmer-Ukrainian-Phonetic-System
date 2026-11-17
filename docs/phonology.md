@@ -54,3 +54,8 @@ Do not treat every unusual Khmer letter sequence as a forbidden phonological str
 - **Profile-level prosody:** Mam et al. (2025) report possible PPK pitch phonologization in /r>h/ forms and voiced-onset disyllables. This is not a universal tonal rule and must not be inferred from graphemes alone.
 
 No new phonological rule is enabled by this evidence update. The next acceptance step is a source-located lexical matrix that records major/minor type, onset, nucleus length, coda, profile and evidence status separately.
+
+
+## Explicit IPA transcription kind
+
+The typed result now includes `ipa_kind` on every unit. The internal engine currently emits `UNRESOLVED` for linguistic units because the project has not approved whether its single scored corpus should be phonemic, broad phonetic or narrow phonetic. It emits `NOT_APPLICABLE` for punctuation. External provider candidates already carry an explicit kind, but that provider declaration does not determine the internal corpus convention. This additive field prevents consumers from silently treating an untyped IPA string as phonemic or phonetic. Changing `UNRESOLVED` to one of the three transcription kinds requires the expert approval recorded in the IPA convention draft; no IPA labels or output strings were changed by this contract repair.

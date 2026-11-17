@@ -135,6 +135,17 @@
             },
             "additionalProperties": false
           }
+        },
+        "ipa_kind": {
+          "type": "string",
+          "enum": [
+            "PHONEMIC",
+            "PHONETIC_BROAD",
+            "PHONETIC_NARROW",
+            "UNRESOLVED",
+            "NOT_APPLICABLE"
+          ],
+          "description": "Explicit transcription kind. Current internal outputs remain UNRESOLVED until the target-profile convention is approved; punctuation is NOT_APPLICABLE."
         }
       },
       "additionalProperties": false
