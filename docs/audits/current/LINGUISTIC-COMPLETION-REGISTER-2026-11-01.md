@@ -1907,3 +1907,28 @@ A focused content-level pass compared all 28 `research/*` refs with main `af28e3
 Across the eight inspected `data/khmer/sources.json` research snapshots, every branch source ID is present in main; the branch snapshots contain 35–48 records versus 49 on main. The main registry therefore supersedes these branch versions without dropping a source ID. The external renderer registry likewise retains the 15 candidate concepts from the research branches, with current IDs/statuses.
 
 **Disposition:** all 28 `research/*` refs have focused compare/content dispositions. Their research findings are integrated, superseded by more complete mainline audits, or remain explicitly evidence-limited. No IPA gold, licensed dataset, model accuracy or phonological rule was fabricated or promoted. All research branches remain preserved.
+
+
+## Fix and release branch-family reconciliation — 2026-11-17
+
+Compared all 14 `fix/*` refs and the single `release/*` ref with main `8a84d6550176975f7c3b07bded513993f821f909`. No branch was merged wholesale.
+
+| Branch | Compare to main | Content evidence and disposition |
+|---|---:|---|
+| `fix/explicit-ipa-kind-in-phonetic-result-2026-11-17` | 9 ahead / 34 behind | `src/khmer_ua/phonetic_result.py` is byte-identical to main (SHA `1700552ae13b95f992fbad613d5da31e9fd18d42`); the schema and rule engine are later on main. Explicit typed IPA kind is integrated; no port. |
+| `fix/flag-unconverted-khmer-romanizer-output-2026-11-15` | 2 ahead / 171 behind | `src/khmer-romanization-ukrainian.js` is byte-identical to main (SHA `e2106a8d5ad952fa31bbc3ade6d3706036422155`). Output guarding is integrated. |
+| `fix/khmer-benchmark-reproducibility-2026-10-24` | 3 ahead / 508 behind | Its 5,842-byte benchmark script is superseded by main's 10,704-byte provenance/integrity-aware harness. No port. |
+| `fix/khmer-orthographic-parser-diagnostics-v2-2026-11-16` | 17 ahead / 57 behind | Its Python parser, browser parser, schema and tests are earlier snapshots than main's expanded parser/rejected-span contract. No port. |
+| `fix/khmer-orthographic-parser-evidence-2026-11-16` | 7 ahead / 58 behind | Its 3,869-byte schema is superseded by main's 6,054-byte schema; parser/test implementations are also older. No port. |
+| `fix/khmer-orthographic-parser-rejection-spans-2026-11-16` | 16 ahead / 56 behind | Its parser, browser adapter, schema, provenance registry and tests are earlier than the current main implementation; no unique accepted behavior is missing. |
+| `fix/khmer-rejected-span-reasons-and-fixtures-2026-11-16` | 2 ahead / 55 behind | Its focused parser/browser/test changes are incorporated in the later main rejected-span contract. No port. |
+| `fix/khmer-typed-partial-phonetic-results-2026-11-16` | 56 ahead / 77 behind | Its typed result module is an earlier 1,607-byte snapshot; main has the expanded 1,797-byte result contract and later rule-engine/schema/tests. No port. |
+| `fix/khmer-unmodeled-letter-trace-2026-11-12` | 3 ahead / 218 behind | Its parser (7,014 bytes) is an earlier snapshot than main's 10,689-byte parser and later trace tests. No port. |
+| `fix/mixed-script-numeral-token-boundaries-2026-11-17` | 32 ahead / 30 behind | `src/khmer_ua/parser.py` is byte-identical to main (SHA `e63d90894da39ca23eab6d41125886d9700d898d`). Current Python/browser tests and schema are integrated; no port. |
+| `fix/mixed-script-romanization-guard-2026-11-15` | 10 ahead / 178 behind | Its romanization adapter (4,326 bytes) is an earlier snapshot than main's 4,438-byte diacritic-aware, numeral-safe renderer and expanded tests. No port. |
+| `fix/pcgn-final-consonant-context-types-2026-11-16` | 2 ahead / 117 behind | Its PCGN module (65,380 bytes) is an earlier snapshot than main's 120,449-byte module; tests are likewise older. No port. |
+| `fix/pcgn-shortened-vowel-diacritic-inventory-2026-11-15` | 11 ahead / 168 behind | `data/khmer/romanization_marks_numerals.csv` is byte-identical to main (SHA `05ead18e065575eb14230d41ea3afe5dfacb2c22`). Already integrated. |
+| `fix/serve-coverage-report-on-pages-2026-10-21` | 6 ahead / 515 behind | `scripts/coverage.py` is byte-identical to main (SHA `9a2032211018b47a095c15d49636c2b1b9243044`); current dual internal/public report generation and published artifact are integrated. |
+| `release/deterministic-rule-engine-2026-11-11` | 15 ahead / 232 behind | Its initial rule engine (5,914 bytes) and hybrid shim are superseded by main's 16,220-byte rule engine and typed-IPA hybrid diagnostic implementation. No release branch is treated as a release candidate. |
+
+**Disposition:** all 14 `fix/*` and the single `release/*` refs have focused compare/content dispositions. Current main contains the later versions or exact matching implementation/data. No code, runtime, IPA, pronunciation, corpus or mapping changes were made by this audit. All branches remain preserved.
