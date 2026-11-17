@@ -29,7 +29,7 @@ def test_rule_fallback_is_repeatable_and_explicitly_proposed():
 def test_unknown_mixed_material_is_isolated_without_erasing_supported_neighbor():
     result = RuleBasedKhmerEngine().analyze("កx")
     assert result["ipa"] == "kɑː⟦INVALID_OR_UNSUPPORTED⟧"
-    assert result["ukrainian"] == "ка⟦НЕПІДТРИМУЄТЬՅ⟧" or result["ukrainian"] == "ка⟦НЕПІДТРИМУЄТЬСЯ⟧"
+    assert result["ukrainian"] == "ка⟦НЕПІДТРИМУЄТЬСЯ⟧"
     assert result["status"] == "EVIDENCE_LIMITED"
     assert [unit["source"] for unit in result["units"]] == ["ក", "x"]
 
