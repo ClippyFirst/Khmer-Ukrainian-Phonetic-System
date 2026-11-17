@@ -234,3 +234,10 @@ These resources strengthen evidence for contextual variation in /r/-loss, F0, as
 ### Clarification from full Kirby (2014) text — 2026-11-17
 
 The 2011 audio archive's 16-speaker description is plausibly explained by the paper's sample flow: 20 participants were recruited, four who retained /r/ in both conditions were excluded from subsequent analysis, leaving 16 analyzed participants (§3.1.1–3.2). The ZIP folder list has not been inspected, so record this as a likely reconciliation, not a verified identity match. The paper's 41-item Appendix A is romanized phonological notation with glosses, not Khmer-script forms; the paper reports a careful/read self-paced task in a carrier sentence at normal rate and a separate 15-item colloquial repetition task. The reading condition may be relevant to expert review of the target profile, but it is not isolated citation-form elicitation. See the dossier for precise boundaries.
+
+
+## Sok & Adams (2016) — separate careful phonemic and rapid phonetic layers
+
+Sok & Adams' PACLIC 30 paper ([source dossier](ipa-gold/khmer-sok-adams-phonological-principles-audit.md)) provides a useful precedent for separating orthography-to-phonemic output intended for careful speech from a second phonemic-to-phonetic stage for rapid colloquial speech. Its series-assimilation, vowel-modification and syllable-structure analyses can inform future rule review, but must not be copied directly into the current Phnom Penh careful-citation profile. In particular, aspiration/schwa transitions and minor-syllable reduction are explicitly part of its rapid-speech layer and must not leak into careful citation output.
+
+The paper's 140-word validation is hand-selected and based on Headley (1997) phonemic forms plus author-created phonetic forms; its larger 10,110-word evaluation is dictionary-derived. Its 97.86% / 98.43% figures are not independent project accuracy or IPA gold. The contribution's redistribution rights are unverified. Use it as a rule-system comparator only; do not import its data, labels, or tables.
