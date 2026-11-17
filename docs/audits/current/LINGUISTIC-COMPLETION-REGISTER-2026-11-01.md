@@ -1735,3 +1735,16 @@ Focused spot-checks: `data/khmer-onset-evidence-registry-2026-11-17` is already 
 | PR #340 disposition | DONE_VERIFIED (superseded, unmerged) | GitHub reported a squash-merge conflict after PR #339; PR #340 closed unmerged, branch preserved. | Its final note is re-applied from a clean main-based branch. |
 
 `KHM-BRANCH-AUDIT-001` remains PARTIAL. Historical branches were preserved; no wholesale merge, force-update or deletion was performed.
+
+## Continued historical branch content reconciliation — 2026-11-17
+
+A second focused pass compared four additional non-main branches with exact main `1f5792d6047fa8172b2e19acfa5984f744fcf753`. This extends the representative sample from 11 to 15 branches; it does not claim a complete audit of all historical refs.
+
+| Branch | Compare to main | Content evidence and disposition |
+|---|---:|---|
+| `feat/khmer-ambiguous-parse-forest-2026-11-16` | 3 ahead / 52 behind | Its orthographic parser and schema are an earlier snapshot. Main has the packed parse-forest contract, per-syllable grammar alternatives, derivation/segmentation counts and rejected-span diagnostics. No wholesale port. |
+| `feat/khmer-orthographic-component-scanner-2026-11-16` | 20 ahead / 59 behind | Its `src/khmer_ua/orthographic_structure.py` blob SHA is exactly identical to main (`fc545b15d109d1829bf4d264b6576270023cc1fe`). Scanner implementation is already integrated; remaining branch divergence is not a reason to merge the branch. |
+| `feat/khmer-external-g2p-harness-2026-10-24` | 3 ahead / 504 behind | Main already contains `scripts/benchmark_g2p.py` and its test, but the current main versions are evolved: report provenance binds harness/corpus/runtime/GitHub metadata; report integrity sidecar and bounded source-IPA notation diagnostics are included; no independent gold or accuracy is fabricated. The older branch harness/test are superseded. |
+| `feat/khmer-ukrainian-practical-adapter-final-2026-11-11` | 60 ahead / 215 behind | `src/khmer_ua/practical.py` and `data/ukrainian/practical-policy.json` blob SHAs exactly match main (`6476c3c17267adfc2215de5ffc6fe21d0cea588d` and `2388d93b8ec1f2c5b3b2cfc806acdb67197d8a3c`). Its implementation/policy is already integrated; no port. |
+
+No runtime, phonological, IPA, corpus or Ukrainian mapping changes were made in this audit. All reviewed historical branches remain preserved. `KHM-BRANCH-AUDIT-001` remains PARTIAL: 15 representative branches now have focused dispositions, while the other historical refs still require changed-file/commit/PR-ancestry reconciliation.
