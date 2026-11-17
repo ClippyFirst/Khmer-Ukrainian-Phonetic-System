@@ -130,3 +130,21 @@ test("romanization method can be activated by keyboard and status is announced",
   await expect(page.locator("#status")).toHaveAttribute("aria-live", "polite");
   await expect(page.locator("#ua-romanization-result")).toHaveText("Кампучеа");
 });
+
+
+test("shared onset fallback fixture keeps canonical output unresolved", async ({ page }) => {
+  const { readFileSync } = await import("node:fs");
+  const fixture = JSON.parse(readFileSync(new URL("../../data/tests/khmer-onset-fallback-fixtures.json", import.meta.url), "utf8"));
+  expect(fixture.schema).toBe("khmer-onset-fallback-fixtures/v1");
+
+  await page.goto("/");
+  for (const item of fixture.cases) {
+    await page.locator("#source").fill(item.source);
+    await expect(page.locator("#results")).toBeVisible();
+    await expect(page.locator("#ipa-result")).toHaveText(item.canonical_ipa);
+    await expect(page.locator("#ua-result")).toHaveText(item.canonical_ukrainian);
+    await expect(page.locator("#status")).toHaveText("NOT ESTABLISHED");
+    await expect(page.locator("#unit-details")).toContainText("Попередня підказка: " + item.provisional_ipa + " → " + item.provisional_ukrainian + " [PROVISIONAL]");
+    await expect(page.locator("#unit-details")).toContainText(item.rule_id);
+  }
+});
