@@ -1537,3 +1537,15 @@ Final main SHA: `c426d1c3bacd6edb303b2b4977e5b34c09b81620`. Source registry: 49 
 | KHM-GOLD-001 | BLOCKED | Independent adjudicated gold remains 0; empirical accuracy remains null. | Rights-cleared pilot items; two independent annotators; third adjudicator; non-annotating curator; private blind intake; provenance/schema/rights checks. |
 
 No pronunciation rule, IPA label, gold row, source permission, Ukrainian mapping or generated artifact changed in this review.
+
+
+## PR #314 post-merge verification — 2026-11-17
+
+| Work | Status | Evidence |
+|---|---|---|
+| KHM-CHEM-2020-FULLTEXT-001 / KHM-MAM-2025-FULLTEXT-001 | DONE_VERIFIED (source audit only) | PR #314 merged as `4760964618f05290560372b1ee60b4f7fba8ae72`; exact-head Quality [44076405229] SUCCESS (418 Python tests + 70 subtests, corpus structural validation, Node/web checks, Vite build); Chromium [44076405251] SUCCESS (12/12). |
+| KHM-PILOT-30-LEXEMES-001 | BLOCKED | No source-exact 30-item set; full lists and exact item/audio locators absent from Chem/Mam papers. |
+| KHM-IPA-KIND-APPROVAL-001 | BLOCKED | No qualified target-profile sign-off; `ipa_kind` remains UNRESOLVED. |
+| KHM-GOLD-001 | BLOCKED | Gold remains 0; empirical accuracy remains null; requires rights-cleared items, two independent annotators, separate adjudicator, curator and private blind intake. |
+
+Final main SHA at this checkpoint: `4760964618f05290560372b1ee60b4f7fba8ae72`. No Pages deployment was required for the documentation-only PR; no local test execution is claimed.
