@@ -1460,3 +1460,11 @@ No external data/model/audio was imported. No source candidate is promoted to go
 - Issue #104 remains OPEN. No experts were contacted or recruited. `KHM-IPA-CONVENTION-001` remains PARTIAL / `DRAFT_NOT_APPROVED`; `KHM-GOLD-001` remains BLOCKED, adjudicated gold=0 and empirical accuracy=null.
 - Undermind's semantic/deep-search operation could not be continued in this session because its free usage limit was reached; the tool reported reset at 2026-11-16 23:30 UTC (2026-11-17 01:30 Kyiv time). No Undermind search result is claimed for this continuation.
 - No local checkout/tests were run. All code/test/build/browser/deployment evidence above is from GitHub Actions. No external data, model weights, audio, IPA labels or Ukrainian mappings were imported.
+
+## Kirby Phnom Penh cluster-audio source — 2026-11-17
+
+| ID | Status | Evidence / acceptance boundary |
+|---|---|---|
+| KHM-KIRBY-CLUSTER-AUDIO-001 | PARTIAL | Registered [Kirby 2013 audio/TextGrid dataset](../../ipa-gold/khmer-kirby-cluster-audio-source-audit.md), DataShare DOI 10.7488/ds/2454, CC BY 4.0. Primary metadata documents 10 native Phnom Penh speakers, 79 lexical items, 3 repetitions and slow/fast conditions; the 2014 paper analyses 61 cluster items across 35 onset types and describes the first block as slow-and-careful carrier-sentence reading. Strong supporting audio candidate, but not IPA gold. Full archive item manifest/checksum is not yet inspected; carrier-sentence task equivalence to the careful-citation profile and contrast coverage require expert review. No data imported; gold=0; accuracy=null. |
+
+No IPA labels, model outputs, audio payload or Ukrainian mappings were added by this source registration. The 30-item blind pilot remains blocked on convention approval, profile fit, qualified independent annotators/adjudicator, non-annotating curator, private blind intake, rights/locator checks and expert-approved contrast coverage.
