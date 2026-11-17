@@ -3597,3 +3597,21 @@ Post-merge main `f594b48615a799b13ae19ad4c2c6453512b8c24d`:
 - Pages [44144068336](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44144068336) SUCCESS: production browser exercise, deployment of the exact main SHA, and deployed HTML/JS/CSS smoke checks.
 
 `KHM-UI-SKIP-NAV-001 = DONE_VERIFIED` for the bounded implementation and automated Chromium contract. `KHM-UI-001` remains PARTIAL: no manual screen-reader/assistive-technology review, full keyboard traversal, contrast audit, zoom/reflow or real mobile-device testing is claimed. No local tests were run. No linguistic rules, IPA labels, gold records, source rights or pronunciation outputs changed. Issue #104 remains OPEN; IPA convention `DRAFT_NOT_APPROVED`; adjudicated gold=0; empirical accuracy=null.
+
+## WCAG AA text-contrast regression and palette correction — 2026-11-17
+
+PR [#333](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/333) was squash-merged as `126899c81810750cc1c8a77667340606c10eab20`, from `a11y/wcag-text-contrast-2026-11-17`.
+
+A first browser measurement exposed concrete normal-text contrast failures on the public pages: service eyebrow red on the paper background was **4.24:1** (below 4.5:1), and methodology `.doc .muted` was **3.68:1**. The hint text color was also below threshold at approximately **4.37:1**. The test helper's initial numeric parser defect was corrected before the valid contrast findings were accepted.
+
+The palette was corrected without changing layout or linguistic behavior:
+- `--red` changed from `#d92d3a` to `#c12634`, improving red text on paper and white-on-red button contrast.
+- `.hint` changed from `#77766f` to `#6d6c65`.
+- `.doc .muted` now uses the existing `--muted` token rather than the insufficient `#777d84`.
+- Both pages' stylesheet cache keys were refreshed.
+
+Two Playwright tests check representative text/background pairs against WCAG AA's **4.5:1** normal-text threshold. Exact PR head `6ad35d1345872552458d8510cc1a06649e116a5d`: Quality [44149776508] SUCCESS (**427 Python tests + 70 subtests**); Chromium [44149776607] SUCCESS (**18/18 Playwright tests**, including both new contrast checks).
+
+Post-merge main `126899c81810750cc1c8a77667340606c10eab20`: Quality [44150006145] SUCCESS (**427 Python + 70 subtests**); Chromium [44150005996] SUCCESS (**18/18**). Pages [44150006152] SUCCESS: production build, browser exercise, deployment of the exact main SHA and deployed-site HTML/JS/CSS smoke checks all passed.
+
+`KHM-UI-CONTRAST-001 = DONE_VERIFIED` for the specific measured text styles and tested foreground/background pairs only. This is not a complete WCAG audit: all page content, dynamic states, images, non-text contrast, browser zoom, high contrast modes and assistive technologies have not been exhaustively assessed. General `KHM-UI-001` remains PARTIAL. No phonological/IPA/romanization data or linguistic claims changed.
