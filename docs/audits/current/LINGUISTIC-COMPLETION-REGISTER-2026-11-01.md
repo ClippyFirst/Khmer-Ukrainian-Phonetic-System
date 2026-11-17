@@ -1512,3 +1512,15 @@ The reported 97.86% and 98.43% values are the paper's own results and do not alt
 | KHM-IPA-KIND-APPROVAL-001 | BLOCKED | A qualified Phnom Penh Khmer phonetician and independent reviewer must approve one kind and its full symbol/feature policy; only then can the internal value be promoted from `UNRESOLVED`. |
 
 No IPA string, source label, Ukrainian mapping or gold row changed. The kind remains explicitly unresolved; gold=0 and empirical accuracy=null.
+
+
+## Final mainline verification — Sok & Adams + explicit IPA kind — 2026-11-17
+
+| Work | Status | Evidence |
+|---|---|---|
+| KHM-SOK-ADAMS-2016-001 | DONE_VERIFIED (source audit only) | PR #311 merged as `10016150244821c1727d06312825aa625f4e1d42`; full PACLIC 30 paper reviewed; source record and dossier committed. PR-head Quality 44064387019 and Chromium 44064386990 SUCCESS; exact-main Quality 44064764141, Chromium 44064764016 and Pages 44064764164 SUCCESS. |
+| KHM-IPA-KIND-001 | DONE_VERIFIED (contract repair) | PR #312 merged as `c426d1c3bacd6edb303b2b4977e5b34c09b81620`; Python and browser typed results expose `ipa_kind`; linguistic units UNRESOLVED, punctuation NOT_APPLICABLE. PR-head Quality 44065466424 SUCCESS (418 Python tests + 70 subtests); Chromium 44065466500 SUCCESS (12/12). Exact-main Quality 44065655690, Chromium 44065655890 and Pages 44065655951 SUCCESS. |
+| KHM-IPA-KIND-APPROVAL-001 | BLOCKED | Qualified target-profile phonetician and independent reviewer must approve PHONEMIC, PHONETIC_BROAD or PHONETIC_NARROW and full symbol/feature policy before internal kind changes from UNRESOLVED. |
+| KHM-GOLD-001 | BLOCKED | Independent adjudicated IPA gold remains 0; empirical accuracy remains null. Requires rights-cleared exact audio/token locators, two independent annotators, adjudicator and non-annotating curator. |
+
+Final main SHA: `c426d1c3bacd6edb303b2b4977e5b34c09b81620`. Source registry: 49 records / 49 unique IDs. No local tests, audio import, IPA gold rows, runtime pronunciation-rule changes or Ukrainian mapping changes were made by the source audit or IPA-kind contract repair. No open PRs; issue #104 remains OPEN; working branches retained.
