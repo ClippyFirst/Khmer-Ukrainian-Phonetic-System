@@ -42,9 +42,20 @@ function startsNewOrthographicSyllable(chars, index) {
   return true;
 }
 
+const isNumeric = (char) => Boolean(char && /\\p{N}/u.test(char));
+const scriptBucket = (char) => {
+  if (!char) return null;
+  if (isNumeric(char)) return "number";
+  if (/\\p{Script=Khmer}/u.test(char)) return "khmer";
+  if (/\\p{M}/u.test(char)) return null;
+  if (/\\p{L}/u.test(char)) return "foreign";
+  return "other";
+};
+
 function tokenize(text) {
   const units = [];
   let current = "";
+  let currentBucket = null;
   const chars = [...normalize(text)];
   const fixtureKeys = Object.keys(fixtures).sort((a, b) => [...b].length - [...a].length);
 
@@ -53,6 +64,7 @@ function tokenize(text) {
       units.push(current);
       current = "";
     }
+    currentBucket = null;
   };
 
   for (let index = 0; index < chars.length;) {
@@ -72,6 +84,17 @@ function tokenize(text) {
       continue;
     }
 
+    if (isNumeric(char)) {
+      flush();
+      let numeric = "";
+      while (index < chars.length && isNumeric(chars[index])) {
+        numeric += chars[index];
+        index += 1;
+      }
+      units.push(numeric);
+      continue;
+    }
+
     const remainder = chars.slice(index).join("");
     const fixtureKey = chars[index - 1] === COENG ? undefined : fixtureKeys.find((key) => {
       if (!remainder.startsWith(key)) return false;
@@ -86,30 +109,19 @@ function tokenize(text) {
       continue;
     }
 
-    if (current && startsNewOrthographicSyllable(chars, index)) {
-      units.push(current);
-      current = char;
-    } else {
-      current += char;
+    const bucket = scriptBucket(char) ?? currentBucket ?? "other";
+    if (current && currentBucket !== null && bucket !== currentBucket) flush();
+    if (!current) currentBucket = bucket;
+
+    if (current && bucket === "khmer" && startsNewOrthographicSyllable(chars, index)) {
+      flush();
+      currentBucket = "khmer";
     }
+    current += char;
     index += 1;
   }
   flush();
   return units;
-}
-
-function resolveRegister(base, raw) {
-  const structural = [...raw].filter((char) => char !== ZWNJ);
-  const positions = structural.flatMap((char, index) => SHIFTERS.has(char) ? [index] : []);
-  if (!positions.length) return { register: base.register, rule: null, status: "ESTABLISHED_STRUCTURE" };
-  if (positions.length > 1) return { register: base.register, rule: "MULTIPLE_REGISTER_SHIFTERS", status: "EVIDENCE_LIMITED" };
-  if (positions[0] !== 1) return { register: base.register, rule: "MISPLACED_REGISTER_SHIFTER", status: "EVIDENCE_LIMITED" };
-  const shifter = structural[positions[0]];
-  if (!SHIFTER_ELIGIBILITY[shifter]?.has(base.char)) return { register: base.register, rule: "NON_STANDARD_SHIFTER_USE", status: "EVIDENCE_LIMITED" };
-  if (base.char === "ប" && shifter === "៉") return { register: "first", rule: "BA_TO_PA_EXCEPTION", status: "ESTABLISHED_STRUCTURE" };
-  if (shifter === "៉" && base.register === "second") return { register: "first", rule: "MUUSIKATOAN", status: "ESTABLISHED_STRUCTURE" };
-  if (shifter === "៊" && base.register === "first") return { register: "second", rule: "TRIISAP", status: "ESTABLISHED_STRUCTURE" };
-  return { register: base.register, rule: "NON_STANDARD_SHIFTER_USE", status: "EVIDENCE_LIMITED" };
 }
 
 function scanOrthographicComponents(raw) {
