@@ -1491,3 +1491,14 @@ No audio or supplementary payload was downloaded/imported, no IPA labels were ad
 PR #310 merged as `4d568f712b8ac055809bc01e53ea7d257b79a6a0`. Exact PR head passed Quality (417 Python tests + 70 subtests, corpus structural validator, Node/web checks, Vite build) and Chromium (12/12 Playwright tests). Post-merge mainline Quality and Chromium also passed; existing Pages workflow deployed and smoke-tested root page, `system.html`, JS and CSS successfully. This confirms repository/build integrity only, not linguistic validity or profile acceptance.
 
 Source status remains PARTIAL: existing Kirby audio and supplementary records are enriched; archive not downloaded, provider MD5s not locally verified, Appendix A has romanized forms rather than Khmer-script orthography, archive folder membership not inspected, and no item-level token manifest. The likely 20 recruited → 4 excluded → 16 analyzed sample flow plausibly explains DataShare's 16-speaker metadata. No IPA labels or gold rows created. Issue #104 OPEN; convention `DRAFT_NOT_APPROVED`; gold=0; accuracy=null.
+
+
+## Sok & Adams (2016) rule-system source review — 2026-11-17
+
+| ID | Status | Evidence / acceptance boundary |
+|---|---|---|
+| KHM-SOK-ADAMS-2016-001 | DONE_VERIFIED (source audit only) | Full PACLIC 30 paper inspected (pp. 417–424); source registry and [dossier](../../ipa-gold/khmer-sok-adams-phonological-principles-audit.md) record two-stage careful-phonemic vs rapid-colloquial-phonetic design, rule families, data provenance, evaluation limits and rights uncertainty. No rules were transferred to runtime. |
+| KHM-SOK-ADAMS-RULE-TRANSFER-001 | TODO | Reconcile each candidate rule with current code, Unicode structural parser, primary linguistic sources and contemporary Phnom Penh careful-citation profile; acceptance requires source/page locator, typed phonological-vs-phonetic layer, expert review and regression cases. |
+| KHM-SOK-ADAMS-DATA-REUSE-001 | DEFERRED | The 140-word validation set and 10,110-word dictionary comparison are not independent blind audio gold; no dataset rights or reproducible independent split established. Do not import or benchmark against them as project gold. |
+
+The reported 97.86% and 98.43% values are the paper's own results and do not alter repository accuracy (still null). Independent adjudicated gold remains 0; `KHM-IPA-CONVENTION-001` remains `DRAFT_NOT_APPROVED`; `KHM-GOLD-001` remains BLOCKED.
