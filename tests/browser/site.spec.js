@@ -1,5 +1,28 @@
 import { test, expect } from "@playwright/test";
 
+
+test("service page exposes a keyboard skip link to the main content", async ({ page }) => {
+  await page.goto("/");
+  const skipLink = page.getByRole("link", { name: "Перейти до основного вмісту" });
+  await page.keyboard.press("Tab");
+  await expect(skipLink).toBeFocused();
+  await expect(skipLink).toBeVisible();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/#main-content$/);
+  await expect(page.locator("#main-content")).toBeFocused();
+});
+
+test("methodology page exposes the same keyboard skip navigation", async ({ page }) => {
+  await page.goto("/system.html");
+  const skipLink = page.getByRole("link", { name: "Перейти до основного вмісту" });
+  await page.keyboard.press("Tab");
+  await expect(skipLink).toBeFocused();
+  await expect(skipLink).toBeVisible();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/#main-content$/);
+  await expect(page.locator("#main-content")).toBeFocused();
+});
+
 test("Khmer input renders IPA and Ukrainian output without a DOM exception", async ({ page }) => {
   const pageErrors = [];
   page.on("pageerror", error => pageErrors.push(error.message));
