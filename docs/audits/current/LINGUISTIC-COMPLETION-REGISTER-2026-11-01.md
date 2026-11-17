@@ -1468,3 +1468,11 @@ No external data/model/audio was imported. No source candidate is promoted to go
 | KHM-KIRBY-CLUSTER-AUDIO-001 | PARTIAL | Registered [Kirby 2013 audio/TextGrid dataset](../../ipa-gold/khmer-kirby-cluster-audio-source-audit.md), DataShare DOI 10.7488/ds/2454, CC BY 4.0. Primary metadata documents 10 native Phnom Penh speakers, 79 lexical items, 3 repetitions and slow/fast conditions; the 2014 paper analyses 61 cluster items across 35 onset types and describes the first block as slow-and-careful carrier-sentence reading. Strong supporting audio candidate, but not IPA gold. Full archive item manifest/checksum is not yet inspected; carrier-sentence task equivalence to the careful-citation profile and contrast coverage require expert review. No data imported; gold=0; accuracy=null. |
 
 No IPA labels, model outputs, audio payload or Ukrainian mappings were added by this source registration. The 30-item blind pilot remains blocked on convention approval, profile fit, qualified independent annotators/adjudicator, non-annotating curator, private blind intake, rights/locator checks and expert-approved contrast coverage.
+
+## Kirby cluster-audio candidate — merged engineering verification — 2026-11-17
+
+| ID | Status | Evidence / acceptance boundary |
+|---|---|---|
+| KHM-KIRBY-CLUSTER-AUDIO-001 | PARTIAL | PR [#309](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/309) merged as `417ddfe598fc70913d9597dc5fb0b4dc7863d515`. Exact PR-head Quality [44039162569] SUCCESS (417 Python tests + 70 subtests, IPA corpus validator, Node/web checks, Vite build); Chromium [44039174297] SUCCESS. Source is CC BY 4.0 supporting audio, not IPA gold. Archive not downloaded; listed MD5 not locally verified; 79-item manifest and careful-citation profile equivalence remain open. |
+
+No gold rows, IPA labels, audio payload, model output or Ukrainian mappings were created. Issue #104 remains open; `KHM-IPA-CONVENTION-001 = PARTIAL / DRAFT_NOT_APPROVED`; `KHM-GOLD-001 = BLOCKED`; gold=0; empirical accuracy=null. Post-merge mainline checks are tracked separately from exact PR-head verification.
