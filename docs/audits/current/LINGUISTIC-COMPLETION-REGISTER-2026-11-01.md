@@ -1726,3 +1726,11 @@ Focused spot-checks: `data/khmer-onset-evidence-registry-2026-11-17` is already 
 | PR #338 exact-main inventory documentation | DONE_VERIFIED | PR-head Quality [44173194420] and [44173216454] SUCCESS (427 Python tests + 70 subtests; expected no-gold state); Chromium [44173216381] SUCCESS (18/18). Post-merge Quality [44173400187], Chromium [44173400043], Pages [44173400219] SUCCESS. | Documentation-only; no runtime, source data or IPA behavior changed. |
 
 `KHM-BRANCH-AUDIT-001` remains PARTIAL. The 209-ref count is the current inventory; the 130/130 comparison result in older entries is a historical snapshot, not a current full ancestry pass.
+## Final branch inventory and PR #339 closeout — 2026-11-17
+
+| Work | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| Final live branch inventory | DONE_VERIFIED (inventory only) | 211 refs total (main + 210 non-main); 211 unique tip SHAs; 0 open PRs; 1 open issue (#104). | Supersedes the immediately prior 209-ref snapshot after two audit branches were created. Does not imply full content audit. |
+| PR #339 selected historical branch content closeout | DONE_VERIFIED (selected 11-branch sample only) | Exact-head Quality [44173798008], [44173819190] SUCCESS; Chromium [44173818953] SUCCESS (18/18). Post-merge Quality [44173970460], Chromium [44173970246] (18/18), Pages [44173970271] SUCCESS on `b5a878f33dae74d34754c547580c5a494307cdce`. | Branch audit remains PARTIAL; 210 non-main refs are not all content/PR-ancestry reconciled. |
+
+`KHM-BRANCH-AUDIT-001` remains PARTIAL. Historical branches were preserved; no wholesale merge, force-update or deletion was performed.
