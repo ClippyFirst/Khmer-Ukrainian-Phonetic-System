@@ -140,8 +140,8 @@ def test_shared_onset_fallback_fixture_preserves_canonical_abstention():
     for case in fixture["cases"]:
         result = RuleBasedKhmerEngine().analyze(case["source"])
         assert result["status"] == case["canonical_status"]
-        assert result["ipa"] == case["canonical_ipa"]
-        assert result["ukrainian"] == case["canonical_ukrainian"]
+        assert result["ipa"] == case["canonical_ipa_python"]
+        assert result["ukrainian"] == case["canonical_ukrainian_python"]
         assert result["fallback_status"] == case["fallback_status"]
         assert result["provisional_ipa"] == case["provisional_ipa"]
         assert result["provisional_ukrainian"] == case["provisional_ukrainian"]
