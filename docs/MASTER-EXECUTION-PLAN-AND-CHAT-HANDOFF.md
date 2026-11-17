@@ -3522,3 +3522,12 @@ No rule, IPA mapping, Ukrainian output, test fixture, corpus row or generated ar
 The paper's author-run 97.86%/98.43% scores remain non-comparable to project accuracy; its 140-word and dictionary-derived 10,110-word materials remain deferred, not project gold. No table values were copied from the PDF. Current linguistic status remains: IPA convention DRAFT_NOT_APPROVED; linguistic ipa_kind=UNRESOLVED; adjudicated gold=0; empirical accuracy=null; Issue #104 OPEN.
 
 Hosted exact-head CI and post-merge mainline checks are required for this documentation-only update. No local checkout or local tests are claimed. No external expert was contacted and no license or repository setting was changed.
+
+
+## PR #324 Sok & Adams rule-transfer audit — final verification — 2026-11-17
+
+PR [#324](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/324) was squash-merged as `3f3352e94e993ab54a79c952bf6c1e7f9d187ae6` from branch `research/sok-adams-rule-transfer-audit-2026-11-17`, based on `460a3df4476f9f4beba7649909be101ef5331336`. Its exact-head Quality [44105695150] passed (422 Python tests + 70 subtests; corpus validator returned the expected `NOT_READY_NO_ADJUDICATED_GOLD`; web checks and production build passed), and Chromium [44105694990] passed (13/13 Playwright tests). The duplicate exact-head Quality run [44105669690] also passed. Post-merge mainline Quality [44105872935], Chromium [44105872929] (13/13), and Pages [44105872984] all passed. Pages deployed the exact main SHA and the deployed-site/runtime-asset smoke test passed.
+
+The visual table audit is DONE_VERIFIED as source inspection only. `KHM-SOK-ADAMS-RULE-TRANSFER-001` remains BLOCKED pending qualified contemporary Phnom Penh careful-citation review and item-level positive/negative evidence. No phonological rule, IPA label, corpus row, Ukrainian mapping or generated artifact changed. Issue #104 remains OPEN; IPA convention remains `DRAFT_NOT_APPROVED`; adjudicated gold=0; empirical accuracy=null. No local tests or external expert outreach are claimed.
+
+Final main: `3f3352e94e993ab54a79c952bf6c1e7f9d187ae6`. No open PRs remain at this checkpoint. Repository is engineering/build verified and research-ready as a partial prototype, not linguistically release-ready.
