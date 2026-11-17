@@ -3357,3 +3357,11 @@ PR #301, #303 and #304 were closed as superseded after PR #307 merged; their bra
 - Reported 97.86% / 98.43% scores are author-run results on those data, not project accuracy and not a benchmark against independent speech gold. The paper's tables/notation include apparent OCR/typographic inconsistencies; do not copy phonetic mappings without visual page review and specialist approval.
 - Proceedings front matter reserves contributed-paper copyright to the respective authors; no explicit open license for the contribution was verified. Registry rights marked UNKNOWN. No table/dataset payload or PDF copied into repository.
 - No runtime, test, corpus, IPA gold, Ukrainian mapping or generated artifact changed. Gold remains 0; empirical accuracy remains null; issue #104 remains open; convention remains `DRAFT_NOT_APPROVED`.
+
+
+## Internal IPA-kind contract repair — 2026-11-17
+
+- Code review triggered by Sok & Adams' explicit separation of careful phonemic and rapid phonetic stages found that `PhoneticUnitResult` carried an IPA string but no transcription-kind field. External candidates had a `kind`, while the deterministic engine's typed output did not.
+- Added additive `ipa_kind` to the typed result and JSON Schema. The deterministic engine now marks linguistic units `UNRESOLVED` until expert convention approval and punctuation `NOT_APPLICABLE`; it does not guess PHONEMIC or PHONETIC_BROAD.
+- Added regression assertions for lexical, proposed-rule, punctuation and invalid units. No IPA string, runtime pronunciation rule, Ukrainian mapping, corpus row or gold label changed.
+- Acceptance of a concrete IPA kind remains blocked on expert approval of `KHM-IPA-CONVENTION-001`.
