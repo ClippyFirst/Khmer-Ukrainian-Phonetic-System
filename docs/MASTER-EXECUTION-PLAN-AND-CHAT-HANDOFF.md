@@ -3303,3 +3303,11 @@ PR #301, #303 and #304 were closed as superseded after PR #307 merged; their bra
 - Hosted Quality workflow [44034902245](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44034902245) SUCCESS on exact head. Steps verified: IPA corpus structure validator; **417 Python tests + 70 subtests**; Node web structural/runtime, Unicode 18 parser, romanization and Ukrainian adapter checks; Vite production build.
 - This workflow has one Quality job. No Chromium/Playwright or Pages deployment workflow was triggered for this documentation/source-registry-only branch; do not claim browser or deployment verification for PR #309. No local tests were run.
 - No runtime, tests, generated files, audio payload, IPA labels, gold records or Ukrainian mappings changed. Main remains at its pre-PR base until merge; no merge performed in this continuation.
+
+## Kirby cluster-audio candidate — merged mainline checkpoint — 2026-11-17
+
+- PR [#309](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/309) squash-merged as `417ddfe598fc70913d9597dc5fb0b4dc7863d515` on main; source branch retained (not deleted).
+- Exact PR-head `a4ab13947e4ff060bf66b2b8a5c14ac432ae195c`: Quality [44039162569] SUCCESS (417 Python tests + 70 subtests, corpus validator, Node/web checks, Vite production build); Chromium browser smoke [44039174297] SUCCESS (deterministic web checks, production build, visible-result Chromium exercise). No Pages deployment was triggered/claimed. No local tests.
+- Main at merge is `417ddfe598fc70913d9597dc5fb0b4dc7863d515`; post-merge Quality/build/browser checks were queued at the time of this note and must be checked before claiming mainline verification.
+- The source is only a supporting audio candidate. Archive has not been downloaded; listed MD5 is provider metadata, not a locally verified checksum. The 79-item manifest has not been enumerated. Slow-careful carrier-sentence reading requires expert approval before use for the project's careful-citation profile.
+- Issue #104 remains open. Convention remains `DRAFT_NOT_APPROVED`; no experts contacted/recruited; gold=0; empirical accuracy=null.
