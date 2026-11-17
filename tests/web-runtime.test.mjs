@@ -122,6 +122,13 @@ assert.equal(mixedScriptNumeralResult.units[3].ua, "៦១១");
 assert.equal(mixedScriptNumeralResult.phonetic_result.units[3].ipa_kind, "NOT_APPLICABLE");
 assert.deepEqual(mixedScriptNumeralResult.phonetic_result.units[3].uncertainty, []);
 assert.equal(mixedScriptNumeralResult.ipa, "/kɑː/⟦INVALID_OR_UNSUPPORTED⟧/kɔː/៦១១");
+const numeralOnlyResult = convert("៦១១", "khmer-pph-careful-citation-v1");
+assert.equal(numeralOnlyResult.status, "NOT_ESTABLISHED");
+assert.equal(numeralOnlyResult.complete, false);
+assert.equal(numeralOnlyResult.ipa, "៦១១");
+assert.equal(numeralOnlyResult.ua, "៦១១");
+assert.equal(numeralOnlyResult.phonetic_result.units[0].status, "NON_LINGUISTIC");
+assert.equal(numeralOnlyResult.phonetic_result.units[0].ipa_kind, "NOT_APPLICABLE");
 console.log("Mixed-script and Khmer numeral boundaries: PASS");
 
 console.log("web-runtime regression tests: PASS");
