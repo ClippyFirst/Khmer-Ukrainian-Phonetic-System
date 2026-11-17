@@ -1350,3 +1350,8 @@ The bounded cross-runtime regression task is now DONE_VERIFIED. PR #326 merged a
 `Browser regression` and `Exact-head CI and Chromium verification` are DONE_VERIFIED for this shared-fixture acceptance only. The broader onset fallback remains PARTIAL: the dedicated per-position evidence registry is still TODO, and vowel/subscript/coeng hints remain excluded absent independent positional evidence. This is not IPA gold; adjudicated gold=0 and empirical accuracy=null. No local tests, external expert review or pronunciation claims are made.
 
 Final main at this checkpoint: `5a4f97c2c572020829b9c9eff7fad8a3c9d32e0c`; open PRs=0; Issue #104 remains OPEN.
+
+
+## Khmer positional onset evidence registry — 2026-11-17
+
+A bounded evidence-container implementation records all 33 current consonant onset hints in `data/khmer-positional-onset-evidence.json`, with schema `schemas/khmer-positional-onset-evidence.schema.json` and parity/non-promotion tests in `tests/test_khmer_positional_onset_evidence.py`. Each record points to the corresponding character row in Richard Ishida's *Khmer (Cambodian) Orthography Notes*, Basic consonants table. That work is PARTIAL: this is a specialist reference, not a primary phonetic source or project-profile adjudication. The register is not a runtime dependency and does not alter the existing provisional hint. Primary phonetic evidence and qualified review remain outstanding; no vowel, coda, cluster, COENG/subscript realization, tone, canonical IPA or Ukrainian output is inferred.
