@@ -143,6 +143,7 @@ for (const rejectedProfile of ["careful_standard", "phnom_penh_colloquial", "est
   assert.throws(() => convert("ច្រើន", rejectedProfile), /Unsupported pronunciation profile/);
 }
 
+assert.deepEqual(tokenize("ប\u200C៊"), ["ប\u200C៊"], "ZWNJ must remain inside its Khmer run");
 const zwnj = parseSyllable("ប\u200C៊");
 assert.equal(zwnj.register, "second", "ZWNJ must not disrupt register-shifter resolution");
 assert.equal(zwnj.register_rule, "TRIISAP");
