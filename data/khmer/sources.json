@@ -577,5 +577,27 @@
     "license": "Publisher terms apply; metadata registration only. No text or tables reproduced.",
     "limitations": "A systematic partial mapping framework, not a complete formal IPA/G2P algorithm. Orthographic class labels do not consistently describe modern phonetic voicing. Dialect survey is preliminary and includes non-Phnom Penh patterns. Requires combination with current target-profile acoustic evidence and specialist approval.",
     "locators": "Sections 1–2, pp. 43–53 (series and vowel-sign rules, coda conditioning, checked vowels); Section 3, pp. 55–66 (dialect survey and vowel mergers)."
+  },
+  {
+    "id": "kirby2018-cluster-audio",
+    "type": "phonetic_audio_dataset",
+    "title": "Acoustic transitions in Khmer word-initial clusters: audio recordings, 2013",
+    "author": "James Kirby",
+    "year": 2018,
+    "doi": "10.7488/ds/2454",
+    "url": "https://datashare.ed.ac.uk/items/0d735b30-f6ef-4e14-b6f0-a6b5a136e240",
+    "related_study": "Kirby, James. 2014. Acoustic transitions in Khmer word-initial clusters. Proceedings of the 10th International Seminar on Speech Production, pp. 230–233.",
+    "related_study_url": "https://lel.ed.ac.uk/~jkirby/docs/kirby2014transitions-preprint.pdf",
+    "scope": "24-bit/44.1 kHz audio recorded in Phnom Penh in January 2013 from 10 native Phnom Penh Khmer speakers (3 female): 79 lexical items, 3 repetitions per item, two self-selected speech-rate conditions. Each subject directory contains WAV and segmented Praat TextGrid files. Filename pattern is subject-rate-Khmer-orthography-repetition (e.g. s1-fast-កណ្ដាល-1). The 2014 paper analyses 61 items containing 35 onset-cluster types, plus eight CəC/CəN comparison monosyllables; the first block was instructed slowly and carefully, the second as rapidly as possible, and tokens were embedded in /kñom tha: tiət/ ‘I say again’.",
+    "status": "SUPPORTING_AUDIO_SOURCE_CANDIDATE",
+    "license": "Creative Commons Attribution 4.0 International (CC BY 4.0), stated in the repository's DataShare item metadata and license bundle.",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "archive_file": "ISSP2014WavGrid.zip",
+    "archive_size": "477.8 MB",
+    "archive_md5": "a8efcd0cda1cc44fa400fd118d59c396",
+    "contents": "WAV audio and associated segmented Praat TextGrids; no IPA annotations are supplied.",
+    "provenance": "DataShare item metadata identifies James Kirby as creator, University of Edinburgh as publisher, recording location Phnom Penh, Cambodia, and recording date January 2013. The full item metadata identifies CC BY 4.0. The paper's Methods §2.1 (PDF pp. 1–2) specifies 10 native Phnom Penh Khmer speakers, 79 lexical items, three repetitions, two speech-rate conditions, the slow-and-careful instruction for the first block, frame sentence, and 61 analysed cluster items.",
+    "status_scope": "Candidate source for direct phonetic review and exact external audio/TextGrid locators; not a project IPA label source and not a complete citation-form lexical benchmark.",
+    "limitations": "The task is a controlled reading experiment in a carrier sentence, not a standalone citation-form elicitation. The slow condition is described as slowly and carefully but is not automatically equivalent to the project's careful-citation profile. The paper focuses on onset clusters and eight short-vowel comparison words; it does not establish coverage of the full series × vowel × coda × stress space. TextGrids are segmentation/measurement aids, not independent IPA transcriptions. Item-level Khmer orthography is present in archive filenames, but the complete 79-item list has not yet been enumerated or manually audited from the archive. Do not select pilot items until the archive is inspected, target-profile fit is reviewed, and each exact token locator is recorded. Attribute source and dataset under CC BY 4.0; preserve source attribution and license notices for any permitted reuse. No archive was downloaded or imported in this audit."
   }
 ]

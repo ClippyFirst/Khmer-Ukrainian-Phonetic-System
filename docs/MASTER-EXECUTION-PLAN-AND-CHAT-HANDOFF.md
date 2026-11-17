@@ -3287,3 +3287,19 @@ PR #301, #303 and #304 were closed as superseded after PR #307 merged; their bra
 - Issue #104 remains OPEN. No experts were contacted or recruited. `KHM-IPA-CONVENTION-001` remains PARTIAL / `DRAFT_NOT_APPROVED`; `KHM-GOLD-001` remains BLOCKED, adjudicated gold=0 and empirical accuracy=null.
 - Undermind's semantic/deep-search operation could not be continued in this session because its free usage limit was reached; the tool reported reset at 2026-11-16 23:30 UTC (2026-11-17 01:30 Kyiv time). No Undermind search result is claimed for this continuation.
 - No local checkout/tests were run. All code/test/build/browser/deployment evidence above is from GitHub Actions. No external data, model weights, audio, IPA labels or Ukrainian mappings were imported.
+
+## Continuation — Kirby Phnom Penh audio candidate audit (2026-11-17)
+
+- Starting main: `44d80987dc7efd461cb4e10b0524dc5c2122a9aa`; dedicated branch: `research/khmer-kirby-cluster-audio-audit-2026-11-17`.
+- Added source record `kirby2018-cluster-audio` after verifying the University of Edinburgh DataShare record and Kirby (2014) paper. The source declares CC BY 4.0 and contains 10 native Phnom Penh speakers, 79 lexical items, three repetitions, slow/fast blocks, WAV and segmented Praat TextGrid files. The paper describes the first block as slow-and-careful carrier-sentence reading and analyzes 61 cluster items across 35 onset types.
+- Added a detailed source dossier and linked it from the IPA collection playbook and corpus contract. The completion register marks `KHM-KIRBY-CLUSTER-AUDIO-001 = PARTIAL`.
+- Boundary: this is supporting audio, not IPA gold. The carrier-sentence task is not automatically equivalent to the project's careful-citation profile; the full archive item manifest and checksum have not been verified locally; no audio or labels were downloaded/imported. The slow-careful block and contrast coverage require specialist approval.
+- Research is continuing in Undermind: [Khmer Phnom Penh phonetic pilot lexical materials and source locators](https://app.undermind.ai/projects/4f071406-bdb4-4fd1-b93f-71b9d5ec661d?path=/analysis/Khmer%20Phnom%20Penh%20phonetic%20pilot%20lexical%20materials%20and%20source%20locators).
+- No experts were contacted. Issue #104 remains open; convention remains `DRAFT_NOT_APPROVED`; gold=0; empirical accuracy=null.
+
+### PR #309 exact-head verification — 2026-11-17
+
+- PR [#309](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/309) head `74622599f6128f34b3ee2fcd19e346b018d399e2`, based on `44d80987dc7efd461cb4e10b0524dc5c2122a9aa`; 7 commits ahead, 0 behind.
+- Hosted Quality workflow [44034902245](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44034902245) SUCCESS on exact head. Steps verified: IPA corpus structure validator; **417 Python tests + 70 subtests**; Node web structural/runtime, Unicode 18 parser, romanization and Ukrainian adapter checks; Vite production build.
+- This workflow has one Quality job. No Chromium/Playwright or Pages deployment workflow was triggered for this documentation/source-registry-only branch; do not claim browser or deployment verification for PR #309. No local tests were run.
+- No runtime, tests, generated files, audio payload, IPA labels, gold records or Ukrainian mappings changed. Main remains at its pre-PR base until merge; no merge performed in this continuation.
