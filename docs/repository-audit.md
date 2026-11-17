@@ -1316,3 +1316,10 @@ The mixed-script/numeral behavior is already fixed by PR #316; the residual issu
 The review identifies ALT/NOVA's 20,000-sentence manual tokenization/POS corpus (Kaing et al. 2021; DOI 10.1145/3464378) and the khPOS corpus as candidate resources, but both are declared CC BY-NC-SA 4.0; ALT is translated from English Wikinews and khPOS metadata mentions student/voter-list sources. Sung & Hwang's F1 0.906 is specific to their own dataset/test setup; Tran et al.'s 92.3% concerns dictionary-entry syllable division, not running-text word boundaries. No corpus was imported or trained on.
 
 KHM-LEXICAL-WORD-SEGMENTATION-001 is BLOCKED pending tokenization convention/use approval, license/privacy/provenance review, rights-compatible corpus selection, independent annotation/adjudication and held-out evaluation. The existing word-boundary evidence model remains profile-neutral and abstaining; no runtime word segmenter is claimed.
+
+
+## PR #322 exact-main verification — 2026-11-17
+
+PR #322's lexical-segmentation evidence audit is merged as `1cb22c9dfb5ebec539c01544d9e4270b20293b2d`. Exact-main Quality [44087269233] passed (422 Python tests + 70 subtests, corpus structural validator, web checks and Vite build); Chromium [44087269259] passed (13/13 Playwright); Pages [44087269174] passed (production browser exercise, deployment and deployed-site/runtime-asset smoke test).
+
+This verifies the documentation/evidence checkpoint and software workflows only. It does not verify Khmer lexical word segmentation, approve the IPA convention, add independent gold or establish transcription accuracy. KHM-LEXICAL-WORD-SEGMENTATION-001 remains BLOCKED; Issue #104 remains OPEN; adjudicated gold remains 0 and empirical accuracy remains null. No local tests or manual accessibility review are claimed.
