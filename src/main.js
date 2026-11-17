@@ -124,6 +124,21 @@ function tokenize(text) {
   return units;
 }
 
+function resolveRegister(base, raw) {
+  const structural = [...raw].filter((char) => char !== ZWNJ);
+  const positions = structural.flatMap((char, index) => SHIFTERS.has(char) ? [index] : []);
+  if (!positions.length) return { register: base.register, rule: null, status: "ESTABLISHED_STRUCTURE" };
+  if (positions.length > 1) return { register: base.register, rule: "MULTIPLE_REGISTER_SHIFTERS", status: "EVIDENCE_LIMITED" };
+  if (positions[0] !== 1) return { register: base.register, rule: "MISPLACED_REGISTER_SHIFTER", status: "EVIDENCE_LIMITED" };
+  const shifter = structural[positions[0]];
+  if (!SHIFTER_ELIGIBILITY[shifter]?.has(base.char)) return { register: base.register, rule: "NON_STANDARD_SHIFTER_USE", status: "EVIDENCE_LIMITED" };
+  if (base.char === "ប" && shifter === "៉") return { register: "first", rule: "BA_TO_PA_EXCEPTION", status: "ESTABLISHED_STRUCTURE" };
+  if (shifter === "៉" && base.register === "second") return { register: "first", rule: "MUUSIKATOAN", status: "ESTABLISHED_STRUCTURE" };
+  if (shifter === "៊" && base.register === "first") return { register: "second", rule: "TRIISAP", status: "ESTABLISHED_STRUCTURE" };
+  return { register: base.register, rule: "NON_STANDARD_SHIFTER_USE", status: "EVIDENCE_LIMITED" };
+}
+
+
 function scanOrthographicComponents(raw) {
   const chars = [...raw];
   const dependentVowels = new Set(signs.filter((item) => ["dependent_vowel", "composite_vowel"].includes(item.kind)).map((item) => item.char));
