@@ -1596,3 +1596,13 @@ All are leads only. No outreach, consent or appointment. This update does not sa
 | KHM-EXPERT-SHORTLIST-REVALIDATION-001 | DONE_VERIFIED (candidate screen only) | PR #319 merged as `033e979c06c30aff5569750fae824f90484558ed`. Exact-head Quality [44081155872] and Chromium [44081155831] passed; duplicate Quality [44081116226] passed. Post-merge main Quality [44081323278] passed (422 Python tests + 70 subtests, expected corpus validator state, Node/web checks, Vite build); Chromium [44081323386] passed (13/13); Pages [44081323295] passed (production browser, deploy and deployed-site/runtime-asset smoke). Candidate evidence and role/conflict limits are recorded in the playbook and Issue #104. | This status means the public-source shortlist is documented. It does not mean outreach, consent, recruitment, independent-review appointment, IPA approval, annotator recruitment or gold acceptance. No one was contacted. |
 
 Human acceptance gates remain open: IPA convention DRAFT_NOT_APPROVED; 30-item pilot BLOCKED; two annotators, separate adjudicator, non-annotating curator and private blind channel unconfirmed; adjudicated gold=0; empirical accuracy=null. Issue #104 remains OPEN. The Quality validator's `NOT_READY_NO_ADJUDICATED_GOLD` is the expected research state, not a test failure.
+
+
+## Final session checkpoint — PR #320 and exact-main verification — 2026-11-17
+
+| Work | Status | Evidence |
+|---|---|---|
+| KHM-EXPERT-SHORTLIST-REVALIDATION-001 | DONE_VERIFIED (candidate screen only) | PR #319 merged `033e979c06c30aff5569750fae824f90484558ed`; PR-head Quality [44081155872], Chromium [44081155831], exact-main Quality [44081323278], Chromium [44081323386] (13/13), Pages [44081323295] all SUCCESS. |
+| PR #320 handoff/audit/register closeout | DONE_VERIFIED | PR-head Quality [44081681961] SUCCESS; exact-main Quality [44081774790] SUCCESS (422 Python + 70 subtests), Chromium [44081774743] SUCCESS (13/13), Pages [44081774768] SUCCESS (production browser, deployment and smoke). Final main `06d0fc1c38889ea6c02d78f7f3274c835f2744e2`. |
+
+The corpus validator's `NOT_READY_NO_ADJUDICATED_GOLD` is the expected research state, not a software failure. Human gates remain open: IPA convention DRAFT_NOT_APPROVED, 30-item pilot BLOCKED, no recruited annotators/adjudicator/curator/private blind channel, gold=0, empirical accuracy=null. Issue #104 remains OPEN. No expert outreach or local tests are claimed.
