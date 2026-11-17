@@ -3580,3 +3580,20 @@ The register contains 33 entries mirrored exactly from `data/khmer/consonants.js
 Branch reconciliation: `data/pcgn-independent-vowel-source-register-2026-11-16` was not merged because its CSV and test files are byte-identical to the versions already on main; its tip is 12 commits ahead / 97 behind and offers no unique implementation to port. `feat/direct-bgn-pcgn-romanization-input-2026-11-15` was not merged wholesale (24 ahead / 163 behind); its relevant runtime and test files differ from the newer mainline and require a fresh path-level review before any selective reuse. Historical branches remain preserved.
 
 Final main: `841bf283eecf13b2e2ccc7f83f02a8c7617c7cdc`; open PRs=0; Issue #104 remains OPEN. IPA convention remains `DRAFT_NOT_APPROVED`; independently adjudicated IPA gold=0; empirical accuracy=null. No local checkout or local test execution is claimed. Repository remains an engineering-verified research prototype, not linguistically release-ready.
+
+## PR #331 skip-navigation accessibility improvement — exact-main closeout — 2026-11-17
+
+PR [#331](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/331) was squash-merged as `f594b48615a799b13ae19ad4c2c6453512b8c24d` from `a11y/skip-navigation-2026-11-17`, based on `db8596c3dd697727b0075b4142698bbcac7193f2`.
+
+Both `index.html` and `system.html` now expose a first-focusable Ukrainian skip link, visible on keyboard focus, targeting the main landmark with programmatic focus. `src/styles/main.css` styles the focus-visible link, and `tests/browser/site.spec.js` verifies Tab focus, visibility, Enter activation, URL fragment and main-target focus on both pages.
+
+Exact PR-head `0013c41583669503624b5c14cff7dc971f72a484`:
+- Quality [44143747834](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44143747834) SUCCESS: **427 Python tests + 70 subtests**, corpus validator's expected `NOT_READY_NO_ADJUDICATED_GOLD`, Node/web checks and Vite production build.
+- Chromium [44143747746](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44143747746) SUCCESS: **16/16 Playwright tests**.
+
+Post-merge main `f594b48615a799b13ae19ad4c2c6453512b8c24d`:
+- Quality [44144068435](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44144068435) SUCCESS: **427 Python tests + 70 subtests**, web checks and production build.
+- Chromium [44144068416](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44144068416) SUCCESS: **16/16 Playwright tests**.
+- Pages [44144068336](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44144068336) SUCCESS: production browser exercise, deployment of the exact main SHA, and deployed HTML/JS/CSS smoke checks.
+
+`KHM-UI-SKIP-NAV-001 = DONE_VERIFIED` for the bounded implementation and automated Chromium contract. `KHM-UI-001` remains PARTIAL: no manual screen-reader/assistive-technology review, full keyboard traversal, contrast audit, zoom/reflow or real mobile-device testing is claimed. No local tests were run. No linguistic rules, IPA labels, gold records, source rights or pronunciation outputs changed. Issue #104 remains OPEN; IPA convention `DRAFT_NOT_APPROVED`; adjudicated gold=0; empirical accuracy=null.
