@@ -218,3 +218,9 @@ The source registry now records three additional evidence boundaries:
 - **Khmer Acoustic Model:** blocked until the full versioned dictionary/model/audio artifacts, checksums, artifact-specific rights, corpus manifest and item-level provenance are supplied. A six-line sample and forced-alignment metrics cannot validate G2P or IPA accuracy.
 
 None of these sources authorizes annotation or import into `records.jsonl` / `gold.tsv`. Candidate comparisons must remain isolated from blind expert pilot/test material and must record source revision, variant policy, profile mismatch and rights status.
+
+## Additional Phnom Penh audio candidate — Kirby cluster recordings (2026-11-17)
+
+The [Kirby 2013 Phnom Penh cluster-audio dataset](https://datashare.ed.ac.uk/items/0d735b30-f6ef-4e14-b6f0-a6b5a136e240) is now registered as `kirby2018-cluster-audio`. Its DataShare metadata states CC BY 4.0 and describes 10 native Phnom Penh speakers, 79 lexical items, three repetitions and two speech-rate conditions, with WAV and segmented Praat TextGrid files. The related 2014 study's first block was read slowly and carefully in a carrier sentence; 61 items with 35 onset-cluster types were analysed.
+
+This is a promising **candidate audio source**, not IPA gold and not yet an approved source for the careful-citation pilot. The carrier-sentence task is not standalone citation-form elicitation; the paper's cluster focus does not establish full contrast coverage; and the 79-item filename list has not yet been enumerated from the 477.8 MB archive. See the [source audit](ipa-gold/khmer-kirby-cluster-audio-source-audit.md) for exact locators, checksum, named paper examples and acceptance boundaries. Do not start annotation or claim profile fit until a qualified reviewer approves the slow-careful condition and a candidate list is mapped to the approved contrast matrix.
