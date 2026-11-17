@@ -1323,3 +1323,12 @@ KHM-LEXICAL-WORD-SEGMENTATION-001 is BLOCKED pending tokenization convention/use
 PR #322's lexical-segmentation evidence audit is merged as `1cb22c9dfb5ebec539c01544d9e4270b20293b2d`. Exact-main Quality [44087269233] passed (422 Python tests + 70 subtests, corpus structural validator, web checks and Vite build); Chromium [44087269259] passed (13/13 Playwright); Pages [44087269174] passed (production browser exercise, deployment and deployed-site/runtime-asset smoke test).
 
 This verifies the documentation/evidence checkpoint and software workflows only. It does not verify Khmer lexical word segmentation, approve the IPA convention, add independent gold or establish transcription accuracy. KHM-LEXICAL-WORD-SEGMENTATION-001 remains BLOCKED; Issue #104 remains OPEN; adjudicated gold remains 0 and empirical accuracy remains null. No local tests or manual accessibility review are claimed.
+
+
+## PR #324 Sok & Adams rule-transfer audit — final verification — 2026-11-17
+
+PR [#324](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/324) was squash-merged as `3f3352e94e993ab54a79c952bf6c1e7f9d187ae6` from branch `research/sok-adams-rule-transfer-audit-2026-11-17`, based on `460a3df4476f9f4beba7649909be101ef5331336`. Its exact-head Quality [44105695150] passed (422 Python tests + 70 subtests; corpus validator returned the expected `NOT_READY_NO_ADJUDICATED_GOLD`; web checks and production build passed), and Chromium [44105694990] passed (13/13 Playwright tests). The duplicate exact-head Quality run [44105669690] also passed. Post-merge mainline Quality [44105872935], Chromium [44105872929] (13/13), and Pages [44105872984] all passed. Pages deployed the exact main SHA and the deployed-site/runtime-asset smoke test passed.
+
+The visual table audit is DONE_VERIFIED as source inspection only. `KHM-SOK-ADAMS-RULE-TRANSFER-001` remains BLOCKED pending qualified contemporary Phnom Penh careful-citation review and item-level positive/negative evidence. No phonological rule, IPA label, corpus row, Ukrainian mapping or generated artifact changed. Issue #104 remains OPEN; IPA convention remains `DRAFT_NOT_APPROVED`; adjudicated gold=0; empirical accuracy=null. No local tests or external expert outreach are claimed.
+
+Final main: `3f3352e94e993ab54a79c952bf6c1e7f9d187ae6`. No open PRs remain at this checkpoint. Repository is engineering/build verified and research-ready as a partial prototype, not linguistically release-ready.
