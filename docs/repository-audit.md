@@ -1355,3 +1355,8 @@ Final main at this checkpoint: `5a4f97c2c572020829b9c9eff7fad8a3c9d32e0c`; open 
 ## Khmer positional onset evidence registry — 2026-11-17
 
 A bounded evidence-container implementation records all 33 current consonant onset hints in `data/khmer-positional-onset-evidence.json`, with schema `schemas/khmer-positional-onset-evidence.schema.json` and parity/non-promotion tests in `tests/test_khmer_positional_onset_evidence.py`. Each record points to the corresponding character row in Richard Ishida's *Khmer (Cambodian) Orthography Notes*, Basic consonants table. That work is PARTIAL: this is a specialist reference, not a primary phonetic source or project-profile adjudication. The register is not a runtime dependency and does not alter the existing provisional hint. Primary phonetic evidence and qualified review remain outstanding; no vowel, coda, cluster, COENG/subscript realization, tone, canonical IPA or Ukrainian output is inferred.
+
+
+## PR #329 positional onset registry — final verification — 2026-11-17
+
+PR [#329](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/329) was squash-merged as `841bf283eecf13b2e2ccc7f83f02a8c7617c7cdc`. Exact-head Quality [44118873208] passed with **427 Python tests + 70 subtests**, and Chromium [44118873039] passed. Post-merge mainline Quality [44119105502], Chromium [44119105743], and Pages [44119105718] (build, deploy, deployed-site/runtime smoke) all passed. The evidence register contains 33 exact mirrors of existing onset inventory hints; it does not change runtime. Its acceptance is limited to a specialist-reference evidence container and tests. Primary phonetic evidence, project-profile review and independent adjudication remain outstanding. No IPA gold or empirical accuracy is claimed.
