@@ -1493,3 +1493,30 @@ A fifth focused pass compared ten additional BGN/PCGN feature branches with exac
 | `feat/pcgn-normal-dependent-closed-syllable-assembly-2026-11-16` | 7 ahead / 98 behind | Its dependent closed-syllable assembly schema is byte-identical to main (blob SHA `e97b27627c71951cc81154f94c083138608c3dcc`). Already integrated. |
 
 No PCGN rule, source evidence, IPA, pronunciation, corpus, Ukrainian mapping or runtime behavior was changed. All branches remain preserved. This audit does not claim BGN/PCGN compliance or independent linguistic adjudication. `KHM-BRANCH-AUDIT-001` remains PARTIAL: 35 representative branches now have focused dispositions; full reconciliation of the remaining historical refs is still outstanding.
+
+
+## BGN/PCGN rule-note branch reconciliation — 2026-11-17
+
+A sixth focused pass compared five rule-note branches with main at `c01879e9326f96be24160e64bfd99fe78d4c2767`. These branches add source-specific PCGN note decisions; the following verifies repository integration only, not independent correctness of the interpretation.
+
+| Branch | Compare to main | Content evidence and disposition |
+|---|---:|---|
+| `feat/pcgn-note4-glottal-onset-20261115` | 12 ahead / 128 behind | Its glottal-onset decision schema is byte-identical to main (SHA `ed2b915ef85de8006bcb6497a59e9e07d2d03a6f`); main's shared PCGN module and tests are later. |
+| `feat/pcgn-note5-shortening-context-20261115` | 13 ahead / 136 behind | Its shortened-vowel decision schema is byte-identical to main (SHA `9fa5887eff4fefc63efdbc5d040ba0f1299f1c7e`); no older module/test overwrite. |
+| `feat/pcgn-note6-robat-component-20261115` | 17 ahead / 134 behind | Its Robat decision schema is byte-identical to main (SHA `be85d67cff8dd2ce79261b08224b45fc3307d078`); implementation is already in the later main PCGN module. |
+| `feat/pcgn-note7-ahsda-context-20261115` | 10 ahead / 132 behind | Its Ahsda decision schema is byte-identical to main (SHA `bfcf5d7cd053578a1f9a9bac5d9ca80ea73815c5`); no port. |
+| `feat/pcgn-note8-toandakhiat-20261115` | 10 ahead / 130 behind | Its Toandakhiat decision schema is byte-identical to main (SHA `69ac7b0f25d5e1dc7a9c1f0271f4360b78b5a67a`); no port. |
+
+## BGN/PCGN alternatives and special syllable-assembly branch reconciliation — 2026-11-17
+
+A seventh focused pass compared five additional branches with main at `c01879e9326f96be24160e64bfd99fe78d4c2767`.
+
+| Branch | Compare to main | Content evidence and disposition |
+|---|---:|---|
+| `feat/pcgn-note9-alternatives-20261115` | 9 ahead / 122 behind | Its independent-vowel decision schema is byte-identical to main (SHA `ce7397d501bbe535f5748f242916f29c9cecae7f`); the shared module/test and notes inventory on main are later. |
+| `feat/pcgn-anusvara-visarga-table-2026-11-15` | 10 ahead / 120 behind | Its anusvara/visarga decision schema is byte-identical to main (SHA `92d9c5594059d0925b0b7cbef83195821f5951b6`); the source table and implementation are already present on main. |
+| `feat/pcgn-anusvara-visarga-syllable-assembly-2026-11-16` | 3 ahead / 79 behind | Its `pcgn.py` is an earlier 119,002-byte snapshot than main's 120,449-byte implementation. No missing change justified replacing or merging the module. |
+| `feat/pcgn-alif-dependent-closed-syllable-assembly-2026-11-16` | 8 ahead / 85 behind | Its glottal-dependent closed-syllable schema is byte-identical to main (SHA `bce2295940726075a2e7a8c97d13224ca8979865`). Already integrated. |
+| `feat/pcgn-alif-shortened-closed-syllable-assembly-2026-11-16` | 9 ahead / 83 behind | Its glottal-shortened closed-syllable schema is byte-identical to main (SHA `b96adf6a9eca3e6d638a5fcca11a4e32329da8f2`). Already integrated. |
+
+No PCGN rule, source evidence, IPA, pronunciation, corpus, Ukrainian mapping or runtime behavior changed. All historical refs remain preserved. These checks do not establish BGN/PCGN compliance or independent linguistic adjudication. `KHM-BRANCH-AUDIT-001` remains PARTIAL: 45 representative branches have focused dispositions; all remaining historical refs still require reconciliation.
