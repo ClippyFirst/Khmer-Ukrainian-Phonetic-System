@@ -2134,3 +2134,43 @@ No runtime, linguistic rules, corpus rows, IPA labels or benchmark values change
 ## PR #359 post-merge verification correction — 2026-11-18
 
 The previously pending post-merge Chromium run [44277328915](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277328915) subsequently completed SUCCESS. For main `da8054b893bf664a030ab9562e363c983815d344`, all three post-merge workflows completed SUCCESS: Quality [44277815119](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277815119), Chromium [44277815233](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277815233), and Pages build/deploy [44277815127](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277815127).
+
+
+## Audit branch-family reconciliation — 2026-11-18
+
+- Refreshed all branch API pages at main `3731a16cbb8553a6d3db9f7fc28708030a187d06`: **233 refs / 233 unique tips** (main + 232 non-main), zero duplicate tip SHAs. Prefix counts: a11y 2, audit 18, benchmark 1, ci 1, data 4, docs 102, feat 50, fix 14, main 1, release 1, research 29, test 10. Open PRs: 0; open issue #104 remains. This inventory includes the merged PR #361 source branch, which is preserved.
+- Compared all **18 `audit/*` refs** to current main. The comparison results and focused content dispositions are below. All but the restored phonemizer workflow branch are documentation-only; the workflow branch's `.github/workflows/optional-khmerphonemizer-smoke.yml` is byte-identical to main (blob SHA `a89a848d66810225bbcc2cc5c9143b94304a680d`). No code port is needed. The branch created for PR #361 now has its docs content merged into main; the source branch remains preserved.
+
+| Audit branch | Ahead | Behind | Content disposition |
+|---|---:|---:|---|
+| `audit/complete-docs-branch-family-reconciliation-2026-11-17` | 3 | 11 | docs-only |
+| `audit/complete-feature-and-test-branch-reconciliation-2026-11-17` | 3 | 14 | docs-only |
+| `audit/complete-fix-and-release-branch-reconciliation-2026-11-17` | 3 | 12 | docs-only |
+| `audit/complete-remaining-branch-families-2026-11-17` | 0 | 10 | no changed files |
+| `audit/complete-research-branch-family-reconciliation-2026-11-17` | 3 | 13 | docs-only |
+| `audit/continue-historical-branch-reconciliation-2026-11-17` | 3 | 19 | docs-only |
+| `audit/continue-pcgn-branch-reconciliation-2026-11-17` | 3 | 17 | docs-only |
+| `audit/continue-pcgn-note-and-special-syllable-branch-reconciliation-2026-11-17` | 3 | 15 | docs-only |
+| `audit/continue-pcgn-vowel-and-syllable-branch-reconciliation-2026-11-17` | 3 | 16 | docs-only |
+| `audit/continue-typed-ipa-and-coverage-branch-reconciliation-2026-11-17` | 3 | 18 | docs-only |
+| `audit/current-branch-inventory-2026-11-16` | 2 | 125 | docs-only |
+| `audit/final-branch-inventory-closeout-2026-11-17` | 3 | 20 | docs-only |
+| `audit/pr153-diff-reconciliation-2026-11-15` | 2 | 208 | docs-only |
+| `audit/reconcile-research-branch-family-reconciliation-2026-11-18` | 6 | 0 | PR #361 merged; content now on main |
+| `audit/reconcile-selected-historical-branch-content-2026-11-17` | 6 | 21 | docs-only |
+| `audit/refresh-branch-inventory-2026-11-17` | 3 | 22 | docs-only |
+| `audit/refresh-live-inventory-and-reconcile-pcgn-port-2026-11-18` | 3 | 2 | docs-only |
+| `audit/restore-pinned-khmer-phonemizer-smoke-2026-11-18` | 8 | 8 | workflow file byte-identical to main |
+
+- These are branch-tip compare and focused content checks, not a complete per-file semantic review of every changed historical file or full PR ancestry audit. The audit branches mostly carry snapshots of previous inventory/reconciliation reports, not implementation candidates. No audit branch is merged wholesale; no historical branch is deleted or force-updated.
+- `KHM-BRANCH-AUDIT-001` remains **PARTIAL**. The research family (29 refs) and audit family (18 refs) now have compare inventories; focused semantic checks cover only selected implementation/data paths. Remaining docs, a11y, ci, benchmark and other historical families still require complete changed-file and PR-ancestry review. No runtime, linguistic rules, IPA labels, corpus rows or benchmark values changed.
+
+## PR #361 post-merge closeout — 2026-11-18
+
+PR [#361](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/361) merged as `3731a16cbb8553a6d3db9f7fc28708030a187d06`.
+
+Exact PR-head checks on `036fabab2606f2b4269088a50e1610bb3cf1f0dd` completed SUCCESS:
+- Quality [44282464851](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44282464851).
+- Chromium [44282464691](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44282464691).
+
+Post-merge mainline Quality, Chromium and Pages runs were still in progress at this closeout: [44282675127](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44282675127), [44282675115](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44282675115), [44282675129](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44282675129). Update this status only after the runs complete.
