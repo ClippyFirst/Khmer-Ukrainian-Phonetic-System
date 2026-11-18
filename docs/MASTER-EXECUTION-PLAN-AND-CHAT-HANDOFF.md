@@ -3979,3 +3979,8 @@ The branch inventory is refreshed to 224 refs / 223 non-main refs, but a full pe
 Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains the sole open issue. The current `data/benchmark/gold.tsv` contains only its header; `annotations.jsonl`, `adjudications.jsonl`, `records.jsonl` and `splits.jsonl` are empty. The issue comments still do not record any expert contact or recruitment. A versioned IPA convention requires expert approval; two independent annotators, a separate adjudicator, a curator, a private blind intake channel, source-rights review and 30 adjudicated items remain outstanding. No accuracy score is available. This cannot be closed by generating synthetic labels or treating source-attested examples as gold.
 
 **Overall state:** research-ready partial prototype, not linguistically release-ready.
+
+ 
+### Live inventory after creating continuation branch (2026-11-18)
+
+The continuation branch for PR #353 adds one new preserved audit ref after the 224-ref baseline snapshot above. The live listing now contains **225 refs and 225 unique tip SHAs** (main + 224 non-main); prefix counts are a11y 2, audit 16, benchmark 1, ci 1, data 4, docs 97, feat 50, fix 14, release 1, research 28, test 10. While PR #353 is open, the live count is 1 open PR (#353) and 1 open issue (#104). This is a separate timestamped inventory snapshot; it does not change the earlier 224-ref snapshot or claim full historical file/ancestry review.
