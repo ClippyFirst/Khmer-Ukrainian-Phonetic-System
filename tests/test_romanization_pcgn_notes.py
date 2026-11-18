@@ -101,12 +101,12 @@ def test_pcgn_notes_registry_is_not_misrepresented_as_ipa_or_ukrainian_gold():
 
 
 
-def test_pcgn_note_two_registry_preserves_ba_triisap_exception_and_limits():
+def test_pcgn_note_two_registry_preserves_ba_muusikatoan_exception_and_limits():
     note = next(row for row in _rows() if row["note_number"] == "2")
     assert "MUUSIKATOAN" in note["source_summary"]
     assert "TRIISAP" in note["source_summary"]
     assert "Note 3 specifies" in note["conditions_or_exceptions"]
-    assert "BA+TRIISAP" in note["limitations"]
+    assert "BA+MUUSIKATOAN" in note["limitations"]
     assert "series metadata only" in note["limitations"]
 
 
@@ -127,3 +127,24 @@ def test_pcgn_note_nine_registry_preserves_alternatives_without_selecting_one():
     assert "ŏ or ŭ" in note["source_summary"]
     assert "both alternatives" in note["conditions_or_exceptions"]
     assert "no alternative is selected" in note["limitations"].lower()
+
+
+def test_pcgn_note_two_registry_maps_shifter_names_to_unicode_codepoints():
+    import unicodedata
+
+    note_two = next(row for row in _rows() if row["note_number"] == "2")
+    note_three = next(row for row in _rows() if row["note_number"] == "3")
+
+    assert "TRIISAP ◌៊ (U+17CA)" in note_two["source_summary"]
+    assert "MUUSIKATOAN ◌៉ (U+17C9)" in note_two["source_summary"]
+    assert unicodedata.name(chr(0x17ca)) == "KHMER SIGN TRIISAP"
+    assert unicodedata.name(chr(0x17c9)) == "KHMER SIGN MUUSIKATOAN"
+    assert "TRIISAP" in note_two["conditions_or_exceptions"]
+    assert "MUUSIKATOAN" in note_three["source_summary"]
+    assert "TRIISAP" not in note_three["source_summary"]
+
+
+def test_pcgn_note_three_ba_exception_uses_muusikatoan_not_triisap():
+    note = next(row for row in _rows() if row["note_number"] == "3")
+    assert "MUUSIKATOAN (◌៉, U+17C9)" in note["source_summary"]
+    assert "TRIISAP" not in note["source_summary"]

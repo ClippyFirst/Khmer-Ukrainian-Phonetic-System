@@ -72,7 +72,7 @@ def test_pcgn_ba_b_p_alternation_uses_note3_exceptions():
     cases = (
         ("ប", "b", None),
         ("ប៉", "p", "BA_WITH_MUUSIKATOAN_P_IN_A_SERIES"),
-        ("ប៊", "p", "BA_WITH_TRIISAP_P_IN_A_SERIES"),
+        ("ប៊", "b", None),
         ("ប្ក", "p", "BA_WITH_FOOT_P_IN_A_SERIES"),
     )
     for source, expected, exception in cases:
