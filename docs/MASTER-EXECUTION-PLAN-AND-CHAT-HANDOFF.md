@@ -3901,3 +3901,36 @@ Representative content checks confirmed:
 - The accessibility, romanization, PCGN assembly, parser, mixed-script and source-audit closeout branches are historical documentation snapshots of work already reflected in the current implementation, tests and audit registers.
 
 **Disposition:** all 96 `docs/*` refs have compare/file-scope dispositions. No documentation branch was merged wholesale; no code or source data was copied from a stale checkpoint. All branches remain preserved. This closes the `docs/*` family comparison pass, not the repository-wide branch audit until all other branch prefixes and PR ancestry have been reconciled.
+
+
+## PCGN anusvara/visarga syllable assembly recovered from a historical branch — 2026-11-18
+
+A focused comparison of `feat/pcgn-anusvara-visarga-syllable-assembly-2026-11-16` against the then-current mainline found a genuinely distinct, bounded assembler that was not present in main. The historical branch was 3 commits ahead / 77 behind and changed only `src/khmer_ua/pcgn.py` and `tests/test_pcgn_anusvara_visarga_syllable_assembly.py`. Its test referred to `schemas/pcgn-anusvara-visarga-syllable-assembly.schema.json`, but that schema was absent from the historical branch.
+
+Rather than merging the stale branch snapshot, the feature was ported onto current main in PR [#351](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/351), merged as `5fc517df5708424dea7a67da36bded581e659145`.
+
+The port adds:
+- `PCGNAnusvaraVisargaSyllableAssembly` and `assemble_pcgn_anusvara_visarga_syllable`, composing the existing consonant, series and exact eight-row anusvara/visarga resolvers;
+- caller-supplied onset and complete-syllable boundaries, with explicit NGA identification required for table row 8;
+- a JSON Schema, package-level exports and tests covering all eight rows in both series plus mismatched-onset, missing/incorrect-coda and malformed/unlisted abstention cases.
+
+Acceptance boundary is deliberately narrow: output is PCGN orthographic romanization only. `ipa` and `ukrainian` remain null; no segmentation is inferred and no phonetic or Ukrainian result is promoted.
+
+Verification:
+- PR-head Quality run [44256391593](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44256391593) SUCCESS; Python suite `431 passed, 70 subtests passed`, IPA gold engineering gate reports expected `NOT_READY_NO_ADJUDICATED_GOLD`, web checks and build passed.
+- PR-head Chromium run [44256391474](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44256391474) SUCCESS.
+- Post-merge mainline Quality [44256579643](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44256579643), Chromium [44256579618](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44256579618), and Pages build/deploy [44256579655](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44256579655) SUCCESS. Mainline Python suite also reports `431 passed, 70 subtests passed`; Pages artifact upload completed.
+
+The historical source branch remains preserved. This is a recovered implementation, not a linguistic gold milestone; IPA convention approval, adjudicated IPA gold, word segmentation and release readiness remain unchanged.
+
+
+## PCGN feature-branch family content reconciliation — 2026-11-18
+
+Compared the 28 pre-existing `feat/pcgn-*` branches against current main and inspected the source-module declarations for the 28 corresponding historical snapshots. The audit was deliberately content-level rather than treating ahead/behind counts as merge recommendations.
+
+- The 27 other branch snapshots' top-level PCGN classes/functions are all present in the current `src/khmer_ua/pcgn.py` or `src/khmer_ua/pcgn_unicode.py`; their modules are older, narrower snapshots and no wholesale port is warranted.
+- The remaining unique declaration was `assemble_pcgn_anusvara_visarga_syllable` from `feat/pcgn-anusvara-visarga-syllable-assembly-2026-11-16`. It is now integrated by PR #351 with the missing schema, package exports and tests; the source branch itself remains untouched.
+- Selected data checks confirmed that the PCGN consonant table, final-consonant table and anusvara/visarga table match current main by blob SHA. The main PCGN notes register is newer than the older Note 1–10 branch snapshots.
+- All reviewed historical branches remain preserved. No broad merge, branch deletion, force update or unsupported linguistic promotion occurred.
+
+This closes a focused module-declaration reconciliation of the 28-branch PCGN feature family. It does not claim full file-by-file review of every changed test, schema, documentation and PR ancestry across all 28 refs; the repository-wide historical branch audit remains PARTIAL until that wider scope is completed.
