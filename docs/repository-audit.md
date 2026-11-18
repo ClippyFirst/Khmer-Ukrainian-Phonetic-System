@@ -2446,3 +2446,21 @@ The latest semantic spot-check of `tests/browser/site.spec.js` found two double-
 Verification: PR-head Quality [44366919812] SUCCESS (432 Python tests + 70 subtests, corpus validator, web checks/build); PR-head Chromium [44366919747] SUCCESS (21/21). Exact-main Quality [44367112353], Chromium [44367112434], and Pages build/deploy plus production browser/deployed-asset smoke [44367112407] all SUCCESS.
 
 Classification: **DONE_VERIFIED** for this narrow test correction. The helper still checks accessible-name sources structurally and does not implement the full Accessible Name and Description Computation algorithm. It is not a full WCAG audit. No runtime or linguistic output/data changed. Manual accessibility remains PARTIAL; Issue #104 remains BLOCKED (adjudicated gold 0; accuracy null); root license remains BLOCKED pending owner decision; full historical semantic re-adjudication remains PARTIAL.
+
+
+## PR #393 — canonical closeout for PR #392 — 2026-11-18
+
+PR [#393](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/393) merged by squash as `991d7a1901263743464a41403b3f3936ee33daf1`, with exact PR head `0bab97e4b9ca3b3503c61faf3375635581f80ad4` and base `9a5da179316c3a40ec159b11c0c936a2c1f9d551`. It updates the three existing canonical records in place to document PR #392's accessibility-smoke regex correction, its exact-head checks, exact-main checks, and the unchanged research gates. This is documentation-only; it changes no runtime code, phonological rule, IPA label, Ukrainian mapping, corpus row, source-rights decision, gold data or benchmark result.
+
+Exact PR-head Quality [44367427914](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44367427914) — SUCCESS.
+
+Exact post-merge main verification on `991d7a1901263743464a41403b3f3936ee33daf1`:
+- Quality [44367546616](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44367546616) — SUCCESS: 432 Python tests + 70 subtests; corpus validator returned the expected `NOT_READY_NO_ADJUDICATED_GOLD`; browser contract checks and production build passed.
+- Chromium [44367546812](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44367546812) — SUCCESS: 21/21 Playwright tests.
+- GitHub Pages [44367546866](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44367546866) — SUCCESS: production build, Chromium exercise, deployment and published-site/runtime-asset smoke; build and deploy jobs both completed.
+
+Live branch inventory after PR #393: **265 refs / 265 unique tip SHAs**. Prefix counts: a11y 2, audit 37, benchmark 1, ci 1, data 4, docs 110, feat 50, fix 16, main 1, release 1, research 29, test 13. Open PRs: 0; open non-PR issue: #104 only. All historical branches remain untouched; no branch was deleted or force-updated.
+
+Task ledger: PR #392 accessibility-smoke regex correction and PR #393 canonical documentation closeout — **DONE_VERIFIED**. Manual accessibility KHM-UI-001 remains **PARTIAL** pending assistive-technology, exhaustive keyboard, zoom/reflow, complete contrast-context and real-device checks. Full historical semantic re-adjudication remains **PARTIAL**. Issue #104's independent IPA gold pilot remains **BLOCKED**: convention `DRAFT_NOT_APPROVED`, no confirmed appointments or private blind-intake dry run, rights-cleared 30-item packet not established, adjudicated gold = 0 and empirical accuracy = null. Root license remains **BLOCKED** pending owner decision. External benchmark integration remains **DEFERRED** pending rights/provenance and a valid independent evaluation set.
+
+No local checkout or local tests are claimed; all verification above is from GitHub Actions on the exact PR head and exact merged main SHA. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
