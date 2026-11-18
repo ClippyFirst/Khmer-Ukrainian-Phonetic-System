@@ -2066,3 +2066,21 @@ Compared all **15 `fix/*` refs and the single `release/*` ref** against current 
 Queried GitHub's all-state pull-request list by exact head branch for all 16 refs. Each ref has a corresponding PR; 13 PRs are merged, while parser-rejection PRs #288, #289 and #292 are closed unmerged as superseded/duplicate work. Their functional lineage is preserved by merged PR #293, which follows merged PR #291 and ports the remaining rejected-span reason/fixture details onto the latest packed parser. Specifically: #288 was superseded after main preserved both BNF S-production role assignments; #289 was superseded by #292 on a newer packed-parser base; #292 was closed after main independently merged the diagnostics and #293 carried the distinct reason/fixture refinements. No unmerged PR contained a unique surviving implementation absent from main in the checked paths.
 
 PR mapping: #312 explicit IPA kind; #201 unconverted romanizer guard; #9 benchmark reproducibility; #289/#288/#292 rejected-span/parser work (closed unmerged); #293 merged rejection-reason and Unicode fixture continuation; #280 typed partial results; #159 unmodeled-letter trace; #316 mixed-script numeral boundaries; #194 mixed-script romanization guard; #255 PCGN final consonant context; #204 shortened-vowel inventory; #365 TN #61 source metadata; #2 Pages coverage report; #152 deterministic rule engine.
+
+
+## Benchmark and CI branch-family reconciliation — 2026-11-18
+
+Compared both remaining specialized workflow refs with current main `190b9c3f1096282f9dc0289c55e8731cbcf7e85d`.
+
+| Branch | Ahead | Behind | PR ancestry | Disposition |
+|---|---:|---:|---|---|
+| `benchmark/current-engine-2026-11-11` | 1 | 243 | No PR found for exact head branch | DEFERRED; do not merge workflow until external dataset rights and provenance are established |
+| `ci/khmer-g2p-smoke-2026-10-24` | 2 | 531 | PR #8 merged 2026-10-24 | Superseded by current pinned/manual workflows; no old workflow restoration |
+
+### Evidence and scope
+
+- The benchmark branch contains a unique 6,006-byte `.github/workflows/benchmark-current-engine.yml` absent from main. It checks out MekongPhon and `neurlang/dataset` at pinned commits, then compares the deterministic engine with source-reported IPA from both cohorts. Its own output labels comparisons `SOURCE_ATTESTED_CONCORDANCE_NOT_GOLD`, but the workflow does not resolve item-level rights/provenance for the Neurlang lexicon or provide independent adjudication. It therefore remains DEFERRED; no model score, accuracy or gold claim is accepted. The branch is preserved.
+- The CI branch's 1,145-byte `optional-khmer-g2p-benchmark.yml` is the old unpinned `khmerphonemizer` workflow (actions v4, unpinned package). Main's 1,443-byte workflow is now manual-dispatch-only and runs the pinned MekongPhon diagnostic; a separate `optional-khmerphonemizer-smoke.yml` provides the pinned `khmerphonemizer==0.0.3` raw-output smoke with artifact integrity reporting. PR #8's old workflow is therefore superseded, not restored.
+- PR #370's fix/release audit and PR #369's audit-family closeout are merged before this checkpoint. All 240 pre-existing branch refs remain preserved; no benchmark branch was executed in this pass.
+
+**Benchmark/CI family disposition:** compare and ancestry checks complete for both refs. The benchmark workflow is explicitly DEFERRED pending rights/provenance; the CI workflow is superseded by current pinned workflows. Repository-wide `KHM-BRANCH-AUDIT-001` remains PARTIAL until remaining all-family PR ancestry and semantic content review are complete. Issue #104 remains open; independent adjudicated IPA gold = 0; empirical accuracy = null. No runtime, IPA, Ukrainian output, corpus, benchmark values or rights decisions changed. No local checkout or local tests are claimed.
