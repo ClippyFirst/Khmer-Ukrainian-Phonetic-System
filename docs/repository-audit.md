@@ -2353,3 +2353,23 @@ No runtime, phonological rules, IPA correspondences, Ukrainian mappings, source 
 - Scope is strictly notation validation. No source-language phonology, IPA gold, Ukrainian mapping, corpus or benchmark data changed. Do not interpret this gate as pronunciation validation.
 - Follow-up semantic spot-checks of PR #287 (Unicode 18 grammar-role ambiguity and packed parse forest) and PR #185 (typed hybrid provider bridge with deterministic final-output authority) found their documented boundaries represented in current main; no duplicate changes were needed.
 - Remaining P0 research blocker unchanged: Issue #104 requires an approved convention, independent experts/adjudicator/curator, blind intake, rights-cleared lexical items and adjudication. Gold 0; accuracy null. Manual accessibility and root-license owner decision remain outstanding; full historical semantic review remains PARTIAL.
+
+
+## PR #385 and exact-main verification — 2026-11-18
+
+PR [#385](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/385) merged by squash as `56796f4f0facb161f2d659bfe8b8d7e9b27d9262`. Exact PR head: `b6ae553598275cb33ab3cd7aadf5a13c32a5e4a6`; base: `70b381d41f00f89bb94c3694b1c6faa692bfe34d`. The PR updates only the canonical handoff, linguistic completion register and repository audit to record the PR #384 tie-bar correction and semantic spot-checks; no runtime or linguistic data changed.
+
+Exact PR-head checks on `b6ae553598275cb33ab3cd7aadf5a13c32a5e4a6`:
+- Quality [44315782204](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44315782204) — SUCCESS.
+- Khmer browser smoke [44315782121](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44315782121) — SUCCESS.
+
+Exact post-merge mainline checks on `56796f4f0facb161f2d659bfe8b8d7e9b27d9262`:
+- Quality [44315928573](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44315928573) — SUCCESS.
+- Chromium [44315928755](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44315928755) — SUCCESS.
+- GitHub Pages build/deploy and deployed-site runtime-asset smoke [44315928027](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44315928027) — SUCCESS; both build and deploy jobs completed successfully.
+
+Live branch inventory after PR #385: **257 refs / 257 unique tip SHAs**. Prefix counts: a11y 2, audit 35, benchmark 1, ci 1, data 4, docs 107, feat 50, fix 16, main 1, release 1, research 29, test 10. Open PRs: 0. Open non-PR issue: #104 only.
+
+Task ledger: PR #385 documentation closeout and exact-main Quality/Chromium/Pages checks — **DONE_VERIFIED**. The PR #384 tie-bar validator remains a notation/metadata structural check only. Independent adjudicated IPA gold remains 0 and empirical accuracy remains null; Issue #104 remains **BLOCKED**** by the unapproved convention, missing independent annotators/adjudicator/curator, private blind intake and rights-cleared source packet. Manual accessibility and complete historical semantic re-adjudication remain **PARTIAL**; root license remains **BLOCKED** on owner decision; external benchmark integration remains **DEFERRED** pending rights/provenance and a valid independent evaluation set.
+
+No local checkout or local tests were run. All verification above is from GitHub Actions on the exact PR head and exact merged main SHA. Repository status remains **research-ready partial prototype**, not linguistically validated or release-ready.
