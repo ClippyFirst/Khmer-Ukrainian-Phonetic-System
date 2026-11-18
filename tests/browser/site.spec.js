@@ -225,3 +225,40 @@ test("shared onset fallback fixture keeps canonical output unresolved", async ({
     await expect(page.locator(".unit-detail")).toHaveAttribute("data-fallback-position", item.position);
   }
 });
+
+
+test("service page keeps visible controls usable by keyboard after results appear", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("ក");
+  const example = page.getByRole("button", { name: /Приклад/ });
+  await example.focus();
+  await expect(example).toBeFocused();
+  const outline = await example.evaluate(element => {
+    const style = getComputedStyle(element);
+    return { width: style.outlineWidth, style: style.outlineStyle };
+  });
+  expect(outline.width).not.toBe("0px");
+  expect(outline.style).not.toBe("none");
+
+  const clear = page.getByRole("button", { name: "Очистити" });
+  await clear.focus();
+  await page.keyboard.press("Space");
+  await expect(page.locator("#results")).toBeHidden();
+  await expect(page.locator("#empty")).toBeVisible();
+});
+
+test("service and methodology pages do not create document-level horizontal overflow on narrow screens", async ({ page }) => {
+  for (const path of ["/", "/system.html"]) {
+    for (const width of [320, 375, 420]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(path);
+      const dimensions = await page.evaluate(() => ({
+        viewport: document.documentElement.clientWidth,
+        document: document.documentElement.scrollWidth,
+        body: document.body.scrollWidth,
+      }));
+      expect(dimensions.document, `${path} at ${width}px: ${JSON.stringify(dimensions)}`).toBeLessThanOrEqual(dimensions.viewport);
+      expect(dimensions.body, `${path} at ${width}px: ${JSON.stringify(dimensions)}`).toBeLessThanOrEqual(dimensions.viewport);
+    }
+  }
+});
