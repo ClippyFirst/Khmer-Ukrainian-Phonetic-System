@@ -126,6 +126,7 @@ def test_tie_bars_require_two_adjacent_segment_letters():
     candidate = validate_ipa_candidate(raw, **args)
     assert candidate.ipa == raw
 
+
 def test_combining_marks_cannot_float_across_a_space():
     with pytest.raises(ValueError, match="orphan combining mark"):
         validate_ipa_candidate(
