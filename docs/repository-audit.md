@@ -2485,3 +2485,12 @@ Exact PR-head Quality [44389557778](https://github.com/ClippyFirst/Khmer-Ukraini
 
 No runtime or linguistic evidence changed. IPA convention remains DRAFT_NOT_APPROVED; gold = 0; empirical accuracy = null. Independent pilot and root-license decision remain BLOCKED; manual accessibility and historical semantic review remain PARTIAL; external benchmark integration remains DEFERRED. No local checkout or local tests are claimed; verification is hosted GitHub Actions. Repository remains a research-ready partial prototype, not release-ready.
 
+
+## PR #397 — PCGN omitted-mark uncertainty safeguard — 2026-11-18
+
+PR [#397](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/397) merged as `e888c190570acc19b8cf388d1b2a2a58767e6426`. The series resolver preserves its encoded base/foot decision but now warns that PCGN Note 2 says diacritics are often omitted and a reference source is needed when series is uncertain. The warning is informational: no absent shifter is guessed and no romanization output changes. Added a regression test for both unshifted series defaults. Primary source: UK PCGN, *Romanization of Khmer (Cambodian), BGN/PCGN 1972 Agreement*, introduction and Note 2, pp. 1–3.
+
+PR-head Quality [44395612844](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44395612844), Chromium [44395612835](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44395612835), and push Quality [44395586583](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44395586583): SUCCESS. Exact-main Quality [44395795606](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44395795606), Chromium [44395795589](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44395795589), and Pages/deployed-site smoke [44395795652](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44395795652): SUCCESS.
+
+Classification: warning and regression — DONE_VERIFIED. PCGN boundary inference and full contextual engine — TODO/PARTIAL; human-reviewed ambiguous syllable cases, source-row reconciliation and end-to-end parity remain acceptance requirements. No phonological, IPA, Ukrainian or corpus data changed. No local checkout or local tests are claimed; evidence is hosted GitHub Actions.
+
