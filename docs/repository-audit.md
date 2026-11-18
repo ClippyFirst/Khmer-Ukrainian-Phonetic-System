@@ -2437,3 +2437,12 @@ Live branch inventory at the PR #390 mainline checkpoint: **262 refs / 262 uniqu
 Task ledger: PR #389 automated accessibility structural checks — DONE_VERIFIED; PR #390 canonical documentation closeout and exact-main Quality/Chromium/Pages — DONE_VERIFIED. Manual accessibility KHM-UI-001 remains PARTIAL pending screen-reader, exhaustive keyboard, zoom/reflow, complete contrast-context and real-device checks. Full historical semantic re-adjudication remains PARTIAL. Issue #104 independent IPA gold pilot remains BLOCKED by external convention, staffing, blind-intake, rights and adjudication gates; independent gold = 0, empirical accuracy = null. Root license remains BLOCKED pending owner decision. External benchmark integration remains DEFERRED pending rights/provenance and independent evaluation data.
 
 No local checkout or local tests are claimed. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
+
+
+## PR #392 — accessibility smoke test regex correction — 2026-11-18
+
+The latest semantic spot-check of `tests/browser/site.spec.js` found two double-escaped JavaScript whitespace regexes in the structural accessibility helper. `aria-labelledby.split(...)` did not split multiple ID references, and whitespace normalization did not collapse actual whitespace. PR [#392](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/392) corrected both patterns; merged main SHA: `9a5da179316c3a40ec159b11c0c936a2c1f9d551`.
+
+Verification: PR-head Quality [44366919812] SUCCESS (432 Python tests + 70 subtests, corpus validator, web checks/build); PR-head Chromium [44366919747] SUCCESS (21/21). Exact-main Quality [44367112353], Chromium [44367112434], and Pages build/deploy plus production browser/deployed-asset smoke [44367112407] all SUCCESS.
+
+Classification: **DONE_VERIFIED** for this narrow test correction. The helper still checks accessible-name sources structurally and does not implement the full Accessible Name and Description Computation algorithm. It is not a full WCAG audit. No runtime or linguistic output/data changed. Manual accessibility remains PARTIAL; Issue #104 remains BLOCKED (adjudicated gold 0; accuracy null); root license remains BLOCKED pending owner decision; full historical semantic re-adjudication remains PARTIAL.
