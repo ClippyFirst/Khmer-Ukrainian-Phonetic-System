@@ -2523,3 +2523,23 @@ Queried all-state PRs for the full live `docs/*` family: **106 refs**. Results:
 Together with the prior 103-ref family compare and the three later closeout comparisons (PR #372), all **106 docs refs** now have compare/content dispositions; this pass resolves PR ancestry for all 106. The four unmerged PRs are explicitly superseded, not counted as completed merges. Five no-PR refs remain preserved as historical refs with no unique executable contribution.
 
 **Documentation family: branch-tip compare/content disposition and PR ancestry DONE_VERIFIED.** This does not claim a sentence-by-sentence re-adjudication of every historical handoff. No historical branch was deleted/force-updated. No runtime, phonological rule, IPA, Ukrainian output, source rights, corpus, gold labels or accuracy values changed. No expert outreach/recruitment is implied; Issue #104 remains open, independent adjudicated gold=0 and empirical accuracy=null. Repository-wide `KHM-BRANCH-AUDIT-001` remains PARTIAL pending final all-family semantic review.
+
+
+## PR #378 final mainline closeout — 2026-11-18
+
+PR [#378](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/378) merged into `main` as `35b9379d53f18f45992da8f488982c6fdb3e0a16`.
+
+Exact PR-head checks on `2ffe18c983707bb1f009d5261fa5ee4714b2d0ed` completed SUCCESS: Quality [44298834063](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44298834063) and Chromium [44298834170](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44298834170). Post-merge mainline Quality [44299017800](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44299017800) and Chromium [44299017849](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44299017849) completed SUCCESS. Pages deployment [44299017965](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44299017965) was still PENDING at this closeout; do not mark it as passed until GitHub reports completion.
+
+Live GitHub branch inventory immediately after PR #378 merge: **250 refs / 250 unique tip SHAs**. Prefix counts: a11y 2, audit 30, benchmark 1, ci 1, data 4, docs 106, feat 50, fix 15, main 1, release 1, research 29, test 10. Open PRs: 0. Open non-PR issue: #104 only.
+
+### One-pass branch-family ledger
+
+- Current-base compare and PR ancestry are documented for a11y (2), benchmark/CI (2), data (4), docs (106), feature (50), fix/release (16), research (29), test (10), and the 20 historical audit refs. Newly created audit/closeout branches each have their own merged or open PR record.
+- The Neurlang/MekongPhon engine benchmark remains DEFERRED pending rights and item-level provenance; the browser-side hybrid candidate remains deferred pending a current browser contract. Historical branches are preserved; no force-push/deletion or wholesale stale-branch merge occurred.
+- Repository-wide `KHM-BRANCH-AUDIT-001` remains PARTIAL: branch tips and PR ancestry have broad coverage, but not every changed line across all historical docs/data/code snapshots has undergone full semantic re-adjudication.
+- Issue #104 remains the external human-evidence blocker: IPA convention is not approved, no experts were contacted/recruited, independent adjudicated gold remains 0, and empirical accuracy remains null. Root license selection remains an owner decision. Accessibility manual screen-reader/keyboard/device checks remain outstanding.
+
+No runtime, phonological rules, IPA labels, Ukrainian mappings, source data, corpus rows, gold labels or benchmark scores changed in PRs #369–#378. No local checkout or local test run is claimed; verification is from GitHub Actions.
+
+**Repository status:** research-ready partial prototype; not linguistically release-ready.
