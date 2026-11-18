@@ -2622,3 +2622,16 @@ Updated task ledger:
 - External benchmark integration: **DEFERRED** pending rights/provenance and a valid independent evaluation set.
 
 No phonological rules, IPA correspondences, Ukrainian mappings, corpus entries, gold labels, benchmark scores or runtime behavior changed. No historical branches were deleted or force-updated. No local checkout or local tests were run; all test evidence is hosted GitHub Actions on exact commits. Repository status remains **research-ready partial prototype**, not linguistically validated or release-ready.
+
+
+## Final session closeout after PR #382 — 2026-11-18
+
+PR [#382](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/382) merged by squash as **`f4ad2ddf37579273e5a5bf5f68503a9986e0c812`**. PR-head Quality [44304006397](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44304006397) and Chromium [44304006183](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44304006183) both SUCCESS. Exact-main post-merge Quality [44304178800](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44304178800), Chromium [44304178779](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44304178779) and Pages deployment plus deployed-site asset smoke [44304178824](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44304178824) all SUCCESS.
+
+Final verified main commit for this session: `f4ad2ddf37579273e5a5bf5f68503a9986e0c812`. Live branch snapshot after PR #382: **254 refs / 254 unique tip SHAs**, prefix counts: a11y 2, audit 33, benchmark 1, ci 1, data 4, docs 107, feat 50, fix 15, main 1, release 1, research 29, test 10. Open PRs: 0. Open issue: #104 only.
+
+Session outcomes: PRs #380, #381 and #382 merged; all three canonical execution/audit/handoff records updated in place in each documentation batch; exact-main hosted Quality, Chromium and Pages checks verified SUCCESS. The branch inventory and issue acceptance criteria were refreshed. Historical refs were retained; no unrelated branch was deleted or force-updated.
+
+Final task ledger: ancestry/file disposition remains DONE_VERIFIED for the previously reconciled branch cohorts; exact-main hosted engineering CI is DONE_VERIFIED for the listed checks; complete semantic review of every historical diff remains PARTIAL; manual accessibility remains PARTIAL; independent IPA gold pilot remains BLOCKED by missing expert roles, convention approval, blind intake, source/rights clearance and 30 verified lexical groups (gold 0, accuracy null); root license remains BLOCKED on owner decision; external benchmark integration remains DEFERRED pending rights/provenance and a valid independent evaluation set.
+
+No runtime, phonological rules, IPA correspondences, Ukrainian mappings, source data, corpus rows, gold labels or benchmark scores were changed. No experts were contacted, no candidate datasets imported, and no local checkout/local tests were performed. All test results in this closeout are hosted GitHub Actions evidence. **Release status: research-ready partial prototype, not linguistically validated and not release-ready.**
