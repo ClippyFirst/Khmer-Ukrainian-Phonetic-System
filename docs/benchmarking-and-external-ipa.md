@@ -255,3 +255,12 @@ The external registry now distinguishes two resources that should not be conflat
 - **PhonSobon Khmer G2P/model dataset:** predicts NCKL Khmer-script respelling and syllable boundaries, not IPA. The model card's 83.37% validation word accuracy is self-reported upstream; the NCKL-derived dataset's redistribution/commercial terms remain unresolved. It can only be considered for a separate respelling/syllabification experiment after rights clearance.
 
 Neither resource changes independent IPA gold (0) or project accuracy (null). No external data rows or code were copied.
+
+
+## Restored pinned Khmer Phonemizer workflow — 2026-11-18
+
+The existing `scripts/benchmark_g2p.py` raw-output diagnostic is again runnable in a dedicated optional GitHub Actions workflow: `.github/workflows/optional-khmerphonemizer-smoke.yml` (PR [#353](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/353)). It pins `khmerphonemizer==0.0.3`, uses Python 3.12, and uploads both the JSON report and its SHA-256 sidecar. It runs for relevant pull requests, matching pushes to main, and manual dispatch. The existing `optional-khmer-g2p-benchmark.yml` remains dedicated to the pinned MekongPhon model and was not overwritten.
+
+Exact-head raw-output workflow [44259498574](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259498574) succeeded and uploaded artifact `khmer-phonemizer-raw-output` (ID 14406708793; 1,972 bytes; artifact digest `98a7cea015e4166020c321f78217772c73a634baf1557baa6aac0c38ec68335d`). Quality [44259498582](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259498582), Chromium [44259498488](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259498488), and branch-push Quality [44259475466](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259475466) also succeeded.
+
+This establishes pinned tool execution and artifact provenance only. The corpus remains source-attested rather than independently adjudicated; `independent_gold_count=0`, `accuracy=null`, and no phonetic accuracy claim is permitted.

@@ -1675,3 +1675,35 @@ Compared the 28 pre-existing `feat/pcgn-*` branches against current main and ins
 - All reviewed historical branches remain preserved. No broad merge, branch deletion, force update or unsupported linguistic promotion occurred.
 
 This closes a focused module-declaration reconciliation of the 28-branch PCGN feature family. It does not claim full file-by-file review of every changed test, schema, documentation and PR ancestry across all 28 refs; the repository-wide historical branch audit remains PARTIAL until that wider scope is completed.
+
+
+## Continuation audit — 2026-11-18: pinned optional phonemizer and branch inventory
+
+The exact mainline base for this continuation was `52b7ae143c2edc0dc34ec87b5e356d4654ea5fb3`; Quality [44257382312](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44257382312), Chromium [44257382268](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44257382268), and Pages [44257382273](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44257382273) all succeeded on that SHA.
+
+A fresh complete branch listing returned 224 refs / 224 unique tip SHAs (main + 223 non-main). Prefix counts: a11y 2; audit 15; benchmark 1; ci 1; data 4; docs 97; feat 50; fix 14; release 1; research 28; test 10. This inventory does not imply every ref has had full file-level and PR-ancestry review.
+
+### Optional Khmer Phonemizer diagnostic
+
+PR [#353](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/353) restores the existing `scripts/benchmark_g2p.py` diagnostic in a separate workflow, pinning `khmerphonemizer==0.0.3`. It deliberately does not overwrite the current MekongPhon workflow. The artifact contains the diagnostic JSON and SHA-256 sidecar; exact-head raw-output [44259498574](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259498574), Quality [44259498582](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259498582), Chromium [44259498488](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259498488), and branch-push Quality [44259475466](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259475466) passed. Artifact ID 14406708793, 1,972 bytes. The harness's independent gold count remains 0 and accuracy remains null. This is DONE_VERIFIED as optional workflow plumbing only.
+
+### Remaining branch refs and dispositions
+
+- `a11y/*` (2): integrated by PRs #331 and #333; documented keyboard navigation and WCAG AA regression work is already on main.
+- `docs/*` (97): the earlier 96-ref family was reconciled by PR #350; the additional docs branch is PR #352 and is merged.
+- `feat/*` (50): the earlier 49-ref family was reconciled by PR #347; the additional port branch is PR #351 and is merged.
+- `audit/*` (15): compare results show documentation-only changed paths or a behind-only ref. The merged closeout series is PRs #341–#350. These refs are preserved.
+- `benchmark/current-engine-2026-11-11`: not ported. Its unique workflow imports a Neurlang Khmer Central lexicon but does not establish item-level rights/provenance or independent adjudication. DEFERRED pending that evidence; no output may be treated as gold or accuracy.
+- `ci/khmer-g2p-smoke-2026-10-24`: its old unpinned workflow was not copied. The script/tests are already on main and PR #353 restores the useful diagnostic with a version pin.
+- Previously audited families remain documented: data 4, test 10, research 28, fix 14, release 1; all historical refs remain preserved.
+
+### Evidence and release boundary
+
+Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains the only open issue. `data/benchmark/gold.tsv` is header-only; annotation, adjudication, records and split JSONL files are empty. No expert has been contacted/recruited per the latest issue comments. The convention still requires expert approval; two independent annotators, an independent adjudicator, curator, private blind channel, rights verification and 30 adjudicated items remain open. `KHM-BRANCH-AUDIT-001` remains PARTIAL because a complete file/commit/PR-ancestry audit of all 223 non-main refs is not complete.
+
+**Classification:** research-ready partial prototype; not linguistically release-ready. No phonological claim, IPA label, gold record or accuracy metric was invented.
+
+ 
+### Live inventory after creating continuation branch (2026-11-18)
+
+The continuation branch for PR #353 adds one new preserved audit ref after the 224-ref baseline snapshot above. The live listing now contains **225 refs and 225 unique tip SHAs** (main + 224 non-main); prefix counts are a11y 2, audit 16, benchmark 1, ci 1, data 4, docs 97, feat 50, fix 14, release 1, research 28, test 10. While PR #353 is open, the live count is 1 open PR (#353) and 1 open issue (#104). This is a separate timestamped inventory snapshot; it does not change the earlier 224-ref snapshot or claim full historical file/ancestry review.
