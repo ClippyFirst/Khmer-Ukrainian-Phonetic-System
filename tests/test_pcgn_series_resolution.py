@@ -55,6 +55,19 @@ def test_pcgn_series_without_subscript_uses_base_register():
     assert resolve_pcgn_series(analyze_pcgn_orthographic_chunk("គ")).series == "ô"
 
 
+def test_pcgn_note2_absent_shifter_preserves_omission_uncertainty_warning():
+    # The guide says Khmer diacritical marks are frequently omitted. A resolved
+    # graphemic default must therefore not imply that no shifter was intended.
+    for source, expected in (("ក", "â"), ("គ", "ô")):
+        result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk(source))
+        assert result.status == "RESOLVED"
+        assert result.series == expected
+        assert (
+            "PCGN_NOTE_2_DIACRITICS_MAY_BE_OMITTED_CONSULT_REFERENCE_IF_SERIES_UNCERTAIN"
+            in result.warnings
+        )
+
+
 def test_pcgn_series_abstains_on_shifters_multiple_feet_and_unsupported_input():
     for source in ("ក៉", "ក្ប្ល", "ក្x", "ក្ឡ", "ឥ"):
         result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk(source))

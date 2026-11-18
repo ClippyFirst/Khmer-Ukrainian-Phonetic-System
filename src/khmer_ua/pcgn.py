@@ -403,7 +403,10 @@ def resolve_pcgn_series(
             exception = None
 
     series = "â" if register == "first" else "ô"
-    warnings = ["PCGN_NOTE_3_SERIES_SELECTION_ONLY"]
+    warnings = [
+        "PCGN_NOTE_3_SERIES_SELECTION_ONLY",
+        "PCGN_NOTE_2_DIACRITICS_MAY_BE_OMITTED_CONSULT_REFERENCE_IF_SERIES_UNCERTAIN",
+    ]
     if exception:
         warnings.append("PCGN_NOTE_3_BA_WITH_FOOT_P_EXCEPTION")
     return PCGNSeriesDecision(
