@@ -1663,3 +1663,15 @@ Verification:
 - Post-merge mainline Quality [44256579643](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44256579643), Chromium [44256579618](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44256579618), and Pages build/deploy [44256579655](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44256579655) SUCCESS. Mainline Python suite also reports `431 passed, 70 subtests passed`; Pages artifact upload completed.
 
 The historical source branch remains preserved. This is a recovered implementation, not a linguistic gold milestone; IPA convention approval, adjudicated IPA gold, word segmentation and release readiness remain unchanged.
+
+
+## PCGN feature-branch family content reconciliation — 2026-11-18
+
+Compared the 28 pre-existing `feat/pcgn-*` branches against current main and inspected the source-module declarations for the 28 corresponding historical snapshots. The audit was deliberately content-level rather than treating ahead/behind counts as merge recommendations.
+
+- The 27 other branch snapshots' top-level PCGN classes/functions are all present in the current `src/khmer_ua/pcgn.py` or `src/khmer_ua/pcgn_unicode.py`; their modules are older, narrower snapshots and no wholesale port is warranted.
+- The remaining unique declaration was `assemble_pcgn_anusvara_visarga_syllable` from `feat/pcgn-anusvara-visarga-syllable-assembly-2026-11-16`. It is now integrated by PR #351 with the missing schema, package exports and tests; the source branch itself remains untouched.
+- Selected data checks confirmed that the PCGN consonant table, final-consonant table and anusvara/visarga table match current main by blob SHA. The main PCGN notes register is newer than the older Note 1–10 branch snapshots.
+- All reviewed historical branches remain preserved. No broad merge, branch deletion, force update or unsupported linguistic promotion occurred.
+
+This closes a focused module-declaration reconciliation of the 28-branch PCGN feature family. It does not claim full file-by-file review of every changed test, schema, documentation and PR ancestry across all 28 refs; the repository-wide historical branch audit remains PARTIAL until that wider scope is completed.
