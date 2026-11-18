@@ -4492,3 +4492,19 @@ Queried all-state PRs by exact head branch for the 20 pre-existing `audit/*` ref
 This completes exact-head PR ancestry mapping for the 20 historical audit branches. Their substantive changed paths remain documentation-only (with the separately verified pinned Khmer Phonemizer workflow byte-identical to main), as recorded in PR #369. The newer audit branches created for the ongoing closeout are handled by their own PRs (#369–#377) and are not part of this 20-ref historical cohort.
 
 **Audit family: compare/content disposition and PR ancestry DONE_VERIFIED for the 20 historical refs.** Repository-wide `KHM-BRANCH-AUDIT-001` remains PARTIAL because complete semantic line review of every historical document and remaining family refs is not complete. No branches were deleted/force-updated. No runtime, linguistic rules, IPA, Ukrainian output, corpus, gold labels or benchmark scores changed. Issue #104 remains open; independent gold=0, accuracy=null.
+
+
+## Documentation branch PR-ancestry closeout — 2026-11-18
+
+Queried all-state PRs for the full live `docs/*` family: **106 refs**. Results:
+- **101 refs have at least one exact-head PR**; **97 refs map only to merged PRs**.
+- **Four refs have closed unmerged/superseded PRs:**
+  - `docs/closeout-mixed-script-boundaries-2026-11-17` → PR #318, duplicate of merged PR #317's mixed-script verification closeout.
+  - `docs/fix-exact-main-quality-count-2026-11-16` → PR #298, no-op duplicate; correction already represented by PR #299 / final checkpoint PR #296.
+  - `docs/khmer-unicode18-parser-final-handoff-2026-11-16` → PR #295, duplicate source-registry update superseded by PR #294 to avoid a duplicate TN #61 source ID.
+  - `docs/post-pr294-mainline-verification-2026-11-16` → PR #297, stale verification checkpoint superseded by PR #296, which records exact-main Quality, Chromium and Pages success.
+- **Five refs have no PR for their exact head branch:** `docs/khmer-parser-final-state-2026-11-16`, `docs/khmer-parser-final-state-v2-2026-11-16`, `docs/khmer-parser-source-registry-and-handoff-2026-11-16`, `docs/khmer-short-vowel-sequence-test-closeout-2026-11-12`, and `docs/post-pr223-mainline-verification-2026-11-15`. Their changed paths are documentation/audit snapshots or an older source-registry/test snapshot. The registry branch has 46 source entries vs main's 49 and no branch-only source IDs; no missing source or test implementation was identified.
+
+Together with the prior 103-ref family compare and the three later closeout comparisons (PR #372), all **106 docs refs** now have compare/content dispositions; this pass resolves PR ancestry for all 106. The four unmerged PRs are explicitly superseded, not counted as completed merges. Five no-PR refs remain preserved as historical refs with no unique executable contribution.
+
+**Documentation family: branch-tip compare/content disposition and PR ancestry DONE_VERIFIED.** This does not claim a sentence-by-sentence re-adjudication of every historical handoff. No historical branch was deleted/force-updated. No runtime, phonological rule, IPA, Ukrainian output, source rights, corpus, gold labels or accuracy values changed. No expert outreach/recruitment is implied; Issue #104 remains open, independent adjudicated gold=0 and empirical accuracy=null. Repository-wide `KHM-BRANCH-AUDIT-001` remains PARTIAL pending final all-family semantic review.
