@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/schemas/pcgn-anusvara-visarga-syllable-assembly.schema.json",
+  "title": "PCGN anusvara/visarga syllable assembly",
+  "description": "A caller-segmented orthographic syllable assembled from an exact PCGN anusvara/visarga table row. This is a romanization component only, not IPA or Ukrainian output.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_text",
+    "normalized_text",
+    "onset_text",
+    "series",
+    "source_components",
+    "coda_character",
+    "onset_romanization",
+    "vowel_coda_romanization",
+    "romanization",
+    "source_table_row",
+    "status",
+    "ipa",
+    "ukrainian",
+    "source_locators",
+    "warnings"
+  ],
+  "properties": {
+    "source_text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "normalized_text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "onset_text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "series": {
+      "enum": [
+        "â",
+        "ô",
+        null
+      ]
+    },
+    "source_components": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "coda_character": {
+      "enum": [
+        "ង",
+        null
+      ]
+    },
+    "onset_romanization": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "vowel_coda_romanization": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "romanization": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_table_row": {
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        null
+      ]
+    },
+    "status": {
+      "enum": [
+        "RESOLVED",
+        "UNRESOLVED"
+      ]
+    },
+    "ipa": {
+      "const": null
+    },
+    "ukrainian": {
+      "const": null
+    },
+    "source_locators": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "string"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
