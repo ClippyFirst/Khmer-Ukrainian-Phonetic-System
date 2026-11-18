@@ -111,6 +111,11 @@ def test_unicode_tn61_v2_is_registered_as_non_normative_and_rights_scoped():
     assert note["license_url"] == "https://www.unicode.org/copyright.html"
     assert note["status_basis_url"] == "https://www.unicode.org/notes/about-notes.html"
     assert note["status"] == "NON_NORMATIVE_TECHNICAL_NOTE"
+    assert note["year"] == 2025
+    assert note["organization"] == "SIL International, NPIC LSDU"
+    assert note["landing_page_url"] == "https://www.unicode.org/notes/tn61/"
+    assert note["previous_version_url"] == "https://www.unicode.org/notes/tn61/tn61-1.html"
+    assert note["rights_status"] == "PUBLIC_DISTRIBUTION_PERMISSION_NOT_ESTABLISHED"
     assert "not part of the Unicode Standard" in note["limitations"]
     assert "permission" in note["license"].lower()
     assert "does not reproduce" in note["license"]
