@@ -4578,3 +4578,32 @@ Post-merge verification on exact `main` SHA `c149f5eb792c6fbb16c1b52b198809c83b4
 Live branch inventory immediately after PR #380 merge and before this follow-up documentation branch was created: **252 refs / 252 unique tip SHAs**. Prefix counts: a11y 2, audit 31, benchmark 1, ci 1, data 4, docs 107, feat 50, fix 15, main 1, release 1, research 29, test 10. At that snapshot there were **0 open PRs** and Issue #104 was the only open non-PR issue. The 107 documentation refs remain fully reconciled; the new follow-up branch is a separate documentation-only closeout and does not change the 107-ref historical cohort being recorded here.
 
 No local checkout or local test execution is claimed. All test evidence above is from exact PR-head and exact post-merge GitHub Actions runs. The repository remains a research-ready partial prototype, not a linguistically validated release: independent adjudicated IPA gold remains 0 and empirical accuracy remains null; manual accessibility, root-license owner decision and full historical semantic re-adjudication remain open.
+
+
+## PR #381 and post-merge verification — 2026-11-18
+
+PR [#381](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/381) merged by squash as `06250a7d2c7f0c90487fd519e173538f00d45314`. Exact PR head: `f1bfa4410effb4dfbc8ad0486015dc26e750abd1`. The change records PR #380's final exact-main checks and is documentation-only across the three canonical records.
+
+PR-head CI:
+- Quality [44303308051](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44303308051) — SUCCESS: independent IPA gold corpus structural validation, Python tests, Node web checks and production build.
+- Chromium [44303307840](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44303307840) — SUCCESS: deterministic web checks, production build and visible-results Chromium smoke.
+
+Post-merge CI on exact `main` SHA `06250a7d2c7f0c90487fd519e173538f00d45314`:
+- Quality [44303520032](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44303520032) — SUCCESS.
+- Chromium [44303520568](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44303520568) — SUCCESS.
+- GitHub Pages [44303520067](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44303520067) — SUCCESS, including production build, Chromium exercise, artifact upload/deployment and deployed-site smoke.
+
+Live branch inventory after PR #381 merge and before this addendum branch: **253 refs / 253 unique tip SHAs**. Prefix counts: a11y 2, audit 32, benchmark 1, ci 1, data 4, docs 107, feat 50, fix 15, main 1, release 1, research 29, test 10. Open PRs: 0. Open issue: #104 only. The 107-ref documentation ancestry cohort remains reconciled as previously recorded; this follow-up branch is an additional audit-family closeout.
+
+Issue #104 was re-read in full. Its target profile remains decided (`khmer-pph-careful-citation-v1`), but all human-dependent acceptance items remain unchecked: approved versioned IPA convention; two independent annotators; separate adjudicator; non-annotating curator; private blind intake; 30 attested, source-located lexeme groups with coverage rationale and item-level rights; independently locked annotations; evidence-based adjudication; provenance/rights/duplicate/schema/blindness checks. Candidate Common Voice material is insufficient to establish the target profile or required coverage; MekongPhon and Khmer Acoustic Model remain candidate-only pending item-level rights/provenance and convention checks. No external resource was imported and no person was contacted or represented as recruited.
+
+Updated task ledger:
+- PR #381 documentation closeout and exact-main Quality/Chromium/Pages verification: **DONE_VERIFIED**.
+- Automated code/data validation, Python tests, Node checks, production build, Chromium smoke and Pages deploy on exact main: **DONE_VERIFIED** for the stated workflow scope.
+- Independent adjudicated IPA pilot / Issue #104: **BLOCKED** on expert recruitment, approved convention, independent roles, blind intake, source selection and rights evidence. Gold remains 0; accuracy remains null.
+- Full historical semantic re-adjudication: **PARTIAL**; ancestry/file disposition is not line-by-line semantic review of every historical change.
+- Manual accessibility: **PARTIAL**; automated contrast/skip-link coverage does not replace screen-reader, full keyboard, zoom/reflow and real-device checks.
+- Root license: **BLOCKED** pending owner decision.
+- External benchmark integration: **DEFERRED** pending rights/provenance and a valid independent evaluation set.
+
+No phonological rules, IPA correspondences, Ukrainian mappings, corpus entries, gold labels, benchmark scores or runtime behavior changed. No historical branches were deleted or force-updated. No local checkout or local tests were run; all test evidence is hosted GitHub Actions on exact commits. Repository status remains **research-ready partial prototype**, not linguistically validated or release-ready.
