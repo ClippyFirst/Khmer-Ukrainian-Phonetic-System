@@ -2727,3 +2727,12 @@ Live branch inventory at the PR #390 mainline checkpoint: **262 refs / 262 uniqu
 Task ledger: PR #389 automated accessibility structural checks — DONE_VERIFIED; PR #390 canonical documentation closeout and exact-main Quality/Chromium/Pages — DONE_VERIFIED. Manual accessibility KHM-UI-001 remains PARTIAL pending screen-reader, exhaustive keyboard, zoom/reflow, complete contrast-context and real-device checks. Full historical semantic re-adjudication remains PARTIAL. Issue #104 independent IPA gold pilot remains BLOCKED by external convention, staffing, blind-intake, rights and adjudication gates; independent gold = 0, empirical accuracy = null. Root license remains BLOCKED pending owner decision. External benchmark integration remains DEFERRED pending rights/provenance and independent evaluation data.
 
 No local checkout or local tests are claimed. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
+
+
+## PR #392 — accessibility smoke test regex correction — 2026-11-18
+
+**TEST-ACCESSIBLE-NAME-REGEX-001 — DONE_VERIFIED (test infrastructure only).** The structural accessibility helper in `tests/browser/site.spec.js` had two double-escaped whitespace regexes: multiple `aria-labelledby` ID references were not split, and whitespace normalization did not process actual whitespace. PR [#392](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/392) corrected both; merged main SHA `9a5da179316c3a40ec159b11c0c936a2c1f9d551`.
+
+Exact PR-head Quality [44366919812] SUCCESS (432 Python tests + 70 subtests, corpus structural validation, Node/web checks and production build); Chromium [44366919747] SUCCESS (21/21). Exact-main Quality [44367112353], Chromium [44367112434], and Pages build/deploy [44367112407] SUCCESS.
+
+Scope is strictly test correctness. The helper remains a structural/name-source smoke check, not a full computed accessible-name algorithm or WCAG audit. `KHM-UI-001` remains PARTIAL pending manual screen-reader/assistive-technology, exhaustive keyboard, zoom/reflow, complete contrast and real-device QA. No IPA, phonology, Ukrainian mapping, corpus, gold or benchmark data changed. Issue #104 remains BLOCKED; independent gold = 0 and empirical accuracy = null. Root license remains BLOCKED on owner decision; historical semantic review remains PARTIAL; external benchmark integration remains DEFERRED.
