@@ -4802,3 +4802,26 @@ Verification:
 - Exact-main Pages/deployed-site smoke [44405101273](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44405101273) — SUCCESS; production build, Chromium exercise, deployment and deployed runtime-asset smoke.
 
 Task ledger: shifter-name/codepoint reconciliation and BA+TRIISAP exception correction — DONE_VERIFIED. Complete contextual Khmer-script → PCGN engine and syllable-boundary inference remain TODO/PARTIAL pending source-reviewed ambiguity cases, full table reconciliation and human review. IPA convention remains DRAFT_NOT_APPROVED; independent adjudicated gold = 0; empirical accuracy = null. Issue #104's blind pilot and root repository license remain BLOCKED on external personnel/rights and owner decision. Manual accessibility and historical semantic re-adjudication remain PARTIAL; external benchmark integration remains DEFERRED. No open PRs remain after #399. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
+
+
+## PR #401 — cover the explicit PCGN BA + AA shifter cases — 2026-11-19
+
+PR [#401](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/401) merged by squash as `3bbf3f45afb83faf0335dd2f91f869b85f00c5d5`, based on `fc781fa86fa3acb654903560f743d1129428656b`; code/test PR head `0cf4e3a21bc121b4642afafa7f49e365713f7964`.
+
+Added two regression cases in `tests/test_pcgn_series_resolution.py`:
+- `ប៊ា`: Note 2's TRIISAP no-shift exception covers BA with AA (បា), not only bare BA.
+- `ប៉ា`: Note 3's BA + MUUSIKATOAN p-in-â exception also covers BA with AA.
+
+This closes a test-coverage gap only; the resolver already branches on the BA base and does not reject dependent vowel signs in the series decision. No runtime code, IPA/Ukrainian output, corpus data, rights or benchmark claims changed.
+
+Source: UK BGN/PCGN 1972 Agreement, Notes 2–3, especially Note 2's explicit exception for both BA and BA+AA: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf
+
+Verification:
+- Push Quality [44407401573](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407401573) — SUCCESS; 437 Python tests + 70 subtests, expected `NOT_READY_NO_ADJUDICATED_GOLD`, Node/web checks and production build.
+- PR-head Quality [44407541894](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407541894) — SUCCESS; 437 tests + 70 subtests.
+- PR-head Chromium [44407541887](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407541887) — SUCCESS; 21/21.
+- Exact-main Quality [44407714461](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407714461) and [44407773406](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407773406) — SUCCESS; 437 tests + 70 subtests.
+- Exact-main Chromium [44407714501](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407714501) — SUCCESS; 21/21.
+- Exact-main Pages/deployed-site [44407714752](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407714752) — SUCCESS.
+
+Task ledger: BA+AA exception regression coverage — DONE_VERIFIED. Full contextual Khmer-script → PCGN engine and syllable-boundary inference remain TODO/PARTIAL pending complete source-row reconciliation and human-reviewed ambiguity cases. IPA convention remains DRAFT_NOT_APPROVED; independent adjudicated gold = 0; empirical accuracy = null. Issue #104 pilot and root license remain BLOCKED on external personnel/rights and owner decision. Manual accessibility and historical semantic review remain PARTIAL; external benchmark integration remains DEFERRED. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
