@@ -1969,3 +1969,16 @@ Post-merge mainline checks on `9c11943aeb10746b006a9684df13fe71dc9f6794` all com
 Live branch inventory at this checkpoint: **238 refs / 238 unique tip SHAs** (main + 237 non-main), zero duplicate tips. Prefix counts: a11y 2, audit 20, benchmark 1, ci 1, data 4, docs 104, feat 50, fix 15, main 1, release 1, research 29, test 10. Open PRs: 0; Issue #104 remains open.
 
 PRs #365–#366 change only source metadata, tests and audit documentation. No TN #61-derived parser grammar, pronunciation rule, IPA, Ukrainian output, corpus row, gold label or accuracy score was introduced. `KHM-BRANCH-AUDIT-001` remains PARTIAL pending full semantic and PR-ancestry reconciliation; human linguistic pilot remains BLOCKED by Issue #104. Repository status remains research-ready partial prototype, not linguistically release-ready. No local checkout or local tests are claimed; verification is hosted GitHub Actions.
+
+
+## PR #367 final closeout and live ref reconciliation — 2026-11-18
+
+PR [#367](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/367) merged into `main` as `ac1bb5dbdb1245e7045939c3a4f57de2deb59242`.
+
+Exact PR-head checks on `ca5083fdd3287acdb0c0422db99f3d21235703fc` completed SUCCESS: Quality [44286408991](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44286408991), Quality [44286432543](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44286432543), Chromium [44286432417](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44286432417).
+
+Post-merge mainline checks on `ac1bb5dbdb1245e7045939c3a4f57de2deb59242`: Quality [44286626785](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44286626785) SUCCESS; Pages build/deploy [44286626801](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44286626801) SUCCESS. Chromium [44286626936](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44286626936) remained IN_PROGRESS at last check, with deterministic web checks and production build completed and the Chromium installation step still active. The exact merged PR-head Chromium check succeeded; do not mark the post-merge run as success until GitHub reports completion.
+
+Live inventory after creating this closeout branch: **240 refs / 239 unique tips** at the moment before its first commit; the only shared SHA was the expected `main` + new branch base `ac1bb5dbdb1245e7045939c3a4f57de2deb59242`. The closeout commit will give this branch its own tip. Prefix counts: a11y 2, audit 20, benchmark 1, ci 1, data 4, docs 106, feat 50, fix 15, main 1, release 1, research 29, test 10. All pre-existing non-main branch tips remain preserved. Open PRs before this closeout: 0; Issue #104 remains open.
+
+Repository-wide status: research-ready partial prototype, not linguistically release-ready. `KHM-BRANCH-AUDIT-001` remains PARTIAL despite current-base branch-tip compare coverage; full semantic review of every changed path and PR ancestry is still incomplete. Human IPA pilot remains BLOCKED by expert approval/recruitment, rights-cleared items and blind adjudication. Independent adjudicated gold remains 0; empirical accuracy remains null. No local checkout or local tests are claimed; hosted GitHub Actions provide the recorded verification.
