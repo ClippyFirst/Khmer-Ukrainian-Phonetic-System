@@ -1775,3 +1775,16 @@ The source audit remains evidence-limited: upstream public tree lacks the full d
 - Cross-checked seven other PCGN assembly snapshots (normal dependent closed, shortened closed, explicit open, independent-vowel closed, alif-dependent closed, robat closed, and glottal open): each has its corresponding test and schema path on main. The earlier 28-branch PCGN declaration reconciliation already found their module declarations present on main. This spot check supports preservation rather than wholesale merging; it is not a replacement for full per-file and PR-ancestry audit of every historical ref.
 - `KHM-BRANCH-AUDIT-001` remains **PARTIAL**: the live inventory is refreshed and this PCGN port family is reconciled, but all 229 non-main refs have not received complete file-level, commit-level, and PR-ancestry review. No historical branch was deleted or force-updated.
 - No runtime, linguistic rules, corpus rows, IPA labels, or benchmark values changed. Independent adjudicated IPA gold remains 0; empirical accuracy remains null; Issue #104 remains the external human-evidence blocker.
+
+
+## PR #359 post-merge closeout — 2026-11-18
+
+PR [#359](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/359) merged into `main` as `d85081ba687b2003c195a5f7b4f0d78764fc9bc1`.
+
+Exact PR-head checks on `3709c1912d1dad5aa18b7aa97b02e0f761484f7a` completed SUCCESS:
+- Quality [44277171387](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277171387).
+- Chromium browser smoke [44277171272](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277171272); deterministic web checks, production build, Chromium installation and visible-results verification passed.
+
+Post-merge mainline runs on `d85081ba687b2003c195a5f7b4f0d78764fc9bc1`: Quality [44277328871](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277328871) SUCCESS; Pages build/deploy [44277331001](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277331001) SUCCESS. Post-merge Chromium smoke [44277328915](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277328915) was still IN_PROGRESS at this closeout; do not count it as a pass until its run reports SUCCESS.
+
+No runtime, linguistic rules, corpus rows, IPA labels or benchmark values changed. The repository-wide historical branch audit remains PARTIAL, Issue #104 remains open, independent adjudicated IPA gold remains 0 and empirical accuracy remains null. No local checkout or local tests were performed in this connector-only session.
