@@ -16,10 +16,11 @@
 ## Candidate: Khmer Acoustic Model / Khmer IPA dictionary
 
 - Repository: https://github.com/chemvatho/Khmer-acoustic-model
-- Its README claims 29,204 IPA entries validated by native Khmer linguists; its data-license section says the pronunciation dictionary is CC BY-SA 4.0.
-- However, `dictionary/README.md` separately declares CC BY 4.0 for the grapheme-to-phoneme mapping. These declarations conflict and need author clarification before redistribution or import.
-- The current GitHub tree does **not** contain the full 29,204-entry `khmer_ipa.dict`; it contains only `dictionary/khmer_ipa_sample.dict` (six sample lines). The repository's model and dictionary claims therefore cannot yet be reproduced from the visible tree.
-- The README also reports 137 hours of audio and alignment metrics, but alignment boundary metrics are not phonetic transcription accuracy metrics.
+- Pinned upstream default-branch commit checked 2026-11-18: `2714994b41ccf875c5b6f6182b48a72f13632dbf` (the only listed branch is `main`; no releases are published).
+- Root README claims 29,204 IPA dictionary entries validated by native Khmer linguists; its data-license subsection assigns **CC BY-SA 4.0** to the pronunciation dictionary and MIT to the acoustic model. The root `LICENSE` is MIT and should not be read as overriding that explicit dictionary-data statement.
+- `dictionary/README.md` describes a G2P mapping derived from **33,091** dictionary entries and declares **CC BY 4.0** for that mapping. These are differently named/specified data objects; the public files do not establish whether the mapping is a distinct derivative dataset or a different license statement for the same underlying lexicon. Do not flatten this into a single license or choose one by assumption; request author clarification and artifact-specific terms.
+- The recursive tree at the pinned commit contains only `dictionary/README.md` and `dictionary/khmer_ipa_sample.dict` in `dictionary/`; the sample is six lines (blob SHA `9dbd64d74194485fbfda69dce41b5129b5fbb8ab`, 144 bytes). There is no `khmer_ipa.dict`, no 29,204- or 33,091-row data artifact, and the releases endpoint is empty. The claimed full dictionary cannot be independently inspected, counted, or reproduced from this public revision.
+- The root README also reports 137 hours of audio and alignment metrics, but alignment-boundary metrics are not pronunciation-accuracy metrics.
 
 ## Other candidate: Goruut
 
@@ -197,3 +198,8 @@ The [current OpenSLR SLR42 page](https://openslr.org/42/) lists a single 866 MB 
 **Disposition: SUPPORTING AUDIO ONLY / METADATA DISCREPANCY.** The currently listed male archive must not be assumed to be the same speaker set as the paper's female-speaker table. The resource has text transcripts, not IPA labels or independent phonetic gold. Before annotation, obtain the archive manifest and checksum, inspect speaker IDs, reconcile the paper/page mismatch, and verify the archive's included license. No audio was downloaded or imported in this continuation.
 
 No external audio or lexicon rows were copied. Independent adjudicated Phnom Penh IPA gold remains 0; accuracy remains null.
+
+
+## Pinned upstream artifact recheck — 2026-11-18
+
+The GitHub API tree, root README, dictionary README, root LICENSE, sample dictionary, releases endpoint and commit history were inspected at upstream main `2714994b41ccf875c5b6f6182b48a72f13632dbf`. The full dictionary remains unavailable in the public tree; the two README counts (29,204 vs. 33,091) and differently scoped data-license statements (dictionary CC BY-SA 4.0 vs. G2P mapping CC BY 4.0) remain unresolved. The six-line sample is not a gold corpus and was not copied. The external source remains candidate-only / BLOCKED for import or training pending exact full artifact, SHA-256, source provenance, profile/convention, artifact-specific rights and author clarification.

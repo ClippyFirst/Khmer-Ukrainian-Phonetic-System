@@ -1744,3 +1744,12 @@ Exact PR-head checks on `749f36633e448259b129a20a406f357ac10e5507` completed SUC
 The merge commit is the latest repository commit as of this closeout. No post-merge workflow runs were created for the documentation-only merge; verification evidence is from the exact merged PR head. No local checkout or local tests were performed in this connector-only session.
 
 PR #355 adds invitation drafts and a private response/qualification protocol only. No outreach was sent, no expert or annotator was appointed, no source rights were cleared, and no blind intake was tested. The convention remains `DRAFT_NOT_APPROVED`; Issue #104 remains open; independent adjudicated IPA gold remains 0 and empirical accuracy remains null. This closes the documentation change, not the linguistic pilot or release gate.
+
+
+## Khmer Acoustic Model upstream artifact recheck — 2026-11-18
+
+- Rechecked the public upstream repository at exact default-branch commit `2714994b41ccf875c5b6f6182b48a72f13632dbf`: only branch `main`, no releases, and no full dictionary file in the recursive tree. The dictionary directory contains only a README and a six-line sample file (blob SHA `9dbd64d74194485fbfda69dce41b5129b5fbb8ab`, 144 bytes).
+- Upstream root README advertises 29,204 entries and CC BY-SA 4.0 for the pronunciation dictionary; `dictionary/README.md` describes a mapping derived from 33,091 entries under CC BY 4.0. The root MIT license is software licensing; the README separately assigns MIT to the acoustic model. The two data statements have differently described scopes, but the available repository does not establish whether the mapping is distinct from the underlying lexicon. Do not assume a single license or resolve the count discrepancy by guess.
+- Updated the existing external corpus triage, gold collection playbook and benchmark source note with this pinned evidence. No sample rows were copied; no IPA labels, corpus rows, split manifests, runtime rules or accuracy values were changed.
+- **Disposition: BLOCKED for import/training.** Required next evidence: full versioned artifact + SHA-256; per-artifact license and redistribution terms; per-entry source provenance; target variety/profile and IPA convention; annotator/adjudication method and meaning of “validated”; author clarification of the 29,204/33,091 counts and CC BY-SA/CC BY scope.
+- Issue #104 remains open; independent adjudicated gold remains 0 and empirical accuracy remains null.
