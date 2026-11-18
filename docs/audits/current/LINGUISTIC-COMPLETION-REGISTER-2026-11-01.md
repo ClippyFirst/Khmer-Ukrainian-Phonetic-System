@@ -1994,3 +1994,8 @@ This closes a focused module-declaration reconciliation of the 28-branch PCGN fe
 - **KHM-BRANCH-AUDIT-001 — PARTIAL:** inventory refreshed, but full file/commit/PR-ancestry review of every one of 223 non-main refs remains incomplete.
 - **IPA gold — BLOCKED:** Issue #104 remains open. gold.tsv is header-only and the four JSONL annotation/adjudication/record/split files are empty. No expert contact/recruitment is recorded; convention approval, independent annotators/adjudicator, curator, private blind channel, source rights and 30 adjudicated items remain acceptance criteria.
 - **Release classification:** research-ready partial prototype; not linguistically release-ready. No new IPA, pronunciation rule, gold label or accuracy score was created.
+
+ 
+### Live inventory after creating continuation branch (2026-11-18)
+
+The continuation branch for PR #353 adds one new preserved audit ref after the 224-ref baseline snapshot above. The live listing now contains **225 refs and 225 unique tip SHAs** (main + 224 non-main); prefix counts are a11y 2, audit 16, benchmark 1, ci 1, data 4, docs 97, feat 50, fix 14, release 1, research 28, test 10. While PR #353 is open, the live count is 1 open PR (#353) and 1 open issue (#104). This is a separate timestamped inventory snapshot; it does not change the earlier 224-ref snapshot or claim full historical file/ancestry review.
