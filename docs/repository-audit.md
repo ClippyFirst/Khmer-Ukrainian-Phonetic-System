@@ -2136,3 +2136,53 @@ Compared all **10 `test/*` refs** against exact current main `ef29315fff75e78291
 Existing content-level review remains applicable: these branches contain earlier snapshots of tests and fixtures already integrated and expanded on main; no missing assertion/fixture was identified for port. The current test suite is newer than the branch snapshots. No test branch was deleted, force-updated or merged wholesale.
 
 **Test family: current-base compare and PR ancestry DONE_VERIFIED; full semantic re-review of every historical test line remains PARTIAL.** No runtime, linguistic rules, IPA, Ukrainian output, corpus, gold labels or accuracy values changed. No local checkout or local tests are claimed.
+
+
+## Research branch current-base and PR-ancestry reconciliation — 2026-11-18
+
+All **29 `research/*` refs** were refreshed and compared against exact main `ef29315fff75e7829105a84922fc82bd71733e2d` (the base immediately preceding the current documentation-only PR #374). Every branch diverges; ahead range 1–91, behind range 17–539. The compare/file-list inventory was performed for every ref.
+
+| Research branch | Ahead | Behind |
+|---|---:|---:|
+| `research/bgn-pcgn-ungegn-rule-diff` | 5 | 189 |
+| `research/complete-external-g2p-registry` | 6 | 210 |
+| `research/expert-shortlist-revalidation` | 5 | 54 |
+| `research/external-ipa-renderers` | 7 | 539 |
+| `research/google-khmer-lexicon-full-audit` | 21 | 77 |
+| `research/khmer-acoustic-model-release-audit` | 26 | 76 |
+| `research/khmer-engine-benchmark-expansion` | 72 | 258 |
+| `research/khmer-hybrid-benchmarks-reconciled` | 34 | 247 |
+| `research/khmer-hybrid-engine` | 91 | 258 |
+| `research/khmer-ipa-convention-draft` | 5 | 76 |
+| `research/khmer-ipa-convention-draft-v2` | 7 | 75 |
+| `research/khmer-kirby-cluster-audio-audit` | 9 | 69 |
+| `research/khmer-kirby-tonogenesis-audio-audit` | 26 | 64 |
+| `research/khmer-lexical-segmentation-evidence` | 4 | 51 |
+| `research/khmer-lexical-segmentation-evidence-mainline` | 2 | 37 |
+| `research/khmer-phonotactic-scope` | 9 | 208 |
+| `research/khmer-source-audit-integration` | 7 | 71 |
+| `research/khmer-unicode-syllable-grammar` | 1 | 86 |
+| `research/loc-khmer-word-division` | 6 | 105 |
+| `research/mekongphon-diagnostic-harness` | 11 | 216 |
+| `research/mekongphon-release-rights-audit` | 10 | 76 |
+| `research/mekongphon-seed-lexicon-audit` | 34 | 77 |
+| `research/pcgn-note-registry` | 6 | 187 |
+| `research/phon-sobon-and-lexicon-triage` | 11 | 211 |
+| `research/phonetic-literature-fulltext-review` | 6 | 58 |
+| `research/pin-khmer-acoustic-dictionary-artifact-audit` | 6 | 17 |
+| `research/sok-adams-khmer-phonology-audit` | 7 | 61 |
+| `research/sok-adams-rule-transfer-audit` | 5 | 49 |
+| `research/ungegn-engine-candidate-review` | 5 | 190 |
+
+### Exact-head PR ancestry
+
+Queried all-state PRs by exact head branch for all 29 refs:
+- **21 merged PRs:** #4, #184, #187, #188, #190, #208, #209, #211, #278, #284, #300, #306, #307, #309, #310, #311, #314, #319, #322, #324, #357.
+- **Seven closed unmerged/superseded PRs:** #150, #151, #153, #301, #303, #304, #305. Their outcomes are not treated as merged code: model-consensus/hybrid candidates were replaced by deterministic rules (#152); the IPA convention v1 draft was superseded by v2 (#306); MekongPhon and acoustic-model rights/provenance findings were carried into later source-audit records and Issue #104; the open-dict Khmer lexicon audit remains represented as a non-commercial external comparator in the current source registry and playbook. No source dataset or gold row was imported.
+- **One research branch has no PR:** `research/khmer-lexical-segmentation-evidence-mainline-2026-11-17`; its compare against the base reports zero changed files, so it is an ancestry-free branch tip with no unique content delta.
+
+### Disposition and evidence boundary
+
+The 29 branch compare results and PR mappings are now explicit. Existing content-level findings remain: external IPA renderers and diagnostic harnesses are not gold; MekongPhon and the Khmer Acoustic Model remain rights/profile limited; PCGN note registry snapshots are older than main; IPA convention remains draft; lexical segmentation remains evidence-limited. The benchmark/hybrid branches do not authorize model voting or promotion of source-attested output. All historical refs are preserved.
+
+**Research family: current-base compare and PR ancestry DONE_VERIFIED.** This is not a full semantic adjudication of every changed line in every research document/data file; repository-wide `KHM-BRANCH-AUDIT-001` remains PARTIAL for that reason and for other remaining families. Issue #104 remains open; no expert has been contacted or recruited, approved convention remains absent, adjudicated gold = 0 and empirical accuracy = null. No external data, runtime rules, IPA, Ukrainian output or corpus labels changed. No local checkout or local tests are claimed.
