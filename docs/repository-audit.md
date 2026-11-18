@@ -2251,3 +2251,35 @@ Live GitHub branch inventory immediately after PR #378 merge: **250 refs / 250 u
 No runtime, phonological rules, IPA labels, Ukrainian mappings, source data, corpus rows, gold labels or benchmark scores changed in PRs #369–#378. No local checkout or local test run is claimed; verification is from GitHub Actions.
 
 **Repository status:** research-ready partial prototype; not linguistically release-ready.
+
+
+## PR #379 post-merge and live branch inventory closeout — 2026-11-18
+
+PR [#379](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/379) merged as `04de0609ec490b09e1e44ec948bbe6ded5f59d4a`. Its exact head was `c76d8e5f54115832cca3d392e5342486ec0f18b2`, based on `35b9379d53f18f45992da8f488982c6fdb3e0a16`; the three-commit branch changed only the canonical handoff, linguistic completion register and repository audit. The branch is retained as the 107th live `docs/*` ref.
+
+Post-merge workflows on exact `main` SHA `04de0609ec490b09e1e44ec948bbe6ded5f59d4a` are now all **SUCCESS**:
+- Quality checks: [44299543935](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44299543935).
+- Chromium browser smoke: [44299543875](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44299543875).
+- GitHub Pages build, deploy and deployed-site asset smoke: [44299543884](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44299543884). This resolves the earlier PR #378 checkpoint's pending Pages status; that earlier pending state is historical, not current.
+
+Refreshed live branch inventory after PR #379: **251 refs / 251 unique tip SHAs**. Prefix counts: a11y 2, audit 30, benchmark 1, ci 1, data 4, docs 107, feat 50, fix 15, main 1, release 1, research 29, test 10. Open PRs: 0. Open non-PR issue: #104 only.
+
+### Documentation-family ancestry addendum
+
+The new `docs/pr378-final-mainline-closeout-2026-11-18` branch maps to merged PR #379 (exact head `c76d8e5f54115832cca3d392e5342486ec0f18b2`; base `35b9379d53f18f45992da8f488982c6fdb3e0a16`). Its compare is 3 commits ahead / 0 behind and contains only the three canonical documentation files. Adding it to the prior 106-ref disposition yields **107/107 docs refs reconciled**: 102 with exact-head PRs (98 merged-only; four closed unmerged/superseded) and five with no exact-head PR. No implementation or evidence was missing from this branch.
+
+The two retained a11y branches are not port candidates: PR #331's skip-navigation behavior and tests are present on current main, while its branch is an older snapshot; PR #333's WCAG contrast changes/tests are integrated, and its branch files were recorded as byte-identical to main in PR #363. Current main retains both skip links and representative WCAG AA contrast assertions. This is automated coverage only, not a completed manual accessibility audit.
+
+### Status ledger refresh
+
+- Documentation branch compare/content disposition and exact-head PR ancestry (107 refs): **DONE_VERIFIED**.
+- Current-main Quality, Chromium and Pages workflows on `04de0609`: **DONE_VERIFIED** for the checks actually executed by those workflows.
+- `KHM-BRANCH-AUDIT-001` full semantic line-by-line review of all historical changed content: **PARTIAL**; ancestry/file disposition does not equal semantic re-adjudication of every historical line.
+- `KHM-UI-001` manual accessibility review: **PARTIAL**; screen-reader/assistive-technology review, complete keyboard traversal, comprehensive text/non-text contrast, zoom/reflow and real-device/mobile checks remain outstanding.
+- `KHM-GOLD-001` / Issue #104: **BLOCKED**; approved IPA convention, two qualified independent annotators, separate adjudicator, non-annotating curator, private blind intake, rights-cleared 30 lexeme groups and adjudication remain absent. Independent adjudicated gold = 0; empirical accuracy = null.
+- Root repository license selection: **BLOCKED (owner decision)**; do not infer permission or add a root license without owner confirmation.
+- Neurlang/MekongPhon benchmark integration: **DEFERRED** pending item-level rights/provenance and a valid independent evaluation set.
+
+No runtime, phonological rule, IPA label, Ukrainian mapping, source data, corpus row, gold label or benchmark score changed in PR #379 or this closeout. No historical branch was deleted or force-updated. No local checkout or local tests were run; verification above is from exact-main GitHub Actions runs.
+ 
+**Repository status remains research-ready partial prototype; not linguistically validated or release-ready.**
