@@ -2494,3 +2494,12 @@ PR-head Quality [44395612844](https://github.com/ClippyFirst/Khmer-Ukrainian-Pho
 
 Classification: warning and regression — DONE_VERIFIED. PCGN boundary inference and full contextual engine — TODO/PARTIAL; human-reviewed ambiguous syllable cases, source-row reconciliation and end-to-end parity remain acceptance requirements. No phonological, IPA, Ukrainian or corpus data changed. No local checkout or local tests are claimed; evidence is hosted GitHub Actions.
 
+
+
+## PR #399 — PCGN shifter identity and BA exception correction — 2026-11-18
+
+PR [#399](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/399) merged as `8bbdf54bac984165e86b747504ccf7a1e2735741` (base `725c09a373d0eebb181e3cd3ee02d751e859a3a9`; final PR head `79bacbdef5cd37be94f05d01ea3223644d10d0fb)). The PCGN registry now pairs TRIISAP with U+17CA (`◌៊`) and MUUSIKATOAN with U+17C9 (`◌៉`). The BA exception is corrected in code: TRIISAP does not shift BA under Note 2, while Note 3's p-in-â exception applies to BA + MUUSIKATOAN and BA + foot. The previous BA+TRIISAP p-in-â behavior was unsupported by the guide and has been removed from both decision schemas.
+
+PR-head Quality [44404900821](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44404900821), Chromium [44404900673](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44404900673), push Quality [44404888463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44404888463), exact-main Quality [44405101264](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44405101264), exact-main Chromium [44405101302](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44405101302), and Pages/deployed-site smoke [44405101273](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44405101273) — all SUCCESS. Quality: 435 Python tests + 70 subtests; browser: 21/21. The independent IPA corpus gate remains correctly `NOT_READY_NO_ADJUDICATED_GOLD`.
+
+Classification: source-registry codepoint correction and BA exception fix — DONE_VERIFIED. Complete contextual PCGN engine and boundary inference — TODO/PARTIAL; requires complete source-row reconciliation and human-reviewed ambiguity cases. No IPA/Ukrainian output, gold labels, source rights or benchmark values changed. Independent IPA gold remains 0 and empirical accuracy null. Repository remains a research-ready partial prototype, not release-ready.
