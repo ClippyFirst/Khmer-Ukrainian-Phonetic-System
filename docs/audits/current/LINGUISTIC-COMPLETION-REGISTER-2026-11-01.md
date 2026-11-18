@@ -2775,3 +2775,12 @@ Exact-main CI on `3e99140e80ba0a0c1654dcd6f367d651350117b5`: Quality [4439363026
 
 Classification: canonical PR #394 closeout and exact-main hosted CI — DONE_VERIFIED. Independent IPA gold pilot and root license decision — BLOCKED (approved convention/personnel/rights-cleared packet and owner license decision absent); gold = 0, empirical accuracy = null. Manual accessibility and full historical semantic re-adjudication — PARTIAL. External benchmark integration — DEFERRED. No new phonological labels, source permissions, corpus rows or benchmark scores were introduced. Repository remains research-ready partial prototype, not linguistically release-ready.
 
+
+## PR #397 — PCGN omitted-shifter uncertainty — 2026-11-18
+
+Merged as `e888c190570acc19b8cf388d1b2a2a58767e6426`. The PCGN series resolver now emits an explicit note-2 warning when no register shifter is encoded, preserving the current graphemic series default while directing reference consultation when the series is uncertain. It does not infer omitted diacritics. Regression tests cover both base-series defaults and warning presence.
+
+Verification: PR-head Quality [44395612844](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44395612844), Chromium [44395612835](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44395612835), push Quality [44395586583](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44395586583), exact-main Quality [44395795606](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44395795606), Chromium [44395795589](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44395795589), Pages [44395795652](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44395795652): all SUCCESS.
+
+Task classification: omitted-shifter uncertainty warning — DONE_VERIFIED. Full PCGN safe syllable-boundary behavior and contextual script-to-romanization engine — TODO/PARTIAL; the project still requires reviewed ambiguity cases and complete source-backed rule coverage. No IPA, pronunciation labels, Ukrainian mappings or corpus records changed.
+
