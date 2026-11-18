@@ -137,13 +137,13 @@ def test_pcgn_note_two_registry_maps_shifter_names_to_unicode_codepoints():
 
     assert "TRIISAP ◌៊ (U+17CA)" in note_two["source_summary"]
     assert "MUUSIKATOAN ◌៉ (U+17C9)" in note_two["source_summary"]
-    assert unicodedata.name("\\u17ca") == "KHMER SIGN TRIISAP"
-    assert unicodedata.name("\\u17c9") == "KHMER SIGN MUUSIKATOAN"
+    assert unicodedata.name(chr(0x17ca)) == "KHMER SIGN TRIISAP"
+    assert unicodedata.name(chr(0x17c9)) == "KHMER SIGN MUUSIKATOAN"
     assert "TRIISAP" in note_two["conditions_or_exceptions"]
     assert "MUUSIKATOAN" in note_three["source_summary"]
     assert "TRIISAP" not in note_three["source_summary"]
 
- 
+
 def test_pcgn_note_three_ba_exception_uses_muusikatoan_not_triisap():
     note = next(row for row in _rows() if row["note_number"] == "3")
     assert "MUUSIKATOAN (◌៉, U+17C9)" in note["source_summary"]
