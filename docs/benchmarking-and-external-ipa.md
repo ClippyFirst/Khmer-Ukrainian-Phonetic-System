@@ -264,3 +264,18 @@ The existing `scripts/benchmark_g2p.py` raw-output diagnostic is again runnable 
 Exact-head raw-output workflow [44259498574](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259498574) succeeded and uploaded artifact `khmer-phonemizer-raw-output` (ID 14406708793; 1,972 bytes; artifact digest `98a7cea015e4166020c321f78217772c73a634baf1557baa6aac0c38ec68335d`). Quality [44259498582](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259498582), Chromium [44259498488](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259498488), and branch-push Quality [44259475466](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259475466) also succeeded.
 
 This establishes pinned tool execution and artifact provenance only. The corpus remains source-attested rather than independently adjudicated; `independent_gold_count=0`, `accuracy=null`, and no phonetic accuracy claim is permitted.
+
+
+## PR #353 post-merge mainline closeout — 2026-11-18
+
+PR [#353](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/353) is merged into `main` as implementation commit `d887a7f4866b7d19050a0a140db2d96a259ccdfc`.
+
+All post-merge checks on that exact mainline SHA completed SUCCESS:
+- Quality [44259925491](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259925491).
+- Chromium browser smoke [44259925384](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259925384).
+- GitHub Pages build/deploy and deployed-site/runtime-asset smoke [44259925382](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259925382).
+- Pinned Khmer Phonemizer raw-output workflow [44259925379](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259925379), SUCCESS; artifact ID 14407298530, 1,941 bytes, SHA-256 artifact digest `9ad7ec54b67307aa7a248f6ce897ef4f94913770c69bfbf8fc56e574c699c553`.
+
+Final post-merge repository snapshot: 225 refs / 225 unique tip SHAs (main + 224 non-main), 0 open PRs, and 1 open issue (#104). Prefix counts: a11y 2, audit 16, benchmark 1, ci 1, data 4, docs 97, feat 50, fix 14, release 1, research 28, test 10. The active continuation and historical refs remain preserved.
+
+This closes the optional workflow restoration and its post-merge verification. It does not close `KHM-BRANCH-AUDIT-001` (full file/commit/PR-ancestry audit remains PARTIAL), nor Issue #104 (human convention approval, independent annotation/adjudication, rights and 30-item gold pilot remain BLOCKED). Independent adjudicated IPA gold remains 0 and empirical accuracy remains null. No local checkout or local tests were run in this connector-only session.

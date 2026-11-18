@@ -3984,3 +3984,18 @@ Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/iss
 ### Live inventory after creating continuation branch (2026-11-18)
 
 The continuation branch for PR #353 adds one new preserved audit ref after the 224-ref baseline snapshot above. The live listing now contains **225 refs and 225 unique tip SHAs** (main + 224 non-main); prefix counts are a11y 2, audit 16, benchmark 1, ci 1, data 4, docs 97, feat 50, fix 14, release 1, research 28, test 10. While PR #353 is open, the live count is 1 open PR (#353) and 1 open issue (#104). This is a separate timestamped inventory snapshot; it does not change the earlier 224-ref snapshot or claim full historical file/ancestry review.
+
+
+## PR #353 post-merge mainline closeout — 2026-11-18
+
+PR [#353](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/353) is merged into `main` as implementation commit `d887a7f4866b7d19050a0a140db2d96a259ccdfc`.
+
+All post-merge checks on that exact mainline SHA completed SUCCESS:
+- Quality [44259925491](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259925491).
+- Chromium browser smoke [44259925384](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259925384).
+- GitHub Pages build/deploy and deployed-site/runtime-asset smoke [44259925382](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259925382).
+- Pinned Khmer Phonemizer raw-output workflow [44259925379](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259925379), SUCCESS; artifact ID 14407298530, 1,941 bytes, SHA-256 artifact digest `9ad7ec54b67307aa7a248f6ce897ef4f94913770c69bfbf8fc56e574c699c553`.
+
+Final post-merge repository snapshot: 225 refs / 225 unique tip SHAs (main + 224 non-main), 0 open PRs, and 1 open issue (#104). Prefix counts: a11y 2, audit 16, benchmark 1, ci 1, data 4, docs 97, feat 50, fix 14, release 1, research 28, test 10. The active continuation and historical refs remain preserved.
+
+This closes the optional workflow restoration and its post-merge verification. It does not close `KHM-BRANCH-AUDIT-001` (full file/commit/PR-ancestry audit remains PARTIAL), nor Issue #104 (human convention approval, independent annotation/adjudication, rights and 30-item gold pilot remain BLOCKED). Independent adjudicated IPA gold remains 0 and empirical accuracy remains null. No local checkout or local tests were run in this connector-only session.
