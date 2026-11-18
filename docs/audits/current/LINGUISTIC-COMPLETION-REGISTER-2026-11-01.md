@@ -2685,3 +2685,25 @@ Live branch inventory after PR #387: **259 refs / 259 unique tip SHAs**. Prefix 
 Task ledger: PR #387 automated keyboard/narrow-screen regression tests and exact-main Quality/Chromium/Pages checks — **DONE_VERIFIED**. Manual accessibility — **PARTIAL**. Full historical semantic re-adjudication — **PARTIAL**. Issue #104 independent IPA gold pilot — **BLOCKED**; approved convention, independent annotators/adjudicator/curator, private blind intake, rights-cleared 30-item packet and adjudication remain external human/evidence gates; gold = 0 and empirical accuracy = null. Root license — **BLOCKED** pending owner decision. External benchmark integration — **DEFERRED** pending rights/provenance and a valid independent evaluation set.
 
 No production runtime, phonological rule, IPA label, Ukrainian mapping, corpus row, source-rights status or benchmark score changed. No local checkout or local test execution is claimed; verification is from exact PR-head and exact post-merge GitHub Actions runs. Repository status remains **research-ready partial prototype**, not linguistically validated or release-ready.
+
+
+## PR #389 — accessibility landmark and accessible-name smoke — 2026-11-18
+
+PR [#389](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/389) merged by squash as `21092c099e37e47a0f23031c49dc90387ecb464d`, with exact PR head `e9f7cf81a74ec6bd3732036a299a4d379774b4be` and base `c079eb94cf06778db19c165f5786f8b3c30ee433`. The single-file test change checks both public pages for `lang="uk"`, exactly one main landmark, exactly one H1, non-empty accessible-name sources for every button/input/select/textarea and link, and an `alt` attribute on every image. It also asserts the service navigation landmark and labeled textbox remain discoverable by role/name.
+
+Exact PR-head verification:
+- Quality [44339619652](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44339619652) — SUCCESS (full Python suite, IPA corpus engineering validator, web checks and production build).
+- Chromium [44339619558](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44339619558) — SUCCESS (full Playwright browser suite, including the new accessibility structural checks).
+
+Exact post-merge main verification on `21092c099e37e47a0f23031c49dc90387ecb464d`:
+- Quality [44339770085](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44339770085) — SUCCESS.
+- Chromium [44339769999](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44339769999) — SUCCESS.
+- GitHub Pages production build, Chromium exercise, deployment and deployed-site/runtime-asset smoke [44339769998](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44339769998) — SUCCESS; build and deploy jobs both completed successfully.
+
+Scope boundary: this is automated structural/accessibility-name smoke coverage, not a complete WCAG audit. It does not establish screen-reader compatibility, exhaustive keyboard traversal, 200%/400% zoom/reflow, all contrast contexts, touch target adequacy or real-device behavior. Manual accessibility task `KHM-UI-001` remains **PARTIAL**. No production runtime, phonological rule, IPA label, Ukrainian mapping, corpus row, source-rights status or benchmark score changed.
+
+Live branch inventory after PR #389: **261 refs / 261 unique tip SHAs**. Prefix counts: a11y 2, audit 37, benchmark 1, ci 1, data 4, docs 107, feat 50, fix 16, main 1, release 1, research 29, test 12. Open PRs: 0. Open non-PR issue: #104 only.
+
+Task ledger: PR #389 automated landmark/document-language/accessible-name smoke and exact-main Quality/Chromium/Pages checks — **DONE_VERIFIED**. Manual accessibility — **PARTIAL**. Full historical semantic re-adjudication — **PARTIAL**. Issue #104 independent IPA gold pilot — **BLOCKED**; approved convention, independent annotators/adjudicator/curator, private blind intake, rights-cleared 30-item packet and adjudication remain external human/evidence gates; gold = 0 and empirical accuracy = null. Root license — **BLOCKED** pending owner decision. External benchmark integration — **DEFERRED** pending rights/provenance and a valid independent evaluation set.
+
+No local checkout or local test execution is claimed; verification is from exact PR-head and exact post-merge GitHub Actions runs. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
