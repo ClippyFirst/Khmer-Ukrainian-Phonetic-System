@@ -2080,3 +2080,57 @@ Exact PR-head checks on `3709c1912d1dad5aa18b7aa97b02e0f761484f7a` completed SUC
 Post-merge mainline runs on `d85081ba687b2003c195a5f7b4f0d78764fc9bc1`: Quality [44277328871](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277328871) SUCCESS; Pages build/deploy [44277331001](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277331001) SUCCESS. Post-merge Chromium smoke [44277328915](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277328915) was still IN_PROGRESS at this closeout; do not count it as a pass until its run reports SUCCESS.
 
 No runtime, linguistic rules, corpus rows, IPA labels or benchmark values changed. The repository-wide historical branch audit remains PARTIAL, Issue #104 remains open, independent adjudicated IPA gold remains 0 and empirical accuracy remains null. No local checkout or local tests were performed in this connector-only session.
+
+
+## Research branch-family reconciliation — 2026-11-18
+
+- Refreshed GitHub branch API pages 1–3 at exact main `da8054b893bf664a030ab9562e363c983815d344`: **232 refs / 232 unique tip SHAs** (main + 231 non-main), zero duplicate tips. Prefix counts: a11y 2, audit 17, benchmark 1, ci 1, data 4, docs 102, feat 50, fix 14, main 1, release 1, research 29, test 10. Open PRs: 0; open issue: #104. All historical refs remain preserved.
+- Compared **all 29 `research/*` branch tips** to current main using GitHub compare. Every branch diverges; ahead range 1–91 commits and behind range 4–526. This is a compare/changed-file inventory, not a full per-file semantic review of every changed path or PR-ancestry closure.
+
+| Research branch | Ahead | Behind | Disposition |
+|---|---:|---:|---|
+| `research/bgn-pcgn-ungegn-rule-diff-2026-11-15` | 5 | 176 | Older divergent snapshot; no wholesale merge |
+| `research/complete-external-g2p-registry-2026-11-15` | 6 | 197 | Older divergent snapshot; no wholesale merge |
+| `research/expert-shortlist-revalidation-2026-11-17` | 5 | 41 | Older divergent snapshot; no wholesale merge |
+| `research/external-ipa-renderers-2026-11-15` | 7 | 526 | Older divergent snapshot; no wholesale merge |
+| `research/google-khmer-lexicon-full-audit-2026-11-15` | 21 | 64 | Older divergent snapshot; no wholesale merge |
+| `research/khmer-acoustic-model-release-audit-2026-11-15` | 26 | 63 | Older divergent snapshot; no wholesale merge |
+| `research/khmer-engine-benchmark-expansion-2026-11-15` | 72 | 245 | Older divergent snapshot; no wholesale merge |
+| `research/khmer-hybrid-benchmarks-reconciled-2026-11-15` | 34 | 234 | Older divergent snapshot; no wholesale merge |
+| `research/khmer-hybrid-engine-2026-11-15` | 91 | 245 | Older divergent snapshot; no wholesale merge |
+| `research/khmer-ipa-convention-draft-2026-11-17` | 5 | 63 | Older divergent snapshot; no wholesale merge |
+| `research/khmer-ipa-convention-draft-v2-2026-11-17` | 7 | 62 | Older divergent snapshot; no wholesale merge |
+| `research/khmer-kirby-cluster-audio-audit-2026-11-17` | 9 | 56 | Older divergent snapshot; no wholesale merge |
+| `research/khmer-kirby-tonogenesis-audio-audit-2026-11-17` | 26 | 51 | Older divergent snapshot; no wholesale merge |
+| `research/khmer-lexical-segmentation-evidence-2026-11-17` | 4 | 38 | Older divergent snapshot; no wholesale merge |
+| `research/khmer-lexical-segmentation-evidence-mainline-2026-11-17` | 2 | 24 | Older divergent snapshot; no wholesale merge |
+| `research/khmer-phonotactic-scope-2026-11-15` | 9 | 195 | Older divergent snapshot; no wholesale merge |
+| `research/khmer-source-audit-integration-2026-11-17` | 7 | 58 | Older divergent snapshot; no wholesale merge |
+| `research/khmer-unicode-syllable-grammar-2026-11-15` | 1 | 73 | Older divergent snapshot; no wholesale merge |
+| `research/loc-khmer-word-division-2026-11-15` | 6 | 92 | Older divergent snapshot; no wholesale merge |
+| `research/mekongphon-diagnostic-harness-2026-11-15` | 11 | 203 | Older divergent snapshot; no wholesale merge |
+| `research/mekongphon-release-rights-audit-2026-11-15` | 10 | 63 | Older divergent snapshot; no wholesale merge |
+| `research/mekongphon-seed-lexicon-audit-2026-11-15` | 34 | 64 | Older divergent snapshot; no wholesale merge |
+| `research/pcgn-note-registry-2026-11-15` | 6 | 174 | Older divergent snapshot; no wholesale merge |
+| `research/phon-sobon-and-lexicon-triage-2026-11-15` | 11 | 198 | Older divergent snapshot; no wholesale merge |
+| `research/phonetic-literature-fulltext-review-2026-11-17` | 6 | 45 | Older divergent snapshot; no wholesale merge |
+| `research/pin-khmer-acoustic-dictionary-artifact-audit-2026-11-18` | 6 | 4 | Older divergent snapshot; no wholesale merge |
+| `research/sok-adams-khmer-phonology-audit-2026-11-17` | 7 | 48 | Older divergent snapshot; no wholesale merge |
+| `research/sok-adams-rule-transfer-audit-2026-11-17` | 5 | 36 | Older divergent snapshot; no wholesale merge |
+| `research/ungegn-engine-candidate-review-2026-11-15` | 5 | 177 | Older divergent snapshot; no wholesale merge |
+
+### Focused content-level checks and dispositions
+
+- External IPA renderer registry: `data/external-ipa-renderers.json`, its schema, and `tests/test_external_ipa_registry.py` are byte-identical between main and `research/external-ipa-renderers-2026-10-24`; no port required. The later MekongPhon diagnostic branch's workflow is also byte-identical to main.
+- External source registry snapshots are stale subsets: the three checked branches have 36 or 46 source entries versus 49 on main, and none contains an ID absent from main. Main has 13, 3 and 3 additional entries respectively. No branch-only source record was identified in these checks.
+- PCGN Note registry branch is an older snapshot: both main and branch CSV contain the same 11 note numbers, but branch row text predates the bounded resolvers and explicit unresolved contracts now recorded on main. Main CSV is 7,233 bytes vs 5,455; main test is 6,218 bytes vs 2,092. No old CSV/test overwrite is appropriate.
+- The hybrid-engine/benchmark branches contain earlier versions of `hybrid.py` (5,701 bytes vs main 6,971), `rule_engine.py` (5,895 vs 16,220), and `test_hybrid_engine.py` (1,718 vs 4,452). Their mainline counterparts are more developed; no implementation port is indicated by the snapshots.
+- The benchmark-expansion branch's 4,461-byte optional workflow is not the current 1,443-byte main workflow. Its extra neural-model job and diagnostic harness are not adopted: source-attested MekongPhon concordance is not independent gold, the data rights remain unresolved, and the existing source audit explicitly defers this path. No model benchmark was run and no score is claimed.
+- The PCGN phonotactic-scope branch's `tests/test_parser.py` is an older 4,120-byte snapshot vs 7,491 bytes on main. The IPA convention draft v2 is byte-identical to main. The lexical segmentation mainline branch reports no changed files relative to the compare base at its tip.
+- Selected main-vs-branch checks therefore support preserving current mainline implementations and retaining historical refs, not merging old divergent branch tips. Remaining branches still need full changed-file semantic review and PR ancestry reconciliation.
+
+**KHM-BRANCH-AUDIT-001 remains PARTIAL.** Completed in this pass: live inventory refresh, compare results for all 29 research refs, and focused content dispositions for the paths above. Outstanding: equivalent content/ancestry review for all changed paths in these 29 refs and remaining non-research families. No branch was deleted, force-updated or merged wholesale. No runtime, linguistic rules, IPA labels, corpus rows, source rights or benchmark values changed. Independent adjudicated IPA gold remains 0; empirical accuracy remains null; Issue #104 remains open.
+
+## PR #359 post-merge verification correction — 2026-11-18
+
+The previously pending post-merge Chromium run [44277328915](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277328915) subsequently completed SUCCESS. For main `da8054b893bf664a030ab9562e363c983815d344`, all three post-merge workflows completed SUCCESS: Quality [44277315119](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277315119), Chromium [44277815233](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277815233), and Pages build/deploy [44277815127](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277815127). (The Chromium run ID is the post-merge run 44277815233; the older 44277328915 also completed SUCCESS.)
