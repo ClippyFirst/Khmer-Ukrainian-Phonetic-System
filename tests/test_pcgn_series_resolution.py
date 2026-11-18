@@ -166,25 +166,26 @@ def test_pcgn_note2_shifters_abstain_on_wrong_direction_position_and_ba_exceptio
 
 
 
-def test_pcgn_note3_ba_with_triisap_is_p_in_a_series():
-    # Note 3 explicitly overrides the ordinary ô-series base value for ប
-    # with TRIISAP: the consonant is romanized p in the â-series.
+def test_pcgn_note2_triisap_is_exempt_for_ba_and_does_not_shift_series():
+    # Note 2 exempts BA from TRIISAP's normal â-to-ô shift. Note 3's
+    # p-in-â exception applies to MUUSIKATOAN, not TRIISAP.
     result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk("ប៊"))
     assert result.status == "RESOLVED"
     assert result.series_before_shifter == "ô"
-    assert result.series == "â"
+    assert result.series == "ô"
     assert result.basis == "BASE"
-    assert result.onset_exception == "BA_WITH_TRIISAP_P_IN_A_SERIES"
-    assert result.shifter_effect == "BA_TRIISAP_P_IN_A"
-    assert "PCGN_NOTE_3_BA_TRIISAP_P_IN_A_EXCEPTION" in result.warnings
+    assert result.onset_exception is None
+    assert result.shifter_effect == "TRIISAP_NO_SHIFT_BA_EXCEPTION"
+    assert "PCGN_NOTE_2_TRIISAP_EXEMPT_FOR_BA_NO_SERIES_SHIFT" in result.warnings
     assert result.source_locator == "PCGN 1972, Notes 2–3 (pp. 2–3)"
 
 
-def test_pcgn_ba_triisap_schema_enum_covers_the_documented_exception():
+def test_pcgn_ba_triisap_schema_exposes_no_shift_exception_not_a_p_exception():
     import json
     from pathlib import Path
 
     path = Path(__file__).resolve().parents[1] / "schemas/pcgn-series-decision.schema.json"
     schema = json.loads(path.read_text(encoding="utf-8"))
-    assert "BA_WITH_TRIISAP_P_IN_A_SERIES" in schema["properties"]["onset_exception"]["enum"]
-    assert "BA_TRIISAP_P_IN_A" in schema["properties"]["shifter_effect"]["enum"]
+    assert "BA_WITH_TRIISAP_P_IN_A_SERIES" not in schema["properties"]["onset_exception"]["enum"]
+    assert "BA_TRIISAP_P_IN_A" not in schema["properties"]["shifter_effect"]["enum"]
+    assert "TRIISAP_NO_SHIFT_BA_EXCEPTION" in schema["properties"]["shifter_effect"]["enum"]
