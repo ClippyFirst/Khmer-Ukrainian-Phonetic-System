@@ -2311,3 +2311,50 @@ Repository-wide status: research-ready partial prototype, not linguistically rel
 - Thus, this family audit identifies no unported executable or data artifact. Historical branches remain preserved. No changes to runtime, IPA, Ukrainian output, corpus, licensing, benchmark scores or gold labels are warranted.
 
 **Audit-family disposition: reviewed at compare/file-list level; semantic content review limited to the non-identical benchmark documentation and exact workflow blob comparison.** Repository-wide `KHM-BRANCH-AUDIT-001` remains PARTIAL because full semantic review and PR-ancestry reconciliation across every branch family are not complete. Issue #104 remains open; independent adjudicated IPA gold = 0 and empirical accuracy = null. No local checkout or local tests are claimed; this pass used GitHub-hosted repository/compare data only.
+
+
+## Fix and release branch-family reconciliation — 2026-11-18
+
+Compared all **15 `fix/*` refs and the single `release/*` ref** against current main `b2ce7c0b436cf3cdbbe3665ce702b9272e38948a`. All 16 refs diverge; ahead range 2–56, behind range 4–536. No branch was merged wholesale.
+
+| Branch | Ahead | Behind | Content disposition |
+|---|---:|---:|---|
+| `fix/explicit-ipa-kind-in-phonetic-result-2026-11-17` | 9 | 55 | Historical divergent snapshot; see focused evidence below |
+| `fix/flag-unconverted-khmer-romanizer-output-2026-11-15` | 2 | 192 | Historical divergent snapshot; see focused evidence below |
+| `fix/khmer-benchmark-reproducibility-2026-10-24` | 3 | 529 | Historical divergent snapshot; see focused evidence below |
+| `fix/khmer-orthographic-parser-diagnostics-v2-2026-11-16` | 17 | 78 | Historical divergent snapshot; see focused evidence below |
+| `fix/khmer-orthographic-parser-evidence-2026-11-16` | 7 | 79 | Historical divergent snapshot; see focused evidence below |
+| `fix/khmer-orthographic-parser-rejection-spans-2026-11-16` | 16 | 77 | Historical divergent snapshot; see focused evidence below |
+| `fix/khmer-rejected-span-reasons-and-fixtures-2026-11-16` | 2 | 76 | Historical divergent snapshot; see focused evidence below |
+| `fix/khmer-typed-partial-phonetic-results-2026-11-16` | 56 | 98 | Historical divergent snapshot; see focused evidence below |
+| `fix/khmer-unmodeled-letter-trace-2026-11-12` | 3 | 239 | Historical divergent snapshot; see focused evidence below |
+| `fix/mixed-script-numeral-token-boundaries-2026-11-17` | 32 | 51 | Historical divergent snapshot; see focused evidence below |
+| `fix/mixed-script-romanization-guard-2026-11-15` | 10 | 199 | Historical divergent snapshot; see focused evidence below |
+| `fix/pcgn-final-consonant-context-types-2026-11-16` | 2 | 138 | Historical divergent snapshot; see focused evidence below |
+| `fix/pcgn-shortened-vowel-diacritic-inventory-2026-11-15` | 11 | 189 | Historical divergent snapshot; see focused evidence below |
+| `fix/reconcile-unicode-tn61-source-metadata-2026-11-18` | 5 | 4 | Historical divergent snapshot; see focused evidence below |
+| `fix/serve-coverage-report-on-pages-2026-10-21` | 6 | 536 | Historical divergent snapshot; see focused evidence below |
+| `release/deterministic-rule-engine-2026-11-11` | 15 | 253 | Historical divergent snapshot; see focused evidence below |
+
+### Focused content-level checks
+
+- `fix/flag-unconverted-khmer-romanizer-output`: the executable `src/khmer-romanization-ukrainian.js` is byte-identical to main (4,438 bytes). Its test file is an older snapshot (12,554 vs 13,109 bytes); no runtime port indicated.
+- `fix/khmer-benchmark-reproducibility`: its benchmark script (5,842 bytes) and workflow (1,152 bytes) are older than main (10,704 and 1,443 bytes). Preserve main's current harness/workflow; the historical version does not add a missing capability.
+- Parser branches: `fix/khmer-orthographic-parser-diagnostics-v2`, `fix/khmer-orthographic-parser-evidence`, `fix/khmer-orthographic-parser-rejection-spans`, and `fix/khmer-rejected-span-reasons-and-fixtures` carry older `orthographic_syllables.py` snapshots (10,986–12,692 bytes vs main 12,711) and older JS/tests; no wholesale port. Their feature areas are represented by the later mainline parser and regression suite.
+- `fix/khmer-unmodeled-letter-trace`: `data/khmer/signs.json` is byte-identical to main (4,668 bytes); its `parser.py` is an older 7,014-byte snapshot vs main 10,689 bytes.
+- `fix/khmer-typed-partial-phonetic-results`: branch `phonetic_result.py` (1,607 bytes) and `rule_engine.py` (15,587 bytes) are older than main (1,797 and 16,220); current typed partial result behavior is more developed. No branch implementation port.
+- `fix/mixed-script-romanization-guard`: branch renderer is an older 4,326-byte snapshot vs main 4,438. `fix/mixed-script-numeral-token-boundaries` contains an older cross-cutting parser/rule-engine implementation; current main has subsequent integration and tests. Do not replace current files with these snapshots.
+- `fix/pcgn-final-consonant-context-types`: its PCGN module is an older 65,380-byte snapshot vs main 124,740; its targeted final-consonant test is byte-identical to main (4,953 bytes). No port.
+- `fix/pcgn-shortened-vowel-diacritic-inventory`: the data CSV is byte-identical to main (5,255 bytes); the associated implementation/test snapshots are older.
+- `fix/reconcile-unicode-tn61-source-metadata`: both `data/khmer/sources.json` and `tests/test_rule_registry_provenance.py` are byte-identical to main (67,497 and 6,167 bytes); the canonical metadata update is already integrated.
+- `fix/serve-coverage-report-on-pages`: `scripts/coverage.py` and `public/reports/khmer-coverage-audit.json` are byte-identical to main (9,665 and 12,579 bytes). No deployment or report artifact is missing.
+- The release branch is a substantially older rule-engine/runtime snapshot and is not a release candidate; main's current deterministic engine supersedes it.
+
+**Disposition:** focused content checks found no missing implementation requiring port. The exact current main remains authoritative; all historical branches are preserved. This pass is compare-complete for the 16 refs, with selected critical-file blob checks, not a full semantic review of every changed line or PR ancestry. `KHM-BRANCH-AUDIT-001` remains PARTIAL. Issue #104 remains the human-evidence blocker; independent adjudicated IPA gold = 0 and empirical accuracy = null. No runtime, IPA, Ukrainian mapping, corpus, rights or benchmark values changed. No local checkout/tests are claimed; GitHub compare and file-content checks only.
+
+
+### PR ancestry cross-check for the fix/release family
+
+Queried GitHub's all-state pull-request list by exact head branch for all 16 refs. Each ref has a corresponding PR; 13 PRs are merged, while parser-rejection PRs #288, #289 and #292 are closed unmerged as superseded/duplicate work. Their functional lineage is preserved by merged PR #293, which follows merged PR #291 and ports the remaining rejected-span reason/fixture details onto the latest packed parser. Specifically: #288 was superseded after main preserved both BNF S-production role assignments; #289 was superseded by #292 on a newer packed-parser base; #292 was closed after main independently merged the diagnostics and #293 carried the distinct reason/fixture refinements. No unmerged PR contained a unique surviving implementation absent from main in the checked paths.
+
+PR mapping: #312 explicit IPA kind; #201 unconverted romanizer guard; #9 benchmark reproducibility; #289/#288/#292 rejected-span/parser work (closed unmerged); #293 merged rejection-reason and Unicode fixture continuation; #280 typed partial results; #159 unmodeled-letter trace; #316 mixed-script numeral boundaries; #194 mixed-script romanization guard; #255 PCGN final consonant context; #204 shortened-vowel inventory; #365 TN #61 source metadata; #2 Pages coverage report; #152 deterministic rule engine.
