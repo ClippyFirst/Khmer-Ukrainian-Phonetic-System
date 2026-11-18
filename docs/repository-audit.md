@@ -2464,3 +2464,14 @@ Live branch inventory after PR #393: **265 refs / 265 unique tip SHAs**. Prefix 
 Task ledger: PR #392 accessibility-smoke regex correction and PR #393 canonical documentation closeout — **DONE_VERIFIED**. Manual accessibility KHM-UI-001 remains **PARTIAL** pending assistive-technology, exhaustive keyboard, zoom/reflow, complete contrast-context and real-device checks. Full historical semantic re-adjudication remains **PARTIAL**. Issue #104's independent IPA gold pilot remains **BLOCKED**: convention `DRAFT_NOT_APPROVED`, no confirmed appointments or private blind-intake dry run, rights-cleared 30-item packet not established, adjudicated gold = 0 and empirical accuracy = null. Root license remains **BLOCKED** pending owner decision. External benchmark integration remains **DEFERRED** pending rights/provenance and a valid independent evaluation set.
 
 No local checkout or local tests are claimed; all verification above is from GitHub Actions on the exact PR head and exact merged main SHA. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
+
+
+## PR #394 — canonical closeout and exact-main verification — 2026-11-18
+
+PR [#394](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/394) merged as `855eac7e6dc39a854cc79055c385152a4a32fc49`. It records the already-merged PR #393 in the canonical handoff, repository audit and linguistic completion register. This follow-up entry records PR #394 itself and prevents the audit trail from stopping one merge behind.
+
+Exact-main Actions on `855eac7e6dc39a854cc79055c385152a4a32fc49`: Quality [44379052920] SUCCESS (432 Python tests + 70 subtests; expected no-adjudicated-gold corpus state; Node/web checks and production build); Chromium [44379052839] SUCCESS; Pages [44379052866] SUCCESS (production build, browser exercise, deployment and published-site/runtime-asset smoke).
+
+Live inventory: 266 refs / 266 unique tip SHAs; 0 open PRs; Issue #104 only. The following historical branches were reviewed as potential unmerged work: `fix/ipa-tie-bar-segment-boundaries-2026-11-18`, `fix/reconcile-unicode-tn61-source-metadata-2026-11-18`, and `feat/pcgn-anusvara-visarga-syllable-assembly-port-2026-11-18`. Their relevant runtime/schema/test/source-registry artifacts are already present on main; no duplicate port was made. Their stale branch tips remain untouched.
+
+No production code or linguistic evidence changed. IPA convention remains DRAFT_NOT_APPROVED; independent gold = 0; empirical accuracy = null. Human recruitment, rights-cleared pilot acquisition and root-license owner decision remain BLOCKED; manual accessibility and historical semantic re-adjudication remain PARTIAL; external benchmark integration remains DEFERRED. No local checkout or local test run is claimed; CI evidence is hosted GitHub Actions.
