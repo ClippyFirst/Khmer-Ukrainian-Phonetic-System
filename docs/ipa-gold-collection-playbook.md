@@ -52,7 +52,7 @@ Repository snapshot inspected: https://github.com/byu-matrix-lab/MekongPhon/tree
 
 ### Khmer Acoustic Model dictionary
 
-https://github.com/chemvatho/Khmer-acoustic-model reports a 29,204-entry IPA dictionary and native-linguist validation; its README states that dictionary data are CC BY-SA 4.0, distinct from the MIT code/model license. This is promising for external comparison and source discovery, not automatically our gold. Inspect actual dictionary, metadata, exact commit, per-entry provenance, variety/profile, transcription consistency, and rights before using any entry. Do not copy entries just because the repository is public.
+At pinned upstream `main` commit `2714994b41ccf875c5b6f6182b48a72f13632dbf` (checked 2026-11-18), the root README claims 29,204 IPA entries and says dictionary data are CC BY-SA 4.0, while `dictionary/README.md` describes a G2P mapping derived from 33,091 entries under CC BY 4.0. The root MIT LICENSE applies to the software; the root README separately assigns MIT to the acoustic model. The public tree contains only `dictionary/README.md` and a six-line `dictionary/khmer_ipa_sample.dict` (blob SHA `9dbd64d74194485fbfda69dce41b5129b5fbb8ab`); the full dictionary is absent and no releases are published. The CC BY-SA vs. CC BY statements have differently described scopes but their relationship to the same underlying lexicon is not clear. Treat the project as a promising source-discovery lead only, not a reproducible corpus or gold. Do not copy even the sample into gold. Request the exact full artifact and checksum, per-artifact license terms, source provenance, target variety/profile, transcription convention, validation/adjudication protocol and clarification of the two counts and data-license scopes.
 
 ## Agreement and reliability reporting
 
@@ -347,3 +347,8 @@ Do not use `APPOINTED` until the person has explicitly accepted the named role a
 6. Begin the 30-item pilot only after all start gates pass. Preserve unresolved cases as unresolved; never force a gold label.
 
 **Current state:** templates prepared; outreach not sent; people not appointed; convention still `DRAFT_NOT_APPROVED`; source rights unresolved; blind intake not tested; gold remains 0 and empirical accuracy remains null.
+
+
+### Upstream artifact recheck — 2026-11-18
+
+See the pinned evidence in `docs/audits/current/EXTERNAL-PHONETIC-CORPUS-TRIAGE-2026-11-01.md`. The complete upstream dictionary is not present in the public tree; no item may be imported from this candidate until the full artifact, item provenance and license scope are supplied and independently reviewed.
