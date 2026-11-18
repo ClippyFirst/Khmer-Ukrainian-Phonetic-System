@@ -2376,3 +2376,19 @@ Compared both remaining specialized workflow refs with current main `190b9c3f109
 - PR #370's fix/release audit and PR #369's audit-family closeout are merged before this checkpoint. All 240 pre-existing branch refs remain preserved; no benchmark branch was executed in this pass.
 
 **Benchmark/CI family disposition:** compare and ancestry checks complete for both refs. The benchmark workflow is explicitly DEFERRED pending rights/provenance; the CI workflow is superseded by current pinned workflows. Repository-wide `KHM-BRANCH-AUDIT-001` remains PARTIAL until remaining all-family PR ancestry and semantic content review are complete. Issue #104 remains open; independent adjudicated IPA gold = 0; empirical accuracy = null. No runtime, IPA, Ukrainian output, corpus, benchmark values or rights decisions changed. No local checkout or local tests are claimed.
+
+
+## Late documentation-branch additions — 2026-11-18
+
+The earlier documentation-family pass recorded 103 `docs/*` tips. A fresh live inventory now contains 106. Reconciled the three later closeout branches against current main `42dd0cbddf6fce29ddfdc8d8161b830597183a23` and cross-checked a fourth recent documentation branch for its PR ancestry:
+
+| Branch | Ahead | Behind | PR | Disposition |
+|---|---:|---:|---:|---|
+| `docs/closeout-tn61-source-registry-and-docs-branch-audit-2026-11-18` | 3 | 6 | #366 merged | Historical three-document closeout; represented on main |
+| `docs/pr366-postmerge-closeout-2026-11-18` | 3 | 5 | #367 merged | Historical three-document closeout; represented on main |
+| `docs/pr367-final-mainline-closeout-2026-11-18` | 3 | 4 | #368 merged | Historical three-document closeout; represented on main |
+| `docs/ipa-gold-recruitment-execution-kit-2026-11-18` | 4 | 17 | #355 merged | Recruitment templates and protocol documentation already merged; no outreach or recruitment is implied |
+
+Each changed-file list contains only the canonical handoff, linguistic completion register, repository audit and, for the recruitment-kit branch, the IPA collection playbook. These are merged documentation snapshots; no additional implementation or evidence payload was found to port. This reconciles the three-ref difference between the previous 103-ref docs-family checkpoint and the current 106-ref inventory. No historical ref was changed or deleted.
+
+Documentation family: **106/106 refs now have a recorded compare/content disposition** (103 from the earlier full pass plus these three later closeout refs); the additional recruitment-kit branch was separately verified against PR #355. This is branch-tip and changed-file review, not a claim that every sentence in every historical handoff has been re-adjudicated. The repository-wide audit remains PARTIAL pending complete semantic review and PR ancestry across all remaining families.
