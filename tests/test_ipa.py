@@ -109,6 +109,23 @@ def test_candidate_validator_preserves_tone_length_stress_and_syllable_boundarie
     assert candidate.raw_output == raw
 
 
+
+def test_tie_bars_require_two_adjacent_segment_letters():
+    args = {
+        "profile": "khmer-pph-careful-citation-v1",
+        "kind": "PHONETIC_BROAD",
+        "status": "COMPLETE",
+        "provider": "external-g2p",
+    }
+    for raw in ("k͡", "/k͡/", "k͡ːa", "k͡͡a"):
+        with pytest.raises(ValueError, match="tie bar"):
+            validate_ipa_candidate(raw, **args)
+
+    # A preceding segment diacritic remains attached to the first segment.
+    raw = "t̪͡s"
+    candidate = validate_ipa_candidate(raw, **args)
+    assert candidate.ipa == raw
+
 def test_combining_marks_cannot_float_across_a_space():
     with pytest.raises(ValueError, match="orphan combining mark"):
         validate_ipa_candidate(
