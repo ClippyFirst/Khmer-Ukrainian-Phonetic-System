@@ -4008,3 +4008,16 @@ This closes the optional workflow restoration and its post-merge verification. I
 - Reclassified stale playbook TODOs as evidence-backed BLOCKED gates: the documented Khmer Acoustic Model dictionary artifact is unavailable at the inspected path and its entry-count/license claims conflict; convention approval, qualified independent roles, rights-cleared items and private blind intake require external human evidence.
 - No IPA labels, source records, corpus rows, splits, benchmark scores, runtime rules or Ukrainian mappings were changed. `data/benchmark/gold.tsv` remains header-only; independent adjudicated gold=0; empirical accuracy=null.
 - No external contacts were made and no private contact data was added. This documentation work does not satisfy Issue #104 or change release readiness.
+
+
+## PR #355 post-merge closeout — 2026-11-18
+
+PR [#355](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/355) merged into `main` as `083f9a64729ae7b01d63555090f10536db0ef242`.
+
+Exact PR-head checks on `749f36633e448259b129a20a406f357ac10e5507` completed SUCCESS before merge:
+- Quality [44261845934](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44261845934): corpus-structure validation, Python tests, web checks and production build all passed.
+- Chromium browser smoke [44261845844](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44261845844): deterministic web checks, production build, Chromium installation and visible-results verification all passed.
+
+The merge commit is the latest repository commit as of this closeout. No post-merge workflow runs were created for the documentation-only merge; verification evidence is from the exact merged PR head. No local checkout or local tests were performed in this connector-only session.
+
+PR #355 adds invitation drafts and a private response/qualification protocol only. No outreach was sent, no expert or annotator was appointed, no source rights were cleared, and no blind intake was tested. The convention remains `DRAFT_NOT_APPROVED`; Issue #104 remains open; independent adjudicated IPA gold remains 0 and empirical accuracy remains null. This closes the documentation change, not the linguistic pilot or release gate.
