@@ -4259,3 +4259,40 @@ Post-merge mainline checks on `ac1bb5dbdb1245e7045939c3a4f57de2deb59242`: Qualit
 Live inventory after creating this closeout branch: **240 refs / 239 unique tips** at the moment before its first commit; the only shared SHA was the expected `main` + new branch base `ac1bb5dbdb1245e7045939c3a4f57de2deb59242`. The closeout commit will give this branch its own tip. Prefix counts: a11y 2, audit 20, benchmark 1, ci 1, data 4, docs 106, feat 50, fix 15, main 1, release 1, research 29, test 10. All pre-existing non-main branch tips remain preserved. Open PRs before this closeout: 0; Issue #104 remains open.
 
 Repository-wide status: research-ready partial prototype, not linguistically release-ready. `KHM-BRANCH-AUDIT-001` remains PARTIAL despite current-base branch-tip compare coverage; full semantic review of every changed path and PR ancestry is still incomplete. Human IPA pilot remains BLOCKED by expert approval/recruitment, rights-cleared items and blind adjudication. Independent adjudicated gold remains 0; empirical accuracy remains null. No local checkout or local tests are claimed; hosted GitHub Actions provide the recorded verification.
+
+
+## Audit branch-family reconciliation — 2026-11-18
+
+- Refreshed live branch inventory at main `cb21aeff8a8a7d97ea6a11d27766ff3ae8009fe9`: 240 refs / 240 unique tips; 20 `audit/*` branches. All 20 branch tips compared with GitHub compare against this exact main. Ahead range 0–8, behind range 6–216.
+
+| Audit branch | Ahead | Behind | Changed-file disposition |
+|---|---:|---:|---|
+| `audit/complete-docs-branch-family-reconciliation-2026-11-17` | 3 | 19 | docs only |
+| `audit/complete-feature-and-test-branch-reconciliation-2026-11-17` | 3 | 22 | docs only |
+| `audit/complete-fix-and-release-branch-reconciliation-2026-11-17` | 3 | 20 | docs only |
+| `audit/complete-remaining-branch-families-2026-11-17` | 0 | 18 | no changed files |
+| `audit/complete-research-branch-family-reconciliation-2026-11-17` | 3 | 21 | docs only |
+| `audit/continue-historical-branch-reconciliation-2026-11-17` | 3 | 27 | docs only |
+| `audit/continue-pcgn-branch-reconciliation-2026-11-17` | 3 | 25 | docs only |
+| `audit/continue-pcgn-note-and-special-syllable-branch-reconciliation-2026-11-17` | 3 | 23 | docs only |
+| `audit/continue-pcgn-vowel-and-syllable-branch-reconciliation-2026-11-17` | 3 | 24 | docs only |
+| `audit/continue-typed-ipa-and-coverage-branch-reconciliation-2026-11-17` | 3 | 26 | docs only |
+| `audit/current-branch-inventory-2026-11-16` | 2 | 133 | docs only |
+| `audit/final-branch-inventory-closeout-2026-11-17` | 3 | 28 | docs only |
+| `audit/pr153-diff-reconciliation-2026-11-15` | 2 | 216 | docs only |
+| `audit/reconcile-accessibility-ci-benchmark-docs-2026-11-18` | 3 | 6 | docs only |
+| `audit/reconcile-audit-branch-family-2026-11-18` | 3 | 7 | docs only |
+| `audit/reconcile-research-branch-family-2026-11-18` | 6 | 8 | docs only |
+| `audit/reconcile-selected-historical-branch-content-2026-11-17` | 6 | 29 | docs only |
+| `audit/refresh-branch-inventory-2026-11-17` | 3 | 30 | docs only |
+| `audit/refresh-live-inventory-and-reconcile-pcgn-port-2026-11-18` | 3 | 10 | docs only |
+| `audit/restore-pinned-khmer-phonemizer-smoke-2026-11-18` | 8 | 16 | workflow identical to main; docs differ |
+
+### Content disposition
+
+- 19 branches have changed-file lists containing only the three canonical audit/handoff documents: `docs/MASTER-EXECUTION-PLAN-AND-CHAT-HANDOFF.md`, `docs/audits/current/LINGUISTIC-COMPLETION-REGISTER-2026-11-01.md`, and `docs/repository-audit.md`. They are historical audit snapshots, not code/data contributions; no wholesale merge is appropriate.
+- `audit/complete-remaining-branch-families-2026-11-17` is fully behind with zero changed files relative to current main.
+- The remaining branch `audit/restore-pinned-khmer-phonemizer-smoke-2026-11-18` also changes `docs/benchmarking-and-external-ipa.md` and `.github/workflows/optional-khmerphonemizer-smoke.yml`; the workflow file was fetched from both refs and is byte-identical (1,372 bytes). Its only workflow delta is historical ancestry, not current content. Benchmark documentation differs only by accumulated historical smoke evidence; no executable workflow improvement is missing from main.
+- Thus, this family audit identifies no unported executable or data artifact. Historical branches remain preserved. No changes to runtime, IPA, Ukrainian output, corpus, licensing, benchmark scores or gold labels are warranted.
+
+**Audit-family disposition: reviewed at compare/file-list level; semantic content review limited to the non-identical benchmark documentation and exact workflow blob comparison.** Repository-wide `KHM-BRANCH-AUDIT-001` remains PARTIAL because full semantic review and PR-ancestry reconciliation across every branch family are not complete. Issue #104 remains open; independent adjudicated IPA gold = 0 and empirical accuracy = null. No local checkout or local tests are claimed; this pass used GitHub-hosted repository/compare data only.
