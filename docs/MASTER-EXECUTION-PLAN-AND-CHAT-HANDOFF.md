@@ -4463,3 +4463,19 @@ Queried all-state PRs by exact head branch for all 29 refs:
 The 29 branch compare results and PR mappings are now explicit. Existing content-level findings remain: external IPA renderers and diagnostic harnesses are not gold; MekongPhon and the Khmer Acoustic Model remain rights/profile limited; PCGN note registry snapshots are older than main; IPA convention remains draft; lexical segmentation remains evidence-limited. The benchmark/hybrid branches do not authorize model voting or promotion of source-attested output. All historical refs are preserved.
 
 **Research family: current-base compare and PR ancestry DONE_VERIFIED.** This is not a full semantic adjudication of every changed line in every research document/data file; repository-wide `KHM-BRANCH-AUDIT-001` remains PARTIAL for that reason and for other remaining families. Issue #104 remains open; no expert has been contacted or recruited, approved convention remains absent, adjudicated gold = 0 and empirical accuracy = null. No external data, runtime rules, IPA, Ukrainian output or corpus labels changed. No local checkout or local tests are claimed.
+
+
+## Data branch current-base and PR-ancestry reconciliation — 2026-11-18
+
+Compared all **four \`data/*\` refs** against exact current main \`bce05e599e3202410a1c49ff4a88ec58ae49c06b\` and queried PR ancestry by exact head branch.
+
+| Data branch | Ahead | Behind | PR ancestry | Disposition |
+|---|---:|---:|---|---|
+| \`data/integrate-positional-onset-evidence-register-2026-11-17\` | 0 | 37 | No PR; zero changed files | Behind-only duplicate tip; no unique content |
+| \`data/khmer-onset-evidence-registry-2026-11-17\` | 10 | 46 | #329 merged | Provisional evidence registry/schema/tests are integrated; entries remain explicitly unadjudicated |
+| \`data/pcgn-independent-vowel-source-register-2026-11-16\` | 12 | 143 | #258 closed superseded by #259 | Source register/tests carried forward by clean continuation |
+| \`data/pcgn-independent-vowel-source-register-mainline-2026-11-16\` | 6 | 142 | #259 merged | CSV register is byte-identical to main; no port |
+
+PR #258 was closed only to avoid stale-base documentation conflict after PR #257; PR #259 preserved the source register and parity tests, while leaving unresolved \`ឧ\` romanization alternatives \`ŏ\`/\`ŭ\` explicitly undecided. PR #329 added the positional onset evidence registry as a specialist-reference container only; its records remain \`NOT_INDEPENDENTLY_REVIEWED\` and \`NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE\`. These data registries are not primary phonetic evidence or IPA gold and do not authorize new pronunciation mappings.
+
+**Data family: current-base compare and PR ancestry DONE_VERIFIED.** No data rows, IPA labels, runtime mappings, or gold records were added in this audit. All historical refs are preserved. Repository-wide \`KHM-BRANCH-AUDIT-001\` remains PARTIAL pending full semantic line review and remaining ancestry work. Issue #104 remains open; adjudicated gold = 0; accuracy = null. No local checkout or local tests are claimed.
