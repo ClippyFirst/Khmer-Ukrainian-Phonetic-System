@@ -86,6 +86,8 @@ Those behaviors must remain separate from the standards-backed table. For this p
 | Identify the PCGN vs UNGEGN series-neutral subscript delta | DONE_VERIFIED (textual comparison) | PCGN note 3 vs UNGEGN note 3; explicit difference is inclusion of ស in UNGEGN neutral list. |
 | Reconcile every PCGN vowel/nucleus row against the candidate table | PARTIAL | Machine-readable row-by-row diff with exact Khmer glyphs and values; no unresolved OCR/font ambiguities. |
 | Verify all shifter and ប exceptions by exact code point and PCGN example | PARTIAL | Tests for U+17C9/U+17CA, both series directions, ប/បា exceptions, and omitted-mark uncertainty. |
+
+Implementation note (2026-11-18): the bounded series resolver now emits an explicit warning when no shifter is encoded: PCGN Note 2 says Khmer diacritics are frequently omitted and directs users to consult a reference source when the series is uncertain. This warning does not infer a missing mark or change the graphemic series result; the complete source-context and lexical uncertainty task remains PARTIAL.
 | Specify PCGN-safe syllable-boundary behavior | TODO | Human-reviewed ambiguity cases; preserve alternatives or abstain; no heuristic costs copied without evidence. |
 | Implement project-owned contextual PCGN engine | TODO | Diacritic-preserving Khmer-script → PCGN output; typed unsupported results; parity against the PCGN guide and reviewed lexical fixtures. |
 | Ukrainian adaptation | PARTIAL | Consume only validated PCGN output; retain source/romanization provenance; expert review of Ukrainian target convention. |
