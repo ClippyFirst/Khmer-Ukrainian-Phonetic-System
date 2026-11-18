@@ -166,6 +166,28 @@ def test_pcgn_note2_shifters_abstain_on_wrong_direction_position_and_ba_exceptio
 
 
 
+def test_pcgn_note2_triisap_is_exempt_for_ba_with_aa_and_does_not_shift_series():
+    # Note 2 names both ប and បា as TRIISAP exceptions. Khmer syllabic
+    # ordering places the register shifter after the base and before AA.
+    result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk("ប៊ា"))
+    assert result.status == "RESOLVED"
+    assert result.series_before_shifter == "ô"
+    assert result.series == "ô"
+    assert result.onset_exception is None
+    assert result.shifter_effect == "TRIISAP_NO_SHIFT_BA_EXCEPTION"
+    assert "PCGN_NOTE_2_TRIISAP_EXEMPT_FOR_BA_NO_SERIES_SHIFT" in result.warnings
+
+
+def test_pcgn_note3_muusikatoan_p_exception_also_covers_ba_with_aa():
+    # Note 3's ប/បា p-in-â exception applies to MUUSIKATOAN.
+    result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk("ប៉ា"))
+    assert result.status == "RESOLVED"
+    assert result.series_before_shifter == "â"
+    assert result.series == "â"
+    assert result.onset_exception == "BA_WITH_MUUSIKATOAN_P_IN_A_SERIES"
+    assert result.shifter_effect == "BA_MUUSIKATOAN_P_IN_A"
+
+
 def test_pcgn_note2_triisap_is_exempt_for_ba_and_does_not_shift_series():
     # Note 2 exempts BA from TRIISAP's normal â-to-ô shift. Note 3's
     # p-in-â exception applies to MUUSIKATOAN, not TRIISAP.
