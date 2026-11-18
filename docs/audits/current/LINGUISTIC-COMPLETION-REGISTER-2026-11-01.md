@@ -2245,3 +2245,19 @@ PR [#365](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/3
 Exact PR-head checks on `114e89e2e8a3ab6ea34f6de2c7899affcb4961a7` completed SUCCESS: Quality [44285305424](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44285305424) and [44285327561](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44285327561), Chromium [44285327565](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44285327565). Post-merge mainline runs on `cb4aa8c1e69d1a4fafcd40f59577bef4fd45f7a5` were still in progress at closeout: Quality [44285486097](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44285486097), Chromium [44285486019](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44285486019), Pages [44285486075](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44285486075).
 
 Current live branch inventory at this closeout: **237 refs / 237 unique tip SHAs** (main + 236 non-main), zero duplicate tips. Prefix counts: a11y 2, audit 20, benchmark 1, ci 1, data 4, docs 103, feat 50, fix 15, main 1, release 1, research 29, test 10. Open PRs: 0. Issue #104 remains open. No runtime, IPA, Ukrainian output, gold labels or accuracy figures changed; the repository remains a research-ready partial prototype, not linguistically release-ready.
+
+
+## PR #366 post-merge closeout — 2026-11-18
+
+PR [#366](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/366) merged into `main` as `9c11943aeb10746b006a9684df13fe71dc9f6794`.
+
+Exact PR-head checks on `be079196a4008a8beaaf5339a649e336d673aab3` completed SUCCESS: Quality [44285636247](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44285636247) and [44285613505](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44285613505), Chromium [44285636264](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44285636264).
+
+Post-merge mainline checks on `9c11943aeb10746b006a9684df13fe71dc9f6794` all completed SUCCESS:
+- Quality [44286018948](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44286018948).
+- Chromium [44286018958](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44286018958).
+- Pages build, production Chromium exercise, artifact upload and deploy [44286018982](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44286018982).
+
+Live branch inventory at this checkpoint: **238 refs / 238 unique tip SHAs** (main + 237 non-main), zero duplicate tips. Prefix counts: a11y 2, audit 20, benchmark 1, ci 1, data 4, docs 104, feat 50, fix 15, main 1, release 1, research 29, test 10. Open PRs: 0; Issue #104 remains open.
+
+PRs #365–#366 change only source metadata, tests and audit documentation. No TN #61-derived parser grammar, pronunciation rule, IPA, Ukrainian output, corpus row, gold label or accuracy score was introduced. `KHM-BRANCH-AUDIT-001` remains PARTIAL pending full semantic and PR-ancestry reconciliation; human linguistic pilot remains BLOCKED by Issue #104. Repository status remains research-ready partial prototype, not linguistically release-ready. No local checkout or local tests are claimed; verification is hosted GitHub Actions.
