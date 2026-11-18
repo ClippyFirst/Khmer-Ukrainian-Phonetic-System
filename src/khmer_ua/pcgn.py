@@ -579,7 +579,6 @@ class PCGNConsonantDecision:
     onset_exception: Literal[
         "BA_WITH_FOOT_P_IN_A_SERIES",
         "BA_WITH_MUUSIKATOAN_P_IN_A_SERIES",
-        "BA_WITH_TRIISAP_P_IN_A_SERIES",
     ] | None
     romanization: str | None
     status: Literal["RESOLVED", "UNRESOLVED"]
