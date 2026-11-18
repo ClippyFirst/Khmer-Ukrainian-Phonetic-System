@@ -2202,3 +2202,16 @@ Compared all **four \`data/*\` refs** against exact current main \`bce05e599e320
 PR #258 was closed only to avoid stale-base documentation conflict after PR #257; PR #259 preserved the source register and parity tests, while leaving unresolved \`ឧ\` romanization alternatives \`ŏ\`/\`ŭ\` explicitly undecided. PR #329 added the positional onset evidence registry as a specialist-reference container only; its records remain \`NOT_INDEPENDENTLY_REVIEWED\` and \`NOT_ADJUDICATED_FOR_PROJECT_PPH_PROFILE\`. These data registries are not primary phonetic evidence or IPA gold and do not authorize new pronunciation mappings.
 
 **Data family: current-base compare and PR ancestry DONE_VERIFIED.** No data rows, IPA labels, runtime mappings, or gold records were added in this audit. All historical refs are preserved. Repository-wide \`KHM-BRANCH-AUDIT-001\` remains PARTIAL pending full semantic line review and remaining ancestry work. Issue #104 remains open; adjudicated gold = 0; accuracy = null. No local checkout or local tests are claimed.
+
+
+## Audit branch PR-ancestry closeout — 2026-11-18
+
+Queried all-state PRs by exact head branch for the 20 pre-existing `audit/*` refs covered by the compare/content pass in PR #369. Results:
+
+- **18 refs map to merged PRs:** #180, #261, #338, #339, #341, #342, #343, #344, #345, #346, #347, #348, #349, #350, #353, #359, #361, #362, #363.
+- **One ref has a closed unmerged continuation PR:** `audit/reconcile-selected-historical-branch-content-2026-11-17` maps to merged PR #339 and superseded PR #340. PR #340's body states it was closed due to squash-merge ancestry conflict after #339; its final branch-count/verification note was reapplied on a fresh mainline branch. No content is treated as lost or as merged through #340.
+- **One ref has no PR:** `audit/complete-remaining-branch-families-2026-11-17`; the compare against current main reported zero changed files and the branch is behind-only.
+
+This completes exact-head PR ancestry mapping for the 20 historical audit branches. Their substantive changed paths remain documentation-only (with the separately verified pinned Khmer Phonemizer workflow byte-identical to main), as recorded in PR #369. The newer audit branches created for the ongoing closeout are handled by their own PRs (#369–#377) and are not part of this 20-ref historical cohort.
+
+**Audit family: compare/content disposition and PR ancestry DONE_VERIFIED for the 20 historical refs.** Repository-wide `KHM-BRANCH-AUDIT-001` remains PARTIAL because complete semantic line review of every historical document and remaining family refs is not complete. No branches were deleted/force-updated. No runtime, linguistic rules, IPA, Ukrainian output, corpus, gold labels or benchmark scores changed. Issue #104 remains open; independent gold=0, accuracy=null.
