@@ -2663,3 +2663,25 @@ Live branch inventory after PR #385: **257 refs / 257 unique tip SHAs**. Prefix 
 Task ledger: PR #385 documentation closeout and exact-main Quality/Chromium/Pages checks — **DONE_VERIFIED**. The PR #384 tie-bar validator remains a notation/metadata structural check only. Independent adjudicated IPA gold remains 0 and empirical accuracy remains null; Issue #104 remains **BLOCKED** by the unapproved convention, missing independent annotators/adjudicator/curator, private blind intake and rights-cleared source packet. Manual accessibility and complete historical semantic re-adjudication remain **PARTIAL**; root license remains **BLOCKED** on owner decision; external benchmark integration remains **DEFERRED** pending rights/provenance and a valid independent evaluation set.
 
 No local checkout or local tests were run. All verification above is from GitHub Actions on the exact PR head and exact merged main SHA. Repository status remains **research-ready partial prototype**, not linguistically validated or release-ready.
+
+
+## PR #387 — expanded automated accessibility smoke and exact-main closeout — 2026-11-18
+
+PR [#387](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/387) merged by squash as `61975c0c899d8c4b390204f69c08ef776b1e1da5`, with exact PR head `cd689943bfa130bd2993ab6d42ac0c0e1cc20bb4` and base `c16de68db26ef19fbaa02065bed7a3663bc46bfa`. The single-file test change adds (1) keyboard focus-indicator and Space activation coverage for the example/clear controls after results appear, and (2) document/body horizontal-overflow checks at 320, 375 and 420 CSS pixels on both the service and methodology pages.
+
+Exact PR-head CI:
+- Quality [44336489907](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44336489907) — SUCCESS.
+- Khmer browser smoke [44336489862](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44336489862) — SUCCESS.
+
+Exact post-merge main CI on `61975c0c899d8c4b390204f69c08ef776b1e1da5`:
+- Quality [44336671094](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44336671094) — SUCCESS.
+- Khmer browser smoke [44336671217](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44336671217) — SUCCESS.
+- GitHub Pages build/deploy [44336671342](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44336671342) — SUCCESS; both build and deploy jobs completed successfully.
+
+The new browser tests improve automated keyboard and narrow-screen regression coverage only. They do not establish full keyboard traversal, screen-reader/assistive-technology compatibility, 200%/400% zoom/reflow, complete contrast coverage, or real-device/mobile behavior. Manual accessibility task `KHM-UI-001` therefore remains **PARTIAL**.
+
+Live branch inventory after PR #387: **259 refs / 259 unique tip SHAs**. Prefix counts: a11y 2, audit 36, benchmark 1, ci 1, data 4, docs 107, feat 50, fix 16, main 1, release 1, research 29, test 11. Open PRs: 0. Open non-PR issue: #104 only.
+
+Task ledger: PR #387 automated keyboard/narrow-screen regression tests and exact-main Quality/Chromium/Pages checks — **DONE_VERIFIED**. Manual accessibility — **PARTIAL**. Full historical semantic re-adjudication — **PARTIAL**. Issue #104 independent IPA gold pilot — **BLOCKED**; approved convention, independent annotators/adjudicator/curator, private blind intake, rights-cleared 30-item packet and adjudication remain external human/evidence gates; gold = 0 and empirical accuracy = null. Root license — **BLOCKED** pending owner decision. External benchmark integration — **DEFERRED** pending rights/provenance and a valid independent evaluation set.
+
+No production runtime, phonological rule, IPA label, Ukrainian mapping, corpus row, source-rights status or benchmark score changed. No local checkout or local test execution is claimed; verification is from exact PR-head and exact post-merge GitHub Actions runs. Repository status remains **research-ready partial prototype**, not linguistically validated or release-ready.
