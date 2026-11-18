@@ -4783,3 +4783,22 @@ PR-head Quality [44395612844](https://github.com/ClippyFirst/Khmer-Ukrainian-Pho
 
 Task ledger: explicit omitted-shifter warning and regression coverage — DONE_VERIFIED. Full PCGN syllable-boundary behavior and end-to-end contextual Khmer-script romanization remain TODO/PARTIAL pending source-backed ambiguity cases, complete row reconciliation and human review. No IPA, pronunciation or Ukrainian output was introduced. IPA convention remains DRAFT_NOT_APPROVED; adjudicated gold = 0 and empirical accuracy = null. Repository remains research-ready partial prototype, not linguistically release-ready.
 
+
+
+## PR #399 — correct PCGN shifter code points and BA exception — 2026-11-18
+
+PR [#399](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/399) merged by squash as `8bbdf54bac984165e86b747504ccf7a1e2735741`, based on `725c09a373d0eebb181e3cd3ee02d751e859a3a9`; final PR head `79bacbdef5cd37be94f05d01ea3223644d10d0fb`.
+
+The source registry had the two Khmer register-shifter names attached to the opposite glyphs. It now records TRIISAP as U+17CA (`◌៊`) and MUUSIKATOAN as U+17C9 (`◌៉`). The deeper runtime audit also found a related BA exception defect: the resolver incorrectly treated BA + TRIISAP as a p-in-â exception. PCGN Note 2 exempts BA from TRIISAP's normal â→ô shift; PCGN Note 3's p-in-â exception is BA + MUUSIKATOAN, or BA with a foot. The resolver now preserves BA + TRIISAP in the ô-series (consonant component `b`) and applies the p exception only to the source-supported MUUSIKATOAN/foot cases.
+
+Changed artifacts: `src/khmer_ua/pcgn.py`, `data/khmer/romanization_pcgn_notes.csv`, both PCGN series/consonant decision schemas, their regression tests, and `docs/audits/current/BGN-PCGN-UNGEGN-RULE-DIFF-2026-11-15.md`. The source correction is limited to the orthographic PCGN route; no IPA labels, Ukrainian adaptation, corpus records, source rights, or benchmark values changed.
+
+Verification:
+- PR-head Quality [44404900821](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44404900821) — SUCCESS; 435 Python tests + 70 subtests, corpus gate reports expected `NOT_READY_NO_ADJUDICATED_GOLD`, Node/web checks and production build pass.
+- PR-head Chromium [44404900673](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44404900673) — SUCCESS; 21/21 Playwright tests.
+- Push Quality [44404888463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44404888463) — SUCCESS.
+- Exact-main Quality [44405101264](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44405101264) — SUCCESS; 435 Python tests + 70 subtests and the same expected corpus-gate status.
+- Exact-main Chromium [44405101302](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44405101302) — SUCCESS; 21/21.
+- Exact-main Pages/deployed-site smoke [44405101273](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44405101273) — SUCCESS; production build, Chromium exercise, deployment and deployed runtime-asset smoke.
+
+Task ledger: shifter-name/codepoint reconciliation and BA+TRIISAP exception correction — DONE_VERIFIED. Complete contextual Khmer-script → PCGN engine and syllable-boundary inference remain TODO/PARTIAL pending source-reviewed ambiguity cases, full table reconciliation and human review. IPA convention remains DRAFT_NOT_APPROVED; independent adjudicated gold = 0; empirical accuracy = null. Issue #104's blind pilot and root repository license remain BLOCKED on external personnel/rights and owner decision. Manual accessibility and historical semantic re-adjudication remain PARTIAL; external benchmark integration remains DEFERRED. No open PRs remain after #399. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
