@@ -4159,3 +4159,40 @@ Exact PR-head checks on `036fabab2606f2b4269088a50e1610bb3cf1f0dd` completed SUC
 - Chromium [44282464691](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44282464691).
 
 Post-merge mainline Quality, Chromium and Pages runs were still in progress at this closeout: [44282675127](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44282675127), [44282675115](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44282675115), [44282675129](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44282675129). Update this status only after the runs complete.
+
+
+## Accessibility, CI, benchmark and recent documentation branch checks — 2026-11-18
+
+- Compared the two `a11y/*`, one `ci/*`, one `benchmark/*`, and 11 selected recent `docs/*` branch tips against main `95f0a69f861294490845425b622832bea49df2ab`. Current live inventory at this base: 233 refs / 233 unique tips (main + 232 non-main); docs family has 102 refs. The earlier docs-family audit covered 96 refs at its historical base; the 11 targeted checks below are supplemental spot checks, not a claim that every one is necessarily among the six net-new docs refs.
+
+| Documentation branch | Ahead | Behind | Scope |
+|---|---:|---:|---|
+| `docs/ipa-gold-recruitment-execution-kit-2026-11-18` | 4 | 7 | Documentation-only snapshot |
+| `docs/pr355-post-merge-closeout-2026-11-18` | 3 | 6 | Documentation-only snapshot |
+| `docs/pr357-upstream-audit-closeout-2026-11-18` | 3 | 4 | Documentation-only snapshot |
+| `docs/pr359-post-merge-closeout-2026-11-18` | 3 | 2 | Documentation-only snapshot |
+| `docs/record-pcgn-anusvara-assembly-port-2026-11-18` | 6 | 10 | Documentation-only snapshot |
+| `docs/close-shared-fallback-parity-task-2026-11-17` | 3 | 34 | Documentation-only snapshot |
+| `docs/closeout-mixed-script-boundaries-2026-11-17` | 3 | 44 | Documentation-only snapshot |
+| `docs/correct-khmer-nova-tokenization-scope-2026-11-17` | 3 | 26 | Documentation-only snapshot |
+| `docs/khmer-fallback-parity-mainline-closeout-2026-11-17` | 3 | 35 | Documentation-only snapshot |
+| `docs/khmer-onset-registry-mainline-closeout-2026-11-17` | 3 | 32 | Documentation-only snapshot |
+| `docs/skip-navigation-closeout-2026-11-17` | 3 | 30 | Documentation-only snapshot |
+
+### Content findings
+
+- `a11y/wcag-text-contrast-2026-11-17`: its `index.html`, `src/styles/main.css` and `tests/browser/site.spec.js` are byte-identical to main. Already integrated; no port.
+- `a11y/skip-navigation-2026-11-17`: skip-navigation behavior is present on main, but the branch is an older snapshot. Main's stylesheet uses the later WCAG contrast palette, and main browser tests include the contrast-ratio helper and AA checks absent from the branch test. The branch is not a safe overwrite.
+- `ci/khmer-g2p-smoke-2026-10-24`: its 1,145-byte optional workflow uses older actions checkout/setup-python versions and installs `khmerphonemizer` without a version pin. Main has a distinct 1,443-byte optional MekongPhon diagnostic workflow plus the separately pinned `khmerphonemizer==0.0.3` smoke workflow. Do not port the unpinned older workflow.
+- `benchmark/current-engine-2026-11-11`: its `.github/workflows/benchmark-current-engine.yml` does not exist on main. Keep DEFERRED: it consumes the Neurlang lexicon alongside the pinned MekongPhon split, but item-level provenance/rights and independent evaluation criteria remain unresolved. No benchmark was run; no accuracy is claimed.
+- Prior documentation-family audit covered 96 `docs/*` refs at historical main `5fbb8352165fe72124214541a00105730d8097a5`. The 11 targeted branch comparisons above show documentation-only diffs. No branch was merged wholesale and no stale checkpoint text was copied over main.
+
+**KHM-BRANCH-AUDIT-001 remains PARTIAL.** The a11y/CI/benchmark branch family now has focused dispositions; docs have a prior 96-ref family audit plus 11 targeted follow-up comparisons. A complete current-base content/PR-ancestry reconciliation of every documentation branch and all remaining branch families is still outstanding. All historical refs remain preserved. No runtime, linguistic rules, IPA labels, source records, benchmark data or rights status changed.
+
+## PR #362 post-merge closeout — 2026-11-18
+
+PR [#362](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/362) merged into `main` as `95f0a69f861294490845425b622832bea49df2ab`.
+
+Exact PR-head checks on `08882bbe963429f2f9243ed3dd79b73e01c192f9` completed SUCCESS: Quality [44282811673](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44282811673) and Chromium [44282838244](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44282838244).
+
+Post-merge mainline Quality [44283185333](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44283185333), Chromium [44283185381](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44283185381), and Pages [44283185385](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44283185385) were still IN_PROGRESS at this closeout; do not mark them successful until confirmed.
