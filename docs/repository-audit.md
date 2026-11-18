@@ -2475,3 +2475,13 @@ Exact-main Actions on `855eac7e6dc39a854cc79055c385152a4a32fc49`: Quality [44379
 Live inventory: 266 refs / 266 unique tip SHAs; 0 open PRs; Issue #104 only. The following historical branches were reviewed as potential unmerged work: `fix/ipa-tie-bar-segment-boundaries-2026-11-18`, `fix/reconcile-unicode-tn61-source-metadata-2026-11-18`, and `feat/pcgn-anusvara-visarga-syllable-assembly-port-2026-11-18`. Their relevant runtime/schema/test/source-registry artifacts are already present on main; no duplicate port was made. Their stale branch tips remain untouched.
 
 No production code or linguistic evidence changed. IPA convention remains DRAFT_NOT_APPROVED; independent gold = 0; empirical accuracy = null. Human recruitment, rights-cleared pilot acquisition and root-license owner decision remain BLOCKED; manual accessibility and historical semantic re-adjudication remain PARTIAL; external benchmark integration remains DEFERRED. No local checkout or local test run is claimed; CI evidence is hosted GitHub Actions.
+
+
+## PR #395 — canonical closeout and exact-main verification — 2026-11-18
+
+PR [#395](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/395) merged as `3e99140e80ba0a0c1654dcd6f367d651350117b5`; it records PR #394's closeout in the canonical handoff, audit and completion register. This follow-up closes the documentation lag by one merge. It changes documentation only.
+
+Exact PR-head Quality [44389557778](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44389557778), Chromium [44389557809](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44389557809), and push Quality [44389528287](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44389528287): SUCCESS. Exact-main Quality [44393630260](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44393630260), Chromium [44393630430](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44393630430), and Pages/deployed-site smoke [44393630332](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44393630332): SUCCESS.
+
+No runtime or linguistic evidence changed. IPA convention remains DRAFT_NOT_APPROVED; gold = 0; empirical accuracy = null. Independent pilot and root-license decision remain BLOCKED; manual accessibility and historical semantic review remain PARTIAL; external benchmark integration remains DEFERRED. No local checkout or local tests are claimed; verification is hosted GitHub Actions. Repository remains a research-ready partial prototype, not release-ready.
+

@@ -2765,3 +2765,13 @@ Exact-main verification: Quality [44379052920] SUCCESS (432 Python tests + 70 su
 Branch audit: 266 refs / 266 unique tip SHAs, no open PRs, Issue #104 only. Spot-checked recent unmerged-looking PCGN, IPA tie-bar and Unicode TN #61 branches; corresponding implementation, tests/schema and canonical source metadata already exist on main. No stale branch was merged, deleted or rewritten.
 
 Classification: documentation closeout and hosted exact-main CI — DONE_VERIFIED. IPA convention approval and independent gold acquisition — BLOCKED (gold 0; accuracy null). Root license decision — BLOCKED. Manual accessibility and full historical semantic review — PARTIAL. External benchmark integration — DEFERRED. No linguistic labels or rights claims were added; project remains research-ready partial prototype, not release-ready.
+
+
+## PR #395 — audit closeout — 2026-11-18
+
+PR #395 merged as `3e99140e80ba0a0c1654dcd6f367d651350117b5`. Canonical documentation now records PR #394 and its exact-main verification. PR #395 itself is a documentation-only synchronization change.
+
+Exact-main CI on `3e99140e80ba0a0c1654dcd6f367d651350117b5`: Quality [44393630260](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44393630260) SUCCESS; Chromium [44393630430](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44393630430) SUCCESS; Pages/deployed-site smoke [44393630332](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44393630332) SUCCESS.
+
+Classification: canonical PR #394 closeout and exact-main hosted CI — DONE_VERIFIED. Independent IPA gold pilot and root license decision — BLOCKED (approved convention/personnel/rights-cleared packet and owner license decision absent); gold = 0, empirical accuracy = null. Manual accessibility and full historical semantic re-adjudication — PARTIAL. External benchmark integration — DEFERRED. No new phonological labels, source permissions, corpus rows or benchmark scores were introduced. Repository remains research-ready partial prototype, not linguistically release-ready.
+

@@ -4762,3 +4762,15 @@ Exact PR-head Quality [443789... not retained in the run summary] is not claimed
 Live inventory: 266 branch refs / 266 unique tip SHAs; 0 open PRs; Issue #104 is the only open non-PR issue. Historical branches were not deleted or rewritten. No runtime, phonological rule, IPA label, Ukrainian mapping, corpus row, source-rights decision, gold data or benchmark result changed.
 
 Task ledger: PR #394 canonical closeout and exact-main CI — DONE_VERIFIED. Manual accessibility and full historical semantic re-adjudication remain PARTIAL. Independent IPA gold pilot and root-license decision remain BLOCKED; gold = 0 and empirical accuracy = null. External benchmark integration remains DEFERRED pending rights/provenance and an independent evaluation set. Repository remains a research-ready partial prototype, not a linguistically validated or release-ready product.
+
+
+## PR #395 — canonical closeout for PR #394 — 2026-11-18
+
+PR [#395](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/395) merged by squash as `3e99140e80ba0a0c1654dcd6f367d651350117b5`, with exact PR head `7783454cab3378f324257a4bd704c3528d7629fe` and base `855eac7e6dc39a854cc79055c385152a4a32fc49`. It records PR #394's exact-main evidence in the three canonical documents; documentation only.
+
+PR-head Quality [44389557778](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44389557778), Chromium [44389557809](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44389557809), and push Quality [44389528287](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44389528287) — SUCCESS.
+
+Exact-main checks on `3e99140e80ba0a0c1654dcd6f367d651350117b5`: Quality [44393630260](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44393630260), Chromium [44393630430](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44393630430), and Pages [44393630332](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44393630332) — all SUCCESS. Pages includes production build, Chromium exercise, deployment and deployed-site/runtime-asset smoke.
+
+No production code, linguistic evidence, rights decision, gold data or benchmark result changed. IPA convention remains DRAFT_NOT_APPROVED; independent gold = 0 and empirical accuracy = null. Issue #104 remains BLOCKED on convention approval, independent personnel, blind-intake dry run and 30 source-verified rights-cleared item groups. Root license remains BLOCKED pending owner decision. Manual accessibility and full historical semantic review remain PARTIAL; external benchmark integration remains DEFERRED. Repository remains research-ready partial prototype, not linguistically validated or release-ready.
+
