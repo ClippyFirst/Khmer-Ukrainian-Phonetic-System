@@ -71,45 +71,54 @@ def _validate_ipa_notation(ipa: str) -> None:
         raise ValueError("candidate IPA has unbalanced or misplaced outer delimiters")
 
     has_segment = False
-    previous_was_base = False
+    has_preceding_segment = False
+    tie_bar_pending = False
     for index, character in enumerate(ipa):
         category = unicodedata.category(character)
         if character in "/[]":
+            if tie_bar_pending:
+                raise ValueError(f"IPA tie bar at offset {index - 1} has no following segment")
             continue
-        if _is_ipa_segment_letter(character):
+        if _is_ipa_segment_letter(character) or character in "ʘǀǃǂǁ":
             has_segment = True
-            previous_was_base = True
+            has_preceding_segment = True
+            tie_bar_pending = False
+            continue
+        if tie_bar_pending:
+            raise ValueError(f"IPA tie bar at offset {index - 1} must be followed by a segment letter")
+        if character in {"͡", "͜"}:
+            if not has_preceding_segment:
+                raise ValueError(f"orphan IPA tie bar at offset {index}")
+            # Combining diacritics may precede the tie bar on the first segment.
+            # The next code point must be the second segment, not another mark.
+            tie_bar_pending = True
+            has_preceding_segment = False
             continue
         if _is_ipa_modifier_letter(character):
             # Stress, length, tone and segment modifiers do not themselves
             # count as segment letters and do not rewrite the source string.
             continue
         if category.startswith("M"):
-            if not previous_was_base:
+            if not has_preceding_segment:
                 raise ValueError(f"orphan combining mark at IPA offset {index}")
-            # A tie bar joins the preceding segment to the following one.
-            previous_was_base = character in {"͡", "͜"}
+            # Ordinary combining diacritics modify the preceding segment;
+            # they do not erase its availability as the first tied segment.
             continue
         if character in _IPA_DIGITS:
-            previous_was_base = False
+            has_preceding_segment = False
             continue
         if character.isspace():
-            previous_was_base = False
+            has_preceding_segment = False
             continue
         if character in _IPA_SYMBOLS:
-            if character in {"͡", "͜"} and not previous_was_base:
-                raise ValueError(f"orphan IPA tie bar at offset {index}")
-            previous_was_base = character in {"͡", "͜"}
-            continue
-        # IPA click letters are symbols rather than Unicode letters.
-        if character in "ʘǀǃǂǁ":
-            has_segment = True
-            previous_was_base = True
+            has_preceding_segment = False
             continue
         raise ValueError(
             f"unsupported non-IPA character U+{ord(character):04X} at IPA offset {index}"
         )
 
+    if tie_bar_pending:
+        raise ValueError("IPA tie bar at end of candidate has no following segment")
     if not has_segment:
         raise ValueError("candidate IPA must contain at least one IPA segment letter")
 
