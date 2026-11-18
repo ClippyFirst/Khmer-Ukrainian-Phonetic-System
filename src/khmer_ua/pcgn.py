@@ -3001,3 +3001,109 @@ def assemble_pcgn_independent_vowel_closed_syllable(
             "NO_WORD_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT",
         ),
     )
+
+
+PCGN_ANUSVARA_VISARGA_SYLLABLE_LOCATORS = (
+    PCGN_CONSONANT_TABLE_LOCATOR,
+    PCGN_ANUSVARA_VISARGA_TABLE_LOCATOR,
+)
+
+
+@dataclass(frozen=True)
+class PCGNAnusvaraVisargaSyllableAssembly:
+    """A caller-segmented syllable using one exact PCGN anusvara/visarga row."""
+
+    source_text: str
+    normalized_text: str
+    onset_text: str
+    series: Literal["â", "ô"] | None
+    source_components: tuple[str, ...] | None
+    coda_character: str | None
+    onset_romanization: str | None
+    vowel_coda_romanization: str | None
+    romanization: str | None
+    source_table_row: int | None
+    status: Literal["RESOLVED", "UNRESOLVED"]
+    ipa: None
+    ukrainian: None
+    source_locators: tuple[str, ...]
+    warnings: tuple[str, ...]
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+def assemble_pcgn_anusvara_visarga_syllable(
+    onset_analysis: PCGNOrthographicAnalysis,
+    syllable_analysis: PCGNOrthographicAnalysis,
+    coda_character: str | None = None,
+) -> PCGNAnusvaraVisargaSyllableAssembly:
+    """Assemble one caller-supplied onset plus an exact PCGN rows 1–8 sequence.
+
+    The caller supplies the onset-only chunk, complete syllable chunk, and
+    the explicit final NGA character only for table row 8. Existing consonant
+    and anusvara/visarga table resolvers are composed; the table resolver
+    validates the exact post-onset token sequence. No segmentation is inferred.
+    """
+    def unresolved(reason: str) -> PCGNAnusvaraVisargaSyllableAssembly:
+        return PCGNAnusvaraVisargaSyllableAssembly(
+            source_text=syllable_analysis.raw_text,
+            normalized_text=syllable_analysis.normalized_text,
+            onset_text=onset_analysis.raw_text,
+            series=None,
+            source_components=None,
+            coda_character=coda_character if coda_character == "ង" else None,
+            onset_romanization=None,
+            vowel_coda_romanization=None,
+            romanization=None,
+            source_table_row=None,
+            status="UNRESOLVED",
+            ipa=None,
+            ukrainian=None,
+            source_locators=PCGN_ANUSVARA_VISARGA_SYLLABLE_LOCATORS,
+            warnings=(reason, "NO_WORD_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT"),
+        )
+
+    if onset_analysis.status != "STRUCTURE_ONLY" or syllable_analysis.status != "STRUCTURE_ONLY":
+        return unresolved("UNSUPPORTED_OR_UNRESOLVED_ORTHOGRAPHIC_COMPONENT")
+    onset_tokens = tuple(onset_analysis.tokens)
+    syllable_tokens = tuple(syllable_analysis.tokens)
+    if not onset_tokens or syllable_tokens[:len(onset_tokens)] != onset_tokens:
+        return unresolved("CALLER_ONSET_MUST_MATCH_EXACT_SYLLABLE_TOKEN_PREFIX")
+
+    onset = resolve_pcgn_consonant(onset_analysis)
+    series = resolve_pcgn_series(onset_analysis)
+    component = resolve_pcgn_anusvara_visarga(
+        syllable_analysis,
+        onset_analysis,
+        coda_character,
+    )
+    if onset.status != "RESOLVED" or onset.romanization is None:
+        return unresolved(onset.warnings[0])
+    if series.status != "RESOLVED" or series.series not in {"â", "ô"}:
+        return unresolved(series.warnings[0])
+    if component.status != "RESOLVED" or component.romanization is None:
+        return unresolved(component.warnings[0])
+
+    return PCGNAnusvaraVisargaSyllableAssembly(
+        source_text=syllable_analysis.raw_text,
+        normalized_text=syllable_analysis.normalized_text,
+        onset_text=onset_analysis.raw_text,
+        series=series.series,
+        source_components=component.source_components,
+        coda_character=component.coda_character,
+        onset_romanization=onset.romanization,
+        vowel_coda_romanization=component.romanization,
+        romanization=onset.romanization + component.romanization,
+        source_table_row=component.source_table_row,
+        status="RESOLVED",
+        ipa=None,
+        ukrainian=None,
+        source_locators=PCGN_ANUSVARA_VISARGA_SYLLABLE_LOCATORS,
+        warnings=(
+            "CALLER_SUPPLIED_ONSET_AND_COMPLETE_SYLLABLE_BOUNDARIES",
+            "PCGN_ANUSVARA_VISARGA_TABLE_ROW_RESOLVED_EXACTLY",
+            "ROW_8_NGA_CODA_EXPLICITLY_CALLER_IDENTIFIED" if component.source_table_row == 8 else "NO_EXTRA_CODA_INFERRED",
+            "NO_WORD_SEGMENTATION_IPA_OR_UKRAINIAN_OUTPUT",
+        ),
+    )
