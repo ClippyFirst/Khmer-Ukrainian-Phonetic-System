@@ -84,14 +84,16 @@ Include opaque record ID; target profile; orthography and NFC form; gloss/minima
 
 Existing numeric thresholds (100 train / 25 dev / 25 test) are minimum engineering gates, not a statistical sufficiency guarantee. Coverage and independent review remain mandatory.
 
-## Current blockers
+## Current blockers — revalidated 2026-11-18
 
-- **BLOCKED:** qualified Khmer annotators and independent adjudicator have not been recruited/confirmed.
-- **BLOCKED:** item-level rights and per-entry provenance for candidate dictionaries are not verified.
-- **BLOCKED:** MekongPhon dataset license, variety, and annotation methodology are unverified.
-- **TODO:** inspect actual Khmer Acoustic Model dictionary and metadata under an exact commit.
-- **TODO:** approve Phnom Penh convention sheet and freeze the 30-item pilot.
-- **TODO:** complete a blind dry-run with one non-gold practice item.
+- **BLOCKED — convention approval:** the `khmer-pph-careful-citation-v1` convention remains `DRAFT_NOT_APPROVED`. A qualified Khmer phonetician must approve or replace the draft, and an independent reviewer must challenge the scoped acoustic/phonological decisions before annotation starts.
+- **BLOCKED — people and role independence:** no candidate has been contacted or confirmed. Two qualified annotators, a distinct adjudicator and a non-annotating curator remain unappointed. Candidate biographies are not recruitment evidence.
+- **BLOCKED — private blind intake:** no operational channel or dry-run evidence is recorded. A and B must submit independently and be locked before either submission is exposed to the other or to C.
+- **BLOCKED — rights-cleared items:** candidate dictionaries and external audio remain excluded until exact item locators, source terms, rights and permitted uses are verified. MekongPhon and the Khmer Acoustic Model remain candidate-only.
+- **BLOCKED — Khmer Acoustic Model artifact:** the inspected default branch did not expose the full dictionary at its documented path; only a small sample was available, and README entry-count/license claims conflict. Obtain the exact artifact, checksum, version, per-entry provenance and written maintainer clarification before considering any row.
+- **BLOCKED — 30-item pilot:** no source-rights-cleared list has been approved; no records, annotations, adjudications or gold rows may be created until the preceding gates pass.
+
+The 2026-11-17 expert shortlist revalidation improves candidate-role evidence but records no contact, consent, appointment or approval. The next executable step is human outreach using the templates below; do not mark a gate complete until written acceptance and role/qualification checks are recorded.
 
 ## References
 
@@ -276,3 +278,72 @@ The [LMU Munich profile](https://www.phonetik.uni-muenchen.de/~jkirby/about/) id
 4. Keep annotators, adjudicator and non-annotating curator as separate people. No reviewer may adjudicate their own annotations or data.
 
 This shortlist reduces uncertainty about whom to approach but does not satisfy any recruitment or acceptance gate. The IPA sheet remains DRAFT_NOT_APPROVED; the 30-item pilot remains blocked; independent adjudicated gold remains 0; empirical accuracy remains null.
+
+
+## Recruitment execution kit — 2026-11-18
+
+This section turns the existing shortlist into an actionable invitation and response protocol. It is a set of drafts only: **no message has been sent**, and no candidate has accepted or been appointed. Send messages individually, verify the recipient's current preferred contact route first, and do not include private participant data or unreleased audio.
+
+### 1. Primary convention-review invitation — draft
+
+Subject: Request for scoped review of a Phnom Penh Khmer IPA convention draft
+
+Dear [Name],
+
+I am developing a research prototype for Khmer-to-Ukrainian phonetic transcription and am seeking a qualified reviewer for a narrowly scoped, versioned IPA convention. The initial profile is contemporary Phnom Penh Khmer in careful citation-form speech (`khmer-pph-careful-citation-v1`).
+
+Would you be willing to consider reviewing the attached draft, or to recommend an appropriate specialist? The review would focus on whether the proposed broad-phonetic convention is defensible for this exact profile, especially consonant series/register, vowel quality and length, diphthongs, codas, prominence/stress, /r/-related variants, phonation/F0 boundaries and explicit uncertainty handling. Unsupported cells are intentionally left unresolved.
+
+The draft is not approved and no annotation or gold collection will begin until the convention is reviewed. I would welcome corrections or a recommendation to replace the draft entirely. Please also let me know whether the target profile falls within your expertise, your availability, preferred acknowledgement/credit, any fee or institutional requirements, and any relevant conflicts of interest.
+
+This is an exploratory request only; there is no assumption of availability or commitment. I can share the protocol and source dossier for a preliminary scope check.
+
+Thank you,
+[Project contact]
+
+### 2. Independent challenge-review invitation — draft
+
+Subject: Independent technical challenge of a Khmer phonetic convention draft
+
+Dear [Name],
+
+I am seeking an independent, bounded technical review of a draft convention for contemporary Phnom Penh Khmer careful citation forms. I would value a critical review of the evidence and assumptions around [specific scope: e.g. /r/-loss, onset F0/VOT, phonation, cluster transitions or diphthongs], including cases where the evidence does not support a categorical rule.
+
+This is not a request to endorse a complete Khmer IPA inventory or to serve as the sole native-speaker authority. The primary convention reviewer and I would disclose relevant collaborations and resource relationships before assigning roles. Would you be willing to review this limited scope, or recommend an independent specialist? Please indicate relevant expertise, availability, conflicts/collaborations, and any terms for the work.
+
+No data will be labelled gold on the basis of this review alone.
+
+Thank you,
+[Project contact]
+
+### 3. Annotator / adjudicator / curator recruitment request — draft
+
+Subject: Seeking Khmer IPA annotators and an independent adjudicator for a controlled pilot
+
+Dear [Name],
+
+I am preparing a small, controlled pilot of 30 attested Khmer lexeme groups for contemporary Phnom Penh careful citation speech. The pilot requires two qualified annotators who work independently, a third person to adjudicate only after both submissions are locked, and a curator who does not annotate.
+
+The annotation convention will be versioned and expert-reviewed before work begins. Each item will have a source locator and rights review; annotators will receive identical packets without model predictions or the other annotator's work. Uncertain cases may remain unresolved. We will not ask participants to infer pronunciation from spelling where evidence is insufficient.
+
+Could you advise whether you or a suitable colleague may be interested? Please state your Khmer variety/phonetics/IPA experience, relevant conflicts or shared source relationships, availability, preferred terms, and whether you would be comfortable with the proposed role separation and blind workflow. Participation is not assumed, and no personal details will be published.
+
+Thank you,
+[Project contact]
+
+### 4. Response and appointment register — keep outside the public repository
+
+Track each prospective person in a private project log with: candidate pseudonym; date/contact route; response state (`NOT_CONTACTED`, `INVITED`, `DECLINED`, `NO_RESPONSE`, `INTERESTED`, `QUALIFIED_PENDING_CHECK`, `APPOINTED`); target-profile competence evidence; IPA/phonetics qualifications; role accepted; conflicts/collaborations; availability; terms/consent; reviewer independence decision; and the evidence location. Do not publish names, email threads, signatures or personal data in Git.
+
+Do not use `APPOINTED` until the person has explicitly accepted the named role and the curator has documented qualification, availability, conflict and independence checks. One person may not fill annotator A, annotator B and adjudicator roles in combination; the adjudicator must differ from both annotators, and the curator must not annotate.
+
+### 5. Ordered execution gate
+
+1. Send the primary convention-review invitation and independent challenge-review invitation separately; confirm any collaboration/conflict relationship before counting the reviewers as independent.
+2. Record written acceptance or decline privately. If the primary reviewer declines, seek another qualified Khmer phonetician rather than silently approving the draft.
+3. Only after the convention is approved, recruit and qualify annotators A/B, adjudicator C and a non-annotating curator.
+4. Confirm item-level rights and freeze the 30-item source packet. Keep candidate sources out until exact artifacts and terms are verified.
+5. Run one non-gold practice item through the private blind channel; capture timestamps/lock evidence and confirm that A cannot see B's work before lock.
+6. Begin the 30-item pilot only after all start gates pass. Preserve unresolved cases as unresolved; never force a gold label.
+
+**Current state:** templates prepared; outreach not sent; people not appointed; convention still `DRAFT_NOT_APPROVED`; source rights unresolved; blind intake not tested; gold remains 0 and empirical accuracy remains null.

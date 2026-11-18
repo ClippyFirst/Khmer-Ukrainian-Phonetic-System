@@ -1722,3 +1722,12 @@ All post-merge checks on that exact mainline SHA completed SUCCESS:
 Final post-merge repository snapshot: 225 refs / 225 unique tip SHAs (main + 224 non-main), 0 open PRs, and 1 open issue (#104). Prefix counts: a11y 2, audit 16, benchmark 1, ci 1, data 4, docs 97, feat 50, fix 14, release 1, research 28, test 10. The active continuation and historical refs remain preserved.
 
 This closes the optional workflow restoration and its post-merge verification. It does not close `KHM-BRANCH-AUDIT-001` (full file/commit/PR-ancestry audit remains PARTIAL), nor Issue #104 (human convention approval, independent annotation/adjudication, rights and 30-item gold pilot remain BLOCKED). Independent adjudicated IPA gold remains 0 and empirical accuracy remains null. No local checkout or local tests were run in this connector-only session.
+
+
+## Human IPA-gold recruitment gate revalidation — 2026-11-18
+
+- Rechecked Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104), its 33-comment history, the collection playbook, corpus contract and the Sok & Adams source audit. The latest recorded shortlist identifies Chem Vatho for primary target-profile convention review and James P. Kirby for a bounded independent phonetics challenge, subject to explicit conflict/collaboration checks. These remain leads only; no contact, acceptance or appointment is evidenced.
+- Added a recruitment execution kit to the existing playbook: separate draft invitations for primary convention review, independent challenge review and annotator/adjudicator/curator recruitment; a private response/qualification register; conflict/independence checks; and an ordered start gate. These are drafts, not sent messages.
+- Reclassified stale playbook TODOs as evidence-backed BLOCKED gates: the documented Khmer Acoustic Model dictionary artifact is unavailable at the inspected path and its entry-count/license claims conflict; convention approval, qualified independent roles, rights-cleared items and private blind intake require external human evidence.
+- No IPA labels, source records, corpus rows, splits, benchmark scores, runtime rules or Ukrainian mappings were changed. `data/benchmark/gold.tsv` remains header-only; independent adjudicated gold=0; empirical accuracy=null.
+- No external contacts were made and no private contact data was added. This documentation work does not satisfy Issue #104 or change release readiness.
