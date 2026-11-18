@@ -262,3 +262,51 @@ test("service and methodology pages do not create document-level horizontal over
     }
   }
 });
+
+
+test("service and methodology pages expose coherent document landmarks and named controls", async ({ page }) => {
+  for (const path of ["/", "/system.html"]) {
+    await page.goto(path);
+    const structure = await page.evaluate(() => {
+      const accessibleName = element => {
+        const labelledBy = element.getAttribute("aria-labelledby");
+        const referenced = labelledBy
+          ? labelledBy.split(/\\s+/).map(id => document.getElementById(id)?.textContent ?? "").join(" ")
+          : "";
+        const labels = element.labels
+          ? Array.from(element.labels).map(label => label.textContent ?? "").join(" ")
+          : "";
+        return (
+          element.getAttribute("aria-label") ||
+          referenced ||
+          labels ||
+          element.innerText ||
+          element.textContent ||
+          element.getAttribute("title") ||
+          ""
+        ).replace(/\\s+/g, " ").trim();
+      };
+      const controls = Array.from(document.querySelectorAll("button, input, select, textarea"));
+      const links = Array.from(document.querySelectorAll("a[href]"));
+      return {
+        language: document.documentElement.lang,
+        mainLandmarks: document.querySelectorAll("main, [role='main']").length,
+        h1Count: document.querySelectorAll("h1").length,
+        unnamedControls: controls.filter(element => !accessibleName(element)).map(element => element.outerHTML.slice(0, 180)),
+        unnamedLinks: links.filter(element => !accessibleName(element)).map(element => element.outerHTML.slice(0, 180)),
+        imagesWithoutAlt: Array.from(document.images).filter(image => !image.hasAttribute("alt")).map(image => image.outerHTML.slice(0, 180)),
+      };
+    });
+    expect(structure.language, path).toBe("uk");
+    expect(structure.mainLandmarks, path).toBe(1);
+    expect(structure.h1Count, path).toBe(1);
+    expect(structure.unnamedControls, path).toEqual([]);
+    expect(structure.unnamedLinks, path).toEqual([]);
+    expect(structure.imagesWithoutAlt, path).toEqual([]);
+  }
+
+  await page.goto("/");
+  await expect(page.getByRole("navigation", { name: "Основна навігація" })).toBeVisible();
+  await expect(page.getByRole("main")).toBeVisible();
+  await expect(page.getByRole("textbox", { name: "Введіть кмерський текст або латинську романізацію BGN/PCGN 1972" })).toBeVisible();
+});
