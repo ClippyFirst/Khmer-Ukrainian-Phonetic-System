@@ -2707,3 +2707,23 @@ Live branch inventory after PR #389: **261 refs / 261 unique tip SHAs**. Prefix 
 Task ledger: PR #389 automated landmark/document-language/accessible-name smoke and exact-main Quality/Chromium/Pages checks — **DONE_VERIFIED**. Manual accessibility — **PARTIAL**. Full historical semantic re-adjudication — **PARTIAL**. Issue #104 independent IPA gold pilot — **BLOCKED**; approved convention, independent annotators/adjudicator/curator, private blind intake, rights-cleared 30-item packet and adjudication remain external human/evidence gates; gold = 0 and empirical accuracy = null. Root license — **BLOCKED** pending owner decision. External benchmark integration — **DEFERRED** pending rights/provenance and a valid independent evaluation set.
 
 No local checkout or local test execution is claimed; verification is from exact PR-head and exact post-merge GitHub Actions runs. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
+
+
+## PR #390 — canonical closeout for PR #389 — 2026-11-18
+
+PR [#390](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/390) merged by squash as a2bb1f6e40cd0e9c172fc75249cdc3154d854289, with PR head 8763b1410f9523352f21e08cd746e3c4b3648ba7 and base 21092c099e37e47a0f23031c49dc90387ecb464d. This documentation-only PR reconciles the canonical handoff, repository audit and linguistic completion register with the PR #389 accessibility structural-smoke work and its exact-main CI.
+
+Exact PR-head Quality [44340072047](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44340072047) — SUCCESS.
+
+Exact post-merge main verification on a2bb1f6e40cd0e9c172fc75249cdc3154d854289:
+- Quality [44340210799](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44340210799) — SUCCESS.
+- Chromium [44340210892](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44340210892) — SUCCESS.
+- GitHub Pages build/deploy and deployed-site/runtime-asset smoke [44340211059](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44340211059) — SUCCESS; build and deploy jobs both completed successfully.
+
+The closeout PR itself changed only the three canonical documentation records. Its exact-head Quality [44340047100](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44340047100) — SUCCESS. No runtime, linguistic data or benchmark result changed.
+
+Live branch inventory at the PR #390 mainline checkpoint: **262 refs / 262 unique tip SHAs**. Prefix counts: a11y 2, audit 37, benchmark 1, ci 1, data 4, docs 108, feat 50, fix 16, main 1, release 1, research 29, test 12. Open PRs: 0. Open non-PR issue: #104 only.
+
+Task ledger: PR #389 automated accessibility structural checks — DONE_VERIFIED; PR #390 canonical documentation closeout and exact-main Quality/Chromium/Pages — DONE_VERIFIED. Manual accessibility KHM-UI-001 remains PARTIAL pending screen-reader, exhaustive keyboard, zoom/reflow, complete contrast-context and real-device checks. Full historical semantic re-adjudication remains PARTIAL. Issue #104 independent IPA gold pilot remains BLOCKED by external convention, staffing, blind-intake, rights and adjudication gates; independent gold = 0, empirical accuracy = null. Root license remains BLOCKED pending owner decision. External benchmark integration remains DEFERRED pending rights/provenance and independent evaluation data.
+
+No local checkout or local tests are claimed. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
