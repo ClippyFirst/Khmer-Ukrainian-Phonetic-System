@@ -1753,3 +1753,16 @@ PR #355 adds invitation drafts and a private response/qualification protocol onl
 - Updated the existing external corpus triage, gold collection playbook and benchmark source note with this pinned evidence. No sample rows were copied; no IPA labels, corpus rows, split manifests, runtime rules or accuracy values were changed.
 - **Disposition: BLOCKED for import/training.** Required next evidence: full versioned artifact + SHA-256; per-artifact license and redistribution terms; per-entry source provenance; target variety/profile and IPA convention; annotator/adjudication method and meaning of “validated”; author clarification of the 29,204/33,091 counts and CC BY-SA/CC BY scope.
 - Issue #104 remains open; independent adjudicated gold remains 0 and empirical accuracy remains null.
+
+
+## PR #357 post-merge closeout — 2026-11-18
+
+PR [#357](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/357) merged into `main` as `14a0f59a29b58279ce19267f5207c6046fbfe15f`.
+
+Exact PR-head hosted checks on `c5c8849328b802fd560a120cfa52164c85344d4f` completed SUCCESS:
+- Quality [44265647506](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44265647506): independent IPA corpus structure validation, Python tests, web checks and production build.
+- Chromium browser smoke [44265647507](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44265647507): deterministic web checks, production build, Chromium installation and visible-results verification.
+
+No post-merge workflows were created for this documentation/research-only merge; the recorded checks ran on the exact merged PR head. No local checkout or local tests were performed in this connector-only session.
+
+The source audit remains evidence-limited: upstream public tree lacks the full dictionary; license scope, counts and item provenance need author clarification. The candidate remains blocked for import/training. No IPA gold, source rows, benchmark splits, engine rules or accuracy figures were created. Issue #104 remains open; adjudicated gold=0; empirical accuracy=null.
