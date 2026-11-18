@@ -2754,3 +2754,14 @@ Live branch inventory after PR #393: **265 refs / 265 unique tip SHAs**. Prefix 
 Task ledger: PR #392 accessibility-smoke regex correction and PR #393 canonical documentation closeout — **DONE_VERIFIED**. Manual accessibility KHM-UI-001 remains **PARTIAL** pending assistive-technology, exhaustive keyboard, zoom/reflow, complete contrast-context and real-device checks. Full historical semantic re-adjudication remains **PARTIAL**. Issue #104's independent IPA gold pilot remains **BLOCKED**: convention `DRAFT_NOT_APPROVED`, no confirmed appointments or private blind-intake dry run, rights-cleared 30-item packet not established, adjudicated gold = 0 and empirical accuracy = null. Root license remains **BLOCKED** pending owner decision. External benchmark integration remains **DEFERRED** pending rights/provenance and a valid independent evaluation set.
 
 No local checkout or local tests are claimed; all verification above is from GitHub Actions on the exact PR head and exact merged main SHA. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
+
+
+## PR #394 — audit closeout — 2026-11-18
+
+PR #394 merged as `855eac7e6dc39a854cc79055c385152a4a32fc49`. Canonical records now include the PR #393 closeout and its exact-main evidence; this entry closes the remaining one-PR documentation lag.
+
+Exact-main verification: Quality [44379052920] SUCCESS (432 Python tests + 70 subtests; corpus state `NOT_READY_NO_ADJUDICATED_GOLD`; web checks/build passed); Chromium [44379052839] SUCCESS; Pages/deployed-site smoke [44379052866] SUCCESS.
+
+Branch audit: 266 refs / 266 unique tip SHAs, no open PRs, Issue #104 only. Spot-checked recent unmerged-looking PCGN, IPA tie-bar and Unicode TN #61 branches; corresponding implementation, tests/schema and canonical source metadata already exist on main. No stale branch was merged, deleted or rewritten.
+
+Classification: documentation closeout and hosted exact-main CI — DONE_VERIFIED. IPA convention approval and independent gold acquisition — BLOCKED (gold 0; accuracy null). Root license decision — BLOCKED. Manual accessibility and full historical semantic review — PARTIAL. External benchmark integration — DEFERRED. No linguistic labels or rights claims were added; project remains research-ready partial prototype, not release-ready.
