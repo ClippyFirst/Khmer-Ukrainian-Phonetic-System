@@ -271,7 +271,7 @@ test("service and methodology pages expose coherent document landmarks and named
       const accessibleName = element => {
         const labelledBy = element.getAttribute("aria-labelledby");
         const referenced = labelledBy
-          ? labelledBy.split(/\\s+/).map(id => document.getElementById(id)?.textContent ?? "").join(" ")
+          ? labelledBy.split(/\s+/).map(id => document.getElementById(id)?.textContent ?? "").join(" ")
           : "";
         const labels = element.labels
           ? Array.from(element.labels).map(label => label.textContent ?? "").join(" ")
@@ -284,7 +284,7 @@ test("service and methodology pages expose coherent document landmarks and named
           element.textContent ||
           element.getAttribute("title") ||
           ""
-        ).replace(/\\s+/g, " ").trim();
+        ).replace(/\s+/g, " ").trim();
       };
       const controls = Array.from(document.querySelectorAll("button, input, select, textarea"));
       const links = Array.from(document.querySelectorAll("a[href]"));
