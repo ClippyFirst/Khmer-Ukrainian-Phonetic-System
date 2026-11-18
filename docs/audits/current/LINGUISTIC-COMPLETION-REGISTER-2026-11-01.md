@@ -2406,3 +2406,25 @@ Queried all-state PRs by exact head branch for all 50 feature refs:
 This completes the current-base compare and exact-head PR lookup for the 50 feature refs. Existing content-level dispositions remain: current PCGN source declarations are represented in main; the one browser-side hybrid candidate is retained for future review but not adopted; old branch snapshots are not wholesale-merged. No historical branch was deleted or force-updated. No new runtime, phonological rule, IPA, Ukrainian output, corpus row or accuracy result was introduced by this audit.
 
 **Feature family: compare + PR ancestry DONE_VERIFIED; full semantic line-by-line review of all 50 changed-file sets remains PARTIAL.** Repository-wide `KHM-BRANCH-AUDIT-001` remains PARTIAL. Issue #104 remains the independent human-evidence blocker; adjudicated gold = 0 and empirical accuracy = null. No local checkout or local tests are claimed; GitHub compare and PR APIs were used.
+
+
+## Test branch current-base and PR-ancestry reconciliation — 2026-11-18
+
+Compared all **10 `test/*` refs** against exact current main `ef29315fff75e7829105a84922fc82bd71733e2d`; all diverge, ahead range 1–16 and behind range 47–537. Queried all-state PRs by exact head branch: **all ten map to merged PRs**, with no open or closed-unmerged test-only PR branches.
+
+| Test branch | Ahead | Behind | Merged PR |
+|---|---:|---:|---:|
+| `test/complete-grapheme-accounting-2026-11-12` | 3 | 246 | #157 |
+| `test/ipa-display-contract-2026-10-24` | 1 | 537 | #6 |
+| `test/khmer-numeral-crosswalk-runtime-2026-11-12` | 6 | 229 | #174 |
+| `test/khmer-onset-fallback-cross-runtime-fixture-2026-11-17` | 16 | 47 | #326 |
+| `test/khmer-romanization-adapter-coverage-2026-11-12` | 2 | 237 | #167 |
+| `test/khmer-romanization-canonical-matrix-parity-2026-11-12` | 4 | 233 | #170 |
+| `test/khmer-romanization-whole-message-adapter-2026-11-12` | 4 | 231 | #172 |
+| `test/khmer-vowel-ascii-alias-coverage-2026-11-12` | 2 | 227 | #176 |
+| `test/khmer-vowel-matrix-runtime-crosswalk-2026-11-12` | 1 | 226 | #177 |
+| `test/ui-accessibility-smoke-2026-11-15` | 2 | 201 | #197 |
+
+Existing content-level review remains applicable: these branches contain earlier snapshots of tests and fixtures already integrated and expanded on main; no missing assertion/fixture was identified for port. The current test suite is newer than the branch snapshots. No test branch was deleted, force-updated or merged wholesale.
+
+**Test family: current-base compare and PR ancestry DONE_VERIFIED; full semantic re-review of every historical test line remains PARTIAL.** No runtime, linguistic rules, IPA, Ukrainian output, corpus, gold labels or accuracy values changed. No local checkout or local tests are claimed.
