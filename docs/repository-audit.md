@@ -1800,12 +1800,12 @@ No runtime, linguistic rules, corpus rows, IPA labels or benchmark values change
 | `research/bgn-pcgn-ungegn-rule-diff-2026-11-15` | 5 | 176 | Older divergent snapshot; no wholesale merge |
 | `research/complete-external-g2p-registry-2026-11-15` | 6 | 197 | Older divergent snapshot; no wholesale merge |
 | `research/expert-shortlist-revalidation-2026-11-17` | 5 | 41 | Older divergent snapshot; no wholesale merge |
-| `research/external-ipa-renderers-2026-11-15` | 7 | 526 | Older divergent snapshot; no wholesale merge |
-| `research/google-khmer-lexicon-full-audit-2026-11-15` | 21 | 64 | Older divergent snapshot; no wholesale merge |
-| `research/khmer-acoustic-model-release-audit-2026-11-15` | 26 | 63 | Older divergent snapshot; no wholesale merge |
-| `research/khmer-engine-benchmark-expansion-2026-11-15` | 72 | 245 | Older divergent snapshot; no wholesale merge |
-| `research/khmer-hybrid-benchmarks-reconciled-2026-11-15` | 34 | 234 | Older divergent snapshot; no wholesale merge |
-| `research/khmer-hybrid-engine-2026-11-15` | 91 | 245 | Older divergent snapshot; no wholesale merge |
+| `research/external-ipa-renderers-2026-10-24` | 7 | 526 | Older divergent snapshot; no wholesale merge |
+| `research/google-khmer-lexicon-full-audit-2026-11-16` | 21 | 64 | Older divergent snapshot; no wholesale merge |
+| `research/khmer-acoustic-model-release-audit-2026-11-16` | 26 | 63 | Older divergent snapshot; no wholesale merge |
+| `research/khmer-engine-benchmark-expansion-2026-11-11` | 72 | 245 | Older divergent snapshot; no wholesale merge |
+| `research/khmer-hybrid-benchmarks-reconciled-2026-11-11` | 34 | 234 | Older divergent snapshot; no wholesale merge |
+| `research/khmer-hybrid-engine-2026-11-11` | 91 | 245 | Older divergent snapshot; no wholesale merge |
 | `research/khmer-ipa-convention-draft-2026-11-17` | 5 | 63 | Older divergent snapshot; no wholesale merge |
 | `research/khmer-ipa-convention-draft-v2-2026-11-17` | 7 | 62 | Older divergent snapshot; no wholesale merge |
 | `research/khmer-kirby-cluster-audio-audit-2026-11-17` | 9 | 56 | Older divergent snapshot; no wholesale merge |
@@ -1814,11 +1814,11 @@ No runtime, linguistic rules, corpus rows, IPA labels or benchmark values change
 | `research/khmer-lexical-segmentation-evidence-mainline-2026-11-17` | 2 | 24 | Older divergent snapshot; no wholesale merge |
 | `research/khmer-phonotactic-scope-2026-11-15` | 9 | 195 | Older divergent snapshot; no wholesale merge |
 | `research/khmer-source-audit-integration-2026-11-17` | 7 | 58 | Older divergent snapshot; no wholesale merge |
-| `research/khmer-unicode-syllable-grammar-2026-11-15` | 1 | 73 | Older divergent snapshot; no wholesale merge |
-| `research/loc-khmer-word-division-2026-11-15` | 6 | 92 | Older divergent snapshot; no wholesale merge |
+| `research/khmer-unicode-syllable-grammar-2026-11-16` | 1 | 73 | Older divergent snapshot; no wholesale merge |
+| `research/loc-khmer-word-division-2026-11-16` | 6 | 92 | Older divergent snapshot; no wholesale merge |
 | `research/mekongphon-diagnostic-harness-2026-11-15` | 11 | 203 | Older divergent snapshot; no wholesale merge |
-| `research/mekongphon-release-rights-audit-2026-11-15` | 10 | 63 | Older divergent snapshot; no wholesale merge |
-| `research/mekongphon-seed-lexicon-audit-2026-11-15` | 34 | 64 | Older divergent snapshot; no wholesale merge |
+| `research/mekongphon-release-rights-audit-2026-11-16` | 10 | 63 | Older divergent snapshot; no wholesale merge |
+| `research/mekongphon-seed-lexicon-audit-2026-11-16` | 34 | 64 | Older divergent snapshot; no wholesale merge |
 | `research/pcgn-note-registry-2026-11-15` | 6 | 174 | Older divergent snapshot; no wholesale merge |
 | `research/phon-sobon-and-lexicon-triage-2026-11-15` | 11 | 198 | Older divergent snapshot; no wholesale merge |
 | `research/phonetic-literature-fulltext-review-2026-11-17` | 6 | 45 | Older divergent snapshot; no wholesale merge |
@@ -1841,4 +1841,4 @@ No runtime, linguistic rules, corpus rows, IPA labels or benchmark values change
 
 ## PR #359 post-merge verification correction — 2026-11-18
 
-The previously pending post-merge Chromium run [44277328915](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277328915) subsequently completed SUCCESS. For main `da8054b893bf664a030ab9562e363c983815d344`, all three post-merge workflows completed SUCCESS: Quality [44277315119](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277315119), Chromium [44277815233](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277815233), and Pages build/deploy [44277815127](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277815127). (The Chromium run ID is the post-merge run 44277815233; the older 44277328915 also completed SUCCESS.)
+The previously pending post-merge Chromium run [44277328915](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277328915) subsequently completed SUCCESS. For main `da8054b893bf664a030ab9562e363c983815d344`, all three post-merge workflows completed SUCCESS: Quality [44277815119](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277815119), Chromium [44277815233](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277815233), and Pages build/deploy [44277815127](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277815127).
