@@ -2784,3 +2784,12 @@ Verification: PR-head Quality [44395612844](https://github.com/ClippyFirst/Khmer
 
 Task classification: omitted-shifter uncertainty warning — DONE_VERIFIED. Full PCGN safe syllable-boundary behavior and contextual script-to-romanization engine — TODO/PARTIAL; the project still requires reviewed ambiguity cases and complete source-backed rule coverage. No IPA, pronunciation labels, Ukrainian mappings or corpus records changed.
 
+
+
+## PR #399 — PCGN shifter codepoint and BA exception correction — 2026-11-18
+
+Merged as `8bbdf54bac984165e86b747504ccf7a1e2735741` (final PR head `79bacbdef5cd37be94f05d01ea3223644d10d0fb`). Corrected the source registry to map TRIISAP to U+17CA (`◌៊`) and MUUSIKATOAN to U+17C9 (`◌៉`). Fixed a source-backed resolver defect: BA + TRIISAP is exempt from the normal TRIISAP â→ô shift and remains in the ô-series; Note 3's p-in-â exception applies to BA + MUUSIKATOAN or BA + foot. Updated both decision schemas, tests and the PCGN/UNGEGN audit.
+
+Verification: PR-head Quality [44404900821](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44404900821), Chromium [44404900673](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44404900673), push Quality [44404888463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44404888463), exact-main Quality [44405101264](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44405101264), Chromium [44405101302](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44405101302), Pages [44405101273](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44405101273): all SUCCESS. Quality: 435 tests + 70 subtests; Chromium: 21/21. Corpus gate correctly remains `NOT_READY_NO_ADJUDICATED_GOLD`.
+
+Classification: PCGN shifter codepoint registry and BA+TRIISAP correction — DONE_VERIFIED. Full contextual PCGN engine and syllable-boundary behavior — TODO/PARTIAL. IPA convention DRAFT_NOT_APPROVED; independent gold = 0; empirical accuracy = null. Issue #104 pilot and root license remain BLOCKED; manual accessibility and historical semantic review remain PARTIAL; external benchmark integration remains DEFERRED. No IPA gold, pronunciation claims or rights decisions were added. Repository remains a research-ready partial prototype, not release-ready.
