@@ -247,9 +247,9 @@ class PCGNSeriesDecision:
     series: Literal["â", "ô"] | None
     basis: Literal["BASE", "SUBSCRIPT", "UNRESOLVED"]
     status: Literal["RESOLVED", "UNRESOLVED"]
-    onset_exception: Literal["BA_WITH_FOOT_P_IN_A_SERIES", "BA_WITH_MUUSIKATOAN_P_IN_A_SERIES", "BA_WITH_TRIISAP_P_IN_A_SERIES"] | None
+    onset_exception: Literal["BA_WITH_FOOT_P_IN_A_SERIES", "BA_WITH_MUUSIKATOAN_P_IN_A_SERIES"] | None
     series_before_shifter: Literal["â", "ô"] | None
-    shifter_effect: Literal["TRIISAP_A_TO_O", "MUUSIKATOAN_O_TO_A", "BA_MUUSIKATOAN_P_IN_A", "BA_TRIISAP_P_IN_A"] | None
+    shifter_effect: Literal["TRIISAP_A_TO_O", "MUUSIKATOAN_O_TO_A", "BA_MUUSIKATOAN_P_IN_A", "TRIISAP_NO_SHIFT_BA_EXCEPTION"] | None
     source_locator: str
     warnings: tuple[str, ...]
 
@@ -264,9 +264,9 @@ def resolve_pcgn_series(
 
     Note 3 chooses the base/foot source. Note 2 shifters are applied to one base or one base-plus-foot cluster when
     the single mark is encoded immediately after the base, as required by
-    Unicode Khmer syllabic order. The explicit Note 3 BA+TRIISAP exception
-    is represented separately; shifters on BA+foot, multiple marks and
-    wrong-way shifters abstain pending narrower adjudication.
+    Unicode Khmer syllabic order. The Note 2 TRIISAP exception for BA is represented as no series shift;
+    Note 3 BA+MUUSIKATOAN and BA+foot p-in-â exceptions are kept distinct.
+    Shifters on BA+foot, multiple marks and wrong-way shifters abstain.
     """
     def unresolved(reason: str) -> PCGNSeriesDecision:
         return PCGNSeriesDecision(
@@ -320,17 +320,19 @@ def resolve_pcgn_series(
                     ),
                 )
             if mark == "៊":
+                # PCGN Note 2 explicitly exempts BA from TRIISAP's normal
+                # â-to-ô shift. Note 3's p-in-â exception is MUUSIKATOAN
+                # (◌៉), not TRIISAP (◌៊).
                 return PCGNSeriesDecision(
-                    series="â",
+                    series="ô",
                     basis="BASE",
                     status="RESOLVED",
-                    onset_exception="BA_WITH_TRIISAP_P_IN_A_SERIES",
+                    onset_exception=None,
                     series_before_shifter="ô",
-                    shifter_effect="BA_TRIISAP_P_IN_A",
+                    shifter_effect="TRIISAP_NO_SHIFT_BA_EXCEPTION",
                     source_locator="PCGN 1972, Notes 2–3 (pp. 2–3)",
                     warnings=(
-                        "PCGN_NOTE_3_BA_TRIISAP_P_IN_A_EXCEPTION",
-                        "PCGN_NOTE_2_TRIISAP_MARK_RECORDED_WITH_NOTE_3_BA_EXCEPTION",
+                        "PCGN_NOTE_2_TRIISAP_EXEMPT_FOR_BA_NO_SERIES_SHIFT",
                         "SERIES_METADATA_ONLY_NO_VOWEL_OR_ROMANIZATION",
                     ),
                 )
