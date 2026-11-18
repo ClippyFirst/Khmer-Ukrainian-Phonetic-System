@@ -2283,3 +2283,21 @@ The two retained a11y branches are not port candidates: PR #331's skip-navigatio
 No runtime, phonological rule, IPA label, Ukrainian mapping, source data, corpus row, gold label or benchmark score changed in PR #379 or this closeout. No historical branch was deleted or force-updated. No local checkout or local tests were run; verification above is from exact-main GitHub Actions runs.
  
 **Repository status remains research-ready partial prototype; not linguistically validated or release-ready.**
+
+
+## PR #380 merge and exact-main verification — 2026-11-18
+
+PR [#380](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/380) merged by squash as `c149f5eb792c6fbb16c1b52b198809c83b4b4bf6`. Its exact PR head was `463635f4e71cef47f780b77d236b5c273be1fe9d`; the three-file change updated only the canonical handoff, repository audit and linguistic completion register. No runtime or linguistic implementation changed.
+
+Exact PR-head verification:
+- Quality [44302844364](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44302844364) — SUCCESS; IPA corpus structure validation, Python test suite, Node web checks and Vite production build all completed successfully.
+- Chromium [44302844370](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44302844370) — SUCCESS; deterministic web checks, production build and production Chromium smoke completed successfully.
+
+Post-merge verification on exact `main` SHA `c149f5eb792c6fbb16c1b52b198809c83b4b4bf6`:
+- Quality [44303007846](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44303007846) — SUCCESS.
+- Chromium [44303007883](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44303007883) — SUCCESS.
+- GitHub Pages [44303007825](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44303007825) — SUCCESS, including production build, browser exercise, Pages artifact upload/deploy and deployed-site runtime-asset smoke test.
+
+Live branch inventory immediately after PR #380 merge and before this follow-up documentation branch was created: **252 refs / 252 unique tip SHAs**. Prefix counts: a11y 2, audit 31, benchmark 1, ci 1, data 4, docs 107, feat 50, fix 15, main 1, release 1, research 29, test 10. At that snapshot there were **0 open PRs** and Issue #104 was the only open non-PR issue. The 107 documentation refs remain fully reconciled; the new follow-up branch is a separate documentation-only closeout and does not change the 107-ref historical cohort being recorded here.
+
+No local checkout or local test execution is claimed. All test evidence above is from exact PR-head and exact post-merge GitHub Actions runs. The repository remains a research-ready partial prototype, not a linguistically validated release: independent adjudicated IPA gold remains 0 and empirical accuracy remains null; manual accessibility, root-license owner decision and full historical semantic re-adjudication remain open.
