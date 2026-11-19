@@ -3067,3 +3067,10 @@ Fourteen further audit branches were compared; every diff is limited to the thre
 The separate PCGN↔UNGEGN row-reconciliation branch is stale: it marks anusvara/visarga row 7 as a full match and asserts all eight rows match. Current main distinguishes the PCGN source sequence `េ+ា+ះ` from the candidate key `ោះ`, with matching Latin values but different source key shape (`VALUE_MATCH_KEY_SHAPE_DIFFERS`). Its source-registry tests are more specific; no old CSV/test content should be ported.
 
 PR #451 also corrected the feature-branch audit: the live historical PCGN assembly branch is not byte-identical to main and retains superseded BA+TRIISAP p-in-â behavior. Current main correctly applies the Note 2 no-shift distinction. No historical branch was modified. Full ancestry audit remains **PARTIAL**.
+
+
+### Remaining audit refs and optional phonemizer workflow
+
+Thirteen more audit refs were compared; all changes are canonical docs. Twelve handoff snapshots have zero unique lines; the selected-historical branch's two unique lines are an obsolete 211-ref inventory and stale zero-open-PR snapshot. No current behavior or evidence needs porting.
+
+The restore-pinned-phonemizer branch appears to add an optional workflow, but its workflow file is byte-identical to current main (blob SHA `a89a848d66810225bbcc2cc5c9143b94304a680d`). No workflow port is needed. Branches remain unchanged. Exact-main CI for PR #451 merge SHA `89a2152b48a73d725fde607f28e503ca274f45f5` was in progress at documentation time; verify separately. Full ancestry review remains **PARTIAL**.
