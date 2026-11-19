@@ -3343,3 +3343,10 @@ All 29 research refs were included in a targeted changed-path review. The checke
 IPA convention draft, Kirby audio audits, literature review and PCGN/UNGEGN research notes are present on main where checked. Lexical segmentation, Unicode grammar, Sok-Adams and LOC documents are more complete on main than the historical snapshots. Their old TODOs are superseded, but the actual blockers (IPA gold, expert convention approval, licensed lexical evidence and segmentation annotation) remain open.
 
 No unique accepted implementation was found to port. Branches preserved. Full commit/PR ancestry review remains **PARTIAL**.
+
+
+## Data and fix branch disposition
+
+The positional-onset evidence files and independent-vowel CSV are byte-identical to main. The row-7 source-pattern runtime/schema, BA/TRIISAP source matrix, dependent-vowel CSV, shortened-mark inventory and TN #61 metadata are also already present.
+
+Do not port the stale dependent-I/O resolver (incorrect O-series values for rows 16/17 and old row-7 key) or the BA+TRIISAP p-in-â exception in older final-consonant/omitted-shifter branches. Current main correctly applies PCGN Note 2 no-shift and Note 3 BA+MUUSIKATOAN/BA+foot. Historical refs retained; full branch/PR ancestry audit remains **PARTIAL**.
