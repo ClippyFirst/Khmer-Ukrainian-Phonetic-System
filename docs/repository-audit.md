@@ -3056,3 +3056,14 @@ CI status correction: exact-main Quality 44568314352, Chromium 44568314381 and P
 ### Live branch inventory at PR #451 pre-merge checkpoint
 
 Fresh paginated inventory returned 325 refs / 325 unique names / 325 unique tip SHAs, including 142 docs/* refs. Prefix counts: a11y 2, audit 44, benchmark 1, ci 1, data 4, docs 142, feat 50, fix 24, release 1, research 29, test 26, and one unprefixed ref. One PR (#451) was open at the time. Historical branch coverage remains PARTIAL; this count is not a completion percentage.
+
+
+## Audit branch family: additional reconciliation
+
+PR #451 merged as `89a2152b48a73d725fde607f28e503ca274f45f5`; its exact PR head passed Quality and Chromium. Exact-main checks on the merge SHA were in progress at documentation time.
+
+Fourteen further audit branches were compared; every diff is limited to the three canonical status documents, and all handoff lines are already present on current main (zero branch-only lines). `audit/complete-remaining-branch-families-2026-11-17` is an ancestor with no file diff.
+
+The separate PCGN↔UNGEGN row-reconciliation branch is stale: it marks anusvara/visarga row 7 as a full match and asserts all eight rows match. Current main distinguishes the PCGN source sequence `េ+ា+ះ` from the candidate key `ោះ`, with matching Latin values but different source key shape (`VALUE_MATCH_KEY_SHAPE_DIFFERS`). Its source-registry tests are more specific; no old CSV/test content should be ported.
+
+PR #451 also corrected the feature-branch audit: the live historical PCGN assembly branch is not byte-identical to main and retains superseded BA+TRIISAP p-in-â behavior. Current main correctly applies the Note 2 no-shift distinction. No historical branch was modified. Full ancestry audit remains **PARTIAL**.
