@@ -3395,3 +3395,12 @@ Feature/fix/research audit snapshots contain no branch-only handoff content. The
 PR #458 merge SHA `c4286ccd425627ef0771f87d0a38f594b7335074` passed exact-main Quality (44602000654), Chromium (44602000538) and Pages/deploy (44602000536). Its PR head also passed Quality and Chromium; no open PR remained.
 
 Live branch inventory: 332 refs, 332 unique names and tips — 149 docs, 44 audit, 50 feature, 29 research, 26 test, 24 fix, 4 data, 2 accessibility and four singleton/unprefixed refs. No historical branches were deleted or rewritten. `KHM-BRANCH-AUDIT-001` remains **PARTIAL** because full commit/PR ancestry review is not complete.
+
+
+## PR #459 exact-main verification and stop-condition status
+
+PR #459 merge SHA `c0fb6f8efcadf20ff55aec58b1188144707ae52f` passed Quality (44602788321), Chromium (44602788413) and Pages/deploy (44602788487). Its exact PR head passed both Quality checks and Chromium.
+
+Live branch inventory: 333 refs, unique names and unique tips; 150 docs, 44 audit, 50 feature, 29 research, 26 test, 24 fix, 4 data, 2 a11y, and four singleton/unprefixed refs. No open PRs at this checkpoint. Branches retained.
+
+Unresolved blockers: independent adjudicated IPA gold, approved IPA convention, human recruitment/blind pilot under Issue #104, external source/data rights, owner decision on root license, lexical segmentation evidence and manual accessibility review. Full historical ancestry review remains **PARTIAL**. The project is a research-ready partial prototype, not release-ready.
