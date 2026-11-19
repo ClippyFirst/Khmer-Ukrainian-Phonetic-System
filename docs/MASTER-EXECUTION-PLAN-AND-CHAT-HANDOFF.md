@@ -5447,3 +5447,12 @@ The distinct `audit/pcgn-ungegn-vowel-row-reconciliation-2026-11-19` branch is n
 PR #451's feature-branch audit note is retained on main: it corrects an earlier inaccurate claim that the live PCGN syllable-assembly feature branch was byte-identical to main. The old branch carries the superseded BA+TRIISAP p-in-â behavior; current main preserves PCGN Note 2 no-shift for BA+TRIISAP and Note 3 p-in-â only for BA+MUUSIKATOAN or BA+foot.
 
 All inspected historical refs remain untouched. These are targeted changed-path/blob checks, not complete commit/PR ancestry review. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+### Remaining audit-branch family and optional workflow snapshot — 2026-11-19
+
+Thirteen further audit refs were compared with current main: `audit/pr384-ipa-tie-bar-closeout-2026-11-18`, `audit/pr385-exact-main-closeout-2026-11-18`, `audit/pr387-accessibility-smoke-closeout-2026-11-18`, `audit/reconcile-accessibility-ci-benchmark-docs-2026-11-18`, `audit/reconcile-audit-branch-family-2026-11-18b`, `audit/reconcile-audit-branch-family-2026-11-18`, `audit/reconcile-benchmark-ci-branch-family-2026-11-18`, `audit/reconcile-docs-branch-pr-ancestry-2026-11-18`, `audit/reconcile-fix-release-branch-family-2026-11-18`, `audit/reconcile-research-branch-family-2026-11-18`, `audit/reconcile-selected-historical-branch-content-2026-11-17`, `audit/refresh-branch-inventory-2026-11-17`, and `audit/refresh-live-inventory-and-reconcile-pcgn-port-2026-11-18`. All diffs are canonical documentation only. A line-level handoff check found zero unique lines in 12 refs; the selected-historical branch's only two unique lines are a stale 211-ref/zero-open-PR snapshot and a historical PARTIAL statement. No unique current implementation or audit evidence needs porting.
+
+The `audit/restore-pinned-khmer-phonemizer-smoke-2026-11-18` branch diff lists an added optional workflow, but its workflow blob is byte-identical to current main (`.github/workflows/optional-khmerphonemizer-smoke.yml`, SHA `a89a848d66810225bbcc2cc5c9143b94304a680d`). It is already present on main; no workflow port is needed. This branch also contains only documentation differences in the inspected canonical files.
+
+The remaining audit refs were preserved. The exact-main checks for PR #451 merge SHA `89a2152b48a73d725fde607f28e503ca274f45f5` were still running at this entry; verify before claiming its mainline gate. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
