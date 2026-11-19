@@ -3078,3 +3078,24 @@ A fresh GitHub branch inventory returned 312 refs and 312 unique names (310 uniq
 - `benchmark/current-engine` is not ported: its proposed scorecard compares project output with external non-gold phonetic datasets and reports exact-match/CER metrics without an approved convention or independent adjudication. This remains deferred. The unpinned historical `ci/khmer-g2p-smoke` workflow is superseded by the pinned PR #353 workflow. The `release/*` snapshot contains an older deterministic/hybrid-engine implementation and no release authorization.
 
 No branch in this sweep was deleted, force-updated, or merged. The sweep found no evidence that would justify copying a stale branch snapshot into main. It does not close `KHM-BRANCH-AUDIT-001`: the 134 `docs/*` refs still need semantic review, and commit/PR ancestry is not fully reconciled for every ref. Repository-wide branch audit therefore remains PARTIAL.
+
+
+## Documentation-branch spot reconciliation and exact-main CI — 2026-11-19
+
+A fresh live GitHub branch listing after PR #438 merged returned **312 refs, 312 unique branch names, and 312 unique tip SHAs** (zero duplicate tips). This supersedes the earlier pre-merge inventory snapshot in the preceding section, which recorded 312 refs but 310 unique tips. Current default branch is `main` at `f5faae81078e2828bc069bddda1ec05b95de5ff1`.
+
+A targeted semantic review was made of representative documentation branches whose tips still contain commits not ancestral to current main. Ahead/behind counts alone were not treated as proof of unique content:
+
+- `docs/ipa-gold-recruitment-execution-kit-2026-11-18`: the playbook's invitation templates, private role register and ordered recruitment gate are already present on main. Main's upstream-artifact paragraph is more specific than the branch snapshot. Its remaining differences are stale audit/handoff checkpoint notes; no unique recruitment or corpus change was ported.
+- `docs/khmer-parser-source-registry-and-handoff-v2-2026-11-16`: its source registry is an older, materially shorter snapshot than main's current registry; its provenance test has fewer assertions than main; and its parser/LOC/Unicode audit notes carry earlier implementation SHAs and CI counts. No source record, test or parser change was missing from main in the inspected files.
+- `docs/post-pr319-expert-shortlist-closeout-2026-11-17` and `docs/historical-branch-audit-closeout-2026-11-15`: their candidate-screen and branch-audit notes are historical checkpoints already superseded by later canonical documentation. The expert shortlist remains candidate screening only; no outreach or appointment is evidenced.
+- `docs/current-pcgn-branch-family-inventory-2026-11-19`, `docs/non-pcgn-fix-branch-triage-2026-11-19`, `docs/closeout-tn61-source-registry-and-docs-branch-audit-2026-11-18`, and `docs/final-2026-11-19-mainline-ci-and-branch-status` contain older handoff/register/audit snapshots; the relevant branch-family findings are represented in the canonical current-main audit, with newer or corrected state where applicable.
+
+These are targeted content dispositions, not a complete semantic or commit/PR-ancestry audit of all 134 `docs/*` refs. `KHM-BRANCH-AUDIT-001` therefore remains **PARTIAL**. No historical branch was deleted, force-updated, or merged wholesale; no unsupported IPA or linguistic evidence was added.
+
+Exact-main workflow recheck for `f5faae81078e2828bc069bddda1ec05b95de5ff1`:
+- Quality checks run [44501861035](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44501861035): **SUCCESS**.
+- Khmer browser smoke run [44501860981](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44501860981): **SUCCESS**.
+- GitHub Pages build/deploy and deployed-site/runtime smoke run [44501861093](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44501861093): **SUCCESS**.
+
+At this checkpoint there are **0 open pull requests** and Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains the sole open issue. Its human acceptance gates remain unmet: approved versioned IPA convention, qualified independent reviewers/annotators/adjudicator/curator, private blind intake, item-level rights-cleared 30-item pilot and adjudication. Gold remains 0 and empirical accuracy remains null. Repository classification remains research-ready partial prototype, not linguistically release-ready.
