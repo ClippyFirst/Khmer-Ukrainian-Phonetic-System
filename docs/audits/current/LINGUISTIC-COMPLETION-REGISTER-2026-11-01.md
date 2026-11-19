@@ -3385,6 +3385,6 @@ The benchmark workflow against MekongPhon/Neurlang is a source-attested concorda
 
 Positional-onset registry, schema and tests are byte-identical to main; 33 specialist-reference onset hints remain preview-only and not canonical IPA. PCGN independent-vowel CSV and resolver test are byte-identical to main; Note 9's `ŏ|ŭ` remains unresolved without reference selection. The pinned Khmer Phonemizer smoke workflow is also already in main.
 
-The PCGN/UNGEGN audit branch is stale: it incorrectly treats anusvara/visarga row 7 as a full match and requires all eight rows to match. Current main correctly marks the distinct PCGN sequence `េ+ា+ះ` vs candidate key `ោះ` as `VALUE_MATCH_KEY_SHAPE_DIFFERS`, and adds source-registry parity tests plus the PCGN `ស)-foot distinction. Do not port stale files.
+The PCGN/UNGEGN audit branch is stale: it incorrectly treats anusvara/visarga row 7 as a full match and requires all eight rows to match. Current main correctly marks the distinct PCGN sequence `េ+ា+ះ` vs candidate key `ោះ` as `VALUE_MATCH_KEY_SHAPE_DIFFERS`, and adds source-registry parity tests plus the PCGN `ស`-foot distinction. Do not port stale files.
 
 Feature/fix/research audit snapshots contain no branch-only handoff content. The unique current-engine benchmark workflow is DEFERRED pending independent gold/rights; the older G2P smoke workflow is superseded. All refs retained. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
