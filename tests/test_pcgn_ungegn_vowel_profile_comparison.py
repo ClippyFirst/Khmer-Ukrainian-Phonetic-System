@@ -112,6 +112,6 @@ def test_candidate_comparison_pcgn_cells_match_the_project_owned_source_registri
     assert set(by_section["PCGN_ANUSVARA_VISARGA"]) == set(anusvara_visarga)
     for table_row, source in anusvara_visarga.items():
         compared = by_section["PCGN_ANUSVARA_VISARGA"][table_row]
-        assert compared["pcgn_source_pattern"].replace("+", "") == source["source_components"].replace("+", "")
+        assert compared["pcgn_source_pattern"] == source["source_components"]
         assert compared["pcgn_a_series_or_value"] == source["â_series"]
         assert compared["pcgn_o_series"] == source["ô_series"]
