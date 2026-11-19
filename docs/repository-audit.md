@@ -2988,3 +2988,8 @@ Ten refs (#correct-main-quality-count, #current-main-branch-inventory, #exact-ma
 
 
 Fresh live inventory: 319 refs / 319 unique names / 319 unique tip SHAs, including 141 `docs/*` refs. One open PR (#445) contains this documentation-only audit batch. No branches were deleted or rewritten. The full historical audit remains **PARTIAL**.
+
+
+### Unicode 18 parser handoff refs
+
+Compared four parser handoff/state refs (#parser-final-handoff, #parser-final-state, #parser-final-state-v2, #unicode18-parser-final-handoff). Three are canonical-doc-only. The fourth also changes the source registry and provenance test: its sole branch-only source ID `unicode-tn61-v2` is renamed in current main to `unicode-tn61-khmer-encoding-structure-v2`; current main has 49 source entries vs 46 and later sources. The old parser/LOC TODO status is superseded by the verified Unicode 18 §16.4 packed parse forest; current tests retain the `ហើ្យ` / `ហើយ` boundary, 2^20 derivation and rejection-span regressions. No missing implementation or evidence to port. Retain branches; full audit remains **PARTIAL**.
