@@ -3270,3 +3270,6 @@ Data-level verification: the early candidate-diff branch still marks row 7 as ca
 ### Exact-main/checkpoint branch review
 
 Ten exact-main and branch-audit checkpoint refs were compared. Their handoff files are strict line subsets of current main (zero branch-only lines); diffs affect only canonical status docs. Historical branch counts, SHAs and CI states are not current evidence. No unique code, source or test changes. Retain refs; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+Current inventory: 319 refs, 319 unique names/tips, 141 `docs/*` refs; one open PR (#445). This does not close the full branch audit; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
