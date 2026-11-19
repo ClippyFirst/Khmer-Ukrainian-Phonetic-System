@@ -5178,3 +5178,34 @@ A further targeted review compared four retained accessibility closeout refs aga
 Disposition: retain all four refs as historical records; do not merge their older canonical snapshots or port duplicate implementation. This is a targeted documentation-branch content review, not full ancestry reconciliation for every docs ref.
 
 Fresh paginated live branch inventory: **315 refs, 315 unique branch names, 315 unique tip SHAs; 137 refs use the `docs/*` prefix**. The inventory includes the current documentation continuation branch/PR #441. This is a live count, not a claim that all 137 documentation branches have been semantically reviewed. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+## Mainline PR #441 closeout and additional documentation-branch dispositions — 2026-11-19
+
+PR [#441](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/441) merged by squash as `8c5b4ab223014bb2292a2e45e9b026a6e85757ed`. It synchronizes the canonical handoff, repository audit and linguistic completion register with PR #440's exact-main CI outcome and adds the accessibility documentation-branch spot checks. Its scope is documentation only.
+
+Exact PR #441 head `76fc232792d9f8aac2daf0ba86f765470ae52db8`:
+- Quality [44537589136](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44537589136) — **SUCCESS**.
+- Khmer browser smoke [44537589184](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44537589184) — **SUCCESS**.
+- Additional Quality push run [44537557821](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44537557821) — **SUCCESS**.
+
+The previously failed browser smoke for PR #440's main SHA `e3837e036584e3c243f098781d7b24f377090663` was retried as attempt 2 and then completed **SUCCESS**. Attempt 1 had failed only during Chromium installation; the browser test itself was not reached on that attempt.
+
+Exact current-main verification on `8c5b4ab223014bb2292a2e45e9b026a6e85757ed`:
+- Quality [44537942760](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44537942760) — **SUCCESS**.
+- GitHub Pages build/deploy [44537942921](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44537942921) — **SUCCESS**.
+- Khmer browser smoke [44537942949](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44537942949) — **SUCCESS**.
+
+### Further targeted documentation-ref checks
+
+Six additional historical documentation refs were compared with current main and relevant content inspected:
+
+- `docs/record-pcgn-anusvara-assembly-port-2026-11-18`: documentation-only branch snapshot. Its record describes the eight-row anusvara/visarga syllable assembler already integrated via PR #351, including schema, exports and abstention tests. No unique implementation is absent from main.
+- `docs/closeout-tn61-source-registry-and-docs-branch-audit-2026-11-18`: historical checkpoint from an earlier base with 103 docs refs. Its TN #61 alias/source metadata reconciliation is superseded by PR #365 and the current canonical source registry; the alias is represented on main without a duplicate source record. Its old inventory and CI state are not current.
+- `docs/romanization-mainline-ledger-reconciliation-2026-11-12`: older branch snapshot that modifies the romanization matrix as well as the three canonical documents. Its branch-only matrix/register statements describe the earlier partial ASCII adapter, old mark/numeral task state and pre-reconciliation national-1997 caveat; current main contains the later matrix, runtime and explicit profile caveat. No unique current implementation or source evidence was identified to port.
+- `docs/pr402-postmerge-closeout-2026-11-19` and `docs/pr406-exact-main-closeout-2026-11-19`: documentation-only historical closeouts whose rule/test and exact-main CI records are superseded by later canonical checkpoints already on main. No runtime/test patch is unique to these documentation refs.
+- `docs/pr427-exact-main-closeout-2026-11-19`: compare reports the branch is behind current main with no changed files; no port is applicable.
+
+These are content dispositions for the named refs, not a full line-by-line review or ancestry reconciliation of every documentation ref. Retain historical branches; do not merge stale snapshots wholesale or delete/force-update branches.
+
+Latest paginated inventory remains **315 refs / 315 unique names / 315 unique tips**, including **137 `docs/*` refs**. There are no open PRs after #441. `KHM-BRANCH-AUDIT-001` remains **PARTIAL** because the remaining docs refs and complete PR/commit ancestry still require reconciliation.
