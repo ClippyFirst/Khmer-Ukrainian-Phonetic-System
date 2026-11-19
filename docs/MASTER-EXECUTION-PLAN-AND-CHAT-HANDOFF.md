@@ -5255,3 +5255,12 @@ A further targeted comparison against current `main` reviewed ten retained PCGN 
 The targeted source check confirms `src/khmer_ua/pcgn.py` defines `PCGN_WEAK_SUBSCRIPTS = frozenset("ងញណនមយរលវ")`, excluding `ស`; the current resolver therefore lets `ស` determine the series under PCGN Note 3. The existing structural `គ្ស` regression is documented in the rule-diff. This is already implemented and tested; no runtime patch was warranted. The older branch snapshots that describe the delta as PARTIAL or retain the UNGEGN neutral-set behavior are stale relative to main.
 
 All ten refs changed documentation paths only; no historical branch was merged, deleted or force-updated. This is a targeted content review, not full per-file/commit/PR-ancestry reconciliation of every documentation ref. Fresh paginated inventory after PR #443: **317 refs, 317 unique names, 317 unique tip SHAs, including 139 `docs/*` refs**; no open PRs at inventory time. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+### Historical post-merge documentation branch family — PR #206–#259 snapshots
+
+A further 26 retained `docs/post-pr*` refs were compared with current `main`: #206, #209, #211, #213, #215, #217, #218, #219, #220, #221, #222, #223, #224, #226, #228, #230, #231, #233, #235, #237, #239, #241, #243, #245, #247, #250, #252, #255, #256 and #259 (29 refs total). Each compare is limited to canonical handoff, repository-audit and linguistic-register documentation; all except #206 also carry an earlier `docs/romanization-to-ukrainian-matrix.md` snapshot. No source-code or test path appears in these branch diffs.
+
+The matrix snapshots range from 334 to 841 lines, compared with 541 lines on current main. Every inspected branch matrix is a strict line subset of current main except two historical-only statements: #215 describes the then-unimplemented Note 2 shifter abstention, now superseded by later source-backed resolver behavior; #223 records exact-main workflows as still running, an obsolete point-in-time CI status. No branch-only mapping or acceptance rule was found that is absent from the current matrix. These branches are therefore historical checkpoints, not implementation candidates; do not merge their older matrix or status text.
+
+The branch names above are 29 refs; the sweep used changed-path comparisons for all and line-level matrix subset checks for #209–#259. This is not full commit/PR-ancestry reconciliation. Retain all refs unchanged. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
