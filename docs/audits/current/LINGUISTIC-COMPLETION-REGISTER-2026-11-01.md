@@ -3350,3 +3350,12 @@ No unique accepted implementation was found to port. Branches preserved. Full co
 The positional-onset evidence files and independent-vowel CSV are byte-identical to main. The row-7 source-pattern runtime/schema, BA/TRIISAP source matrix, dependent-vowel CSV, shortened-mark inventory and TN #61 metadata are also already present.
 
 Do not port the stale dependent-I/O resolver (incorrect O-series values for rows 16/17 and old row-7 key) or the BA+TRIISAP p-in-â exception in older final-consonant/omitted-shifter branches. Current main correctly applies PCGN Note 2 no-shift and Note 3 BA+MUUSIKATOAN/BA+foot. Historical refs retained; full branch/PR ancestry audit remains **PARTIAL**.
+
+
+## Feature branch disposition
+
+Fifty feature refs were reviewed. The parser/BNF/forest, rejected-span, romanization/practical adapter, typed IPA/hybrid, coverage/dashboard, renderer and PCGN component/note/assembly branches are older snapshots of current mainline functionality. Current main has richer Unicode 18 parser semantics, typed IPA validation, expanded source-backed PCGN resolution, and stronger data/test contracts. Stale PCGN branches contain superseded BA+TRIISAP p-in-â behavior and/or incorrect dependent-vowel/row-7 mappings; do not port.
+
+The browser-side `src/hybrid-engine.js` on the old Pages hybrid-candidate-shell branch is not present on main. No acceptance requirement for this separate UI was found in the canonical execution plan; current main's Python typed hybrid adapter is the supported diagnostic boundary. Classify the prototype **DEFERRED**. Profile-neutral boundary evidence is already integrated but does not segment words.
+
+No feature branch altered; full PR ancestry review remains **PARTIAL**.
