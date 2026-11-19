@@ -3048,3 +3048,6 @@ Ten feature refs were checked. The Unicode 18 parser branch predates the current
 The old PCGN syllable-assembly branches contain an obsolete BA+TRIISAP p-in-â interpretation. Current main follows PCGN Note 2: BA+TRIISAP does not shift series; Note 3 p-in-â applies to BA+MUUSIKATOAN or BA+foot. Their current PCGN source/schema/test blobs differ from main and must not be ported.
 
 Correction: an earlier audit note said the current feat/pcgn-anusvara-visarga-syllable-assembly-port branch blobs were identical to main. Rechecking the live tip shows the PCGN implementation, assembly schema and test are not identical; only package __init__.py is. The branch carries the superseded BA+TRIISAP exception. Main's newer rule and tests are authoritative. Full feature/ancestry audit remains PARTIAL.
+
+
+CI status correction: exact-main Quality 44568314352, Chromium 44568314381 and Pages/build/deploy 44568314462 later all completed SUCCESS on aeb0bfbaabc47d8658527da4c5634fae12e9faec (Quality retry 44568901376 also SUCCESS). The earlier in-progress note above is historical only.
