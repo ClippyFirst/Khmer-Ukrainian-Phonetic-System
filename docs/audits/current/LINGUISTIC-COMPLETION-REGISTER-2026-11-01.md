@@ -3216,3 +3216,17 @@ Exact-main workflows on the new merge SHA `23c41163b5ea5b9cc1b835283b03c7dceddec
 - `docs/romanizer-output-guard-closeout-2026-11-15`: the branch's 277-line matrix is a much earlier snapshot. Main's 944-line matrix adds the full contextual mark inventory (including BANTOC and SAMYOK SANNYA under PCGN Note 5), the bounded direct-input and independent-vowel assembly contracts, and later PCGN/UNGEGN reconciliation. The old matrix contains no unique current rule or test evidence to port.
 
 All these dispositions are targeted, based on changed-path comparison and inspection of the relevant registry/matrix files; they do not complete the full historical branch ancestry audit. Do not copy older source metadata into main or treat upstream corpus claims as permission to import data.
+
+
+## PCGN documentation-ref spot audit — 2026-11-19
+
+Ten retained PCGN documentation refs were compared with current main. Their changed paths are canonical documentation only; no unique code, tests, source rows, IPA labels, Ukrainian mappings or corpus material were identified for porting. Historical BA+AA/foot, vowel, Note 5, UNGEGN comparison, profile-delta and row-7 closeouts are superseded by the current mainline implementation and source-backed regression evidence.
+
+The current PCGN resolver was checked directly: `PCGN_WEAK_SUBSCRIPTS` excludes `ស`, and the structural `គ្ស` regression records the PCGN-specific series-determining foot behavior. The exact PCGN row-7 sequence remains `េ+ា+ះ`; the UNGEGN candidate's distinct key is not interchangeable. No runtime changes were needed.
+
+PR #443 is merged as `f9a3dd7fdc813fbf5de8c0e674256c9a6a43ac05`. Its PR-head Quality and browser checks passed; exact-main Quality and Pages passed, while exact-main Chromium was still in progress at the time of this update. Inventory: 317 refs / 317 unique names / 317 unique tips / 139 `docs/*` refs. The full historical branch audit remains **PARTIAL**; no linguistic gold, license or external rights status changed.
+
+
+### Post-merge documentation branch family (#206–#259)
+
+Twenty-nine historical refs in the `docs/post-pr*` family were compared with current main. Changed paths are canonical documentation plus older snapshots of `docs/romanization-to-ukrainian-matrix.md`; no implementation or test files differ. The old matrices are line-subsets of current main apart from superseded status notes: a pre-Note-2 implementation statement on #215 and a stale in-progress CI note on #223. No unique mapping or source-backed rule was found to port. Retain all branches unchanged. This is targeted compare/content evidence only; repository-wide branch/PR ancestry audit remains **PARTIAL**.

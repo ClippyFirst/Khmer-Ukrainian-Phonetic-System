@@ -2923,3 +2923,21 @@ Exact-main workflows on the new merge SHA `23c41163b5ea5b9cc1b835283b03c7dceddec
 - `docs/romanizer-output-guard-closeout-2026-11-15`: the branch's 277-line matrix is a much earlier snapshot. Main's 944-line matrix adds the full contextual mark inventory (including BANTOC and SAMYOK SANNYA under PCGN Note 5), the bounded direct-input and independent-vowel assembly contracts, and later PCGN/UNGEGN reconciliation. The old matrix contains no unique current rule or test evidence to port.
 
 All these dispositions are targeted, based on changed-path comparison and inspection of the relevant registry/matrix files; they do not complete the full historical branch ancestry audit. Do not copy older source metadata into main or treat upstream corpus claims as permission to import data.
+
+
+## PR #443 and PCGN documentation-ref reconciliation — 2026-11-19
+
+PR #443 merged as `f9a3dd7fdc813fbf5de8c0e674256c9a6a43ac05`. The exact PR head passed browser smoke and both Quality checks. The exact merge SHA passed Quality and Pages build/deploy; Chromium was still running at the time of this audit update.
+
+Ten PCGN documentation refs were compared with current main. All ten diffs were limited to canonical documentation files; none supplied a unique runtime, test or source-data patch. The BA/AA/foot and vowel closeouts are superseded by the merged Note 2/3 regressions, BA source-row reconciliation, dependent-vowel table/CSV parity, and SAMYOK coda tests. The row-7/profile closeouts are superseded by the exact `េ+ា+ះ` PCGN source sequence, the profile-specific `ស` foot regression, and row-specific source-registry comparison parity. The UNGEGN candidate remains a comparison source only; no candidate-specific behavior should be copied into PCGN.
+
+Current implementation was inspected directly: `PCGN_WEAK_SUBSCRIPTS` excludes `ស`, and the existing structural regression establishes the PCGN series-determining behavior. No runtime change was justified. Retain the historical refs unchanged.
+
+Inventory: 317 branch refs, 317 unique names/tips, 139 `docs/*` refs. No open PRs. This remains a targeted sample; `KHM-BRANCH-AUDIT-001` is still **PARTIAL**, not complete.
+
+
+### Historical post-merge documentation branches (#206–#259)
+
+Compared 29 retained `docs/post-pr*` refs (#206, #209, #211, #213, #215, #217, #218, #219, #220, #221, #222, #223, #224, #226, #228, #230, #231, #233, #235, #237, #239, #241, #243, #245, #247, #250, #252, #255, #256 and #259) against current main. Their diffs touch only the three canonical status documents and, except for #206, an older romanization matrix snapshot. No source-code or test changes are unique to these refs.
+
+The old matrices (334–841 lines) are superseded by the 541-line current matrix; inspected rows/lines are already present in current main. The only non-subset statements are historical: #215's Note 2 “not implemented” status predates the current resolver, and #223's “workflows running” note is stale CI metadata. Neither requires a port. All branches remain untouched. Full historical branch/ancestry audit remains **PARTIAL**.
