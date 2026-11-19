@@ -5434,3 +5434,16 @@ Correction to the time-bounded CI note above: exact-main checks on aeb0bfbaabc47
 ### Live branch inventory at PR #451 pre-merge checkpoint — 2026-11-19
 
 Paginated GitHub branch inventory: **325 refs, 325 unique names, 325 unique tip SHAs; 142 docs/* refs**. Prefix counts: a11y 2, audit 44, benchmark 1, ci 1, data 4, docs 142, feat 50, fix 24, release 1, research 29, test 26, plus one unprefixed ref. Exactly one PR was open at this checkpoint: #451. This is a timestamped inventory, not a branch-audit completion claim. KHM-BRANCH-AUDIT-001 remains PARTIAL.
+
+
+## Audit-branch snapshot reconciliation and PR #451 — 2026-11-19
+
+PR #451 merged as `89a2152b48a73d725fde607f28e503ca274f45f5`; PR head `ec544141a40d8e1a440bdbc37c31b62328f69ee6` had passing Quality and Chromium checks. Exact-main checks for the new merge were still in progress at the time of this entry; do not infer their result from PR-head checks.
+
+A further 14 audit refs were compared with current main: `audit/closeout-late-docs-branch-family-2026-11-18`, `audit/complete-docs-branch-family-reconciliation-2026-11-17`, `audit/continue-historical-branch-reconciliation-2026-11-17`, `audit/continue-pcgn-branch-reconciliation-2026-11-17`, `audit/continue-pcgn-note-and-special-syllable-branch-reconciliation-2026-11-17`, `audit/continue-pcgn-vowel-and-syllable-branch-reconciliation-2026-11-17`, `audit/continue-typed-ipa-and-coverage-branch-reconciliation-2026-11-17`, `audit/current-branch-inventory-2026-11-16`, `audit/final-branch-inventory-closeout-2026-11-17`, `audit/final-session-closeout-2026-11-18`, `audit/post-pr379-live-inventory-closeout-2026-11-18`, `audit/post-pr380-final-verification-closeout-2026-11-18`, `audit/post-pr381-mainline-ci-closeout-2026-11-18`, and `audit/pr153-diff-reconciliation-2026-11-15`. All diffs are limited to canonical documentation. A line-level handoff comparison found zero branch-only lines in all 14 refs; no unique audit result or implementation requires porting. `audit/complete-remaining-branch-families-2026-11-17` is exactly at an ancestor of current main with no file diff.
+
+The distinct `audit/pcgn-ungegn-vowel-row-reconciliation-2026-11-19` branch is not safe to reuse as a current snapshot. Its CSV retains the old PCGN anusvara/visarga row 7 full-`MATCH` classification and its test asserts all eight rows match. Current main correctly classifies row 7 as `VALUE_MATCH_KEY_SHAPE_DIFFERS`: the PCGN source sequence is `េ+ា+ះ`, while the candidate UNGEGN key is `ោះ`; Latin values match, source key shape does not. Current main also has stronger row-specific and source-registry assertions. The branch's older rule-diff note predates the source-sequence correction. No code/test patch should be ported from this stale branch.
+
+PR #451's feature-branch audit note is retained on main: it corrects an earlier inaccurate claim that the live PCGN syllable-assembly feature branch was byte-identical to main. The old branch carries the superseded BA+TRIISAP p-in-â behavior; current main preserves PCGN Note 2 no-shift for BA+TRIISAP and Note 3 p-in-â only for BA+MUUSIKATOAN or BA+foot.
+
+All inspected historical refs remain untouched. These are targeted changed-path/blob checks, not complete commit/PR ancestry review. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
