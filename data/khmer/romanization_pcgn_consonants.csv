@@ -10,7 +10,7 @@ table_row,base_characters,subscript_characters,romanization,implementation,sourc
 9,ថ|ធ,ថ|ធ,th,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
 10,ណ|ន,ណ|ន,n,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
 11,ត|ទ,ត|ទ,t,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
-12,ប,ប,b,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters row 12 and Note 3",Base is b unless Note 3 BA+MUUSIKATOAN/TRIISAP/foot exception selects p
+12,ប,ប,b,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters row 12 and Note 3",Base is b; Note 3 selects p in the â-series for BA+MUUSIKATOAN or BA+foot. BA+TRIISAP remains unshifted in the ô-series under Note 2.
 13,ព,ព,p,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
 14,ផ|ភ,ផ|ភ,ph,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
 15,ម,ម,m,RESOLVED_ROWS_1_TO_21,"PCGN 1972, Consonant Characters and Subscript Consonant Forms table (pp. 1–2)",One base plus at most one foot; source series is a separate decision
