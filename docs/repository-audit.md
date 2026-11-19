@@ -3000,3 +3000,8 @@ Four parser handoff refs were compared. One old source-registry alias `unicode-t
 ### Mainline/PCGN closeout refs
 
 Compared ten refs (#mainline checkpoint, #mainline CI, #historical audit, #exact-main quality count, #PCGN anusvara assembly, #PR440, #PR430, #external-source audit, #Sok IPA kind, #PCGN RoBat). All diffs are canonical docs only; the exact-main quality-count ref has no file diff. Nine handoff snapshots are strict subsets of current main. #430 carries an older PCGN fix-family disposition and 305-ref inventory; main has the later equivalent disposition and refreshed 306/308/319 counts. No unique code, test or source evidence needs porting. Retain refs; full audit remains **PARTIAL**.
+
+
+### Data/evidence branch refs
+
+Compared all four `data/*` refs. The integrate-onset branch has no diff. The onset-evidence branch's JSON, schema, test and audit doc are byte-identical to current main. Both PCGN independent-vowel branches' CSV and resolver tests are byte-identical to main. No unique data or test needs porting. The onset registry remains a partial specialist-reference register, not adjudicated IPA gold.
