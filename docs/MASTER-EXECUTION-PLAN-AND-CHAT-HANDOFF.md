@@ -5327,3 +5327,10 @@ Retain these refs unchanged. This is targeted path/content comparison, not full 
 
 
 A final data-level check of the PCGN candidate-parity test branches confirmed the stale row-7 hazard: `test/pcgn-candidate-diff-source-registry-parity-2026-11-19` still has a CSV row with the candidate-shaped `ោ+ះ` and comparison `MATCH`. Current main instead pins the official PCGN `េ+ា+ះ` source sequence and records `VALUE_MATCH_KEY_SHAPE_DIFFERS` against the candidate's `ោះ`. The three later test branches' CSV files are byte-identical to main. This confirms the stale branch must not be ported.
+
+
+### Exact-main and branch-audit checkpoint refs — 2026-11-19
+
+Ten additional refs were compared: `docs/correct-main-quality-count-2026-11-16`, `docs/current-main-branch-inventory-2026-11-16`, `docs/exact-main-369e0-ci-complete-2026-11-19`, `docs/exact-main-checkpoint-2026-11-16-evening`, `docs/exact-main-research-register-2026-11-16`, `docs/extend-docs-branch-semantic-spot-audit-2026-11-19`, `docs/extend-historical-docs-spot-audit-2026-11-19`, `docs/final-2026-11-19-mainline-ci-and-branch-status`, `docs/final-mainline-checkpoint-1cc833a-2026-11-15`, and `docs/final-mainline-checkpoint-2026-11-15`.
+
+All ten diffs are limited to the canonical handoff, repository audit and/or linguistic completion register. A line-level comparison found **zero branch-only lines** in each handoff snapshot: all content is already present in current main. Their inventory counts, workflow states and checkpoint SHAs are historical point-in-time records and must not be used as current status. No code, source, test or evidence change is unique to these refs. Retain all refs unchanged; this remains targeted content review, not full PR/commit ancestry reconciliation. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
