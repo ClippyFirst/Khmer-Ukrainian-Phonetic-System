@@ -5209,3 +5209,22 @@ Six additional historical documentation refs were compared with current main and
 These are content dispositions for the named refs, not a full line-by-line review or ancestry reconciliation of every documentation ref. Retain historical branches; do not merge stale snapshots wholesale or delete/force-update branches.
 
 Latest paginated inventory remains **315 refs / 315 unique names / 315 unique tips**, including **137 `docs/*` refs**. There are no open PRs after #441. `KHM-BRANCH-AUDIT-001` remains **PARTIAL** because the remaining docs refs and complete PR/commit ancestry still require reconciliation.
+
+
+## PR #442 closeout and next historical documentation-ref sample — 2026-11-19
+
+PR [#442](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/442) merged by squash as `23c41163b5ea5b9cc1b835283b03c7dceddec7d6`. It records the PR #441 closeout, the successful retry of PR #440's Chromium installation attempt, exact-main CI on `8c5b4ab223014bb2292a2e45e9b026a6e85757ed`, and six additional targeted documentation-ref dispositions. Scope is documentation only.
+
+Correction to the previous interim status: Chromium smoke on `e3837e036584e3c243f098781d7b24f377090663` did **not** remain failed. Retry attempt 2 succeeded; the original failure was limited to the Chromium installation step before browser tests began. On the subsequent exact-main SHA `8c5b4ab223014bb2292a2e45e9b026a6e85757ed`, Quality, Pages and Chromium all passed (runs 44537942760, 44537942921 and 44537942949 respectively).
+
+### Further targeted documentation-ref checks
+
+- `docs/accessibility-smoke-closeout-2026-11-15`, `docs/close-shared-fallback-parity-task-2026-11-17`, `docs/closeout-mixed-script-boundaries-2026-11-17`, `docs/historical-branch-audit-closeout-2026-11-15`, `docs/khmer-fallback-parity-mainline-closeout-2026-11-17`, and `docs/sok-adams-rule-audit-mainline-closeout-2026-11-17`: compare results show only older snapshots of the canonical handoff/audit/register documents. Their branch-only implementation/status notes are historical; no source, runtime or test path unique to these refs was identified. Retain as history; do not merge stale snapshots wholesale.
+- `docs/correct-khmer-nova-tokenization-scope-2026-11-17`: its lexical-segmentation evidence audit is byte-for-byte line-identical to current main. No port is applicable.
+- `docs/ipa-gold-recruitment-execution-kit-2026-11-18`: its playbook contains an older summary of the Chemvatho acoustic-model candidate. Main supersedes that summary with pinned-revision evidence: conflicting 29,204/33,091 counts and CC BY-SA/CC BY statements, only a six-line sample dictionary in the public tree, and no full dictionary or reproducible artifact. The old branch's generic claim that the candidate is a promising 29,204-entry CC BY-SA dictionary is insufficient and potentially misleading; no evidence or recruitment protocol unique to that branch needs porting. Issue #104 still requires actual human recruitment and rights clearance.
+- `docs/khmer-canonical-matrix-parity-closeout-2026-11-12`: an older two-file closeout; its changes are historical status prose, with no runtime or source-registry implementation missing from main.
+- `docs/pcgn-robat-closeout-2026-11-16`: its romanization matrix is a 921-line earlier snapshot versus 944 lines on main. The current matrix contains later independent-vowel closed-syllable assembly, exact bounded API/schema/tests and the separate Unicode 18 BNF/LOC word-division evidence boundaries. The branch-only lines add no unique current implementation or evidence.
+
+These are targeted content dispositions, not a full line-by-line review or PR/commit ancestry reconciliation of all live documentation refs. Current paginated inventory after PR #442: **316 refs, 316 unique names, 316 unique tips, including 138 `docs/*` refs**. No open PRs. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+Exact-main workflows on the new merge SHA `23c41163b5ea5b9cc1b835283b03c7dceddec7d6` were triggered and were still running at the time of this update; do not mark this SHA CI-verified until all three complete successfully.
