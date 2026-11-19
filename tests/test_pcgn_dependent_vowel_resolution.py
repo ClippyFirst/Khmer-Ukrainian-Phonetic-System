@@ -144,7 +144,6 @@ def test_pcgn_ba_aa_shifter_exceptions_feed_the_correct_dependent_vowel_series()
         assert vowel.ukrainian is None
 
 
-
 def test_pcgn_dependent_vowel_source_registry_matches_all_runtime_rows():
     root = Path(__file__).resolve().parents[1]
     with (root / "data/khmer/romanization_pcgn_dependent_vowels.csv").open(
@@ -158,8 +157,14 @@ def test_pcgn_dependent_vowel_source_registry_matches_all_runtime_rows():
         key = tuple(row["source_signs"].split("+"))
         value = (int(row["table_row"]), row["â_series"], row["ô_series"])
         registry[key] = value
-        assert row["source_url"] == "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf"
+        assert row["source_url"] == (
+            "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/"
+            "ROMANIZATION_OF_KHMER.pdf"
+        )
         assert row["source_locator"] == "PCGN 1972, Independent/Dependent Vowel Characters table (pp. 2–4)"
-        assert row["acceptance_boundary"] == "One exact dependent-vowel pattern and caller-supplied resolved series; component only, no IPA or Ukrainian output"
+        assert row["acceptance_boundary"] == (
+            "One exact dependent-vowel pattern and caller-supplied resolved series; "
+            "component only, no IPA or Ukrainian output"
+        )
 
     assert registry == PCGN_DEPENDENT_VOWEL_ROWS
