@@ -5533,3 +5533,22 @@ The three singleton refs were also checked:
 - `release/deterministic-rule-engine-2026-11-11` is an older deterministic engine snapshot; main has the expanded rule engine, typed IPA/uncertainty boundary, tests and documentation.
 
 All branches remain preserved. This is targeted changed-path and selected-blob evidence, not complete ancestry reconciliation. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+## Data/source-register and PCGN comparison branch reconciliation — 2026-11-19
+
+PR #457 merged as `db5c14b2e8d9b2e499142f462364aa5f0f35cc76`. Exact-main CI on this SHA completed successfully: Quality [44600726100], Pages build/deploy [44600726134], Chromium [44600726314]. PR #457 exact head `3c9a5f1a1450574908bf5e7f77341067c044f0f5` passed both Quality checks and Chromium.
+
+Further checks of the data/evidence branches found no missing implementation:
+- `data/integrate-positional-onset-evidence-register-2026-11-17` is an ancestor of main (ahead 0).
+- `data/khmer-onset-evidence-registry-2026-11-17`: the positional-onset JSON (33 existing consonant hints), schema and tests are byte-identical to main. The registry is correctly restricted to specialist-reference provenance and `PROVISIONAL_ONSET_PREVIEW_ONLY`; it does not create canonical IPA evidence or full-syllable support.
+- `data/pcgn-independent-vowel-source-register-2026-11-16` and its mainline variant: the independent-vowel CSV and resolver test are byte-identical to main. The source row 7 alternative `ŏ|ŭ` remains unresolved without lexical/reference selection; no IPA/Ukrainian output is emitted.
+- `audit/restore-pinned-khmer-phonemizer-smoke-2026-11-18`: the optional pinned `khmerphonemizer==0.0.3` workflow is byte-identical to main; no workflow port is needed.
+
+The `audit/pcgn-ungegn-vowel-row-reconciliation-2026-11-19` branch is stale and must not be merged. Its older comparison CSV calls PCGN anusvara/visarga row 7 a full `MATCH`, and its test requires all eight rows to match. Current main correctly records `VALUE_MATCH_KEY_SHAPE_DIFFERS`: PCGN's source sequence is `េ+ា+ះ`, while the pinned UNGEGN candidate key is `ោះ`. Current main also adds a second test that checks every PCGN comparison cell against project-owned source registries and retains the PCGN-vs-UNGEGN Note 3 `ស`-foot distinction. The stale branch omits these safeguards and older source-diff notes. No data, test or runtime changes should be ported from it.
+
+The three audit snapshot branches `audit/reconcile-feature-branch-snapshots-2026-11-19`, `audit/reconcile-fix-branch-snapshots-2026-11-19` and `audit/reconcile-research-branch-snapshots-2026-11-19` contain only canonical documentation; each handoff is a strict subset of current main (zero branch-only lines). The current-main records already supersede them.
+
+The `benchmark/current-engine-2026-11-11` branch contains a unique manual concordance workflow, but its output is source-attested upstream agreement, not independent gold accuracy. It remains DEFERRED pending independent adjudication and source-rights review, as recorded in the existing benchmark gate. The older `ci/khmer-g2p-smoke-2026-10-24` workflow is superseded by the current optional pinned workflow and manual diagnostic. No workflow or external corpus was added.
+
+All historical refs are retained. These are targeted branch/content checks, not complete ancestry reconciliation; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.

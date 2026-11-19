@@ -3128,3 +3128,14 @@ The test inventory is 26 refs. The additional `test/ui-accessibility-smoke` bran
 The benchmark singleton adds a source-attested concordance run, not independent gold accuracy, and remains DEFERRED pending rights and adjudication. The old G2P CI workflow is superseded by the current pinned manual diagnostic. The deterministic-engine release branch is an older snapshot of current main.
 
 No branches were modified. Full branch/PR ancestry remains **PARTIAL**.
+
+
+## Data/evidence and PCGN comparison branch disposition
+
+Exact-main CI on `db5c14b2e8d9b2e499142f462364aa5f0f35cc76` passed: Quality, Pages/deploy and Chromium. PR #457 exact head also passed Quality and Chromium.
+
+The positional-onset registry branch and the PCGN independent-vowel source-register branch are already represented byte-for-byte in main. The former remains a 33-entry specialist-reference mirror restricted to provisional onset previews, not canonical IPA; the latter preserves Note 9's unresolved `ŏ|ŭ` alternative. The restored pinned Khmer Phonemizer workflow is also byte-identical to main.
+
+Do not merge `audit/pcgn-ungegn-vowel-row-reconciliation-2026-11-19`: it is stale. It marks PCGN anusvara/visarga row 7 as a full match and requires all eight rows to match, whereas current main preserves the source-sequence difference (`េ+ា+ះ` vs candidate key `ោះ`) as `VALUE_MATCH_KEY_SHAPE_DIFFERS`, and tests parity against project-owned source registries. Current main also preserves the Note 3 `ស`-foot delta.
+
+Feature/fix/research audit snapshot branches contain no unique handoff lines. The unique manual benchmark workflow remains DEFERRED because source-attested concordance is not independent gold accuracy; the older optional G2P workflow is superseded by the current pinned workflow. No source, code or test port is warranted. Historical refs retained; full ancestry audit remains **PARTIAL**.
