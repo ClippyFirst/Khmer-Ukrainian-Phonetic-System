@@ -3117,3 +3117,14 @@ Three remaining singleton refs were also dispositioned:
 - `release/deterministic-rule-engine-2026-11-11` is an older rule-engine release snapshot. Current main has a substantially expanded deterministic engine, typed IPA/uncertainty boundary, tests and documentation; no unique release implementation needs porting.
 
 The browser-side hybrid candidate shell remains DEFERRED as noted above. These dispositions do not close external gold, licensing, IPA-convention or lexical segmentation blockers.
+
+
+## Fix, test and singleton branch reconciliation
+
+All 24 fix refs were compared by changed path. The non-PCGN fixes relate to typed IPA, tie-bar boundaries, benchmark provenance, Unicode parser diagnostics/rejection spans, partial results, unmodeled signs and mixed-script handling; current main contains the later typed result, parser and output-guard implementations. The PCGN subset was directly checked: row-7 runtime/schema and source registries are integrated, while older branches carry incorrect dependent-vowel values, the obsolete row-7 key or BA+TRIISAP p-in-â. Do not port these stale rules.
+
+The test inventory is 26 refs. The additional `test/ui-accessibility-smoke` branch's old mixed-input withholding test is superseded by current unsupported-grapheme, neighboring-output, mixed-script and direct-romanization tests; current main also has keyboard/contrast checks.
+
+The benchmark singleton adds a source-attested concordance run, not independent gold accuracy, and remains DEFERRED pending rights and adjudication. The old G2P CI workflow is superseded by the current pinned manual diagnostic. The deterministic-engine release branch is an older snapshot of current main.
+
+No branches were modified. Full branch/PR ancestry remains **PARTIAL**.
