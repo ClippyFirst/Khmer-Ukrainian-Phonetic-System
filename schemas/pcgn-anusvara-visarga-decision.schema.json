@@ -4,45 +4,200 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "source_components", "series", "coda_character", "romanization",
-    "source_table_row", "status", "ipa", "ukrainian", "source_locator", "warnings"
+    "source_components",
+    "series",
+    "coda_character",
+    "romanization",
+    "source_table_row",
+    "status",
+    "ipa",
+    "ukrainian",
+    "source_locator",
+    "warnings"
   ],
   "properties": {
     "source_components": {
-      "type": ["array", "null"],
-      "items": {"enum": ["ុ", "ំ", "ា", "ះ", "េ", "ោ", "ង"]},
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "enum": [
+          "ុ",
+          "ំ",
+          "ា",
+          "ះ",
+          "េ",
+          "ង"
+        ]
+      },
       "minItems": 1,
       "maxItems": 3
     },
-    "series": {"enum": ["â", "ô", null]},
-    "coda_character": {"enum": ["ង", null]},
-    "romanization": {"type": ["string", "null"]},
-    "source_table_row": {"enum": [1, 2, 3, 4, 5, 6, 7, 8, null]},
-    "status": {"enum": ["RESOLVED", "UNRESOLVED"]},
-    "ipa": {"type": "null"},
-    "ukrainian": {"type": "null"},
-    "source_locator": {"const": "PCGN 1972, Vowel Characters with Anusvara or Visarga table (p. 4)"},
-    "warnings": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+    "series": {
+      "enum": [
+        "â",
+        "ô",
+        null
+      ]
+    },
+    "coda_character": {
+      "enum": [
+        "ង",
+        null
+      ]
+    },
+    "romanization": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_table_row": {
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        null
+      ]
+    },
+    "status": {
+      "enum": [
+        "RESOLVED",
+        "UNRESOLVED"
+      ]
+    },
+    "ipa": {
+      "type": "null"
+    },
+    "ukrainian": {
+      "type": "null"
+    },
+    "source_locator": {
+      "const": "PCGN 1972, Vowel Characters with Anusvara or Visarga table (p. 4)"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    }
   },
   "allOf": [
     {
-      "if": {"properties": {"status": {"const": "RESOLVED"}}, "required": ["status"]},
+      "if": {
+        "properties": {
+          "status": {
+            "const": "RESOLVED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
       "then": {
         "properties": {
-          "source_components": {"type": "array", "minItems": 1},
-          "series": {"enum": ["â", "ô"]},
-          "romanization": {"type": "string", "minLength": 1},
-          "source_table_row": {"enum": [1, 2, 3, 4, 5, 6, 7, 8]}
+          "source_components": {
+            "type": "array",
+            "minItems": 1
+          },
+          "series": {
+            "enum": [
+              "â",
+              "ô"
+            ]
+          },
+          "romanization": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_table_row": {
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
+          }
         }
       }
     },
     {
-      "if": {"properties": {"source_table_row": {"const": 8}}, "required": ["source_table_row"]},
-      "then": {"properties": {"coda_character": {"const": "ង"}}}
+      "if": {
+        "properties": {
+          "source_table_row": {
+            "const": 8
+          }
+        },
+        "required": [
+          "source_table_row"
+        ]
+      },
+      "then": {
+        "properties": {
+          "coda_character": {
+            "const": "ង"
+          }
+        }
+      }
     },
     {
-      "if": {"properties": {"status": {"const": "UNRESOLVED"}}, "required": ["status"]},
-      "then": {"properties": {"romanization": {"type": "null"}, "ipa": {"type": "null"}, "ukrainian": {"type": "null"}}}
+      "if": {
+        "properties": {
+          "status": {
+            "const": "UNRESOLVED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "romanization": {
+            "type": "null"
+          },
+          "ipa": {
+            "type": "null"
+          },
+          "ukrainian": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "source_table_row": {
+            "const": 7
+          }
+        },
+        "required": [
+          "source_table_row"
+        ]
+      },
+      "then": {
+        "properties": {
+          "source_components": {
+            "const": [
+              "េ",
+              "ា",
+              "ះ"
+            ]
+          }
+        }
+      }
     }
   ]
 }
