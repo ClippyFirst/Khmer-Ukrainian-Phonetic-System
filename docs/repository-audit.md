@@ -2980,3 +2980,8 @@ Compared ten refs (#ipa-validator, #typed-hybrid-bridge, #repository-information
 
 
 The #candidate-diff test branch's CSV also retains the incorrect candidate-shaped PCGN row-7 key `ោ+ះ` and labels it `MATCH`; current main correctly uses `េ+ា+ះ` and `VALUE_MATCH_KEY_SHAPE_DIFFERS`. Three later parity branches have CSVs byte-identical to main. Do not port the stale row.
+
+
+### Exact-main / branch-audit checkpoint refs
+
+Ten refs (#correct-main-quality-count, #current-main-branch-inventory, #exact-main-369e0, #exact-main-checkpoint, #exact-main-research-register, #extend-docs-audit, #extend-historical-audit, #final-mainline-status, and two final-mainline checkpoints) were compared. All diffs are canonical status documents only; each handoff snapshot is a strict line subset of current main (zero branch-only lines). Their counts, SHAs and workflow states are historical, not current evidence. No implementation or source/test patch is unique. Retain refs; full ancestry audit remains **PARTIAL**.
