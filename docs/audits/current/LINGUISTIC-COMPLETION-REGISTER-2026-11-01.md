@@ -3273,3 +3273,8 @@ Ten exact-main and branch-audit checkpoint refs were compared. Their handoff fil
 
 
 Current inventory: 319 refs, 319 unique names/tips, 141 `docs/*` refs; one open PR (#445). This does not close the full branch audit; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+## Audit branch and PCGN comparison snapshot
+
+Nine audit branches have zero branch-only content in the three canonical docs compared with main. The PCGN/UNGEGN row-reconciliation branch is stale: it treats row 7 as a simple match despite different source structures (`េ+ា+ះ` vs `ោះ`) and lacks current source-registry parity tests. Main correctly classifies it as `VALUE_MATCH_KEY_SHAPE_DIFFERS`. No port is warranted; all refs retained. Full historical ancestry review remains **PARTIAL**.
