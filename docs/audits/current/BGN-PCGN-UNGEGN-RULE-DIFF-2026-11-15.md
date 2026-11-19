@@ -85,7 +85,7 @@ Those behaviors must remain separate from the standards-backed table. For this p
 | Pin and inspect the PCGN guide and UNGEGN report | DONE_VERIFIED (this review) | Exact primary URLs and note/table locators above. |
 | Identify the PCGN vs UNGEGN series-neutral subscript delta | DONE_VERIFIED (textual comparison) | PCGN note 3 vs UNGEGN note 3; explicit difference is inclusion of ស in UNGEGN neutral list. |
 | Reconcile every PCGN vowel/nucleus row against the candidate table | PARTIAL | Machine-readable row-by-row diff with exact Khmer glyphs and values; no unresolved OCR/font ambiguities. |
-| Verify all shifter and ប exceptions by exact code point and PCGN example | PARTIAL | Tests for U+17C9/U+17CA, both series directions, ប/បា exceptions, and omitted-mark uncertainty. |
+| Verify all shifter and ប exceptions by exact code point and PCGN example | DONE_VERIFIED | Exact-code-point regression plus Note 2/3 tests cover U+17C9/U+17CA, both shift directions, BA/BAa TRIISAP and MUUSIKATOAN exceptions, BA/BAa with a foot, omitted-mark uncertainty, and the series-to-dependent-vowel integration. |
 
 Implementation note (2026-11-18): the bounded series resolver now emits an explicit warning when no shifter is encoded: PCGN Note 2 says Khmer diacritics are frequently omitted and directs users to consult a reference source when the series is uncertain. This warning does not infer a missing mark or change the graphemic series result; the complete source-context and lexical uncertainty task remains PARTIAL.
 | Specify PCGN-safe syllable-boundary behavior | TODO | Human-reviewed ambiguity cases; preserve alternatives or abstain; no heuristic costs copied without evidence. |
@@ -116,3 +116,10 @@ Exact PR-head CI on `6b4ed2bbd0a575d39fe0865082f854511c32cb4a`: Quality [4448208
 - PR #409 added cross-layer tests for `ប៊ា` → ô-series / AA component `éa` and `ប៉ា` → â-series / AA component `a`, proving that the dependent-vowel resolver consumes the Note 2/3 series decision. Merged as `a595d2da733b522ff3b6203a75ffa658b8f602ed`; PR-head Quality 438 tests + 70 subtests and Chromium 21/21 SUCCESS; exact-main Quality and Pages/deployed-site smoke SUCCESS. Exact-main Chromium remained in progress at the time of the closeout; PR-head Chromium passed on the same source tree.
 
 These are orthographic PCGN romanization component tests only. They add no IPA, pronunciation, or Ukrainian output and do not complete contextual syllable segmentation.
+
+
+## PCGN shifter/BA exception verification closeout — 2026-11-19
+
+The exact-code-point and BA exception acceptance row above is now DONE_VERIFIED. The tests explicitly assert MUUSIKATOAN U+17C9 (`៉`) and TRIISAP U+17CA (`៊`) identities, and exercise both ordinary series-shift directions. BA/BAa exceptions are covered separately: TRIISAP does not shift BA/BAa to ô under Note 2; MUUSIKATOAN selects p in â under Note 3; BA/BAa with a foot selects p in â; and the dependent-vowel adapter consumes the resolved BA+AA series (`éa` for ô, `a` for â). The source registry was reconciled in PR #406. Evidence is limited to PCGN romanization components and exact source-rule behavior, not IPA or Ukrainian output.
+
+This closes only the bounded shifter/BA exception test and source-row acceptance criteria. The complete vowel/nucleus row reconciliation remains PARTIAL; safe automatic syllable-boundary behavior and the complete contextual Khmer-script → PCGN engine remain TODO pending human-reviewed ambiguity cases and full source-backed integration. No new linguistic interpretation or output mapping is introduced.

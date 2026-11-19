@@ -108,6 +108,13 @@ def test_pcgn_series_schema_enforces_explicit_resolved_and_unresolved_shapes():
     assert schema["allOf"][1]["then"]["properties"]["series"]["const"] is None
 
 
+def test_pcgn_note2_shifter_glyphs_match_their_exact_unicode_codepoints():
+    # Keep the easily confused PCGN register shifters distinct:
+    # MUUSIKATOAN U+17C9 shifts ô→â; TRIISAP U+17CA shifts â→ô.
+    assert ord("៉") == 0x17C9
+    assert ord("៊") == 0x17CA
+
+
 def test_pcgn_note2_triisap_changes_a_series_to_o_series():
     result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk("ហ៊"))
     assert result.series_before_shifter == "â"
