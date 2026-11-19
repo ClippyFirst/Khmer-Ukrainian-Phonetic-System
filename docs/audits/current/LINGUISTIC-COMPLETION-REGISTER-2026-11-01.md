@@ -3273,3 +3273,8 @@ Ten exact-main and branch-audit checkpoint refs were compared. Their handoff fil
 
 
 Current inventory: 319 refs, 319 unique names/tips, 141 `docs/*` refs; one open PR (#445). This does not close the full branch audit; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+### Unicode 18 parser handoff refs
+
+Four parser handoff/state refs were compared. One old source-registry alias `unicode-tn61-v2` is superseded by the canonical `unicode-tn61-khmer-encoding-structure-v2`; no source is missing. The old component-scanner-only/TODO parser status is superseded by the current DONE_VERIFIED Unicode 18 packed parse forest. Current tests preserve the key orthographic contrast, packed 2^20 derivations and rejected-span diagnostics. No port required. Full branch audit remains **PARTIAL**.
