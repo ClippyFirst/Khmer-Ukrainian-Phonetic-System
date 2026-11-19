@@ -3320,3 +3320,17 @@ Exact-main verification correction: PR #450 merge SHA aeb0bfbaabc47d8658527da4c5
 ### Branch inventory snapshot — 2026-11-19
 
 At the PR #451 pre-merge checkpoint: 325 refs, 325 unique names and tip SHAs, 142 docs/* refs; prefix counts include 44 audit, 50 feat, 29 research, 26 test and 24 fix refs. One PR (#451) was open. KHM-BRANCH-AUDIT-001 remains PARTIAL.
+
+
+## Additional audit-ref and stale PCGN snapshot disposition
+
+Fourteen audit refs (late-docs, docs-family, historical, PCGN, typed-IPA/coverage, inventory, final-session, PR #379–#381 and PR #153 reconciliation) have only canonical documentation diffs. Their handoff content is already on current main (zero unique lines). One further branch is an ancestor with no diff.
+
+The PCGN/UNGEGN row reconciliation branch is stale: it asserts all eight anusvara/visarga rows are full matches, whereas current main correctly identifies row 7's PCGN sequence `េ+ា+ះ` and distinct candidate key `ោះ` as `VALUE_MATCH_KEY_SHAPE_DIFFERS`. Current main's tests enforce row-specific comparison and source registry parity. Do not port the old test or CSV.
+
+PR #451's feature audit correction is retained: the old PCGN syllable assembly feature ref has a superseded BA+TRIISAP p-in-â exception; main follows PCGN Note 2 no-shift and Note 3 BA+MUUSIKATOAN/BA+foot exceptions. Full branch/PR ancestry review remains **PARTIAL**.
+
+
+### Final sampled audit refs
+
+Thirteen further audit refs contain only canonical documentation changes. Twelve have zero unique handoff lines; the selected historical snapshot's two unique lines are obsolete inventory/PR-count metadata. The optional Khmer Phonemizer workflow in the restore branch is already byte-identical on main (blob SHA `a89a848d66810225bbcc2cc5c9143b94304a680d`). No branch-only implementation should be ported. Exact-main CI for PR #451's merge SHA was pending at documentation time. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
