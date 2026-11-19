@@ -5315,3 +5315,12 @@ Ten more refs were compared with current main: `docs/pcgn-alif-assembly-closeout
 The four near-current PCGN assembly matrix snapshots (888–932 lines) are strict line subsets of current main's matrix; no branch-only mapping or evidence exists. The old shortened-mark matrix is likewise a subset. The direct-input matrix is an earlier 265-line snapshot; its two branch-only statements are superseded by the current explicit BANTOC/SAMYOK source inventory and expanded glyph/context status. The omitted-shifter, shifter-registry, branch-inventory and fallback-parity refs are historical handoff/audit/register snapshots; no code or test change is unique.
 
 Retain all ten refs unchanged. This extends targeted documentation sampling but does not complete the full historical ancestry audit. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+### Repository architecture, deployment and handoff documentation refs — 2026-11-19
+
+Ten further refs were compared: `docs/ipa-validator-merge-closeout-2026-11-15`, `docs/typed-hybrid-bridge-closeout-2026-11-15`, `docs/repository-information-architecture-2026-11-15`, `docs/final-pr320-mainline-closeout-2026-11-17`, `docs/final-site-deployment-handoff-2026-10-21`, `docs/github-pages-live-service-2026-11-16`, `docs/grapheme-accounting-handoff-2026-11-12`, `docs/mark-inventory-and-mainline-reconcile-2026-11-15`, `docs/mixed-script-romanization-closeout-2026-11-15`, and `docs/skip-navigation-closeout-2026-11-17`.
+
+The two IPA/hybrid closeouts, final PR #320 closeout, site-deployment handoff, grapheme-accounting handoff and skip-navigation closeout change only canonical status documentation. The repository-information-architecture branch changes AGENTS/README/docs index/agent maps/architecture as well as status docs, but the inspected AGENTS, docs index, codebase map, methodology references and handoff content are line subsets of current main. Its README has only older romanization/mark wording, its architecture adds two now-superseded scope statements, and its repository-audit adds one stale PR #64 status. The Pages/mark-inventory/mixed-script README variants likewise contain only older wording; their sole branch-only bullet fragments are superseded by the current README and source registry. No unique implementation or active requirement was identified.
+
+Retain these refs unchanged. This is targeted path/content comparison, not full PR/commit ancestry reconciliation. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
