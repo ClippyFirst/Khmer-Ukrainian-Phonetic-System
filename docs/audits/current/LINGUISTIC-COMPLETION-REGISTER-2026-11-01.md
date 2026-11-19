@@ -3257,3 +3257,8 @@ Ten older refs (#1997 profile, phonotactics, letter inventory, numerals, onset r
 ### PCGN assembly/direct-input branch sample
 
 Ten refs covering alif assembly, closed syllables, Note 5, independent vowels, shifter uncertainty/registry, shortened marks, inventory, direct romanization input and fallback parity were compared. All are documentation-only. Four near-current matrix snapshots (888–932 lines) are strict subsets of current main; older matrix statements are superseded by current mark inventory and direct-input contract. No unique implementation or source evidence was found. Retain refs; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+### Architecture/deployment/handoff docs branch review
+
+Ten refs (#ipa-validator, #typed-hybrid-bridge, #repository-information-architecture, #final PR #320, #site deployment, #Pages live, #grapheme accounting, #mark inventory, #mixed script, #skip navigation) were compared. The repository-information-architecture branch's AGENTS/docs index/agent maps and handoff are subsets of main; README/architecture and PR #64 status lines are outdated. Remaining refs are canonical documentation or older README snapshots only. No unique code/test/source requirement was found. Retain refs; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
