@@ -2941,3 +2941,50 @@ Inventory: 317 branch refs, 317 unique names/tips, 139 `docs/*` refs. No open PR
 Compared 29 retained `docs/post-pr*` refs (#206, #209, #211, #213, #215, #217, #218, #219, #220, #221, #222, #223, #224, #226, #228, #230, #231, #233, #235, #237, #239, #241, #243, #245, #247, #250, #252, #255, #256 and #259) against current main. Their diffs touch only the three canonical status documents and, except for #206, an older romanization matrix snapshot. No source-code or test changes are unique to these refs.
 
 The old matrices (334–841 lines) are superseded by the 541-line current matrix; inspected rows/lines are already present in current main. The only non-subset statements are historical: #215's Note 2 “not implemented” status predates the current resolver, and #223's “workflows running” note is stale CI metadata. Neither requires a port. All branches remain untouched. Full historical branch/ancestry audit remains **PARTIAL**.
+
+
+## PR #444 and post-merge documentation-ref sample
+
+PR #444 merged as `e78da940dbff2a07376f6ae9cb0b4cc4cd8b6603`. Exact PR-head Quality and browser smoke passed. On exact main, Quality and Chromium passed; Pages build/deploy remained in progress at the time of this update.
+
+Ten further `docs/post-pr*` / `docs/pr*` refs (#294, #300, #314, #316, #319, #353, #322, #334, #336 and #355) were compared. All diffs contain documentation only. #294 includes an obsolete Unicode parser/TN #61 checkpoint, superseded by the current grammar audit and rights-scoped TN metadata. #353 contains a stale assertion that the Khmer Acoustic Model offers a 29,204-entry native-validated CC BY-SA dictionary; current pinned evidence shows conflicting counts and license scopes, a six-line sample only, and no full artifact. Do not port that claim. The remaining refs are superseded status snapshots; no runtime/test patch is unique to them.
+
+No historical refs were changed or deleted. The full historical branch/ancestry audit remains **PARTIAL**.
+
+
+### PR closeout documentation refs (#357–#393)
+
+Compared ten refs (#357, #359, #362/#363, #366, #367, #378, #389, #390, #392, #393). Each diff changes only the three canonical documentation files. A line-level comparison of the handoff found zero branch-only lines across all ten: their content is already a strict subset of current main. No unique source, runtime, test or evidence needs porting. Historical refs remain untouched; repository-wide branch/PR ancestry reconciliation remains **PARTIAL**.
+
+
+### Test-branch family (#a11y, grapheme, IPA, romanization, PCGN)
+
+Compared 25 retained test branches spanning accessibility smoke, grapheme accounting, IPA display, Khmer numeral/romanization, onset fallback, direct adapter coverage, PCGN BA/AA/foot exceptions, row parity, exact component boundaries, `ស) foot, SAMYOK coda classes and unconverted marks. No missing test-only implementation was identified. Onset-fallback fixtures/source/tests and the IPA display contract test match main byte-for-byte. Older grapheme/parser and romanization tests are superseded by the richer current parser and adapter suite. PCGN branches with pre-correction dependent-vowel values or overly strict all-row key/separator equality are stale; current main contains corrected PCGN source values and row-specific parity semantics. The `ស`-foot and SAMYOK test content is already present in main. All refs retained unchanged.
+
+Exact-main Pages run 44558019521 later completed SUCCESS on `e78da940dbff2a07376f6ae9cb0b4cc4cd8b6603`, joining the already successful Quality and Chromium runs. Full historical branch ancestry remains **PARTIAL**.
+
+
+### Early romanization/source-registry documentation refs
+
+Compared ten refs (#1997 profile, phonotactic closeout, letter inventory, numeral crosswalk, onset registry, short-vowel sequence, vowel matrix, whole-message adapter, romanization runtime and test closeouts). Two refs alter the historical source registry; the #1997 branch's 29 IDs are all present in current main's 49-entry registry (zero branch-only IDs). Its old matrix/status claims are superseded by current 2023 provisional Gazetteer evidence and the direct diacritic-preserving BGN/PCGN input contract. The old 192–248-line matrices are superseded by the current 944-line matrix. The old phonology doc has no branch-only lines; main adds the typed IPA-kind contract. No unique source ID, code or test needs porting. Retain branches unchanged; full ancestry audit remains **PARTIAL**.
+
+
+### PCGN assembly/direct-input documentation refs
+
+Compared ten refs (#alif assembly, closed assembly, Note 5, independent-vowel assembly, omitted shifter, shifter registry, shortened mark, branch inventory, direct romanization input and fallback parity). All changes are canonical docs and older matrix snapshots. The four recent assembly matrices (888–932 lines) and shortened-mark matrix are strict line subsets of current main. The older direct-input matrix contains only two superseded statements about mark inventory/status; current main has explicit BANTOC/SAMYOK and direct diacritic-preserving input. No unique mapping, code or test needs porting. Retain all branches; full audit remains **PARTIAL**.
+
+
+### Architecture/deployment/handoff documentation refs
+
+Compared ten refs (#ipa-validator, #typed-hybrid-bridge, #repository-information-architecture, #final PR #320, #site deployment, #Pages live service, #grapheme accounting, #mark inventory, #mixed script, #skip navigation). Most are status-document-only. The repository-information-architecture ref additionally changes AGENTS/README/docs index/agent maps/architecture; inspected AGENTS, docs index, codebase map, methodology references and handoff are subsets of current main. Its README/architecture/audit-only additions are older wording and stale PR #64 status. Other README variants likewise contain superseded wording. No unique implementation or requirement needs porting. Retain all branches; full historical ancestry remains **PARTIAL**.
+
+
+The #candidate-diff test branch's CSV also retains the incorrect candidate-shaped PCGN row-7 key `ោ+ះ` and labels it `MATCH`; current main correctly uses `េ+ា+ះ` and `VALUE_MATCH_KEY_SHAPE_DIFFERS`. Three later parity branches have CSVs byte-identical to main. Do not port the stale row.
+
+
+### Exact-main / branch-audit checkpoint refs
+
+Ten refs (#correct-main-quality-count, #current-main-branch-inventory, #exact-main-369e0, #exact-main-checkpoint, #exact-main-research-register, #extend-docs-audit, #extend-historical-audit, #final-mainline-status, and two final-mainline checkpoints) were compared. All diffs are canonical status documents only; each handoff snapshot is a strict line subset of current main (zero branch-only lines). Their counts, SHAs and workflow states are historical, not current evidence. No implementation or source/test patch is unique. Retain refs; full ancestry audit remains **PARTIAL**.
+
+
+Fresh live inventory: 319 refs / 319 unique names / 319 unique tip SHAs, including 141 `docs/*` refs. One open PR (#445) contains this documentation-only audit batch. No branches were deleted or rewritten. The full historical audit remains **PARTIAL**.

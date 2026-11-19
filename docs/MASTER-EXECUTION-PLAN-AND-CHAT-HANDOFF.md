@@ -5264,3 +5264,78 @@ A further 29 retained `docs/post-pr*` refs were compared with current `main`: #2
 The matrix snapshots range from 334 to 841 lines, compared with 541 lines on current main. Every inspected branch matrix is a strict line subset of current main except two historical-only statements: #215 describes the then-unimplemented Note 2 shifter abstention, now superseded by later source-backed resolver behavior; #223 records exact-main workflows as still running, an obsolete point-in-time CI status. No branch-only mapping or acceptance rule was found that is absent from the current matrix. These branches are therefore historical checkpoints, not implementation candidates; do not merge their older matrix or status text.
 
 The branch names above are 29 refs; the sweep used changed-path comparisons for all and line-level matrix subset checks for #209–#259. This is not full commit/PR-ancestry reconciliation. Retain all refs unchanged. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+## PR #444 closeout and post-merge documentation-ref sample — 2026-11-19
+
+PR [#444](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/444) merged by squash as `e78da940dbff2a07376f6ae9cb0b4cc4cd8b6603`; exact PR head `3d86b3d1779a971eb7f60b591ac08f42087c889a` passed both Quality checks and Chromium browser smoke. Exact-main Quality [44558019475](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44558019475) and Chromium [44558019636](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44558019636) passed; Pages build/deploy [44558019521](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44558019521) was still running at the time of this update.
+
+A further ten historical refs were compared with current main: `docs/post-pr294-mainline-verification-2026-11-16`, `docs/post-pr300-mainline-handoff-2026-11-16`, `docs/post-pr314-mainline-closeout-2026-11-17`, `docs/post-pr316-mainline-closeout-2026-11-17`, `docs/post-pr319-expert-shortlist-closeout-2026-11-17`, `docs/post-pr353-mainline-closeout-2026-11-18`, `docs/pr322-mainline-verification-2026-11-17`, `docs/pr334-final-mainline-verification-2026-11-17`, `docs/pr336-exact-main-closeout-2026-11-17`, and `docs/pr355-post-merge-closeout-2026-11-18`. Every diff is limited to canonical documentation. The #294 branch additionally carries an older Unicode grammar audit snapshot; current main supersedes its parser commit/CI checkpoint and includes the later TN #61 v2 metadata/rights boundary. The #353 branch additionally carries an old benchmarking note claiming a 29,204-entry native-validated CC BY-SA dictionary; current pinned evidence records the 29,204/33,091 count and license-scope conflict, only a six-line public sample, and no full dictionary artifact. That old statement is not safe to re-import. The remaining branches are historical handoff/audit/register snapshots with no unique runtime or test changes.
+
+No code, test, source-registry, corpus, IPA or Ukrainian mapping patch was found in this sample. All refs are retained unchanged. This is targeted content disposition only; complete commit/PR ancestry reconciliation across all historical refs remains **PARTIAL** under `KHM-BRANCH-AUDIT-001`.
+
+
+### PR closeout documentation refs — #357–#393
+
+Ten additional refs were compared with current main: `docs/pr357-upstream-audit-closeout-2026-11-18`, `docs/pr359-post-merge-closeout-2026-11-18`, `docs/pr362-pr363-postmerge-closeout-2026-11-18`, `docs/pr366-postmerge-closeout-2026-11-18`, `docs/pr367-final-mainline-closeout-2026-11-18`, `docs/pr378-final-mainline-closeout-2026-11-18`, `docs/pr389-accessibility-landmarks-closeout-2026-11-18`, `docs/pr390-closeout-exact-main-2026-11-18`, `docs/pr392-accessibility-whitespace-closeout-2026-11-18`, and `docs/pr393-canonical-closeout-2026-11-18`. Every compare changes only the three canonical documentation files. A line-level check of the handoff file found **zero branch-only lines** for all ten refs: each is a strict historical subset of current main. No source, code, test or evidence port is applicable. This independently confirms that the older upstream-audit and accessibility closeout notes are already represented in the canonical handoff.
+
+Retain these branches unchanged. This is targeted path/content reconciliation, not complete commit/PR ancestry audit. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+### Test-branch family reconciliation — 2026-11-19
+
+A targeted compare/content pass covered 25 retained `test/*` refs: the keyboard/responsive, landmark/name, whitespace, grapheme-accounting, IPA display, Khmer numeral, onset-fallback, romanization adapter/matrix/whole-message, vowel alias/crosswalk, BA+AA shifter/vowel, BA+AA+foot Note 3, PCGN candidate-registry parity, exact component sequence, row-7 anchor, `ស`-foot, SAMYOK coda-class, shifter-codepoint, source-sequence parity, and unconverted-mark regression branches. No test-only change in these refs is missing from current main.
+
+Specific dispositions:
+- The onset-fallback fixture, browser/Python source paths and regression file are byte-identical between the inspected branch and main.
+- The IPA display contract test is byte-identical.
+- The old grapheme-accounting parser/test branch is superseded by the current richer structural parser; its old single rejection test is covered by current explicit unit-isolation/unsupported-material tests.
+- Old romanization/numeral branches are earlier adapter snapshots; main has the later diacritic-preserving direct-input contract, whole-message API and larger regression suite.
+- Old BA/AA integration fixtures contain pre-correction PCGN vowel values (including the earlier row 3/16/17 values); current main has the corrected source rows and CSV/runtime parity. Old candidate-parity tests that require all row keys or all separators to match are superseded by the row-specific rule: row 7 is `VALUE_MATCH_KEY_SHAPE_DIFFERS`, while only rows with identical source component boundaries require exact grouping.
+- The `test/pcgn-s-foot-not-neutral`, SAMYOK coda-class and source-sequence parity branch test contents are subsets of current main; one SAMYOK branch is byte-identical. The unconverted-mark port branch has no diff from main.
+
+All historical test refs are retained unchanged. These targeted comparisons establish no missing tests in this sample; they do not complete full commit/PR ancestry reconciliation of all branches. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+Correction to the earlier time-bounded status: Pages/deploy run [44558019521](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44558019521) subsequently completed **SUCCESS** on exact main SHA `e78da940dbff2a07376f6ae9cb0b4cc4cd8b6603`. Quality [44558019475] and Chromium [44558019636] on that same SHA were already confirmed **SUCCESS**.
+
+
+### Early romanization/source-registry documentation refs — 2026-11-19
+
+Ten further refs were compared: `docs/khmer-1997-profile-evidence-reconciliation-2026-11-12`, `docs/phonotactic-research-closeout-2026-11-15`, `docs/khmer-letter-inventory-handoff-2026-11-12`, `docs/khmer-numeral-crosswalk-closeout-2026-11-12`, `docs/khmer-onset-registry-mainline-closeout-2026-11-17`, `docs/khmer-short-vowel-sequence-test-closeout-2026-11-12`, `docs/khmer-vowel-matrix-crosswalk-closeout-2026-11-12`, `docs/khmer-whole-message-adapter-closeout-2026-11-12`, `docs/khmer-romanization-runtime-postmerge-2026-11-12`, and `docs/khmer-romanization-test-closeout-2026-11-12`.
+
+All changes are documentation, except two historical source-registry snapshots. A structural comparison of `data/khmer/sources.json` found 29 source IDs on the #1997 profile branch and **zero IDs absent from current main**; current main has 49 entries, including later Unicode 18, phonetic-source and rights-scope updates. The older romanization matrices (192–248 lines in these refs) are superseded by the 944-line current matrix. Their old claims that the national 1997 profile was merely unlocated or that the adapter handled only ASCII are superseded by the current 2023 provisional Gazetteer evidence boundary and diacritic-preserving direct BGN/PCGN input contract. The old `docs/phonology.md` snapshot has no branch-only lines; current main adds the typed IPA-kind contract. The onset-registry and letter-inventory refs add no unique source IDs or implementation.
+
+No branch-only source ID, runtime rule, test or evidence needs porting. Retain all refs unchanged. This is targeted content/source-ID reconciliation, not full ancestry review; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+### Additional PCGN assembly and direct-input documentation refs — 2026-11-19
+
+Ten more refs were compared with current main: `docs/pcgn-alif-assembly-closeout-2026-11-16`, `docs/pcgn-alif-closed-assembly-closeout-2026-11-16`, `docs/pcgn-alif-note5-closeout-2026-11-16`, `docs/pcgn-independent-vowel-assembly-closeout-2026-11-16`, `docs/pcgn-omitted-shifter-mainline-closeout-2026-11-18`, `docs/pcgn-shifter-registry-closeout-2026-11-18`, `docs/pcgn-shortened-mark-mainline-closeout-2026-11-15`, `docs/pcgn-branch-inventory-current-main-2026-11-19`, `docs/direct-romanization-input-closeout-2026-11-15`, and `docs/khmer-fallback-parity-mainline-closeout-2026-11-17`. All diffs touch canonical documentation only, plus older romanization matrix snapshots on six refs.
+
+The four near-current PCGN assembly matrix snapshots (888–932 lines) are strict line subsets of current main's matrix; no branch-only mapping or evidence exists. The old shortened-mark matrix is likewise a subset. The direct-input matrix is an earlier 265-line snapshot; its two branch-only statements are superseded by the current explicit BANTOC/SAMYOK source inventory and expanded glyph/context status. The omitted-shifter, shifter-registry, branch-inventory and fallback-parity refs are historical handoff/audit/register snapshots; no code or test change is unique.
+
+Retain all ten refs unchanged. This extends targeted documentation sampling but does not complete the full historical ancestry audit. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+### Repository architecture, deployment and handoff documentation refs — 2026-11-19
+
+Ten further refs were compared: `docs/ipa-validator-merge-closeout-2026-11-15`, `docs/typed-hybrid-bridge-closeout-2026-11-15`, `docs/repository-information-architecture-2026-11-15`, `docs/final-pr320-mainline-closeout-2026-11-17`, `docs/final-site-deployment-handoff-2026-10-21`, `docs/github-pages-live-service-2026-11-16`, `docs/grapheme-accounting-handoff-2026-11-12`, `docs/mark-inventory-and-mainline-reconcile-2026-11-15`, `docs/mixed-script-romanization-closeout-2026-11-15`, and `docs/skip-navigation-closeout-2026-11-17`.
+
+The two IPA/hybrid closeouts, final PR #320 closeout, site-deployment handoff, grapheme-accounting handoff and skip-navigation closeout change only canonical status documentation. The repository-information-architecture branch changes AGENTS/README/docs index/agent maps/architecture as well as status docs, but the inspected AGENTS, docs index, codebase map, methodology references and handoff content are line subsets of current main. Its README has only older romanization/mark wording, its architecture adds two now-superseded scope statements, and its repository-audit adds one stale PR #64 status. The Pages/mark-inventory/mixed-script README variants likewise contain only older wording; their sole branch-only bullet fragments are superseded by the current README and source registry. No unique implementation or active requirement was identified.
+
+Retain these refs unchanged. This is targeted path/content comparison, not full PR/commit ancestry reconciliation. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+A final data-level check of the PCGN candidate-parity test branches confirmed the stale row-7 hazard: `test/pcgn-candidate-diff-source-registry-parity-2026-11-19` still has a CSV row with the candidate-shaped `ោ+ះ` and comparison `MATCH`. Current main instead pins the official PCGN `េ+ា+ះ` source sequence and records `VALUE_MATCH_KEY_SHAPE_DIFFERS` against the candidate's `ោះ`. The three later test branches' CSV files are byte-identical to main. This confirms the stale branch must not be ported.
+
+
+### Exact-main and branch-audit checkpoint refs — 2026-11-19
+
+Ten additional refs were compared: `docs/correct-main-quality-count-2026-11-16`, `docs/current-main-branch-inventory-2026-11-16`, `docs/exact-main-369e0-ci-complete-2026-11-19`, `docs/exact-main-checkpoint-2026-11-16-evening`, `docs/exact-main-research-register-2026-11-16`, `docs/extend-docs-branch-semantic-spot-audit-2026-11-19`, `docs/extend-historical-docs-spot-audit-2026-11-19`, `docs/final-2026-11-19-mainline-ci-and-branch-status`, `docs/final-mainline-checkpoint-1cc833a-2026-11-15`, and `docs/final-mainline-checkpoint-2026-11-15`.
+
+All ten diffs are limited to the canonical handoff, repository audit and/or linguistic completion register. A line-level comparison found **zero branch-only lines** in each handoff snapshot: all content is already present in current main. Their inventory counts, workflow states and checkpoint SHAs are historical point-in-time records and must not be used as current status. No code, source, test or evidence change is unique to these refs. Retain all refs unchanged; this remains targeted content review, not full PR/commit ancestry reconciliation. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+### Live inventory after the current audit batch — 2026-11-19
+
+Fresh paginated GitHub inventory: **319 branch refs, 319 unique names, 319 unique tip SHAs; 141 refs use the `docs/*` prefix**. Exactly one PR is open: #445, which carries this documentation-only audit batch. No branches were deleted, rewritten or force-updated. The count is a live inventory, not a completion percentage; `KHM-BRANCH-AUDIT-001` remains **PARTIAL** because not all historical refs have had full semantic and PR/commit-ancestry reconciliation.

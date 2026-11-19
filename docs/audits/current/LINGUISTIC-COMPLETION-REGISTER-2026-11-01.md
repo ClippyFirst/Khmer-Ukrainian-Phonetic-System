@@ -3230,3 +3230,46 @@ PR #443 is merged as `f9a3dd7fdc813fbf5de8c0e674256c9a6a43ac05`. Its PR-head Qua
 ### Post-merge documentation branch family (#206–#259)
 
 Twenty-nine historical refs in the `docs/post-pr*` family were compared with current main. Changed paths are canonical documentation plus older snapshots of `docs/romanization-to-ukrainian-matrix.md`; no implementation or test files differ. The old matrices are line-subsets of current main apart from superseded status notes: a pre-Note-2 implementation statement on #215 and a stale in-progress CI note on #223. No unique mapping or source-backed rule was found to port. Retain all branches unchanged. This is targeted compare/content evidence only; repository-wide branch/PR ancestry audit remains **PARTIAL**.
+
+
+## Post-merge documentation branch review — #294–#355
+
+Ten refs (#294, #300, #314, #316, #319, #353, #322, #334, #336 and #355) were compared with current main. All diffs are documentation-only. The #294 Unicode grammar/TN #61 checkpoint is superseded by current parser and rights-scoped metadata records. The #353 benchmark note's 29,204-entry/native-validated/CC BY-SA statement is contradicted by the pinned source audit (29,204 vs 33,091, conflicting license scopes, six-line public sample, no full artifact) and must not be reintroduced. Other closeout refs contain older status/CI snapshots only. No runtime, test, IPA, Ukrainian or corpus change is warranted. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+### PR closeout documentation refs (#357–#393)
+
+Ten refs (#357, #359, #362/#363, #366, #367, #378, #389, #390, #392 and #393) were compared. Only canonical docs differ; all handoff content is already present in current main (zero branch-only lines). No code, test or source evidence needs porting. Retain branches; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+### Test branch reconciliation
+
+Twenty-five retained test branches covering accessibility, grapheme accounting, IPA display, Khmer numeral/romanization, onset fallback and PCGN regressions were compared with main. No missing test-only change was identified. Onset-fallback source/data/tests and IPA display contract are byte-identical; older grapheme/romanization adapters are superseded by current richer code/tests; stale PCGN vowel fixtures and all-row equality assertions are superseded by corrected source values and row-specific comparison semantics. The `ស`-foot and SAMYOK coda tests are already present. Branches remain unchanged.
+
+Exact-main Pages/deploy on `e78da940dbff2a07376f6ae9cb0b4cc4cd8b6603` subsequently passed (run 44558019521); Quality and Chromium on the same SHA also passed. Repository-wide historical branch audit remains **PARTIAL**.
+
+
+### Early romanization and source-registry branch review
+
+Ten older refs (#1997 profile, phonotactics, letter inventory, numerals, onset registry, short-vowel, vowel matrix, whole-message, runtime and test closeouts) were compared. The #1997 branch's 29 source IDs are a strict subset of the current 49-entry registry; no source ID is missing. Old matrices/status notes are superseded by the current 944-line matrix, current national-1997 evidence caveat, and diacritic-preserving direct input. The old phonology snapshot has no unique lines; current main includes the typed IPA-kind contract. No code/test/source change is warranted. Retain refs; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+### PCGN assembly/direct-input branch sample
+
+Ten refs covering alif assembly, closed syllables, Note 5, independent vowels, shifter uncertainty/registry, shortened marks, inventory, direct romanization input and fallback parity were compared. All are documentation-only. Four near-current matrix snapshots (888–932 lines) are strict subsets of current main; older matrix statements are superseded by current mark inventory and direct-input contract. No unique implementation or source evidence was found. Retain refs; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+### Architecture/deployment/handoff docs branch review
+
+Ten refs (#ipa-validator, #typed-hybrid-bridge, #repository-information-architecture, #final PR #320, #site deployment, #Pages live, #grapheme accounting, #mark inventory, #mixed script, #skip navigation) were compared. The repository-information-architecture branch's AGENTS/docs index/agent maps and handoff are subsets of main; README/architecture and PR #64 status lines are outdated. Remaining refs are canonical documentation or older README snapshots only. No unique code/test/source requirement was found. Retain refs; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+Data-level verification: the early candidate-diff branch still marks row 7 as candidate-shaped `ោ+ះ` / `MATCH`; main uses PCGN `េ+ា+ះ` / `VALUE_MATCH_KEY_SHAPE_DIFFERS`. Three later parity branch CSVs match main exactly. The stale row is not portable.
+
+
+### Exact-main/checkpoint branch review
+
+Ten exact-main and branch-audit checkpoint refs were compared. Their handoff files are strict line subsets of current main (zero branch-only lines); diffs affect only canonical status docs. Historical branch counts, SHAs and CI states are not current evidence. No unique code, source or test changes. Retain refs; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+Current inventory: 319 refs, 319 unique names/tips, 141 `docs/*` refs; one open PR (#445). This does not close the full branch audit; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
