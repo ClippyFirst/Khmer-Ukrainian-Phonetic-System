@@ -5517,3 +5517,19 @@ Three remaining singleton refs were also dispositioned:
 - `release/deterministic-rule-engine-2026-11-11` is an older rule-engine release snapshot. Current main has a substantially expanded deterministic engine, typed IPA/uncertainty boundary, tests and documentation; no unique release implementation needs porting.
 
 The browser-side hybrid candidate shell remains DEFERRED as noted above. These dispositions do not close external gold, licensing, IPA-convention or lexical segmentation blockers.
+
+
+## Fix/test/singleton branch family closeout — 2026-11-19
+
+The full retained `fix/*` inventory (24 refs) was compared by changed path against current main. The non-PCGN fixes cover typed IPA-kind, unconverted romanizer output, tie-bar segment boundaries, benchmark reproducibility, Unicode parser diagnostics/evidence/rejection spans, typed partial results, unmodeled-letter trace, mixed-script numeral boundaries and mixed-script romanization. Existing current-main audit entries already record their dispositions: current code/tests have the richer typed result contract, tie-bar-with-following-segment validation, Unicode 18 packed parser/rejection reasons, source-preserving mixed-script behavior and shared output guard. Their older snapshots do not justify a code port.
+
+The PCGN fix subset was examined directly. The row-7 source-pattern runtime/schema and the BA/TRIISAP, dependent-vowel, shortened-mark and TN #61 source blobs are already present on main. Stale branches retain incorrect row 16/17 O-series values, the obsolete two-component row-7 key, or BA+TRIISAP p-in-â. Main's current Note 2/Note 3 separation and row-specific source-key checks are authoritative. No old fix branch was merged or rewritten.
+
+Correction to the test-family inventory: the 26th branch, `test/ui-accessibility-smoke-2026-11-15`, has only a browser test change. Its old “unsupported mixed input” test is superseded by current tests for unsupported graphemes, preserving neighboring output, mixed-script order and direct-romanization mixed input. Current main adds keyboard/contrast smoke coverage. The full test inventory is therefore 26 refs; the other 25 were previously reconciled in the November 19 test-family entry. No missing regression test was identified in this additional branch.
+
+The three singleton refs were also checked:
+- `benchmark/current-engine-2026-11-11` adds a manually dispatched concordance workflow over upstream MekongPhon and Neurlang source-reported IPA. It explicitly labels the output as source-attested, not gold accuracy. The canonical plan defers this comparison pending independent adjudication and rights review; it is not a release gate.
+- `ci/khmer-g2p-smoke-2026-10-24` is an older optional workflow snapshot; main has the later pinned manual diagnostic workflow.
+- `release/deterministic-rule-engine-2026-11-11` is an older deterministic engine snapshot; main has the expanded rule engine, typed IPA/uncertainty boundary, tests and documentation.
+
+All branches remain preserved. This is targeted changed-path and selected-blob evidence, not complete ancestry reconciliation. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
