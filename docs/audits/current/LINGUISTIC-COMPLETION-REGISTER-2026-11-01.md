@@ -3186,3 +3186,33 @@ Six additional historical documentation refs were compared with current main and
 These are content dispositions for the named refs, not a full line-by-line review or ancestry reconciliation of every documentation ref. Retain historical branches; do not merge stale snapshots wholesale or delete/force-update branches.
 
 Latest paginated inventory remains **315 refs / 315 unique names / 315 unique tips**, including **137 `docs/*` refs**. There are no open PRs after #441. `KHM-BRANCH-AUDIT-001` remains **PARTIAL** because the remaining docs refs and complete PR/commit ancestry still require reconciliation.
+
+
+## PR #442 closeout and next historical documentation-ref sample — 2026-11-19
+
+PR [#442](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/442) merged by squash as `23c41163b5ea5b9cc1b835283b03c7dceddec7d6`. It records the PR #441 closeout, the successful retry of PR #440's Chromium installation attempt, exact-main CI on `8c5b4ab223014bb2292a2e45e9b026a6e85757ed`, and six additional targeted documentation-ref dispositions. Scope is documentation only.
+
+Correction to the previous interim status: Chromium smoke on `e3837e036584e3c243f098781d7b24f377090663` did **not** remain failed. Retry attempt 2 succeeded; the original failure was limited to the Chromium installation step before browser tests began. On the subsequent exact-main SHA `8c5b4ab223014bb2292a2e45e9b026a6e85757ed`, Quality, Pages and Chromium all passed (runs 44537942760, 44537942921 and 44537942949 respectively).
+
+### Further targeted documentation-ref checks
+
+- `docs/accessibility-smoke-closeout-2026-11-15`, `docs/close-shared-fallback-parity-task-2026-11-17`, `docs/closeout-mixed-script-boundaries-2026-11-17`, `docs/historical-branch-audit-closeout-2026-11-15`, `docs/khmer-fallback-parity-mainline-closeout-2026-11-17`, and `docs/sok-adams-rule-audit-mainline-closeout-2026-11-17`: compare results show only older snapshots of the canonical handoff/audit/register documents. Their branch-only implementation/status notes are historical; no source, runtime or test path unique to these refs was identified. Retain as history; do not merge stale snapshots wholesale.
+- `docs/correct-khmer-nova-tokenization-scope-2026-11-17`: its lexical-segmentation evidence audit is byte-for-byte line-identical to current main. No port is applicable.
+- `docs/ipa-gold-recruitment-execution-kit-2026-11-18`: its playbook contains an older summary of the Chemvatho acoustic-model candidate. Main supersedes that summary with pinned-revision evidence: conflicting 29,204/33,091 counts and CC BY-SA/CC BY statements, only a six-line sample dictionary in the public tree, and no full dictionary or reproducible artifact. The old branch's generic claim that the candidate is a promising 29,204-entry CC BY-SA dictionary is insufficient and potentially misleading; no evidence or recruitment protocol unique to that branch needs porting. Issue #104 still requires actual human recruitment and rights clearance.
+- `docs/khmer-canonical-matrix-parity-closeout-2026-11-12`: an older two-file closeout; its changes are historical status prose, with no runtime or source-registry implementation missing from main.
+- `docs/pcgn-robat-closeout-2026-11-16`: its romanization matrix is a 921-line earlier snapshot versus 944 lines on main. The current matrix contains later independent-vowel closed-syllable assembly, exact bounded API/schema/tests and the separate Unicode 18 BNF/LOC word-division evidence boundaries. The branch-only lines add no unique current implementation or evidence.
+
+These are targeted content dispositions, not a full line-by-line review or PR/commit ancestry reconciliation of all live documentation refs. Current paginated inventory after PR #442: **316 refs, 316 unique names, 316 unique tips, including 138 `docs/*` refs**. No open PRs. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+Exact-main workflows on the new merge SHA `23c41163b5ea5b9cc1b835283b03c7dceddec7d6` were triggered and were still running at the time of this update; do not mark this SHA CI-verified until all three complete successfully.
+
+
+### Parser/source-registry and romanization historical refs — additional sample, 2026-11-19
+
+- `docs/continue-docs-branch-audit-and-ci-2026-11-19`, `docs/current-pcgn-branch-family-inventory-2026-11-19`, `docs/non-pcgn-fix-branch-triage-2026-11-19`, `docs/finalize-external-source-audit-2026-11-17`, and `docs/final-sok-ipa-kind-verification-2026-11-17`: these compare as older snapshots changing only canonical handoff/audit/register files. They do not introduce source code, tests, or evidence absent from main; retain as historical records.
+- `docs/khmer-parser-source-registry-and-handoff-2026-11-16` and its v2 ref: both contain older source-registry snapshots (526 and 526 lines respectively versus 631 on main for the v1 comparison). Main's registry includes more complete pinned-revision evidence and explicit limitations/rights statuses for MekongPhon, Headley-derived material, Kirby audio/research data, OpenSLR and Chemvatho. The old entries' broad claims and shorter limitations are superseded; no source ID or parser rule absent from main was identified in the inspected diff. Their parser/LOC/Unicode evidence documents are historical snapshots; current main retains the later BNF and word-division scope boundaries. The v2 ref also changes README, but its parser status is superseded by current README/mainline records. No code/test port was justified from these historical refs.
+- `docs/romanization-postmerge-evidence-2026-11-12`: two-file historical closeout; no unique implementation file in the branch diff.
+- `docs/romanization-target-table-sync-2026-11-12`: its only changed matrix is a 298-commit-behind snapshot; current main's 944-line matrix includes subsequent engine/test and PCGN source reconciliation. No branch-only matrix line was needed.
+- `docs/romanizer-output-guard-closeout-2026-11-15`: the branch's 277-line matrix is a much earlier snapshot. Main's 944-line matrix adds the full contextual mark inventory (including BANTOC and SAMYOK SANNYA under PCGN Note 5), the bounded direct-input and independent-vowel assembly contracts, and later PCGN/UNGEGN reconciliation. The old matrix contains no unique current rule or test evidence to port.
+
+All these dispositions are targeted, based on changed-path comparison and inspection of the relevant registry/matrix files; they do not complete the full historical branch ancestry audit. Do not copy older source metadata into main or treat upstream corpus claims as permission to import data.
