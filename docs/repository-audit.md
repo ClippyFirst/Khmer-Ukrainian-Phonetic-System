@@ -3017,3 +3017,16 @@ The retained `audit/pcgn-ungegn-vowel-row-reconciliation-2026-11-19` branch is 3
 ### Additional audit-family continuation refs
 
 Nine more audit refs (PCGN continuation, special-syllable continuation, vowel/syllable continuation, typed-IPA/coverage continuation, late-docs, complete-docs, historical continuation, benchmark/CI, and fix/release reconciliation) were checked. All handoff files have zero branch-only lines versus current main. The complete-remaining-branch-families ref has no diff at all. These are superseded audit snapshots; no unique content or implementation needs porting. This does not independently validate their claimed ancestry coverage. Retain refs; full historical audit remains **PARTIAL**.
+
+
+## Research-branch snapshot reconciliation and exact-main CI
+
+PR #448 merged as `47b3be71478c5a6948a2c66c4761cce9310a5fcb`. Exact PR-head Quality and browser checks passed; exact-main Quality, Chromium and Pages/deploy all passed (runs 44565926529, 44565926669 and 44565926377).
+
+Research-branch checks:
+- Ten source-registry snapshots were checked against current `data/khmer/sources.json`; all branch source IDs are subsets of the current 49 IDs. No source record is missing.
+- The external IPA renderer branch has schema/test byte-identical to main but an older, smaller registry snapshot.
+- The old hybrid-engine branch is superseded by current v2's typed IPA candidate validation and stricter metadata contract; its untyped transport-normalization behavior is not suitable to port.
+- The old benchmark-expansion branch permits a model-ID override and lacks the current pinned corpus-source-commit provenance argument. The dedicated MekongPhon diagnostic harness branch's script/tests are byte-identical to current main.
+- The old PCGN note registry is a 10-row snapshot; current main has more rows and stronger per-row checks.
+No stale branch was merged or rewritten. Full research-family semantic and PR-ancestry review remains **PARTIAL**; gold remains 0, empirical accuracy null, and MekongPhon remains diagnostic-only.
