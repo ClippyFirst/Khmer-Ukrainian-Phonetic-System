@@ -3262,3 +3262,6 @@ Ten refs covering alif assembly, closed syllables, Note 5, independent vowels, s
 ### Architecture/deployment/handoff docs branch review
 
 Ten refs (#ipa-validator, #typed-hybrid-bridge, #repository-information-architecture, #final PR #320, #site deployment, #Pages live, #grapheme accounting, #mark inventory, #mixed script, #skip navigation) were compared. The repository-information-architecture branch's AGENTS/docs index/agent maps and handoff are subsets of main; README/architecture and PR #64 status lines are outdated. Remaining refs are canonical documentation or older README snapshots only. No unique code/test/source requirement was found. Retain refs; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+Data-level verification: the early candidate-diff branch still marks row 7 as candidate-shaped `ោ+ះ` / `MATCH`; main uses PCGN `េ+ា+ះ` / `VALUE_MATCH_KEY_SHAPE_DIFFERS`. Three later parity branch CSVs match main exactly. The stale row is not portable.
