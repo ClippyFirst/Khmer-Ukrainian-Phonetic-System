@@ -12,6 +12,7 @@ def test_pcgn_vowel_rows_are_reconciled_against_the_pinned_ungegn_candidate():
 
     assert len(rows) == 48
     assert all(row["pcgn_source_locator"] for row in rows)
+    assert all(None not in row for row in rows)
     assert all(
         row["candidate_source_locator"].startswith(
             "pheasaKhmer/khmer-engine@31b72cd4665f69678fc835da2f501771e42f097a:"
