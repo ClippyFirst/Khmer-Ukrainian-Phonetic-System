@@ -2988,3 +2988,10 @@ Ten refs (#correct-main-quality-count, #current-main-branch-inventory, #exact-ma
 
 
 Fresh live inventory: 319 refs / 319 unique names / 319 unique tip SHAs, including 141 `docs/*` refs. One open PR (#445) contains this documentation-only audit batch. No branches were deleted or rewritten. The full historical audit remains **PARTIAL**.
+
+
+## PR #445 and Unicode 18 parser handoff refs
+
+PR #445 merged as `3663ea20e58510a0a36b5c521627fcacf1c4951b`. Exact PR-head Quality and Chromium passed; exact-main Quality [44561793874], Pages [44561793851] and Chromium [44561793861] also passed on the merge SHA.
+
+Four parser handoff refs were compared. One old source-registry alias `unicode-tn61-v2` is superseded by `unicode-tn61-khmer-encoding-structure-v2`; current main has 49 source entries vs 46 and later sources. The old component-scanner-only/TODO parser status is superseded by the verified Unicode 18 §16.4 packed parse forest. Current tests retain the `ហើ្យ` / `ហើយ` boundary, 2^20 derivation and rejection-span regressions. No missing implementation or evidence to port. Retain branches; full audit remains **PARTIAL**.
