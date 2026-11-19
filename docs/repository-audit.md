@@ -3074,3 +3074,18 @@ PR #451 also corrected the feature-branch audit: the live historical PCGN assemb
 Thirteen more audit refs were compared; all changes are canonical docs. Twelve handoff snapshots have zero unique lines; the selected-historical branch's two unique lines are an obsolete 211-ref inventory and stale zero-open-PR snapshot. No current behavior or evidence needs porting.
 
 The restore-pinned-phonemizer branch appears to add an optional workflow, but its workflow file is byte-identical to current main (blob SHA `a89a848d66810225bbcc2cc5c9143b94304a680d`). No workflow port is needed. Branches remain unchanged. Exact-main CI for PR #451 merge SHA `89a2152b48a73d725fde607f28e503ca274f45f5` was in progress at documentation time; verify separately. Full ancestry review remains **PARTIAL**.
+
+
+## Data and fix branch review
+
+All four `data/*` refs were checked. The positional-onset registry JSON, schema and test are byte-identical to main; both independent-vowel CSV snapshots also match main; one branch is an ancestor with no diff.
+
+The targeted PCGN/Unicode `fix/*` review found:
+- Row-7 runtime and decision schema blobs already match main; the historical comparison test is older than main's source-registry parity assertions.
+- BA/TRIISAP source matrix and dependent-vowel rows 16–17 CSVs already match main.
+- The dependent-I/O runtime snapshot is stale: wrong O-series values for rows 16/17 and obsolete row-7 key.
+- Final-consonant and omitted-shifter snapshots retain the incorrect BA+TRIISAP p-in-â interpretation; current main implements PCGN Note 2 no-shift and Note 3 BA+MUUSIKATOAN/BA+foot distinctions.
+- Shifter-codepoint branch also has old dependent-vowel values and row-7 key.
+- Shortened-mark and TN #61 source registry blobs match main.
+
+No code/data/test change is required from these branches. Historical refs preserved; full branch/PR ancestry audit remains **PARTIAL**.
