@@ -2860,3 +2860,30 @@ The final main commit at verification was `0e6498db53d0a7792fb4810b2ddba9f8b001d
 - [Pages/deployed runtime 44483598094](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44483598094) — SUCCESS: production build, Chromium exercise, Pages deployment and deployed runtime-asset smoke all passed.
 
 This supersedes the earlier note that exact-main Chromium was still in progress: it subsequently completed successfully on the final main SHA above. Current task ledger: BA+AA+foot regression, BA source-matrix reconciliation, and BA+AA series-to-dependent-vowel integration — DONE_VERIFIED. Full contextual Khmer-script → PCGN syllable segmentation/romanization remains TODO/PARTIAL. IPA convention remains DRAFT_NOT_APPROVED; independent adjudicated IPA gold = 0 and empirical accuracy = null. Issue #104 pilot and root repository license remain BLOCKED; manual accessibility and historical semantic review remain PARTIAL; external benchmark integration remains DEFERRED. The repository remains a research-ready partial prototype, not linguistically validated or release-ready. Evidence is from hosted GitHub Actions; no local checkout or local tests are claimed.
+
+
+## PCGN vowel-table corrections and Note 5 SAMYOK coverage — 2026-11-19
+
+### PR #414 — dependent-vowel source reconciliation
+
+PR [#414](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/414) merged as `21c14e05b40bd0b508358c201e1ff8b586ed78a9`. Direct visual comparison with the official UK PCGN 1972 vowel table corrected three dependent-vowel cells:
+
+- Row 3, `ិ`: â-series `ĕ`, ô-series `ĭ` (the prior resolver/test incorrectly used `ĕ` in both series).
+- Row 16, `េ+ា`: â-series `aô`, ô-series `oŭ`.
+- Row 17, `េ+ៅ`: â-series `au`, ô-series `ŏu`.
+
+The new `data/khmer/romanization_pcgn_dependent_vowels.csv` registers all 16 normal dependent-vowel patterns (table rows 2–17) with source locators, URL and component-only acceptance boundary. A parity test compares the entire registry against `PCGN_DEPENDENT_VOWEL_ROWS`. The resolver continues to consume an explicit series and emits only PCGN romanization components; no IPA/Ukrainian output was added.
+
+### PR #416 — Note 5 SAMYOK coda-class coverage
+
+PR [#416](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/416) merged as `a179384510377a1aa3ca6f142aca62750cbe7531`. Added structural fixtures for SAMYOK SANNYA (`័`) before each supported coda class (`k`, `ng`, `h`, `other`) in both series. They assert â-series `ă` for all classes and ô-series `eă` before `k/ng/h`, otherwise `oă`. These are table-pattern fixtures, not claims of attested lexical items. No runtime behavior changed in PR #416.
+
+### Exact-main verification on `a179384510377a1aa3ca6f142aca62750cbe7531`
+
+- Quality [44485716034](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44485716034) — SUCCESS: 441 Python tests + 70 subtests; IPA corpus structural gate, Node/web checks and production build passed. Corpus status remains `NOT_READY_NO_ADJUDICATED_GOLD`.
+- Khmer browser smoke [44485716025](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44485716025) — SUCCESS, 21/21.
+- Pages [44485716116](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44485716116) — SUCCESS: build, deployment and deployed runtime-asset smoke passed.
+
+Task ledger: dependent-vowel PCGN table rows 2–17 source transcription and runtime/CSV parity — DONE_VERIFIED; Note 5 SAMYOK coda-class branches — DONE_VERIFIED. Full semantic comparison with the external UNGEGN candidate remains PARTIAL (profile differences must not be flattened); full contextual PCGN segmentation/romanization remains TODO pending human-reviewed ambiguity and source-backed lexical fixtures. IPA convention remains DRAFT_NOT_APPROVED, independent adjudicated IPA gold = 0, accuracy = null. Issue #104 pilot and root repository license remain BLOCKED; manual accessibility/historical semantic review PARTIAL; external benchmark integration DEFERRED. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
+
+PR reconciliation: earlier duplicate PR #413 was closed unmerged after its SAMYOK test change was carried forward in PR #416; duplicate PR #415 was closed unmerged after its row-3 correction was superseded by the broader PR #414 (which also corrected rows 16–17 and added the full row registry). Their branches were not deleted. Hosted GitHub Actions are the verification source; no local checkout or local test execution is claimed.
