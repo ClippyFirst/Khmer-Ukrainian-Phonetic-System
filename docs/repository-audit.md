@@ -2955,3 +2955,10 @@ No historical refs were changed or deleted. The full historical branch/ancestry 
 ### PR closeout documentation refs (#357–#393)
 
 Compared ten refs (#357, #359, #362/#363, #366, #367, #378, #389, #390, #392, #393). Each diff changes only the three canonical documentation files. A line-level comparison of the handoff found zero branch-only lines across all ten: their content is already a strict subset of current main. No unique source, runtime, test or evidence needs porting. Historical refs remain untouched; repository-wide branch/PR ancestry reconciliation remains **PARTIAL**.
+
+
+### Test-branch family (#a11y, grapheme, IPA, romanization, PCGN)
+
+Compared 25 retained test branches spanning accessibility smoke, grapheme accounting, IPA display, Khmer numeral/romanization, onset fallback, direct adapter coverage, PCGN BA/AA/foot exceptions, row parity, exact component boundaries, `ស) foot, SAMYOK coda classes and unconverted marks. No missing test-only implementation was identified. Onset-fallback fixtures/source/tests and the IPA display contract test match main byte-for-byte. Older grapheme/parser and romanization tests are superseded by the richer current parser and adapter suite. PCGN branches with pre-correction dependent-vowel values or overly strict all-row key/separator equality are stale; current main contains corrected PCGN source values and row-specific parity semantics. The `ស)-foot and SAMYOK test content is already present in main. All refs retained unchanged.
+
+Exact-main Pages run 44558019521 later completed SUCCESS on `e78da940dbff2a07376f6ae9cb0b4cc4cd8b6603`, joining the already successful Quality and Chromium runs. Full historical branch ancestry remains **PARTIAL**.
