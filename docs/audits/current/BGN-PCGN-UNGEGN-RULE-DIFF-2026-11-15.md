@@ -139,7 +139,7 @@ PR #414 corrected the project-owned dependent-vowel table against the official P
 
 ## Complete PCGN vowel/nucleus row comparison with the pinned UNGEGN candidate — 2026-11-19
 
-The row-by-row comparison is now recorded in `data/khmer/pcgn_ungegn_vowel_profile_comparison.csv` and guarded by `tests/test_pcgn_ungegn_vowel_profile_comparison.py`. It compares the PCGN table's 17 normal dependent/inherent rows, 12 independent-vowel entries, three shortened patterns, and eight anusvara/visarga rows against the pinned candidate's `_UNGEGN_NUCLEI` and `_UNGEGN_INDEPENDENT` mappings at `pheasaKhmer/khmer-engine@31b72cd4665f69678fc835da2f501771e42f097a`.
+The row-by-row comparison is now recorded in `data/khmer/pcgn_ungegn_vowel_profile_comparison.csv` and guarded by `tests/test_pcgn_ungegn_vowel_profile_comparison.py`, which also checks every dependent, independent, inherent, and anusvara/visarga PCGN cell against the project-owned source registries. It compares the PCGN table's 17 normal dependent/inherent rows, 12 independent-vowel entries, three shortened patterns, and eight anusvara/visarga rows against the pinned candidate's `_UNGEGN_NUCLEI` and `_UNGEGN_INDEPENDENT` mappings at `pheasaKhmer/khmer-engine@31b72cd4665f69678fc835da2f501771e42f097a`.
 
 Findings:
 
