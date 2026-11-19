@@ -3293,3 +3293,10 @@ Nine audit branches have zero branch-only content in the three canonical docs co
 ### Additional audit-family branch sample
 
 Nine further audit refs were compared; each handoff file is a strict subset of current main (zero branch-only lines). The `complete-remaining-branch-families` ref has no diff. No implementation or unique documentation content needs porting. Retain refs; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+## Research branch sample and exact-main verification
+
+PR #448 merged as `47b3be71478c5a6948a2c66c4761cce9310a5fcb`; exact-main Quality, Chromium and Pages/deploy succeeded (44565926529, 44565926669, 44565926377).
+
+Ten research source-registry snapshots have no source IDs absent from current main's 49-entry registry. The renderer branch has an old smaller registry but current schema/test. The older hybrid branch is superseded by typed v2 IPA candidate validation. The older benchmark runner allows model-ID overrides and lacks current corpus-source pinning; the dedicated MekongPhon diagnostic script/tests match main exactly. The older PCGN note registry is a 10-row subset, superseded by the larger current registry and stronger tests. No code/source/test port is appropriate. Research family audit and full historical ancestry remain **PARTIAL**; no gold/accuracy claim is made.
