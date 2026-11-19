@@ -3095,3 +3095,14 @@ The research branches remain unchanged. This was a targeted source-ID/blob/docum
 The four data refs contain no new artifacts absent from main: positional-onset JSON/schema/test and independent-vowel CSV blobs match current main. Targeted PCGN fix refs confirm that row-7 runtime/schema, BA/TRIISAP source CSV, dependent-vowel CSV, shortened-mark inventory and TN #61 source metadata are already integrated.
 
 Do not port stale dependent-I/O resolver values (row 16 O-series `aô`, row 17 `au`) or the obsolete row-7 key `ោ+ះ`; current main uses `oŭ`, `ŏu` and PCGN's exact three-component `េ+ា+ះ`. Older final-consonant and omitted-shifter branches also retain BA+TRIISAP p-in-â, superseded by Note 2 no-shift and Note 3 BA+MUUSIKATOAN/BA+foot. Shifter-codepoint snapshot has the same stale values/key. No port required; branches retained. Full ancestry audit remains **PARTIAL**.
+
+
+## Feature branch family (#50 refs)
+
+All 50 retained feature refs were compared with current main. Parser/scanner/BNF/packed-forest/rejected-span branches are superseded by the current Unicode 18 packed parser and shared browser/Python contract. Direct BGN/PCGN input, Ukrainian matrix/practical adapter, typed IPA and hybrid bridge branches are earlier snapshots than current main. Coverage/dashboard and renderer registry branches are also superseded by the current expanded report/dashboard/registry.
+
+The PCGN note/component/syllable-assembly branches are historical slices; current main has broader source-backed resolver/schema/test coverage. Several old snapshots carry the incorrect BA+TRIISAP p-in-â interpretation or pre-correction vowel/row-7 values and must not be ported.
+
+One feature branch, `feat/github-pages-hybrid-candidate-shell-2026-11-15`, contains a browser-side `src/hybrid-engine.js` absent from main. The canonical plan does not define this separate UI as a required acceptance item; current main uses a typed Python hybrid diagnostic adapter. Classify that prototype **DEFERRED**, not as a missing required runtime component. The profile-neutral boundary interface is already present on main and does not perform lexical segmentation.
+
+All refs preserved. Full historical feature/PR ancestry remains **PARTIAL**.
