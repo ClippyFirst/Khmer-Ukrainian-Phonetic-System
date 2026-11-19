@@ -431,7 +431,7 @@ PCGN_DEPENDENT_VOWEL_TABLE_LOCATOR = (
 # The two values are the â-series and ô-series columns respectively.
 PCGN_DEPENDENT_VOWEL_ROWS: dict[tuple[str, ...], tuple[int, str, str]] = {
     ("ា",): (2, "a", "éa"),
-    ("ិ",): (3, "ĕ", "ĕ"),
+    ("ិ",): (3, "ĕ", "ĭ"),
     ("ី",): (4, "ei", "i"),
     ("ឹ",): (5, "œ̆", "œ̆"),
     ("ឺ",): (6, "œ", "œ"),
