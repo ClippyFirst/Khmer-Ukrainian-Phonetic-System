@@ -4837,3 +4837,15 @@ Exact merged-main verification on `92011a62d150917dfc12193471b3fe994212e563`:
 - GitHub Pages [44478963941](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44478963941) — SUCCESS: production build, Chromium exercise, deployment and deployed runtime-asset smoke.
 
 No local checkout or local test execution is claimed; all checks above are hosted GitHub Actions on the exact merged main SHA. Task ledger remains: BA+AA exception regression coverage — DONE_VERIFIED; full contextual PCGN engine and syllable-boundary inference — TODO/PARTIAL; IPA convention DRAFT_NOT_APPROVED and independent gold = 0 (accuracy = null); Issue #104 pilot and root repository license — BLOCKED; manual accessibility and historical semantic review — PARTIAL; external benchmark integration — DEFERRED. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
+
+
+## PR #405 — PCGN Note 3 BA+AA+foot regression — 2026-11-19
+
+PR [#405](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/405) adds a test-only extension for the exact Note 3 wording that names both ប and បា with a foot. The existing BA+foot resolver behavior was already implemented; the test now checks both `ប្ក` and `ប្កា`, and confirms the latter retains dependent vowel sign `ា` while resolving the BA-with-foot p-in-â exception. No runtime rule, source row, IPA/Ukrainian output, corpus label or benchmark changed.
+
+Exact PR-head commit: `6b4ed2bbd0a575d39fe0865082f854511c32cb4a`.
+- Quality PR [44482081471](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482081471) — SUCCESS: 437 Python tests + 70 subtests; Node/web checks and production build passed.
+- Push Quality [44482061657](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482061657) — SUCCESS: same exact SHA and test counts.
+- Khmer browser smoke [44482081280](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482081280) — SUCCESS: 21/21 Playwright tests.
+
+Task ledger: PCGN Note 3 BA+AA+foot regression coverage — DONE_VERIFIED. Full contextual PCGN engine and syllable-boundary inference remain TODO/PARTIAL; IPA convention remains DRAFT_NOT_APPROVED, independently adjudicated IPA gold = 0 and empirical accuracy = null. Issue #104 pilot and root repository license remain BLOCKED; manual accessibility and historical semantic review remain PARTIAL; external benchmark integration remains DEFERRED. Repository remains a research-ready partial prototype, not linguistically validated or release-ready. Verification above is hosted GitHub Actions; no local checkout or local tests are claimed.
