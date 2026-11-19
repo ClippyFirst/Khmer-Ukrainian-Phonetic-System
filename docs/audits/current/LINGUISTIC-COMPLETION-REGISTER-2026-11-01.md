@@ -3265,3 +3265,8 @@ Ten refs (#ipa-validator, #typed-hybrid-bridge, #repository-information-architec
 
 
 Data-level verification: the early candidate-diff branch still marks row 7 as candidate-shaped `ោ+ះ` / `MATCH`; main uses PCGN `េ+ា+ះ` / `VALUE_MATCH_KEY_SHAPE_DIFFERS`. Three later parity branch CSVs match main exactly. The stale row is not portable.
+
+
+### Exact-main/checkpoint branch review
+
+Ten exact-main and branch-audit checkpoint refs were compared. Their handoff files are strict line subsets of current main (zero branch-only lines); diffs affect only canonical status docs. Historical branch counts, SHAs and CI states are not current evidence. No unique code, source or test changes. Retain refs; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
