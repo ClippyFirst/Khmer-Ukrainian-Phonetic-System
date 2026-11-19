@@ -3009,3 +3009,38 @@ PR #436 merged as `e254527e8083ed101c5312f83748a01c6552a58b`, recording the 14 n
 PR reconciliation: #432, #434 and #436 are merged. #433 and #435 were closed unmerged as superseded by #434; #429 and #431 were closed unmerged as superseded/redundant after #430 merged. Their branches were retained; no branch was deleted or force-updated. At the post-merge check there were no open PRs; Issue #104 was the only open issue.
 
 Final task status: PCGN source-table/runtime parity and PCGN/UNGEGN comparison/source-registry invariants — DONE_VERIFIED; targeted PCGN branch-family triage and non-PCGN `fix/*` branch compare inventory — DONE_VERIFIED as inventory/triage only; repository-wide `KHM-BRANCH-AUDIT-001` — PARTIAL (all non-main refs still need complete semantic review and ancestry reconciliation); contextual Khmer syllable/word segmentation — PARTIAL/TODO pending source-backed ambiguity cases and lexical evidence; IPA convention — DRAFT_NOT_APPROVED; Issue #104 pilot — BLOCKED on expert approval, independent annotators/adjudicator, curator, private blind intake and rights-cleared attested lexeme groups. Independent adjudicated IPA gold = 0; empirical accuracy = null. Manual accessibility/historical semantic review remains PARTIAL; external benchmark integration DEFERRED. Repository is a research-ready partial prototype, not a linguistically validated production release.
+
+
+## Targeted non-PCGN fix-branch semantic reconciliation — 2026-11-19
+
+Base: exact `main` commit `f0cfa4202caf9724b4f961f298869e42b234c427`. This is a targeted semantic disposition of the 14 non-PCGN `fix/*` refs listed in the preceding inventory, not closure of repository-wide `KHM-BRANCH-AUDIT-001`.
+
+### Disposition
+
+- `fix/explicit-ipa-kind-in-phonetic-result-2026-11-17`: the typed IPA result boundary is already on main. The branch's `phonetic_result.py` is byte-identical to main; its schema, rule-engine, browser and tests are older snapshots. Current main additionally distinguishes `NON_LINGUISTIC` numerals, preserves supported neighbours, and retains explicit unresolved/not-applicable IPA kinds and fallback traces. No port.
+- `fix/flag-unconverted-khmer-romanizer-output-2026-11-15`: romanizer implementation is byte-identical to main. The branch test file is a strict subset of current main; main additionally tests unconverted Khmer letters and marks, Khmer punctuation passthrough, direct Latin marks, and BANTOC/SAMYOK inventory. No port.
+- `fix/ipa-tie-bar-segment-boundaries-2026-11-18`: IPA implementation and regression test are byte-identical to main. The associated implementation is already merged through PR #384. No port.
+- `fix/khmer-benchmark-reproducibility-2026-10-24`: branch harness/workflow are older. Main includes exact harness/corpus/runtime provenance, SHA-256 sidecar output and the later pinned optional MekongPhon diagnostic workflow. No port.
+- `fix/khmer-orthographic-parser-diagnostics-v2-2026-11-16`, `fix/khmer-orthographic-parser-evidence-2026-11-16`, `fix/khmer-orthographic-parser-rejection-spans-2026-11-16`, and `fix/khmer-rejected-span-reasons-and-fixtures-2026-11-16`: these are earlier parser/schema/test snapshots. Current main has the later Unicode 18 packed parse forest, per-syllable grammar-role alternatives, derivation and segmentation counts, exact rejected spans/reasons, and expanded Python/browser fixtures. The rejected-span-reasons branch's parser test and browser parser implementation are byte-identical to main. No unique parser implementation to port.
+- `fix/khmer-typed-partial-phonetic-results-2026-11-16`: earlier typed-result/rule-engine/browser snapshot. Current main contains the same typed boundary plus later non-linguistic numeric handling, stricter status semantics and expanded cross-runtime tests. No port.
+- `fix/khmer-unmodeled-letter-trace-2026-11-12`: the sign inventory is byte-identical to main; branch parser/tests are older. Current main's parser explicitly traces unmodeled characters and preserves the remaining source tail as unsupported rather than dropping it. No port.
+- `fix/mixed-script-numeral-token-boundaries-2026-11-17`: Python parser and browser-runtime test are byte-identical to main; branch browser implementation/tests are older. Current main additionally preserves non-linguistic numeral units and their typed status. No port.
+- `fix/mixed-script-romanization-guard-2026-11-15`: branch renderer/browser tests are older. Current main uses the stronger unconverted-Khmer guard and tests unsupported mixed input, local unsupported units, neighboring output and source preservation. No port.
+- `fix/reconcile-unicode-tn61-source-metadata-2026-11-18`: source registry and provenance test are byte-identical to main. No port.
+- `fix/serve-coverage-report-on-pages-2026-10-21`: coverage generator, tests and both generated report copies are byte-identical to main. The public report is present on main. No port.
+
+The separate branch `test/port-unconverted-khmer-mark-romanizer-regressions-2026-11-19` is identical to main at this checkpoint; its Quality run [44493021147](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44493021147) succeeded. The relevant unconverted-mark regression tests are already in main; there is no uncommitted implementation on that branch to port.
+
+### Branch and PR safety
+
+No historical branch was merged, deleted or force-updated. Exact-head PR search found no direct PR match for these 14 branch names except the tie-bar branch's already-merged PR #384. This is not a complete historical PR-ancestry audit. At this checkpoint there are no open PRs.
+
+The refreshed live branch inventory is 312 refs / 312 unique names / 310 unique tip SHAs. The two repeated-tip references are the shared current-main SHA `f0cfa4202caf9724b4f961f298869e42b234c427` on `main`, `test/port-unconverted-khmer-mark-romanizer-regressions-2026-11-19`, and this audit branch; no other repeated tip SHA was found.
+
+### Task ledger
+
+- `KHM-NON-PCGN-FIX-BRANCH-SEMANTIC-TRIAGE-001` — DONE_VERIFIED for the 14 non-PCGN `fix/*` refs' code/data/schema/test dispositions; no unique implementation requires porting.
+- `KHM-BRANCH-AUDIT-001` — PARTIAL. The remaining 298 non-main refs still require full per-file semantic review and complete commit/PR ancestry reconciliation; the targeted 14-branch review does not close that repository-wide task.
+- Contextual Khmer → PCGN segmentation, IPA convention approval, independent adjudicated IPA gold, manual accessibility review and root repository license retain their prior statuses. Gold remains 0; empirical accuracy remains null. Repository remains a research-ready partial prototype, not release-ready.
+
+Exact-main hosted verification on `f0cfa4202caf9724b4f961f298869e42b234c427`: Quality [44492646955], Khmer browser smoke [44492646961], and Pages/deployed runtime [44492646965] all SUCCESS. No local checkout or local test execution was available in this connector session.
