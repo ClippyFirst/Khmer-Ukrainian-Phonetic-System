@@ -3283,3 +3283,8 @@ PR #445 merged as `3663ea20e58510a0a36b5c521627fcacf1c4951b`; Quality, Pages and
 ### Mainline/PCGN closeout refs
 
 Ten refs were compared. Changes are canonical documentation only; one exact-main quality-count branch has no diff, and nine handoff snapshots are strict subsets of main. The #430 branch's older PCGN fix-family notes and 305-ref inventory are superseded by the current main PCGN branch-family audit and later 306/308/319-ref counts. No code/test/source change needs porting. Retain refs; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+## Audit branch and PCGN comparison snapshot
+
+Nine audit branches have zero branch-only content in the three canonical docs compared with main. The PCGN/UNGEGN row-reconciliation branch is stale: it treats row 7 as a simple match despite different source structures (`េ+ា+ះ` vs `ោះ`) and lacks current source-registry parity tests. Main correctly classifies it as `VALUE_MATCH_KEY_SHAPE_DIFFERS`. No port is warranted; all refs retained. Full historical ancestry review remains **PARTIAL**.
