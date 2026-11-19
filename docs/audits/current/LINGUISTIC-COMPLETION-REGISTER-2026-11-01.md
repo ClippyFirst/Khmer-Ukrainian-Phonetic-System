@@ -3329,3 +3329,8 @@ Fourteen audit refs (late-docs, docs-family, historical, PCGN, typed-IPA/coverag
 The PCGN/UNGEGN row reconciliation branch is stale: it asserts all eight anusvara/visarga rows are full matches, whereas current main correctly identifies row 7's PCGN sequence `េ+ា+ះ` and distinct candidate key `ោះ` as `VALUE_MATCH_KEY_SHAPE_DIFFERS`. Current main's tests enforce row-specific comparison and source registry parity. Do not port the old test or CSV.
 
 PR #451's feature audit correction is retained: the old PCGN syllable assembly feature ref has a superseded BA+TRIISAP p-in-â exception; main follows PCGN Note 2 no-shift and Note 3 BA+MUUSIKATOAN/BA+foot exceptions. Full branch/PR ancestry review remains **PARTIAL**.
+
+
+### Final sampled audit refs
+
+Thirteen further audit refs contain only canonical documentation changes. Twelve have zero unique handoff lines; the selected historical snapshot's two unique lines are obsolete inventory/PR-count metadata. The optional Khmer Phonemizer workflow in the restore branch is already byte-identical on main (blob SHA `a89a848d66810225bbcc2cc5c9143b94304a680d`). No branch-only implementation should be ported. Exact-main CI for PR #451's merge SHA was pending at documentation time. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
