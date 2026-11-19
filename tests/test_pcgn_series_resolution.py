@@ -41,13 +41,20 @@ def test_pcgn_note3_weak_base_does_not_override_weak_foot():
     assert result.status == "RESOLVED"
 
 
-def test_pcgn_note3_ba_with_subscript_has_documented_p_in_a_exception():
-    result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk("ប្ក"))
+def test_pcgn_note3_ba_and_ba_with_aa_and_subscript_have_p_in_a_exception():
+    # Note 3 explicitly names both ប and បា with a foot. The second case
+    # verifies that AA is parsed without changing the BA+foot exception.
+    for source in ("ប្ក", "ប្កា"):
+        analysis = analyze_pcgn_orthographic_chunk(source)
+        result = resolve_pcgn_series(analysis)
 
-    assert result.series == "â"
-    assert result.basis == "BASE"
-    assert result.onset_exception == "BA_WITH_FOOT_P_IN_A_SERIES"
-    assert "PCGN_NOTE_3_BA_WITH_FOOT_P_EXCEPTION" in result.warnings
+        assert result.status == "RESOLVED"
+        assert result.series == "â"
+        assert result.basis == "BASE"
+        assert result.onset_exception == "BA_WITH_FOOT_P_IN_A_SERIES"
+        assert "PCGN_NOTE_3_BA_WITH_FOOT_P_EXCEPTION" in result.warnings
+        if source == "ប្កា":
+            assert analysis.dependent_vowel_signs == ("ា",)
 
 
 def test_pcgn_series_without_subscript_uses_base_register():
