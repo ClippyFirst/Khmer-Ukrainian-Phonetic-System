@@ -72,7 +72,7 @@ def test_candidate_comparison_pcgn_cells_match_the_project_owned_source_registri
         row["table_row"]: row
         for row in read_csv("data/khmer/romanization_pcgn_dependent_vowels.csv")
     }
-    assert set(by_section["PCGN_DEPENDENT_NORMAL"]) == {str(i) for i in range(2, 18)}
+    assert set(by_section["PCGN_DEPENDENT_NORMAL"]) == {str(i) for i in range(1, 18)}
     for table_row, source in dependent.items():
         compared = by_section["PCGN_DEPENDENT_NORMAL"][table_row]
         assert compared["pcgn_source_pattern"] == source["source_signs"]
