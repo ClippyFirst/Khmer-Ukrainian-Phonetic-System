@@ -5,5 +5,5 @@ table_row,source_components,â_series,ô_series,source_locator,acceptance_bounda
 4,ះ,ăh,eăh,"PCGN 1972, Vowel Characters with Anusvara or Visarga table (p. 4)",Exact onset-plus-component sequence; no coda supplied or inferred
 5,ុ+ះ,ŏh,ŭh,"PCGN 1972, Vowel Characters with Anusvara or Visarga table (p. 4)",Exact onset-plus-component sequence; no coda supplied or inferred
 6,េ+ះ,éh,éh,"PCGN 1972, Vowel Characters with Anusvara or Visarga table (p. 4)",Exact onset-plus-component sequence; no coda supplied or inferred
-7,ោ+ះ,aôh,ŏăh,"PCGN 1972, Vowel Characters with Anusvara or Visarga table (p. 4)",Exact onset-plus-component sequence; no coda supplied or inferred
+7,េ+ា+ះ,aôh,ŏăh,"PCGN 1972, Vowel Characters with Anusvara or Visarga table (p. 4)",Exact onset-plus-component sequence; no coda supplied or inferred
 8,ា+ំ+ង,ăng,eăng,"PCGN 1972, Vowel Characters with Anusvara or Visarga table (p. 4)",NGA coda must be explicitly caller-identified; no coda inference
