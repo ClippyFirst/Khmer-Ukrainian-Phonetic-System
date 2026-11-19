@@ -5339,3 +5339,12 @@ All ten diffs are limited to the canonical handoff, repository audit and/or ling
 ### Live inventory after the current audit batch — 2026-11-19
 
 Fresh paginated GitHub inventory: **319 branch refs, 319 unique names, 319 unique tip SHAs; 141 refs use the `docs/*` prefix**. Exactly one PR is open: #445, which carries this documentation-only audit batch. No branches were deleted, rewritten or force-updated. The count is a live inventory, not a completion percentage; `KHM-BRANCH-AUDIT-001` remains **PARTIAL** because not all historical refs have had full semantic and PR/commit-ancestry reconciliation.
+
+
+### Unicode 18 parser handoff branch family — 2026-11-19
+
+Four retained parser handoff/state refs were compared: `docs/khmer-parser-final-handoff-2026-11-16`, `docs/khmer-parser-final-state-2026-11-16`, `docs/khmer-parser-final-state-v2-2026-11-16`, and `docs/khmer-unicode18-parser-final-handoff-2026-11-16`. The first three modify canonical docs only. The Unicode 18 handoff additionally changes `data/khmer/sources.json`, `tests/test_rule_registry_provenance.py`, references, parser/LOC audit notes and the romanization matrix.
+
+The older source registry has 46 entries; its only branch-only identifier is `unicode-tn61-v2`, which current main has superseded with the more descriptive `unicode-tn61-khmer-encoding-structure-v2`. Current main's registry has 49 entries and includes four later sources absent from that snapshot. The branch-only provenance test asserts the old ID; current main tests the canonical renamed ID. No source identity is lost.
+
+The branch's parser/LOC docs describe an earlier component-scanner-only state and mark BNF parsing TODO; current main has the Unicode 18 §16.4 packed parse forest DONE_VERIFIED, exact code-point rejection spans, Python/browser parity, and explicit separation from LOC word division and TN #61 v2. Current tests still cover the important `ហើ្យ` vs `ហើយ` boundary contrast, 2^20 packed derivations, parse/segmentation counts and rejected spans. No code, source ID or test needs porting. Retain refs unchanged; full historical ancestry audit remains **PARTIAL**.
