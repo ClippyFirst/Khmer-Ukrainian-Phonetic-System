@@ -2826,3 +2826,25 @@ Exact PR-head commit: `6b4ed2bbd0a575d39fe0865082f854511c32cb4a`.
 - Khmer browser smoke [44482081280](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482081280) — SUCCESS: 21/21 Playwright tests.
 
 Task ledger: PCGN Note 3 BA+AA+foot regression coverage — DONE_VERIFIED. Full contextual PCGN engine and syllable-boundary inference remain TODO/PARTIAL; IPA convention remains DRAFT_NOT_APPROVED, independently adjudicated IPA gold = 0 and empirical accuracy = null. Issue #104 pilot and root repository license remain BLOCKED; manual accessibility and historical semantic review remain PARTIAL; external benchmark integration remains DEFERRED. Repository remains a research-ready partial prototype, not linguistically validated or release-ready. Verification above is hosted GitHub Actions; no local checkout or local tests are claimed.
+
+
+## PCGN BA exception source-matrix and cross-layer regression closeout — 2026-11-19
+
+### PR #406 — source-matrix reconciliation
+
+PR [#406](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/406) merged as `14e82f0799bd16db61ff688716eee94084cc6a7a`. The PCGN consonant registry row for BA now distinguishes the Note 2 TRIISAP no-shift exception from Note 3's p-in-â exceptions for BA+MUUSIKATOAN or BA+foot. The update aligns the consonant matrix with `romanization_pcgn_notes.csv` and the bounded resolver; no runtime or corpus change.
+
+- PR Quality [44482295867](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482295867) — SUCCESS; push Quality [44482287227](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482287227) — SUCCESS.
+- PR Chromium [44482295873](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482295873) — SUCCESS, 21/21.
+- Exact-main Quality [44482917557](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482917557), Chromium [44482852867](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482852867), and Pages [44482852902](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482852902) — SUCCESS; exact-main Chromium 21/21.
+
+### PR #409 — Note 2/3 series-to-vowel integration test
+
+PR [#409](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/409) merged as `a595d2da733b522ff3b6203a75ffa658b8f602ed`. Added a test-only cross-layer check proving that the dependent-vowel resolver consumes the series decision: `ប៊ា` (BA+TRIISAP) stays in ô-series and maps AA to `éa`; `ប៉ា` (BA+MUUSIKATOAN) stays in â-series and maps AA to `a`. Both outputs remain PCGN romanization components only; the test explicitly asserts no IPA/Ukrainian output. No runtime behavior, source tables, corpus, or gold labels changed.
+
+- PR Quality [44482940446](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482940446) and [44482954991](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482954991) — SUCCESS; 438 Python tests + 70 subtests.
+- PR Chromium [44482955087](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482955087) — SUCCESS, 21/21.
+- Exact-main Quality [44483093339](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44483093339) — SUCCESS; 438 Python tests + 70 subtests.
+- Exact-main Pages [44483093325](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44483093325) — SUCCESS, including production deploy and deployed runtime-asset smoke. Exact-main Chromium [44483093385](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44483093385) was still running its Chromium-install step at the time of this update; PR-head Chromium is green on the identical source tree.
+
+Task ledger: BA+AA+foot Note 3 test coverage, BA consonant source-row reconciliation, and BA+AA shifter-to-dependent-vowel integration coverage — DONE_VERIFIED. Full contextual Khmer-script → PCGN syllable segmentation/romanization remains TODO/PARTIAL. IPA convention remains DRAFT_NOT_APPROVED; independent adjudicated IPA gold = 0; empirical accuracy = null. Issue #104 pilot and root repository license remain BLOCKED; manual accessibility and historical semantic review remain PARTIAL; external benchmark integration remains DEFERRED. Repository remains a research-ready partial prototype, not linguistically validated or release-ready. Hosted GitHub Actions evidence only; no local checkout or local tests are claimed.

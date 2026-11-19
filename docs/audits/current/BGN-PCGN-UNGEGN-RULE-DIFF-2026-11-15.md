@@ -108,3 +108,11 @@ Implementation note (2026-11-18): the bounded series resolver now emits an expli
 The guide's Note 3 explicitly names both bare BA (`ប`) and BA+AA (`បា`) with a foot. PR #405 extends the existing BA+foot test to both `ប្ក` and `ប្កា`, asserting the AA sign remains structurally recognized and the series resolver continues to select the documented p-in-â exception. This is test coverage for an existing bounded resolver, not a new contextual romanization rule.
 
 Exact PR-head CI on `6b4ed2bbd0a575d39fe0865082f854511c32cb4a`: Quality [44482081471](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482081471) SUCCESS (437 tests + 70 subtests); push Quality [44482061657](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482061657) SUCCESS; browser [44482081280](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482081280) SUCCESS (21/21).
+
+
+## PCGN BA exception matrix and dependent-vowel integration — 2026-11-19
+
+- PR #406 reconciled the BA consonant matrix row with Notes 2–3: TRIISAP does not shift BA; p-in-â applies to BA+MUUSIKATOAN and BA+foot. Merged as `14e82f0799bd16db61ff688716eee94084cc6a7a`; exact-main Quality, Chromium (21/21) and Pages all SUCCESS.
+- PR #409 added cross-layer tests for `ប៊ា` → ô-series / AA component `éa` and `ប៉ា` → â-series / AA component `a`, proving that the dependent-vowel resolver consumes the Note 2/3 series decision. Merged as `a595d2da733b522ff3b6203a75ffa658b8f602ed`; PR-head Quality 438 tests + 70 subtests and Chromium 21/21 SUCCESS; exact-main Quality and Pages/deployed-site smoke SUCCESS. Exact-main Chromium remained in progress at the time of the closeout; PR-head Chromium passed on the same source tree.
+
+These are orthographic PCGN romanization component tests only. They add no IPA, pronunciation, or Ukrainian output and do not complete contextual syllable segmentation.
