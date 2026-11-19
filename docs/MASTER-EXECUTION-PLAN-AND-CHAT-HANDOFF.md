@@ -5561,3 +5561,12 @@ PR #458 merged by squash as `c4286ccd425627ef0771f87d0a38f594b7335074`. All exac
 A fresh paginated branch inventory returned **332 refs, 332 unique names and 332 unique tip SHAs**. Prefix counts: `docs/*` 149, `audit/*` 44, `feat/*` 50, `research/*` 29, `test/*` 26, `fix/*` 24, `data/*` 4, `a11y/*` 2, plus one each under `benchmark/*`, `ci/*`, `release/*`, and one unprefixed `main`. All historical branches remain preserved; no branch deletion, rewrite or force-push occurred.
 
 The feature, research, fix, test, data and singleton families have targeted changed-path/content dispositions already recorded above. This count refresh does not turn those targeted reviews into a full commit/PR ancestry audit. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+## Post-PR #459 mainline checkpoint — 2026-11-19
+
+PR #459 merged by squash as `c0fb6f8efcadf20ff55aec58b1188144707ae52f`. Exact-main Quality [44602788321], Chromium [44602788413], and Pages build/deploy [44602788487] all completed successfully. PR #459 exact head `5268955fb124d601a3b428d2dd2fbb72826b0aa2` passed both Quality checks and Chromium.
+
+A new paginated inventory after the merge reports **333 refs, 333 unique names and 333 unique tip SHAs**: `docs/*` 150, `audit/*` 44, `feat/*` 50, `research/*` 29, `test/*` 26, `fix/*` 24, `data/*` 4, `a11y/*` 2, plus one each under `benchmark/*`, `ci/*`, `release/*`, and unprefixed `main`. There are **0 open PRs** at this checkpoint. No historical branches were deleted or rewritten.
+
+The remaining release blockers are unchanged: no independently adjudicated IPA gold records, IPA convention still draft/unapproved, external source/dataset rights unresolved, Issue #104 still requires human recruitment and blind pilot execution, root license decision belongs to the owner, lexical segmentation and manual accessibility review remain incomplete. The repository remains a research-ready partial prototype, not release-ready. Full historical PR/commit ancestry reconciliation remains **PARTIAL** under `KHM-BRANCH-AUDIT-001`.
