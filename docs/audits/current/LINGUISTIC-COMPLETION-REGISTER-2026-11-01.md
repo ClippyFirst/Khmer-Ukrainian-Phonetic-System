@@ -3334,3 +3334,10 @@ PR #451's feature audit correction is retained: the old PCGN syllable assembly f
 ### Final sampled audit refs
 
 Thirteen further audit refs contain only canonical documentation changes. Twelve have zero unique handoff lines; the selected historical snapshot's two unique lines are obsolete inventory/PR-count metadata. The optional Khmer Phonemizer workflow in the restore branch is already byte-identical on main (blob SHA `a89a848d66810225bbcc2cc5c9143b94304a680d`). No branch-only implementation should be ported. Exact-main CI for PR #451's merge SHA was pending at documentation time. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+## Data/fix branch disposition
+
+Four data refs and the targeted PCGN/Unicode fix refs were reconciled. Positional-onset JSON/schema/test, independent-vowel CSV, BA/TRIISAP source CSV, dependent-vowel CSV, shortened-mark inventory and TN #61 source metadata are already present on main with matching blobs. Current main's PCGN row-7 runtime/schema match the relevant fix branch, while its comparison test is stronger.
+
+Do not port the stale dependent-I/O resolver (incorrect O-series values for rows 16/17 and obsolete row-7 key), or stale BA+TRIISAP p-in-â exceptions from final-consonant/omitted-shifter branches. Main correctly follows PCGN Note 2 and Note 3. Shifter-codepoint branch also predates corrected values/key. No new accepted behavior is missing. Full branch ancestry audit remains **PARTIAL**.
