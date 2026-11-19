@@ -101,3 +101,10 @@ Implementation note (2026-11-18): the bounded series resolver now emits an expli
 - Keep `KHM-ROM-ENGINE-001` PARTIAL and `KHM-ROM-UA-001` PARTIAL.
 - Keep independent adjudicated IPA gold at 0 and empirical accuracy null.
 - This review does not change runtime behavior, pronunciation labels, Ukrainian candidates, source corpora, or benchmark data.
+
+
+## Regression coverage update — PCGN Note 3 BA+AA+foot (2026-11-19)
+
+The guide's Note 3 explicitly names both bare BA (`ប`) and BA+AA (`បា`) with a foot. PR #405 extends the existing BA+foot test to both `ប្ក` and `ប្កា`, asserting the AA sign remains structurally recognized and the series resolver continues to select the documented p-in-â exception. This is test coverage for an existing bounded resolver, not a new contextual romanization rule.
+
+Exact PR-head CI on `6b4ed2bbd0a575d39fe0865082f854511c32cb4a`: Quality [44482081471](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482081471) SUCCESS (437 tests + 70 subtests); push Quality [44482061657](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482061657) SUCCESS; browser [44482081280](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482081280) SUCCESS (21/21).
