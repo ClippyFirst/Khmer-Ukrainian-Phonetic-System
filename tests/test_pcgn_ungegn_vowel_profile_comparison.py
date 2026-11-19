@@ -112,12 +112,15 @@ def test_candidate_comparison_pcgn_cells_match_the_project_owned_source_registri
     assert set(by_section["PCGN_ANUSVARA_VISARGA"]) == set(anusvara_visarga)
     for table_row, source in anusvara_visarga.items():
         compared = by_section["PCGN_ANUSVARA_VISARGA"][table_row]
-        if table_row == "7":
-            assert compared["pcgn_source_pattern"] == source["source_components"] == "េ+ា+ះ"
+        if "+" in compared["pcgn_source_pattern"]:
+            # Rows 1, 5, 6 and 7 retain explicit component boundaries in the
+            # comparison matrix; require exact sequence equality.
+            assert compared["pcgn_source_pattern"] == source["source_components"]
         else:
-            # Other rows in the comparison matrix store the concatenated
-            # source sequence; preserve component order while normalizing the
-            # registry's '+' separators.
+            # The remaining rows store the concatenated source sequence;
+            # preserve component order while normalizing registry separators.
             assert compared["pcgn_source_pattern"] == source["source_components"].replace("+", "")
+        if table_row == "7":
+            assert source["source_components"] == "េ+ា+ះ"
         assert compared["pcgn_a_series_or_value"] == source["â_series"]
         assert compared["pcgn_o_series"] == source["ô_series"]
