@@ -122,3 +122,31 @@ def test_pcgn_note5_schema_keeps_coda_context_explicit_and_outputs_component_onl
     assert schema["properties"]["coda_class"]["enum"] == ["k", "ng", "h", "other", None]
     assert schema["properties"]["ipa"]["const"] is None
     assert schema["properties"]["ukrainian"]["const"] is None
+
+
+
+def test_pcgn_note5_samyok_sannya_covers_all_documented_coda_classes():
+    # PCGN Note 5: ô-series SAMYOK forms use eă before k, ng, or h,
+    # otherwise oă; â-series uses ă. These are structural table fixtures,
+    # not claims that each spelling is an attested lexical item.
+    cases = (
+        ("ក័ក", "ក", "k", "â", "ă"),
+        ("ក័ង", "ក", "ng", "â", "ă"),
+        ("ក័ហ", "ក", "h", "â", "ă"),
+        ("ក័ម", "ក", "other", "â", "ă"),
+        ("គ័ក", "គ", "k", "ô", "eă"),
+        ("គ័ង", "គ", "ng", "ô", "eă"),
+        ("គ័ហ", "គ", "h", "ô", "eă"),
+        ("គ័ម", "គ", "other", "ô", "oă"),
+    )
+    for source, onset, coda_class, series, expected in cases:
+        result = resolve(source, onset, coda_class)
+        assert result.status == "RESOLVED", source
+        assert result.pattern == "SAMYOK_CODA", source
+        assert result.shortening_mark == "័", source
+        assert result.series == series, source
+        assert result.coda_class == coda_class, source
+        assert result.romanization == expected, source
+        assert result.source_table_row == 2, source
+        assert result.ipa is None
+        assert result.ukrainian is None
