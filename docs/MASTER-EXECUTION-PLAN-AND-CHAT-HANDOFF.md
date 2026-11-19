@@ -5426,3 +5426,6 @@ A targeted review covered ten feature refs:
 Correction to an earlier repository-audit note (around line 1774): it previously stated that the feat/pcgn-anusvara-visarga-syllable-assembly-port branch's PCGN source/schema/test files were byte-identical to main. A fresh comparison of the current live branch tip disproves that: src/khmer_ua/pcgn.py, its assembly schema and assembly test all differ. The package __init__.py is byte-identical. The old code carries the obsolete BA+TRIISAP p-in-â case; current main supersedes it with the Note 2 no-shift distinction. This is a current-tip correction, not evidence that main lost accepted behavior.
 
 No unique accepted implementation needs porting. All feature refs remain unchanged. Full feature-family semantic/ancestry reconciliation remains PARTIAL under KHM-BRANCH-AUDIT-001.
+
+
+Correction to the time-bounded CI note above: exact-main checks on aeb0bfbaabc47d8658527da4c5634fae12e9faec subsequently completed successfully. Quality run 44568314352, Chromium run 44568314381, and Pages build/deploy run 44568314462 all report SUCCESS. A later Quality retry 44568901376 also passed. The exact-main gate for PR #450 is therefore DONE_VERIFIED.
