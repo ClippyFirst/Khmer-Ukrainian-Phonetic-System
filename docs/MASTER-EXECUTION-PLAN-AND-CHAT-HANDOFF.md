@@ -5284,7 +5284,7 @@ Retain these branches unchanged. This is targeted path/content reconciliation, n
 
 ### Test-branch family reconciliation — 2026-11-19
 
-A targeted compare/content pass covered 25 retained `test/*` refs: the keyboard/responsive, landmark/name, whitespace, grapheme-accounting, IPA display, Khmer numeral, onset-fallback, romanization adapter/matrix/whole-message, vowel alias/crosswalk, BA+AA shifter/vowel, BA+AA+foot Note 3, PCGN candidate-registry parity, exact component sequence, row-7 anchor, `ស)-foot, SAMYOK coda-class, shifter-codepoint, source-sequence parity, and unconverted-mark regression branches. No test-only change in these refs is missing from current main.
+A targeted compare/content pass covered 25 retained `test/*` refs: the keyboard/responsive, landmark/name, whitespace, grapheme-accounting, IPA display, Khmer numeral, onset-fallback, romanization adapter/matrix/whole-message, vowel alias/crosswalk, BA+AA shifter/vowel, BA+AA+foot Note 3, PCGN candidate-registry parity, exact component sequence, row-7 anchor, `ស`-foot, SAMYOK coda-class, shifter-codepoint, source-sequence parity, and unconverted-mark regression branches. No test-only change in these refs is missing from current main.
 
 Specific dispositions:
 - The onset-fallback fixture, browser/Python source paths and regression file are byte-identical between the inspected branch and main.
