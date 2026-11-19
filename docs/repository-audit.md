@@ -3074,3 +3074,17 @@ PR #451 also corrected the feature-branch audit: the live historical PCGN assemb
 Thirteen more audit refs were compared; all changes are canonical docs. Twelve handoff snapshots have zero unique lines; the selected-historical branch's two unique lines are an obsolete 211-ref inventory and stale zero-open-PR snapshot. No current behavior or evidence needs porting.
 
 The restore-pinned-phonemizer branch appears to add an optional workflow, but its workflow file is byte-identical to current main (blob SHA `a89a848d66810225bbcc2cc5c9143b94304a680d`). No workflow port is needed. Branches remain unchanged. Exact-main CI for PR #451 merge SHA `89a2152b48a73d725fde607f28e503ca274f45f5` was in progress at documentation time; verify separately. Full ancestry review remains **PARTIAL**.
+
+
+## Research branch family review
+
+A changed-path review covered all 29 retained research refs. No unique current source ID or accepted runtime behavior was identified for porting.
+
+- The checked source-registry snapshots have zero branch-only IDs relative to current main's 49 entries.
+- External IPA renderer registry/schema are already present; main has a substantially expanded registry and the same schema.
+- Older MekongPhon hybrid/rule-engine and benchmark snapshots are superseded by the current typed evidence-gated adapter, deterministic engine and pinned diagnostic harness. The checked old benchmark test file matches main, while main adds further corpus integrity tests.
+- An older optional workflow would add a raw Khmer Phonemizer run over 100 source-attested upstream evaluation rows. It was not imported because those rows are not independently adjudicated gold and rights do not establish permission to redistribute/repurpose the corpus. Current main already has a manual, pinned diagnostic workflow that does not copy corpus rows into artifacts.
+- IPA convention draft, Kirby audio audits, literature review and PCGN/UNGEGN research records are already on main where checked.
+- Lexical segmentation, Unicode 18 grammar, Sok-Adams and LOC evidence documents have been expanded on main; their older branch TODOs or generic cautions are superseded. This does not close word segmentation, IPA gold, profile approval or source-rights gates.
+
+The research branches remain unchanged. This was a targeted source-ID/blob/document comparison, not full PR ancestry reconciliation. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
