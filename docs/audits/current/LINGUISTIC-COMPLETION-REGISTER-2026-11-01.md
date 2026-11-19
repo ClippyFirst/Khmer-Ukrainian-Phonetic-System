@@ -2930,7 +2930,7 @@ PR [#424](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/4
 Final main at closeout: `7d10b273377c8ebf15b731c372af04735d92f10d`.
 - Quality [44488041871](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44488041871) — SUCCESS: 444 Python tests + 70 subtests; IPA corpus structural check, Node/web checks and production build passed. Corpus remains `NOT_READY_NO_ADJUDICATED_GOLD`.
 - Pages/deployed runtime [44488041861](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44488041861) — SUCCESS: production build, Chromium exercise, Pages deployment and deployed runtime-asset smoke passed.
-- Standalone exact-main Khmer browser smoke [44488041862](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44488041862) was still `in_progress` at the Chromium installation step when this closeout was written. The exact PR-head browser check for #424 passed 21/21, and the exact-main Pages workflow separately exercised Chromium and deployed runtime assets successfully. Do not report the standalone run as passed unless it completes.
+- Standalone exact-main Khmer browser smoke [44488041862](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44488041862) subsequently completed SUCCESS: 21/21 Chromium checks. The exact-main Pages workflow also exercised Chromium and deployed runtime assets successfully.
 
 ### PR reconciliation and task ledger
 
