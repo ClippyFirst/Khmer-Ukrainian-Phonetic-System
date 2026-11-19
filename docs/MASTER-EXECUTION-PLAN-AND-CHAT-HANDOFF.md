@@ -5280,3 +5280,20 @@ No code, test, source-registry, corpus, IPA or Ukrainian mapping patch was found
 Ten additional refs were compared with current main: `docs/pr357-upstream-audit-closeout-2026-11-18`, `docs/pr359-post-merge-closeout-2026-11-18`, `docs/pr362-pr363-postmerge-closeout-2026-11-18`, `docs/pr366-postmerge-closeout-2026-11-18`, `docs/pr367-final-mainline-closeout-2026-11-18`, `docs/pr378-final-mainline-closeout-2026-11-18`, `docs/pr389-accessibility-landmarks-closeout-2026-11-18`, `docs/pr390-closeout-exact-main-2026-11-18`, `docs/pr392-accessibility-whitespace-closeout-2026-11-18`, and `docs/pr393-canonical-closeout-2026-11-18`. Every compare changes only the three canonical documentation files. A line-level check of the handoff file found **zero branch-only lines** for all ten refs: each is a strict historical subset of current main. No source, code, test or evidence port is applicable. This independently confirms that the older upstream-audit and accessibility closeout notes are already represented in the canonical handoff.
 
 Retain these branches unchanged. This is targeted path/content reconciliation, not complete commit/PR ancestry audit. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+### Test-branch family reconciliation — 2026-11-19
+
+A targeted compare/content pass covered 25 retained `test/*` refs: the keyboard/responsive, landmark/name, whitespace, grapheme-accounting, IPA display, Khmer numeral, onset-fallback, romanization adapter/matrix/whole-message, vowel alias/crosswalk, BA+AA shifter/vowel, BA+AA+foot Note 3, PCGN candidate-registry parity, exact component sequence, row-7 anchor, `ស)-foot, SAMYOK coda-class, shifter-codepoint, source-sequence parity, and unconverted-mark regression branches. No test-only change in these refs is missing from current main.
+
+Specific dispositions:
+- The onset-fallback fixture, browser/Python source paths and regression file are byte-identical between the inspected branch and main.
+- The IPA display contract test is byte-identical.
+- The old grapheme-accounting parser/test branch is superseded by the current richer structural parser; its old single rejection test is covered by current explicit unit-isolation/unsupported-material tests.
+- Old romanization/numeral branches are earlier adapter snapshots; main has the later diacritic-preserving direct-input contract, whole-message API and larger regression suite.
+- Old BA/AA integration fixtures contain pre-correction PCGN vowel values (including the earlier row 3/16/17 values); current main has the corrected source rows and CSV/runtime parity. Old candidate-parity tests that require all row keys or all separators to match are superseded by the row-specific rule: row 7 is `VALUE_MATCH_KEY_SHAPE_DIFFERS`, while only rows with identical source component boundaries require exact grouping.
+- The `test/pcgn-s-foot-not-neutral`, SAMYOK coda-class and source-sequence parity branch test contents are subsets of current main; one SAMYOK branch is byte-identical. The unconverted-mark port branch has no diff from main.
+
+All historical test refs are retained unchanged. These targeted comparisons establish no missing tests in this sample; they do not complete full commit/PR ancestry reconciliation of all branches. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+Correction to the earlier time-bounded status: Pages/deploy run [44558019521](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44558019521) subsequently completed **SUCCESS** on exact main SHA `e78da940dbff2a07376f6ae9cb0b4cc4cd8b6603`. Quality [44558019475] and Chromium [44558019636] on that same SHA were already confirmed **SUCCESS**.
