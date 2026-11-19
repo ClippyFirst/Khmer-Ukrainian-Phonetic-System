@@ -3315,3 +3315,8 @@ Correction: the current live feat/pcgn-anusvara-visarga-syllable-assembly-port b
 
 
 Exact-main verification correction: PR #450 merge SHA aeb0bfbaabc47d8658527da4c5634fae12e9faec later passed Quality 44568314352, Chromium 44568314381 and Pages/build/deploy 44568314462; Quality retry 44568901376 also passed.
+
+
+### Branch inventory snapshot — 2026-11-19
+
+At the PR #451 pre-merge checkpoint: 325 refs, 325 unique names and tip SHAs, 142 docs/* refs; prefix counts include 44 audit, 50 feat, 29 research, 26 test and 24 fix refs. One PR (#451) was open. KHM-BRANCH-AUDIT-001 remains PARTIAL.
