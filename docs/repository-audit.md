@@ -2941,3 +2941,12 @@ Inventory: 317 branch refs, 317 unique names/tips, 139 `docs/*` refs. No open PR
 Compared 29 retained `docs/post-pr*` refs (#206, #209, #211, #213, #215, #217, #218, #219, #220, #221, #222, #223, #224, #226, #228, #230, #231, #233, #235, #237, #239, #241, #243, #245, #247, #250, #252, #255, #256 and #259) against current main. Their diffs touch only the three canonical status documents and, except for #206, an older romanization matrix snapshot. No source-code or test changes are unique to these refs.
 
 The old matrices (334–841 lines) are superseded by the 541-line current matrix; inspected rows/lines are already present in current main. The only non-subset statements are historical: #215's Note 2 “not implemented” status predates the current resolver, and #223's “workflows running” note is stale CI metadata. Neither requires a port. All branches remain untouched. Full historical branch/ancestry audit remains **PARTIAL**.
+
+
+## PR #444 and post-merge documentation-ref sample
+
+PR #444 merged as `e78da940dbff2a07376f6ae9cb0b4cc4cd8b6603`. Exact PR-head Quality and browser smoke passed. On exact main, Quality and Chromium passed; Pages build/deploy remained in progress at the time of this update.
+
+Ten further `docs/post-pr*` / `docs/pr*` refs (#294, #300, #314, #316, #319, #353, #322, #334, #336 and #355) were compared. All diffs contain documentation only. #294 includes an obsolete Unicode parser/TN #61 checkpoint, superseded by the current grammar audit and rights-scoped TN metadata. #353 contains a stale assertion that the Khmer Acoustic Model offers a 29,204-entry native-validated CC BY-SA dictionary; current pinned evidence shows conflicting counts and license scopes, a six-line sample only, and no full artifact. Do not port that claim. The remaining refs are superseded status snapshots; no runtime/test patch is unique to them.
+
+No historical refs were changed or deleted. The full historical branch/ancestry audit remains **PARTIAL**.
