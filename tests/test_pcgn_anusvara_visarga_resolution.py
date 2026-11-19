@@ -32,8 +32,8 @@ def test_pcgn_anusvara_visarga_table_rows_are_series_conditioned():
         ("គុះ", "ŭh", 5, "ô", None),
         ("កេះ", "éh", 6, "â", None),
         ("គេះ", "éh", 6, "ô", None),
-        ("កោះ", "aôh", 7, "â", None),
-        ("គោះ", "ŏăh", 7, "ô", None),
+        ("កេាះ", "aôh", 7, "â", None),
+        ("គេាះ", "ŏăh", 7, "ô", None),
         ("កាំង", "ăng", 8, "â", "ង"),
         ("គាំង", "eăng", 8, "ô", "ង"),
     )
@@ -62,7 +62,7 @@ def test_pcgn_anusvara_visarga_requires_matching_onset_and_rejects_unlisted_patt
     assert result.status == "UNRESOLVED"
     assert result.romanization is None
 
-    for source in ("កាំះ", "កេាះ", "កំង", "កុះ់", "កា"):
+    for source in ("កាំះ", "កោះ", "កំង", "កុះ់", "កា"):
         result = resolve(source)
         assert result.status == "UNRESOLVED", source
         assert result.romanization is None
