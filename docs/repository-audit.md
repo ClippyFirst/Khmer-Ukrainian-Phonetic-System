@@ -3030,3 +3030,10 @@ Research-branch checks:
 - The old benchmark-expansion branch permits a model-ID override and lacks the current pinned corpus-source-commit provenance argument. The dedicated MekongPhon diagnostic harness branch's script/tests are byte-identical to current main.
 - The old PCGN note registry is a 10-row snapshot; current main has more rows and stronger per-row checks.
 No stale branch was merged or rewritten. Full research-family semantic and PR-ancestry review remains **PARTIAL**; gold remains 0, empirical accuracy null, and MekongPhon remains diagnostic-only.
+
+
+## Fix-branch implementation reconciliation
+
+Reviewed non-PCGN fix refs for explicit IPA kind, unconverted Khmer output, IPA tie-bar boundaries, benchmark reproducibility, orthographic parser diagnostics/rejection spans, typed partial results, unmodeled letters, and mixed-script numeral/romanization guards.
+
+The phonetic-result adapter, IPA implementation/tests, unconverted-output adapter, signs registry, numeral parser/test and rejected-span test are byte-identical to current main where compared. Other branch snapshots are older: rule-engine code predates current numeric passthrough; benchmark script predates current provenance/hashing and no-gold safeguards; parser diagnostics/tests are superseded by the current full test suite; the mixed-script output guard is replaced by a shared current helper. No missing accepted behavior was identified. No branch changed or deleted; full historical fix/PR ancestry audit remains **PARTIAL**.
