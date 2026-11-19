@@ -5410,3 +5410,19 @@ A targeted review covered the non-PCGN `fix/*` family:
 - `fix/mixed-script-romanization-guard` is an older output guard; main uses a shared `bracketUnconvertedKhmer` helper at both whole-message and token paths. The older romanization tests are a strict subset of current tests.
 
 No unique accepted implementation or regression test needs porting. These refs remain unchanged. This is targeted blob/test comparison; the full fix/release family and PR ancestry review remains **PARTIAL** under `KHM-BRANCH-AUDIT-001`.
+
+
+## Feature-branch snapshot reconciliation and correction of historical blob note — 2026-11-19
+
+PR #450 merged as aeb0bfbaabc47d8658527da4c5634fae12e9faec; exact PR-head Quality and Chromium passed. Exact-main Quality, Chromium and Pages/deploy were still running when this note was drafted; do not infer success until their exact-SHA checks complete.
+
+A targeted review covered ten feature refs:
+- feat/khmer-unicode18-syllable-parser is an earlier linear/limited parse representation; current main has the packed parse forest, grammar-role ambiguity, and separate parse/segmentation counts.
+- feat/typed-ipa-candidate-validation has an older IPA tie-bar validator; current main has explicit pending-tie-bar state and rejects a tie bar without a following segment. feat/typed-ipa-hybrid-bridge hybrid implementation is byte-identical to current main.
+- feat/khmer-ukrainian-practical-adapter-final practical adapter and feat/khmer-romanization-ukrainian-matrix-completion Ukrainian matrix are byte-identical to current main.
+- feat/khmer-subscript-independent-vowels contains an older parser; current main uses the later orthographic component scanner and mixed-script token boundaries.
+- The historical feat/pcgn-anusvara-visarga-syllable-assembly-port and feat/pcgn-explicit-open-syllable-assembly snapshots contain an obsolete BA+TRIISAP p-in-â exception. Current main correctly records the PCGN Note 2 BA+TRIISAP no-shift exception and reserves Note 3 p-in-â for BA+MUUSIKATOAN or BA+foot. Their PCGN source/schema/test snapshots are older, not byte-identical, and must not be ported.
+
+Correction to an earlier repository-audit note (around line 1774): it previously stated that the feat/pcgn-anusvara-visarga-syllable-assembly-port branch's PCGN source/schema/test files were byte-identical to main. A fresh comparison of the current live branch tip disproves that: src/khmer_ua/pcgn.py, its assembly schema and assembly test all differ. The package __init__.py is byte-identical. The old code carries the obsolete BA+TRIISAP p-in-â case; current main supersedes it with the Note 2 no-shift distinction. This is a current-tip correction, not evidence that main lost accepted behavior.
+
+No unique accepted implementation needs porting. All feature refs remain unchanged. Full feature-family semantic/ancestry reconciliation remains PARTIAL under KHM-BRANCH-AUDIT-001.
