@@ -1,6 +1,10 @@
 from __future__ import annotations
 
+import csv
+from pathlib import Path
+
 from khmer_ua.pcgn import (
+    PCGN_DEPENDENT_VOWEL_ROWS,
     analyze_pcgn_orthographic_chunk,
     resolve_pcgn_dependent_vowel,
     resolve_pcgn_series,
@@ -43,9 +47,9 @@ def test_pcgn_dependent_vowel_series_conditioned_rows():
         ("កេៀ", "iĕ", 12, "â"),
         ("គេៀ", "iĕ", 12, "ô"),
         ("កេា", "aô", 16, "â"),
-        ("គេា", "aô", 16, "ô"),
+        ("គេា", "oŭ", 16, "ô"),
         ("កេៅ", "au", 17, "â"),
-        ("គេៅ", "au", 17, "ô"),
+        ("គេៅ", "ŏu", 17, "ô"),
     )
     for source, expected, row, series in cases:
         result = resolve(source)
@@ -138,3 +142,24 @@ def test_pcgn_ba_aa_shifter_exceptions_feed_the_correct_dependent_vowel_series()
         assert vowel.romanization == expected, source
         assert vowel.ipa is None
         assert vowel.ukrainian is None
+
+
+
+def test_pcgn_dependent_vowel_source_registry_matches_all_runtime_rows():
+    root = Path(__file__).resolve().parents[1]
+    with (root / "data/khmer/romanization_pcgn_dependent_vowels.csv").open(
+        encoding="utf-8", newline=""
+    ) as stream:
+        rows = list(csv.DictReader(stream))
+
+    assert len(rows) == 16
+    registry = {}
+    for row in rows:
+        key = tuple(row["source_signs"].split("+"))
+        value = (int(row["table_row"]), row["â_series"], row["ô_series"])
+        registry[key] = value
+        assert row["source_url"] == "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf"
+        assert row["source_locator"] == "PCGN 1972, Independent/Dependent Vowel Characters table (pp. 2–4)"
+        assert row["acceptance_boundary"] == "One exact dependent-vowel pattern and caller-supplied resolved series; component only, no IPA or Ukrainian output"
+
+    assert registry == PCGN_DEPENDENT_VOWEL_ROWS
