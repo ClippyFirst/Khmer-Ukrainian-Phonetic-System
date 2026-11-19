@@ -3230,3 +3230,8 @@ PR #443 is merged as `f9a3dd7fdc813fbf5de8c0e674256c9a6a43ac05`. Its PR-head Qua
 ### Post-merge documentation branch family (#206–#259)
 
 Twenty-nine historical refs in the `docs/post-pr*` family were compared with current main. Changed paths are canonical documentation plus older snapshots of `docs/romanization-to-ukrainian-matrix.md`; no implementation or test files differ. The old matrices are line-subsets of current main apart from superseded status notes: a pre-Note-2 implementation statement on #215 and a stale in-progress CI note on #223. No unique mapping or source-backed rule was found to port. Retain all branches unchanged. This is targeted compare/content evidence only; repository-wide branch/PR ancestry audit remains **PARTIAL**.
+
+
+## Post-merge documentation branch review — #294–#355
+
+Ten refs (#294, #300, #314, #316, #319, #353, #322, #334, #336 and #355) were compared with current main. All diffs are documentation-only. The #294 Unicode grammar/TN #61 checkpoint is superseded by current parser and rights-scoped metadata records. The #353 benchmark note's 29,204-entry/native-validated/CC BY-SA statement is contradicted by the pinned source audit (29,204 vs 33,091, conflicting license scopes, six-line public sample, no full artifact) and must not be reintroduced. Other closeout refs contain older status/CI snapshots only. No runtime, test, IPA, Ukrainian or corpus change is warranted. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
