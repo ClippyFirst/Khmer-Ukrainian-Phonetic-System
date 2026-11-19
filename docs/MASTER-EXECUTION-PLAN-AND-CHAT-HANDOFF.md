@@ -5395,3 +5395,18 @@ A targeted sample of the retained `research/*` family was reconciled:
 - These are stale historical snapshots, not implementation candidates. No code, source IDs, tests or benchmark changes were ported.
 
 This sample does not complete the full 29-ref research branch family review or full PR/commit ancestry audit. All refs remain untouched; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**. Research claims remain evidence-limited: MekongPhon is diagnostic only; IPA gold remains 0 and accuracy null.
+
+
+## Fix-branch implementation reconciliation — 2026-11-19
+
+A targeted review covered the non-PCGN `fix/*` family:
+- `fix/explicit-ipa-kind-in-phonetic-result`: the phonetic-result adapter is byte-identical to main; the branch's rule-engine snapshot predates current `NON_LINGUISTIC` numeric passthrough and associated IPA-kind handling.
+- `fix/flag-unconverted-khmer-romanizer-output`: the JavaScript adapter is byte-identical to main.
+- `fix/ipa-tie-bar-segment-boundaries`: both IPA implementation and its tests are byte-identical to main.
+- `fix/khmer-benchmark-reproducibility`: its 154-line benchmark harness is superseded by the 257-line current provenance-aware diagnostic; current code preserves hashes, environment, and explicit no-gold/no-accuracy boundaries.
+- Parser diagnostics/rejection-span refs are older snapshots. Current main has the fuller orthographic parser and test suite, including fail-closed unsupported code points, exact rejected spans for known nonconforming order, ambiguity/parse-count preservation and packed-forest tests. The `fix/khmer-rejected-span-reasons-and-fixtures` test file is byte-identical to main.
+- `fix/khmer-typed-partial-phonetic-results` predates current numeric passthrough; its old partial-result path is superseded by current typed result handling.
+- `fix/khmer-unmodeled-letter-trace` signs registry and `fix/mixed-script-numeral-token-boundaries` parser/test are byte-identical to main.
+- `fix/mixed-script-romanization-guard` is an older output guard; main uses a shared `bracketUnconvertedKhmer` helper at both whole-message and token paths. The older romanization tests are a strict subset of current tests.
+
+No unique accepted implementation or regression test needs porting. These refs remain unchanged. This is targeted blob/test comparison; the full fix/release family and PR ancestry review remains **PARTIAL** under `KHM-BRANCH-AUDIT-001`.
