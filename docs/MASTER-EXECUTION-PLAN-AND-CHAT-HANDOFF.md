@@ -4976,3 +4976,29 @@ Exact-main verification on `bdcf231d4516e718edc5b50a95a8ae5455a82c89`:
 PR reconciliation: #429 was closed unmerged after its initial all-exact-separator assertion failed on the differing representation of combined signs; #430 superseded it with row-specific grouping semantics and merged. PR #431 was closed unmerged as redundant after #430 included the exact row 7 source-registry assertion. All three branches were left intact; none was deleted or force-updated. No open PRs remained at the time of this audit. The only open issue is #104, which still requires human expert approval of the IPA convention, two independent Khmer annotators, a separate adjudicator, a curator, private blind intake, 30 attested rights-cleared lexeme groups, independent annotations and adjudication. Gold remains 0; empirical accuracy remains null.
 
 Task ledger: PCGN vowel comparison/source-registry value parity — DONE_VERIFIED; exact PCGN row 7 source sequence parity — DONE_VERIFIED; row-specific component-boundary representation checks for all eight anusvara/visarga rows — DONE_VERIFIED. Full contextual Khmer → PCGN syllable/word segmentation remains PARTIAL/TODO; IPA convention remains DRAFT_NOT_APPROVED; issue #104 remains BLOCKED on specialist participation and rights-cleared annotated material. Repository remains a research-ready partial prototype, not a linguistically validated release. Verification is hosted GitHub Actions; no local checkout or local test execution is claimed.
+
+
+## Current PCGN maintenance-branch inventory — 2026-11-19
+
+A live GitHub branch inventory was fetched across pages 1–4 after main reached `3765cb3ca611fff2204d54ee224dcc8578d0016b`: 306 refs, 306 unique names and 306 unique tip SHAs (main plus 305 non-main refs). Prefix counts: `a11y` 2, `audit` 38, `benchmark` 1, `ci` 1, `data` 4, `docs` 130, `feat` 50, `fix` 24, `release` 1, `research` 29, `test` 25, and one unprefixed ref. This is an inventory snapshot, not a semantic audit of all 305 non-main branches.
+
+### Ten PCGN-specific fix refs compared with main
+
+The following refs were compared against current main with GitHub's commit comparison API. All ten are diverged; the counts below are ahead/behind relative to main, and the file list is the comparison endpoint's changed-file set. These are triage results only: do not merge stale branch tips or infer that every ahead commit contains a unique, still-needed implementation.
+
+| Branch | Ahead / behind | Changed files |
+|---|---:|---|
+| `fix/pcgn-anusvara-row7-source-pattern-2026-11-19` | 5 / 10 | PCGN runtime, row-7 CSV, decision schema, resolver and assembly tests |
+| `fix/pcgn-anusvara-row7-source-pattern-main-2026-11-19` | 9 / 7 | comparison CSV/audit, row-7 CSV, runtime, decision/assembly schemas and tests |
+| `fix/pcgn-ba-triisap-source-matrix-2026-11-19` | 1 / 20 | PCGN consonant source CSV |
+| `fix/pcgn-ba-triisap-source-matrix-main-2026-11-19` | 1 / 19 | PCGN consonant source CSV |
+| `fix/pcgn-dependent-i-o-series-2026-11-19` | 2 / 13 | PCGN runtime and dependent-vowel tests |
+| `fix/pcgn-dependent-vowel-series-rows-16-17-2026-11-19` | 9 / 13 | dependent-vowel CSV, audit, runtime and tests |
+| `fix/pcgn-final-consonant-context-types-2026-11-16` | 2 / 193 | PCGN runtime and final-consonant tests |
+| `fix/pcgn-omitted-shifter-uncertainty-2026-11-18` | 3 / 27 | audit, PCGN runtime and series tests |
+| `fix/pcgn-shifter-registry-codepoint-alignment-2026-11-18` | 14 / 25 | PCGN notes CSV, audit, decision schemas, runtime and tests |
+| `fix/pcgn-shortened-vowel-diacritic-inventory-2026-11-15` | 11 / 244 | romanization marks CSV, handoff/audit/matrix docs and tests |
+
+Associated PR state was checked: #422 (row-7 source sequence), #406 (BA source-matrix documentation), #414 (dependent-vowel source table), #255 (final-consonant context), #397 (omitted-shifter uncertainty), #399 (shifter Unicode alignment) and #204 (shortened-vowel mark inventory) are merged. PR #404 and #415 are closed unmerged; their accepted source corrections were superseded by #406 and #414 respectively. The remaining divergent tips are retained for provenance; no branch was merged, deleted or force-updated by this audit. The two row-7 refs were also inspected at file-blob level: the mainline branch's runtime, CSV, decision/assembly schemas and resolver/assembly tests match main; the older non-main branch retains an older resolver test and assembly schema, while its runtime, CSV, decision schema and assembly test match main. No row-7 implementation was missing from main.
+
+This closes only the targeted PCGN maintenance-branch triage. Repository-wide `KHM-BRANCH-AUDIT-001` remains PARTIAL: all 305 non-main refs still require complete semantic review of their unique commits/files and ancestry reconciliation. Do not mark it DONE_VERIFIED from branch-count or compare metadata alone. The live issue #104 remains the only open research issue: IPA convention expert approval, two annotators, a separate adjudicator, curator, private blind intake and a rights-cleared 30-item pilot are still outstanding. Gold remains 0 and empirical accuracy null. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
