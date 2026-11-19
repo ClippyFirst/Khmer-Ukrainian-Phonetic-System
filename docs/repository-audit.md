@@ -3088,3 +3088,10 @@ A changed-path review covered all 29 retained research refs. No unique current s
 - Lexical segmentation, Unicode 18 grammar, Sok-Adams and LOC evidence documents have been expanded on main; their older branch TODOs or generic cautions are superseded. This does not close word segmentation, IPA gold, profile approval or source-rights gates.
 
 The research branches remain unchanged. This was a targeted source-ID/blob/document comparison, not full PR ancestry reconciliation. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+## Data and PCGN fix branch review
+
+The four data refs contain no new artifacts absent from main: positional-onset JSON/schema/test and independent-vowel CSV blobs match current main. Targeted PCGN fix refs confirm that row-7 runtime/schema, BA/TRIISAP source CSV, dependent-vowel CSV, shortened-mark inventory and TN #61 source metadata are already integrated.
+
+Do not port stale dependent-I/O resolver values (row 16 O-series `aô`, row 17 `au`) or the obsolete row-7 key `ោ+ះ`; current main uses `oŭ`, `ŏu` and PCGN's exact three-component `េ+ា+ះ`. Older final-consonant and omitted-shifter branches also retain BA+TRIISAP p-in-â, superseded by Note 2 no-shift and Note 3 BA+MUUSIKATOAN/BA+foot. Shifter-codepoint snapshot has the same stale values/key. No port required; branches retained. Full ancestry audit remains **PARTIAL**.

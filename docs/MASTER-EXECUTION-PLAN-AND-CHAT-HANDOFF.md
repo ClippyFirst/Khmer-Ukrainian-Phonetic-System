@@ -5475,3 +5475,17 @@ A targeted changed-path review covered all 29 retained `research/*` refs. Their 
 - LOC word-division evidence on main includes the profile-neutral boundary evidence contract and subsequent Unicode structural parser integration. This does not amount to a lexical segmenter or approved LOC profile.
 
 No research branch-only source ID or accepted runtime behavior was identified for porting. Research branches are preserved unchanged. These are targeted blob/content checks, not a full commit/PR-ancestry review; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**. External gold recruitment, IPA convention approval, independent annotation and rights review remain genuine blockers.
+
+
+## Data and fix branch reconciliation — 2026-11-19
+
+Targeted comparisons covered all four retained `data/*` refs and the current PCGN/Unicode-related `fix/*` family.
+
+- `data/integrate-positional-onset-evidence-register-2026-11-17` is an ancestor with no diff. The positional-onset evidence JSON, schema and test in `data/khmer-onset-evidence-registry-2026-11-17` are byte-identical to current main (827, 233 and 84 lines). Both independent-vowel CSV snapshots are the same 14-line file already on main.
+- The row-7 source-pattern fix branch has the same runtime and decision-schema blobs as main. Its sibling comparison test is older; main adds source-registry parity and the `VALUE_MATCH_KEY_SHAPE_DIFFERS` row-7 guard.
+- BA/TRIISAP source matrix and dependent-vowel rows 16–17 CSVs are byte-identical to main.
+- `fix/pcgn-dependent-i-o-series-2026-11-19` is stale: it gives row 16 O-series `aô` instead of `oŭ`, row 17 `au` instead of `ŏu`, and retains the obsolete two-component row-7 `ោ+ះ` key instead of PCGN's three-component `េ+ា+ះ`.
+- `fix/pcgn-final-consonant-context-types-2026-11-16` and `fix/pcgn-omitted-shifter-uncertainty-2026-11-18` retain the superseded BA+TRIISAP p-in-â exception. Current main follows PCGN Note 2 no-shift for BA+TRIISAP and reserves Note 3 p-in-â for BA+MUUSIKATOAN or BA+foot.
+- `fix/pcgn-shifter-registry-codepoint-alignment-2026-11-18` also has old dependent-vowel values and the old row-7 key. The shortened-mark inventory and TN #61 source metadata blobs match main.
+
+No code/data/test patch from these refs is missing from current main. All refs remain untouched. This is targeted blob/content evidence, not full branch/PR ancestry reconciliation; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
