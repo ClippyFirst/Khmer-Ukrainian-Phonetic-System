@@ -5165,3 +5165,16 @@ Exact-main GitHub Actions for `e3837e036584e3c243f098781d7b24f377090663`:
 Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains open. Its latest recorded state still has no approved versioned IPA convention, no confirmed independent annotators/adjudicator/curator or private blind intake, and no rights-cleared/adjudicated 30-item pilot. Independent adjudicated gold remains **0** and empirical accuracy remains **null**. Root repository licensing still requires the owner's decision; manual accessibility review remains partial. No new IPA, phonological labels, Ukrainian mappings, corpus rows or benchmark scores were introduced.
 
 The repository remains an engineering-verified, research-ready partial prototype, **not linguistically validated or release-ready**. No local checkout or local test execution is claimed; verification evidence above is from hosted GitHub Actions.
+
+
+## Accessibility documentation-branch spot checks and live inventory — 2026-11-19
+
+A further targeted review compared four retained accessibility closeout refs against current `main`:
+
+- `docs/pr389-accessibility-landmarks-closeout-2026-11-18` changes only the three canonical handoff/audit/register documents. Its record documents the earlier automated structural checks (document language, one main landmark/H1, accessible-name sources and image alt attributes) and explicitly limits their scope; it does not add a unique implementation commit relative to current main.
+- `docs/pr392-accessibility-whitespace-closeout-2026-11-18` likewise changes only those canonical documents. Its record describes the regex whitespace parsing correction already in the mainline history; no unique source or test file is introduced by this documentation ref.
+- `docs/skip-navigation-closeout-2026-11-17` and `docs/wcag-contrast-closeout-2026-11-17` are documentation-only historical snapshots. Their records describe the skip-link implementation and the bounded text-contrast palette/tests, which are already part of mainline history. The WCAG contrast evidence is limited to the specific tested text/background pairs, not a full WCAG audit.
+
+Disposition: retain all four refs as historical records; do not merge their older canonical snapshots or port duplicate implementation. This is a targeted documentation-branch content review, not full ancestry reconciliation for every docs ref.
+
+Fresh paginated live branch inventory: **315 refs, 315 unique branch names, 315 unique tip SHAs; 137 refs use the `docs/*` prefix**. The inventory includes the current documentation continuation branch/PR #441. This is a live count, not a claim that all 137 documentation branches have been semantically reviewed. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
