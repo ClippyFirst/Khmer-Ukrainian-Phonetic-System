@@ -2950,3 +2950,8 @@ PR #444 merged as `e78da940dbff2a07376f6ae9cb0b4cc4cd8b6603`. Exact PR-head Qual
 Ten further `docs/post-pr*` / `docs/pr*` refs (#294, #300, #314, #316, #319, #353, #322, #334, #336 and #355) were compared. All diffs contain documentation only. #294 includes an obsolete Unicode parser/TN #61 checkpoint, superseded by the current grammar audit and rights-scoped TN metadata. #353 contains a stale assertion that the Khmer Acoustic Model offers a 29,204-entry native-validated CC BY-SA dictionary; current pinned evidence shows conflicting counts and license scopes, a six-line sample only, and no full artifact. Do not port that claim. The remaining refs are superseded status snapshots; no runtime/test patch is unique to them.
 
 No historical refs were changed or deleted. The full historical branch/ancestry audit remains **PARTIAL**.
+
+
+### PR closeout documentation refs (#357–#393)
+
+Compared ten refs (#357, #359, #362/#363, #366, #367, #378, #389, #390, #392, #393). Each diff changes only the three canonical documentation files. A line-level comparison of the handoff found zero branch-only lines across all ten: their content is already a strict subset of current main. No unique source, runtime, test or evidence needs porting. Historical refs remain untouched; repository-wide branch/PR ancestry reconciliation remains **PARTIAL**.
