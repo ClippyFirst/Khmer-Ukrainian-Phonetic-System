@@ -2959,7 +2959,7 @@ Compared ten refs (#357, #359, #362/#363, #366, #367, #378, #389, #390, #392, #3
 
 ### Test-branch family (#a11y, grapheme, IPA, romanization, PCGN)
 
-Compared 25 retained test branches spanning accessibility smoke, grapheme accounting, IPA display, Khmer numeral/romanization, onset fallback, direct adapter coverage, PCGN BA/AA/foot exceptions, row parity, exact component boundaries, `ស) foot, SAMYOK coda classes and unconverted marks. No missing test-only implementation was identified. Onset-fallback fixtures/source/tests and the IPA display contract test match main byte-for-byte. Older grapheme/parser and romanization tests are superseded by the richer current parser and adapter suite. PCGN branches with pre-correction dependent-vowel values or overly strict all-row key/separator equality are stale; current main contains corrected PCGN source values and row-specific parity semantics. The `ស`-foot and SAMYOK test content is already present in main. All refs retained unchanged.
+Compared 26 retained test branches spanning accessibility smoke, grapheme accounting, IPA display, Khmer numeral/romanization, onset fallback, direct adapter coverage, PCGN BA/AA/foot exceptions, row parity, exact component boundaries, `ស) foot, SAMYOK coda classes and unconverted marks. No missing test-only implementation was identified. Onset-fallback fixtures/source/tests and the IPA display contract test match main byte-for-byte. Older grapheme/parser and romanization tests are superseded by the richer current parser and adapter suite. PCGN branches with pre-correction dependent-vowel values or overly strict all-row key/separator equality are stale; current main contains corrected PCGN source values and row-specific parity semantics. The `ស`-foot and SAMYOK test content is already present in main. All refs retained unchanged.
 
 Exact-main Pages run 44558019521 later completed SUCCESS on `e78da940dbff2a07376f6ae9cb0b4cc4cd8b6603`, joining the already successful Quality and Chromium runs. Full historical branch ancestry remains **PARTIAL**.
 
@@ -3106,3 +3106,14 @@ The PCGN note/component/syllable-assembly branches are historical slices; curren
 One feature branch, `feat/github-pages-hybrid-candidate-shell-2026-11-15`, contains a browser-side `src/hybrid-engine.js` absent from main. The canonical plan does not define this separate UI as a required acceptance item; current main uses a typed Python hybrid diagnostic adapter. Classify that prototype **DEFERRED**, not as a missing required runtime component. The profile-neutral boundary interface is already present on main and does not perform lexical segmentation.
 
 All refs preserved. Full historical feature/PR ancestry remains **PARTIAL**.
+
+### Ancillary branch families and final test-ref count — 2026-11-19
+
+The final test-family inventory contains 26 refs, not 25. The additional `test/ui-accessibility-smoke-2026-11-15` branch changes only `tests/browser/site.spec.js`. Its branch-only check for visibly withheld mixed input is superseded by current main's more specific unsupported-grapheme, neighboring-output preservation, mixed-script ordering and direct-romanization mixed-input tests; current main additionally includes WCAG contrast and keyboard smoke coverage. No test needs porting.
+
+Three remaining singleton refs were also dispositioned:
+- `benchmark/current-engine-2026-11-11` adds a manual benchmark workflow comparing the deterministic engine with upstream MekongPhon and Neurlang source-reported IPA. The report labels results as source-attested concordance, not gold accuracy. The canonical plan explicitly defers this benchmark pending independent adjudication and source/rights review; do not import the workflow as a release gate.
+- `ci/khmer-g2p-smoke-2026-10-24` is an older optional G2P workflow snapshot. Current main has the later pinned manual benchmark workflow and separate optional Khmer Phonemizer raw-output workflow.
+- `release/deterministic-rule-engine-2026-11-11` is an older rule-engine release snapshot. Current main has a substantially expanded deterministic engine, typed IPA/uncertainty boundary, tests and documentation; no unique release implementation needs porting.
+
+The browser-side hybrid candidate shell remains DEFERRED as noted above. These dispositions do not close external gold, licensing, IPA-convention or lexical segmentation blockers.
