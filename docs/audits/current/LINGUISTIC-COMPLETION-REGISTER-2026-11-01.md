@@ -3273,3 +3273,8 @@ Ten exact-main and branch-audit checkpoint refs were compared. Their handoff fil
 
 
 Current inventory: 319 refs, 319 unique names/tips, 141 `docs/*` refs; one open PR (#445). This does not close the full branch audit; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+## PR #445 and parser handoff closeout
+
+PR #445 merged as `3663ea20e58510a0a36b5c521627fcacf1c4951b`; Quality, Pages and Chromium all passed on exact main. Four parser handoff refs were reconciled. The old `unicode-tn61-v2` ID is superseded by the canonical renamed source ID; current main has the later source records. The old scanner-only/TODO parser state is superseded by the DONE_VERIFIED Unicode 18 packed parse forest, with current tests preserving the orthographic contrast, 2^20 derivations and rejection spans. No code or evidence needs porting. Full branch audit remains **PARTIAL**.
