@@ -5456,3 +5456,22 @@ Thirteen further audit refs were compared with current main: `audit/pr384-ipa-ti
 The `audit/restore-pinned-khmer-phonemizer-smoke-2026-11-18` branch diff lists an added optional workflow, but its workflow blob is byte-identical to current main (`.github/workflows/optional-khmerphonemizer-smoke.yml`, SHA `a89a848d66810225bbcc2cc5c9143b94304a680d`). It is already present on main; no workflow port is needed. This branch also contains only documentation differences in the inspected canonical files.
 
 The remaining audit refs were preserved. The exact-main checks for PR #451 merge SHA `89a2152b48a73d725fde607f28e503ca274f45f5` were still running at this entry; verify before claiming its mainline gate. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+## Research-branch family reconciliation — 2026-11-19
+
+A targeted changed-path review covered all 29 retained `research/*` refs. Their code/data/document snapshots were compared against current main where the changed paths indicated a possible implementation or evidence delta.
+
+### Dispositions
+
+- The pinned external IPA renderer registry and schema are already on main; the schema blob is identical, and main's renderer registry is substantially expanded (25,779 chars versus the old 5,457-char snapshot).
+- The research branches' external source-registry additions are all subsets of the current 49-entry `data/khmer/sources.json`; a check of 13 source-bearing branches found **zero branch-only source IDs**. Current main includes later Unicode, profile and rights-boundary records.
+- The old MekongPhon hybrid/rule-engine snapshots are superseded by the current larger evidence-gated typed IPA adapter and deterministic engine. The old benchmark scripts are superseded by the current pinned implementation; the test snapshot is byte-identical to main in the checked case, while main has additional duplicate-orthography and missing-reference guards.
+- The older optional benchmark workflow includes a separate raw Khmer Phonemizer run over 100 upstream MekongPhon evaluation rows, creating a source-attested (not independently adjudicated) corpus. It was not ported: this would add an unadjudicated upstream evaluation corpus and a second model run, while current main already has a manually dispatched, pinned neural diagnostic that emits raw output without copying source corpus rows. No accuracy claim or gold promotion is justified; source rights remain a separate gate.
+- The IPA convention draft, Kirby cluster-audio audit, Kirby tonogenesis audit, phonetic literature full-text review and PCGN/UNGEGN research content are present on main as matching blobs where checked.
+- The lexical segmentation audit has since been expanded on main with the exact NOVA guideline semantics (word tokens are generally morpheme-level, while compounds use a separate shallow-bracketing convention); its older generic tokenization caution is superseded.
+- The Unicode 18 Khmer grammar audit is expanded on main to record the implemented packed BNF parse forest and ambiguity/role assignments. The older branch's TODO parser contract is stale. TN #61 v2 remains separately versioned and non-normative.
+- The Sok-Adams audit on main expands the visual table review and explicitly blocks direct rule transfer pending target-profile approval, complete source transcription and rights; the old branch's generic TODO is superseded.
+- LOC word-division evidence on main includes the profile-neutral boundary evidence contract and subsequent Unicode structural parser integration. This does not amount to a lexical segmenter or approved LOC profile.
+
+No research branch-only source ID or accepted runtime behavior was identified for porting. Research branches are preserved unchanged. These are targeted blob/content checks, not a full commit/PR-ancestry review; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**. External gold recruitment, IPA convention approval, independent annotation and rights review remain genuine blockers.
