@@ -3247,3 +3247,8 @@ Ten refs (#357, #359, #362/#363, #366, #367, #378, #389, #390, #392 and #393) we
 Twenty-five retained test branches covering accessibility, grapheme accounting, IPA display, Khmer numeral/romanization, onset fallback and PCGN regressions were compared with main. No missing test-only change was identified. Onset-fallback source/data/tests and IPA display contract are byte-identical; older grapheme/romanization adapters are superseded by current richer code/tests; stale PCGN vowel fixtures and all-row equality assertions are superseded by corrected source values and row-specific comparison semantics. The `ស)-foot and SAMYOK coda tests are already present. Branches remain unchanged.
 
 Exact-main Pages/deploy on `e78da940dbff2a07376f6ae9cb0b4cc4cd8b6603` subsequently passed (run 44558019521); Quality and Chromium on the same SHA also passed. Repository-wide historical branch audit remains **PARTIAL**.
+
+
+### Early romanization and source-registry branch review
+
+Ten older refs (#1997 profile, phonotactics, letter inventory, numerals, onset registry, short-vowel, vowel matrix, whole-message, runtime and test closeouts) were compared. The #1997 branch's 29 source IDs are a strict subset of the current 49-entry registry; no source ID is missing. Old matrices/status notes are superseded by the current 944-line matrix, current national-1997 evidence caveat, and diacritic-preserving direct input. The old phonology snapshot has no unique lines; current main includes the typed IPA-kind contract. No code/test/source change is warranted. Retain refs; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
