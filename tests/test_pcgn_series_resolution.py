@@ -225,3 +225,17 @@ def test_pcgn_ba_triisap_schema_exposes_no_shift_exception_not_a_p_exception():
     assert "BA_WITH_TRIISAP_P_IN_A_SERIES" not in schema["properties"]["onset_exception"]["enum"]
     assert "BA_TRIISAP_P_IN_A" not in schema["properties"]["shifter_effect"]["enum"]
     assert "TRIISAP_NO_SHIFT_BA_EXCEPTION" in schema["properties"]["shifter_effect"]["enum"]
+
+
+def test_pcgn_note3_s_is_a_series_determining_foot_not_an_ungegn_neutral_foot():
+    # PCGN Note 3's weak list is the five nasals plus y/r/l/v; it excludes
+    # ស. With an ô-series base and a ស foot, PCGN therefore takes the foot's
+    # â-series. This is a structural contrast fixture, not an attested lexeme.
+    result = resolve_pcgn_series(analyze_pcgn_orthographic_chunk("គ្ស"))
+
+    assert result.status == "RESOLVED"
+    assert result.series == "â"
+    assert result.series_before_shifter == "â"
+    assert result.basis == "SUBSCRIPT"
+    assert result.onset_exception is None
+    assert result.source_locator == "PCGN 1972, Note 3 (pp. 2–3)"
