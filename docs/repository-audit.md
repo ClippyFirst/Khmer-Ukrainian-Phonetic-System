@@ -3051,3 +3051,8 @@ Correction: an earlier audit note said the current feat/pcgn-anusvara-visarga-sy
 
 
 CI status correction: exact-main Quality 44568314352, Chromium 44568314381 and Pages/build/deploy 44568314462 later all completed SUCCESS on aeb0bfbaabc47d8658527da4c5634fae12e9faec (Quality retry 44568901376 also SUCCESS). The earlier in-progress note above is historical only.
+
+
+### Live branch inventory at PR #451 pre-merge checkpoint
+
+Fresh paginated inventory returned 325 refs / 325 unique names / 325 unique tip SHAs, including 142 docs/* refs. Prefix counts: a11y 2, audit 44, benchmark 1, ci 1, data 4, docs 142, feat 50, fix 24, release 1, research 29, test 26, and one unprefixed ref. One PR (#451) was open at the time. Historical branch coverage remains PARTIAL; this count is not a completion percentage.
