@@ -3244,7 +3244,7 @@ Ten refs (#357, #359, #362/#363, #366, #367, #378, #389, #390, #392 and #393) we
 
 ### Test branch reconciliation
 
-Twenty-five retained test branches covering accessibility, grapheme accounting, IPA display, Khmer numeral/romanization, onset fallback and PCGN regressions were compared with main. No missing test-only change was identified. Onset-fallback source/data/tests and IPA display contract are byte-identical; older grapheme/romanization adapters are superseded by current richer code/tests; stale PCGN vowel fixtures and all-row equality assertions are superseded by corrected source values and row-specific comparison semantics. The `ស`-foot and SAMYOK coda tests are already present. Branches remain unchanged.
+Twenty-six retained test branches covering accessibility, grapheme accounting, IPA display, Khmer numeral/romanization, onset fallback and PCGN regressions were compared with main. No missing test-only change was identified. Onset-fallback source/data/tests and IPA display contract are byte-identical; older grapheme/romanization adapters are superseded by current richer code/tests; stale PCGN vowel fixtures and all-row equality assertions are superseded by corrected source values and row-specific comparison semantics. The `ស`-foot and SAMYOK coda tests are already present. Branches remain unchanged.
 
 Exact-main Pages/deploy on `e78da940dbff2a07376f6ae9cb0b4cc4cd8b6603` subsequently passed (run 44558019521); Quality and Chromium on the same SHA also passed. Repository-wide historical branch audit remains **PARTIAL**.
 
@@ -3359,3 +3359,14 @@ Fifty feature refs were reviewed. The parser/BNF/forest, rejected-span, romaniza
 The browser-side `src/hybrid-engine.js` on the old Pages hybrid-candidate-shell branch is not present on main. No acceptance requirement for this separate UI was found in the canonical execution plan; current main's Python typed hybrid adapter is the supported diagnostic boundary. Classify the prototype **DEFERRED**. Profile-neutral boundary evidence is already integrated but does not segment words.
 
 No feature branch altered; full PR ancestry review remains **PARTIAL**.
+
+### Ancillary branch families and final test-ref count — 2026-11-19
+
+The final test-family inventory contains 26 refs, not 25. The additional `test/ui-accessibility-smoke-2026-11-15` branch changes only `tests/browser/site.spec.js`. Its branch-only check for visibly withheld mixed input is superseded by current main's more specific unsupported-grapheme, neighboring-output preservation, mixed-script ordering and direct-romanization mixed-input tests; current main additionally includes WCAG contrast and keyboard smoke coverage. No test needs porting.
+
+Three remaining singleton refs were also dispositioned:
+- `benchmark/current-engine-2026-11-11` adds a manual benchmark workflow comparing the deterministic engine with upstream MekongPhon and Neurlang source-reported IPA. The report labels results as source-attested concordance, not gold accuracy. The canonical plan explicitly defers this benchmark pending independent adjudication and source/rights review; do not import the workflow as a release gate.
+- `ci/khmer-g2p-smoke-2026-10-24` is an older optional G2P workflow snapshot. Current main has the later pinned manual benchmark workflow and separate optional Khmer Phonemizer raw-output workflow.
+- `release/deterministic-rule-engine-2026-11-11` is an older rule-engine release snapshot. Current main has a substantially expanded deterministic engine, typed IPA/uncertainty boundary, tests and documentation; no unique release implementation needs porting.
+
+The browser-side hybrid candidate shell remains DEFERRED as noted above. These dispositions do not close external gold, licensing, IPA-convention or lexical segmentation blockers.
