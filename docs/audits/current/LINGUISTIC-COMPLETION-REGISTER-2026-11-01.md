@@ -3334,3 +3334,12 @@ PR #451's feature audit correction is retained: the old PCGN syllable assembly f
 ### Final sampled audit refs
 
 Thirteen further audit refs contain only canonical documentation changes. Twelve have zero unique handoff lines; the selected historical snapshot's two unique lines are obsolete inventory/PR-count metadata. The optional Khmer Phonemizer workflow in the restore branch is already byte-identical on main (blob SHA `a89a848d66810225bbcc2cc5c9143b94304a680d`). No branch-only implementation should be ported. Exact-main CI for PR #451's merge SHA was pending at documentation time. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+## Research branch disposition
+
+All 29 research refs were included in a targeted changed-path review. The checked source-registry snapshots add no IDs absent from current main's 49-entry registry. The external renderer schema is identical and the current main registry is substantially expanded. Old MekongPhon hybrid and benchmark code is superseded by the current typed, evidence-gated adapter and pinned diagnostic harness; the old workflow's additional raw-output run over 100 upstream source-attested rows was not imported because those rows are not independently adjudicated gold and corpus rights remain unverified.
+
+IPA convention draft, Kirby audio audits, literature review and PCGN/UNGEGN research notes are present on main where checked. Lexical segmentation, Unicode grammar, Sok-Adams and LOC documents are more complete on main than the historical snapshots. Their old TODOs are superseded, but the actual blockers (IPA gold, expert convention approval, licensed lexical evidence and segmentation annotation) remain open.
+
+No unique accepted implementation was found to port. Branches preserved. Full commit/PR ancestry review remains **PARTIAL**.
