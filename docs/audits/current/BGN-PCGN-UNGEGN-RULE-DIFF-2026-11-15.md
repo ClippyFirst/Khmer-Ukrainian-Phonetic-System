@@ -84,7 +84,7 @@ Those behaviors must remain separate from the standards-backed table. For this p
 |---|---|---|
 | Pin and inspect the PCGN guide and UNGEGN report | DONE_VERIFIED (this review) | Exact primary URLs and note/table locators above. |
 | Identify the PCGN vs UNGEGN series-neutral subscript delta | DONE_VERIFIED (textual comparison) | PCGN note 3 vs UNGEGN note 3; explicit difference is inclusion of ស in UNGEGN neutral list. |
-| Reconcile every PCGN vowel/nucleus row against the candidate table | PARTIAL | Machine-readable row-by-row diff with exact Khmer glyphs and values; no unresolved OCR/font ambiguities. |
+| Reconcile every PCGN vowel/nucleus row against the candidate table | DONE_VERIFIED | `data/khmer/pcgn_ungegn_vowel_profile_comparison.csv` compares all PCGN normal dependent, independent, shortened, and anusvara/visarga rows against the pinned UNGEGN candidate; differences and candidate-only extensions are explicit. This is profile reconciliation, not candidate adoption. |
 | Verify all shifter and ប exceptions by exact code point and PCGN example | DONE_VERIFIED | Exact-code-point regression plus Note 2/3 tests cover U+17C9/U+17CA, both shift directions, BA/BAa TRIISAP and MUUSIKATOAN exceptions, BA/BAa with a foot, omitted-mark uncertainty, and the series-to-dependent-vowel integration. |
 
 Implementation note (2026-11-18): the bounded series resolver now emits an explicit warning when no shifter is encoded: PCGN Note 2 says Khmer diacritics are frequently omitted and directs users to consult a reference source when the series is uncertain. This warning does not infer a missing mark or change the graphemic series result; the complete source-context and lexical uncertainty task remains PARTIAL.
@@ -135,3 +135,17 @@ This resolves the project-owned dependent-vowel table's row-by-row source transc
 ## PCGN dependent-vowel source-row correction and Note 5 SAMYOK coverage — 2026-11-19
 
 PR #414 corrected the project-owned dependent-vowel table against the official PCGN 1972 PDF: row 3 `ិ` is `ĕ/ĭ` (â/ô); row 16 `េ+ា` is `aô/oŭ`; row 17 `េ+ៅ` is `au/ŏu`. The CSV registry `data/khmer/romanization_pcgn_dependent_vowels.csv` now records all 16 normal dependent-vowel patterns (rows 2–17), and a regression checks exact registry/runtime parity. PR #416 adds Note 5 SAMYOK SANNYA structural tests for all coda classes (k/ng/h/other) in both series, preserving the source's coda-conditioned ô-series outcomes. Exact-main SHA `a179384510377a1aa3ca6f142aca62750cbe7531`: Quality 441 tests + 70 subtests SUCCESS, Chromium 21/21 SUCCESS, Pages deployment and runtime-asset smoke SUCCESS. These changes are PCGN orthographic romanization only, not IPA or Ukrainian output. The full external UNGEGN-candidate semantic comparison remains PARTIAL; contextual PCGN segmentation remains TODO.
+
+
+## Complete PCGN vowel/nucleus row comparison with the pinned UNGEGN candidate — 2026-11-19
+
+The row-by-row comparison is now recorded in `data/khmer/pcgn_ungegn_vowel_profile_comparison.csv` and guarded by `tests/test_pcgn_ungegn_vowel_profile_comparison.py`. It compares the PCGN table's 17 normal dependent/inherent rows, 12 independent-vowel entries, three shortened patterns, and eight anusvara/visarga rows against the pinned candidate's `_UNGEGN_NUCLEI` and `_UNGEGN_INDEPENDENT` mappings at `pheasaKhmer/khmer-engine@31b72cd4665f69678fc835da2f501771e42f097a`.
+
+Findings:
+
+- All 17 normal dependent/inherent values and all eight anusvara/visarga table rows match after the project-owned PCGN source corrections in PR #414.
+- Eleven of twelve PCGN independent-vowel entries have the same listed value. For `ឧ`, PCGN Note 9 preserves `ŏ` or `ŭ`; the candidate selects `ŏ` as a default and therefore collapses the alternative.
+- The three shortened patterns have the same core values, but the candidate's ô-series coda set additionally includes `kh`; PCGN Note 5 lists only `k`, `ng`, and `h` for the `eă` condition.
+- Candidate-only extensions are separately recorded: independent letters `ឣ`, `ឤ`, `ឨ`, `ឩ`; SAMYOK-before-final-Y; YUUKALEAPINTU; a fallback for unlisted NIKAHIT/REAHMUK combinations; and the extra `kh` coda branch.
+
+This completes the *comparison* acceptance criterion, not implementation adoption. The candidate remains an UNGEGN 2013 engine and is not a drop-in PCGN implementation. Its syllable-boundary heuristics, series-neutral `ស`, candidate-only nucleus extensions and lexical segmentation remain unadopted. The selected runtime remains BGN/PCGN 1972. Primary PCGN source: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf. Candidate source is pinned above; this audit does not treat its output as IPA or lexical gold.
