@@ -3225,3 +3225,8 @@ Ten retained PCGN documentation refs were compared with current main. Their chan
 The current PCGN resolver was checked directly: `PCGN_WEAK_SUBSCRIPTS` excludes `ស`, and the structural `គ្ស` regression records the PCGN-specific series-determining foot behavior. The exact PCGN row-7 sequence remains `េ+ា+ះ`; the UNGEGN candidate's distinct key is not interchangeable. No runtime changes were needed.
 
 PR #443 is merged as `f9a3dd7fdc813fbf5de8c0e674256c9a6a43ac05`. Its PR-head Quality and browser checks passed; exact-main Quality and Pages passed, while exact-main Chromium was still in progress at the time of this update. Inventory: 317 refs / 317 unique names / 317 unique tips / 139 `docs/*` refs. The full historical branch audit remains **PARTIAL**; no linguistic gold, license or external rights status changed.
+
+
+### Post-merge documentation branch family (#206–#259)
+
+Twenty-nine historical refs in the `docs/post-pr*` family were compared with current main. Changed paths are canonical documentation plus older snapshots of `docs/romanization-to-ukrainian-matrix.md`; no implementation or test files differ. The old matrices are line-subsets of current main apart from superseded status notes: a pre-Note-2 implementation statement on #215 and a stale in-progress CI note on #223. No unique mapping or source-backed rule was found to port. Retain all branches unchanged. This is targeted compare/content evidence only; repository-wide branch/PR ancestry audit remains **PARTIAL**.
