@@ -32,8 +32,8 @@ def test_pcgn_anusvara_visarga_table_rows_are_series_conditioned():
         ("គុះ", "ŭh", 5, "ô", None),
         ("កេះ", "éh", 6, "â", None),
         ("គេះ", "éh", 6, "ô", None),
-        ("កោះ", "aôh", 7, "â", None),
-        ("គោះ", "ŏăh", 7, "ô", None),
+        ("កេាះ", "aôh", 7, "â", None),
+        ("គេាះ", "ŏăh", 7, "ô", None),
         ("កាំង", "ăng", 8, "â", "ង"),
         ("គាំង", "eăng", 8, "ô", "ង"),
     )
@@ -44,6 +44,8 @@ def test_pcgn_anusvara_visarga_table_rows_are_series_conditioned():
         assert result.source_table_row == row, source
         assert result.series == series, source
         assert result.coda_character == coda, source
+        if row == 7:
+            assert result.source_components == ("េ", "ា", "ះ")
         assert result.ipa is None
         assert result.ukrainian is None
 
@@ -62,7 +64,7 @@ def test_pcgn_anusvara_visarga_requires_matching_onset_and_rejects_unlisted_patt
     assert result.status == "UNRESOLVED"
     assert result.romanization is None
 
-    for source in ("កាំះ", "កេាះ", "កំង", "កុះ់", "កា"):
+    for source in ("កាំះ", "កោះ", "កំង", "កុះ់", "កា"):
         result = resolve(source)
         assert result.status == "UNRESOLVED", source
         assert result.romanization is None
@@ -80,6 +82,11 @@ def test_pcgn_anusvara_visarga_schema_and_csv_match_the_eight_source_rows():
     assert schema["properties"]["ipa"]["type"] == "null"
     assert schema["properties"]["ukrainian"]["type"] == "null"
     assert schema["properties"]["source_locator"]["const"] == PCGN_ANUSVARA_VISARGA_TABLE_LOCATOR
+    assert any(
+        rule.get("if", {}).get("properties", {}).get("source_table_row", {}).get("const") == 7
+        and rule.get("then", {}).get("properties", {}).get("source_components", {}).get("const") == ["េ", "ា", "ះ"]
+        for rule in schema["allOf"]
+    )
 
     with (root / "data/khmer/romanization_pcgn_anusvara_visarga.csv").open(
         encoding="utf-8", newline=""

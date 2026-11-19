@@ -41,7 +41,13 @@ def test_pcgn_vowel_rows_are_reconciled_against_the_pinned_ungegn_candidate():
     )
 
     assert len(by_type["PCGN_ANUSVARA_VISARGA"]) == 8
-    assert all(row["comparison"] == "MATCH" for row in by_type["PCGN_ANUSVARA_VISARGA"])
+    assert sum(row["comparison"] == "MATCH" for row in by_type["PCGN_ANUSVARA_VISARGA"]) == 7
+    anusvara_row_7 = next(
+        row for row in by_type["PCGN_ANUSVARA_VISARGA"] if row["pcgn_table_row"] == "7"
+    )
+    assert anusvara_row_7["pcgn_source_pattern"] == "េ+ា+ះ"
+    assert anusvara_row_7["candidate_key"] == "ោះ"
+    assert anusvara_row_7["comparison"] == "VALUE_MATCH_KEY_SHAPE_DIFFERS"
     candidate_only = [row for row in rows if row["comparison"] == "CANDIDATE_ONLY"]
     assert len(candidate_only) == 8
     assert {row["record_type"] for row in candidate_only} == {

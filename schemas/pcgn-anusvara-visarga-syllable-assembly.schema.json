@@ -114,5 +114,30 @@
         "type": "string"
       }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "source_table_row": {
+            "const": 7
+          }
+        },
+        "required": [
+          "source_table_row"
+        ]
+      },
+      "then": {
+        "properties": {
+          "source_components": {
+            "const": [
+              "េ",
+              "ា",
+              "ះ"
+            ]
+          }
+        }
+      }
+    }
+  ]
 }
