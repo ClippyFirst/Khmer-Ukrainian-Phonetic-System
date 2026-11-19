@@ -3235,3 +3235,8 @@ Twenty-nine historical refs in the `docs/post-pr*` family were compared with cur
 ## Post-merge documentation branch review — #294–#355
 
 Ten refs (#294, #300, #314, #316, #319, #353, #322, #334, #336 and #355) were compared with current main. All diffs are documentation-only. The #294 Unicode grammar/TN #61 checkpoint is superseded by current parser and rights-scoped metadata records. The #353 benchmark note's 29,204-entry/native-validated/CC BY-SA statement is contradicted by the pinned source audit (29,204 vs 33,091, conflicting license scopes, six-line public sample, no full artifact) and must not be reintroduced. Other closeout refs contain older status/CI snapshots only. No runtime, test, IPA, Ukrainian or corpus change is warranted. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+### PR closeout documentation refs (#357–#393)
+
+Ten refs (#357, #359, #362/#363, #366, #367, #378, #389, #390, #392 and #393) were compared. Only canonical docs differ; all handoff content is already present in current main (zero branch-only lines). No code, test or source evidence needs porting. Retain branches; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
