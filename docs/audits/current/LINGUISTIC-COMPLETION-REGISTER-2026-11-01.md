@@ -3370,3 +3370,12 @@ Three remaining singleton refs were also dispositioned:
 - `release/deterministic-rule-engine-2026-11-11` is an older rule-engine release snapshot. Current main has a substantially expanded deterministic engine, typed IPA/uncertainty boundary, tests and documentation; no unique release implementation needs porting.
 
 The browser-side hybrid candidate shell remains DEFERRED as noted above. These dispositions do not close external gold, licensing, IPA-convention or lexical segmentation blockers.
+
+
+## Fix/test and singleton branch disposition
+
+Twenty-four fix refs were compared by changed path; current main contains the later typed IPA, Unicode parser/rejection, mixed-script and PCGN implementations. Stale PCGN snapshots must not be ported: incorrect O-series values for dependent rows 16/17, the old two-component row-7 key, and BA+TRIISAP p-in-â are superseded by the exact PCGN source sequence and Note 2/3 distinction.
+
+The test family contains 26 refs. The last accessibility smoke branch's mixed-input withholding check is superseded by current main's more specific unsupported-grapheme, partial-result and mixed-script browser tests, plus keyboard/contrast smoke coverage.
+
+The benchmark workflow against MekongPhon/Neurlang is a source-attested concordance diagnostic, not gold accuracy, and remains DEFERRED pending independent gold and rights. The old optional G2P workflow and deterministic engine release snapshot are superseded by current main. Historical branches retained; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
