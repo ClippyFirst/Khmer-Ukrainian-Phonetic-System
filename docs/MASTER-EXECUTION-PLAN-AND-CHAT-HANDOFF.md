@@ -5297,3 +5297,12 @@ Specific dispositions:
 All historical test refs are retained unchanged. These targeted comparisons establish no missing tests in this sample; they do not complete full commit/PR ancestry reconciliation of all branches. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
 
 Correction to the earlier time-bounded status: Pages/deploy run [44558019521](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44558019521) subsequently completed **SUCCESS** on exact main SHA `e78da940dbff2a07376f6ae9cb0b4cc4cd8b6603`. Quality [44558019475] and Chromium [44558019636] on that same SHA were already confirmed **SUCCESS**.
+
+
+### Early romanization/source-registry documentation refs — 2026-11-19
+
+Ten further refs were compared: `docs/khmer-1997-profile-evidence-reconciliation-2026-11-12`, `docs/phonotactic-research-closeout-2026-11-15`, `docs/khmer-letter-inventory-handoff-2026-11-12`, `docs/khmer-numeral-crosswalk-closeout-2026-11-12`, `docs/khmer-onset-registry-mainline-closeout-2026-11-17`, `docs/khmer-short-vowel-sequence-test-closeout-2026-11-12`, `docs/khmer-vowel-matrix-crosswalk-closeout-2026-11-12`, `docs/khmer-whole-message-adapter-closeout-2026-11-12`, `docs/khmer-romanization-runtime-postmerge-2026-11-12`, and `docs/khmer-romanization-test-closeout-2026-11-12`.
+
+All changes are documentation, except two historical source-registry snapshots. A structural comparison of `data/khmer/sources.json` found 29 source IDs on the #1997 profile branch and **zero IDs absent from current main**; current main has 49 entries, including later Unicode 18, phonetic-source and rights-scope updates. The older romanization matrices (192–248 lines in these refs) are superseded by the 944-line current matrix. Their old claims that the national 1997 profile was merely unlocated or that the adapter handled only ASCII are superseded by the current 2023 provisional Gazetteer evidence boundary and diacritic-preserving direct BGN/PCGN input contract. The old `docs/phonology.md` snapshot has no branch-only lines; current main adds the typed IPA-kind contract. The onset-registry and letter-inventory refs add no unique source IDs or implementation.
+
+No branch-only source ID, runtime rule, test or evidence needs porting. Retain all refs unchanged. This is targeted content/source-ID reconciliation, not full ancestry review; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
