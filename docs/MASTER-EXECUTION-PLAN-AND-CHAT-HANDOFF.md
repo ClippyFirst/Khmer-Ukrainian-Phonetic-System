@@ -5334,3 +5334,8 @@ A final data-level check of the PCGN candidate-parity test branches confirmed th
 Ten additional refs were compared: `docs/correct-main-quality-count-2026-11-16`, `docs/current-main-branch-inventory-2026-11-16`, `docs/exact-main-369e0-ci-complete-2026-11-19`, `docs/exact-main-checkpoint-2026-11-16-evening`, `docs/exact-main-research-register-2026-11-16`, `docs/extend-docs-branch-semantic-spot-audit-2026-11-19`, `docs/extend-historical-docs-spot-audit-2026-11-19`, `docs/final-2026-11-19-mainline-ci-and-branch-status`, `docs/final-mainline-checkpoint-1cc833a-2026-11-15`, and `docs/final-mainline-checkpoint-2026-11-15`.
 
 All ten diffs are limited to the canonical handoff, repository audit and/or linguistic completion register. A line-level comparison found **zero branch-only lines** in each handoff snapshot: all content is already present in current main. Their inventory counts, workflow states and checkpoint SHAs are historical point-in-time records and must not be used as current status. No code, source, test or evidence change is unique to these refs. Retain all refs unchanged; this remains targeted content review, not full PR/commit ancestry reconciliation. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+### Live inventory after the current audit batch — 2026-11-19
+
+Fresh paginated GitHub inventory: **319 branch refs, 319 unique names, 319 unique tip SHAs; 141 refs use the `docs/*` prefix**. Exactly one PR is open: #445, which carries this documentation-only audit batch. No branches were deleted, rewritten or force-updated. The count is a live inventory, not a completion percentage; `KHM-BRANCH-AUDIT-001` remains **PARTIAL** because not all historical refs have had full semantic and PR/commit-ancestry reconciliation.
