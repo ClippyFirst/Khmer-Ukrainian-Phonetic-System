@@ -2988,3 +2988,10 @@ Ten refs (#correct-main-quality-count, #current-main-branch-inventory, #exact-ma
 
 
 Fresh live inventory: 319 refs / 319 unique names / 319 unique tip SHAs, including 141 `docs/*` refs. One open PR (#445) contains this documentation-only audit batch. No branches were deleted or rewritten. The full historical audit remains **PARTIAL**.
+
+
+## Audit branch and PCGN comparison reconciliation
+
+Nine audit refs (non-PCGN fix semantic review; complete feature/test, fix/release, research family reviews; audit/data/feature/test/research PR-ancestry reviews) were compared at all three canonical docs. Each had zero branch-only lines versus current main; no content needs porting. Their ancestry claims are not independently validated by this content check.
+
+The retained `audit/pcgn-ungegn-vowel-row-reconciliation-2026-11-19` branch is 3 ahead / 21 behind main and carries a stale CSV/test snapshot. It labels PCGN anusvara/visarga row 7 as `MATCH`; current main correctly uses `VALUE_MATCH_KEY_SHAPE_DIFFERS` for PCGN `េ+ា+ះ` versus candidate `ោះ`, retaining value match without asserting source-shape equivalence. Current main's test is larger (127 vs 57 lines) and asserts the structural distinction plus parity with project-owned PCGN source registries. No port is appropriate. Branches remain unchanged; full historical branch/PR ancestry audit remains **PARTIAL**.
