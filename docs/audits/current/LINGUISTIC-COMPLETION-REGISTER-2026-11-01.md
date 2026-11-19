@@ -3252,3 +3252,8 @@ Exact-main Pages/deploy on `e78da940dbff2a07376f6ae9cb0b4cc4cd8b6603` subsequent
 ### Early romanization and source-registry branch review
 
 Ten older refs (#1997 profile, phonotactics, letter inventory, numerals, onset registry, short-vowel, vowel matrix, whole-message, runtime and test closeouts) were compared. The #1997 branch's 29 source IDs are a strict subset of the current 49-entry registry; no source ID is missing. Old matrices/status notes are superseded by the current 944-line matrix, current national-1997 evidence caveat, and diacritic-preserving direct input. The old phonology snapshot has no unique lines; current main includes the typed IPA-kind contract. No code/test/source change is warranted. Retain refs; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+### PCGN assembly/direct-input branch sample
+
+Ten refs covering alif assembly, closed syllables, Note 5, independent vowels, shifter uncertainty/registry, shortened marks, inventory, direct romanization input and fallback parity were compared. All are documentation-only. Four near-current matrix snapshots (888–932 lines) are strict subsets of current main; older matrix statements are superseded by current mark inventory and direct-input contract. No unique implementation or source evidence was found. Retain refs; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
