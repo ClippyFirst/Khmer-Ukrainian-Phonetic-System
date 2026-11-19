@@ -4825,3 +4825,15 @@ Verification:
 - Exact-main Pages/deployed-site [44407714752](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407714752) — SUCCESS.
 
 Task ledger: BA+AA exception regression coverage — DONE_VERIFIED. Full contextual Khmer-script → PCGN engine and syllable-boundary inference remain TODO/PARTIAL pending complete source-row reconciliation and human-reviewed ambiguity cases. IPA convention remains DRAFT_NOT_APPROVED; independent adjudicated gold = 0; empirical accuracy = null. Issue #104 pilot and root license remain BLOCKED on external personnel/rights and owner decision. Manual accessibility and historical semantic review remain PARTIAL; external benchmark integration remains DEFERRED. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
+
+
+## PR #402 — canonical closeout for PR #401 documentation — 2026-11-19
+
+PR [#402](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/402) merged by squash as `92011a62d150917dfc12193471b3fe994212e563` (base `3bbf3f45afb83faf0335dd2f91f869b85f00c5d5`; PR head `d18171b5fb3daa711d5bb699db4ec98d5cc2c26d`). It synchronizes this handoff, the repository audit and the linguistic completion register with PR #401's BA+AA regression coverage. Documentation only; no runtime, test, corpus, IPA, Ukrainian mapping, source-rights or benchmark data changed.
+
+Exact merged-main verification on `92011a62d150917dfc12193471b3fe994212e563`:
+- Quality [44478963929](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44478963929) — SUCCESS: 437 Python tests + 70 subtests; expected corpus status `NOT_READY_NO_ADJUDICATED_GOLD`; Node/web checks and production build passed.
+- Khmer browser smoke [44478963989](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44478963989) — SUCCESS: 21/21 Playwright tests.
+- GitHub Pages [44478963941](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44478963941) — SUCCESS: production build, Chromium exercise, deployment and deployed runtime-asset smoke.
+
+No local checkout or local test execution is claimed; all checks above are hosted GitHub Actions on the exact merged main SHA. Task ledger remains: BA+AA exception regression coverage — DONE_VERIFIED; full contextual PCGN engine and syllable-boundary inference — TODO/PARTIAL; IPA convention DRAFT_NOT_APPROVED and independent gold = 0 (accuracy = null); Issue #104 pilot and root repository license — BLOCKED; manual accessibility and historical semantic review — PARTIAL; external benchmark integration — DEFERRED. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.

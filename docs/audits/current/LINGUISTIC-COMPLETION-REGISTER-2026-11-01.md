@@ -2802,3 +2802,15 @@ Merged as `3bbf3f45afb83faf0335dd2f91f869b85f00c5d5` (PR head `0cf4e3a21bc121b46
 Verification: push Quality [44407401573](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407401573), PR-head Quality [44407541894](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407541894), PR Chromium [44407541887](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407541887), exact-main Quality [44407714461](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407714461) and [44407773406](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407773406), Chromium [44407714501](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407714501), Pages [44407714752](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407714752): all SUCCESS. Quality: 437 tests + 70 subtests; Chromium: 21/21. Gold gate correctly remains not ready.
 
 Classification: BA+AA exception test coverage — DONE_VERIFIED. Full PCGN engine/boundary inference remains TODO/PARTIAL; IPA convention DRAFT_NOT_APPROVED, independent gold 0, empirical accuracy null; pilot and root license BLOCKED; manual accessibility/history audit PARTIAL; benchmark DEFERRED. Research-ready partial prototype, not release-ready.
+
+
+## PR #402 — post-merge closeout evidence — 2026-11-19
+
+PR [#402](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/402) merged as `92011a62d150917dfc12193471b3fe994212e563` (head `d18171b5fb3daa711d5bb699db4ec98d5cc2c26d`). This documentation-only PR recorded PR #401's two BA+AA exception regressions in the canonical handoff, audit and this register.
+
+Exact-main CI on `92011a62d150917dfc12193471b3fe994212e563`:
+- Quality [44478963929](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44478963929) — SUCCESS: 437 Python tests + 70 subtests, expected `NOT_READY_NO_ADJUDICATED_GOLD`, Node/web checks and production build.
+- Chromium [44478963989](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44478963989) — SUCCESS: 21/21.
+- Pages/deployed-site [44478963941](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44478963941) — SUCCESS: build, browser exercise, deploy and runtime-asset smoke.
+
+Classification: PR #401 BA+AA exception regression tests and PR #402 canonical documentation closeout — DONE_VERIFIED. This does not complete the contextual PCGN engine or syllable-boundary inference (TODO/PARTIAL), approve the IPA convention, create independent gold (0; accuracy null), clear Issue #104/root-license blockers, or complete manual accessibility/history review. External benchmark integration remains DEFERRED. Repository remains a research-ready partial prototype, not release-ready. No local tests are claimed; verification is hosted CI on exact main.
