@@ -2967,3 +2967,8 @@ Exact-main Pages run 44558019521 later completed SUCCESS on `e78da940dbff2a07376
 ### Early romanization/source-registry documentation refs
 
 Compared ten refs (#1997 profile, phonotactic closeout, letter inventory, numeral crosswalk, onset registry, short-vowel sequence, vowel matrix, whole-message adapter, romanization runtime and test closeouts). Two refs alter the historical source registry; the #1997 branch's 29 IDs are all present in current main's 49-entry registry (zero branch-only IDs). Its old matrix/status claims are superseded by current 2023 provisional Gazetteer evidence and the direct diacritic-preserving BGN/PCGN input contract. The old 192–248-line matrices are superseded by the current 944-line matrix. The old phonology doc has no branch-only lines; main adds the typed IPA-kind contract. No unique source ID, code or test needs porting. Retain branches unchanged; full ancestry audit remains **PARTIAL**.
+
+
+### PCGN assembly/direct-input documentation refs
+
+Compared ten refs (#alif assembly, closed assembly, Note 5, independent-vowel assembly, omitted shifter, shifter registry, shortened mark, branch inventory, direct romanization input and fallback parity). All changes are canonical docs and older matrix snapshots. The four recent assembly matrices (888–932 lines) and shortened-mark matrix are strict line subsets of current main. The older direct-input matrix contains only two superseded statements about mark inventory/status; current main has explicit BANTOC/SAMYOK and direct diacritic-preserving input. No unique mapping, code or test needs porting. Retain all branches; full audit remains **PARTIAL**.
