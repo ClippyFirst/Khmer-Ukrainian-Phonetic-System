@@ -2934,3 +2934,10 @@ Ten PCGN documentation refs were compared with current main. All ten diffs were 
 Current implementation was inspected directly: `PCGN_WEAK_SUBSCRIPTS` excludes `ស`, and the existing structural regression establishes the PCGN series-determining behavior. No runtime change was justified. Retain the historical refs unchanged.
 
 Inventory: 317 branch refs, 317 unique names/tips, 139 `docs/*` refs. No open PRs. This remains a targeted sample; `KHM-BRANCH-AUDIT-001` is still **PARTIAL**, not complete.
+
+
+### Historical post-merge documentation branches (#206–#259)
+
+Compared 29 retained `docs/post-pr*` refs (#206, #209, #211, #213, #215, #217, #218, #219, #220, #221, #222, #223, #224, #226, #228, #230, #231, #233, #235, #237, #239, #241, #243, #245, #247, #250, #252, #255, #256 and #259) against current main. Their diffs touch only the three canonical status documents and, except for #206, an older romanization matrix snapshot. No source-code or test changes are unique to these refs.
+
+The old matrices (334–841 lines) are superseded by the 541-line current matrix; inspected rows/lines are already present in current main. The only non-subset statements are historical: #215's Note 2 “not implemented” status predates the current resolver, and #223's “workflows running” note is stale CI metadata. Neither requires a port. All branches remain untouched. Full historical branch/ancestry audit remains **PARTIAL**.
