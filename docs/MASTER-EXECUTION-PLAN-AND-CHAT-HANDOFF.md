@@ -5552,3 +5552,12 @@ The three audit snapshot branches `audit/reconcile-feature-branch-snapshots-2026
 The `benchmark/current-engine-2026-11-11` branch contains a unique manual concordance workflow, but its output is source-attested upstream agreement, not independent gold accuracy. It remains DEFERRED pending independent adjudication and source-rights review, as recorded in the existing benchmark gate. The older `ci/khmer-g2p-smoke-2026-10-24` workflow is superseded by the current optional pinned workflow and manual diagnostic. No workflow or external corpus was added.
 
 All historical refs are retained. These are targeted branch/content checks, not complete ancestry reconciliation; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+## Exact-main verification and live inventory after PR #458 — 2026-11-19
+
+PR #458 merged by squash as `c4286ccd425627ef0771f87d0a38f594b7335074`. All exact-main checks on that SHA completed successfully: Quality [44602000654], Chromium [44602000538], and Pages build/deploy [44602000536]. PR #458 exact head `dc1356e8ab44674c3db398467a746c03c8e60066` passed both Quality checks and Chromium. No PR remains open at this checkpoint.
+
+A fresh paginated branch inventory returned **332 refs, 332 unique names and 332 unique tip SHAs**. Prefix counts: `docs/*` 149, `audit/*` 44, `feat/*` 50, `research/*` 29, `test/*` 26, `fix/*` 24, `data/*` 4, `a11y/*` 2, plus one each under `benchmark/*`, `ci/*`, `release/*`, and one unprefixed `main`. All historical branches remain preserved; no branch deletion, rewrite or force-push occurred.
+
+The feature, research, fix, test, data and singleton families have targeted changed-path/content dispositions already recorded above. This count refresh does not turn those targeted reviews into a full commit/PR ancestry audit. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.

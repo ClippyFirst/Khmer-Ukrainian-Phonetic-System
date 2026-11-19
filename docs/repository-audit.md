@@ -3139,3 +3139,10 @@ The positional-onset registry branch and the PCGN independent-vowel source-regis
 Do not merge `audit/pcgn-ungegn-vowel-row-reconciliation-2026-11-19`: it is stale. It marks PCGN anusvara/visarga row 7 as a full match and requires all eight rows to match, whereas current main preserves the source-sequence difference (`េ+ា+ះ` vs candidate key `ោះ`) as `VALUE_MATCH_KEY_SHAPE_DIFFERS`, and tests parity against project-owned source registries. Current main also preserves the Note 3 `ស`-foot delta.
 
 Feature/fix/research audit snapshot branches contain no unique handoff lines. The unique manual benchmark workflow remains DEFERRED because source-attested concordance is not independent gold accuracy; the older optional G2P workflow is superseded by the current pinned workflow. No source, code or test port is warranted. Historical refs retained; full ancestry audit remains **PARTIAL**.
+
+
+## Exact-main and branch inventory checkpoint — PR #458
+
+PR #458 merged as `c4286ccd425627ef0771f87d0a38f594b7335074`. Exact-main Quality (44602000654), Chromium (44602000538) and Pages build/deploy (44602000536) all passed. The PR head passed both Quality checks and Chromium. No open PR remains at this checkpoint.
+
+The paginated inventory now contains 332 refs, 332 unique names and 332 unique tip SHAs: 149 docs, 44 audit, 50 feature, 29 research, 26 test, 24 fix, 4 data, 2 accessibility, and one each benchmark, CI, release and unprefixed main. All historical refs retained. The count update does not close full historical commit/PR ancestry review; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.

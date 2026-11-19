@@ -3388,3 +3388,10 @@ Positional-onset registry, schema and tests are byte-identical to main; 33 speci
 The PCGN/UNGEGN audit branch is stale: it incorrectly treats anusvara/visarga row 7 as a full match and requires all eight rows to match. Current main correctly marks the distinct PCGN sequence `េ+ា+ះ` vs candidate key `ោះ` as `VALUE_MATCH_KEY_SHAPE_DIFFERS`, and adds source-registry parity tests plus the PCGN `ស`-foot distinction. Do not port stale files.
 
 Feature/fix/research audit snapshots contain no branch-only handoff content. The unique current-engine benchmark workflow is DEFERRED pending independent gold/rights; the older G2P smoke workflow is superseded. All refs retained. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+## PR #458 exact-main CI and live branch count
+
+PR #458 merge SHA `c4286ccd425627ef0771f87d0a38f594b7335074` passed exact-main Quality (44602000654), Chromium (44602000538) and Pages/deploy (44602000536). Its PR head also passed Quality and Chromium; no open PR remained.
+
+Live branch inventory: 332 refs, 332 unique names and tips — 149 docs, 44 audit, 50 feature, 29 research, 26 test, 24 fix, 4 data, 2 accessibility and four singleton/unprefixed refs. No historical branches were deleted or rewritten. `KHM-BRANCH-AUDIT-001` remains **PARTIAL** because full commit/PR ancestry review is not complete.
