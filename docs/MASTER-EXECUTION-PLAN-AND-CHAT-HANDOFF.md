@@ -5489,3 +5489,31 @@ Targeted comparisons covered all four retained `data/*` refs and the current PCG
 - `fix/pcgn-shifter-registry-codepoint-alignment-2026-11-18` also has old dependent-vowel values and the old row-7 key. The shortened-mark inventory and TN #61 source metadata blobs match main.
 
 No code/data/test patch from these refs is missing from current main. All refs remain untouched. This is targeted blob/content evidence, not full branch/PR ancestry reconciliation; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+## Feature-branch family reconciliation — 2026-11-19
+
+A changed-path review covered all **50 retained `feat/*` refs**, including the Unicode 18 parser/parse-forest work, rejected-span diagnostics, direct BGN/PCGN input, coverage dashboard, external G2P diagnostics, IPA renderer fallback, practical Ukrainian adapter/matrix, typed IPA validation/hybrid bridge, profile-neutral word-boundary interface, and the PCGN component/note/syllable-assembly branches.
+
+### Current-main dispositions
+
+- Parser/scanner/BNF/packed-forest/rejected-span branches are earlier implementations. Current main contains the Unicode 18 BNF parser, packed grammar-role alternatives, exact offsets, reconstruction, typed rejections and Python/browser parity. The old linear or partial parser snapshots are not port candidates.
+- Direct romanization, Ukrainian matrix and practical adapter snapshots are older than current main's diacritic-preserving direct-input and practical IPA-to-Ukrainian contracts. Current tests and data matrices are more complete.
+- Typed IPA candidate validation and hybrid bridge snapshots predate the current explicit tie-bar-following-segment validation and evidence-gated typed candidate adapter. The current deterministic rule engine remains the only final-output authority; external results remain diagnostics.
+- Coverage report/dashboard and renderer registry snapshots are superseded by current main's internal/public coverage reports, build-time dashboard integration and expanded renderer registry. The checked coverage JSON is byte-identical; main's coverage script includes additional public-report/drift behavior.
+- PCGN component, vowel, note and syllable-assembly branches are historical slices of the now-integrated resolver. Current main has broader schemas, source registries, structural assembly contracts and regression coverage. Several old snapshots encode the superseded BA+TRIISAP p-in-â exception and/or pre-correction dependent-vowel values and row-7 key. Do not port those old rules.
+- The old `feat/github-pages-hybrid-candidate-shell` uniquely contains `src/hybrid-engine.js`, which is absent from main. The current main has a different Python typed hybrid adapter, and the canonical execution plan does not specify this separate browser-side candidate shell as an acceptance task. It is therefore **DEFERRED** as an unadopted prototype, not silently imported into the Pages runtime.
+- The profile-neutral boundary-evidence feature is already represented in main and remains a data contract, not a lexical word segmenter.
+
+No feature branch was merged or rewritten during this review. No unique accepted rule, source row or test gap was identified for porting. This is changed-path/blob reconciliation, not full PR ancestry review. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+### Ancillary branch families and final test-ref count — 2026-11-19
+
+The final test-family inventory contains 26 refs, not 25. The additional `test/ui-accessibility-smoke-2026-11-15` branch changes only `tests/browser/site.spec.js`. Its branch-only check for visibly withheld mixed input is superseded by current main's more specific unsupported-grapheme, neighboring-output preservation, mixed-script ordering and direct-romanization mixed-input tests; current main additionally includes WCAG contrast and keyboard smoke coverage. No test needs porting.
+
+Three remaining singleton refs were also dispositioned:
+- `benchmark/current-engine-2026-11-11` adds a manual benchmark workflow comparing the deterministic engine with upstream MekongPhon and Neurlang source-reported IPA. The report labels results as source-attested concordance, not gold accuracy. The canonical plan explicitly defers this benchmark pending independent adjudication and source/rights review; do not import the workflow as a release gate.
+- `ci/khmer-g2p-smoke-2026-10-24` is an older optional G2P workflow snapshot. Current main has the later pinned manual benchmark workflow and separate optional Khmer Phonemizer raw-output workflow.
+- `release/deterministic-rule-engine-2026-11-11` is an older rule-engine release snapshot. Current main has a substantially expanded deterministic engine, typed IPA/uncertainty boundary, tests and documentation; no unique release implementation needs porting.
+
+The browser-side hybrid candidate shell remains DEFERRED as noted above. These dispositions do not close external gold, licensing, IPA-convention or lexical segmentation blockers.
