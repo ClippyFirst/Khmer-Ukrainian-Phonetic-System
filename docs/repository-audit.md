@@ -2594,3 +2594,25 @@ PR [#416](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/4
 Task ledger: dependent-vowel PCGN table rows 2–17 source transcription and runtime/CSV parity — DONE_VERIFIED; Note 5 SAMYOK coda-class branches — DONE_VERIFIED. Full semantic comparison with the external UNGEGN candidate remains PARTIAL (profile differences must not be flattened); full contextual PCGN segmentation/romanization remains TODO pending human-reviewed ambiguity and source-backed lexical fixtures. IPA convention remains DRAFT_NOT_APPROVED, independent adjudicated IPA gold = 0, accuracy = null. Issue #104 pilot and root repository license remain BLOCKED; manual accessibility/historical semantic review PARTIAL; external benchmark integration DEFERRED. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
 
 PR reconciliation: earlier duplicate PR #413 was closed unmerged after its SAMYOK test change was carried forward in PR #416; duplicate PR #415 was closed unmerged after its row-3 correction was superseded by the broader PR #414 (which also corrected rows 16–17 and added the full row registry). Their branches were not deleted. Hosted GitHub Actions are the verification source; no local checkout or local test execution is claimed.
+
+
+## PCGN ↔ UNGEGN candidate vowel-row reconciliation — 2026-11-19
+
+PR [#419](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/419) merged as `0090960bb1558cf98c5ebd424d1f883f33859c8c`. Added the machine-readable comparison `data/khmer/pcgn_ungegn_vowel_profile_comparison.csv` and structural test `tests/test_pcgn_ungegn_vowel_profile_comparison.py`. It compares 17 PCGN normal dependent/inherent rows, 12 independent-vowel entries, three shortened patterns, and eight anusvara/visarga rows against the pinned UNGEGN candidate source `pheasaKhmer/khmer-engine@31b72cd4665f69678fc835da2f501771e42f097a`.
+
+Findings are now evidence-registered:
+- All 17 normal dependent/inherent values and all eight anusvara/visarga rows match the pinned candidate values after the PCGN source corrections in PR #414.
+- Eleven of twelve independent-vowel entries match; the candidate selects `ŏ` for `ឧ`, while PCGN Note 9 preserves `ŏ` or `ŭ` and calls for reference selection when uncertain.
+- The three shortened patterns share the core values, but the candidate also treats `kh` as an `eă` coda trigger; PCGN Note 5 names only `k`, `ng`, and `h`.
+- Eight candidate-only extensions are separately listed: four independent-vowel characters absent from the PCGN table, SAMYOK-before-final-Y, YUUKALEAPINTU, generic fallback for unlisted NIKAHIT/REAHMUK combinations, and the extra `kh` branch.
+
+This closes the comparison task only. It does **not** authorize importing the candidate's UNGEGN behavior into the PCGN runtime. The selected profile remains BGN/PCGN 1972; candidate syllabification heuristics and unsupported extensions remain unadopted.
+
+Exact-main verification on `0090960bb1558cf98c5ebd424d1f883f33859c8c`:
+- Quality [44486526230](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44486526230) — SUCCESS: 442 Python tests + 70 subtests; IPA corpus structural gate, Node/web checks and production build passed. Corpus remains `NOT_READY_NO_ADJUDICATED_GOLD`.
+- Pages [44486526214](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44486526214) — SUCCESS: production build, deployment and deployed runtime-asset smoke.
+- Khmer browser smoke [44486526348](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44486526348) was still running the Chromium installation step at documentation time; no browser result is claimed for this SHA here. PR #416's unchanged browser surface passed 21/21, and no runtime/UI files changed in PR #419.
+
+Task ledger: PCGN dependent-vowel rows 2–17 source registry/runtime parity — DONE_VERIFIED; Note 5 SAMYOK coda classes — DONE_VERIFIED; complete PCGN vowel/nucleus row comparison against the pinned UNGEGN candidate — DONE_VERIFIED (comparison only). Full contextual Khmer-script → PCGN segmentation/romanization remains TODO/PARTIAL pending human-reviewed ambiguity cases and source-backed lexical fixtures. IPA convention remains DRAFT_NOT_APPROVED; independent adjudicated IPA gold = 0; accuracy = null. Issue #104 pilot and root repository license remain BLOCKED; manual accessibility/historical semantic review PARTIAL; external benchmark integration DEFERRED. Repository remains a research-ready partial prototype, not linguistically validated or release-ready. Verification is from hosted GitHub Actions; no local checkout or local test execution is claimed.
+
+PR reconciliation: #413/#415 were closed unmerged as superseded by #416/#414; #418 was closed unmerged after its stale documentation branch conflicted with the already-merged #417 closeout. No user branches were deleted or force-updated.
