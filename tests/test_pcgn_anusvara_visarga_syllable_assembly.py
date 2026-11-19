@@ -26,8 +26,8 @@ def test_pcgn_anusvara_visarga_assembler_covers_all_eight_table_rows_in_both_ser
         ("គុះ", None, "kŭh", 5, "ô"),
         ("កេះ", None, "kéh", 6, "â"),
         ("គេះ", None, "kéh", 6, "ô"),
-        ("កោះ", None, "kaôh", 7, "â"),
-        ("គោះ", None, "kŏăh", 7, "ô"),
+        ("កេាះ", None, "kaôh", 7, "â"),
+        ("គេាះ", None, "kŏăh", 7, "ô"),
         ("កាំង", "ង", "kăng", 8, "â"),
         ("គាំង", "ង", "keăng", 8, "ô"),
     )
@@ -37,6 +37,8 @@ def test_pcgn_anusvara_visarga_assembler_covers_all_eight_table_rows_in_both_ser
         assert result.romanization == expected, source
         assert result.source_table_row == row, source
         assert result.series == series, source
+        if row == 7:
+            assert result.source_components == ("េ", "ា", "ះ")
         assert result.ipa is None
         assert result.ukrainian is None
 
@@ -53,7 +55,7 @@ def test_pcgn_anusvara_visarga_assembler_requires_explicit_row8_nga_and_matching
 
 
 def test_pcgn_anusvara_visarga_assembler_abstains_on_unlisted_or_malformed_chunks():
-    for source in ("កាំះ", "កេាះ", "កំង", "កុះ់", "កា", "កុំក"):
+    for source in ("កាំះ", "កោះ", "កំង", "កុះ់", "កា", "កុំក"):
         result = assemble(source, "ង" if source == "កំង" else None)
         assert result.status == "UNRESOLVED", source
         assert result.romanization is None
