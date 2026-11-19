@@ -3300,3 +3300,8 @@ Nine further audit refs were compared; each handoff file is a strict subset of c
 PR #448 merged as `47b3be71478c5a6948a2c66c4761cce9310a5fcb`; exact-main Quality, Chromium and Pages/deploy succeeded (44565926529, 44565926669, 44565926377).
 
 Ten research source-registry snapshots have no source IDs absent from current main's 49-entry registry. The renderer branch has an old smaller registry but current schema/test. The older hybrid branch is superseded by typed v2 IPA candidate validation. The older benchmark runner allows model-ID overrides and lacks current corpus-source pinning; the dedicated MekongPhon diagnostic script/tests match main exactly. The older PCGN note registry is a 10-row subset, superseded by the larger current registry and stronger tests. No code/source/test port is appropriate. Research family audit and full historical ancestry remain **PARTIAL**; no gold/accuracy claim is made.
+
+
+## Fix-branch sample
+
+Non-PCGN fix refs for typed IPA, romanizer output guards, IPA tie-bar boundaries, benchmark provenance, parser diagnostics/rejection spans, numeric passthrough, unmodeled letters and mixed-script boundaries were compared. Multiple files/tests match main byte-for-byte. Older branches lack current numeric passthrough, richer benchmark provenance, current parser diagnostics and shared Khmer-output guard. No unique accepted code/test change needs porting. Refs remain untouched; full fix/PR ancestry review remains **PARTIAL**.
