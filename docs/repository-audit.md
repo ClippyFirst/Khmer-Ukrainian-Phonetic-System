@@ -3037,3 +3037,14 @@ No stale branch was merged or rewritten. Full research-family semantic and PR-an
 Reviewed non-PCGN fix refs for explicit IPA kind, unconverted Khmer output, IPA tie-bar boundaries, benchmark reproducibility, orthographic parser diagnostics/rejection spans, typed partial results, unmodeled letters, and mixed-script numeral/romanization guards.
 
 The phonetic-result adapter, IPA implementation/tests, unconverted-output adapter, signs registry, numeral parser/test and rejected-span test are byte-identical to current main where compared. Other branch snapshots are older: rule-engine code predates current numeric passthrough; benchmark script predates current provenance/hashing and no-gold safeguards; parser diagnostics/tests are superseded by the current full test suite; the mixed-script output guard is replaced by a shared current helper. No missing accepted behavior was identified. No branch changed or deleted; full historical fix/PR ancestry audit remains **PARTIAL**.
+
+
+## Feature-branch snapshot reconciliation and correction
+
+PR #450 merged as aeb0bfbaabc47d8658527da4c5634fae12e9faec; exact PR-head Quality and Chromium passed. Exact-main checks were still running when this entry was drafted.
+
+Ten feature refs were checked. The Unicode 18 parser branch predates the current packed parse forest and role ambiguity representation. The typed IPA candidate branch has an older tie-bar validator; current main explicitly requires a following segment. The typed hybrid bridge, practical Ukrainian adapter and Ukrainian romanization matrix blobs are byte-identical to main. The subscript-independent-vowel branch has an older parser than the current structural scanner and mixed-script tokenizer.
+
+The old PCGN syllable-assembly branches contain an obsolete BA+TRIISAP p-in-â interpretation. Current main follows PCGN Note 2: BA+TRIISAP does not shift series; Note 3 p-in-â applies to BA+MUUSIKATOAN or BA+foot. Their current PCGN source/schema/test blobs differ from main and must not be ported.
+
+Correction: an earlier audit note said the current feat/pcgn-anusvara-visarga-syllable-assembly-port branch blobs were identical to main. Rechecking the live tip shows the PCGN implementation, assembly schema and test are not identical; only package __init__.py is. The branch carries the superseded BA+TRIISAP exception. Main's newer rule and tests are authoritative. Full feature/ancestry audit remains PARTIAL.
