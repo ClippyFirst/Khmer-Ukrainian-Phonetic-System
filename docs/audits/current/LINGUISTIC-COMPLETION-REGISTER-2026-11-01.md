@@ -3272,4 +3272,14 @@ Data-level verification: the early candidate-diff branch still marks row 7 as ca
 Ten exact-main and branch-audit checkpoint refs were compared. Their handoff files are strict line subsets of current main (zero branch-only lines); diffs affect only canonical status docs. Historical branch counts, SHAs and CI states are not current evidence. No unique code, source or test changes. Retain refs; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
 
 
-Current inventory: 319 refs, 319 unique names/tips, 141 `docs/*` refs; one open PR (#445). This does not close the full branch audit; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+Current inventory: 320 refs, 320 unique names/tips, 142 `docs/*` refs; one open PR (#446). This does not close the full branch audit; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+## PR #445 and parser handoff closeout
+
+PR #445 merged as `3663ea20e58510a0a36b5c521627fcacf1c4951b`; Quality, Pages and Chromium all passed on exact main. Four parser handoff refs were reconciled. The old `unicode-tn61-v2` ID is superseded by the canonical renamed source ID; current main has the later source records. The old scanner-only/TODO parser state is superseded by the DONE_VERIFIED Unicode 18 packed parse forest, with current tests preserving the orthographic contrast, 2^20 derivations and rejection spans. No code or evidence needs porting. Full branch audit remains **PARTIAL**.
+
+
+### Mainline/PCGN closeout refs
+
+Ten refs were compared. Changes are canonical documentation only; one exact-main quality-count branch has no diff, and nine handoff snapshots are strict subsets of main. The #430 branch's older PCGN fix-family notes and 305-ref inventory are superseded by the current main PCGN branch-family audit and later 306/308/319-ref counts. No code/test/source change needs porting. Retain refs; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.

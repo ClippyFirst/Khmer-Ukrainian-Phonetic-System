@@ -2987,4 +2987,21 @@ The #candidate-diff test branch's CSV also retains the incorrect candidate-shape
 Ten refs (#correct-main-quality-count, #current-main-branch-inventory, #exact-main-369e0, #exact-main-checkpoint, #exact-main-research-register, #extend-docs-audit, #extend-historical-audit, #final-mainline-status, and two final-mainline checkpoints) were compared. All diffs are canonical status documents only; each handoff snapshot is a strict line subset of current main (zero branch-only lines). Their counts, SHAs and workflow states are historical, not current evidence. No implementation or source/test patch is unique. Retain refs; full ancestry audit remains **PARTIAL**.
 
 
-Fresh live inventory: 319 refs / 319 unique names / 319 unique tip SHAs, including 141 `docs/*` refs. One open PR (#445) contains this documentation-only audit batch. No branches were deleted or rewritten. The full historical audit remains **PARTIAL**.
+Fresh live inventory: 320 refs / 320 unique names / 320 unique tip SHAs, including 142 `docs/*` refs. One open PR (#446) contains this parser handoff documentation batch. No branches were deleted or rewritten. The full historical audit remains **PARTIAL**.
+
+
+## PR #445 and Unicode 18 parser handoff refs
+
+PR #445 merged as `3663ea20e58510a0a36b5c521627fcacf1c4951b`. Exact PR-head Quality and Chromium passed; exact-main Quality [44561793874], Pages [44561793851] and Chromium [44561793861] also passed on the merge SHA.
+
+Four parser handoff refs were compared. One old source-registry alias `unicode-tn61-v2` is superseded by `unicode-tn61-khmer-encoding-structure-v2`; current main has 49 source entries vs 46 and later sources. The old component-scanner-only/TODO parser status is superseded by the verified Unicode 18 §16.4 packed parse forest. Current tests retain the `ហើ្យ` / `ហើយ` boundary, 2^20 derivation and rejection-span regressions. No missing implementation or evidence to port. Retain branches; full audit remains **PARTIAL**.
+
+
+### Mainline/PCGN closeout refs
+
+Compared ten refs (#mainline checkpoint, #mainline CI, #historical audit, #exact-main quality count, #PCGN anusvara assembly, #PR440, #PR430, #external-source audit, #Sok IPA kind, #PCGN RoBat). All diffs are canonical docs only; the exact-main quality-count ref has no file diff. Nine handoff snapshots are strict subsets of current main. #430 carries an older PCGN fix-family disposition and 305-ref inventory; main has the later equivalent disposition and refreshed 306/308/319 counts. No unique code, test or source evidence needs porting. Retain refs; full audit remains **PARTIAL**.
+
+
+### Data/evidence branch refs
+
+Compared all four `data/*` refs. The integrate-onset branch has no diff. The onset-evidence branch's JSON, schema, test and audit doc are byte-identical to current main. Both PCGN independent-vowel branches' CSV and resolver tests are byte-identical to main. No unique data or test needs porting. The onset registry remains a partial specialist-reference register, not adjudicated IPA gold.
