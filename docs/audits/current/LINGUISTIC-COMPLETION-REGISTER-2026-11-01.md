@@ -2972,3 +2972,31 @@ No historical branch was merged wholesale, deleted or force-updated. The review 
 GitHub branch-list pages 1–4 returned 306 refs with 306 unique names and 306 unique tip SHAs: main plus 305 non-main refs. Prefix counts: a11y 2, audit 38, benchmark 1, ci 1, data 4, docs 130, feat 50, fix 24, release 1, research 29, test 25, plus one unprefixed ref. No duplicate tip SHA was present in this refreshed snapshot. One open PR (#433, the prior-base documentation closeout) was present when the inventory was taken; it is being superseded by this current-base continuation, with its branch preserved.
 
 This does not close repository-wide KHM-BRANCH-AUDIT-001: full changed-file/commit semantic review and complete PR-ancestry reconciliation across all 305 non-main refs remain PARTIAL. The project-owned PCGN source registries and PCGN/UNGEGN comparison/parity checks are DONE_VERIFIED. Contextual PCGN syllable-boundary inference and the full Khmer-script → PCGN engine remain TODO/PARTIAL pending human-reviewed ambiguity cases and source-backed lexical fixtures. IPA convention remains DRAFT_NOT_APPROVED; independent adjudicated IPA gold = 0 and empirical accuracy = null. Issue #104 pilot and root repository license remain BLOCKED; manual accessibility remains PARTIAL; external benchmark integration remains DEFERRED. The repository remains a research-ready partial prototype, not linguistically validated or release-ready. Verification is from hosted GitHub Actions; no local checkout or local tests are claimed.
+
+
+## Remaining non-PCGN fix-branch triage — 2026-11-19
+
+A fresh live inventory after the prior PCGN branch closeout returned 308 refs, 308 unique names and 308 unique tip SHAs. Prefix counts at this snapshot: `a11y` 2, `audit` 38, `benchmark` 1, `ci` 1, `data` 4, `docs` 132, `feat` 50, `fix` 24, `release` 1, `research` 29, `test` 25, and one unprefixed ref. The count includes retained closed/superseded working refs; it is not a count of active work.
+
+The remaining 14 non-PCGN `fix/*` refs were compared against current main. All are diverged; ahead/behind counts and changed-file counts are recorded below. This is triage metadata only, not a semantic review or permission to merge stale branch tips.
+
+| Branch | Ahead / behind | Changed files |
+|---|---:|---:|
+| `fix/explicit-ipa-kind-in-phonetic-result-2026-11-17` | 9 / 111 | 9 |
+| `fix/flag-unconverted-khmer-romanizer-output-2026-11-15` | 2 / 248 | 2 |
+| `fix/ipa-tie-bar-segment-boundaries-2026-11-18` | 3 / 41 | 2 |
+| `fix/khmer-benchmark-reproducibility-2026-10-24` | 3 / 585 | 2 |
+| `fix/khmer-orthographic-parser-diagnostics-v2-2026-11-16` | 17 / 134 | 9 |
+| `fix/khmer-orthographic-parser-evidence-2026-11-16` | 7 / 135 | 5 |
+| `fix/khmer-orthographic-parser-rejection-spans-2026-11-16` | 16 / 133 | 10 |
+| `fix/khmer-rejected-span-reasons-and-fixtures-2026-11-16` | 2 / 132 | 4 |
+| `fix/khmer-typed-partial-phonetic-results-2026-11-16` | 56 / 154 | 12 |
+| `fix/khmer-unmodeled-letter-trace-2026-11-12` | 3 / 295 | 3 |
+| `fix/mixed-script-numeral-token-boundaries-2026-11-17` | 32 / 107 | 12 |
+| `fix/mixed-script-romanization-guard-2026-11-15` | 10 / 255 | 5 |
+| `fix/reconcile-unicode-tn61-source-metadata-2026-11-18` | 5 / 60 | 5 |
+| `fix/serve-coverage-report-on-pages-2026-10-21` | 6 / 592 | 5 |
+
+The direct head-ref match found in the latest 100-PR listing was PR #384 for the IPA tie-bar branch; it is merged as `70b381d41f00f89bb94c3694b1c6faa692bfe34d`. No PR-head match was found in that listing for the other 13 refs; this does not prove that no historical PR exists or that their commits are unique. No branch was merged, deleted or force-updated in this triage. Before disposition, each remaining ref needs ancestry and per-file semantic comparison against main, especially parser/phonetic-result branches whose ahead counts are large and whose snapshots are far behind.
+
+Task ledger: non-PCGN `fix/*` branch inventory and compare triage — PARTIAL; branch-specific implementation reuse/retirement — TODO pending per-file semantic review. The broader `KHM-BRANCH-AUDIT-001` remains PARTIAL across the 307 non-main refs in this snapshot; do not mark complete from metadata alone. The only open research issue remains #104, blocked on expert IPA convention approval and independent human annotation/adjudication. Gold remains 0; accuracy remains null. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
