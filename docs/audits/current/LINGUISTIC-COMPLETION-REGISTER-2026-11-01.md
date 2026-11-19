@@ -3305,3 +3305,18 @@ Ten research source-registry snapshots have no source IDs absent from current ma
 ## Fix-branch sample
 
 Non-PCGN fix refs for typed IPA, romanizer output guards, IPA tie-bar boundaries, benchmark provenance, parser diagnostics/rejection spans, numeric passthrough, unmodeled letters and mixed-script boundaries were compared. Multiple files/tests match main byte-for-byte. Older branches lack current numeric passthrough, richer benchmark provenance, current parser diagnostics and shared Khmer-output guard. No unique accepted code/test change needs porting. Refs remain untouched; full fix/PR ancestry review remains **PARTIAL**.
+
+
+## Feature-branch review and historical-note correction
+
+Ten feature branches were checked. The Unicode 18 parser and typed IPA candidate branches are older than current packed-forest and tie-bar validation implementations. The typed hybrid bridge, practical adapter and Ukrainian matrix files match main byte-for-byte. The old subscript parser is superseded by the current scanner/tokenizer. Two older PCGN assembly branches incorrectly preserve BA+TRIISAP p-in-â; main applies Note 2 no-shift and Note 3 BA+MUUSIKATOAN/BA+foot exceptions.
+
+Correction: the current live feat/pcgn-anusvara-visarga-syllable-assembly-port branch does not have PCGN implementation/schema/test blobs identical to main (only package exports match). It contains the superseded BA+TRIISAP behavior. Do not port. Full feature-family semantic/ancestry audit remains PARTIAL.
+
+
+Exact-main verification correction: PR #450 merge SHA aeb0bfbaabc47d8658527da4c5634fae12e9faec later passed Quality 44568314352, Chromium 44568314381 and Pages/build/deploy 44568314462; Quality retry 44568901376 also passed.
+
+
+### Branch inventory snapshot — 2026-11-19
+
+At the PR #451 pre-merge checkpoint: 325 refs, 325 unique names and tip SHAs, 142 docs/* refs; prefix counts include 44 audit, 50 feat, 29 research, 26 test and 24 fix refs. One PR (#451) was open. KHM-BRANCH-AUDIT-001 remains PARTIAL.
