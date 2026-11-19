@@ -106,3 +106,35 @@ def test_pcgn_dependent_vowel_schema_has_explicit_component_only_boundary():
         "ា", "ិ", "ី", "ឹ", "ឺ", "ុ", "ូ", "ួ", "េ", "ើ", "ឿ", "ៀ", "ែ", "ៃ", "ៅ"
     ]
     assert schema["properties"]["source_table_row"]["enum"] == [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, None]
+
+
+def test_pcgn_ba_aa_shifter_exceptions_feed_the_correct_dependent_vowel_series():
+    # Note 2 leaves BA+TRIISAP in the ô-series; Note 3 keeps BA+MUUSIKATOAN
+    # in the â-series. Verify that the dependent-vowel adapter consumes those
+    # decisions rather than independently re-deriving the base series.
+    cases = (
+        ("ប៊ា", "ô", "éa", "TRIISAP_NO_SHIFT_BA_EXCEPTION", None),
+        (
+            "ប៉ា",
+            "â",
+            "a",
+            "BA_MUUSIKATOAN_P_IN_A",
+            "BA_WITH_MUUSIKATOAN_P_IN_A_SERIES",
+        ),
+    )
+    for source, series_value, expected, effect, exception in cases:
+        analysis = analyze_pcgn_orthographic_chunk(source)
+        series = resolve_pcgn_series(analysis)
+        vowel = resolve_pcgn_dependent_vowel(analysis, series)
+
+        assert series.status == "RESOLVED", source
+        assert series.series == series_value, source
+        assert series.shifter_effect == effect, source
+        assert series.onset_exception == exception, source
+        assert vowel.status == "RESOLVED", source
+        assert vowel.series == series_value, source
+        assert vowel.source_signs == ("ា",), source
+        assert vowel.source_table_row == 2, source
+        assert vowel.romanization == expected, source
+        assert vowel.ipa is None
+        assert vowel.ukrainian is None
