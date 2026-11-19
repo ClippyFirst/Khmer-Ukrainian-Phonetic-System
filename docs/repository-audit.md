@@ -3005,3 +3005,10 @@ Compared ten refs (#mainline checkpoint, #mainline CI, #historical audit, #exact
 ### Data/evidence branch refs
 
 Compared all four `data/*` refs. The integrate-onset branch has no diff. The onset-evidence branch's JSON, schema, test and audit doc are byte-identical to current main. Both PCGN independent-vowel branches' CSV and resolver tests are byte-identical to main. No unique data or test needs porting. The onset registry remains a partial specialist-reference register, not adjudicated IPA gold.
+
+
+## Audit branch and PCGN comparison reconciliation
+
+Nine audit refs (non-PCGN fix semantic review; complete feature/test, fix/release, research family reviews; audit/data/feature/test/research PR-ancestry reviews) were compared at all three canonical docs. Each had zero branch-only lines versus current main; no content needs porting. Their ancestry claims are not independently validated by this content check.
+
+The retained `audit/pcgn-ungegn-vowel-row-reconciliation-2026-11-19` branch is 3 ahead / 21 behind main and carries a stale CSV/test snapshot. It labels PCGN anusvara/visarga row 7 as `MATCH`; current main correctly uses `VALUE_MATCH_KEY_SHAPE_DIFFERS` for PCGN `េ+ា+ះ` versus candidate `ោះ`, retaining value match without asserting source-shape equivalence. Current main's test is larger (127 vs 57 lines) and asserts the structural distinction plus parity with project-owned PCGN source registries. No port is appropriate. Branches remain unchanged; full historical branch/PR ancestry audit remains **PARTIAL**.
