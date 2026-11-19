@@ -113,5 +113,10 @@ def test_candidate_comparison_pcgn_cells_match_the_project_owned_source_registri
     for table_row, source in anusvara_visarga.items():
         compared = by_section["PCGN_ANUSVARA_VISARGA"][table_row]
         assert compared["pcgn_source_pattern"].replace("+", "") == source["source_components"].replace("+", "")
+        if table_row == "7":
+            # PCGN row 7 exact three-sign sequence is material; do not collapse
+            # it to the candidate's distinct one-key spelling.
+            assert source["source_components"] == "េ+ា+ះ"
+            assert compared["pcgn_source_pattern"] == "េ+ា+ះ"
         assert compared["pcgn_a_series_or_value"] == source["â_series"]
         assert compared["pcgn_o_series"] == source["ô_series"]
