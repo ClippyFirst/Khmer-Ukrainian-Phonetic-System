@@ -2987,7 +2987,7 @@ The #candidate-diff test branch's CSV also retains the incorrect candidate-shape
 Ten refs (#correct-main-quality-count, #current-main-branch-inventory, #exact-main-369e0, #exact-main-checkpoint, #exact-main-research-register, #extend-docs-audit, #extend-historical-audit, #final-mainline-status, and two final-mainline checkpoints) were compared. All diffs are canonical status documents only; each handoff snapshot is a strict line subset of current main (zero branch-only lines). Their counts, SHAs and workflow states are historical, not current evidence. No implementation or source/test patch is unique. Retain refs; full ancestry audit remains **PARTIAL**.
 
 
-Fresh live inventory: 319 refs / 319 unique names / 319 unique tip SHAs, including 141 `docs/*` refs. One open PR (#445) contains this documentation-only audit batch. No branches were deleted or rewritten. The full historical audit remains **PARTIAL**.
+Fresh live inventory: 320 refs / 320 unique names / 320 unique tip SHAs, including 142 `docs/*` refs. One open PR (#446) contains this parser handoff documentation batch. No branches were deleted or rewritten. The full historical audit remains **PARTIAL**.
 
 
 ## PR #445 and Unicode 18 parser handoff refs
