@@ -4932,3 +4932,27 @@ Exact-main verification on `0090960bb1558cf98c5ebd424d1f883f33859c8c`:
 Task ledger: PCGN dependent-vowel rows 2–17 source registry/runtime parity — DONE_VERIFIED; Note 5 SAMYOK coda classes — DONE_VERIFIED; complete PCGN vowel/nucleus row comparison against the pinned UNGEGN candidate — DONE_VERIFIED (comparison only). Full contextual Khmer-script → PCGN segmentation/romanization remains TODO/PARTIAL pending human-reviewed ambiguity cases and source-backed lexical fixtures. IPA convention remains DRAFT_NOT_APPROVED; independent adjudicated IPA gold = 0; accuracy = null. Issue #104 pilot and root repository license remain BLOCKED; manual accessibility/historical semantic review PARTIAL; external benchmark integration DEFERRED. Repository remains a research-ready partial prototype, not linguistically validated or release-ready. Verification is from hosted GitHub Actions; no local checkout or local test execution is claimed.
 
 PR reconciliation: #413/#415 were closed unmerged as superseded by #416/#414; #418 was closed unmerged after its stale documentation branch conflicted with the already-merged #417 closeout. No user branches were deleted or force-updated.
+
+
+## PCGN source-pattern fidelity and candidate-registry parity — 2026-11-19
+
+### PR #421 — PCGN/UNGEGN Note 3 neutral-foot difference
+
+PR [#421](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/421) merged as `3088c1588fe6bdd8f15f169632154e0c044f9f4e`. A structural regression for `គ្ស` proves that PCGN Note 3 treats `ស` as series-determining: an ô-series base `គ` with an â-series `ស` foot resolves to â with `basis=SUBSCRIPT`. UNGEGN Note 3 includes `ស` in its neutral-foot list; that behavior remains profile-specific and is not imported into PCGN. The fixture is structural, not an attested lexical item. Resolver behavior already matched PCGN; this PR adds the missing behavioral regression.
+
+### PR #422 — exact PCGN anusvara/visarga row 7 sequence
+
+PR [#422](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/422) merged as `653ed8593d6cdb467eb036a35bb8f48cb4a24672`. It corrected PCGN row 7 to preserve the exact preposed-E + AA + REAHMUK sequence `េ+ា+ះ` in the source registry, schemas and assembler tests. The pinned UNGEGN candidate uses a different internal key `ោះ`; equal Latin output is now recorded as `VALUE_MATCH_KEY_SHAPE_DIFFERS`, not as source-pattern identity. This is a source-shape distinction, not a change to the selected romanization value.
+
+### PR #424 — parity between comparison matrix and PCGN source registries
+
+PR [#424](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/424) merged as `7d10b273377c8ebf15b731c372af04735d92f10d`. It ported the source-registry parity test from stale PR #423. The test cross-checks all 17 dependent/inherent comparison rows, all 12 independent-vowel entries, and all eight anusvara/visarga rows against the project-owned PCGN CSV registries, including the unresolved `ŏ|ŭ` option and exact source-component sequences.
+
+Exact-main verification on `7d10b273377c8ebf15b731c372af04735d92f10d`:
+- Quality [44488041871](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44488041871) — SUCCESS: 444 Python tests + 70 subtests; IPA corpus structural check, Node/web checks and production build passed. Corpus remains `NOT_READY_NO_ADJUDICATED_GOLD`.
+- Pages [44488041861](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44488041861) — SUCCESS: build, deployment and deployed runtime-asset smoke.
+- Exact-main Khmer browser smoke [44488041862](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44488041862) was still at Chromium installation when this note was drafted. PR #424 browser smoke [44487905013](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44487905013) passed 21/21 on the same source tree; no runtime/UI files changed in #421–#424.
+
+Task ledger: PCGN Note 3 `ស` profile delta — DONE_VERIFIED; exact PCGN row 7 source-pattern/schema/assembler parity — DONE_VERIFIED; complete PCGN/UNGEGN vowel-row comparison and parity against project-owned PCGN registries — DONE_VERIFIED. Full contextual Khmer-script → PCGN syllable segmentation/romanization remains TODO/PARTIAL pending human-reviewed ambiguity cases and source-backed lexical fixtures. IPA convention remains DRAFT_NOT_APPROVED; independent adjudicated IPA gold = 0; accuracy = null. Issue #104 pilot and root repository license remain BLOCKED; manual accessibility/historical semantic review PARTIAL; external benchmark integration DEFERRED. Repository remains a research-ready partial prototype, not linguistically validated or release-ready. Verification is hosted GitHub Actions; no local checkout or local test execution is claimed.
+
+PR reconciliation: #423 and its follow-up branch were closed unmerged; the source-registry parity test was ported into #424 after #422 corrected the exact PCGN row 7 source pattern. The attempted `ោ+ះ` source-pattern adjustment in the closed #423 branch was not merged; canonical PCGN source remains `េ+ា+ះ` as verified in #422. No branches were deleted or force-updated.
