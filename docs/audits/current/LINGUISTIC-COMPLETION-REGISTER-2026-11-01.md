@@ -3288,3 +3288,8 @@ Ten refs were compared. Changes are canonical documentation only; one exact-main
 ## Audit branch and PCGN comparison snapshot
 
 Nine audit branches have zero branch-only content in the three canonical docs compared with main. The PCGN/UNGEGN row-reconciliation branch is stale: it treats row 7 as a simple match despite different source structures (`េ+ា+ះ` vs `ោះ`) and lacks current source-registry parity tests. Main correctly classifies it as `VALUE_MATCH_KEY_SHAPE_DIFFERS`. No port is warranted; all refs retained. Full historical ancestry review remains **PARTIAL**.
+
+
+### Additional audit-family branch sample
+
+Nine further audit refs were compared; each handoff file is a strict subset of current main (zero branch-only lines). The `complete-remaining-branch-families` ref has no diff. No implementation or unique documentation content needs porting. Retain refs; `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
