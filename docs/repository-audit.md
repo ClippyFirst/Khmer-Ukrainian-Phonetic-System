@@ -2833,3 +2833,19 @@ Default branch `main` at `8c166792a180483bc849b122c6b310b4a83eb2c7` has all thre
 - GitHub Pages build/deploy [44513448288](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44513448288): **SUCCESS**, including production Chromium exercise, Pages artifact upload/deployment and deployed-site checks.
 
 The repository still has no open pull requests. Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains open and unchanged; the IPA convention, independent reviewers/annotators/adjudicator/curator, private blind intake, rights-cleared pilot and adjudication remain human blockers. Gold remains 0; empirical accuracy remains null. Current status is research-ready partial prototype, not linguistically release-ready.
+
+
+## Mainline checkpoint after PR #440 — 2026-11-19
+
+PR [#440](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/440) merged to `main` as `e3837e036584e3c243f098781d7b24f377090663`. The change extends documentation-branch semantic sampling; it does not close the historical branch audit.
+
+Live inventory at the preceding post-merge checkpoint: 314 refs, 314 unique branch names and 314 unique tip SHAs; no open pull requests. The prior targeted semantic review has not yet inspected every one of the 135 `docs/*` refs or fully reconciled each ref's commit/PR ancestry. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**. Historical refs are preserved; no branch deletion, force update or wholesale merge was performed.
+
+Exact-main GitHub Actions for `e3837e036584e3c243f098781d7b24f377090663`:
+- Quality checks [44519884661](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44519884661): **SUCCESS**.
+- GitHub Pages build/deploy [44519884653](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44519884653): **SUCCESS**.
+- Khmer browser smoke [44519884652](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44519884652): first attempt failed during `Install Chromium` (`npx playwright install --with-deps chromium`); checkout, dependency install, deterministic web checks and production build had succeeded. The failed browser job was explicitly re-run as attempt 2 (job retry requested successfully); at the time of this update, attempt 2 is **IN_PROGRESS**, so Chromium verification is not yet claimed.
+
+Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains open. Its latest recorded state still has no approved versioned IPA convention, no confirmed independent annotators/adjudicator/curator or private blind intake, and no rights-cleared/adjudicated 30-item pilot. Independent adjudicated gold remains **0** and empirical accuracy remains **null**. Root repository licensing still requires the owner's decision; manual accessibility review remains partial. No new IPA, phonological labels, Ukrainian mappings, corpus rows or benchmark scores were introduced.
+
+The repository remains an engineering-verified, research-ready partial prototype, **not linguistically validated or release-ready**. No local checkout or local test execution is claimed; verification evidence above is from hosted GitHub Actions.
