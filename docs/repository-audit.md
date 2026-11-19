@@ -2972,3 +2972,8 @@ Compared ten refs (#1997 profile, phonotactic closeout, letter inventory, numera
 ### PCGN assembly/direct-input documentation refs
 
 Compared ten refs (#alif assembly, closed assembly, Note 5, independent-vowel assembly, omitted shifter, shifter registry, shortened mark, branch inventory, direct romanization input and fallback parity). All changes are canonical docs and older matrix snapshots. The four recent assembly matrices (888–932 lines) and shortened-mark matrix are strict line subsets of current main. The older direct-input matrix contains only two superseded statements about mark inventory/status; current main has explicit BANTOC/SAMYOK and direct diacritic-preserving input. No unique mapping, code or test needs porting. Retain all branches; full audit remains **PARTIAL**.
+
+
+### Architecture/deployment/handoff documentation refs
+
+Compared ten refs (#ipa-validator, #typed-hybrid-bridge, #repository-information-architecture, #final PR #320, #site deployment, #Pages live service, #grapheme accounting, #mark inventory, #mixed script, #skip navigation). Most are status-document-only. The repository-information-architecture ref additionally changes AGENTS/README/docs index/agent maps/architecture; inspected AGENTS, docs index, codebase map, methodology references and handoff are subsets of current main. Its README/architecture/audit-only additions are older wording and stale PR #64 status. Other README variants likewise contain superseded wording. No unique implementation or requirement needs porting. Retain all branches; full historical ancestry remains **PARTIAL**.
