@@ -154,3 +154,10 @@ This completes the *comparison* acceptance criterion, not implementation adoptio
 ## PCGN vs UNGEGN neutral-foot delta — explicit regression — 2026-11-19
 
 The bounded PCGN/UNGEGN subscript-series difference is now tested behaviorally, not only through the constant inventory. PCGN Note 3's weak list excludes `ស`; UNGEGN Note 3 includes it. The regression `គ្ស` places an ô-series base `គ` with an â-series `ស` foot and asserts that PCGN selects the foot's â-series (`basis=SUBSCRIPT`). The fixture is structural and is not represented as an attested lexical item. No runtime code change was needed: the existing `PCGN_WEAK_SUBSCRIPTS` constant and resolver already implement the PCGN rule.
+
+
+## PCGN anusvara/visarga row 7 source-sequence correction — 2026-11-19
+
+The official PCGN 1972 table's row 7 is the orthographic sequence `េ + ា + ះ` (preposed E + AA + REAHMUK), not the candidate UNGEGN key `ោ + ះ`. The previous project resolver and source CSV had adopted the candidate-shaped key while retaining matching Latin values. The runtime key and `romanization_pcgn_anusvara_visarga.csv` are corrected to `("េ", "ា", "ះ")`; regression and syllable-assembly fixtures now resolve `កេាះ` / `គេាះ` and explicitly abstain on the distinct candidate-shaped `កោះ`. The decision and assembly schemas constrain PCGN row 7 to the exact three-component sequence. The PCGN↔UNGEGN comparison registry marks row 7 `VALUE_MATCH_KEY_SHAPE_DIFFERS`, rather than a full key match. This is an orthographic source-pattern correction; the Latin values remain `aôh / ŏăh`, with no IPA or Ukrainian output.
+
+Primary source: UK PCGN 1972 Agreement, “Vowel Characters with Anusvara or Visarga”, row 7 (PDF p. 4): https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf. The candidate's distinct `ោះ` key remains a profile difference and is not normalized into the PCGN source form.
