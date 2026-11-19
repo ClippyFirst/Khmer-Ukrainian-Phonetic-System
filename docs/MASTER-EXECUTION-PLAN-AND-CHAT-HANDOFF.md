@@ -5456,3 +5456,26 @@ Thirteen further audit refs were compared with current main: `audit/pr384-ipa-ti
 The `audit/restore-pinned-khmer-phonemizer-smoke-2026-11-18` branch diff lists an added optional workflow, but its workflow blob is byte-identical to current main (`.github/workflows/optional-khmerphonemizer-smoke.yml`, SHA `a89a848d66810225bbcc2cc5c9143b94304a680d`). It is already present on main; no workflow port is needed. This branch also contains only documentation differences in the inspected canonical files.
 
 The remaining audit refs were preserved. The exact-main checks for PR #451 merge SHA `89a2152b48a73d725fde607f28e503ca274f45f5` were still running at this entry; verify before claiming its mainline gate. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
+
+
+## Data and fix branch reconciliation — 2026-11-19
+
+Targeted comparisons covered all four retained `data/*` refs and the current PCGN/Unicode-related `fix/*` family.
+
+### Data branches
+
+- `data/integrate-positional-onset-evidence-register-2026-11-17` is an ancestor with no diff.
+- `data/khmer-onset-evidence-registry-2026-11-17` carries the positional onset evidence JSON, schema and test whose blobs are byte-identical to current main (827, 233 and 84 lines respectively). No port is needed.
+- Both `data/pcgn-independent-vowel-source-register*` refs carry the same 14-line independent-vowel CSV already present on main. Their older test/doc snapshots are superseded by current source-registry-backed resolver tests.
+- No data branch-only artifact was identified for adoption.
+
+### PCGN/Unicode fix branches
+
+- `fix/pcgn-anusvara-row7-source-pattern-2026-11-19` carries the same PCGN runtime and decision-schema blobs as main. The related `*-main` branch's comparison test is older; main adds the full source-registry parity assertions and the row-7 `VALUE_MATCH_KEY_SHAPE_DIFFERS` guard.
+- `fix/pcgn-ba-triisap-source-matrix-2026-11-19` and its `*-main` sibling have the same consonant source CSV as main.
+- `fix/pcgn-dependent-vowel-series-rows-16-17-2026-11-19` carries the same dependent-vowel source CSV as main, but `fix/pcgn-dependent-i-o-series-2026-11-19` contains stale runtime values: it gives row 16 O-series `aô` instead of `oŭ`, row 17 `au` instead of `ŏu`, and retains the obsolete two-component row-7 `ោ+ះ` key instead of PCGN's three-component `េ+ា+ះ`. Current main is authoritative; do not port the stale branch.
+- `fix/pcgn-final-consonant-context-types-2026-11-16` and `fix/pcgn-omitted-shifter-uncertainty-2026-11-18` retain the superseded BA+TRIISAP p-in-â exception. Current main follows PCGN Note 2 no-shift for BA+TRIISAP and reserves Note 3 p-in-â for BA+MUUSIKATOAN or BA+foot.
+- `fix/pcgn-shifter-registry-codepoint-alignment-2026-11-18` has the old dependent-vowel row values and old row-7 key; current main contains corrected O-series values and exact PCGN source sequence.
+- The shortened-vowel/diacritic inventory branch and TN #61 source-metadata branch have source blobs byte-identical to current main. No additional metadata or sign row needs porting.
+
+These comparisons are evidence that the current mainline PCGN code/data/tests supersede the stale snapshots; they are not evidence that every historical fix branch or PR ancestry has been fully reviewed. All refs remain untouched. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
