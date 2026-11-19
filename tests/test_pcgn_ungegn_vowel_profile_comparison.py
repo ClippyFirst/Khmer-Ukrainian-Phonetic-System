@@ -60,3 +60,58 @@ def test_pcgn_vowel_rows_are_reconciled_against_the_pinned_ungegn_candidate():
     # The comparison is descriptive only: it must never turn the UNGEGN
     # candidate into the selected PCGN runtime profile or a pronunciation oracle.
     assert all(row["candidate_source_locator"].endswith("rules.py") for row in rows)
+
+
+
+def test_candidate_comparison_pcgn_cells_match_the_project_owned_source_registries():
+    root = Path(__file__).resolve().parents[1]
+
+    def read_csv(relative_path):
+        with (root / relative_path).open(encoding="utf-8", newline="") as stream:
+            return list(csv.DictReader(stream))
+
+    comparison = read_csv("data/khmer/pcgn_ungegn_vowel_profile_comparison.csv")
+    by_section = {}
+    for row in comparison:
+        by_section.setdefault(row["record_type"], {})[row["pcgn_table_row"]] = row
+
+    dependent = {
+        row["table_row"]: row
+        for row in read_csv("data/khmer/romanization_pcgn_dependent_vowels.csv")
+    }
+    assert set(by_section["PCGN_DEPENDENT_NORMAL"]) == {str(i) for i in range(1, 18)}
+    assert set(dependent) == {str(i) for i in range(2, 18)}
+    for table_row, source in dependent.items():
+        compared = by_section["PCGN_DEPENDENT_NORMAL"][table_row]
+        assert compared["pcgn_source_pattern"] == source["source_signs"]
+        assert compared["pcgn_a_series_or_value"] == source["â_series"]
+        assert compared["pcgn_o_series"] == source["ô_series"]
+
+    inherent = read_csv("data/khmer/romanization_pcgn_inherent_vowel.csv")
+    inherent_comparison = by_section["PCGN_DEPENDENT_NORMAL"]["1"]
+    assert len(inherent) == 1
+    assert inherent_comparison["pcgn_source_pattern"] == inherent[0]["source_symbol"]
+    assert inherent_comparison["pcgn_a_series_or_value"] == inherent[0]["â_series"]
+    assert inherent_comparison["pcgn_o_series"] == inherent[0]["ô_series"]
+
+    independent = {
+        row["table_row"]: row
+        for row in read_csv("data/khmer/romanization_pcgn_independent_vowels.csv")
+    }
+    assert set(by_section["PCGN_INDEPENDENT"]) == set(independent)
+    for table_row, source in independent.items():
+        compared = by_section["PCGN_INDEPENDENT"][table_row]
+        source_value = source["romanization"] or source["romanization_options"]
+        assert compared["pcgn_source_pattern"] == source["source_characters"]
+        assert compared["pcgn_a_series_or_value"] == source_value
+
+    anusvara_visarga = {
+        row["table_row"]: row
+        for row in read_csv("data/khmer/romanization_pcgn_anusvara_visarga.csv")
+    }
+    assert set(by_section["PCGN_ANUSVARA_VISARGA"]) == set(anusvara_visarga)
+    for table_row, source in anusvara_visarga.items():
+        compared = by_section["PCGN_ANUSVARA_VISARGA"][table_row]
+        assert compared["pcgn_source_pattern"].replace("+", "") == source["source_components"].replace("+", "")
+        assert compared["pcgn_a_series_or_value"] == source["â_series"]
+        assert compared["pcgn_o_series"] == source["ô_series"]
