@@ -5357,3 +5357,13 @@ The branch's parser/LOC docs describe an earlier component-scanner-only state an
 Ten more refs were compared: `docs/mainline-checkpoint-89e5ba4-2026-11-15`, `docs/mainline-ci-closeout-2026-11-15`, `docs/historical-branch-audit-closeout-2026-11-15`, `docs/fix-exact-main-quality-count-2026-11-16`, `docs/record-pcgn-anusvara-assembly-port-2026-11-18`, `docs/record-pr440-mainline-ci-and-branch-audit-2026-11-19`, `docs/pr430-pcgn-parity-closeout-2026-11-19`, `docs/finalize-external-source-audit-2026-11-17`, `docs/final-sok-ipa-kind-verification-2026-11-17`, and `docs/pcgn-robat-closeout-2026-11-16`.
 
 All changes are canonical documentation only; the exact-main quality-count branch has no file diff. Nine handoff snapshots are strict line subsets of current main. The #430 closeout branch has an older PCGN fix-family disposition and 305-ref inventory snapshot; current main contains the same substantive branch dispositions in its later PCGN branch-family closeout, with refreshed 306/308/319-ref inventories. Its old count/status is historical and must not replace the current inventory. The PCGN RoBat matrix snapshot is also a strict subset of current main. No code, test, source or evidence patch needs porting. Retain all refs unchanged; full historical ancestry audit remains **PARTIAL**.
+
+
+### Data/evidence branch reconciliation — 2026-11-19
+
+The four retained `data/*` refs were compared with current main:
+- `data/integrate-positional-onset-evidence-register-2026-11-17` has no diff from main.
+- `data/khmer-onset-evidence-registry-2026-11-17` changes the onset evidence JSON, schema, provenance test and audit docs relative to its merge base, but each of those four artifacts is byte-identical to current main. No evidence row or schema/test change is missing.
+- `data/pcgn-independent-vowel-source-register-2026-11-16` and `data/pcgn-independent-vowel-source-register-mainline-2026-11-16` both carry CSV and resolver-test blobs byte-identical to current main.
+
+No data, provenance, schema or test patch needs porting. The onset registry remains `PARTIAL_SPECIALIST_REFERENCE_REGISTER` and cannot promote its 33 onset hints to adjudicated IPA or accuracy evidence. Retain all refs unchanged.
