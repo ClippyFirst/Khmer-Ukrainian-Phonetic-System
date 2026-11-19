@@ -2977,3 +2977,6 @@ Compared ten refs (#alif assembly, closed assembly, Note 5, independent-vowel as
 ### Architecture/deployment/handoff documentation refs
 
 Compared ten refs (#ipa-validator, #typed-hybrid-bridge, #repository-information-architecture, #final PR #320, #site deployment, #Pages live service, #grapheme accounting, #mark inventory, #mixed script, #skip navigation). Most are status-document-only. The repository-information-architecture ref additionally changes AGENTS/README/docs index/agent maps/architecture; inspected AGENTS, docs index, codebase map, methodology references and handoff are subsets of current main. Its README/architecture/audit-only additions are older wording and stale PR #64 status. Other README variants likewise contain superseded wording. No unique implementation or requirement needs porting. Retain all branches; full historical ancestry remains **PARTIAL**.
+
+
+The #candidate-diff test branch's CSV also retains the incorrect candidate-shaped PCGN row-7 key `ោ+ះ` and labels it `MATCH`; current main correctly uses `េ+ា+ះ` and `VALUE_MATCH_KEY_SHAPE_DIFFERS`. Three later parity branches have CSVs byte-identical to main. Do not port the stale row.
