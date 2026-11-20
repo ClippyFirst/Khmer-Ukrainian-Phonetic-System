@@ -128,7 +128,7 @@ The four JSONL files are intentionally empty. `gold.tsv` remains header-only. No
 
 ## Rights verification
 
-The source `license_id` must exist in `data/benchmark/licenses.json`; an arbitrary free-text license label is rejected. Each record also needs `rights_evidence` with a basis, exact locator, verifier pseudonym and verification date. A source cannot be marked redistributable when its registered license disallows redistribution, or when rights are restricted/unknown. The non-commercial CC BY-NC-SA 4.0 entry is explicitly non-redistributable for this product corpus. Project-created material is also non-redistributable by default until the owner approves a corpus license and contributor permissions.
+The source `license_id` must exist in `data/benchmark/licenses.json`; an arbitrary free-text license label is rejected. Each record also needs `rights_evidence` with a basis, exact locator, verifier pseudonym and verification date. A source cannot be marked redistributable when its registered license disallows redistribution, or when rights are restricted/unknown. The CC BY-NC-SA 4.0 and CC BY-NC 4.0 entries are non-eligible for this commercial/product corpus because they do not grant commercial use. Original project-created data are separately licensed for noncommercial research under LICENSE-DATA, but remain excluded from this product-corpus export gate. Every project-created record still requires verification that the relevant contributor holds the rights and that no third-party source material is being relicensed. The owner-approved research license does not clear third-party data rights.
 
 The generated `gold.tsv` carries `license_id` and `rights_evidence_locator` alongside `source_id`, and the benchmark report preserves these fields. CC BY-SA share-alike and attribution duties still need to be honored in the distribution package; the registry records those terms rather than silently waiving them.
 
@@ -165,7 +165,7 @@ The `assign-splits` generator and cross-file corpus validator use the same close
 
 ### Product-corpus license eligibility
 
-A license entry marked `redistributable: true` is eligible for this product corpus only when it explicitly sets `commercial_use: true` and defines boolean `attribution_required` and `share_alike` terms. False or unknown commercial permission, or unknown distribution obligations, fail closed. This is a project eligibility policy, not a general legal interpretation of the license. Every source still requires human verification of the actual license/permission and applicable attribution/share-alike duties.
+The `redistributable` flag in this registry means eligible for this commercial/product corpus export, not merely shareable for noncommercial research. A license entry is eligible only when it explicitly sets `commercial_use: true` and defines boolean `attribution_required` and `share_alike` terms. False or unknown commercial permission, or unknown distribution obligations, fail closed. Original project-created data may be shared noncommercially under LICENSE-DATA, but the current product-corpus gate intentionally excludes NC-only rows. This is a project eligibility policy, not a general legal interpretation of the license. Every source still requires human verification of the actual license/permission and applicable attribution/share-alike duties.
 
 
 ### Release-gate threshold requirements
