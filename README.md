@@ -304,3 +304,8 @@ The component inventory is consumed by a separate Unicode 18 §16.4 parser in `s
 - Third-party software, fonts, models, dictionaries, corpora, recordings, source quotations and mixed-source records retain their own rights and notices. Unknown or conflicting rights do not authorize redistribution; consult [third-party notices](THIRD_PARTY_NOTICES.md) and the source registries before reuse.
 - The IPA gold benchmark's existing `redistributable` registry flag remains a stricter product-corpus eligibility gate: NC-only material is not eligible for a commercial/product release. This does not cancel the separate noncommercial research grant under `LICENSE-DATA`.
 - PolyForm Noncommercial is not an OSI-approved Open Source license. Commercial use of project code or original project data is not granted; contact the rights holder for separate permission.
+
+
+## Citation
+
+If you use this research prototype, cite the repository and identify the exact commit or version used. Citation metadata is provided in [CITATION.cff](CITATION.cff) and can be used by GitHub's citation interface.
