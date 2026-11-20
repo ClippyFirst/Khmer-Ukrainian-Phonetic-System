@@ -28,6 +28,8 @@ This is the navigation map for the repository. It does not replace the canonical
 - [References](references.md) — source bibliography and research references.
 - [Khmer → Ukrainian romanization matrix](romanization-to-ukrainian-matrix.md) — separate orthographic BGN/PCGN-derived route and its partial target crosswalk.
 - `data/khmer/sources.json` — machine-readable source registry.
+- `data/khmer/vowel-context-register.json` — source-indexed contextual vowel examples and explicit conflicts (not gold).
+- `schemas/khmer-vowel-context-register.schema.json` — JSON Schema for the contextual vowel evidence register; enforced by `tests/test_khmer_vowel_context_schema.py`.
 - `data/khmer/*.json` — canonical Khmer orthographic, register and rule registries.
 - `data/ukrainian/practical-policy.json` — canonical proposed IPA → Ukrainian target policy.
 - `data/khmer/romanization*.csv` — canonical orthographic romanization crosswalk tables.
