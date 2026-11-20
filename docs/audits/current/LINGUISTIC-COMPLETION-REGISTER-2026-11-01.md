@@ -3404,3 +3404,13 @@ PR #459 merge SHA `c0fb6f8efcadf20ff55aec58b1188144707ae52f` passed Quality (446
 Live branch inventory: 333 refs, unique names and unique tips; 150 docs, 44 audit, 50 feature, 29 research, 26 test, 24 fix, 4 data, 2 a11y, and four singleton/unprefixed refs. No open PRs at this checkpoint. Branches retained.
 
 Unresolved blockers: independent adjudicated IPA gold, approved IPA convention, human recruitment/blind pilot under Issue #104, external source/data rights, owner decision on root license, lexical segmentation evidence and manual accessibility review. Full historical ancestry review remains **PARTIAL**. The project is a research-ready partial prototype, not release-ready.
+
+
+## Contextual vowel registry schema — 2026-11-20
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHMER-VOWEL-REGISTRY-SCHEMA-001 | PARTIAL (implementation added; CI pending) | Added `schemas/khmer-vowel-context-register.schema.json` and `tests/test_khmer_vowel_context_schema.py`; schema validates the existing 9 source-indexed cases and tests unique IDs, source references, evidence/status parity, non-gold status and conflict withholding. | DONE_VERIFIED only after exact-PR-head Quality CI passes. This is a data-integrity contract, not phonetic validation or completion of the contextual vowel matrix. |
+| KHMER-VOWEL-CONTEXT-MATRIX-001 | PARTIAL | Existing source register and coverage report preserve bounded source examples and the dependent-sign × series inventory. | Full source-located contextual matrix still requires syllable type, coda, length, stress/harmony, profile and phonemic-vs-phonetic distinction; missing cells remain NOT_ESTABLISHED until evidence is supplied. No extrapolation from Unicode structure. |
+
+No new IPA values, gold records, source permissions, Ukrainian mappings or runtime rules were introduced. Independent adjudicated IPA gold remains 0; empirical accuracy remains null.
