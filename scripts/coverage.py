@@ -23,6 +23,104 @@ def load(path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+
+def _nonempty_items(value):
+    """Return explicitly stored non-empty orthographic markers without interpreting them."""
+    if value is None:
+        return []
+    values = value if isinstance(value, list) else [value]
+    return [item for item in values if item is not None and str(item).strip()]
+
+
+def build_contextual_vowel_evidence(cases, sources):
+    """Expose exact case-level context while refusing to infer missing phonology.
+
+    This is an evidence inventory, not a Cartesian prediction matrix. In particular,
+    an absent IPA length mark does not prove a short vowel, an orthographic final
+    marker does not prove a phonological coda, and missing profile metadata stays
+    explicitly unknown.
+    """
+    observations = []
+    counts = Counter()
+    status_counts = Counter()
+    for case in sorted(cases, key=lambda item: item.get("id", "")):
+        structure = case.get("grapheme_structure") or {}
+        dependent = _nonempty_items(structure.get("dependent_vowels"))
+        subscripts = _nonempty_items(structure.get("subscripts"))
+        coda_marker = structure.get("coda")
+        has_coda_marker = bool(_nonempty_items(coda_marker))
+        ipa = case.get("ipa")
+        has_length_mark = bool(ipa and "ː" in ipa)
+        source_id = case.get("ipa_source")
+        source = sources.get(source_id, {})
+        profile = case.get("profile")
+        observation = {
+            "case_id": case.get("id"),
+            "orthography": case.get("orthography"),
+            "source_id": source_id,
+            "source_role": source.get("role"),
+            "evidence_status": case.get("status", "UNCLASSIFIED"),
+            "base_consonant_class": case.get("base_consonant_class", "NOT_ESTABLISHED"),
+            "dependent_vowel_sequence": dependent,
+            "inherent_or_no_dependent_sign_context": not dependent,
+            "subscript_sequence": subscripts,
+            "register_shifter_sign": structure.get("register_shifter"),
+            "orthographic_coda_marker": coda_marker,
+            "phonological_syllable_type": case.get("phonological_syllable_type", "NOT_ESTABLISHED"),
+            "profile": profile if profile else "NOT_SPECIFIED_PER_CASE",
+            "source_transcription": ipa,
+            "length_evidence": (
+                "EXPLICIT_LENGTH_MARK_IN_SOURCE_TRANSCRIPTION" if has_length_mark else
+                "NO_EXPLICIT_LENGTH_MARK_SHORTNESS_NOT_INFERRED" if ipa else
+                "NOT_ESTABLISHED_NO_SOURCE_TRANSCRIPTION"
+            ),
+        }
+        observations.append(observation)
+        counts["cases_with_dependent_vowel" if dependent else "cases_without_dependent_vowel"] += 1
+        counts["cases_with_subscripts" if subscripts else "cases_without_subscripts"] += 1
+        counts["cases_with_orthographic_coda_marker" if has_coda_marker else "cases_without_orthographic_coda_marker"] += 1
+        counts["cases_with_register_shifter" if structure.get("register_shifter") else "cases_without_register_shifter"] += 1
+        counts["cases_with_explicit_length_mark" if has_length_mark else "cases_without_explicit_length_mark_or_ipa"] += 1
+        counts["cases_with_explicit_profile" if profile else "cases_without_explicit_profile"] += 1
+        counts["cases_with_source_transcription" if ipa else "cases_without_source_transcription"] += 1
+        status_counts[observation["evidence_status"]] += 1
+
+    return {
+        "purpose": (
+            "Case-level source evidence with orthographic context preserved. This is not a complete "
+            "series × vowel × syllable × coda × length × profile cross-product and does not generate IPA."
+        ),
+        "observations": observations,
+        "case_counts": dict(sorted(counts.items())),
+        "evidence_status_counts": dict(sorted(status_counts.items())),
+        "context_dimensions": {
+            "base_consonant_class": "RECORDED_WHERE_PRESENT; not a complete lexical contrast set",
+            "dependent_vowel_sequence": "EXACT_ORTHOGRAPHIC_SEQUENCE_RECORDED; no extrapolation to unseen cells",
+            "subscripts_and_coeng": "ORTHOGRAPHIC_MARKERS_RECORDED; syllabification remains separate",
+            "coda": "ORTHOGRAPHIC_MARKER_RECORDED; phonological coda class NOT_ESTABLISHED_PER_CASE",
+            "syllable_type": "NOT_ESTABLISHED_UNLESS_EXPLICITLY_RECORDED",
+            "vowel_length": "ONLY_EXPLICIT_SOURCE_LENGTH_MARKS_RECORDED; absence is not classified as short",
+            "register_shifter": "EXACT_MARKER_RECORDED_WHERE_PRESENT; contextual phonetic effect not inferred",
+            "profile": "NOT_SPECIFIED_PER_CASE_UNLESS_EXPLICITLY_RECORDED",
+            "stress_and_harmony": "NOT_CAPTURED_IN_CURRENT_CASE_ROWS",
+            "phonemic_vs_phonetic_level": "SOURCE_TRANSCRIPTION_CONVENTION_RETAINED; no normalization or merging",
+        },
+        "cross_product_assessment": {
+            "status": "NOT_ESTABLISHED",
+            "required_dimensions": [
+                "profile × consonant series × dependent-vowel sequence",
+                "vowel sequence × phonological coda identity",
+                "vowel sequence × open/closed syllable type",
+                "vowel sequence × measured vowel length",
+                "vowel sequence × stress and harmony context",
+                "register-shifter eligibility × lexical exception",
+                "phonemic target × phonetic realization",
+            ],
+            "policy": "Do not fill missing combinations by analogy or Unicode structure.",
+        },
+    }
+
+
 def build_report(signs, consonants, registers, evidence):
     """Build the report from canonical data without modifying or adjudicating it."""
     if not isinstance(signs, list) or not isinstance(consonants, list):
@@ -98,6 +196,7 @@ def build_report(signs, consonants, registers, evidence):
     total = len(cells)
     status_counts = Counter(cell["status"] for cell in cells.values())
     conflict_cases = [case for case in cases if case.get("status") == "CONFLICTING_SOURCE_ANALYSES"]
+    contextual_evidence = build_contextual_vowel_evidence(cases, evidence.get("sources", {}))
     return {
         "schema_version": "1.0.0",
         "generated_by": "scripts/coverage.py",
@@ -122,6 +221,7 @@ def build_report(signs, consonants, registers, evidence):
             ),
         },
         "source_registry_status_counts": dict(sorted(source_statuses.items())),
+        "contextual_vowel_evidence": contextual_evidence,
         "source_conflict_case_ids": [case.get("id") for case in conflict_cases],
         "recorded_case_feature_counts": dict(sorted(features.items())),
         "dimensions_requiring_followup": [
