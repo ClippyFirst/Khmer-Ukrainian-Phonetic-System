@@ -5570,3 +5570,15 @@ PR #459 merged by squash as `c0fb6f8efcadf20ff55aec58b1188144707ae52f`. Exact-ma
 A new paginated inventory after the merge reports **333 refs, 333 unique names and 333 unique tip SHAs**: `docs/*` 150, `audit/*` 44, `feat/*` 50, `research/*` 29, `test/*` 26, `fix/*` 24, `data/*` 4, `a11y/*` 2, plus one each under `benchmark/*`, `ci/*`, `release/*`, and unprefixed `main`. There are **0 open PRs** at this checkpoint. No historical branches were deleted or rewritten.
 
 The remaining release blockers are unchanged: no independently adjudicated IPA gold records, IPA convention still draft/unapproved, external source/dataset rights unresolved, Issue #104 still requires human recruitment and blind pilot execution, root license decision belongs to the owner, lexical segmentation and manual accessibility review remain incomplete. The repository remains a research-ready partial prototype, not release-ready. Full historical PR/commit ancestry reconciliation remains **PARTIAL** under `KHM-BRANCH-AUDIT-001`.
+
+
+## Contextual vowel evidence contract — 2026-11-20
+
+- Dedicated branch: `docs/architecture-runtime-contract-2026-11-20`, based on default-branch HEAD `3f3fc705784be1e6a82a0d3ed81f2a897acbef98`.
+- Added `schemas/khmer-vowel-context-register.schema.json` for the canonical `data/khmer/vowel-context-register.json` and `tests/test_khmer_vowel_context_schema.py` for JSON Schema validation plus cross-record source-reference, unique-ID, evidence/status and conflict-withholding invariants.
+- Updated the existing vowel-series/coda evidence matrix, architecture and documentation index in place to explain the new machine-checked contract and its strict boundary.
+- No new IPA values, lexical records, Ukrainian mappings, source claims, runtime rules, generated coverage artifacts or gold rows were added. Existing source evidence remains SOURCE_ATTESTED_NOT_GOLD or CONFLICTING_SOURCE_ANALYSES.
+- The generated coverage report remains only a dependent-vowel-sign × consonant-series inventory. It does not cover the full series × vowel sequence × coda × syllable type × length × stress/harmony/profile matrix. Full contextual coverage remains PARTIAL.
+- The schema/test changes have not yet been executed in hosted CI or a local checkout. Exact-head Quality, Chromium and Pages evidence must be checked after the pull request is opened; no test is claimed as passed here.
+- Independent adjudicated Khmer IPA gold remains 0; `data/benchmark/gold.tsv` remains header-only; empirical accuracy remains null. The approved IPA convention, qualified independent annotators, separate adjudicator, non-annotating curator, private blind intake, item-level rights and source locators, and 30 distinct adjudicated lexeme groups remain external acceptance gates.
+- The existing architecture already separates the deterministic IPA-first route, typed research-only external candidates and the BGN/PCGN orthographic route. Those boundaries were preserved rather than rewritten.
