@@ -5674,3 +5674,21 @@ Current exact `main` HEAD: `a97381b6cd221ccb65cc7d4d118578c3f482eb54`.
 - The nine contextual vowel observations remain seven SOURCE_ATTESTED_NOT_GOLD and two CONFLICTING_SOURCE_ANALYSES. The full phonological cross-product remains PARTIAL; no missing coda, duration, stress/harmony, IPA or tone values were inferred.
 - Gold pilot BLOCKED under [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104); manual accessibility QA TODO under [#463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/463). Independent adjudicated gold=0; empirical accuracy unmeasured. No license was selected because that is an owner decision.
 - Result: engineering/build/deployment verified; linguistically a research prototype, not release-ready. Connector-hosted CI was verified; no local checkout or local test commands were available in this session.
+
+
+## Owner-authorized noncommercial licensing — 2026-11-21
+
+The repository owner has confirmed that the project purpose is noncommercial research and scientific knowledge-sharing. This supersedes earlier handoff notes that the root-license decision was still awaiting the owner.
+
+- Original project software code: PolyForm Noncommercial 1.0.0 (LICENSE); Python package metadata now declares SPDX identifier PolyForm-Noncommercial-1.0.0. This replaces the prior MIT declaration in pyproject.toml.
+- Original documentation and explanatory prose: CC BY-NC 4.0 (LICENSE-DOCS).
+- Third-party software, fonts, models, dictionaries, corpora, recordings and other externally owned material are excluded and remain subject to their own terms.
+- The project license does not blanket-license data/; each source-derived observation and dataset retains its own provenance and rights status. Unknown or conflicting rights remain unresolved and do not authorize redistribution.
+- PolyForm Noncommercial is not OSI-approved Open Source. Commercial use is not granted by these terms.
+
+Task ledger:
+- KHMER-LICENSE-001 — PARTIAL pending PR CI/merge; scope and metadata implementation is in this branch.
+- Third-party source-rights clearance — PARTIAL/BLOCKED per item-level evidence; this license change does not close those existing research gates.
+- No linguistic data, IPA labels, Ukrainian mappings, runtime rules, or generated artifacts were changed.
+
+The dedicated branch is license/noncommercial-research-2026-11-21; this section records the proposal until its PR is reviewed and merged. No release or legal opinion is implied.
