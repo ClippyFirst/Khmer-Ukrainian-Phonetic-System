@@ -3508,3 +3508,8 @@ KHMER-CITATION-001 — DONE_VERIFIED. PR #472 merged as `cd54ed9c64fb9cb7132f33b
 ## Final mainline verification — 2026-11-21
 
 Post-PR #473 exact main SHA `f41699a7ebadec9d85ec7cf7092f972212463f37` is fully green: Quality 44831432729 SUCCESS, browser 44831432822 SUCCESS, Pages build/deploy 44831432731 SUCCESS. This confirms the CFF citation metadata and final handoff update are deployed on main. Code/docs/data noncommercial license scope and CFF metadata remain DONE_VERIFIED; external item-level rights and linguistic release gates remain open.
+
+
+## Final post-merge CI — 2026-11-21
+
+Final exact main SHA `5537abb05795291bebc7e528a365a62b34dae18d` is fully green: Quality 44831853817 SUCCESS, browser 44831853698 SUCCESS, Pages build/deploy 44831853709 SUCCESS. The final handoff and completion register are therefore verified on main after PR #474. Licensing/citation tasks remain DONE_VERIFIED; external rights and linguistic release gates remain open.
