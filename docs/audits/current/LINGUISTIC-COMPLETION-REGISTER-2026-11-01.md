@@ -3488,3 +3488,8 @@ KHMER-LICENSE-001 — DONE_VERIFIED. Original code: PolyForm Noncommercial 1.0.0
 ## Exact-main CI evidence — license closeout — 2026-11-21
 
 Post-merge exact main SHA 493e135ad4787c737931dbad20ea564c528bfd7c is fully verified: Quality 44827023495 SUCCESS, browser smoke 44827023488 SUCCESS, Pages build/deploy 44827023602 SUCCESS. The owner-authorized code/docs noncommercial licensing is complete; source-specific third-party/data rights remain separate PARTIAL/BLOCKED gates.
+
+
+## Research-data license scope — 2026-11-21
+
+KHMER-RESEARCH-DATA-LICENSE-001 — implementation on license branch; PR-head CI pending. Original project-authored research data, annotations and curated database contributions are covered by CC BY-NC 4.0 in `LICENSE-DATA`, only where contributors hold the rights. Third-party source material and mixed-source items remain separately governed; unknown/conflicting rights remain unresolved. Existing product gold export gate still requires commercial redistribution and therefore excludes NC-only sources. No gold rows were added; linguistic acceptance status is unchanged.
