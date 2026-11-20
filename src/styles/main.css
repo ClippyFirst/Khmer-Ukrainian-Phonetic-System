@@ -124,6 +124,8 @@ select{display:block;width:100%;min-height:44px;padding:9px 12px;border:1px soli
 .coverage-status.not-established{background:#f0eee8;color:#55534d}
 .coverage-status.conflicting-source-analyses{border-color:#d49a9a;background:#fbefef;color:#8d1f28}
 .coverage-table-wrap caption{text-align:left}
+.doc #coverage-context-table{min-width:920px}
+.coverage-length{margin-top:5px;color:var(--muted);font-size:.76rem;line-height:1.45;max-width:240px}
 .coverage-table-wrap tbody tr:hover{background:rgba(3,46,161,.035)}
 .doc ul{margin:12px 0 0;padding-left:20px}
 .sources{display:grid;gap:9px;margin-top:18px}

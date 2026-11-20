@@ -9,6 +9,7 @@ const labels = {
 const summary = document.querySelector("#coverage-summary");
 const rows = document.querySelector("#coverage-rows");
 const conflictBox = document.querySelector("#coverage-conflicts");
+const contextRows = document.querySelector("#coverage-context-rows");
 
 function element(tag, className, text) {
   const node = document.createElement(tag);
@@ -58,6 +59,43 @@ function renderRows() {
   }
 }
 
+
+function markerText(value) {
+  if (Array.isArray(value)) return value.filter(item => item !== null && item !== "").join(" · ") || "—";
+  return value === null || value === undefined || value === "" ? "—" : String(value);
+}
+
+function lengthLabel(value) {
+  if (value === "EXPLICIT_LENGTH_MARK_IN_SOURCE_TRANSCRIPTION") return "Є позначка довготи в джерелі";
+  if (value === "NO_EXPLICIT_LENGTH_MARK_SHORTNESS_NOT_INFERRED") return "Позначки немає; короткість не виводимо";
+  return "Не встановлено";
+}
+
+function renderContextRows() {
+  if (!contextRows) return;
+  contextRows.replaceChildren();
+  for (const item of report.contextual_vowel_evidence?.observations ?? []) {
+    const row = document.createElement("tr");
+    row.append(
+      element("td", "coverage-code", item.case_id),
+      element("td", "coverage-sign", item.orthography),
+      element("td", "", item.base_consonant_class === "first" ? "Перша" : item.base_consonant_class === "second" ? "Друга" : "Не встановлено"),
+      element("td", "coverage-sign", item.dependent_vowel_sequence.join(" · ") || "—"),
+      element("td", "coverage-code", markerText(item.orthographic_coda_marker)),
+      element("td", "coverage-ipa", item.source_transcription || "—"),
+    );
+    const evidence = document.createElement("td");
+    const status = element(
+      "span",
+      `coverage-status ${String(item.evidence_status).toLowerCase().replaceAll("_", "-")}`,
+      labels[item.evidence_status] ?? item.evidence_status,
+    );
+    evidence.append(status, element("div", "coverage-length", lengthLabel(item.length_evidence)));
+    row.append(evidence);
+    contextRows.append(row);
+  }
+}
+
 function renderConflicts() {
   conflictBox.replaceChildren();
   conflictBox.append(element("b", "", "Конфлікти та обмеження"));
@@ -79,5 +117,6 @@ function renderConflicts() {
 if (summary && rows && conflictBox) {
   renderSummary();
   renderRows();
+  renderContextRows();
   renderConflicts();
 }

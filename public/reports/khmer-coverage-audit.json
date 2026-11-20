@@ -359,6 +359,220 @@
     "CONFLICTING_SOURCE_ANALYSES": 2,
     "SOURCE_ATTESTED_NOT_GOLD": 7
   },
+  "contextual_vowel_evidence": {
+    "purpose": "Case-level source evidence with orthographic context preserved. This is not a complete series × vowel × syllable × coda × length × profile cross-product and does not generate IPA.",
+    "observations": [
+      {
+        "case_id": "KHV-001",
+        "orthography": "ក",
+        "source_id": "r12a-orthography",
+        "source_role": "Specialist orthography/phonology synthesis; updated 2026-04-27",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "base_consonant_class": "first",
+        "dependent_vowel_sequence": [],
+        "inherent_or_no_dependent_sign_context": true,
+        "subscript_sequence": [],
+        "register_shifter_sign": null,
+        "orthographic_coda_marker": null,
+        "phonological_syllable_type": "NOT_ESTABLISHED",
+        "profile": "NOT_SPECIFIED_PER_CASE",
+        "source_transcription": "/kɑː/",
+        "length_evidence": "EXPLICIT_LENGTH_MARK_IN_SOURCE_TRANSCRIPTION"
+      },
+      {
+        "case_id": "KHV-002",
+        "orthography": "គ",
+        "source_id": "r12a-orthography",
+        "source_role": "Specialist orthography/phonology synthesis; updated 2026-04-27",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "base_consonant_class": "second",
+        "dependent_vowel_sequence": [],
+        "inherent_or_no_dependent_sign_context": true,
+        "subscript_sequence": [],
+        "register_shifter_sign": null,
+        "orthographic_coda_marker": null,
+        "phonological_syllable_type": "NOT_ESTABLISHED",
+        "profile": "NOT_SPECIFIED_PER_CASE",
+        "source_transcription": "/kɔː/",
+        "length_evidence": "EXPLICIT_LENGTH_MARK_IN_SOURCE_TRANSCRIPTION"
+      },
+      {
+        "case_id": "KHV-003",
+        "orthography": "កី",
+        "source_id": "r12a-orthography",
+        "source_role": "Specialist orthography/phonology synthesis; updated 2026-04-27",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "base_consonant_class": "first",
+        "dependent_vowel_sequence": [
+          "ី"
+        ],
+        "inherent_or_no_dependent_sign_context": false,
+        "subscript_sequence": [],
+        "register_shifter_sign": null,
+        "orthographic_coda_marker": null,
+        "phonological_syllable_type": "NOT_ESTABLISHED",
+        "profile": "NOT_SPECIFIED_PER_CASE",
+        "source_transcription": "/kəj/",
+        "length_evidence": "NO_EXPLICIT_LENGTH_MARK_SHORTNESS_NOT_INFERRED"
+      },
+      {
+        "case_id": "KHV-004",
+        "orthography": "គី",
+        "source_id": "r12a-orthography",
+        "source_role": "Specialist orthography/phonology synthesis; updated 2026-04-27",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "base_consonant_class": "second",
+        "dependent_vowel_sequence": [
+          "ី"
+        ],
+        "inherent_or_no_dependent_sign_context": false,
+        "subscript_sequence": [],
+        "register_shifter_sign": null,
+        "orthographic_coda_marker": null,
+        "phonological_syllable_type": "NOT_ESTABLISHED",
+        "profile": "NOT_SPECIFIED_PER_CASE",
+        "source_transcription": "/kiː/",
+        "length_evidence": "EXPLICIT_LENGTH_MARK_IN_SOURCE_TRANSCRIPTION"
+      },
+      {
+        "case_id": "KHV-005",
+        "orthography": "កា",
+        "source_id": "r12a-orthography",
+        "source_role": "Specialist orthography/phonology synthesis; updated 2026-04-27",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "base_consonant_class": "first",
+        "dependent_vowel_sequence": [
+          "ា"
+        ],
+        "inherent_or_no_dependent_sign_context": false,
+        "subscript_sequence": [],
+        "register_shifter_sign": null,
+        "orthographic_coda_marker": null,
+        "phonological_syllable_type": "NOT_ESTABLISHED",
+        "profile": "NOT_SPECIFIED_PER_CASE",
+        "source_transcription": "/kaː/",
+        "length_evidence": "EXPLICIT_LENGTH_MARK_IN_SOURCE_TRANSCRIPTION"
+      },
+      {
+        "case_id": "KHV-006",
+        "orthography": "គា",
+        "source_id": "r12a-orthography",
+        "source_role": "Specialist orthography/phonology synthesis; updated 2026-04-27",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "base_consonant_class": "second",
+        "dependent_vowel_sequence": [
+          "ា"
+        ],
+        "inherent_or_no_dependent_sign_context": false,
+        "subscript_sequence": [],
+        "register_shifter_sign": null,
+        "orthographic_coda_marker": null,
+        "phonological_syllable_type": "NOT_ESTABLISHED",
+        "profile": "NOT_SPECIFIED_PER_CASE",
+        "source_transcription": "/kiə/",
+        "length_evidence": "NO_EXPLICIT_LENGTH_MARK_SHORTNESS_NOT_INFERRED"
+      },
+      {
+        "case_id": "KHV-007",
+        "orthography": "ដំ",
+        "source_id": "unicode17-ch16",
+        "source_role": "Authoritative encoding/orthographic reference with illustrative pronunciations; not an acoustic experiment",
+        "evidence_status": "CONFLICTING_SOURCE_ANALYSES",
+        "base_consonant_class": "first",
+        "dependent_vowel_sequence": [],
+        "inherent_or_no_dependent_sign_context": true,
+        "subscript_sequence": [],
+        "register_shifter_sign": null,
+        "orthographic_coda_marker": "NIKAHIT U+17C6",
+        "phonological_syllable_type": "NOT_ESTABLISHED",
+        "profile": "NOT_SPECIFIED_PER_CASE",
+        "source_transcription": null,
+        "length_evidence": "NOT_ESTABLISHED_NO_SOURCE_TRANSCRIPTION"
+      },
+      {
+        "case_id": "KHV-008",
+        "orthography": "ក / គ (Unicode 17 Table 16-7 illustrative lexical examples)",
+        "source_id": "unicode17-ch16",
+        "source_role": "Authoritative encoding/orthographic reference with illustrative pronunciations; not an acoustic experiment",
+        "evidence_status": "CONFLICTING_SOURCE_ANALYSES",
+        "base_consonant_class": "first vs second",
+        "dependent_vowel_sequence": [],
+        "inherent_or_no_dependent_sign_context": true,
+        "subscript_sequence": [],
+        "register_shifter_sign": null,
+        "orthographic_coda_marker": null,
+        "phonological_syllable_type": "NOT_ESTABLISHED",
+        "profile": "NOT_SPECIFIED_PER_CASE",
+        "source_transcription": null,
+        "length_evidence": "NOT_ESTABLISHED_NO_SOURCE_TRANSCRIPTION"
+      },
+      {
+        "case_id": "KHV-009",
+        "orthography": "លង vs ល្ង",
+        "source_id": "unicode17-ch16",
+        "source_role": "Authoritative encoding/orthographic reference with illustrative pronunciations; not an acoustic experiment",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "base_consonant_class": "first series",
+        "dependent_vowel_sequence": [],
+        "inherent_or_no_dependent_sign_context": true,
+        "subscript_sequence": [
+          "ង"
+        ],
+        "register_shifter_sign": null,
+        "orthographic_coda_marker": [
+          "ង",
+          null
+        ],
+        "phonological_syllable_type": "NOT_ESTABLISHED",
+        "profile": "NOT_SPECIFIED_PER_CASE",
+        "source_transcription": null,
+        "length_evidence": "NOT_ESTABLISHED_NO_SOURCE_TRANSCRIPTION"
+      }
+    ],
+    "case_counts": {
+      "cases_with_dependent_vowel": 4,
+      "cases_with_explicit_length_mark": 4,
+      "cases_with_orthographic_coda_marker": 2,
+      "cases_with_source_transcription": 6,
+      "cases_with_subscripts": 1,
+      "cases_without_dependent_vowel": 5,
+      "cases_without_explicit_length_mark_or_ipa": 5,
+      "cases_without_explicit_profile": 9,
+      "cases_without_orthographic_coda_marker": 7,
+      "cases_without_register_shifter": 9,
+      "cases_without_source_transcription": 3,
+      "cases_without_subscripts": 8
+    },
+    "evidence_status_counts": {
+      "CONFLICTING_SOURCE_ANALYSES": 2,
+      "SOURCE_ATTESTED_NOT_GOLD": 7
+    },
+    "context_dimensions": {
+      "base_consonant_class": "RECORDED_WHERE_PRESENT; not a complete lexical contrast set",
+      "dependent_vowel_sequence": "EXACT_ORTHOGRAPHIC_SEQUENCE_RECORDED; no extrapolation to unseen cells",
+      "subscripts_and_coeng": "ORTHOGRAPHIC_MARKERS_RECORDED; syllabification remains separate",
+      "coda": "ORTHOGRAPHIC_MARKER_RECORDED; phonological coda class NOT_ESTABLISHED_PER_CASE",
+      "syllable_type": "NOT_ESTABLISHED_UNLESS_EXPLICITLY_RECORDED",
+      "vowel_length": "ONLY_EXPLICIT_SOURCE_LENGTH_MARKS_RECORDED; absence is not classified as short",
+      "register_shifter": "EXACT_MARKER_RECORDED_WHERE_PRESENT; contextual phonetic effect not inferred",
+      "profile": "NOT_SPECIFIED_PER_CASE_UNLESS_EXPLICITLY_RECORDED",
+      "stress_and_harmony": "NOT_CAPTURED_IN_CURRENT_CASE_ROWS",
+      "phonemic_vs_phonetic_level": "SOURCE_TRANSCRIPTION_CONVENTION_RETAINED; no normalization or merging"
+    },
+    "cross_product_assessment": {
+      "status": "NOT_ESTABLISHED",
+      "required_dimensions": [
+        "profile × consonant series × dependent-vowel sequence",
+        "vowel sequence × phonological coda identity",
+        "vowel sequence × open/closed syllable type",
+        "vowel sequence × measured vowel length",
+        "vowel sequence × stress and harmony context",
+        "register-shifter eligibility × lexical exception",
+        "phonemic target × phonetic realization"
+      ],
+      "policy": "Do not fill missing combinations by analogy or Unicode structure."
+    }
+  },
   "source_conflict_case_ids": [
     "KHV-007",
     "KHV-008"

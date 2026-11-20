@@ -208,3 +208,12 @@ The contextual evidence-register schema and tests passed on PR head `45fc31321d3
 - Chromium [44721843530](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44721843530): SUCCESS.
 
 This closes the schema/integrity subtask only. The report still covers dependent vowel sign × consonant series, not the full contextual matrix. No source evidence, IPA value, lexical label or gold item was added. The canonical completion register records `KHMER-VOWEL-REGISTRY-SCHEMA-001 = DONE_VERIFIED`; the broader contextual matrix remains PARTIAL.
+
+
+## 9. Machine-readable case-level contextual evidence — 2026-11-20
+
+The generated `reports/khmer-coverage-audit.json` and byte-identical public report now include `contextual_vowel_evidence`, built directly from `data/khmer/vowel-context-register.json`. This adds a case-level view of exact dependent-vowel sequences, base consonant class, subscripts, register-shifter marker, orthographic coda marker, source transcription, source ID/role and explicit length marks.
+
+This extension deliberately does **not** claim to complete the requested cross-product. Current registry rows do not consistently identify spoken profile, phonological syllable type, phonological coda identity, measured vowel duration, stress or harmony context. These remain explicit gaps. An absent IPA length mark is not interpreted as short; an orthographic final sign is not silently converted into a phonological coda; source transcription conventions are preserved verbatim. Conflicting source cases remain null at the single-value IPA field.
+
+The report's `cross_product_assessment.status` is therefore `NOT_ESTABLISHED`. The next data-collection acceptance criterion is to add source-located rows only where the source directly records the relevant context, with source convention/profile and locator preserved. Do not populate cells by analogy. Tests assert these no-inference boundaries and generated-artifact parity.
