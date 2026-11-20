@@ -5734,3 +5734,8 @@ KHMER-CITATION-001 — DONE_VERIFIED. Citation metadata identifies the research 
 The citation/handoff closeout PR #473 merged as `f41699a7ebadec9d85ec7cf7092f972212463f37`. The exact post-merge main SHA is fully green: Quality [44831432729](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44831432729), Chromium browser smoke [44831432822](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44831432822), and Pages build/deploy [44831432731](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44831432731) all SUCCESS. This supersedes the earlier exact-main checkpoint on `cd54ed9c64fb9cb7132f33b589d7847a14226bde`.
 
 The merged main now contains the scoped PolyForm Noncommercial code license, CC BY-NC documentation and original research-data grants, the third-party rights inventory, and CFF citation metadata. These repository-owned licensing and citation tasks are DONE_VERIFIED. Source-specific third-party rights, expert-adjudicated IPA gold and manual accessibility QA remain separate unresolved gates.
+
+
+## Exact-main CI after final closeout merge — 2026-11-21
+
+PR #474 merged as `5537abb05795291bebc7e528a365a62b34dae18d`. Exact post-merge main CI is fully green: Quality [44831853817](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44831853817), Chromium [44831853698](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44831853698), and Pages build/deploy [44831853709](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44831853709) all SUCCESS. This supersedes the prior exact-main checkpoint on `f41699a7ebadec9d85ec7cf7092f972212463f37`.
