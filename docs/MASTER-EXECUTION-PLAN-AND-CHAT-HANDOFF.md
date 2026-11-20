@@ -5592,3 +5592,12 @@ The remaining release blockers are unchanged: no independently adjudicated IPA g
 
 
 - Final pre-CI synchronization also updated `docs/architecture.md` to use the same `pip install -e ".[test]"` setup. Current branch head after the dependency and documentation correction is expected to be rechecked from PR metadata before recording CI evidence; no green rerun is claimed yet.
+
+
+### Exact-head verification closeout — 2026-11-20
+
+- Corrected test-only dependency declaration after the first Quality failure; no runtime dependency was added.
+- Exact head `45fc31321d3628aa5afb61892802a8f9f20b3eb1` passed Quality [44721843510](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44721843510): **446 Python tests + 70 subtests**, web checks and production build.
+- The same exact head passed Chromium browser smoke [44721843530](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44721843530), including visible-result verification.
+- `KHMER-VOWEL-REGISTRY-SCHEMA-001` is now DONE_VERIFIED for data-integrity validation only. Full contextual vowel/rime coverage remains PARTIAL; gold remains 0 and accuracy null.
+- These results apply to `45fc313`. The documentation-only evidence synchronization that follows will create a new head and must receive its own CI before that later head is called green.
