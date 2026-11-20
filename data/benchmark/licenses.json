@@ -24,11 +24,11 @@
     },
     "PROJECT-CREATED": {
       "redistributable": false,
-      "commercial_use": null,
-      "attribution_required": null,
-      "share_alike": null,
-      "url": null,
-      "note": "Not redistributable until the owner approves a corpus license and documented contributor permissions."
+      "commercial_use": false,
+      "attribution_required": true,
+      "share_alike": false,
+      "url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "note": "Original project-created research data are covered by LICENSE-DATA for noncommercial research where contributor rights are verified. This registry flag remains false because the IPA gold product-corpus export gate requires commercial redistribution rights."
     },
     "CC-BY-NC-SA-4.0": {
       "redistributable": false,
@@ -50,6 +50,14 @@
       "attribution_required": null,
       "share_alike": null,
       "url": null
+    },
+    "CC-BY-NC-4.0": {
+      "redistributable": false,
+      "commercial_use": false,
+      "attribution_required": true,
+      "share_alike": false,
+      "url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "note": "Permits noncommercial research sharing under LICENSE-DATA where the project owns the rights; excluded from the commercial/product corpus gate."
     }
   }
 }

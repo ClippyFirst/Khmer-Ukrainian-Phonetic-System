@@ -1,0 +1,25 @@
+# Original research data license
+
+Copyright (c) 2026 ClippyFirst contributors, to the extent each contributor holds the rights being licensed.
+
+Original project-authored research datasets, tables, annotations, and curated database compilations in this repository are licensed under the **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)** license:
+
+https://creativecommons.org/licenses/by-nc/4.0/legalcode
+
+You may share and adapt the covered material for noncommercial purposes, including academic and public-interest research, provided that you comply with the attribution, license-link, change-indication, and other terms of CC BY-NC 4.0. Commercial use is not granted.
+
+## Scope and exclusions
+
+This license applies only to original research material for which the repository maintainers or named contributors have the rights to grant it. It covers original selection, arrangement, annotations, analyses, and project-authored database content, including applicable database rights.
+
+It does **not** grant rights in or relicense:
+
+- third-party dictionaries, corpora, lexical entries, pronunciation data, recordings, transcripts, source quotations, publications, images, fonts, software, models, model weights, or other external assets;
+- data whose source-specific license, permission, provenance, or contributor rights are unknown, conflicting, or more restrictive;
+- personal data, privacy, publicity, trademark, patent, or other rights not granted by CC BY-NC 4.0.
+
+For mixed datasets, the project license applies only to the separable original project-authored contribution. Each third-party component remains subject to its own terms. Do not redistribute a mixed row, file, or derived dataset unless its source-specific rights have been verified and all applicable conditions can be met. A project-created annotation does not by itself clear rights in the source word, recording, quotation, or underlying dataset.
+
+The benchmark registry and release gate may impose stricter eligibility requirements than this research license. In particular, a noncommercially redistributable dataset is not thereby eligible for a commercial/product corpus release. See `data/benchmark/licenses.json` and `docs/ipa-gold-corpus.md`.
+
+This notice is not legal advice and does not warrant that every file under `data/` is covered. Consult the relevant source registry and `THIRD_PARTY_NOTICES.md` before reusing any mixed or external material.
