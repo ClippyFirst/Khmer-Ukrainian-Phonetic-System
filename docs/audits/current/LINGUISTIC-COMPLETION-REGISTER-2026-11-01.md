@@ -3410,7 +3410,7 @@ Unresolved blockers: independent adjudicated IPA gold, approved IPA convention, 
 
 | ID | Status | Evidence | Acceptance boundary |
 |---|---|---|---|
-| KHMER-VOWEL-REGISTRY-SCHEMA-001 | PARTIAL (implementation added; CI pending) | Added `schemas/khmer-vowel-context-register.schema.json` and `tests/test_khmer_vowel_context_schema.py`; schema validates the existing 9 source-indexed cases and tests unique IDs, source references, evidence/status parity, non-gold status and conflict withholding. | DONE_VERIFIED only after exact-PR-head Quality CI passes. This is a data-integrity contract, not phonetic validation or completion of the contextual vowel matrix. |
+| KHMER-VOWEL-REGISTRY-SCHEMA-001 | DONE_VERIFIED (data-integrity contract only) | Exact final PR head `45fc31321d3628aa5afb61892802a8f9f20b3eb1`: Quality [44721843510](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44721843510) SUCCESS (446 Python tests + 70 subtests, web checks, production build); Chromium [44721843530](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44721843530) SUCCESS. Schema validates the 9 existing source-indexed cases; tests unique IDs, source references, evidence/status parity, non-gold status and conflict withholding. | This verifies record shape and provenance/status invariants only; it is not phonetic validation or completion of the contextual vowel matrix. |
 | KHMER-VOWEL-CONTEXT-MATRIX-001 | PARTIAL | Existing source register and coverage report preserve bounded source examples and the dependent-sign × series inventory. | Full source-located contextual matrix still requires syllable type, coda, length, stress/harmony, profile and phonemic-vs-phonetic distinction; missing cells remain NOT_ESTABLISHED until evidence is supplied. No extrapolation from Unicode structure. |
 
 No new IPA values, gold records, source permissions, Ukrainian mappings or runtime rules were introduced. Independent adjudicated IPA gold remains 0; empirical accuracy remains null.
@@ -3419,3 +3419,6 @@ No new IPA values, gold records, source permissions, Ukrainian mappings or runti
 ### KHMER-VOWEL-REGISTRY-SCHEMA-001 CI dependency correction — 2026-11-20
 
 The initial Quality run failed at test collection because `jsonschema` was not installed by the existing CI command. The test-only dependency is now declared in `pyproject.toml` and CI installs the `.[test]` extra. Status remains PARTIAL until the rerun passes Python, web checks and production build on the final PR head. The initial failure is not counted as a successful test.
+
+
+Exact-head closeout: the initial Quality run failed because `jsonschema` was absent from the test environment; after declaring the test-only `.[test]` extra and updating CI installation, Quality and Chromium both passed on `45fc31321d3628aa5afb61892802a8f9f20b3eb1`. No runtime or linguistic data changed.
