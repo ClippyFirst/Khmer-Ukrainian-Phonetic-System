@@ -77,3 +77,28 @@ def test_public_report_is_identical_to_canonical_generated_report():
     public_report = ROOT / "public" / "reports" / "khmer-coverage-audit.json"
     assert public_report.exists()
     assert public_report.read_bytes() == REPORT.read_bytes()
+
+
+def test_contextual_vowel_evidence_exposes_missing_dimensions_without_inference():
+    report = json.loads(REPORT.read_text(encoding="utf-8"))
+    contextual = report["contextual_vowel_evidence"]
+    observations = contextual["observations"]
+    assert len(observations) == sum(report["source_registry_status_counts"].values())
+    assert contextual["cross_product_assessment"]["status"] == "NOT_ESTABLISHED"
+    assert contextual["context_dimensions"]["syllable_type"].startswith("NOT_ESTABLISHED")
+    assert contextual["context_dimensions"]["vowel_length"].startswith("ONLY_EXPLICIT")
+    assert contextual["context_dimensions"]["profile"].startswith("NOT_SPECIFIED")
+
+    by_id = {row["case_id"]: row for row in observations}
+    # KHV-001 has an explicit long mark in the cited source transcription.
+    assert by_id["KHV-001"]["length_evidence"] == "EXPLICIT_LENGTH_MARK_IN_SOURCE_TRANSCRIPTION"
+    # Missing/undocumented dimensions remain unknown; do not infer from spelling.
+    assert by_id["KHV-001"]["phonological_syllable_type"] == "NOT_ESTABLISHED"
+    assert by_id["KHV-001"]["profile"] == "NOT_SPECIFIED_PER_CASE"
+    # A source transcription without a length mark is not automatically "short".
+    no_mark = [row for row in observations if row["source_transcription"] and "ː" not in row["source_transcription"]]
+    assert all("SHORTNESS_NOT_INFERRED" in row["length_evidence"] for row in no_mark)
+    # Conflicting source analyses remain uncollapsed and retain their source status.
+    conflicting = [row for row in observations if row["evidence_status"] == "CONFLICTING_SOURCE_ANALYSES"]
+    assert conflicting
+    assert all(row["source_transcription"] is None for row in conflicting)
