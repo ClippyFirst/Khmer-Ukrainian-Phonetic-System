@@ -3453,3 +3453,12 @@ Exact-head closeout: the initial Quality run failed because `jsonschema` was abs
 | Task | Status | Evidence | Acceptance boundary |
 |---|---|---|---|
 | KHM-MAIN-CI-2026-11-20-B | DONE_VERIFIED | Exact main HEAD `e5ea08e9bc0c9828b5da29cbd6ecb06d6e054ee0`: Quality [44734864422](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734864422), browser smoke [44734864454](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734864454), Pages/deploy [44734864513](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734864513) all SUCCESS. | Engineering/deployment only. Independent gold=0, accuracy null; contextual phonology and manual accessibility QA remain PARTIAL/TODO. |
+
+## Exact current-main verification and remaining acceptance gates — 2026-11-20
+
+| Task | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-MAIN-CI-2026-11-20-CURRENT | DONE_VERIFIED | Exact main HEAD 0e90dcaf7d76ac1c8ad43dc6496a506af044ecc1: Quality [44736142441](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44736142441), Chromium [44736142257](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44736142257), Pages/deploy [44736142183](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44736142183) all SUCCESS. | Engineering/deployment only; no independent pronunciation gold or empirical accuracy. |
+| KHM-VOWEL-CONTEXT-MATRIX-002 | PARTIAL | Nine source-indexed observations remain seven SOURCE_ATTESTED_NOT_GOLD and two CONFLICTING_SOURCE_ANALYSES; report/dashboard parity is tested. | Complete source-located coverage for profile × series × vowel × phonological coda × syllable type × measured length × stress/harmony and expert review. |
+| KHM-GOLD-PILOT-001 | BLOCKED | Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104). | Approved convention, two annotators, separate adjudicator and curator, blind intake, rights clearance and 30 adjudicated lexeme groups. |
+| KHM-MANUAL-A11Y-001 | TODO (human QA) | Issue [#463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/463). | Manual keyboard, screen-reader, zoom/reflow, contrast, touch-target and mobile QA; remediate and retest. |
