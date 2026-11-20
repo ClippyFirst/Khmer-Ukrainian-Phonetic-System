@@ -5610,3 +5610,15 @@ The remaining release blockers are unchanged: no independently adjudicated IPA g
 - Exact-main browser smoke [44723258466](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44723258466) completed SUCCESS, including Chromium visible-result verification.
 - Exact-main Pages workflow [44723258463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44723258463) completed SUCCESS: build, Chromium production-site exercise, Pages artifact upload, deployment and deployed-site smoke test all succeeded. Published URL: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/.
 - `KHMER-VOWEL-REGISTRY-SCHEMA-001` is DONE_VERIFIED and merged. This closes a registry-integrity engineering task only. The complete contextual phonological vowel matrix remains PARTIAL; independent adjudicated IPA gold remains 0; empirical accuracy remains null.
+
+
+## Contextual Khmer vowel evidence inventory — 2026-11-20
+
+A separate branch `feat/khmer-contextual-vowel-coverage-2026-11-20` extends the existing `scripts/coverage.py` output instead of creating a parallel phonology engine or new lexical dataset.
+
+- The canonical and public coverage JSON now include `contextual_vowel_evidence` with one source-preserving observation per existing evidence-register case.
+- Fields expose dependent-vowel sequence, consonant class, subscripts, register-shifter marker, orthographic coda marker, source transcription, source ID/role and explicit source length marks.
+- The report explicitly marks phonological syllable type, phonological coda identity, measured vowel length, stress/harmony and per-case dialect profile as not established where the registry does not contain them.
+- It preserves source transcription strings and conflict status; no IPA was synthesized, no missing length mark was interpreted as short, and no orthographic coda was reclassified as a phonological coda.
+- Existing registry has 9 rows (7 source-attested-not-gold; 2 conflicting source analyses). Independent adjudicated gold remains 0 and empirical accuracy remains null.
+- Added regression assertions for these boundaries and generated report parity. Exact-head full CI is pending on the new PR; no local checkout/test execution was available in the GitHub connector environment.
