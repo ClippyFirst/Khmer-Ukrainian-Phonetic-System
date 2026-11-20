@@ -5653,3 +5653,15 @@ Current exact `main` HEAD: `a97381b6cd221ccb65cc7d4d118578c3f482eb54`.
 - Pages/deploy [44734864513](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734864513): SUCCESS, including deployment and deployed-site smoke.
 - This verifies the documentation/evidence synchronization on top of merged PR #462; it does not close the linguistic matrix or gold-data gates.
 - Independent adjudicated IPA gold remains 0 and empirical accuracy remains unmeasured. The full source-located contextual matrix still lacks profile, phonological coda/syllable classification, measured duration, stress/harmony and adjudicated lexical coverage. Issue #104 remains the human/source-rights pilot gate; Issue #463 remains manual accessibility QA.
+
+## Exact current-main closeout after contextual evidence dashboard — 2026-11-20
+
+- Verified default-branch HEAD: 0e90dcaf7d76ac1c8ad43dc6496a506af044ecc1.
+- Quality [44736142441](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44736142441) SUCCESS: gold-corpus structural validation, Python tests, web checks and production build.
+- Browser smoke [44736142257](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44736142257) SUCCESS: deterministic web checks, Vite production build, Chromium installation and visible-results smoke.
+- Pages/deploy [44736142183](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44736142183) SUCCESS: production build, Chromium smoke, Pages artifact upload, deployment and public-site/runtime-asset smoke.
+- PR #462 contextual evidence dashboard and register changes are merged; there are no open PRs at this checkpoint.
+- The nine contextual vowel observations remain seven SOURCE_ATTESTED_NOT_GOLD and two CONFLICTING_SOURCE_ANALYSES. They expose existing source evidence only; they do not fill the full profile × series × vowel × phonological coda × syllable type × measured length × stress/harmony cross-product. No missing length, coda, IPA or tone values were inferred.
+- Independent adjudicated IPA gold remains 0; empirical accuracy remains unmeasured. Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains BLOCKED on expert-approved convention, two independent annotators, separate adjudicator and curator, private blind intake, item-level source rights and 30 adjudicated lexeme groups.
+- Manual accessibility QA remains TODO under Issue [#463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/463); automated browser checks do not constitute human WCAG sign-off.
+- This documentation-only branch is not main. Merge only after exact-head CI passes and the diff is reviewed.
