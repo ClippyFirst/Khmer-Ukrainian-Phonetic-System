@@ -183,3 +183,18 @@ The following claims must remain in separate evidence classes:
 | PPK low-F0 group includes /r>h/ forms and voiced-onset disyllables | Profile-specific prosodic evidence | Mam et al. (2025), five speakers, 50 words | Not a universal Khmer tone rule and not evidence for a grapheme-to-tone mapping |
 
 The Nacaskul restrictions are historical source reports, not yet independently confirmed for every current Phnom Penh careful-citation environment. The Sak-Humphry 2025 publisher preview is not used to settle codas because its excerpt contradicts itself about /r/. No new vowel/coda matrix cell is promoted to adjudicated gold.
+
+
+## 10. Machine-checked evidence-register contract — 2026-11-20
+
+The canonical source-indexed example register is `data/khmer/vowel-context-register.json`. Its structural contract is now defined in `schemas/khmer-vowel-context-register.schema.json` and exercised by `tests/test_khmer_vowel_context_schema.py`.
+
+The test checks both schema conformance and cross-record invariants:
+
+- each case ID is unique;
+- each `ipa_source` and any explicit alternative source resolves to `sources`;
+- `evidence_level` and `status` agree;
+- no case is labelled `ADJUDICATED_GOLD`;
+- conflicting source analyses keep `ipa` and Ukrainian adaptation null and retain `ukrainian_status = NOT_ESTABLISHED`.
+
+This is a data-integrity gate only. It does not validate the correctness of a source transcription, infer missing vowel values, or promote any source-attested example to a runtime rule. The generated coverage report remains the narrower dependent-sign × consonant-series inventory. The full contextual matrix still needs independently source-located lexical rows for series × vowel sequence × coda × syllable type × length × stress/harmony/profile, specialist review, and eventually independent adjudication.
