@@ -3462,3 +3462,14 @@ Exact-head closeout: the initial Quality run failed because `jsonschema` was abs
 | KHM-VOWEL-CONTEXT-MATRIX-002 | PARTIAL | Nine source-indexed observations remain seven SOURCE_ATTESTED_NOT_GOLD and two CONFLICTING_SOURCE_ANALYSES; report/dashboard parity is tested. | Complete source-located coverage for profile × series × vowel × phonological coda × syllable type × measured length × stress/harmony and expert review. |
 | KHM-GOLD-PILOT-001 | BLOCKED | Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104). | Approved convention, two annotators, separate adjudicator and curator, blind intake, rights clearance and 30 adjudicated lexeme groups. |
 | KHM-MANUAL-A11Y-001 | TODO (human QA) | Issue [#463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/463). | Manual keyboard, screen-reader, zoom/reflow, contrast, touch-target and mobile QA; remediate and retest. |
+
+
+## Final merged-main engineering verification — 2026-11-20
+
+| Task | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-FINAL-MAIN-CI-2026-11-20 | DONE_VERIFIED | Final main [5293cdcb93b5f4f617e8a9b04d97630a128c4510](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/commit/5293cdcb93b5f4f617e8a9b04d97630a128c4510), PR #464 merged. Quality [44752921914](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44752921914), Chromium [44752921989](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44752921989), Pages/deploy [44752921857](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44752921857): SUCCESS. | Engineering and deployment only; gold and manual accessibility gates remain open. |
+| KHM-VOWEL-CONTEXT-MATRIX-002 | PARTIAL | Nine source-indexed observations: seven SOURCE_ATTESTED_NOT_GOLD, two CONFLICTING_SOURCE_ANALYSES. | Complete source-located profile × series × vowel × coda × syllable type × measured length × stress/harmony coverage and expert review. |
+| KHM-GOLD-PILOT-001 | BLOCKED | Issue #104; independent adjudicated gold=0, empirical accuracy unmeasured. | Approved convention, two annotators, adjudicator, curator, blind intake, item-level rights and 30 adjudicated groups. |
+| KHM-MANUAL-A11Y-001 | TODO | Issue #463. | Human keyboard, screen-reader, zoom/reflow, contrast, touch-target and mobile QA with remediation. |
+| KHM-LICENSE-OWNER-DECISION | BLOCKED | No repository license; owner decision required. | Owner explicitly selects and approves license. |
