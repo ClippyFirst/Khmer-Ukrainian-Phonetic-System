@@ -198,3 +198,13 @@ The test checks both schema conformance and cross-record invariants:
 - conflicting source analyses keep `ipa` and Ukrainian adaptation null and retain `ukrainian_status = NOT_ESTABLISHED`.
 
 This is a data-integrity gate only. It does not validate the correctness of a source transcription, infer missing vowel values, or promote any source-attested example to a runtime rule. The generated coverage report remains the narrower dependent-sign × consonant-series inventory. The full contextual matrix still needs independently source-located lexical rows for series × vowel sequence × coda × syllable type × length × stress/harmony/profile, specialist review, and eventually independent adjudication.
+
+
+## 11. Exact-head schema verification — 2026-11-20
+
+The contextual evidence-register schema and tests passed on PR head `45fc31321d3628aa5afb61892802a8f9f20b3eb1`:
+
+- Quality [44721843510](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44721843510): SUCCESS — 446 Python tests + 70 subtests, web checks and production build.
+- Chromium [44721843530](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44721843530): SUCCESS.
+
+This closes the schema/integrity subtask only. The report still covers dependent vowel sign × consonant series, not the full contextual matrix. No source evidence, IPA value, lexical label or gold item was added. The canonical completion register records `KHMER-VOWEL-REGISTRY-SCHEMA-001 = DONE_VERIFIED`; the broader contextual matrix remains PARTIAL.
