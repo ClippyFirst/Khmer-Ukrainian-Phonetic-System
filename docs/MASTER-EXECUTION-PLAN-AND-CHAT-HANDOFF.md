@@ -5692,3 +5692,12 @@ Task ledger:
 - No linguistic data, IPA labels, Ukrainian mappings, runtime rules, or generated artifacts were changed.
 
 The dedicated branch is license/noncommercial-research-2026-11-21; this section records the proposal until its PR is reviewed and merged. No release or legal opinion is implied.
+
+
+## Final noncommercial license closeout — 2026-11-21
+
+The owner-authorized noncommercial license decision is now merged. PR #466 added the scoped PolyForm Noncommercial 1.0.0 code license and CC BY-NC 4.0 documentation license, and replaced the prior MIT package metadata declaration. PR #467 corrected the final PolyForm definition wording to match the official license text. Merge commits: #466 575447844a0f876d4e361232a25ef18b8bce50af; #467 94bbc0a230aafcfb65d300ea65f097d026c130df.
+
+PR-head verification: #466 Quality 44826318181 and browser 44826318046 SUCCESS; #467 Quality 44826605678 and browser 44826605610 SUCCESS. Exact post-merge mainline Quality/browser/Pages runs on 94bbc0a230aafcfb65d300ea65f097d026c130df are still running at this handoff update and must be checked before calling that SHA fully green.
+
+KHMER-LICENSE-001 — DONE_VERIFIED for the repository-owned software/docs licensing declarations, scope boundaries, and PR-head CI. Third-party/source-data rights remain PARTIAL or BLOCKED per their individual evidence; this project license does not authorize redistribution of items with unknown or conflicting rights. No linguistic records, IPA, runtime rules, or generated artifacts were changed. The repository remains a linguistically partial research prototype, not release-ready.
