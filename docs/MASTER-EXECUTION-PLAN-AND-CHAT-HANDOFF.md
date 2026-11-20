@@ -5601,3 +5601,12 @@ The remaining release blockers are unchanged: no independently adjudicated IPA g
 - The same exact head passed Chromium browser smoke [44721843530](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44721843530), including visible-result verification.
 - `KHMER-VOWEL-REGISTRY-SCHEMA-001` is now DONE_VERIFIED for data-integrity validation only. Full contextual vowel/rime coverage remains PARTIAL; gold remains 0 and accuracy null.
 - These results apply to `45fc313`. The documentation-only evidence synchronization that follows will create a new head and must receive its own CI before that later head is called green.
+
+
+## Post-merge verification — PR #461 — 2026-11-20
+
+- PR [#461](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/461) was squash-merged to `main` as commit `0aa943f8490d5ed6043fbc74bd2f15aa7cf57c26`.
+- Exact-main Quality run [44723258396](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44723258396) completed SUCCESS: **446 Python tests + 70 subtests**, shared register-shifter contract, web checks and production build. The test-only `jsonschema` extra was installed successfully.
+- Exact-main browser smoke [44723258466](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44723258466) completed SUCCESS, including Chromium visible-result verification.
+- Exact-main Pages workflow [44723258463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44723258463) completed SUCCESS: build, Chromium production-site exercise, Pages artifact upload, deployment and deployed-site smoke test all succeeded. Published URL: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/.
+- `KHMER-VOWEL-REGISTRY-SCHEMA-001` is DONE_VERIFIED and merged. This closes a registry-integrity engineering task only. The complete contextual phonological vowel matrix remains PARTIAL; independent adjudicated IPA gold remains 0; empirical accuracy remains null.
