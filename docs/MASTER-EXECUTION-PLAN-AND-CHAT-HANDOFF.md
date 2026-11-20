@@ -5622,3 +5622,14 @@ A separate branch `feat/khmer-contextual-vowel-coverage-2026-11-20` extends the 
 - It preserves source transcription strings and conflict status; no IPA was synthesized, no missing length mark was interpreted as short, and no orthographic coda was reclassified as a phonological coda.
 - Existing registry has 9 rows (7 source-attested-not-gold; 2 conflicting source analyses). Independent adjudicated gold remains 0 and empirical accuracy remains null.
 - Added regression assertions for these boundaries and generated report parity. Exact-head full CI is pending on the new PR; no local checkout/test execution was available in the GitHub connector environment.
+
+
+## Contextual Khmer vowel coverage PR #462 — merged 2026-11-20
+
+- PR #462 merged to `main` as `d4738096ae05cad4e338388bfb93fa05b8855e54`.
+- Exact PR head `c40315663855102ee419090148da351343af9441`: Quality [44733384646](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44733384646) SUCCESS (**447 Python tests + 70 subtests**, report freshness, web checks, Vite build); push Quality [44733376120](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44733376120) SUCCESS; Chromium smoke [44733384573](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44733384573) SUCCESS.
+- `scripts/coverage.py` now adds a case-level `contextual_vowel_evidence` view, preserving nine existing source-indexed cases, their source conventions and evidence states. The dashboard renders those observations as text.
+- The report explicitly leaves profile, phonological syllable type/coda, measured duration, stress/harmony and full cross-product coverage unresolved. It does not infer shortness from absent length marks or generate IPA. No gold rows or runtime phonology rules were added.
+- Current pilot blocker remains Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104): convention approval, qualified annotators/adjudicator/curator, private blind intake, item-level rights and 30 adjudicated lexeme groups.
+- Manual accessibility QA is tracked separately in Issue [#463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/463). Automated smoke is not manual accessibility sign-off.
+- The post-merge `main` head has not yet been verified by its own new CI runs; do not substitute the PR-head evidence for post-merge mainline evidence.
