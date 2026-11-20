@@ -3478,3 +3478,8 @@ Exact-head closeout: the initial Quality run failed because `jsonschema` was abs
 ## Licensing status — 2026-11-21
 
 KHMER-LICENSE-001 is PARTIAL pending hosted verification and merge. Original code is assigned PolyForm Noncommercial 1.0.0; original docs CC BY-NC 4.0. The Python package metadata has been changed from its previous MIT declaration to the same noncommercial code license. Third-party components and source-specific research data are explicitly excluded. Existing item-level source rights, redistribution permissions and any conflicts remain separate gates. This is a noncommercial licensing choice, not an OSI Open Source grant or a claim that the linguistic prototype is release-ready.
+
+
+## Licensing closeout — 2026-11-21
+
+KHMER-LICENSE-001 — DONE_VERIFIED. Original code: PolyForm Noncommercial 1.0.0; original docs: CC BY-NC 4.0. The former MIT package metadata was replaced with SPDX PolyForm-Noncommercial-1.0.0. PR #466 merged as 575447844a0f876d4e361232a25ef18b8bce50af; PR #467 merged as 94bbc0a230aafcfb65d300ea65f097d026c130df to align the official license wording. PR-head Quality and browser checks passed on both heads. Exact-main post-merge workflows on the latter SHA were still pending/in progress at this update. Third-party code and item-level research data are expressly excluded; rights-clearance tasks remain open. This is noncommercial licensing, not OSI-approved Open Source or linguistic release approval.
