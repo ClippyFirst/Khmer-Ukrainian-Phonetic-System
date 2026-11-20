@@ -140,7 +140,7 @@ The web requirements are frozen in:
 
 ## Python package
 
-Install the package in a Python 3.11+ environment and run the research test suite with pytest.
+Install the package and its test-only dependencies in a Python 3.11+ environment with `pip install -e ".[test]"`, then run the research test suite with `pytest`. JSON Schema validation remains a test-only dependency and is not imported by runtime modules.
 
 The public API exposes:
 

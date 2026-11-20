@@ -5570,3 +5570,34 @@ PR #459 merged by squash as `c0fb6f8efcadf20ff55aec58b1188144707ae52f`. Exact-ma
 A new paginated inventory after the merge reports **333 refs, 333 unique names and 333 unique tip SHAs**: `docs/*` 150, `audit/*` 44, `feat/*` 50, `research/*` 29, `test/*` 26, `fix/*` 24, `data/*` 4, `a11y/*` 2, plus one each under `benchmark/*`, `ci/*`, `release/*`, and unprefixed `main`. There are **0 open PRs** at this checkpoint. No historical branches were deleted or rewritten.
 
 The remaining release blockers are unchanged: no independently adjudicated IPA gold records, IPA convention still draft/unapproved, external source/dataset rights unresolved, Issue #104 still requires human recruitment and blind pilot execution, root license decision belongs to the owner, lexical segmentation and manual accessibility review remain incomplete. The repository remains a research-ready partial prototype, not release-ready. Full historical PR/commit ancestry reconciliation remains **PARTIAL** under `KHM-BRANCH-AUDIT-001`.
+
+
+## Contextual vowel evidence contract — 2026-11-20
+
+- Dedicated branch: `docs/architecture-runtime-contract-2026-11-20`, based on default-branch HEAD `3f3fc705784be1e6a82a0d3ed81f2a897acbef98`.
+- Added `schemas/khmer-vowel-context-register.schema.json` for the canonical `data/khmer/vowel-context-register.json` and `tests/test_khmer_vowel_context_schema.py` for JSON Schema validation plus cross-record source-reference, unique-ID, evidence/status and conflict-withholding invariants.
+- Updated the existing vowel-series/coda evidence matrix, architecture and documentation index in place to explain the new machine-checked contract and its strict boundary.
+- No new IPA values, lexical records, Ukrainian mappings, source claims, runtime rules, generated coverage artifacts or gold rows were added. Existing source evidence remains SOURCE_ATTESTED_NOT_GOLD or CONFLICTING_SOURCE_ANALYSES.
+- The generated coverage report remains only a dependent-vowel-sign × consonant-series inventory. It does not cover the full series × vowel sequence × coda × syllable type × length × stress/harmony/profile matrix. Full contextual coverage remains PARTIAL.
+- The schema/test changes have not yet been executed in hosted CI or a local checkout. Exact-head Quality, Chromium and Pages evidence must be checked after the pull request is opened; no test is claimed as passed here.
+- Independent adjudicated Khmer IPA gold remains 0; `data/benchmark/gold.tsv` remains header-only; empirical accuracy remains null. The approved IPA convention, qualified independent annotators, separate adjudicator, non-annotating curator, private blind intake, item-level rights and source locators, and 30 distinct adjudicated lexeme groups remain external acceptance gates.
+- The existing architecture already separates the deterministic IPA-first route, typed research-only external candidates and the BGN/PCGN orthographic route. Those boundaries were preserved rather than rewritten.
+
+
+### CI dependency correction — 2026-11-20
+
+- First exact-PR-head Quality run [44721539422](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44721539422) failed during pytest collection: `ModuleNotFoundError: No module named 'jsonschema'`. The base CI installed only `-e . pytest`; the repository had no declared test extra.
+- Corrected the project contract: `pyproject.toml` now declares a test-only extra (`pytest>=8,<10`, `jsonschema>=4.20,<5`), and `.github/workflows/ci.yml` installs `-e ".[test]"`. README now documents the same command and confirms JSON Schema is not a runtime dependency.
+- This is a dependency declaration/CI correction, not a runtime dependency increase. The failed run remains recorded as FAILED; only a new exact-head run can verify the fix.
+
+
+- Final pre-CI synchronization also updated `docs/architecture.md` to use the same `pip install -e ".[test]"` setup. Current branch head after the dependency and documentation correction is expected to be rechecked from PR metadata before recording CI evidence; no green rerun is claimed yet.
+
+
+### Exact-head verification closeout — 2026-11-20
+
+- Corrected test-only dependency declaration after the first Quality failure; no runtime dependency was added.
+- Exact head `45fc31321d3628aa5afb61892802a8f9f20b3eb1` passed Quality [44721843510](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44721843510): **446 Python tests + 70 subtests**, web checks and production build.
+- The same exact head passed Chromium browser smoke [44721843530](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44721843530), including visible-result verification.
+- `KHMER-VOWEL-REGISTRY-SCHEMA-001` is now DONE_VERIFIED for data-integrity validation only. Full contextual vowel/rime coverage remains PARTIAL; gold remains 0 and accuracy null.
+- These results apply to `45fc313`. The documentation-only evidence synchronization that follows will create a new head and must receive its own CI before that later head is called green.
