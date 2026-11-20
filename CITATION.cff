@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this research prototype, cite the repository and identify the exact commit or version used."
+title: "Khmer-to-Ukrainian Phonetic-Graphemic Correspondence System"
+type: software
+version: 0.2.0
+repository-code: "https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-"
+url: "https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-"
+authors:
+  - name: "ClippyFirst contributors"
+abstract: >-
+  An evidence-gated research prototype for Khmer orthographic structure,
+  partial phonological and typed IPA analysis, and practical Ukrainian
+  correspondence. It is not a validated complete Khmer grapheme-to-phoneme
+  system or a substitute for expert-adjudicated pronunciation data.
+keywords:
+  - Khmer
+  - Cambodian
+  - grapheme-to-phoneme
+  - IPA
+  - Ukrainian transcription
+  - phonology
+  - research software
+license: "PolyForm-Noncommercial-1.0.0"
