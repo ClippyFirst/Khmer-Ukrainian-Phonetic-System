@@ -5632,4 +5632,15 @@ A separate branch `feat/khmer-contextual-vowel-coverage-2026-11-20` extends the 
 - The report explicitly leaves profile, phonological syllable type/coda, measured duration, stress/harmony and full cross-product coverage unresolved. It does not infer shortness from absent length marks or generate IPA. No gold rows or runtime phonology rules were added.
 - Current pilot blocker remains Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104): convention approval, qualified annotators/adjudicator/curator, private blind intake, item-level rights and 30 adjudicated lexeme groups.
 - Manual accessibility QA is tracked separately in Issue [#463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/463). Automated smoke is not manual accessibility sign-off.
-- The post-merge `main` head has not yet been verified by its own new CI runs; do not substitute the PR-head evidence for post-merge mainline evidence.
+- Post-merge exact `main` head `a97381b6cd221ccb65cc7d4d118578c3f482eb54` is fully verified: Quality [44734185716](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734185716) SUCCESS (**447 Python tests + 70 subtests**, including report freshness and dashboard tests); browser [44734185807](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734185807) SUCCESS; Pages/deploy [44734185684](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734185684) SUCCESS, including deployed-site smoke.
+
+
+## Post-merge mainline verification — 2026-11-20
+
+Current exact `main` HEAD: `a97381b6cd221ccb65cc7d4d118578c3f482eb54`.
+
+- Quality [44734185716](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734185716): SUCCESS — 447 Python tests + 70 subtests; contextual report freshness, schema, web checks and production build.
+- Browser smoke [44734185807](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734185807): SUCCESS — deterministic web checks, Vite build, Chromium visible-results smoke.
+- Pages/deploy [44734185684](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734185684): SUCCESS — production build, Chromium, artifact upload, deployment and public-site/runtime-asset smoke.
+- PR #462 is merged; PR-head CI and exact post-merge main CI are both green.
+- Remaining research gate: independent adjudicated IPA gold remains 0, empirical accuracy unmeasured; Issue #104 still requires expert convention approval, qualified annotators/adjudicator/curator, private blind intake, item-level rights and 30 adjudicated lexeme groups. Manual accessibility QA is tracked in Issue #463.
