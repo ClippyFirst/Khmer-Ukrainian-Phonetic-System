@@ -5664,4 +5664,13 @@ Current exact `main` HEAD: `a97381b6cd221ccb65cc7d4d118578c3f482eb54`.
 - The nine contextual vowel observations remain seven SOURCE_ATTESTED_NOT_GOLD and two CONFLICTING_SOURCE_ANALYSES. They expose existing source evidence only; they do not fill the full profile × series × vowel × phonological coda × syllable type × measured length × stress/harmony cross-product. No missing length, coda, IPA or tone values were inferred.
 - Independent adjudicated IPA gold remains 0; empirical accuracy remains unmeasured. Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains BLOCKED on expert-approved convention, two independent annotators, separate adjudicator and curator, private blind intake, item-level source rights and 30 adjudicated lexeme groups.
 - Manual accessibility QA remains TODO under Issue [#463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/463); automated browser checks do not constitute human WCAG sign-off.
-- This documentation-only branch is not main. Merge only after exact-head CI passes and the diff is reviewed.
+- This pre-merge branch-status note is superseded by the final merged-main closeout below.
+
+
+## Final merged-main closeout — 2026-11-20 (supersedes the pre-merge checkpoint above)
+
+- Final default-branch commit: [5293cdcb93b5f4f617e8a9b04d97630a128c4510](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/commit/5293cdcb93b5f4f617e8a9b04d97630a128c4510); PR [#464](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/464) is merged. The earlier 0e90dc checkpoint and “branch is not main” instruction above are historical, superseded states.
+- Exact final-commit Quality [44752921914](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44752921914), Chromium [44752921989](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44752921989), and Pages/deploy [44752921857](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44752921857) all SUCCESS.
+- The nine contextual vowel observations remain seven SOURCE_ATTESTED_NOT_GOLD and two CONFLICTING_SOURCE_ANALYSES. The full phonological cross-product remains PARTIAL; no missing coda, duration, stress/harmony, IPA or tone values were inferred.
+- Gold pilot BLOCKED under [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104); manual accessibility QA TODO under [#463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/463). Independent adjudicated gold=0; empirical accuracy unmeasured. No license was selected because that is an owner decision.
+- Result: engineering/build/deployment verified; linguistically a research prototype, not release-ready. Connector-hosted CI was verified; no local checkout or local test commands were available in this session.
