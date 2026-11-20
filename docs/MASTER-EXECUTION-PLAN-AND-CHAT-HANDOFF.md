@@ -5701,3 +5701,8 @@ The owner-authorized noncommercial license decision is now merged. PR #466 added
 PR-head verification: #466 Quality 44826318181 and browser 44826318046 SUCCESS; #467 Quality 44826605678 and browser 44826605610 SUCCESS. Exact post-merge mainline Quality/browser/Pages runs on 94bbc0a230aafcfb65d300ea65f097d026c130df are still running at this handoff update and must be checked before calling that SHA fully green.
 
 KHMER-LICENSE-001 — DONE_VERIFIED for the repository-owned software/docs licensing declarations, scope boundaries, and PR-head CI. Third-party/source-data rights remain PARTIAL or BLOCKED per their individual evidence; this project license does not authorize redistribution of items with unknown or conflicting rights. No linguistic records, IPA, runtime rules, or generated artifacts were changed. The repository remains a linguistically partial research prototype, not release-ready.
+
+
+## Post-merge CI verification — noncommercial license closeout — 2026-11-21
+
+The licensing closeout documentation PR #468 is merged as 493e135ad4787c737931dbad20ea564c528bfd7c. Exact-mainline CI on that SHA is fully green: Quality [44827023495](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44827023495), Chromium browser smoke [44827023488](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44827023488), and Pages build/deploy [44827023602](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44827023602) all SUCCESS. This supersedes the earlier timestamped note that exact-main workflows were still running. KHMER-LICENSE-001 remains DONE_VERIFIED; third-party and item-level data rights remain separately unresolved.
