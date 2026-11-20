@@ -3498,3 +3498,8 @@ KHMER-RESEARCH-DATA-LICENSE-001 — implementation on license branch; PR-head CI
 ## Research-data licensing — merged and verified — 2026-11-21
 
 KHMER-RESEARCH-DATA-LICENSE-001 — DONE_VERIFIED. PR #470 merged as `c57e76d11e940aa522f36cfaca205ad654a6425e`. Original project-authored research data, annotations and curated database contributions are licensed CC BY-NC 4.0 for noncommercial research under `LICENSE-DATA`, only where project contributors hold the relevant rights. README, `THIRD_PARTY_NOTICES.md`, benchmark license registry and corpus documentation now reflect the scope. PR-head Quality/browser passed (44829570556, 44829570588); exact-main Quality 44829718697, Chromium 44829718684 and Pages build/deploy 44829718661 all SUCCESS on the merge SHA. Third-party source rights and any non-project contributor rights remain item-level unresolved gates. NC-only data remains ineligible for the existing commercial/product gold-corpus export gate. No gold rows or IPA labels were added.
+
+
+## Citation metadata and exact-main verification — 2026-11-21
+
+KHMER-CITATION-001 — DONE_VERIFIED. PR #472 merged as `cd54ed9c64fb9cb7132f33b589d7847a14226bde`, adding CFF 1.2.0 citation metadata for package version 0.2.0 and a README citation note. PR-head Quality/browser passed (44830502365, 44830502500); exact-main Quality 44830768580, Chromium 44830768579 and Pages build/deploy 44830768577 all SUCCESS on the merge SHA. No DOI or publication is claimed. KHMER-RESEARCH-DATA-LICENSE-001 remains DONE_VERIFIED from PR #470; source-specific third-party rights remain separate unresolved gates.
