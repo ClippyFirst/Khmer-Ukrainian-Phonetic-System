@@ -42,6 +42,7 @@ The browser imports canonical Khmer/Ukrainian registries and test fixtures. Keep
 | Location | Authority / purpose |
 |---|---|
 | `data/khmer/*.json` | Khmer orthographic inventory, consonants, signs, vowels, registers, rules and source registry |
+| `data/khmer/vowel-context-register.json` + `schemas/khmer-vowel-context-register.schema.json` | Source-indexed contextual vowel evidence and its machine-checked record contract; source-attested rows are never gold |
 | `data/comparative/` | Comparative practical-transcription evidence |
 | `data/ukrainian/practical-policy.json` | Proposed Ukrainian IPA adaptation policy |
 | `data/ukrainian/practical_correspondence.csv` | Structured target correspondences / supporting matrix |
@@ -73,6 +74,7 @@ Do not duplicate canonical mappings in UI code or explanatory tables without a c
 - Build: `npm run build`.
 - Browser automation: `npm run test:browser`.
 - Generated coverage artifact: `python scripts/coverage.py --check`.
+- Contextual vowel register contract: `tests/test_khmer_vowel_context_schema.py` (JSON Schema plus cross-reference/status invariants).
 - Gold corpus engineering gate: use the documented `scripts/ipa_gold_corpus.py` commands and workflow; passing its engineering checks is not linguistic release approval.
 
 Read `AGENTS.md`, the master handoff and [the codebase map](agents/codebase-map.md) before modifying a runtime path. A green engineering suite does not establish phonetic accuracy, expert adjudication, manual accessibility review or release readiness beyond the checks it actually runs.
