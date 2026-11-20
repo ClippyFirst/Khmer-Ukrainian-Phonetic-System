@@ -3447,3 +3447,9 @@ Exact-head closeout: the initial Quality run failed because `jsonschema` was abs
 | Task | Status | Evidence | Acceptance boundary |
 |---|---|---|---|
 | KHM-MAIN-CI-2026-11-20 | DONE_VERIFIED | Exact main HEAD `a97381b6cd221ccb65cc7d4d118578c3f482eb54`: Quality [44734185716](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734185716) SUCCESS (447 Python tests + 70 subtests), Chromium [44734185807](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734185807) SUCCESS, Pages/deploy [44734185684](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734185684) SUCCESS including deployed-site smoke. | Engineering and deployment verification only; no linguistic gold or accuracy evidence. |
+
+## Latest mainline verification — 2026-11-20
+
+| Task | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-MAIN-CI-2026-11-20-B | DONE_VERIFIED | Exact main HEAD `e5ea08e9bc0c9828b5da29cbd6ecb06d6e054ee0`: Quality [44734864422](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734864422), browser smoke [44734864454](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734864454), Pages/deploy [44734864513](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734864513) all SUCCESS. | Engineering/deployment only. Independent gold=0, accuracy null; contextual phonology and manual accessibility QA remain PARTIAL/TODO. |
