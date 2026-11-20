@@ -3414,3 +3414,8 @@ Unresolved blockers: independent adjudicated IPA gold, approved IPA convention, 
 | KHMER-VOWEL-CONTEXT-MATRIX-001 | PARTIAL | Existing source register and coverage report preserve bounded source examples and the dependent-sign × series inventory. | Full source-located contextual matrix still requires syllable type, coda, length, stress/harmony, profile and phonemic-vs-phonetic distinction; missing cells remain NOT_ESTABLISHED until evidence is supplied. No extrapolation from Unicode structure. |
 
 No new IPA values, gold records, source permissions, Ukrainian mappings or runtime rules were introduced. Independent adjudicated IPA gold remains 0; empirical accuracy remains null.
+
+
+### KHMER-VOWEL-REGISTRY-SCHEMA-001 CI dependency correction — 2026-11-20
+
+The initial Quality run failed at test collection because `jsonschema` was not installed by the existing CI command. The test-only dependency is now declared in `pyproject.toml` and CI installs the `.[test]` extra. Status remains PARTIAL until the rerun passes Python, web checks and production build on the final PR head. The initial failure is not counted as a successful test.
