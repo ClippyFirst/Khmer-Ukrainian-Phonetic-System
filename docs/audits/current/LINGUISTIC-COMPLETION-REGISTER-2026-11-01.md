@@ -3473,3 +3473,8 @@ Exact-head closeout: the initial Quality run failed because `jsonschema` was abs
 | KHM-GOLD-PILOT-001 | BLOCKED | Issue #104; independent adjudicated gold=0, empirical accuracy unmeasured. | Approved convention, two annotators, adjudicator, curator, blind intake, item-level rights and 30 adjudicated groups. |
 | KHM-MANUAL-A11Y-001 | TODO | Issue #463. | Human keyboard, screen-reader, zoom/reflow, contrast, touch-target and mobile QA with remediation. |
 | KHM-LICENSE-OWNER-DECISION | BLOCKED | No repository license; owner decision required. | Owner explicitly selects and approves license. |
+
+
+## Licensing status — 2026-11-21
+
+KHMER-LICENSE-001 is PARTIAL pending hosted verification and merge. Original code is assigned PolyForm Noncommercial 1.0.0; original docs CC BY-NC 4.0. The Python package metadata has been changed from its previous MIT declaration to the same noncommercial code license. Third-party components and source-specific research data are explicitly excluded. Existing item-level source rights, redistribution permissions and any conflicts remain separate gates. This is a noncommercial licensing choice, not an OSI Open Source grant or a claim that the linguistic prototype is release-ready.
