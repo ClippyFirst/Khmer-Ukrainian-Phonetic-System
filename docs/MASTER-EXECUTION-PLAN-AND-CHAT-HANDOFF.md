@@ -5644,3 +5644,12 @@ Current exact `main` HEAD: `a97381b6cd221ccb65cc7d4d118578c3f482eb54`.
 - Pages/deploy [44734185684](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734185684): SUCCESS — production build, Chromium, artifact upload, deployment and public-site/runtime-asset smoke.
 - PR #462 is merged; PR-head CI and exact post-merge main CI are both green.
 - Remaining research gate: independent adjudicated IPA gold remains 0, empirical accuracy unmeasured; Issue #104 still requires expert convention approval, qualified annotators/adjudicator/curator, private blind intake, item-level rights and 30 adjudicated lexeme groups. Manual accessibility QA is tracked in Issue #463.
+
+## Exact latest mainline verification — 2026-11-20
+
+- Current verified default-branch HEAD at this checkpoint: `e5ea08e9bc0c9828b5da29cbd6ecb06d6e054ee0`.
+- Quality [44734864422](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734864422): SUCCESS.
+- Browser smoke [44734864454](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734864454): SUCCESS.
+- Pages/deploy [44734864513](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734864513): SUCCESS, including deployment and deployed-site smoke.
+- This verifies the documentation/evidence synchronization on top of merged PR #462; it does not close the linguistic matrix or gold-data gates.
+- Independent adjudicated IPA gold remains 0 and empirical accuracy remains unmeasured. The full source-located contextual matrix still lacks profile, phonological coda/syllable classification, measured duration, stress/harmony and adjudicated lexical coverage. Issue #104 remains the human/source-rights pilot gate; Issue #463 remains manual accessibility QA.
