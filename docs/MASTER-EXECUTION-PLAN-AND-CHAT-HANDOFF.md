@@ -5582,3 +5582,10 @@ The remaining release blockers are unchanged: no independently adjudicated IPA g
 - The schema/test changes have not yet been executed in hosted CI or a local checkout. Exact-head Quality, Chromium and Pages evidence must be checked after the pull request is opened; no test is claimed as passed here.
 - Independent adjudicated Khmer IPA gold remains 0; `data/benchmark/gold.tsv` remains header-only; empirical accuracy remains null. The approved IPA convention, qualified independent annotators, separate adjudicator, non-annotating curator, private blind intake, item-level rights and source locators, and 30 distinct adjudicated lexeme groups remain external acceptance gates.
 - The existing architecture already separates the deterministic IPA-first route, typed research-only external candidates and the BGN/PCGN orthographic route. Those boundaries were preserved rather than rewritten.
+
+
+### CI dependency correction — 2026-11-20
+
+- First exact-PR-head Quality run [44721539422](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44721539422) failed during pytest collection: `ModuleNotFoundError: No module named 'jsonschema'`. The base CI installed only `-e . pytest`; the repository had no declared test extra.
+- Corrected the project contract: `pyproject.toml` now declares a test-only extra (`pytest>=8,<10`, `jsonschema>=4.20,<5`), and `.github/workflows/ci.yml` installs `-e ".[test]"`. README now documents the same command and confirms JSON Schema is not a runtime dependency.
+- This is a dependency declaration/CI correction, not a runtime dependency increase. The failed run remains recorded as FAILED; only a new exact-head run can verify the fix.
