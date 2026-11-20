@@ -3440,3 +3440,10 @@ Exact-head closeout: the initial Quality run failed because `jsonschema` was abs
 | KHM-VOWEL-CONTEXT-MATRIX-002 | PARTIAL | Existing nine source-indexed rows are visible in canonical/public JSON and the system dashboard. | Requires source-located evidence across profile × series × vowel × phonological coda × syllable type × measured length × stress/harmony and expert review. |
 | KHM-MANUAL-A11Y-001 | TODO (human QA) | Issue [#463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/463) opened with manual keyboard, screen-reader, zoom/reflow, contrast and mobile checklist. | Complete manual test record, fix defects, retest. Do not infer WCAG conformance from CI. |
 
+
+
+## Post-merge exact-main verification — 2026-11-20
+
+| Task | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-MAIN-CI-2026-11-20 | DONE_VERIFIED | Exact main HEAD `a97381b6cd221ccb65cc7d4d118578c3f482eb54`: Quality [44734185716](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734185716) SUCCESS (447 Python tests + 70 subtests), Chromium [44734185807](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734185807) SUCCESS, Pages/deploy [44734185684](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734185684) SUCCESS including deployed-site smoke. | Engineering and deployment verification only; no linguistic gold or accuracy evidence. |
