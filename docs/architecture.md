@@ -69,7 +69,7 @@ Do not duplicate canonical mappings in UI code or explanatory tables without a c
 
 ## Verification topology
 
-- Python: `python -m pytest -q`.
+- Python: `pip install -e ".[test]"` followed by `python -m pytest -q` (JSON Schema validation is test-only).
 - Browser/Node: `npm run check` (or `npm test`; currently the package scripts share the same Node test list).
 - Build: `npm run build`.
 - Browser automation: `npm run test:browser`.
