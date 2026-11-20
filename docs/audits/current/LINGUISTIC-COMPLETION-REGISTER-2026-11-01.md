@@ -3493,3 +3493,8 @@ Post-merge exact main SHA 493e135ad4787c737931dbad20ea564c528bfd7c is fully veri
 ## Research-data license scope — 2026-11-21
 
 KHMER-RESEARCH-DATA-LICENSE-001 — implementation on license branch; PR-head CI pending. Original project-authored research data, annotations and curated database contributions are covered by CC BY-NC 4.0 in `LICENSE-DATA`, only where contributors hold the rights. Third-party source material and mixed-source items remain separately governed; unknown/conflicting rights remain unresolved. Existing product gold export gate still requires commercial redistribution and therefore excludes NC-only sources. No gold rows were added; linguistic acceptance status is unchanged.
+
+
+## Research-data licensing — merged and verified — 2026-11-21
+
+KHMER-RESEARCH-DATA-LICENSE-001 — DONE_VERIFIED. PR #470 merged as `c57e76d11e940aa522f36cfaca205ad654a6425e`. Original project-authored research data, annotations and curated database contributions are licensed CC BY-NC 4.0 for noncommercial research under `LICENSE-DATA`, only where project contributors hold the relevant rights. README, `THIRD_PARTY_NOTICES.md`, benchmark license registry and corpus documentation now reflect the scope. PR-head Quality/browser passed (44829570556, 44829570588); exact-main Quality 44829718697, Chromium 44829718684 and Pages build/deploy 44829718661 all SUCCESS on the merge SHA. Third-party source rights and any non-project contributor rights remain item-level unresolved gates. NC-only data remains ineligible for the existing commercial/product gold-corpus export gate. No gold rows or IPA labels were added.
