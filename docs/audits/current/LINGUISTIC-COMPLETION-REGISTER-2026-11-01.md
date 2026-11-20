@@ -3430,3 +3430,13 @@ Exact-head closeout: the initial Quality run failed because `jsonschema` was abs
 | KHM-VOWEL-CONTEXT-INVENTORY-001 | DONE_VERIFIED (case-level engineering inventory) | New `contextual_vowel_evidence` section in `reports/khmer-coverage-audit.json`, generated from the canonical case registry by `scripts/coverage.py`; matching public report; regression tests in `tests/test_coverage_report.py`. | Exposes only fields explicitly recorded in each source case. Does not establish the full vowel × series × coda × syllable × length × profile cross-product, phonological coda identity, measured duration, stress/harmony or a universal IPA rule. Independent gold remains 0. |
 | KHM-VOWEL-CONTEXT-MATRIX-002 | PARTIAL | Existing source registry has nine case rows: seven SOURCE_ATTESTED_NOT_GOLD and two CONFLICTING_SOURCE_ANALYSES. New report makes each row's exact orthographic context and missing dimensions inspectable. | Complete only after source-located examples cover the required dimensions and expert adjudication approves any runtime rules. No new IPA labels or gold rows added. |
 
+
+
+## Contextual Khmer vowel coverage — merged PR #462 — 2026-11-20
+
+| Task | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-VOWEL-CONTEXT-INVENTORY-001 | DONE_VERIFIED (engineering inventory) | PR #462 merged as `d4738096ae05cad4e338388bfb93fa05b8855e54`; exact PR-head Quality [44733384646](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44733384646) SUCCESS (447 Python + 70 subtests), push Quality [44733376120](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44733376120) SUCCESS, Chromium [44733384573](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44733384573) SUCCESS. | Case-level evidence view only; no IPA generation, gold labels or empirical accuracy. Full contextual cross-product remains NOT_ESTABLISHED. |
+| KHM-VOWEL-CONTEXT-MATRIX-002 | PARTIAL | Existing nine source-indexed rows are visible in canonical/public JSON and the system dashboard. | Requires source-located evidence across profile × series × vowel × phonological coda × syllable type × measured length × stress/harmony and expert review. |
+| KHM-MANUAL-A11Y-001 | TODO (human QA) | Issue [#463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/463) opened with manual keyboard, screen-reader, zoom/reflow, contrast and mobile checklist. | Complete manual test record, fix defects, retest. Do not infer WCAG conformance from CI. |
+
