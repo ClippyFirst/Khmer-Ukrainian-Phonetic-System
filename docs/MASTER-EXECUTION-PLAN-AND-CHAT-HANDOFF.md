@@ -5706,3 +5706,10 @@ KHMER-LICENSE-001 — DONE_VERIFIED for the repository-owned software/docs licen
 ## Post-merge CI verification — noncommercial license closeout — 2026-11-21
 
 The licensing closeout documentation PR #468 is merged as 493e135ad4787c737931dbad20ea564c528bfd7c. Exact-mainline CI on that SHA is fully green: Quality [44827023495](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44827023495), Chromium browser smoke [44827023488](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44827023488), and Pages build/deploy [44827023602](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44827023602) all SUCCESS. This supersedes the earlier timestamped note that exact-main workflows were still running. KHMER-LICENSE-001 remains DONE_VERIFIED; third-party and item-level data rights remain separately unresolved.
+
+
+## Original research-data license — 2026-11-21
+
+Owner-authorized noncommercial research reuse now explicitly covers original project-authored datasets, annotations and curated database contributions under CC BY-NC 4.0 (`LICENSE-DATA`), where the maintainers/contributors hold the rights. README, new `THIRD_PARTY_NOTICES.md`, `data/benchmark/licenses.json` and gold-corpus documentation explain the scope and exclusions and distinguish noncommercial research reuse from the stricter commercial/product gold-corpus gate.
+
+KHMER-RESEARCH-DATA-LICENSE-001 — implementation complete on this branch; pending PR-head and post-merge CI. This grant does not clear MekongPhon, Open-Dict, PhonSobon/NCKL, BYU MATRIX, Google Language Resources, OpenSLR, Kirby, Wayland, DDD, Common Voice, Goruut or other third-party resources. Their item-level licenses and restrictions remain controlling. No new corpus rows, IPA labels, lexical data or runtime behavior were added. The gold corpus remains empty and the expert pilot remains blocked pending approved convention, independent annotators/adjudicator, curator and item-level rights checks.
