@@ -3503,3 +3503,8 @@ KHMER-RESEARCH-DATA-LICENSE-001 — DONE_VERIFIED. PR #470 merged as `c57e76d11e
 ## Citation metadata and exact-main verification — 2026-11-21
 
 KHMER-CITATION-001 — DONE_VERIFIED. PR #472 merged as `cd54ed9c64fb9cb7132f33b589d7847a14226bde`, adding CFF 1.2.0 citation metadata for package version 0.2.0 and a README citation note. PR-head Quality/browser passed (44830502365, 44830502500); exact-main Quality 44830768580, Chromium 44830768579 and Pages build/deploy 44830768577 all SUCCESS on the merge SHA. No DOI or publication is claimed. KHMER-RESEARCH-DATA-LICENSE-001 remains DONE_VERIFIED from PR #470; source-specific third-party rights remain separate unresolved gates.
+
+
+## Final mainline verification — 2026-11-21
+
+Post-PR #473 exact main SHA `f41699a7ebadec9d85ec7cf7092f972212463f37` is fully green: Quality 44831432729 SUCCESS, browser 44831432822 SUCCESS, Pages build/deploy 44831432731 SUCCESS. This confirms the CFF citation metadata and final handoff update are deployed on main. Code/docs/data noncommercial license scope and CFF metadata remain DONE_VERIFIED; external item-level rights and linguistic release gates remain open.
