@@ -3513,3 +3513,8 @@ Post-PR #473 exact main SHA `f41699a7ebadec9d85ec7cf7092f972212463f37` is fully 
 ## Final post-merge CI — 2026-11-21
 
 Final exact main SHA `5537abb05795291bebc7e528a365a62b34dae18d` is fully green: Quality 44831853817 SUCCESS, browser 44831853698 SUCCESS, Pages build/deploy 44831853709 SUCCESS. The final handoff and completion register are therefore verified on main after PR #474. Licensing/citation tasks remain DONE_VERIFIED; external rights and linguistic release gates remain open.
+
+
+## Final exact-main verification — 2026-11-21
+
+Final main SHA `96c2329d627056daececef1848a76cc977051d65` is fully green: Quality 44832297432 SUCCESS, Chromium 44832297291 SUCCESS, Pages build/deploy 44832297309 SUCCESS. This supersedes the earlier checkpoint on `5537abb05795291bebc7e528a365a62b34dae18d`. Research-data licensing and CFF citation metadata remain DONE_VERIFIED; third-party item-level rights and linguistic release gates remain open.
