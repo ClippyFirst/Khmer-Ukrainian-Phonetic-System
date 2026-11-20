@@ -3483,3 +3483,8 @@ KHMER-LICENSE-001 is PARTIAL pending hosted verification and merge. Original cod
 ## Licensing closeout — 2026-11-21
 
 KHMER-LICENSE-001 — DONE_VERIFIED. Original code: PolyForm Noncommercial 1.0.0; original docs: CC BY-NC 4.0. The former MIT package metadata was replaced with SPDX PolyForm-Noncommercial-1.0.0. PR #466 merged as 575447844a0f876d4e361232a25ef18b8bce50af; PR #467 merged as 94bbc0a230aafcfb65d300ea65f097d026c130df to align the official license wording. PR-head Quality and browser checks passed on both heads. Exact-main post-merge workflows on the latter SHA were still pending/in progress at this update. Third-party code and item-level research data are expressly excluded; rights-clearance tasks remain open. This is noncommercial licensing, not OSI-approved Open Source or linguistic release approval.
+
+
+## Exact-main CI evidence — license closeout — 2026-11-21
+
+Post-merge exact main SHA 493e135ad4787c737931dbad20ea564c528bfd7c is fully verified: Quality 44827023495 SUCCESS, browser smoke 44827023488 SUCCESS, Pages build/deploy 44827023602 SUCCESS. The owner-authorized code/docs noncommercial licensing is complete; source-specific third-party/data rights remain separate PARTIAL/BLOCKED gates.
