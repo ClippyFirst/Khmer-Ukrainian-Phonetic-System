@@ -3422,3 +3422,11 @@ The initial Quality run failed at test collection because `jsonschema` was not i
 
 
 Exact-head closeout: the initial Quality run failed because `jsonschema` was absent from the test environment; after declaring the test-only `.[test]` extra and updating CI installation, Quality and Chromium both passed on `45fc31321d3628aa5afb61892802a8f9f20b3eb1`. No runtime or linguistic data changed.
+
+## Contextual Khmer vowel coverage inventory — 2026-11-20
+
+| Task | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-VOWEL-CONTEXT-INVENTORY-001 | DONE_VERIFIED (case-level engineering inventory) | New `contextual_vowel_evidence` section in `reports/khmer-coverage-audit.json`, generated from the canonical case registry by `scripts/coverage.py`; matching public report; regression tests in `tests/test_coverage_report.py`. | Exposes only fields explicitly recorded in each source case. Does not establish the full vowel × series × coda × syllable × length × profile cross-product, phonological coda identity, measured duration, stress/harmony or a universal IPA rule. Independent gold remains 0. |
+| KHM-VOWEL-CONTEXT-MATRIX-002 | PARTIAL | Existing source registry has nine case rows: seven SOURCE_ATTESTED_NOT_GOLD and two CONFLICTING_SOURCE_ANALYSES. New report makes each row's exact orthographic context and missing dimensions inspectable. | Complete only after source-located examples cover the required dimensions and expert adjudication approves any runtime rules. No new IPA labels or gold rows added. |
+
