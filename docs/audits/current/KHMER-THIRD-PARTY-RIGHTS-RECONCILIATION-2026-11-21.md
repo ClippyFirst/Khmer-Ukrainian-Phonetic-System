@@ -127,3 +127,11 @@ The upstream repository was inspected directly at commit **f80f6c1840c4818b51e05
 - ParaCrawl Bonus release: https://paracrawl.eu/moredata
 - OpenSubtitles v2024 source listing: https://huggingface.co/datasets/alamios/OpenSubtitles-v2024
 - MekongPhon Khmer model card: https://huggingface.co/byumatrixlab/khmer-ipa
+
+## Wiktionary lexical IPA fixtures — 2026-11-21
+
+Five small Khmer lexical IPA values are now recorded with exact entry URLs and Pronunciation-section locators: ខ្មែរ, ភាសា, ភ្នំពេញ, កម្ពុជា, and ខ្ញុំ. Their source records identify Wiktionary's dual licensing statement (CC BY-SA 4.0 and GFDL), require attribution/link-back, and explicitly exclude assumptions about embedded third-party media. The values remain community-maintained lexical references, not independent Phnom Penh profile adjudication or gold.
+
+The phrase ភាសាខ្មែរ has no direct phrase-level locator in the checked entries; it is retained only as a compositional project hypothesis from the two separately cited word entries and is tier C, not source-attested B. The exact Wiktionary page for ខ្ញុំ also lists a separate alternate pronunciation /kʰɲʊm/; the fixture selects the page's first standard IPA /kɲom/ and records the alternative in its locator.
+
+Source: https://en.wiktionary.org/wiki/Wiktionary:Copyrights. The source page says entry text is dual-licensed under CC BY-SA 4.0 and GFDL; preserve those obligations for any reused entry text. No full entry text, audio or media was copied into this repository.
