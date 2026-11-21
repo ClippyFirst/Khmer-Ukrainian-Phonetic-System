@@ -680,5 +680,14 @@
     "scope": "Pronunciation section, standard IPA /ciə ˈkʰmae/ for the directly listed Khmer adverb ជាខ្មែរ; source-attested phrase-level form, not a composition inferred from component entries.",
     "status": "SECONDARY_LEXICAL_REFERENCE",
     "license": "Wiktionary entry text; page footer identifies Creative Commons Attribution-ShareAlike. The Wiktionary:Copyrights page's CC BY-SA 4.0/GFDL statement is marked draft/unofficial; retain exact page attribution and check applicable Wikimedia Terms of Use. No embedded audio/media copied."
+  },
+  {
+    "id": "wiktionary:lngiac",
+    "type": "community_lexical_reference",
+    "title": "Wiktionary Khmer entry: ល្ងាច",
+    "url": "https://en.wiktionary.org/w/index.php?title=ល្ងាច&oldid=68625783",
+    "scope": "Pronunciation section, (standard) IPA /lŋiəc/ for ល្ងាច; exact revision oldid=68625783, last edited 2022-08-14. The entry also displays orthographic/phonemic l̥ṅāc and WT romanisation lngiəc; retain these as distinct fields, not alternative IPA.",
+    "status": "SECONDARY_LEXICAL_REFERENCE",
+    "license": "Page footer identifies Creative Commons Attribution-ShareAlike (version not stated on the page); Wiktionary:Copyrights states CC BY-SA 4.0/GFDL but labels itself draft/unofficial. Preserve exact revision and attribution; check applicable Wikimedia Terms of Use. No audio/media copied."
   }
 ]
