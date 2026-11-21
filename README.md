@@ -315,3 +315,7 @@ If you use this research prototype, cite the repository and identify the exact c
 ## Evidence confidence tiers
 
 The beta labels source-traceable proposed outputs as B, experimental or incomplete cases as C, unsupported cases as D, and reserves A for independently adjudicated profile-matched gold. These are categorical evidence labels, not probabilities or accuracy scores. Per-unit and aggregate tier behavior is described in [Evidence confidence tiers](docs/EVIDENCE-CONFIDENCE-TIERS.md). The gold corpus remains empty and accuracy remains NOT_ASSESSED.
+
+## Public output detail levels (2026-11-21)
+
+The phonetic interface provides three presentation levels. **Careful** displays the currently registered, source-indexed proposals without adding structural previews; **Balanced** (default) emphasizes the per-unit result, status and reason for uncertainty; **Exploratory** additionally reveals partial onset-only structural hints where the parser can support them. The level changes presentation only: it never changes the phonological analysis, invents vowels/codas/tone, promotes PROVISIONAL output to canonical IPA, or converts PROPOSED records into expert gold. The existing pronunciation profile remains a separate selector. The romanization path remains orthographic and independent of phonetic fallback.
