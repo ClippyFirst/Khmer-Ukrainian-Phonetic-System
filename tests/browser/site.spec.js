@@ -84,7 +84,8 @@ test("Khmer input renders IPA and Ukrainian output without a DOM exception", asy
   await expect(page.locator("#results")).toBeVisible();
   await expect(page.locator("#ipa-result")).toHaveText("/kɑː/");
   await expect(page.locator("#ua-result")).toHaveText("ка");
-  await expect(page.locator("#status")).toHaveText("PROPOSED");
+  await expect(page.locator("#status")).toHaveText("PROPOSED · доказовий рівень B");
+  await expect(page.locator(".unit-status")).toContainText("рівень B");
   expect(pageErrors).toEqual([]);
 });
 
@@ -92,7 +93,7 @@ test("unsupported grapheme is marked locally", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("កx");
   await expect(page.locator("#results")).toBeVisible();
-  await expect(page.locator("#status")).toHaveText("EVIDENCE LIMITED");
+  await expect(page.locator("#status")).toHaveText("EVIDENCE LIMITED · доказовий рівень D");
   await expect(page.locator("#ipa-result")).toHaveText("/kɑː/⟦INVALID_OR_UNSUPPORTED⟧");
   await expect(page.locator("#ua-result")).toHaveText("ка⟦НЕПІДТРИМУЄТЬСЯ⟧");
 });
@@ -219,7 +220,7 @@ test("shared onset fallback fixture keeps canonical output unresolved", async ({
     await expect(page.locator("#results")).toBeVisible();
     await expect(page.locator("#ipa-result")).toHaveText(item.canonical_ipa_display);
     await expect(page.locator("#ua-result")).toHaveText(item.canonical_ukrainian_display);
-    await expect(page.locator("#status")).toHaveText("NOT ESTABLISHED");
+    await expect(page.locator("#status")).toHaveText("NOT ESTABLISHED · доказовий рівень C");
     await expect(page.locator("#unit-details")).toContainText("Попередня підказка: " + item.provisional_ipa + " → " + item.provisional_ukrainian + " [PROVISIONAL]");
     await expect(page.locator(".unit-detail")).toHaveAttribute("data-fallback-rule-id", item.rule_id);
     await expect(page.locator(".unit-detail")).toHaveAttribute("data-fallback-position", item.position);
