@@ -4,11 +4,14 @@ import signs from "../data/khmer/signs.json" with { type: "json" };
 import vowels from "../data/khmer/vowels.json" with { type: "json" };
 import practicalPolicy from "../data/ukrainian/practical-policy.json" with { type: "json" };
 import fixtures from "../data/tests/web-fixtures.json" with { type: "json" };
+import sources from "../data/khmer/sources.json" with { type: "json" };
 import { khmerToLatin } from "@gmana/km-translit";
 import { mapIpa } from "./ukrainian-practical.js";
 import { renderKhmerRomanizationText, renderRomanizedText } from "./khmer-romanization-ukrainian.js";
 
 const CONSONANTS = Object.fromEntries(consonants.map((item) => [item.char, item]));
+const PRONUNCIATION_SOURCE_STATUSES = new Set(["PRIMARY_PHONETIC_SOURCE", "SPECIALIST_REFERENCE", "SECONDARY_LEXICAL_REFERENCE"]);
+const REGISTERED_PRONUNCIATION_SOURCE_IDS = new Set(sources.filter(item => PRONUNCIATION_SOURCE_STATUSES.has(item.status)).map(item => item.id));
 const SIGN_BY_CHAR = Object.fromEntries(signs.map((item) => [item.char, item]));
 const INDEPENDENT_VOWELS = new Set(signs.filter((item) => item.kind === "independent_vowel").map((item) => item.char));
 const VOWEL_SIGNS = new Set(
@@ -314,6 +317,7 @@ function renderFixture(fixture, profile) {
       profile,
       mapping_check: null,
       evidence: fixture.evidence ?? [],
+      source_locator: fixture.source_locator ?? null,
     };
   }
 
@@ -446,7 +450,13 @@ function combineStatus(items) {
 
 function confidenceTier(item) {
   if (item.status === "ADJUDICATED_GOLD" && item.profile_adjudicated === true) return "A";
-  if (["PROPOSED", "PROVISIONAL"].includes(item.status) && item.ipa && item.ua && item.evidence?.length) return "B";
+  if (
+    ["PROPOSED", "PROVISIONAL"].includes(item.status) &&
+    item.ipa &&
+    item.ua &&
+    item.source_locator &&
+    item.evidence?.some(sourceId => REGISTERED_PRONUNCIATION_SOURCE_IDS.has(sourceId))
+  ) return "B";
   if (item.provisional_ipa || ["EVIDENCE_LIMITED", "PROPOSED", "PROVISIONAL", "ANALYSIS_DEPENDENT"].includes(item.status)) return "C";
   if (["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)) return "N/A";
   return "D";
