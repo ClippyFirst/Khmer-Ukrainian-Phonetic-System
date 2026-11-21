@@ -5848,3 +5848,10 @@ KHM-BETA-ENGINEERING-001 remains DONE_VERIFIED. The exact mainline build, browse
 PR #491 merged as `112dd9a55f0dce1843ecd9ba6be272fa1335d586`, refreshing the visible beta status date and making the research-status notice explicitly distinguish engineering verification from pronunciation accuracy. Exact post-merge Quality [44908801606](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44908801606) SUCCESS; browser smoke [44908801669](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44908801669) SUCCESS; Pages build/deploy [44908801630](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44908801630) SUCCESS on this SHA.
 
 This is the latest verified public beta mainline. Engineering/deployment status DONE_VERIFIED; independent expert IPA gold remains 0 and accuracy null; phonological and lexical segmentation coverage remain PARTIAL; manual accessibility QA remains TODO; uncleared third-party sources remain excluded. No gold data or linguistic claims were added.
+
+
+## Final exact-main beta verification after methodology-page PR #494 — 2026-11-21
+
+PR #494 merged as `877977a215b06eba2a79d19bf38283f39ffb8371`. It updates the methodology page with the public-beta status snapshot, the engineering-vs-linguistic validation distinction and direct beta policy/checklist links. All exact-main post-merge workflows passed: Quality [44909455274](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44909455274) SUCCESS; browser smoke [44909455237](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44909455237) SUCCESS; Pages build/deploy [44909455234](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44909455234) SUCCESS.
+
+This is the latest verified Khmer public beta mainline. Engineering/deployment DONE_VERIFIED; expert gold=0 / accuracy=null; vowel/context and lexical segmentation PARTIAL; manual accessibility TODO; MekongPhon and other uncleared sources excluded. No IPA labels, gold rows or unsupported rules were added.
