@@ -312,5 +312,16 @@
       "r12a-character-ba",
       "r12a-orthography-registers"
     ]
+  },
+  "ជាខ្មែរ": {
+    "source": "ជាខ្មែរ",
+    "ipa": "/ciə ˈkʰmae/",
+    "ua": "тьіє к'мае",
+    "status": "PROPOSED",
+    "note": "Пряме джерело подає стандартну IPA форму /ciə ˈkʰmae/ для цілісного запису ជាខ្មែរ; це не композиція з двох окремих fixtures. Українська передача є проєктною, не незалежно ад'юдикованою.",
+    "evidence": [
+      "wiktionary:za-khmae"
+    ],
+    "source_locator": "Wiktionary, Khmer entry ជាខ្មែរ, Pronunciation > standard IPA /ciə ˈkʰmae/: https://en.wiktionary.org/wiki/ជាខ្មែរ (accessed 2026-11-21)."
   }
 }
