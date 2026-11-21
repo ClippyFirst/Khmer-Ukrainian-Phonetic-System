@@ -1,3 +1,21 @@
+## Output-level refinement checkpoint — 2026-11-21
+
+- Latest code, README and regression-test commit: `57b7950f9a1be19830c8a6e6dd01313a35ac9634` (PR #507); handoff refreshed immediately after it. Branch remains based directly on current `main` with no behind commits.
+- Distinct behavior refined: careful hides candidate/unit diagnostics; balanced shows available non-Google / core diagnostic candidates (Khmer: unit-level statuses and explanations); exploratory adds the widest available diagnostics (Burmese: Google candidate if deployed; Khmer: existing onset-only provisional hints).
+- **Verification status remains PARTIAL:** no exact-head CI run IDs or local test results are available in this session. Do not merge until the repository test/check, production build and browser workflow pass on this exact head; inspect the rendered site and confirm phonetic/romanization switching.
+
+---
+
+## Public output-level implementation — 2026-11-21
+
+- **PARTIAL — engineering implementation submitted for exact-head verification:** branch `feat/evidence-aware-output-levels-2026-11-21`; base main commit `a07b9660b03daec9bacb17bab1d0f48b85fe4275`; PR #507.
+- Added careful, balanced (default), and exploratory presentation levels. The selector changes display only; it does not modify source analysis, IPA evidence, canonical promotion rules, pronunciation profile, or the separate orthographic romanization path.
+- Balanced retains the separately labelled existing PROVISIONAL onset hint; exploratory additionally reveals parsed graphemic structure. These hints are not full IPA, and no vowel, coda or tone is inferred. PROPOSED fixture outputs remain proposals, not expert gold.
+- README and public UI documentation updated. **Acceptance still pending:** run the repository's exact-head Node/web tests, build, and browser smoke; inspect the live preview and confirm selector behavior for phonetic versus romanization modes. No test result is claimed from the connector's empty workflow-run lookup.
+- Readiness unchanged: beta/research prototype; linguistic accuracy remains NOT_ASSESSED and independent IPA gold remains unavailable.
+
+---
+
 ## Beta release scope decision — 2026-11-21
 
 The project owner has explicitly chosen to proceed with public beta versions because qualified external specialists will not be available. This supersedes the earlier assumption that human expert annotation/adjudication is a prerequisite for *any* release.
