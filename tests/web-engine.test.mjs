@@ -48,7 +48,7 @@ if (policy.segments["h"].default !== "г" || policy.segments["ɡ"].default !== "
 if (policy.segments["w"].default !== "в" || policy.segments["w"].compatibility_ru !== "у") throw new Error("Ukrainian /w/ target must differ from Russian comparator");
 if (!adapterSource.includes("const JOTATED_VOWELS") || !adapterSource.includes("syllableStart")) throw new Error("contextual Ukrainian /j/ yotation is missing");
 for (const [ipa, expected] of [["ja je ji jo ju","я є ї йо ю"],["jaː","я"],["a.ja","ая"],["w","в"],["t͡s","ц"]]) {
-  const mapped = mapIpa(ipa, policy);
+  const mapped = mapIpa(ipa.slice(1, -1), policy);
   if (mapped.value !== expected || mapped.unsupported !== null) throw new Error("browser adapter mismatch for " + ipa + ": " + JSON.stringify(mapped));
 }
 for (const [ipa, expected] of [
