@@ -102,7 +102,7 @@ test("mixed scripts and Khmer numerals preserve neighboring output and source or
   await page.goto("/");
   await page.locator("#source").fill("កLlenguatgeគ៦១១");
   await expect(page.locator("#results")).toBeVisible();
-  await expect(page.locator("#status")).toHaveText("EVIDENCE LIMITED");
+  await expect(page.locator("#status")).toHaveText("EVIDENCE LIMITED · доказовий рівень D");
   await expect(page.locator("#ipa-result")).toHaveText("/kɑː/⟦INVALID_OR_UNSUPPORTED⟧/kɔː/៦១១");
   await expect(page.locator("#ua-result")).toHaveText("ка⟦НЕПІДТРИМУЄТЬСЯ⟧ко៦១១");
 });
@@ -111,7 +111,7 @@ test("one unsupported unit does not hide neighboring IPA and Ukrainian output", 
   await page.goto("/");
   await page.locator("#source").fill("ក ☃ គ");
   await expect(page.locator("#results")).toBeVisible();
-  await expect(page.locator("#status")).toHaveText("EVIDENCE LIMITED");
+  await expect(page.locator("#status")).toHaveText("EVIDENCE LIMITED · доказовий рівень D");
   await expect(page.locator("#ipa-result")).toHaveText("/kɑː/ ⟦INVALID_OR_UNSUPPORTED⟧ /kɔː/");
   await expect(page.locator("#ua-result")).toHaveText("ка ⟦НЕПІДТРИМУЄТЬСЯ⟧ ко");
 });
