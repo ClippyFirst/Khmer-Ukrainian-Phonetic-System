@@ -221,3 +221,8 @@ The report's `cross_product_assessment.status` is therefore `NOT_ESTABLISHED`. T
 ## Latest mainline verification — 2026-11-20
 
 The source-backed case inventory and dashboard remain integrated. Exact main HEAD `e5ea08e9bc0c9828b5da29cbd6ecb06d6e054ee0` passed Quality [44734864422](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734864422), browser smoke [44734864454](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734864454), and Pages/deploy [44734864513](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734864513). These checks validate engineering reproducibility and deployment, not phonological completeness or transcription accuracy.
+
+
+## Contextual vowel research continuation — 2026-11-21
+
+See docs/research/KHMER-CONTEXTUAL-VOWEL-AND-LEXICAL-SEGMENTATION-RESEARCH-UPDATE-2026-11-21.md. Chem's Phnom Penh acoustic sample, Minegishi's series/coda analysis, Kirby's cluster and laryngeal work, Mam et al.'s bounded five-speaker/50-word pitch study, Woźnica's geographically uneven 80-speaker sample, and Henderson's non-Phnom-Penh speaker are distinct evidence strata. They must not be collapsed into a single complete vowel inventory or a grapheme-to-tone rule. The contextual matrix remains PARTIAL until source-located lexical rows include profile, task, syllable type, coda, length, stress/harmony and acoustic context. No new IPA or runtime rule is added by this continuation.
