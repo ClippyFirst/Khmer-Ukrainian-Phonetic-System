@@ -1,6 +1,6 @@
 ## Output-level refinement checkpoint — 2026-11-21
 
-- Latest implementation head: `2cbdbb2d26ba447a7803632663f3e7a5ff603ac1` (PR #507); branch remains based directly on current `main` with no behind commits.
+- Latest implementation head: `e4b02f0f8967d348c44f0180c09368bf97ad94db` (PR #507); branch remains based directly on current `main` with no behind commits.
 - Distinct behavior refined: careful hides candidate/unit diagnostics; balanced shows available non-Google / core diagnostic candidates (Khmer: unit-level statuses and explanations); exploratory adds the widest available diagnostics (Burmese: Google candidate if deployed; Khmer: existing onset-only provisional hints).
 - **Verification status remains PARTIAL:** no exact-head CI run IDs or local test results are available in this session. Do not merge until the repository test/check, production build and browser workflow pass on this exact head; inspect the rendered site and confirm phonetic/romanization switching.
 
@@ -10,7 +10,7 @@
 
 - **PARTIAL — engineering implementation submitted for exact-head verification:** branch `feat/evidence-aware-output-levels-2026-11-21`; base main commit `a07b9660b03daec9bacb17bab1d0f48b85fe4275`; PR #507.
 - Added careful, balanced (default), and exploratory presentation levels. The selector changes display only; it does not modify source analysis, IPA evidence, canonical promotion rules, pronunciation profile, or the separate orthographic romanization path.
-- Exploratory level reveals only already-existing partial onset hints and labels them PROVISIONAL / not full IPA; no vowel, coda or tone is inferred. PROPOSED fixture outputs remain proposals, not expert gold.
+- Exploratory level reveals only already-existing partial onset hints and the parsed graphemic structure, labels onset hints PROVISIONAL / not full IPA, and does not infer vowels, codas or tone. PROPOSED fixture outputs remain proposals, not expert gold.
 - README and public UI documentation updated. **Acceptance still pending:** run the repository's exact-head Node/web tests, build, and browser smoke; inspect the live preview and confirm selector behavior for phonetic versus romanization modes. No test result is claimed from the connector's empty workflow-run lookup.
 - Readiness unchanged: beta/research prototype; linguistic accuracy remains NOT_ASSESSED and independent IPA gold remains unavailable.
 
