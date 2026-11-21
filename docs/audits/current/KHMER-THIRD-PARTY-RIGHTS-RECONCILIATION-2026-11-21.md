@@ -87,3 +87,43 @@ The literature review also emphasizes dataset-level provenance gaps across text,
 - Sok et al. (2021), ECCC Khmer Speech Translation Corpus: https://doi.org/10.1109/O-COCOSDA202152914.2021.9660421
 - Mangeot (2014), MotàMot: https://doi.org/10.48550/arXiv.1405.5674
 - Longpre et al. (2024), A large-scale audit of dataset licensing and attribution in AI: https://doi.org/10.1038/s42256-024-00878-8
+
+
+## Exact MekongPhon component-provenance audit — 2026-11-21
+
+The upstream repository was inspected directly at commit **f80f6c1840c4818b51e05f2e00cded4701a5b662** (byu-matrix-lab/MekongPhon). GitHub reports repository license null; the recursive tree contains no root LICENSE file. The README describes data, pipeline and training code but declares no data license. This is stronger evidence for UNKNOWN than relying on the paper's phrase “publicly released”.
+
+### What the released data actually contains
+
+- data/lexicons/khmer_lexicon.csv is a 209,181-byte Khmer orthography/IPA lexicon; data/splits/khmer_train.csv and khmer_eval.csv are derived train/evaluation files. These are not independently adjudicated Phnom Penh careful-citation records on the evidence inspected.
+- pipeline/README.md says Khmer frequency lists are obtained from SEAlang, IPA is scraped from the dictionary, then the lexicon is cleaned; sentence corpora are downloaded from OPUS and converted to IPA by trie-based lexicon lookup. Sentences with out-of-lexicon tokens are filtered.
+- pipeline/scrape.py queries the Khmer SEAlang endpoint with source=headley77. Therefore the lexicon's provenance includes Headley dictionary material surfaced through SEAlang; the project repository does not provide an item-level rights manifest or an explicit license for that dictionary-derived data.
+- data/opus_download/khmer_download.sh combines three monolingual Khmer downloads: OPUS NLLB v1, ParaCrawl-Bonus v9, and OpenSubtitles v2024. It concatenates and deduplicates them, without a retained per-line source/license manifest in the resulting combined file.
+- OPUS describes itself as an aggregator; OpenSubtitles material does not have an established open license in the inspected metadata and OPUS's legacy notice is an attribution request, not a grant of copyright permission. ParaCrawl Bonus describes a web-crawled English–Khmer resource and associated low-resource monolingual data, but the inspected pages do not establish item-level rights for every source webpage. NLLB v1 likewise needs a component-level license and provenance check before redistribution.
+- The published Hugging Face Khmer IPA model card declares Apache-2.0 for the model artifact and identifies MekongPhon as its training source. That model license does not independently clear the underlying training corpus, source dictionary or OPUS data.
+
+### Component dispositions
+
+| Component | Current disposition | Reason / acceptance needed |
+|---|---|---|
+| MekongPhon root repository and corpus files | UNKNOWN | No repository license or data license; obtain explicit maintainer permission/license for data and derivatives. |
+| Headley77/SEAlang-derived lexicon rows | UNKNOWN | Exact source edition/entry chain and rights for digitized dictionary-derived IPA rows not established. |
+| OPUS NLLB v1 Khmer monolingual source | UNKNOWN | Need version-specific OPUS metadata, underlying source rights and redistribution terms. |
+| ParaCrawl-Bonus v9 Khmer monolingual source | UNKNOWN | Need the exact release artifact and source/rights policy for crawled material; no row-level provenance retained in the combined data. |
+| OpenSubtitles v2024 Khmer monolingual source | UNKNOWN / high risk | No explicit corpus license grant identified; subtitle source-work rights remain with applicable rights holders. Attribution request is not a reuse license. |
+| Combined/deduplicated sentence files and sentence-to-IPA conversions | UNKNOWN | Mixed-source chain is not preserved per row; IPA is lexicon lookup output, not independent sentence-level phonetic annotation. |
+| Hugging Face model weights | RESTRICTED_PENDING_DATA_CLEARANCE | Apache-2.0 model card does not settle training-data rights or authorize reproducing source data. |
+
+**Decision:** MekongPhon is a valuable research comparator and candidate for a permission request, but it is not cleared for ingestion into this project's public gold, for model training, or for redistribution. Its reported 1.3M Khmer orthography–IPA pairs and held-out CER are claims about that resource/model pipeline, not verified Phnom Penh pilot evidence or accuracy for this project. No files were downloaded or copied into this repository.
+
+## Exact upstream references
+
+- MekongPhon repository: https://github.com/byu-matrix-lab/MekongPhon (inspected commit f80f6c1840c4818b51e05f2e00cded4701a5b662)
+- MekongPhon data README: https://github.com/byu-matrix-lab/MekongPhon/blob/main/data/README.md
+- MekongPhon pipeline README: https://github.com/byu-matrix-lab/MekongPhon/blob/main/pipeline/README.md
+- Khmer scrape pipeline: https://github.com/byu-matrix-lab/MekongPhon/blob/main/pipeline/scrape.py
+- OPUS source-download script: https://github.com/byu-matrix-lab/MekongPhon/blob/main/data/opus_download/khmer_download.sh
+- OPUS corpus portal: https://opus.nlpl.eu/
+- ParaCrawl Bonus release: https://paracrawl.eu/moredata
+- OpenSubtitles v2024 source listing: https://huggingface.co/datasets/alamios/OpenSubtitles-v2024
+- MekongPhon Khmer model card: https://huggingface.co/byumatrixlab/khmer-ipa
