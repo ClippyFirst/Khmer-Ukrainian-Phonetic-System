@@ -144,3 +144,12 @@ Two direct lexical entries are now recorded for provisional source-traceable use
 - `ល្ងាច`: exact standard IPA `/lŋiəc/` on permanent revision `oldid=68625783`; the page separately displays orthographic/phonemic `l̥ṅāc` and WT romanisation `lngiəc`, which are not treated as IPA.
 
 Both are registered as `SECONDARY_LEXICAL_REFERENCE`, with exact locators, revision information where available, source-profile caveats and item-level attribution. The page footer identifies Creative Commons Attribution-ShareAlike; the version and applicable Wikimedia terms must be respected. No audio/media or extended source text was copied. These are not independent Phnom Penh adjudications, not gold, and not accuracy evidence. The source-traceable tier B label means only that the entry has an exact registered pronunciation locator and the current IPA → Ukrainian adapter agrees with the project's proposed lexical output.
+
+## Source-located Khmer lexical coverage expansion — 2026-11-21
+
+- **PARTIAL pending exact-head CI:** added three direct Wiktionary standard-IPA entries with permanent revision locators: `អក្សរខ្មែរ` `/ʔak.ˈsɑː kʰmae/` (`oldid=87132823`), `នគរខ្មែរ` `/nɔ.ˈkɔː kʰmae/` (`oldid=84887163`), and `អក្សរមូល` `/ʔak.ˈsɑː muːl/` (`oldid=63698235`).
+- Source registry, web fixtures, lexical corpus, third-party notices and exact-locator tests updated. Each row remains `SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED`; no gold labels were added.
+- Python and browser IPA→Ukrainian adapters now explicitly omit only post-vocalic IPA `ː` when rendering practical Ukrainian spelling. The full IPA value remains unchanged in the IPA layer. Length after consonants remains unsupported and is not silently discarded. This target policy is tested in both runtimes.
+- These three records increase the per-unit source-attested tier-B inventory from 9 to 12; aggregate confidence is still the weakest linguistic unit, and independent gold remains 0 / accuracy NOT_ASSESSED.
+- External MekongPhon remains diagnostic-only: upstream repository snapshot has no root license, the seed lexicon has no item-level source locators, and the generated sentence IPA is dictionary-trie expansion over OPUS text, not independent sentence transcription. No rows or model artifacts were copied.
+- **Next gate:** exact PR-head Python, Node, Chromium and Pages checks; inspect output parity and generated-artifact drift before merge/deploy.
