@@ -81,4 +81,4 @@ Full-text review confirms **five native Greater Phnom Penh speakers (two men, th
 
 An Undermind follow-up search for additional Modern Khmer lexical entries with directly paired orthography and standard IPA found no further candidates that met the full item-level gate (exact entry/revision locator, transcription convention, profile caveat, rights evidence, and adapter coverage). MotàMot, MekongPhon and open-source TTS resources remain leads requiring direct full-text/source-entry and rights inspection; they were not used to infer IPA or create fixtures. This is a negative result from the available search records/metadata, not proof that no further qualifying source exists.
 
-The only additions in PR #501 are the two directly checked Wiktionary entries `ជាខ្មែរ` and `ល្ងាច`. No additional candidates were promoted, and no independent gold or accuracy claim was created.
+The only additions in PR #501 are the two directly checked Wiktionary entries `ជាខ្មែរ` (permanent revision `oldid=68806374`) and `ល្ងាច` (permanent revision `oldid=68625783`). No additional candidates were promoted, and no independent gold or accuracy claim was created.
