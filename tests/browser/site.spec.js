@@ -148,7 +148,7 @@ test("unsupported grapheme is marked locally", async ({ page }) => {
   await expect(page.locator("#results")).toBeVisible();
   await expect(page.locator("#status")).toHaveText("EVIDENCE LIMITED · доказовий рівень D");
   await expect(page.locator("#ipa-result")).toHaveText("/kɑː/⟦INVALID_OR_UNSUPPORTED⟧");
-  await expect(page.locator("#ua-result")).toHaveText("ка⟦НЕПІДТРИМУЄТЬСЯ⟧");
+  await expect(page.locator("#ua-result")).toHaveText("ка???");
 });
 
 test("mixed scripts and Khmer numerals preserve neighboring output and source order", async ({ page }) => {
@@ -157,7 +157,7 @@ test("mixed scripts and Khmer numerals preserve neighboring output and source or
   await expect(page.locator("#results")).toBeVisible();
   await expect(page.locator("#status")).toHaveText("EVIDENCE LIMITED · доказовий рівень D");
   await expect(page.locator("#ipa-result")).toHaveText("/kɑː/⟦INVALID_OR_UNSUPPORTED⟧/kɔː/៦១១");
-  await expect(page.locator("#ua-result")).toHaveText("ка⟦НЕПІДТРИМУЄТЬСЯ⟧ко៦១១");
+  await expect(page.locator("#ua-result")).toHaveText("ка???ко៦១១");
 });
 
 test("one unsupported unit does not hide neighboring IPA and Ukrainian output", async ({ page }) => {
@@ -166,7 +166,7 @@ test("one unsupported unit does not hide neighboring IPA and Ukrainian output", 
   await expect(page.locator("#results")).toBeVisible();
   await expect(page.locator("#status")).toHaveText("EVIDENCE LIMITED · доказовий рівень D");
   await expect(page.locator("#ipa-result")).toHaveText("/kɑː/ ⟦INVALID_OR_UNSUPPORTED⟧ /kɔː/");
-  await expect(page.locator("#ua-result")).toHaveText("ка ⟦НЕПІДТРИМУЄТЬСЯ⟧ ко");
+  await expect(page.locator("#ua-result")).toHaveText("ка ??? ко");
 });
 
 test("clear control restores the empty state", async ({ page }) => {

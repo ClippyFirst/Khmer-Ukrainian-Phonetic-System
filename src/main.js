@@ -511,7 +511,12 @@ function convert(text, profile) {
   // units retain explicit markers at their own positions; neighboring results
   // are never discarded and the overall status still signals incompleteness.
   const ipa = rendered.map((item) => item.ipa).join("");
-  const ua = rendered.map((item) => item.ua).join("");
+  // Lao-style final abstention: retain supported neighbours, but use a clear
+  // three-question-mark placeholder for any unresolved linguistic unit.
+  // Detailed per-unit diagnostics and provisional hints remain separate.
+  const ua = rendered.map((item) => ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
+    ? item.ua
+    : item.status === "PROPOSED" ? item.ua : "???").join("");
   const complete = linguistic.length > 0 && linguistic.every((item) =>
     item.status === "PROPOSED" && !/⟦/.test(item.ipa) && !/⟦/.test(item.ua)
   );

@@ -88,7 +88,7 @@ assert.equal(mixed.status, "EVIDENCE_LIMITED");
 assert.equal(mixed.complete, false);
 assert.equal(mixed.partial, true);
 assert.equal(mixed.ipa, "/kɑː/ ⟦INVALID_OR_UNSUPPORTED⟧ /kɔː/");
-assert.equal(mixed.ua, "ка ⟦НЕПІДТРИМУЄТЬСЯ⟧ ко");
+assert.equal(mixed.ua, "ка ??? ко");
 const unresolved = mixed.units.find((x) => x.status === "NOT_ESTABLISHED" || x.status === "INVALID_OR_UNSUPPORTED");
 assert.ok(unresolved, "mixed input must isolate an unresolved unit rather than hiding neighboring evidence-backed units");
 assert.equal(mixed.units.find((x) => x.source === "ក")?.ua, "ка");

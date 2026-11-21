@@ -1,3 +1,13 @@
+## Lao-style unresolved final-output marker — 2026-11-22
+
+- **PARTIAL pending exact-head CI:** the public canonical Ukrainian field now renders `???` for each linguistic unit whose result is not `PROPOSED`; punctuation and numeric literals remain unchanged, and supported neighbouring units remain visible.
+- Per-unit statuses, source provenance and provisional onset hints remain in the diagnostic detail panel. They are not promoted into the main result. The separate romanization method is unchanged.
+- Browser regression expectations and the shared onset-fallback fixture now require `???` as the canonical Ukrainian display for unresolved input. Python research API internals and their typed diagnostic placeholders are unchanged.
+- Branch: `fix/unresolved-final-output-unknown-marker-20261122`; base `e2d86586f56f5aeb3f05ae00a466859afd67ef6b`.
+- Acceptance: exact-head Python/Node/browser/production-build checks, then merge and GitHub Pages deployment. Until those checks pass, this is not DONE_VERIFIED.
+
+---
+
 ## Public output levels — post-merge beta verification — 2026-11-21
 
 - **DONE_VERIFIED — engineering/UI scope:** PR [#507](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/507) merged to `main`; merge commit `2dc432a8237ac56da7337c9787a1030890eeb9a3`.

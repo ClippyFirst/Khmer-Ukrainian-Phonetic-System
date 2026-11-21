@@ -267,7 +267,7 @@ The project uses a provenance-backed, double-annotated IPA gold workflow. See [t
 
 ## Deterministic rule engine
 
-The phonetic web path and Python API are deterministic and local: versioned lexical IPA fixtures plus conservative Khmer register/structure rules feed the explicit IPA → Ukrainian policy. No neural inference, external G2P process, network request, or model-voting step participates in phonetic output. Unsupported combinations are withheld. See [the deterministic engine contract](docs/DETERMINISTIC-RULE-ENGINE.md). This guarantees repeatability, not universal linguistic correctness; PROPOSED results remain proposals pending independent adjudication.
+The phonetic web path and Python API are deterministic and local: versioned lexical IPA fixtures plus conservative Khmer register/structure rules feed the explicit IPA → Ukrainian policy. No neural inference, external G2P process, network request, or model-voting step participates in phonetic output. Unsupported combinations are withheld. Following the Lao repository's visible-abstention convention, the main Ukrainian result displays `???` for each unresolved Khmer unit while preserving established neighbouring units; provisional onset hints remain separately labelled in diagnostics and are never promoted to the final result. See [the deterministic engine contract](docs/DETERMINISTIC-RULE-ENGINE.md). This guarantees repeatability, not universal linguistic correctness; PROPOSED results remain proposals pending independent adjudication.
 
 Python entry point: `from khmer_ua import RuleBasedKhmerEngine`.
 
