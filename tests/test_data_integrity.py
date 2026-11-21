@@ -74,8 +74,13 @@ def test_lexical_examples_do_not_claim_gold_status_without_adjudication():
     assert corpus
     for word, entry in corpus.items():
         assert entry["ipa_status"] != "WELL_SUPPORTED", word
-        assert entry["ipa_status"] == "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED", word
-        assert entry["evidence_status"] == entry["ipa_status"], word
+        if word == "ភាសាខ្មែរ":
+            assert entry["ipa_status"] == "PROPOSED_COMPOSITIONAL_NOT_SOURCE_ATTESTED"
+            assert entry["evidence_status"] == "COMPOSITIONAL_HYPOTHESIS_NOT_SOURCE_ATTESTED"
+            assert "not source-attested" in entry["evidence_note"].lower()
+        else:
+            assert entry["ipa_status"] == "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED", word
+            assert entry["evidence_status"] == entry["ipa_status"], word
         assert entry["evidence_note"], word
         assert entry["sources"], word
 
