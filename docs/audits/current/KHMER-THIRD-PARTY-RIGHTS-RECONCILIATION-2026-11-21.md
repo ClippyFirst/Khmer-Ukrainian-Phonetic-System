@@ -140,7 +140,7 @@ Source: https://en.wiktionary.org/wiki/Wiktionary:Copyrights. The source page sa
 
 Two direct lexical entries are now recorded for provisional source-traceable use only:
 
-- `ជាខ្មែរ`: exact standard IPA `/ciə ˈkʰmae/`, directly present on the Khmer entry page; this is phrase-level evidence and must not be confused with the project-composed `ភាសាខ្មែរ` hypothesis.
+- `ជាខ្មែរ`: exact standard IPA `/ciə ˈkʰmae/` at permanent Wiktionary revision `oldid=68806374`, directly present on the Khmer entry page; orthographic/phonemic `jāk̥ʰmaer` and WT romanisation `ciə khmae` are stored separately. This is phrase-level evidence and must not be confused with the project-composed `ភាសាខ្មែរ` hypothesis.
 - `ល្ងាច`: exact standard IPA `/lŋiəc/` on permanent revision `oldid=68625783`; the page separately displays orthographic/phonemic `l̥ṅāc` and WT romanisation `lngiəc`, which are not treated as IPA.
 
 Both are registered as `SECONDARY_LEXICAL_REFERENCE`, with exact locators, revision information where available, source-profile caveats and item-level attribution. The page footer identifies Creative Commons Attribution-ShareAlike; the version and applicable Wikimedia terms must be respected. No audio/media or extended source text was copied. These are not independent Phnom Penh adjudications, not gold, and not accuracy evidence. The source-traceable tier B label means only that the entry has an exact registered pronunciation locator and the current IPA → Ukrainian adapter agrees with the project's proposed lexical output.
