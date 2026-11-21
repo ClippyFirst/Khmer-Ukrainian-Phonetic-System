@@ -11,6 +11,9 @@ export function mapIpa(ipa, practicalPolicy) {
   const segments = Object.keys(practicalPolicy.segments)
     .sort((a, b) => b.length - a.length);
   let rest = ipa.replace(/[ˈˌ]/gu, "");
+  // Ukrainian practical spelling does not encode Khmer vowel quantity.
+  // Keep length in the IPA fixture; omit only a post-vocalic ː in this adapter.
+  rest = rest.replace(/(?<=[aeiouɑɒæɛɜəɨɪɔɵœɐɤɯʊʌʏʉ])ː/gu, "");
   let value = "";
   let syllableStart = true;
   while (rest) {
