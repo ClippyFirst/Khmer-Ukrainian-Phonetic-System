@@ -25,3 +25,9 @@ The register mirrors existing inventory values; it does not introduce or indepen
 - Broader vowel/subscript/COENG fallback: still blocked.
 
 This closes only the evidence-container portion of the previously TODO positional registry. The overall positional evidence task remains PARTIAL, not DONE_VERIFIED.
+
+## Exact-locator confidence gate — 2026-11-21
+
+The browser and Python confidence tiers now require an exact per-unit source locator plus an evidence ID registered in `data/khmer/sources.json` with a pronunciation-capable status. The R12A examples for U+1780 `ក` /kɑː/ and U+1782 `គ` /kɔː/ are locatable at §Consonant registers, lines 237–243, and §Inherent vowels, lines 258–266. These two examples can reach B as provisional outputs; this does not promote the full 33-row consonant registry.
+
+The R12A page has an internal class-list conflict for `ឆ`: the Onsets table places it in the ɑ-class (lines 1158–1160), while Basic consonants places it in the ɔ-class (lines 1181–1187). The existing `ឆ` inherent-vowel fallback remains C and is not used as a B example pending reconciliation. The broader positional onset registry remains PARTIAL.

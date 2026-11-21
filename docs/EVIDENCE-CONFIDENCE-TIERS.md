@@ -5,15 +5,20 @@
 | Tier | Meaning | Runtime treatment |
 |---|---|---|
 | A | Independently adjudicated, profile-matched gold | Not currently available |
-| B | Source-traceable provisional IPA and a successful Ukrainian IPA adaptation | Display as PROPOSED/PROVISIONAL, with evidence and profile visible |
-| C | Experimental or incomplete evidence: onset-only preview, evidence-limited case, or hypothesis without a usable source locator | Keep partial; do not present as B |
+| B | Every output has an exact per-unit locator to a registered pronunciation source, the IPA → Ukrainian adapter succeeds and agrees with the supplied lexical Ukrainian reference (when present), and the source/profile scope is explicit | Display as PROPOSED/PROVISIONAL with the source locator visible; never call canonical or expert-validated |
+| C | Experimental or incomplete evidence, unregistered source IDs, no exact locator, compositional hypothesis without a phrase-level source, or unresolved source conflict | Keep visible as a candidate where safe, but do not present as B |
 | D | No usable candidate or unsupported/malformed input | Withhold IPA and Ukrainian output |
-
 ## Runtime behavior
 
-The existing lexical fixtures with source locators and a successful IPA → Ukrainian mapping are now explicitly labelled tier B at both unit and aggregate levels. The series-based inherent-vowel fallback now retains the onset registry's actual source references rather than returning an empty evidence list; it remains PROPOSED and is not promoted to canonical or gold status.
+The B gate now requires both an explicit per-unit `source_locator` and at least one evidence ID registered in `data/khmer/sources.json` as a pronunciation-capable source (`SPECIALIST_REFERENCE`, `PRIMARY_PHONETIC_SOURCE`, or `SECONDARY_LEXICAL_REFERENCE)). A non-empty evidence array alone is insufficient: Unicode examples, unregistered IDs, and compositional guesses remain C.
 
-A fixture without a source locator (for example, a representative contrast probe) is tier C even if it has an IPA string. Onset-only previews and evidence-limited structures are also C. Unsupported input is D. Aggregate confidence is the weakest tier among the linguistic units, while each unit keeps its own tier so a mixed input can still show which portions are B.
+Current B examples:
+- `ក` → /kɑː/ and `គ` → /kɔː/: exact R12A §Consonant registers examples (U+1780/U+1782, lines 237–243) and §Inherent vowels (lines 258–266).
+- `ខ្មែរ`, `ភាសា`, `ភ្នំពេញ`, `កម្ពុជា`, `ខ្ញុំ`: exact Wiktionary entry-level standard IPA locators are stored in the fixtures and source registry. The `ភាសា` stress mark is retained.
+
+The phrase `ភាសាខ្មែរ` is composed from the separately cited `ភាសា` and `ខ្មែរ` entries, but no direct phrase-level source locator was found; it remains C. The inherent-vowel fallback for `ឆ` remains C: R12A's own consonant-register listings conflict (the Onsets table lists `ឆ` in the ɑ-class at lines 1158–1160, while Basic consonants lists it in the ɔ-class at lines 1181–1187). A source ID without an exact, reconciled locator does not qualify for B.
+
+The browser unit details now show the exact locator for each B-tier item. Aggregate confidence remains the weakest tier among linguistic units, while per-unit tiers identify which parts have source-backed support.
 
 ## Measurement boundary
 

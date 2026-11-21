@@ -2,44 +2,46 @@
   "ភាសាខ្មែរ": {
     "source": "ភាសាខ្មែរ",
     "ipa": "/pʰiəsaː kʰmae/",
-    "ua": "п\u0027ієса к\u0027мае",
+    "ua": "п'ієса к'мае",
     "status": "PROPOSED",
-    "note": "Лексично засвідчена вимова: [pʰiəsaː kʰmae]. IPA встановлено з незалежних сучасних джерел; українська форма є проєктною практичною пропозицією.",
+    "note": "Це проєктна композиційна гіпотеза з двох окремо джерельно підтверджених слів ភាសា та ខ្មែរ; прямого джерела IPA для всієї фрази не знайдено. Немає phrase-level source_locator, тому рівень C, не B.",
     "evidence": [
-      "web:khmer-language",
-      "wiktionary:khmae",
-      "wiktionary:phrase-khnyom-khmae"
+      "wiktionary:phiasa",
+      "wiktionary:khmae"
     ]
   },
   "ខ្មែរ": {
     "source": "ខ្មែរ",
     "ipa": "/kʰmae/",
-    "ua": "к\u0027мае",
+    "ua": "к'мае",
     "status": "PROPOSED",
     "note": "Стандартну IPA форму /kʰmae/ засвідчено Wiktionary; українська форма є проєктною.",
     "evidence": [
       "wiktionary:khmae"
-    ]
+    ],
+    "source_locator": "Wiktionary, entry ខ្មែរ, Pronunciation > standard IPA /kʰmae/: https://en.wiktionary.org/wiki/ខ្មែរ (accessed 2026-11-21)."
   },
   "ភាសា": {
     "source": "ភាសា",
-    "ipa": "/pʰiə.saː/",
-    "ua": "п\u0027ієса",
+    "ipa": "/pʰiə.ˈsaː/",
+    "ua": "п'ієса",
     "status": "PROPOSED",
-    "note": "Стандартну IPA форму /pʰiə.saː/ засвідчено Wiktionary; українська форма є проєктною.",
+    "note": "проєктна передача зберігає наголос на другому складі, позначений у стандартній IPA-формі Wiktionary. Це спільнотне лексичне джерело, а не незалежна ад'юдикація профілю Пномпеня.",
     "evidence": [
       "wiktionary:phiasa"
-    ]
+    ],
+    "source_locator": "Wiktionary, entry ភាសា, Pronunciation > standard IPA /pʰiə.ˈsaː/: https://en.wiktionary.org/wiki/ភាសា (accessed 2026-11-21)."
   },
   "ភ្នំពេញ": {
     "source": "ភ្នំពេញ",
     "ipa": "/pʰnum ˈpɨɲ/",
-    "ua": "п\u0027нум пинь",
+    "ua": "п'нум пинь",
     "status": "PROPOSED",
     "note": "Стандартну IPA форму /pʰnum ˈpɨɲ/ засвідчено Wiktionary; наголос зберігається в IPA, а українська форма є проєктною.",
     "evidence": [
       "wiktionary:phnom-penh"
-    ]
+    ],
+    "source_locator": "Wiktionary, entry ភ្នំពេញ, Pronunciation > standard IPA /pʰnum ˈpɨɲ/: https://en.wiktionary.org/wiki/ភ្នំពេញ (accessed 2026-11-21)."
   },
   "កម្ពុជា": {
     "source": "កម្ពុជា",
@@ -49,7 +51,8 @@
     "note": "Стандартну IPA форму /kam.pu.ciə/ засвідчено Wiktionary; українська форма є проєктною. /c/ передано як ть відповідно до чинної політики.",
     "evidence": [
       "wiktionary:cambodia"
-    ]
+    ],
+    "source_locator": "Wiktionary, entry កម្ពុជា, Pronunciation > standard IPA /kam.pu.ciə/: https://en.wiktionary.org/wiki/កម្ពុជា (accessed 2026-11-21)."
   },
   "កី": {
     "source": "កី",
@@ -88,7 +91,8 @@
     "evidence": [
       "wiktionary:khnyom"
     ],
-    "orthographic_transcription": "k̥ʰñuṃ"
+    "orthographic_transcription": "k̥ʰñuṃ",
+    "source_locator": "Wiktionary, entry ខ្ញុំ, Pronunciation > first standard IPA /kɲom/: https://en.wiktionary.org/wiki/ខ្ញុំ (accessed 2026-11-21). The same page lists a separate alternate /kʰɲʊm/; it is not selected here."
   },
   "សង្គ្រាម": {
     "source": "សង្គ្រាម",
@@ -168,8 +172,10 @@
     "note": "Представницький серієвий/голосний fixture, підтверджений сучасними описами кмерської вимови; українська форма є проєктною.",
     "evidence": [
       "wiktionary:ka",
-      "snl:khmerskrift"
-    ]
+      "snl:khmerskrift",
+      "r12a-orthography"
+    ],
+    "source_locator": "R12A, Khmer (Cambodian) Orthography Notes, §Consonant registers, examples for U+1780 /kɑː/ and U+1782 /kɔː/ (lines 237–243); §Inherent vowels (lines 258–266). This is a specialist orthographic reference, not independent profile adjudication."
   },
   "គ": {
     "source": "គ",
@@ -179,8 +185,10 @@
     "note": "Представницький серієвий/голосний fixture, підтверджений сучасними описами кмерської вимови; українська форма є проєктною.",
     "evidence": [
       "wiktionary:ko",
-      "snl:khmerskrift"
-    ]
+      "snl:khmerskrift",
+      "r12a-orthography"
+    ],
+    "source_locator": "R12A, Khmer (Cambodian) Orthography Notes, §Consonant registers, examples for U+1780 /kɑː/ and U+1782 /kɔː/ (lines 237–243); §Inherent vowels (lines 258–266). This is a specialist orthographic reference, not independent profile adjudication."
   },
   "កូ": {
     "source": "កូ",

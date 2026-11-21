@@ -2,15 +2,14 @@
   "ភាសាខ្មែរ": {
     "ipa": "/pʰiəsaː kʰmae/",
     "profile": "careful_standard",
-    "ipa_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
+    "ipa_status": "PROPOSED_COMPOSITIONAL_NOT_SOURCE_ATTESTED",
     "ua_status": "PROPOSED",
     "sources": [
-      "https://en.wikipedia.org/wiki/Khmer_language",
       "https://en.wiktionary.org/wiki/ភាសា",
-      "https://en.wiktionary.org/wiki/ភាសាខ្មែរ"
+      "https://en.wiktionary.org/wiki/ខ្មែរ"
     ],
-    "evidence_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
-    "evidence_note": "IPA transcription is reported by the cited lexical reference(s); no independent adjudication against audio or multiple phonetic sources has been recorded. Do not treat as gold."
+    "evidence_status": "COMPOSITIONAL_HYPOTHESIS_NOT_SOURCE_ATTESTED",
+    "evidence_note": "No direct phrase-level pronunciation source was found. This IPA is a project-composed hypothesis from the separately source-located component entries ភាសា and ខ្មែរ; it is not source-attested as a phrase and is not gold."
   },
   "ខ្មែរ": {
     "ipa": "/kʰmae/",
@@ -18,13 +17,13 @@
     "ipa_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
     "ua_status": "PROPOSED",
     "sources": [
-      "https://en.wiktionary.org/wiki/ភាសាខ្មែរ"
+      "https://en.wiktionary.org/wiki/ខ្មែរ"
     ],
     "evidence_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
     "evidence_note": "IPA transcription is reported by the cited lexical reference(s); no independent adjudication against audio or multiple phonetic sources has been recorded. Do not treat as gold."
   },
   "ភាសា": {
-    "ipa": "/pʰiə.saː/",
+    "ipa": "/pʰiə.ˈsaː/",
     "profile": "careful_standard",
     "ipa_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
     "ua_status": "PROPOSED",
@@ -32,7 +31,7 @@
       "https://en.wiktionary.org/wiki/ភាសា"
     ],
     "evidence_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
-    "evidence_note": "IPA transcription is reported by the cited lexical reference(s); no independent adjudication against audio or multiple phonetic sources has been recorded. Do not treat as gold."
+    "evidence_note": "Wiktionary Pronunciation section gives standard IPA /pʰiə.ˈsaː/; the primary stress mark is retained. Community-maintained lexical reference; not independently adjudicated."
   },
   "ខ្ញុំ": {
     "ipa": "/kɲom/",

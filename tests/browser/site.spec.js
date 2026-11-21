@@ -76,7 +76,7 @@ test("methodology page exposes the same keyboard skip navigation", async ({ page
   await expect(page.locator("#main-content")).toBeFocused();
 });
 
-test("Khmer input renders IPA and Ukrainian output without a DOM exception", async ({ page }) => {
+test("Khmer source-located inherent-vowel output is tier B without a DOM exception", async ({ page }) => {
   const pageErrors = [];
   page.on("pageerror", error => pageErrors.push(error.message));
   await page.goto("/");
@@ -86,7 +86,25 @@ test("Khmer input renders IPA and Ukrainian output without a DOM exception", asy
   await expect(page.locator("#ua-result")).toHaveText("ка");
   await expect(page.locator("#status")).toHaveText("PROPOSED · доказовий рівень B");
   await expect(page.locator(".unit-status")).toContainText("рівень B");
+  await expect(page.locator(".unit-source-locator")).toContainText("R12A");
   expect(pageErrors).toEqual([]);
+});
+
+test("compositional Khmer phrase without a phrase-level locator remains tier C", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("ភាសាខ្មែរ");
+  await expect(page.locator("#results")).toBeVisible();
+  await expect(page.locator("#status")).toHaveText("PROPOSED · доказовий рівень C");
+});
+
+
+test("Wiktionary lexical fixtures expose exact source locators at tier B", async ({ page }) => {
+  for (const source of ["ខ្មែរ", "ភាសា", "ភ្នំពេញ", "កម្ពុជា", "ខ្ញុំ"]) {
+    await page.goto("/");
+    await page.locator("#source").fill(source);
+    await expect(page.locator("#status")).toHaveText("PROPOSED · доказовий рівень B");
+    await expect(page.locator(".unit-source-locator")).toContainText("Wiktionary");
+  }
 });
 
 test("unsupported grapheme is marked locally", async ({ page }) => {
