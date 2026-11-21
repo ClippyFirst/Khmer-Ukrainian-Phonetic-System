@@ -61,3 +61,8 @@ Keep the current source-to-IPA-to-Ukrainian path independent of guessed lexical 
 ## Explicit non-claims
 
 This audit does not assert that the ALT or khPOS corpus is suitable for commercial use, that its tokenization convention matches the project's intended display, that its labels are phonetic gold, or that its published model scores transfer to Phnom Penh careful-citation transcription. No dataset was downloaded, copied into the repository, or used to train a model. No word boundaries were inferred for the user's sample.
+
+
+## Operational continuation — 2026-11-21
+
+The private blind-intake and discrepancy-review procedure is documented in docs/research/KHMER-PRIVATE-BLIND-INTAKE-RUNBOOK-2026-11-21.md. This does not authorize use of public GitHub for blind submissions and does not imply that a private workspace exists. The 30-item IPA pilot and any separate lexical-boundary pilot require independent annotators, adjudication, item-level rights review and privacy clearance. ALT/NOVA and khPOS remain candidate research resources only; their annotation conventions are not interchangeable with phonological syllables or a universal lexical-word standard. khPOS student/election/voter-list provenance remains a stop condition until reviewed.
