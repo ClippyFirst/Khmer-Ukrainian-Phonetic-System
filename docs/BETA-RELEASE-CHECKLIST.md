@@ -1,15 +1,15 @@
 # Khmer public beta release checklist
 ## Public beta release gate
 
-- [ ] Exact candidate SHA has successful Quality, browser smoke, and Pages build/deploy workflows.
-- [ ] `npm ci` is used in CI and `package-lock.json` is committed.
-- [ ] Python test suite, web tests, production build, coverage-report reproducibility and production Chromium smoke pass on the exact candidate SHA.
-- [ ] The live Pages deployment serves both pages and their versioned JavaScript/CSS assets.
-- [ ] README and both public pages label the project as a beta and distinguish proposed output from validated facts.
-- [ ] Every shipped third-party runtime dependency has a version, integrity hash, declared license, upstream locator and documented role; unclear data/model sources remain excluded.
-- [ ] No user text is sent to a server, telemetry provider or analytics endpoint; unsupported units remain visible.
-- [ ] Expert gold and measured accuracy are explicitly NOT ASSESSED, not fabricated.
-- [ ] Manual accessibility QA is explicitly disclosed as not performed; automated browser smoke is not called WCAG certification.
+- [x] Exact candidate SHA has successful Quality, browser smoke, and Pages build/deploy workflows.
+- [x] `npm ci` is used in CI and `package-lock.json` is committed.
+- [x] Python test suite, web tests, production build, coverage-report reproducibility and production Chromium smoke pass on the exact candidate SHA.
+- [x] The live Pages deployment serves both pages and their versioned JavaScript/CSS assets.
+- [x] README and both public pages label the project as a beta and distinguish proposed output from validated facts.
+- [x] Every shipped third-party runtime dependency has a version, integrity hash, declared license, upstream locator and documented role; unclear data/model sources remain excluded.
+- [x] No user text is sent to a server, telemetry provider or analytics endpoint; unsupported units remain visible.
+- [x] Expert gold and measured accuracy are explicitly NOT ASSESSED, not fabricated.
+- [x] Manual accessibility QA is explicitly disclosed as not performed; automated browser smoke is not called WCAG certification.
 
 ## Current beta acceptance record — 2026-11-21
 
@@ -66,3 +66,10 @@ Latest main SHA: `2f4c0c1ca471b0ddd7444c17bb6d1a696fac9ec4`. Exact post-merge Qu
 PR #488 merged as `866a5439f75d6f67e61a1781cbfccf8c77d9e9d7`. All three post-merge workflows passed on this exact main SHA: Quality [44908337364](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44908337364) SUCCESS; browser smoke [44908337384](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44908337384) SUCCESS; Pages build/deploy [44908338049](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44908338049) SUCCESS. This supersedes the prior exact-main checkpoint on `2f4c0c1ca471b0ddd7444c17bb6d1a696fac9ec4`.
 
 KHM-BETA-ENGINEERING-001 remains DONE_VERIFIED. The exact mainline build, browser, quality and deploy gates are green. Independent expert gold remains 0 and accuracy null (DEFERRED for beta); vowel/context and lexical segmentation remain PARTIAL/BLOCKED as documented; manual accessibility remains TODO; third-party sources with unresolved rights, including MekongPhon, remain excluded. No new IPA labels, gold rows, linguistic rules or GitHub Release were added.
+
+
+## Final current-main beta verification — 2026-11-21
+
+Latest main SHA: `112dd9a55f0dce1843ecd9ba6be272fa1335d586`. PR #491 refreshed the visible beta date/status. Exact post-merge Quality [44908801606](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44908801606) SUCCESS, browser smoke [44908801669](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44908801669) SUCCESS, and Pages build/deploy [44908801630](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44908801630) SUCCESS. This supersedes the prior exact-main checkpoint at `866a5439f75d6f67e61a1781cbfccf8c77d9e9d7`.
+
+KHM-BETA-ENGINEERING-001 — DONE_VERIFIED on exact main. The project is ready as an engineering beta within documented supported cases. Expert gold remains 0 / accuracy null and is DEFERRED for beta; manual accessibility review remains TODO; contextual vowel and lexical segmentation evidence remain PARTIAL. MekongPhon remains excluded. No official standard or comprehensive accuracy claim is made. No GitHub Release was published.
