@@ -1,10 +1,9 @@
 ## Lao-style unresolved final-output marker — 2026-11-22
 
-- **PARTIAL pending exact-head CI:** the public canonical Ukrainian field now renders `???` for each linguistic unit whose result is not `PROPOSED`; punctuation and numeric literals remain unchanged, and supported neighbouring units remain visible.
-- Per-unit statuses, source provenance and provisional onset hints remain in the diagnostic detail panel. They are not promoted into the main result. The separate romanization method is unchanged.
-- Browser regression expectations and the shared onset-fallback fixture now require `???` as the canonical Ukrainian display for unresolved input. Python research API internals and their typed diagnostic placeholders are unchanged.
-- Branch: `fix/unresolved-final-output-unknown-marker-20261122`; base `e2d86586f56f5aeb3f05ae00a466859afd67ef6b`.
-- Acceptance: exact-head Python/Node/browser/production-build checks, then merge and GitHub Pages deployment. Until those checks pass, this is not DONE_VERIFIED.
+- **DONE_VERIFIED — engineering/UI scope:** PR [#508](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/508) merged to `main` as `35866ecf493bdd61e62fe3a7784893a6f94ef8eb`.
+- The public canonical Ukrainian field renders `???` for each linguistic unit whose result is not `PROPOSED`; punctuation and numeric literals remain unchanged, and supported neighbouring units remain visible. Per-unit statuses, source provenance and provisional onset hints remain in diagnostics, not the final result. Romanization is unchanged.
+- Exact-head Quality [#44956091937](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44956091937) and [#44956095933](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44956095933) passed; browser smoke [#44956095934](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44956095934) passed. Post-merge main Quality [#44956195460](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44956195460), browser smoke [#44956195589](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44956195589), and Pages deployment [#44956195493](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44956195493) passed.
+- Python research API internals and their typed diagnostic placeholders are unchanged. No phonological rule, IPA value, evidence label or accuracy claim changed.
 
 ---
 
