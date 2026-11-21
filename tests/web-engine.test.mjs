@@ -51,6 +51,14 @@ for (const [ipa, expected] of [["ja je ji jo ju","я є ї йо ю"],["jaː","я
   const mapped = mapIpa(ipa, policy);
   if (mapped.value !== expected || mapped.unsupported !== null) throw new Error("browser adapter mismatch for " + ipa + ": " + JSON.stringify(mapped));
 }
+for (const [ipa, expected] of [
+  ["/ʔak.ˈsɑː kʰmae/", "акса к'мае"],
+  ["/nɔ.ˈkɔː kʰmae/", "ноко к'мае"],
+  ["/ʔak.ˈsɑː muːl/", "акса мул"],
+]) {
+  const mapped = mapIpa(ipa, policy);
+  if (mapped.value !== expected || mapped.unsupported !== null) throw new Error("length-bearing Khmer IPA adapter mismatch for " + ipa + ": " + JSON.stringify(mapped));
+}
 const unknownIpa = mapIpa("kʰɥ", policy);
 if (unknownIpa.value !== null || unknownIpa.unsupported !== "ɥ") throw new Error("browser adapter must withhold unsupported IPA");
 if (!systemHtml.includes("контекстна українська йотація") || !systemHtml.includes("/w/ → в")) throw new Error("public system page lacks Ukrainian glide adaptation policy");
