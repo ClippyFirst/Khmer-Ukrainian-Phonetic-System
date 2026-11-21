@@ -1,3 +1,11 @@
+## Output-level refinement checkpoint — 2026-11-21
+
+- Latest implementation head: `2cbdbb2d26ba447a7803632663f3e7a5ff603ac1` (PR #507); branch remains based directly on current `main` with no behind commits.
+- Distinct behavior refined: careful hides candidate/unit diagnostics; balanced shows available non-Google / core diagnostic candidates (Khmer: unit-level statuses and explanations); exploratory adds the widest available diagnostics (Burmese: Google candidate if deployed; Khmer: existing onset-only provisional hints).
+- **Verification status remains PARTIAL:** no exact-head CI run IDs or local test results are available in this session. Do not merge until the repository test/check, production build and browser workflow pass on this exact head; inspect the rendered site and confirm phonetic/romanization switching.
+
+---
+
 ## Public output-level implementation — 2026-11-21
 
 - **PARTIAL — engineering implementation submitted for exact-head verification:** branch `feat/evidence-aware-output-levels-2026-11-21`; base main commit `a07b9660b03daec9bacb17bab1d0f48b85fe4275`; PR #507.
