@@ -4,6 +4,7 @@ import { mapIpa } from "../src/ukrainian-practical.js";
 const html = fs.readFileSync("index.html", "utf8");
 const systemHtml = fs.readFileSync("system.html", "utf8");
 const js = fs.readFileSync("src/main.js", "utf8");
+const outputLevelSelector = html.match(/<select id="output-level"[\\s\\S]*?<\\/select>/u)?.[0] ?? "";
 const adapterSource = fs.readFileSync("src/ukrainian-practical.js", "utf8");
 const policy = JSON.parse(fs.readFileSync("data/ukrainian/practical-policy.json", "utf8"));
 const fixtures = JSON.parse(fs.readFileSync("data/tests/web-fixtures.json", "utf8"));
@@ -12,6 +13,9 @@ const vite = fs.readFileSync("vite.config.js", "utf8");
 
 for (const x of ["Content-Security-Policy", "src/main.js", 'id="source"', 'id="results"']) {
   if (!html.includes(x)) throw new Error("index missing " + x);
+if (!outputLevelSelector.includes('value="strict"') || !outputLevelSelector.includes('value="balanced"') || !outputLevelSelector.includes('value="exploratory"')) throw new Error("all three evidence-aware output levels must be selectable");
+if (!js.includes('outputLevelMode === "strict"') || !js.includes('outputLevelMode === "exploratory"') || !js.includes('outputLevel?.addEventListener("change"')) throw new Error("output-level presentation policy is not wired to the interface");
+if (!js.includes('unit.provisional_ipa ? " · Попередня підказка: "')) throw new Error("balanced mode must preserve the separately labelled provisional onset preview");
 }
 for (const x of ["Регістри, шифтери та кластери", "Приголосні: українська ціль", "Голосні: контекст важливіший за знак", "/c/","/h/","/ʋ/","/w/","Валідація складних випадків","ភាសាខ្មែរ","п\u0027ієса к\u0027мае"]) {
   if (!systemHtml.includes(x)) throw new Error("system missing " + x);
