@@ -128,3 +128,28 @@ def test_external_pronunciation_sources_preserve_format_and_rights_boundaries():
     assert "CC BY-SA 4.0" in acoustic["scope"]
     assert "CC BY 4.0" in acoustic["scope"]
     assert acoustic["status"] == "BLOCKED_SOURCE_INCOMPLETE_RIGHTS_CONFLICT"
+
+
+def test_directly_source_attested_phrase_is_distinct_from_compositional_phrase():
+    sources = {row["id"]: row for row in json.loads((ROOT / "data/khmer/sources.json").read_text(encoding="utf-8"))}
+    source = sources["wiktionary:za-khmae"]
+    assert source["status"] == "SECONDARY_LEXICAL_REFERENCE"
+    assert "/ciə ˈkʰmae/" in source["scope"]
+
+    fixtures = json.loads((ROOT / "data/tests/web-fixtures.json").read_text(encoding="utf-8"))
+    direct = fixtures["ជាខ្មែរ"]
+    assert direct["ipa"] == "/ciə ˈkʰmae/"
+    assert direct["source_locator"]
+    assert "wiktionary:za-khmae" in direct["evidence"]
+
+    corpus = json.loads((ROOT / "data/tests/verified-lexical-corpus.json").read_text(encoding="utf-8"))
+    assert corpus["ជាខ្មែរ"]["ipa_status"] == "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED"
+    assert corpus["ភាសាខ្មែរ"]["ipa_status"] == "PROPOSED_COMPOSITIONAL_NOT_SOURCE_ATTESTED"
+    cluster_source = sources["wiktionary:lngiac"]
+    assert "oldid=68625783" in cluster_source["url"]
+    assert "/lŋiəc/" in cluster_source["scope"]
+    assert corpus["ល្ងាច"]["ipa"] == "/lŋiəc/"
+    assert fixtures["ល្ងាច"]["orthographic_phonemic_transcription"] == "l̥ṅāc"
+    assert fixtures["ល្ងាច"]["wt_romanisation"] == "lngiəc"
+    assert corpus["ល្ងាច"]["orthographic_phonemic_transcription"] == "l̥ṅāc"
+    assert corpus["ល្ងាច"]["wt_romanisation"] == "lngiəc"

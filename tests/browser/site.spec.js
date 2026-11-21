@@ -99,12 +99,30 @@ test("compositional Khmer phrase without a phrase-level locator remains tier C",
 
 
 test("Wiktionary lexical fixtures expose exact source locators at tier B", async ({ page }) => {
-  for (const source of ["ខ្មែរ", "ភាសា", "ភ្នំពេញ", "កម្ពុជា", "ខ្ញុំ"]) {
+  for (const source of ["ខ្មែរ", "ភាសា", "ភ្នំពេញ", "កម្ពុជា", "ខ្ញុំ", "ជាខ្មែរ", "ល្ងាច"]) {
     await page.goto("/");
     await page.locator("#source").fill(source);
     await expect(page.locator("#status")).toHaveText("PROPOSED · доказовий рівень B");
     await expect(page.locator(".unit-source-locator")).toContainText("Wiktionary");
   }
+});
+
+test("directly source-attested Khmer phrase is tier B and differs from composition-only phrase", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("ជាខ្មែរ");
+  await expect(page.locator("#ipa-result")).toHaveText("/ciə ˈkʰmae/");
+  await expect(page.locator("#ua-result")).toHaveText("тьіє к'мае");
+  await expect(page.locator("#status")).toHaveText("PROPOSED · доказовий рівень B");
+  await expect(page.locator(".unit-source-locator")).toContainText("Wiktionary");
+});
+
+test("source-attested Khmer cluster word retains every IPA segment through the adapter", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("ល្ងាច");
+  await expect(page.locator("#ipa-result")).toHaveText("/lŋiəc/");
+  await expect(page.locator("#ua-result")).toHaveText("лнгієть");
+  await expect(page.locator("#status")).toHaveText("PROPOSED · доказовий рівень B");
+  await expect(page.locator(".unit-source-locator")).toContainText("oldid=68625783");
 });
 
 test("unsupported grapheme is marked locally", async ({ page }) => {

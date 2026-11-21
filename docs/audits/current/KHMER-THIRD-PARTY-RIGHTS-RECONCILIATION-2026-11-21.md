@@ -135,3 +135,12 @@ Five small Khmer lexical IPA values are now recorded with exact entry URLs and P
 The phrase ភាសាខ្មែរ has no direct phrase-level locator in the checked entries; it is retained only as a compositional project hypothesis from the two separately cited word entries and is tier C, not source-attested B. The Wiktionary page for ខ្ញុំ gives Modern Khmer standard IPA /kɲom/; its Old Khmer section separately gives /kʰɲʊm/ as a historical form, not a Modern Khmer alternate. The fixture selects only the Modern Khmer standard IPA and records the historical distinction in its locator.
 
 Source: https://en.wiktionary.org/wiki/Wiktionary:Copyrights. The source page says entry text is dual-licensed under CC BY-SA 4.0 and GFDL, but labels itself draft/unofficial. Preserve attribution and share-alike/GFDL obligations for any reused entry text, and check the applicable Wikimedia Terms of Use. No full entry text, audio or media was copied into this repository.
+
+## Additional individually registered Wiktionary entries — 2026-11-21
+
+Two direct lexical entries are now recorded for provisional source-traceable use only:
+
+- `ជាខ្មែរ`: exact standard IPA `/ciə ˈkʰmae/`, directly present on the Khmer entry page; this is phrase-level evidence and must not be confused with the project-composed `ភាសាខ្មែរ` hypothesis.
+- `ល្ងាច`: exact standard IPA `/lŋiəc/` on permanent revision `oldid=68625783`; the page separately displays orthographic/phonemic `l̥ṅāc` and WT romanisation `lngiəc`, which are not treated as IPA.
+
+Both are registered as `SECONDARY_LEXICAL_REFERENCE`, with exact locators, revision information where available, source-profile caveats and item-level attribution. The page footer identifies Creative Commons Attribution-ShareAlike; the version and applicable Wikimedia terms must be respected. No audio/media or extended source text was copied. These are not independent Phnom Penh adjudications, not gold, and not accuracy evidence. The source-traceable tier B label means only that the entry has an exact registered pronunciation locator and the current IPA → Ukrainian adapter agrees with the project's proposed lexical output.

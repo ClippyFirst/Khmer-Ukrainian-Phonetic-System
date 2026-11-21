@@ -43,5 +43,7 @@ The following small lexical IPA values are used as provisional source-backed fix
 - ភ្នំពេញ — https://en.wiktionary.org/wiki/ភ្នំពេញ
 - កម្ពុជា — https://en.wiktionary.org/wiki/កម្ពុជា
 - ខ្ញុំ — https://en.wiktionary.org/wiki/ខ្ញុំ
+- ជាខ្មែរ — https://en.wiktionary.org/wiki/ជាខ្មែរ (direct phrase-level standard IPA `/ciə ˈkʰmae/`; not composed from component fixtures)
+- ល្ងាច — https://en.wiktionary.org/w/index.php?title=ល្ងាច&oldid=68625783 (direct standard IPA `/lŋiəc/`; orthographic/phonemic notation and WT romanisation remain distinct)
 
 Wiktionary's Copyrights page states that entry text is dual-licensed under CC BY-SA 4.0 and the GNU Free Documentation License (GFDL), but the page itself labels this policy page as a draft/unofficial statement. Preserve attribution and links to the source pages; check the applicable Wikimedia Terms of Use and treat these fixture rows as separately licensed third-party data, not as covered by the repository's code license. Do not assume embedded third-party media or underlying dictionary material shares the same terms. The entries are community-maintained lexical references, not independent Phnom Penh profile adjudication. See https://en.wiktionary.org/wiki/Wiktionary:Copyrights.
