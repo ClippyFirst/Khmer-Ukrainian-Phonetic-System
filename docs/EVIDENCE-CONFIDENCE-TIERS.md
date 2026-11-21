@@ -5,7 +5,7 @@
 | Tier | Meaning | Runtime treatment |
 |---|---|---|
 | A | Independently adjudicated, profile-matched gold | Not currently available |
-| B | Every output has an exact per-unit locator to a registered pronunciation source, the IPA → Ukrainian adapter succeeds, and the source/profile scope is explicit | Display as PROPOSED/PROVISIONAL with the source locator visible; never call canonical or expert-validated |
+| B | Every output has an exact per-unit locator to a registered pronunciation source, the IPA → Ukrainian adapter succeeds and agrees with the supplied lexical Ukrainian reference (when present), and the source/profile scope is explicit | Display as PROPOSED/PROVISIONAL with the source locator visible; never call canonical or expert-validated |
 | C | Experimental or incomplete evidence, unregistered source IDs, no exact locator, compositional hypothesis without a phrase-level source, or unresolved source conflict | Keep visible as a candidate where safe, but do not present as B |
 | D | No usable candidate or unsupported/malformed input | Withhold IPA and Ukrainian output |
 ## Runtime behavior
