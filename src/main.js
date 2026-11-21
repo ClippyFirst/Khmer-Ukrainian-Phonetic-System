@@ -682,7 +682,7 @@ if (typeof document !== "undefined") {
       }
       unitDetails.append(card);
     });
-    unitDetails.hidden = activeMode !== "phonetic" || data.units.every((unit) => unit.status === "PUNCTUATION");
+    unitDetails.hidden = activeMode !== "phonetic" || outputLevelMode === "strict" || data.units.every((unit) => unit.status === "PUNCTUATION");
     const notice = getStatusNotice(data);
     issue.hidden = activeMode !== "phonetic" || !notice;
     if (!issue.hidden) {
