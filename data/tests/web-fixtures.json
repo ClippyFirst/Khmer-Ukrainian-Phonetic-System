@@ -323,5 +323,16 @@
       "wiktionary:za-khmae"
     ],
     "source_locator": "Wiktionary, Khmer entry ជាខ្មែរ, Pronunciation > standard IPA /ciə ˈkʰmae/: https://en.wiktionary.org/wiki/ជាខ្មែរ (accessed 2026-11-21)."
+  },
+  "ល្ងាច": {
+    "source": "ល្ងាច",
+    "ipa": "/lŋiəc/",
+    "ua": "лнгієть",
+    "status": "PROPOSED",
+    "note": "Wiktionary directly labels /lŋiəc/ as standard IPA for the whole lexical entry. The displayed orthographic/phonemic form l̥ṅāc and WT romanisation lngiəc are not substituted for IPA. Ukrainian form is the project's mechanical IPA adaptation, not independently adjudicated.",
+    "evidence": [
+      "wiktionary:lngiac"
+    ],
+    "source_locator": "Wiktionary, Khmer entry ល្ងាច, Pronunciation > (standard) IPA /lŋiəc/, permanent revision oldid=68625783 (last edited 2022-08-14): https://en.wiktionary.org/w/index.php?title=ល្ងាច&oldid=68625783."
   }
 }
