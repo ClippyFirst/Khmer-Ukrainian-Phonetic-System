@@ -74,10 +74,12 @@
     "ipa_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
     "ua_status": "PROPOSED",
     "sources": [
-      "https://en.wiktionary.org/wiki/ជាខ្មែរ"
+      "https://en.wiktionary.org/w/index.php?title=ជាខ្មែរ&oldid=68806374"
     ],
     "evidence_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
-    "evidence_note": "Wiktionary's Khmer Pronunciation section gives standard IPA /ciə ˈkʰmae/ for the directly listed entry ជាខ្មែរ. This is phrase-level source evidence, unlike the separately composed ភាសាខ្មែរ hypothesis; it is community-maintained and not independently adjudicated against audio."
+    "evidence_note": "Wiktionary permanent revision oldid=68806374 gives standard IPA /ciə ˈkʰmae/ for the directly listed Khmer adverb ជាខ្មែរ. The page separately displays orthographic/phonemic jāk̥ʰmaer and WT romanisation ciə khmae; these are not substituted for IPA. Community-maintained lexical reference; not independently adjudicated against audio.",
+    "orthographic_phonemic_transcription": "jāk̥ʰmaer",
+    "wt_romanisation": "ciə khmae"
   },
   "ល្ងាច": {
     "ipa": "/lŋiəc/",
