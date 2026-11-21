@@ -1,10 +1,10 @@
 {
   "ភាសាខ្មែរ": {
     "source": "ភាសាខ្មែរ",
-    "ipa": "/pʰiə.ˈsaː kʰmae/",
+    "ipa": "/pʰiəsaː kʰmae/",
     "ua": "п'ієса к'мае",
     "status": "PROPOSED",
-    "note": "Compositional phrase candidate from the two separately source-located word entries; no direct phrase-level pronunciation entry was found. It has no phrase-level source_locator and remains tier C, not B.",
+    "note": "Проєктна композиційна гіпотеза з двох окремо джерельно підтверджених слів ភាសា та ខ្មែរ; прямого джерела IPA для всієї фрази не знайдено. Немає phrase-level source_locator, тому рівень C, не B.",
     "evidence": [
       "wiktionary:phiasa",
       "wiktionary:khmae"
