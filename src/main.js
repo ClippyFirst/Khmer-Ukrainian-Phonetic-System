@@ -573,6 +573,9 @@ if (typeof document !== "undefined") {
   const modePhonetic = $("mode-phonetic");
   const modeRomanization = $("mode-romanization");
   const outputMethodNote = $("output-method-note");
+  const outputLevel = $("output-level");
+  const outputLevelNote = $("output-level-note");
+  let outputLevelMode = outputLevel?.value || "balanced";
   let activeMode = "phonetic";
 
   function setOutputMode(mode) {
@@ -636,7 +639,13 @@ if (typeof document !== "undefined") {
     $("ipa-result").textContent = data.ipa;
     $("ua-result").textContent = data.ua;
     $("status").textContent = data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
-    $("details").textContent = data.note;
+    const levelGuidance = {
+      strict: "Обережний рівень: показано лише наявні джерельно індексовані пропозиції; непідтверджені IPA/українські форми не реконструюються. PROPOSED не є експертним gold.",
+      balanced: "Збалансований рівень: показує основний частковий результат, статус кожної одиниці та причини невизначеності. Невстановлені фрагменти зберігаються на своїх позиціях.",
+      exploratory: "Дослідницький рівень: додатково показує доступні часткові структурні підказки початкового приголосного. Вони не є повним складом, IPA або підтвердженою українською вимовою."
+    };
+    outputLevelNote.textContent = levelGuidance[outputLevelMode];
+    $("details").textContent = data.note + " " + levelGuidance[outputLevelMode];
     const unitDetails = $("unit-details");
     unitDetails.replaceChildren();
     const unitHeading = document.createElement("h3");
@@ -660,7 +669,7 @@ if (typeof document !== "undefined") {
       const values = document.createElement("p");
       values.className = "unit-values";
       values.textContent = "IPA: " + unit.ipa + " · Українська: " + unit.ua
-        + (unit.provisional_ipa ? " · Попередня підказка: " + unit.provisional_ipa + " → " + unit.provisional_ukrainian + " [PROVISIONAL]" : "");
+        + (outputLevelMode === "exploratory" && unit.provisional_ipa ? " · Часткова структурна підказка: " + unit.provisional_ipa + " → " + unit.provisional_ukrainian + " [PROVISIONAL · НЕ ПОВНИЙ IPA]" : "");
       const note = document.createElement("p");
       note.className = "unit-note";
       note.textContent = unit.note || "Окремого пояснення для цієї одиниці немає.";
@@ -688,6 +697,7 @@ if (typeof document !== "undefined") {
   modeRomanization.addEventListener("click", () => setOutputMode("romanization"));
   setOutputMode("phonetic");
   source.addEventListener("input", render);
+  outputLevel?.addEventListener("change", () => { outputLevelMode = outputLevel.value; render(); });
   $("profile").addEventListener("change", render);
   $("example").addEventListener("click", () => {
     source.value = fixtures["ភាសាខ្មែរ"] ? "ភាសាខ្មែរ" : Object.keys(fixtures)[0];
