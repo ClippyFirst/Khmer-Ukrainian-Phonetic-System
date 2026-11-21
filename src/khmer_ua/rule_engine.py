@@ -52,6 +52,7 @@ def _confidence_tier(unit: dict[str, Any]) -> str:
         and unit.get("ipa")
         and unit.get("ukrainian") is not None
         and unit.get("source_locator")
+        and unit.get("lexical_mapping_agrees") is True
         and registered_phonology_source
     ):
         return "B"
@@ -199,15 +200,16 @@ def _analyze_unit(unit: str) -> dict[str, Any]:
             }
         ipa = raw_ipa.strip().strip("/")
         ukrainian, unsupported = map_ipa_string(ipa)
+        lexical_mapping_agrees = ukrainian is not None and ukrainian == fixture.get("ua")
         return {
             "source": unit, "ipa": ipa, "ukrainian": ukrainian,
-            "status": fixture.get("status", "PROPOSED") if unsupported is None else "NOT_ESTABLISHED",
+            "status": fixture.get("status", "PROPOSED") if unsupported is None and lexical_mapping_agrees else "EVIDENCE_LIMITED" if unsupported is None else "NOT_ESTABLISHED",
             "rule_trace": ["KHMER_LEXICAL_FIXTURE", "IPA_TO_UKRAINIAN_LONGEST_MATCH"],
             "reason": fixture.get("note", "") if unsupported is None else f"Unsupported IPA sequence: {unsupported}",
             "evidence": fixture.get("evidence", []),
             "source_locator": fixture.get("source_locator"),
             "lexical_ua_reference": fixture.get("ua"),
-            "lexical_mapping_agrees": ukrainian == fixture.get("ua") if ukrainian is not None else False,
+            "lexical_mapping_agrees": lexical_mapping_agrees,
         }
 
     structure = analyze_structure(unit)
