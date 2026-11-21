@@ -99,7 +99,7 @@ test("compositional Khmer phrase without a phrase-level locator remains tier C",
 
 
 test("Wiktionary lexical fixtures expose exact source locators at tier B", async ({ page }) => {
-  for (const source of ["ខ្មែរ", "ភាសា", "ភ្នំពេញ", "កម្ពុជា", "ខ្ញុំ"]) {
+  for (const source of ["ខ្មែរ", "ភាសា", "ភ្នំពេញ", "កម្ពុជា", "ខ្ញុំ", "ជាខ្មែរ"]) {
     await page.goto("/");
     await page.locator("#source").fill(source);
     await expect(page.locator("#status")).toHaveText("PROPOSED · доказовий рівень B");
