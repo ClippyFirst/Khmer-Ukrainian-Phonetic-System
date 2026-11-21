@@ -226,3 +226,7 @@ The source-backed case inventory and dashboard remain integrated. Exact main HEA
 ## Contextual vowel research continuation — 2026-11-21
 
 See docs/research/KHMER-CONTEXTUAL-VOWEL-AND-LEXICAL-SEGMENTATION-RESEARCH-UPDATE-2026-11-21.md. Chem's Phnom Penh acoustic sample, Minegishi's series/coda analysis, Kirby's cluster and laryngeal work, Mam et al.'s bounded five-speaker/50-word pitch study, Woźnica's geographically uneven 80-speaker sample, and Henderson's non-Phnom-Penh speaker are distinct evidence strata. They must not be collapsed into a single complete vowel inventory or a grapheme-to-tone rule. The contextual matrix remains PARTIAL until source-located lexical rows include profile, task, syllable type, coda, length, stress/harmony and acoustic context. No new IPA or runtime rule is added by this continuation.
+
+## Tier-B source-locator gate — 2026-11-21
+
+The runtime no longer treats any non-empty `evidence` array as sufficient for tier B. B requires a per-unit exact source locator, a registered pronunciation-capable source ID, successful IPA → Ukrainian adaptation and lexical-target agreement when a lexical Ukrainian reference is supplied. Current B units are `ក`, `គ`, `ខ្មែរ`, `ភាសា`, `ភ្នំពេញ`, `កម្ពុជា`, and `ខ្ញុំ`. The phrase `ភាសាខ្មែរ` remains a compositional hypothesis at C; `ឆ` remains C because the R12A page conflicts on its register class. This does not close the wider contextual vowel × series × coda matrix, which remains PARTIAL.
