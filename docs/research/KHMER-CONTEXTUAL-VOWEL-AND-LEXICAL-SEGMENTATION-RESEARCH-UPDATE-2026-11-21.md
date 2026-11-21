@@ -63,3 +63,16 @@ The existing parser handles conservative orthographic structure; the existing wo
 ## Acceptance boundary
 
 The existing contextual evidence schema/integrity checks are engineering-complete. The broad contextual vowel matrix is still PARTIAL: source rows do not consistently cover profile × series × nucleus × coda × syllable type × length × stress/harmony. Lexical segmentation remains BLOCKED pending an approved unit/convention, rights/privacy clearance and independently adjudicated boundary pilot. No new gold or accuracy claim is made.
+
+
+## Full-text verification of two key Phnom Penh studies — 2026-11-21
+
+### Chem (2020): exact sample and acoustic limits
+
+Full-text review confirms that the final acoustic sample is **four native Phnom Penh speakers (two men, two women), ages 20–50**. A preceding conversational observation stage involved 21 speakers and 168 items; that is not the final acoustic sample. The final task included 61 lexical items read formally three times, with a prompt equivalent to “this word is read as …”. The principal vowel measures are duration, F1 and F2. The study reports 21 monophthong and 13 diphthong categories, but explicitly notes missing/substituted vowel samples and difficulty with unfamiliar items. Closed syllables are usually shorter than open syllables, and coda closure can make the nucleus boundary difficult to locate. The poster discusses register-related vowel differences but does not clearly establish a controlled statistical analysis of consonant series as an experimental factor. These limitations prevent treating its full inventory as a complete modern phonemic/phonetic inventory or gold table. DOI: https://doi.org/10.61945/cjbar.2020.2.2.3.
+
+### Mam, Pittayaporn & Maspong (2025): bounded F0 evidence
+
+Full-text review confirms **five native Greater Phnom Penh speakers (two men, three women), ages 20–25**, familiar with both PPK and Standard Khmer. The 50-word task crossed four onset types (r>h, voiced, voiceless stop, nasal) with cluster and disyllable structures. Each target was shown in Khmer orthography in a carrier sentence; PPK was elicited before Standard Khmer, with three repetitions per target. The analysis focuses on F0 trajectories of stressed rimes, with automated segmentation manually corrected, CREPE extraction and functional PCA. The paper reports higher F0 for cluster than disyllabic words in both varieties and larger onset-related separation in PPK. It explicitly treats the interpretation as possible phonologization, notes that the r>h disyllable stressed syllables had a single /r/ onset, and calls for more items to test Cr clusters. It does not include a perception test establishing lexical tone. DOI: https://doi.org/10.21437/TAI.2025-29.
+
+**Consequence:** these studies justify keeping coda, syllable structure, elicitation, onset type and profile as separate evidence dimensions. They do not justify generalizing a pitch rule or filling missing contextual matrix cells. No new IPA value or runtime rule is added.
