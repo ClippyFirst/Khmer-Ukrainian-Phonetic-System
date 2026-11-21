@@ -1,4 +1,16 @@
-## Output-level refinement checkpoint — 2026-11-21
+## Public output levels — post-merge beta verification — 2026-11-21
+
+- **DONE_VERIFIED — engineering/UI scope:** PR [#507](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/507) merged to `main`; merge commit `2dc432a8237ac56da7337c9787a1030890eeb9a3`.
+- Public selector: careful / balanced (default) / exploratory. Careful hides per-unit diagnostics; balanced shows per-unit results/statuses and separately labelled PROVISIONAL onset hints; exploratory additionally reveals existing parsed graphemic structure. No new vowel, coda, tone or full IPA is inferred. BGN/PCGN romanization remains independent.
+- Exact-head PR checks: Quality #6026 [44952265766](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44952265766) passed, including Python corpus validation, 451 pytest tests (70 subtests), and Node/web checks with output-level regression assertions. Browser #1321 [44952265803](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44952265803) passed production build and Chromium smoke.
+- **Main deployment:** Pages #795 [44952354090](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44952354090) passed build, web checks, production build, Chromium, artifact upload, deploy and deployed asset smoke test.
+- Live verification: [GitHub Pages](https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/) returned HTTP 200 and exposed all three selector options.
+- Linguistic limits unchanged: PROPOSED fixtures are not expert gold; independent adjudicated IPA gold remains empty and empirical accuracy remains `NOT_ASSESSED`. External KhmerPhonemizer/Goruut/MekongPhon are not silently promoted or presented as canonical site engines.
+- Remaining gates: independent IPA gold / expert adjudication, complete vowel-tone-prosody coverage, manual accessibility review and any claim beyond the labelled beta.
+
+---
+
+## Earlier PR implementation checkpoint (superseded by the post-merge verification above) — 2026-11-21
 
 - Latest code, README and regression-test commit: `57b7950f9a1be19830c8a6e6dd01313a35ac9634` (PR #507); handoff refreshed immediately after it. Branch remains based directly on current `main` with no behind commits.
 - Distinct behavior refined: careful hides candidate/unit diagnostics; balanced shows available non-Google / core diagnostic candidates (Khmer: unit-level statuses and explanations); exploratory adds the widest available diagnostics (Burmese: Google candidate if deployed; Khmer: existing onset-only provisional hints).
