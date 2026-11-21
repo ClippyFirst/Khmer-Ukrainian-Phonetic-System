@@ -3561,3 +3561,8 @@ The owner explicitly selected public beta delivery without qualified external sp
 - **KHM-MEKONGPHON-RIGHTS-001 — BLOCKED/UNKNOWN:** upstream source chain remains uncleared; excluded from runtime, training, gold and redistribution.
 
 Beta acceptance is therefore an engineering/deployment milestone, not a phonological completion claim. No IPA records, runtime phonological rules, gold rows or accuracy metrics were added by this milestone.
+
+
+## Final current-main verification — 2026-11-21
+
+Latest main SHA: `192d280890e7f95d67a0486227edd540bfabcb26`. All three exact-SHA post-merge workflows completed successfully: Quality [44906966908](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44906966908), Chromium/browser [44906967032](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44906967032), Pages build/deploy [44906966960](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44906966960). This supersedes the prior exact-main verification at `a6347577052ddf70d69364ed7cc90e2ff584ed2a`.
