@@ -671,5 +671,14 @@
     "scope": "Pronunciation section, first standard IPA /kɲom/. The Old Khmer section separately gives /kʰɲʊm/ as a historical pronunciation; it is not a Modern Khmer alternate. Community-maintained lexical reference; not independent Phnom Penh profile adjudication.",
     "status": "SECONDARY_LEXICAL_REFERENCE",
     "license": "Wiktionary:Copyrights states entry text is dual-licensed CC BY-SA 4.0 and GFDL; that policy page labels itself draft/unofficial, so retain the source link and check the applicable Wikimedia Terms of Use. Do not assume embedded third-party media shares these terms."
+  },
+  {
+    "id": "wiktionary:za-khmae",
+    "type": "community_lexical_reference",
+    "title": "Wiktionary Khmer entry: ជាខ្មែរ",
+    "url": "https://en.wiktionary.org/wiki/ជាខ្មែរ",
+    "scope": "Pronunciation section, standard IPA /ciə ˈkʰmae/ for the directly listed Khmer adverb ជាខ្មែរ; source-attested phrase-level form, not a composition inferred from component entries.",
+    "status": "SECONDARY_LEXICAL_REFERENCE",
+    "license": "Wiktionary entry text; page footer identifies Creative Commons Attribution-ShareAlike. The Wiktionary:Copyrights page's CC BY-SA 4.0/GFDL statement is marked draft/unofficial; retain exact page attribution and check applicable Wikimedia Terms of Use. No embedded audio/media copied."
   }
 ]
