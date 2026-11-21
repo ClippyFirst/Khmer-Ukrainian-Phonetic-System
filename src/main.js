@@ -443,6 +443,14 @@ function combineStatus(items) {
   return "ESTABLISHED_STRUCTURE";
 }
 
+function confidenceTier(item) {
+  if (item.status === "ADJUDICATED_GOLD" && item.profile_adjudicated === true) return "A";
+  if (["PROPOSED", "PROVISIONAL"].includes(item.status) && item.ipa && item.ua && item.evidence?.length) return "B";
+  if (item.provisional_ipa || ["EVIDENCE_LIMITED", "PROPOSED", "PROVISIONAL", "ANALYSIS_DEPENDENT"].includes(item.status)) return "C";
+  if (["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)) return "N/A";
+  return "D";
+}
+
 function getStatusNotice(data) {
   if (!data) return "";
   if (data.status === "PROVISIONAL") {
@@ -477,6 +485,7 @@ function convert(text, profile) {
     return fixture ? renderFixture(fixture, profile) : renderUnknownUnit(unit, profile);
   });
 
+  rendered.forEach((item) => { item.confidence_tier = confidenceTier(item); });
   const linguistic = rendered.filter((item) => !["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status));
   const analyses = linguistic.map((item) => item.analysis).filter(Boolean);
   const resolved = linguistic.filter((item) => item.status === "PROPOSED");
@@ -518,6 +527,7 @@ function convert(text, profile) {
     complete,
     partial: !complete && resolved.length > 0,
     status: combineStatus(linguistic),
+    confidence_tier: linguistic.length ? linguistic.map((item) => item.confidence_tier).sort((a, b) => ({A:0,B:1,C:2,D:3}[b] - {A:0,B:1,C:2,D:3}[a]))[0] : "D",
     note: "Локальний аналіз: " + resolved.length + " одиниць мають зафіксовану IPA та проєктну українську форму; "
       + unresolved.length + " потребують окремого встановлення або перевірки (" + notEstablished
       + " не встановлено, " + evidenceLimited + " з обмеженою доказовістю, " + invalid
@@ -612,7 +622,7 @@ if (typeof document !== "undefined") {
         : "PASSTHROUGH · латинських фрагментів для романізації немає; сторонній текст збережено.";
     $("ipa-result").textContent = data.ipa;
     $("ua-result").textContent = data.ua;
-    $("status").textContent = data.status.replaceAll("_", " ");
+    $("status").textContent = data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
     $("details").textContent = data.note;
     const unitDetails = $("unit-details");
     unitDetails.replaceChildren();
@@ -632,7 +642,7 @@ if (typeof document !== "undefined") {
       sourceLabel.textContent = unit.source;
       const statusLabel = document.createElement("span");
       statusLabel.className = "unit-status";
-      statusLabel.textContent = unit.status.replaceAll("_", " ");
+      statusLabel.textContent = unit.status.replaceAll("_", " ") + " · рівень " + unit.confidence_tier;
       heading.append(sourceLabel, statusLabel);
       const values = document.createElement("p");
       values.className = "unit-values";
