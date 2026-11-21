@@ -153,16 +153,24 @@ def test_shared_onset_fallback_fixture_preserves_canonical_abstention():
 
 
 
-def test_source_traceable_proposed_ipa_is_tier_b_and_unresolved_material_is_not():
+def test_source_traceable_proposed_ipa_requires_registered_exact_locator():
     engine = RuleBasedKhmerEngine()
-    lexical = engine.analyze("ខ្មែរ")
-    assert lexical["confidence_tier"] == "B"
-    assert lexical["units"][0]["confidence_tier"] == "B"
+    for source in ("ក", "គ", "ខ្មែរ", "ភាសា", "ភ្នំពេញ", "កម្ពុជា", "ខ្ញុំ"):
+        result = engine.analyze(source)
+        assert result["confidence_tier"] == "B", source
+        assert result["units"][0]["confidence_tier"] == "B", source
+        assert result["units"][0]["source_locator"], source
 
+    # R12A contains an internal register-class conflict for this character;
+    # a source ID without a resolved, exact locator must not produce B.
     series = engine.analyze("ឆ")
     assert series["status"] == "PROPOSED"
-    assert series["confidence_tier"] == "B"
+    assert series["confidence_tier"] == "C"
     assert "r12a-orthography" in series["evidence"]
+
+    # The phrase is composed from separately cited words, not a direct phrase entry.
+    phrase = engine.analyze("ភាសាខ្មែរ")
+    assert phrase["confidence_tier"] == "C"
 
     unreferenced = engine.analyze("កី")
     assert unreferenced["confidence_tier"] == "C"
