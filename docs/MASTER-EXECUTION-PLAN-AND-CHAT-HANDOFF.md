@@ -1,3 +1,13 @@
+## Public output-level implementation — 2026-11-21
+
+- **PARTIAL — engineering implementation submitted for exact-head verification:** branch `feat/evidence-aware-output-levels-2026-11-21`; base main commit `a07b9660b03daec9bacb17bab1d0f48b85fe4275`; PR #507.
+- Added careful, balanced (default), and exploratory presentation levels. The selector changes display only; it does not modify source analysis, IPA evidence, canonical promotion rules, pronunciation profile, or the separate orthographic romanization path.
+- Exploratory level reveals only already-existing partial onset hints and labels them PROVISIONAL / not full IPA; no vowel, coda or tone is inferred. PROPOSED fixture outputs remain proposals, not expert gold.
+- README and public UI documentation updated. **Acceptance still pending:** run the repository's exact-head Node/web tests, build, and browser smoke; inspect the live preview and confirm selector behavior for phonetic versus romanization modes. No test result is claimed from the connector's empty workflow-run lookup.
+- Readiness unchanged: beta/research prototype; linguistic accuracy remains NOT_ASSESSED and independent IPA gold remains unavailable.
+
+---
+
 ## Beta release scope decision — 2026-11-21
 
 The project owner has explicitly chosen to proceed with public beta versions because qualified external specialists will not be available. This supersedes the earlier assumption that human expert annotation/adjudication is a prerequisite for *any* release.
