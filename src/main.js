@@ -391,6 +391,7 @@ function renderUnknownUnit(unit, profile) {
         analysis,
         profile,
         mapping_check: { policy_render: mapped.value, lexical_render: null, agrees: true },
+        evidence: CONSONANTS[analysis.base]?.evidence ?? [],
       };
     }
   }
