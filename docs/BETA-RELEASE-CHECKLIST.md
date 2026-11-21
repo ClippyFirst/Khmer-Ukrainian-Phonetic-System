@@ -13,7 +13,7 @@
 
 ## Current beta acceptance record — 2026-11-21
 
-This checklist is a beta gate, not a claim that every gate is already satisfied. The current `main` SHA at the start of the reproducibility work passed Quality, browser smoke and Pages/deploy. The Khmer `main` branch did not yet commit an npm lockfile and its workflows used floating `npm install`; the dedicated continuation branch is adding a lockfile and switching CI/Pages/browser workflows to `npm ci`. Exact-head verification is required before merging that work. The original language-level limitations remain disclosed in `docs/BETA-RELEASE-POLICY.md` and `docs/limitations.md`.
+This checklist is a beta gate, not a claim that every gate is already satisfied. PR #481 merged as `355409a47feb8987cc655ca62dbad41ce8ff043d`. Exact post-merge main checks all passed on that SHA: Quality [44905912782](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44905912782), Pages build/deploy [44905912768](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44905912768), and production Chromium browser smoke [44905912797](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44905912797). The committed npm lockfile and `npm ci` are now the canonical dependency installation path. The original language-level limitations remain disclosed in `docs/BETA-RELEASE-POLICY.md` and `docs/limitations.md`.
 
 ## Commands
 
