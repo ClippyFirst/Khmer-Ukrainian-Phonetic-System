@@ -15,7 +15,7 @@ The B gate now requires both an explicit per-unit `source_locator` and at least 
 Current B examples:
 - `ក` → /kɑː/ and `គ` → /kɔː/: exact R12A §Consonant registers examples (U+1780/U+1782, lines 237–243) and §Inherent vowels (lines 258–266).
 - `ខ្មែរ`, `ភាសា`, `ភ្នំពេញ`, `កម្ពុជា`, `ខ្ញុំ`: exact Wiktionary entry-level standard IPA locators are stored in the fixtures and source registry. The `ភាសា` stress mark is retained.
-- `ជាខ្មែរ` is a direct phrase-entry case with standard IPA `/ciə ˈkʰmae/`; it is not the compositional `ភាសាខ្មែរ` fixture and has its own registered locator.
+- `ជាខ្មែរ` is a direct phrase-entry case with standard IPA `/ciə ˈkʰmae/` at permanent Wiktionary revision `oldid=68806374`; it is not the compositional `ភាសាខ្មែរ` fixture and has its own registered locator. The page's orthographic/phonemic form `jāk̥ʰmaer` and WT romanisation `ciə khmae` are stored separately from IPA.
 - `ល្ងាច` is a direct lexical entry with standard IPA `/lŋiəc/` at Wiktionary revision `oldid=68625783`; the orthographic/phonemic notation and WT romanisation are kept separate from IPA. The cluster passes the current mechanical adapter as a provisional Ukrainian form.
 
 The phrase `ភាសាខ្មែរ` is composed from the separately cited `ភាសា` and `ខ្មែរ` entries, but no direct phrase-level source locator was found; it remains C. The inherent-vowel fallback for `ឆ` remains C: R12A's own consonant-register listings conflict (the Onsets table lists `ឆ` in the ɑ-class at lines 1158–1160, while Basic consonants lists it in the ɔ-class at lines 1181–1187). A source ID without an exact, reconciled locator does not qualify for B.
