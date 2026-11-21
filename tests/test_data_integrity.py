@@ -149,3 +149,7 @@ def test_directly_source_attested_phrase_is_distinct_from_compositional_phrase()
     assert "oldid=68625783" in cluster_source["url"]
     assert "/lŋiəc/" in cluster_source["scope"]
     assert corpus["ល្ងាច"]["ipa"] == "/lŋiəc/"
+    assert fixtures["ល្ងាច"]["orthographic_phonemic_transcription"] == "l̥ṅāc"
+    assert fixtures["ល្ងាច"]["wt_romanisation"] == "lngiəc"
+    assert corpus["ល្ងាច"]["orthographic_phonemic_transcription"] == "l̥ṅāc"
+    assert corpus["ល្ងាច"]["wt_romanisation"] == "lngiəc"
