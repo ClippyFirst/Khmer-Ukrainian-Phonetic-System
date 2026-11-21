@@ -5872,3 +5872,7 @@ The README now links the beta checklist and policy; the landing page and methodo
 - **PARTIAL:** contextual vowel-series × consonant-series × coda coverage and lexical segmentation remain incomplete; no general rule is inferred from the representative fixtures.
 - **DEFERRED:** expert-approved Phnom Penh IPA convention and independent adjudicated gold. Gold remains empty; accuracy remains null / NOT_ASSESSED.
 - PR #497 contains this work. No other open Khmer PR was identified in this review.
+
+## Post-merge verification — 2026-11-21
+
+Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5baa324c7295b50faea115. Exact-main Quality run 44933254418 SUCCESS (448 Python tests + 70 subtests); Chromium browser smoke 44933254481 SUCCESS (21 tests); Pages build/deploy 44933254436 SUCCESS, including production Chromium and deployed HTML/JS/CSS smoke. The browser now exposes B/C/D labels per unit and aggregate; A remains unassigned. Independent expert-approved Phnom Penh IPA gold remains empty; measured accuracy remains NOT_ASSESSED. Contextual vowel-series × consonant-series × coda coverage remains PARTIAL.
