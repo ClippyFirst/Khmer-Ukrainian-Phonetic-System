@@ -158,3 +158,25 @@ def test_directly_source_attested_phrase_is_distinct_from_compositional_phrase()
     assert fixtures["ល្ងាច"]["wt_romanisation"] == "lngiəc"
     assert corpus["ល្ងាច"]["orthographic_phonemic_transcription"] == "l̥ṅāc"
     assert corpus["ល្ងាច"]["wt_romanisation"] == "lngiəc"
+
+def test_additional_wiktionary_lexical_fixtures_have_permanent_locators_and_distinct_notations():
+    sources = {row["id"]: row for row in json.loads((ROOT / "data/khmer/sources.json").read_text(encoding="utf-8"))}
+    fixtures = json.loads((ROOT / "data/tests/web-fixtures.json").read_text(encoding="utf-8"))
+    corpus = json.loads((ROOT / "data/tests/verified-lexical-corpus.json").read_text(encoding="utf-8"))
+    cases = {
+        "អក្សរខ្មែរ": ("wiktionary:aksar-khmae", "/ʔak.ˈsɑː kʰmae/", "87132823", "ʼk̥srk̥ʰmaer", "ʼaksɑɑ khmae"),
+        "នគរខ្មែរ": ("wiktionary:nokor-khmae", "/nɔ.ˈkɔː kʰmae/", "84887163", "ngrk̥ʰmaer", "nɔkɔɔ khmae"),
+        "អក្សរមូល": ("wiktionary:aksar-mul", "/ʔak.ˈsɑː muːl/", "63698235", "ʼk̥srmūl", "ʼaksɑɑ muul"),
+    }
+    for word, (source_id, ipa, oldid, orthographic, romanisation) in cases.items():
+        source = sources[source_id]
+        assert source["status"] == "SECONDARY_LEXICAL_REFERENCE"
+        assert oldid in source["url"]
+        assert ipa in source["scope"]
+        assert fixtures[word]["ipa"] == ipa
+        assert oldid in fixtures[word]["source_locator"]
+        assert fixtures[word]["orthographic_phonemic_transcription"] == orthographic
+        assert fixtures[word]["wt_romanisation"] == romanisation
+        assert corpus[word]["ipa"] == ipa
+        assert corpus[word]["ipa_status"] == "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED"
+        assert oldid in corpus[word]["sources"][0]
