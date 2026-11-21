@@ -337,6 +337,7 @@ function renderFixture(fixture, profile) {
       profile,
       mapping_check: { policy_render: mapped.value, lexical_render: fixture.ua ?? null, agrees: false },
       evidence: fixture.evidence ?? [],
+      source_locator: fixture.source_locator ?? null,
     };
   }
 
@@ -350,6 +351,7 @@ function renderFixture(fixture, profile) {
     profile,
     mapping_check: fixture.ua ? { policy_render: mapped.value, lexical_render: fixture.ua, agrees: true } : null,
     evidence: fixture.evidence ?? [],
+      source_locator: fixture.source_locator ?? null,
   };
 }
 
@@ -663,6 +665,12 @@ if (typeof document !== "undefined") {
       note.className = "unit-note";
       note.textContent = unit.note || "Окремого пояснення для цієї одиниці немає.";
       card.append(heading, values, note);
+      if (unit.source_locator) {
+        const locator = document.createElement("p");
+        locator.className = "unit-source-locator";
+        locator.textContent = "Джерельний локатор: " + unit.source_locator;
+        card.append(locator);
+      }
       unitDetails.append(card);
     });
     unitDetails.hidden = activeMode !== "phonetic" || data.units.every((unit) => unit.status === "PUNCTUATION");
