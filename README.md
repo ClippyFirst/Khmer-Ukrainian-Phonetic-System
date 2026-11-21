@@ -20,6 +20,8 @@ The shared Ukrainian target conventions are maintained in the canonical [foreign
 
 **[Open the Khmer → Ukrainian web service](https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/)**
 
+**[Public beta release checklist](docs/BETA-RELEASE-CHECKLIST.md)** · [Beta release policy](docs/BETA-RELEASE-POLICY.md)
+
 The public static service is hosted exclusively on GitHub Pages. Deployment is performed by `.github/workflows/pages.yml` from `main`; the workflow builds with Vite, runs web checks and production Chromium smoke tests, uploads the `dist/` artifact, deploys with `actions/deploy-pages`, and verifies both public HTML pages plus their JavaScript and CSS assets. No Vercel, Netlify, external application server, runtime API, analytics or telemetry is used.
 
 ## Web service
