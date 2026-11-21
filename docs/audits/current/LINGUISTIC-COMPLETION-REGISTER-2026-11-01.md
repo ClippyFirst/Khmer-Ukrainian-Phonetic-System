@@ -3547,3 +3547,17 @@ Task ledger: engineering/build/deployment = DONE_VERIFIED; repository-owned code
 ## MekongPhon rights chain — 2026-11-21
 
 - KHM-MEKONGPHON-RIGHTS-001: BLOCKED/UNKNOWN. Direct inspection confirms no root license in the upstream repository; source chain includes SEAlang Headley77 dictionary scraping and OPUS NLLB v1, ParaCrawl-Bonus v9 and OpenSubtitles v2024 monolingual data. The derived IPA sentences are trie-based lexicon conversions, not independent sentence-level human IPA. Require maintainer permission and per-component/item provenance and license manifest before any import, training or redistribution.
+
+
+## Public beta scope reconciliation — 2026-11-21
+
+The owner explicitly selected public beta delivery without qualified external specialists. This changes release-scope classification, not linguistic evidence:
+
+- **KHM-BETA-ENGINEERING-001 — DONE_VERIFIED:** the shipped Khmer beta has a reproducible npm dependency graph (`package-lock.json`, npm lockfile v3, integrity hashes and declared package license metadata); Quality, Pages and browser workflows use `npm ci`; exact-main Quality, Chromium/browser and Pages/deploy checks passed on `a6347577052ddf70d69364ed7cc90e2ff584ed2a` (runs `44906655301`, `44906655362`, `44906655377`).
+- **KHM-GOLD-PILOT-001 — DEFERRED for beta / BLOCKED for expert-validated claims:** independent gold remains 0 and accuracy remains null. No synthetic labels are permitted. The previous expert-pilot requirements remain necessary only if the project later claims expert-validated linguistic accuracy.
+- **KHM-MANUAL-A11Y-001 — TODO:** manual keyboard/screen-reader/zoom/reflow/mobile review remains unperformed and must be disclosed; automated Chromium is not WCAG certification.
+- **KHM-VOWEL-CONTEXT-MATRIX-002 — PARTIAL:** nine source-indexed observations remain seven SOURCE_ATTESTED_NOT_GOLD and two CONFLICTING_SOURCE_ANALYSES; no missing contexts are interpolated.
+- **KHM-LEXICAL-WORD-SEGMENTATION-001 — PARTIAL/BLOCKED:** unresolved segmentation convention, rights/privacy and no human boundary pilot; not a beta engineering blocker because uncertain spans remain explicit.
+- **KHM-MEKONGPHON-RIGHTS-001 — BLOCKED/UNKNOWN:** upstream source chain remains uncleared; excluded from runtime, training, gold and redistribution.
+
+Beta acceptance is therefore an engineering/deployment milestone, not a phonological completion claim. No IPA records, runtime phonological rules, gold rows or accuracy metrics were added by this milestone.
