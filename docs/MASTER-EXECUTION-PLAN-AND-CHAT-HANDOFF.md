@@ -5770,3 +5770,8 @@ Task ledger: engineering/build/deployment = DONE_VERIFIED; repository-owned code
 - KHM-GOLD-PILOT-001 remains BLOCKED (Issue #104): convention approval, two qualified independent annotators, third adjudicator, curator, private workspace, 30 attested rights-cleared groups and completed blind/adjudication flow remain outstanding. Gold=0; accuracy unmeasured.
 - KHM-MANUAL-A11Y-001 remains TODO (Issue #463): no human keyboard, screen-reader, zoom/reflow or mobile evidence has been produced.
 - PR #477 was merged as 3263116434d37e18fe6b3ae02d63e6d377dda453; exact post-merge Quality, Chromium and Pages/deploy checks succeeded. This verifies engineering, not phonological completeness or accessibility conformance.
+
+
+## MekongPhon component-level rights audit — 2026-11-21
+
+A deeper upstream inspection is recorded in docs/audits/current/KHMER-THIRD-PARTY-RIGHTS-RECONCILIATION-2026-11-21.md. The MekongPhon repository at f80f6c1840c4818b51e05f2e00cded4701a5b662 has GitHub license=null and no root LICENSE. Its Khmer lexicon is scraped from SEAlang with source=headley77; sentence data combines OPUS NLLB v1, ParaCrawl-Bonus v9 and OpenSubtitles v2024, then uses trie-based lexicon lookup to convert sentences to IPA. The merged sentence data does not preserve per-line source/license provenance. Treat lexicon, each OPUS component, converted data and published weights as UNKNOWN/RESTRICTED pending written permission and source-level license manifests. Do not import MekongPhon into gold or train on it. The paper's public-release statement and Hugging Face model's Apache-2.0 label do not clear the underlying corpus.
