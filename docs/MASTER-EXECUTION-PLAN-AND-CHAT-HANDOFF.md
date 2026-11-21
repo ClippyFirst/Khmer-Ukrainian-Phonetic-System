@@ -5899,7 +5899,7 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 
 ## Source-attested lexical expansion — 2026-11-21 (PR #501)
 
-- **DONE_VERIFIED on PR branch, exact-head:** added two individually registered Wiktionary sources with direct orthography–IPA entries: `ជាខ្មែរ` /ciə ˈkʰmae/ (phrase-level entry) and `ល្ងាច` /lŋiəc/ (single-syllable onset cluster, permanent revision `oldid=68625783`).
+- **DONE_VERIFIED on PR branch, exact-head:** added two individually registered Wiktionary sources with direct orthography–IPA entries: `ជាខ្មែរ` /ciə ˈkʰmae/ (phrase-level entry, permanent Wiktionary revision `oldid=68806374`; orthographic/phonemic `jāk̥ʰmaer` and WT romanisation `ciə khmae` kept separate) and `ល្ងាច` /lŋiəc/ (single-syllable onset cluster, permanent revision `oldid=68625783`).
 - **IPA → Ukrainian parity:** the current adapter renders `ciə ˈkʰmae` → `тьіє к'мае` and `lŋiəc` → `лнгієть`. The source IPA is retained exactly in the result; the Ukrainian forms remain project proposals, not independently adjudicated.
 - **C boundary preserved:** `ភាសាខ្មែរ` remains C because it is only a project composition from separate word entries and has no phrase-level source locator. No rule or gold label was inferred from the new phrase.
 - **Rights:** exact source revisions/URLs and attribution were added to `data/khmer/sources.json` and `THIRD_PARTY_NOTICES.md`. The two entries are community-maintained lexical references; page-level CC BY-SA notices are retained with the Wikimedia terms caveat. No embedded media or extended text was copied.
