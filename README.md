@@ -2,7 +2,7 @@
 
 Research-grade reference implementation for developing a **Ukrainian practical system for transmitting Khmer in Ukrainian Cyrillic**.
 
-> **Status: RESEARCH FOUNDATION + LOCAL WEB SERVICE.** The repository explicitly distinguishes established script facts, linguistic analyses, project decisions and unresolved cases. The web service is deliberately conservative: it exposes supported phoneticizations and marks uncovered forms instead of silently guessing.
+> **Status: PUBLIC BETA — NOT EXPERT-VALIDATED.** The repository distinguishes established script facts, linguistic analyses, project decisions and unresolved cases. The service exposes supported beta phoneticizations and marks uncovered forms instead of silently guessing. Automated checks do not establish pronunciation accuracy. No independent expert-adjudicated gold corpus or measured linguistic accuracy is claimed. See the [beta release policy](docs/BETA-RELEASE-POLICY.md).
 
 ## What this project is
 
