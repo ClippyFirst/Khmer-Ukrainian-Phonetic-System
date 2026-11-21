@@ -230,3 +230,13 @@ See docs/research/KHMER-CONTEXTUAL-VOWEL-AND-LEXICAL-SEGMENTATION-RESEARCH-UPDAT
 ## Tier-B source-locator gate — 2026-11-21
 
 The runtime no longer treats any non-empty `evidence` array as sufficient for tier B. B requires a per-unit exact source locator, a registered pronunciation-capable source ID, successful IPA → Ukrainian adaptation and lexical-target agreement when a lexical Ukrainian reference is supplied. Current B units are `ក`, `គ`, `ខ្មែរ`, `ភាសា`, `ភ្នំពេញ`, `កម្ពុជា`, and `ខ្ញុំ`. The phrase `ភាសាខ្មែរ` remains a compositional hypothesis at C; `ឆ` remains C because the R12A page conflicts on its register class. This does not close the wider contextual vowel × series × coda matrix, which remains PARTIAL.
+
+## Post-merge final verification — 2026-11-21
+
+- **DONE_VERIFIED (main):** final runtime/evidence-gate commit `7c47d56b91d132a1ce1c26e8f46e23372a6f5cd2`, following merged PR #498 (exact registered source-locator gate) and PR #499 (Wiktionary historical-IPA and rights caveat correction).
+- **DONE_VERIFIED (Quality):** main run `44936590289` SUCCESS — 448 Python tests + 70 subtests, including independent IPA gold-corpus structure validation, source-locator tier tests, Node web checks and site build.
+- **DONE_VERIFIED (browser):** main Chromium run `44936590230` SUCCESS — 23 browser tests, including B-tier locator visibility and C-tier phrase/conflict cases.
+- **DONE_VERIFIED (deployment):** Pages run `44936590276` SUCCESS — production build, Chromium exercise, GitHub Pages deploy and deployed runtime asset smoke test all passed. Public beta: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/
+- **DONE_VERIFIED (diagnostic only):** optional Phonemizer run `44936590367` SUCCESS — 6/6 outputs, 0 failed outputs, 2 strict source-string matches and 6 limited-notation-normalized matches. Independent gold count is 0 and accuracy is null; do not describe these counts as accuracy.
+- **Current evidence boundary:** B applies to `ក`, `គ`, `ខ្មែរ`, `ភាសា`, `ភ្នំពេញ`, `កម្ពុជា`, and `ខ្ញុំ`, with exact source locators and adapter/lexical-reference agreement. `ភាសាខ្មែរ` remains C (compositional phrase without phrase-level source); `ឆ` remains C (R12A internal register-list conflict). No A-tier units or independent gold rows exist.
+- **Remaining:** contextual vowel-series × coda coverage, lexical segmentation, independent Phnom Penh IPA convention/adjudication, and independent gold remain PARTIAL/DEFERRED. Accuracy is NOT_ASSESSED.
