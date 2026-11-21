@@ -33,3 +33,15 @@ The authoritative per-source inventory is [data/khmer/sources.json](data/khmer/s
 For every external code, font, model, dictionary, corpus, recording or copied data item, record the exact upstream URL and version, component/file, code license, data/model license, attribution, commercial-use restrictions, redistribution/adaptation conditions, artifact hash, and whether material was actually copied. A source paper's license does not automatically license its dataset, model, audio, dictionary, or derived artifacts.
 
 Where rights are unknown, conflicting, source-specific, or subject to privacy/consent restrictions, keep the material out of redistributable corpora and production packages. Preserve external locators and evidence without copying protected content.
+
+## Wiktionary Khmer lexical IPA fixtures
+
+The following small lexical IPA values are used as provisional source-backed fixtures, with exact entry URLs and the relevant Pronunciation > standard IPA locator recorded in `data/khmer/sources.json` and `data/tests/web-fixtures.json`:
+
+- ខ្មែរ — https://en.wiktionary.org/wiki/ខ្មែរ
+- ភាសា — https://en.wiktionary.org/wiki/ភាសា
+- ភ្នំពេញ — https://en.wiktionary.org/wiki/ភ្នំពេញ
+- កម្ពុជា — https://en.wiktionary.org/wiki/កម្ពុជា
+- ខ្ញុំ — https://en.wiktionary.org/wiki/ខ្ញុំ
+
+Wiktionary states that entry text is dual-licensed under CC BY-SA 4.0 and the GNU Free Documentation License (GFDL). Preserve attribution and links to the source pages; treat these fixture rows as separately licensed third-party data, not as covered by the repository's code license. Do not assume embedded third-party media or underlying dictionary material shares the same terms. The entries are community-maintained lexical references, not independent Phnom Penh profile adjudication. See https://en.wiktionary.org/wiki/Wiktionary:Copyrights.
