@@ -626,5 +626,50 @@
     "limitations": "Not an independent benchmark or project gold; not an IPA gold corpus. The 140-word set is hand-selected and its expected phonemic forms are taken from Headley (1997), with phonetic forms manually produced by the authors; it is not described as blinded, independently double-annotated or adjudicated. The 10,110-word experiment uses a dictionary-derived dataset and Headley phonemic transcriptions rather than an independent recorded-speech reference; the paper does not provide a reproducible item-level split, full gold labels, IAA or a target dialect/profile matching khmer-pph-careful-citation-v1. It explicitly excludes Pali/Sanskrit loans at this stage and ignores 999 compound words outside its syllable groupings. The second stage models rapid/colloquial phonetic reduction, not the project's careful citation target. Several table/OCR-extracted IPA/ASCII values appear inconsistent or garbled; do not copy the tables into runtime mappings without source-page visual verification and specialist review. The paper's reported 97.86% and 98.43% figures are author-reported results for its own grammar/data, not transferable accuracy claims.",
     "provenance": "Primary full text: ACL Anthology Y16-3013, PACLIC 30, pp. 417–424. Sections 4–5 describe Chuon Nath (1967) dictionary cleanup and character mapping; §6 and Tables 5–6 describe series assimilation and vowel modification; §7 separates phonemic-to-phonetic rapid-speech rules; §8 reports author-run evaluation. The proceedings front matter, p. ii, reserves contributed-paper copyright to the respective authors.",
     "evidence_locators": "pp. 417–418 §§1–4 (orthography, data preparation and 140-word validation); pp. 419–421 §§5–6 (mapping, series assimilation, monosyllables/disyllables, Bantoc); p. 422 §§6.4–7 (sound changes and rapid-speech phonetic layer); p. 423 §8 (reported results); proceedings front matter p. ii (rights)."
+  },
+  {
+    "id": "wiktionary:khmae",
+    "type": "community_lexical_reference",
+    "title": "Wiktionary Khmer entry: ខ្មែរ",
+    "url": "https://en.wiktionary.org/wiki/%E1%9E%81%E1%9F%92%E1%9E%98%E1%9F%82%E1%9E%9A",
+    "scope": "Pronunciation section, standard IPA /kʰmae/. Community-maintained lexical reference; not an independent Phnom Penh profile adjudication.",
+    "status": "SECONDARY_LEXICAL_REFERENCE",
+    "license": "Wiktionary entry text is dual-licensed CC BY-SA 4.0 and GFDL; record attribution and link to the page. Do not assume embedded third-party media shares these terms."
+  },
+  {
+    "id": "wiktionary:phiasa",
+    "type": "community_lexical_reference",
+    "title": "Wiktionary Khmer entry: ភាសា",
+    "url": "https://en.wiktionary.org/wiki/%E1%9E%97%E1%9E%B6%E1%9E%9F%E1%9E%B6",
+    "scope": "Pronunciation section, standard IPA /pʰiə.ˈsaː/. Community-maintained lexical reference; stress is retained in the fixture.",
+    "status": "SECONDARY_LEXICAL_REFERENCE",
+    "license": "Wiktionary entry text is dual-licensed CC BY-SA 4.0 and GFDL; record attribution and link to the page. Do not assume embedded third-party media shares these terms."
+  },
+  {
+    "id": "wiktionary:phnom-penh",
+    "type": "community_lexical_reference",
+    "title": "Wiktionary Khmer entry: ភ្នំពេញ",
+    "url": "https://en.wiktionary.org/wiki/%E1%9E%97%E1%9F%92%E1%9E%93%E1%9F%86%E1%9E%96%E1%9F%81%E1%9E%89",
+    "scope": "Pronunciation section, standard IPA /pʰnum ˈpɨɲ/. Community-maintained lexical reference; not an independent city-dialect study.",
+    "status": "SECONDARY_LEXICAL_REFERENCE",
+    "license": "Wiktionary entry text is dual-licensed CC BY-SA 4.0 and GFDL; record attribution and link to the page. Do not assume embedded third-party media shares these terms."
+  },
+  {
+    "id": "wiktionary:cambodia",
+    "type": "community_lexical_reference",
+    "title": "Wiktionary Khmer entry: កម្ពុជា",
+    "url": "https://en.wiktionary.org/wiki/%E1%9E%80%E1%9E%98%E1%9F%92%E1%9E%96%E1%9E%BB%E1%9E%87%E1%9E%B6",
+    "scope": "Pronunciation section, standard IPA /kam.pu.ciə/. Community-maintained lexical reference; the project's /c/ → Ukrainian mapping remains a project adaptation.",
+    "status": "SECONDARY_LEXICAL_REFERENCE",
+    "license": "Wiktionary entry text is dual-licensed CC BY-SA 4.0 and GFDL; record attribution and link to the page. Do not assume embedded third-party media shares these terms."
+  },
+  {
+    "id": "wiktionary:khnyom",
+    "type": "community_lexical_reference",
+    "title": "Wiktionary Khmer entry: ខ្ញុំ",
+    "url": "https://en.wiktionary.org/wiki/%E1%9E%81%E1%9F%92%E1%9E%89%E1%9E%BB%E1%9F%86",
+    "scope": "Pronunciation section, first standard IPA /kɲom/; a separate alternate /kʰɲʊm/ is listed under another pronunciation and is not selected by this fixture.",
+    "status": "SECONDARY_LEXICAL_REFERENCE",
+    "license": "Wiktionary entry text is dual-licensed CC BY-SA 4.0 and GFDL; record attribution and link to the page. Do not assume embedded third-party media shares these terms."
   }
 ]
