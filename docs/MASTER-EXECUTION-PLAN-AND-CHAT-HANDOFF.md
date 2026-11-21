@@ -1,3 +1,19 @@
+## Beta release scope decision — 2026-11-21
+
+The project owner has explicitly chosen to proceed with public beta versions because qualified external specialists will not be available. This supersedes the earlier assumption that human expert annotation/adjudication is a prerequisite for *any* release.
+
+- **Beta is permitted; expert validation is not claimed.** The gold corpus may remain empty and linguistic accuracy must remain null / NOT_ASSESSED.
+- Reclassify the absence of annotators, adjudicator and expert-approved convention as **DEFERRED for beta**, not as a blocker to publishing a clearly labelled beta. It remains a blocker to expert-validated or production linguistic claims.
+- Preserve all fail-closed behavior. Do not invent IPA, gold labels, accuracy metrics, source permissions or complete contextual rules.
+- Beta acceptance requires exact-candidate engineering CI, package/site build, generated-data freshness, browser smoke tests, user-facing limitations, and documented rights for every shipped asset.
+- Candidate external corpora with unresolved item-level provenance or license remain excluded. This decision does not authorize their import or redistribution.
+- Manual accessibility QA is not a beta engineering gate if clearly disclosed as not performed; automated checks remain required.
+- Publication of a GitHub Release or other external announcement still requires a separate owner-authorized action.
+
+Canonical criteria: [docs/BETA-RELEASE-POLICY.md](BETA-RELEASE-POLICY.md). This decision changes release scope only; it does not alter phonological rules, IPA labels, corpus contents, or linguistic evidence.
+
+---
+
 ## Engineering gate and corpus-coverage corrections — 2026-11-04
 
 - The shared IPA corpus CLI previously emitted `release_ready: true` after checking only machine-verifiable corpus engineering conditions (adjudicated rows, frozen split minimums, one target-profile signature, one IPA kind and recorded redistributable source rights). It did not evaluate expert approval of the IPA convention, annotator/adjudicator qualifications, blind intake or expert-approved phonological contrast coverage.
