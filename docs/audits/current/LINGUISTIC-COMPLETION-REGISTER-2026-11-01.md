@@ -3542,3 +3542,8 @@ Task ledger: engineering/build/deployment = DONE_VERIFIED; repository-owned code
 - KHM-CONTEXTUAL-VOWEL-MATRIX-002: PARTIAL. New research synthesis clarifies evidence strata and missing metadata; no new row is promoted to gold or runtime rule.
 - KHM-LEXICAL-WORD-SEGMENTATION-001: BLOCKED. Morpheme/surface-word conventions, domain fit, data rights/privacy and a human boundary pilot remain unresolved.
 - KHM-MANUAL-A11Y-001: TODO. Issue #463 remains open pending manual human evidence.
+
+
+## MekongPhon rights chain — 2026-11-21
+
+- KHM-MEKONGPHON-RIGHTS-001: BLOCKED/UNKNOWN. Direct inspection confirms no root license in the upstream repository; source chain includes SEAlang Headley77 dictionary scraping and OPUS NLLB v1, ParaCrawl-Bonus v9 and OpenSubtitles v2024 monolingual data. The derived IPA sentences are trie-based lexicon conversions, not independent sentence-level human IPA. Require maintainer permission and per-component/item provenance and license manifest before any import, training or redistribution.
