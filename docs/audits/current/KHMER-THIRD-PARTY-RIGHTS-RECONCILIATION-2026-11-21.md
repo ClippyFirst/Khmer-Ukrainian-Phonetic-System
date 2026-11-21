@@ -61,3 +61,29 @@ Source-level triage is improved, but no new item has been cleared for the 30-ite
 - Khmer Acoustic Model: https://github.com/chemvatho/Khmer-acoustic-model
 - Kirby cluster audio/TextGrid research materials: https://doi.org/10.1016/j.wocn.2015.11.002
 - Chem (2020): https://doi.org/10.61945/cjbar.2020.2.2.3
+
+
+## Additional mixed-corpus leads from literature review — not cleared
+
+The targeted rights review surfaced further resources that illustrate why one corpus-level license is inadequate. These are discovery leads only; no dataset was downloaded or imported.
+
+| Resource | Published scope / rights signal | Conservative disposition |
+|---|---|---|
+| Khmer name-romanization instances [Din17] | 7,658 manually aligned name-romanization instances are reported under CC BY-NC-SA. | RESTRICTED; keep distinct from source-name records and any mixed release. Verify exact artifact, source-name rights and item-level terms before use. |
+| Multilingual Open Text Release 1 [Pal22] | Explicitly separates public-domain VOA source material, a CC BY 4.0 corpus collection and MIT-licensed software. | Component-level audit model only; do not assume every source item or derivative inherits the collection license. |
+| VoxCommunis [Ahn22] and Mozilla Common Voice [Ard19] | VoxCommunis describes CC0 derived alignments/measurements built from Common Voice speech. | UNKNOWN pending upstream language/recording consent and artifact-specific rights review; CC0 for derived annotations does not automatically clear the source audio. |
+| ECCC Khmer speech/translation corpora [Sok21; Kak22] | Research papers identify trilingual court speech/translation resources; the available records do not settle speaker consent, confidentiality, source-document restrictions or redistribution terms. | UNKNOWN; do not ingest court audio/transcripts until exact project terms, anonymization and consent/authority are verified. |
+| MotàMot lexical system [Man14] | Describes conversion of a published French–Khmer dictionary and integration of another lexical resource; Khmer IPA headwords are converted into Khmer writing. | UNKNOWN for reuse of underlying dictionary content and derived lexical database; software/API availability is not a data license. |
+
+The literature review also emphasizes dataset-level provenance gaps across text, speech, annotations and model weights [Lon24b]. This supports the project's component-level register approach; it is not a substitute for reviewing the actual source licenses or obtaining permission.
+
+## References for the additional leads
+
+- Ding et al. (2017), Statistical Khmer Name Romanization: https://doi.org/10.1007/978-981-10-8438-6_15
+- Palen-Michel, Kim & Lignos (2022), Multilingual Open Text Release 1: https://doi.org/10.63317/495vykez2xbp
+- Ahn & Chodroff (2022), VoxCommunis: https://doi.org/10.63317/2vqfm5sk8s42
+- Ardila et al. (2019), Common Voice: https://doi.org/10.48550/arXiv.1912.06670
+- Kak et al. (2022), TriECCC: https://doi.org/10.1142/s2717554522500072
+- Sok et al. (2021), ECCC Khmer Speech Translation Corpus: https://doi.org/10.1109/O-COCOSDA202152914.2021.9660421
+- Mangeot (2014), MotàMot: https://doi.org/10.48550/arXiv.1405.5674
+- Longpre et al. (2024), A large-scale audit of dataset licensing and attribution in AI: https://doi.org/10.1038/s42256-024-00878-8
