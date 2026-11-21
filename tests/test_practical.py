@@ -67,6 +67,15 @@ def test_ipa_string_adapter_uses_longest_match_and_keeps_syllable_spaces():
     assert map_ipa_string("ha ɡa xa") == ("га ґа ха", None)
 
 
+def test_vowel_length_is_preserved_in_ipa_but_not_encoded_in_ukrainian_practical_spelling():
+    assert map_ipa_string("/ʔak.ˈsɑː kʰmae/") == ("акса к'мае", None)
+    assert map_ipa_string("/nɔ.ˈkɔː kʰmae/") == ("ноко к'мае", None)
+    assert map_ipa_string("/ʔak.ˈsɑː muːl/") == ("акса мул", None)
+    rendered, unsupported = map_ipa_string("kːa")
+    assert rendered is None
+    assert unsupported == "ːa"
+
+
 def test_ipa_string_adapter_does_not_invent_affricates_or_guess_unknown_segments():
     assert map_ipa_string("t s") == ("т с", None)
     rendered, unsupported = map_ipa_string("kʰɥ")

@@ -3661,3 +3661,12 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - **DONE_VERIFIED (browser):** main Chromium run `44939428671` SUCCESS — 25 browser tests.
 - **DONE_VERIFIED (deployment):** Pages build/deploy run `44939428633` SUCCESS, including production Chromium exercise and deployed asset smoke. Public beta: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/
 - **Diagnostic only:** raw-output run `44939428592` SUCCESS; it does not measure phonetic accuracy. Independent gold remains empty and accuracy remains NOT_ASSESSED.
+
+## Source-located Khmer lexical coverage expansion — 2026-11-21
+
+- **PARTIAL pending exact-head CI:** added three direct Wiktionary standard-IPA entries with permanent revision locators: `អក្សរខ្មែរ` `/ʔak.ˈsɑː kʰmae/` (`oldid=87132823`), `នគរខ្មែរ` `/nɔ.ˈkɔː kʰmae/` (`oldid=84887163`), and `អក្សរមូល` `/ʔak.ˈsɑː muːl/` (`oldid=63698235`).
+- Source registry, web fixtures, lexical corpus, third-party notices and exact-locator tests updated. Each row remains `SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED`; no gold labels were added.
+- Python and browser IPA→Ukrainian adapters now explicitly omit only post-vocalic IPA `ː` when rendering practical Ukrainian spelling. The full IPA value remains unchanged in the IPA layer. Length after consonants remains unsupported and is not silently discarded. This target policy is tested in both runtimes.
+- These three records increase the per-unit source-attested tier-B inventory from 9 to 12; aggregate confidence is still the weakest linguistic unit, and independent gold remains 0 / accuracy NOT_ASSESSED.
+- External MekongPhon remains diagnostic-only: upstream repository snapshot has no root license, the seed lexicon has no item-level source locators, and the generated sentence IPA is dictionary-trie expansion over OPUS text, not independent sentence transcription. No rows or model artifacts were copied.
+- **Next gate:** exact PR-head Python, Node, Chromium and Pages checks; inspect output parity and generated-artifact drift before merge/deploy.

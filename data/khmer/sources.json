@@ -689,5 +689,32 @@
     "scope": "Pronunciation section, (standard) IPA /lŋiəc/ for ល្ងាច; exact revision oldid=68625783, last edited 2022-08-14. The entry also displays orthographic/phonemic l̥ṅāc and WT romanisation lngiəc; retain these as distinct fields, not alternative IPA.",
     "status": "SECONDARY_LEXICAL_REFERENCE",
     "license": "Page footer identifies Creative Commons Attribution-ShareAlike (version not stated on the page); Wiktionary:Copyrights states CC BY-SA 4.0/GFDL but labels itself draft/unofficial. Preserve exact revision and attribution; check applicable Wikimedia Terms of Use. No audio/media copied."
+  },
+  {
+    "id": "wiktionary:aksar-khmae",
+    "type": "community_lexical_reference",
+    "title": "Wiktionary Khmer entry: អក្សរខ្មែរ",
+    "url": "https://en.wiktionary.org/w/index.php?title=អក្សរខ្មែរ&oldid=87132823",
+    "scope": "Pronunciation section, standard IPA /ʔak.ˈsɑː kʰmae/ for អក្សរខ្មែរ; permanent revision oldid=87132823. The page separately displays orthographic/phonemic ʼk̥srk̥ʰmaer and WT romanisation ʼaksɑɑ khmae; preserve them as distinct fields, not alternative IPA. Community-maintained lexical reference; not independent Phnom Penh profile adjudication.",
+    "status": "SECONDARY_LEXICAL_REFERENCE",
+    "license": "Page footer identifies Creative Commons Attribution-ShareAlike (version not stated on the page); Wiktionary:Copyrights states CC BY-SA 4.0/GFDL but labels itself draft/unofficial. Preserve exact revision and attribution; check applicable Wikimedia Terms of Use. No audio/media copied."
+  },
+  {
+    "id": "wiktionary:nokor-khmae",
+    "type": "community_lexical_reference",
+    "title": "Wiktionary Khmer entry: នគរខ្មែរ",
+    "url": "https://en.wiktionary.org/w/index.php?title=នគរខ្មែរ&oldid=84887163",
+    "scope": "Pronunciation section, standard IPA /nɔ.ˈkɔː kʰmae/ for នគរខ្មែរ; permanent revision oldid=84887163. The page separately displays orthographic/phonemic ngrk̥ʰmaer and WT romanisation nɔkɔɔ khmae; preserve them as distinct fields, not alternative IPA. Community-maintained lexical reference; not independent Phnom Penh profile adjudication.",
+    "status": "SECONDARY_LEXICAL_REFERENCE",
+    "license": "Page footer identifies Creative Commons Attribution-ShareAlike (version not stated on the page); Wiktionary:Copyrights states CC BY-SA 4.0/GFDL but labels itself draft/unofficial. Preserve exact revision and attribution; check applicable Wikimedia Terms of Use. No audio/media copied."
+  },
+  {
+    "id": "wiktionary:aksar-mul",
+    "type": "community_lexical_reference",
+    "title": "Wiktionary Khmer entry: អក្សរមូល",
+    "url": "https://en.wiktionary.org/w/index.php?title=អក្សរមូល&oldid=63698235",
+    "scope": "Pronunciation section, standard IPA /ʔak.ˈsɑː muːl/ for អក្សរមូល; permanent revision oldid=63698235. The page separately displays orthographic/phonemic ʼk̥srmūl and WT romanisation ʼaksɑɑ muul; preserve them as distinct fields, not alternative IPA. Community-maintained lexical reference; not independent Phnom Penh profile adjudication.",
+    "status": "SECONDARY_LEXICAL_REFERENCE",
+    "license": "Page footer identifies Creative Commons Attribution-ShareAlike (version not stated on the page); Wiktionary:Copyrights states CC BY-SA 4.0/GFDL but labels itself draft/unofficial. Preserve exact revision and attribution; check applicable Wikimedia Terms of Use. No audio/media copied."
   }
 ]

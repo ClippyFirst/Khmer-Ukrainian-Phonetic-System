@@ -82,6 +82,9 @@ def map_ipa_string(ipa: str, mode: str = "default") -> tuple[str | None, str | N
     if len(rest) > 1 and ((rest[0], rest[-1]) in {("/", "/"), ("[", "]")}):
         rest = rest[1:-1]
     rest = rest.replace("ˈ", "").replace("ˌ", "")
+    # Ukrainian practical spelling does not encode Khmer vowel quantity.
+    # Preserve length in the IPA source field but omit the marker only here.
+    rest = re.sub(r"(?<=[aeiouɑɒæɛɜəɨɪɔɵœɐɤɯʊʌʏʉ])ː", "", rest)
 
     output: list[str] = []
     for part in re.split(r"(\s+|[.·])", rest):
