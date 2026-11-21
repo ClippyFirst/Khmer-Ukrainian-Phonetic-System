@@ -56,7 +56,7 @@ for (const [ipa, expected] of [
   ["/nɔ.ˈkɔː kʰmae/", "ноко к'мае"],
   ["/ʔak.ˈsɑː muːl/", "акса мул"],
 ]) {
-  const mapped = mapIpa(ipa, policy);
+  const mapped = mapIpa(ipa.slice(1, -1), policy);
   if (mapped.value !== expected || mapped.unsupported !== null) throw new Error("length-bearing Khmer IPA adapter mismatch for " + ipa + ": " + JSON.stringify(mapped));
 }
 for (const [word, ipa, ua, oldid] of [
