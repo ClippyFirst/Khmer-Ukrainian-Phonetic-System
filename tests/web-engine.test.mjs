@@ -28,6 +28,13 @@ if (Object.keys(fixtures).length < 16) throw new Error("web fixtures unexpectedl
 if (!fixtures["ជាខ្មែរ"] || fixtures["ជាខ្មែរ"].ipa !== "/ciə ˈkʰmae/" || fixtures["ជាខ្មែរ"].ua !== "тьіє к'мае") {
   throw new Error("direct source-attested Khmer phrase fixture missing or inconsistent");
 }
+if (!fixtures["ល្ងាច"] || fixtures["ល្ងាច"].ipa !== "/lŋiəc/" || fixtures["ល្ងាច"].ua !== "лнгієть") {
+  throw new Error("source-attested Khmer cluster fixture missing or inconsistent");
+}
+const clusterMapping = mapIpa(fixtures["ល្ងាច"].ipa, policy);
+if (clusterMapping.value !== fixtures["ល្ងាច"].ua || clusterMapping.unsupported !== null) {
+  throw new Error("Khmer cluster IPA does not agree with the Ukrainian adapter");
+}
 const directPhraseMapping = mapIpa(fixtures["ជាខ្មែរ"].ipa, policy);
 if (directPhraseMapping.value !== fixtures["ជាខ្មែរ"].ua || directPhraseMapping.unsupported !== null) {
   throw new Error("direct Khmer phrase IPA does not agree with the Ukrainian adapter");
