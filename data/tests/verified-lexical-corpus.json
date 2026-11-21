@@ -78,5 +78,16 @@
     ],
     "evidence_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
     "evidence_note": "Wiktionary's Khmer Pronunciation section gives standard IPA /ciə ˈkʰmae/ for the directly listed entry ជាខ្មែរ. This is phrase-level source evidence, unlike the separately composed ភាសាខ្មែរ hypothesis; it is community-maintained and not independently adjudicated against audio."
+  },
+  "ល្ងាច": {
+    "ipa": "/lŋiəc/",
+    "profile": "careful_standard",
+    "ipa_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
+    "ua_status": "PROPOSED",
+    "sources": [
+      "https://en.wiktionary.org/w/index.php?title=ល្ងាច&oldid=68625783"
+    ],
+    "evidence_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
+    "evidence_note": "The exact Wiktionary revision labels /lŋiəc/ as standard IPA for the Khmer entry ល្ងាច. Its orthographic/phonemic notation l̥ṅāc and WT romanisation lngiəc are separately displayed and are not treated as IPA. Community-maintained lexical reference; not independently adjudicated against audio."
   }
 }
