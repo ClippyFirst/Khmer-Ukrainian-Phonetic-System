@@ -93,5 +93,44 @@
     "evidence_note": "The exact Wiktionary revision labels /lŋiəc/ as standard IPA for the Khmer entry ល្ងាច. Its orthographic/phonemic notation l̥ṅāc and WT romanisation lngiəc are separately displayed and are not treated as IPA. Community-maintained lexical reference; not independently adjudicated against audio.",
     "orthographic_phonemic_transcription": "l̥ṅāc",
     "wt_romanisation": "lngiəc"
+  },
+  "អក្សរខ្មែរ": {
+    "ipa": "/ʔak.ˈsɑː kʰmae/",
+    "profile": "careful_standard",
+    "ipa_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
+    "ua_status": "PROPOSED",
+    "sources": [
+      "https://en.wiktionary.org/w/index.php?title=អក្សរខ្មែរ&oldid=87132823"
+    ],
+    "evidence_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
+    "evidence_note": "Wiktionary permanent revision oldid=87132823 gives standard IPA /ʔak.ˈsɑː kʰmae/ for the directly listed Khmer entry អក្សរខ្មែរ. The page separately displays orthographic/phonemic ʼk̥srk̥ʰmaer and WT romanisation ʼaksɑɑ khmae; these are not substituted for IPA. Community-maintained lexical reference; not independently adjudicated against audio.",
+    "orthographic_phonemic_transcription": "ʼk̥srk̥ʰmaer",
+    "wt_romanisation": "ʼaksɑɑ khmae"
+  },
+  "នគរខ្មែរ": {
+    "ipa": "/nɔ.ˈkɔː kʰmae/",
+    "profile": "careful_standard",
+    "ipa_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
+    "ua_status": "PROPOSED",
+    "sources": [
+      "https://en.wiktionary.org/w/index.php?title=នគរខ្មែរ&oldid=84887163"
+    ],
+    "evidence_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
+    "evidence_note": "Wiktionary permanent revision oldid=84887163 gives standard IPA /nɔ.ˈkɔː kʰmae/ for the directly listed Khmer entry នគរខ្មែរ. The page separately displays orthographic/phonemic ngrk̥ʰmaer and WT romanisation nɔkɔɔ khmae; these are not substituted for IPA. Community-maintained lexical reference; not independently adjudicated against audio.",
+    "orthographic_phonemic_transcription": "ngrk̥ʰmaer",
+    "wt_romanisation": "nɔkɔɔ khmae"
+  },
+  "អក្សរមូល": {
+    "ipa": "/ʔak.ˈsɑː muːl/",
+    "profile": "careful_standard",
+    "ipa_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
+    "ua_status": "PROPOSED",
+    "sources": [
+      "https://en.wiktionary.org/w/index.php?title=អក្សរមូល&oldid=63698235"
+    ],
+    "evidence_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
+    "evidence_note": "Wiktionary permanent revision oldid=63698235 gives standard IPA /ʔak.ˈsɑː muːl/ for the directly listed Khmer entry អក្សរមូល. The page separately displays orthographic/phonemic ʼk̥srmūl and WT romanisation ʼaksɑɑ muul; these are not substituted for IPA. Community-maintained lexical reference; not independently adjudicated against audio.",
+    "orthographic_phonemic_transcription": "ʼk̥srmūl",
+    "wt_romanisation": "ʼaksɑɑ muul"
   }
 }
