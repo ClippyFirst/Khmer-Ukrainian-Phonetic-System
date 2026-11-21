@@ -5,10 +5,9 @@
 | Tier | Meaning | Runtime treatment |
 |---|---|---|
 | A | Independently adjudicated, profile-matched gold | Not currently available |
-| B | Source-traceable provisional IPA and a successful Ukrainian IPA adaptation | Display as PROPOSED/PROVISIONAL, with evidence and profile visible |
-| C | Experimental or incomplete evidence: onset-only preview, evidence-limited case, or hypothesis without a usable source locator | Keep partial; do not present as B |
+| B | Every output has an exact per-unit locator to a registered pronunciation source, the IPA → Ukrainian adapter succeeds, and the source/profile scope is explicit | Display as PROPOSED/PROVISIONAL with the source locator visible; never call canonical or expert-validated |
+| C | Experimental or incomplete evidence, unregistered source IDs, no exact locator, compositional hypothesis without a phrase-level source, or unresolved source conflict | Keep visible as a candidate where safe, but do not present as B |
 | D | No usable candidate or unsupported/malformed input | Withhold IPA and Ukrainian output |
-
 ## Runtime behavior
 
 The existing lexical fixtures with source locators and a successful IPA → Ukrainian mapping are now explicitly labelled tier B at both unit and aggregate levels. The series-based inherent-vowel fallback now retains the onset registry's actual source references rather than returning an empty evidence list; it remains PROPOSED and is not promoted to canonical or gold status.
