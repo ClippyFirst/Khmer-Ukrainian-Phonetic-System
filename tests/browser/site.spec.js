@@ -114,6 +114,7 @@ test("directly source-attested Khmer phrase is tier B and differs from compositi
   await expect(page.locator("#ua-result")).toHaveText("тьіє к'мае");
   await expect(page.locator("#status")).toHaveText("PROPOSED · доказовий рівень B");
   await expect(page.locator(".unit-source-locator")).toContainText("Wiktionary");
+  await expect(page.locator(".unit-source-locator")).toContainText("oldid=68806374");
 });
 
 test("source-attested Khmer cluster word retains every IPA segment through the adapter", async ({ page }) => {
