@@ -148,6 +148,7 @@ def test_directly_source_attested_phrase_is_distinct_from_compositional_phrase()
 
     corpus = json.loads((ROOT / "data/tests/verified-lexical-corpus.json").read_text(encoding="utf-8"))
     assert corpus["ជាខ្មែរ"]["ipa_status"] == "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED"
+    assert "oldid=68806374" in corpus["ជាខ្មែរ"]["sources"][0]
     assert corpus["ភាសាខ្មែរ"]["ipa_status"] == "PROPOSED_COMPOSITIONAL_NOT_SOURCE_ATTESTED"
     cluster_source = sources["wiktionary:lngiac"]
     assert "oldid=68625783" in cluster_source["url"]
