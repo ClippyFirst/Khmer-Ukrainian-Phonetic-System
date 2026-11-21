@@ -25,6 +25,9 @@ The authoritative per-source inventory is [data/khmer/sources.json](data/khmer/s
 - **Common Voice Khmer:** source metadata identifies CC0-1.0 for the dataset but also records provider restrictions against speaker identification and re-hosting/re-sharing. Follow the provider's current terms and privacy restrictions; CC0 is not permission to identify speakers.
 - **Goruut Khmer Central lexicon/model:** upstream code is MIT, but the separate language dataset repository has no declared repository license and no per-language Khmer Central grant was verified. The project audit authorizes temporary test-only use; it does not authorize vendoring, caching for redistribution, packaging or production use. See [the Goruut asset audit](docs/audits/current/GORUUT-ASSET-LICENSE-REVIEW-2026-11-01.md).
 
+
+- **`@gmana/km-translit` 0.1.2 (npm runtime dependency):** package metadata in the generated npm lockfile declares MIT; package tarball is integrity-pinned in `package-lock.json`. It is used only for the separate BGN/PCGN-derived Khmer-to-Latin romanization path, not for Khmer IPA or phonetic transcription. The project's Ukrainian rendering adapter remains original project code and its outputs remain PROVISIONAL. Package license metadata is not a license grant for third-party dictionary/corpus data beyond the package's own declared distribution terms; preserve the package's upstream notice when redistributing.
+
 ## Reuse rule
 
 For every external code, font, model, dictionary, corpus, recording or copied data item, record the exact upstream URL and version, component/file, code license, data/model license, attribution, commercial-use restrictions, redistribution/adaptation conditions, artifact hash, and whether material was actually copied. A source paper's license does not automatically license its dataset, model, audio, dictionary, or derived artifacts.

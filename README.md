@@ -128,9 +128,9 @@ A reproducible first-order evidence inventory is available via `python scripts/c
 
 ## Web development
 
-The web layer is dependency-light and uses native browser APIs. The included structural check can be run with:
+The web layer is dependency-light and uses native browser APIs. Exact npm dependency versions and integrity hashes are committed in `package-lock.json`; use `npm ci` for reproducible installs. The included structural check can be run with:
 
-`npm install` followed by `npm test` and `npm run build`
+`npm ci` followed by `npm test` and `npm run build`
 
 The structural web test verifies the two-page architecture, canonical research-data imports, explicit unresolved states, and the absence of duplicated linguistic mapping tables in the browser adapter. The production build is generated with Vite.
 
