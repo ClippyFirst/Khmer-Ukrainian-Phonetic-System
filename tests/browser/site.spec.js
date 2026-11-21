@@ -99,7 +99,7 @@ test("compositional Khmer phrase without a phrase-level locator remains tier C",
 
 
 test("Wiktionary lexical fixtures expose exact source locators at tier B", async ({ page }) => {
-  for (const source of ["ខ្មែរ", "ភាសា", "ភ្នំពេញ", "កម្ពុជា", "ខ្ញុំ", "ជាខ្មែរ", "ល្ងាច"]) {
+  for (const source of ["ខ្មែរ", "ភាសា", "ភ្នំពេញ", "កម្ពុជា", "ខ្ញុំ", "ជាខ្មែរ", "ល្ងាច", "អក្សរខ្មែរ", "នគរខ្មែរ", "អក្សរមូល"]) {
     await page.goto("/");
     await page.locator("#source").fill(source);
     await expect(page.locator("#status")).toHaveText("PROPOSED · доказовий рівень B");
@@ -124,6 +124,22 @@ test("source-attested Khmer cluster word retains every IPA segment through the a
   await expect(page.locator("#ua-result")).toHaveText("лнгієть");
   await expect(page.locator("#status")).toHaveText("PROPOSED · доказовий рівень B");
   await expect(page.locator(".unit-source-locator")).toContainText("oldid=68625783");
+});
+
+test("long-vowel lexical IPA is preserved while the Ukrainian adapter omits quantity", async ({ page }) => {
+  const cases = [
+    ["អក្សរខ្មែរ", "/ʔak.ˈsɑː kʰmae/", "акса к'мае", "87132823"],
+    ["នគរខ្មែរ", "/nɔ.ˈkɔː kʰmae/", "ноко к'мае", "84887163"],
+    ["អក្សរមូល", "/ʔak.ˈsɑː muːl/", "акса мул", "63698235"],
+  ];
+  for (const [source, ipa, ukrainian, oldid] of cases) {
+    await page.goto("/");
+    await page.locator("#source").fill(source);
+    await expect(page.locator("#ipa-result")).toHaveText(ipa);
+    await expect(page.locator("#ua-result")).toHaveText(ukrainian);
+    await expect(page.locator("#status")).toHaveText("PROPOSED · доказовий рівень B");
+    await expect(page.locator(".unit-source-locator")).toContainText("oldid=" + oldid);
+  }
 });
 
 test("unsupported grapheme is marked locally", async ({ page }) => {
