@@ -31,11 +31,11 @@ if (!fixtures["ជាខ្មែរ"] || fixtures["ជាខ្មែរ"].ipa 
 if (!fixtures["ល្ងាច"] || fixtures["ល្ងាច"].ipa !== "/lŋiəc/" || fixtures["ល្ងាច"].ua !== "лнгієть") {
   throw new Error("source-attested Khmer cluster fixture missing or inconsistent");
 }
-const clusterMapping = mapIpa(fixtures["ល្ងាច"].ipa.replace(/^\\/|\\/$/gu, ""), policy);
+const clusterMapping = mapIpa(fixtures["ល្ងាច"].ipa.slice(1, -1), policy);
 if (clusterMapping.value !== fixtures["ល្ងាច"].ua || clusterMapping.unsupported !== null) {
   throw new Error("Khmer cluster IPA does not agree with the Ukrainian adapter");
 }
-const directPhraseMapping = mapIpa(fixtures["ជាខ្មែរ"].ipa.replace(/^\\/|\\/$/gu, ""), policy);
+const directPhraseMapping = mapIpa(fixtures["ជាខ្មែរ"].ipa.slice(1, -1), policy);
 if (directPhraseMapping.value !== fixtures["ជាខ្មែរ"].ua || directPhraseMapping.unsupported !== null) {
   throw new Error("direct Khmer phrase IPA does not agree with the Ukrainian adapter");
 }
