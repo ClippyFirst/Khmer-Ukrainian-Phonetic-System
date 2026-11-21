@@ -107,6 +107,15 @@ test("Wiktionary lexical fixtures expose exact source locators at tier B", async
   }
 });
 
+test("directly source-attested Khmer phrase is tier B and differs from composition-only phrase", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("ជាខ្មែរ");
+  await expect(page.locator("#ipa-result")).toHaveText("/ciə ˈkʰmae/");
+  await expect(page.locator("#ua-result")).toHaveText("тьіє к'мае");
+  await expect(page.locator("#status")).toHaveText("PROPOSED · доказовий рівень B");
+  await expect(page.locator(".unit-source-locator")).toContainText("Wiktionary");
+});
+
 test("unsupported grapheme is marked locally", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("កx");
