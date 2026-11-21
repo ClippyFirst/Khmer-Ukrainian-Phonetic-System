@@ -160,6 +160,7 @@ def test_source_traceable_proposed_ipa_requires_registered_exact_locator():
         assert result["confidence_tier"] == "B", source
         assert result["units"][0]["confidence_tier"] == "B", source
         assert result["units"][0]["source_locator"], source
+        assert result["units"][0]["lexical_mapping_agrees"] is True, source
 
     # R12A contains an internal register-class conflict for this character;
     # a source ID without a resolved, exact locator must not produce B.
