@@ -674,6 +674,19 @@ if (typeof document !== "undefined") {
       note.className = "unit-note";
       note.textContent = unit.note || "Окремого пояснення для цієї одиниці немає.";
       card.append(heading, values, note);
+      if (outputLevelMode === "exploratory") {
+        const parts = unit.analysis?.orthographic_structure?.components ?? unit.analysis?.graphemes ?? [];
+        if (parts.length) {
+          const structure = document.createElement("p");
+          structure.className = "unit-note";
+          structure.textContent = "Розпізнана графемна структура: " + parts.map((part) => {
+            const role = part.role ?? part.kind ?? "елемент";
+            const status = part.status && part.status !== "RECOGNIZED" ? " (" + part.status + ")" : "";
+            return role + " «" + part.text + "»" + status;
+          }).join(" · ");
+          card.append(structure);
+        }
+      }
       if (unit.source_locator) {
         const locator = document.createElement("p");
         locator.className = "unit-source-locator";
