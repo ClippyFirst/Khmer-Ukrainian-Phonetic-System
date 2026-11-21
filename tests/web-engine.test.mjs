@@ -165,3 +165,6 @@ console.log("evidence coverage dashboard integration: PASS");
 for (const x of ['<nav class="site-nav" aria-label="Основна навігація">','href="./index.html" aria-current="page"','href="./system.html"']) {
   if (!html.includes(x)) throw new Error("primary navigation is missing " + x);
 }
+
+
+if (!js.includes("function confidenceTier(item)") || !js.includes("доказовий рівень") || !js.includes("unit.confidence_tier")) throw new Error("evidence confidence tiers are not surfaced in the browser");

@@ -150,3 +150,23 @@ def test_shared_onset_fallback_fixture_preserves_canonical_abstention():
         assert trace[0]["position"] == case["position"]
         assert trace[0]["rule_id"] == case["rule_id"]
         assert trace[0]["status"] == "PROVISIONAL"
+
+
+
+def test_source_traceable_proposed_ipa_is_tier_b_and_unresolved_material_is_not():
+    engine = RuleBasedKhmerEngine()
+    lexical = engine.analyze("ខ្មែរ")
+    assert lexical["confidence_tier"] == "B"
+    assert lexical["units"][0]["confidence_tier"] == "B"
+
+    series = engine.analyze("ឆ")
+    assert series["status"] == "PROPOSED"
+    assert series["confidence_tier"] == "B"
+    assert "r12a-orthography" in series["evidence"]
+
+    unreferenced = engine.analyze("កី")
+    assert unreferenced["confidence_tier"] == "C"
+    assert unreferenced["units"][0]["confidence_tier"] == "C"
+
+    unsupported = engine.analyze("☃")
+    assert unsupported["confidence_tier"] == "D"

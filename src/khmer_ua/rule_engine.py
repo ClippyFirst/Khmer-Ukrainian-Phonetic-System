@@ -11,6 +11,7 @@ import unicodedata
 from pathlib import Path
 from typing import Any
 
+from .data import CONSONANTS
 from .normalize import normalize_khmer
 from .parser import analyze as analyze_structure, segment_syllables
 from .phonetic_result import PhoneticResult, PhoneticUnitResult, PhoneticUncertainty
@@ -25,6 +26,28 @@ _PROFILE = "khmer-pph-careful-citation-v1"
 _ENGINE = "khmer-deterministic-rules-v1"
 _UNKNOWN_IPA = "⟦NOT_ESTABLISHED⟧"
 _UNKNOWN_UKRAINIAN = "⟦НЕВСТАНОВЛЕНО⟧"
+
+
+def _confidence_tier(unit: dict[str, Any]) -> str:
+    """Evidence tier, not a calibrated probability or linguistic accuracy score."""
+    status = unit.get("status")
+    if status == "ADJUDICATED_GOLD" and unit.get("profile_adjudicated") is True:
+        return "A"
+    if status in {"PROPOSED", "PROVISIONAL"} and unit.get("ipa") and unit.get("ukrainian") is not None and unit.get("evidence"):
+        return "B"
+    if unit.get("provisional_ipa") or status in {"EVIDENCE_LIMITED", "PROPOSED", "PROVISIONAL", "ANALYSIS_DEPENDENT"}:
+        return "C"
+    if status in {"PUNCTUATION", "NON_LINGUISTIC"}:
+        return "N/A"
+    return "D"
+
+
+def _aggregate_confidence_tier(units: list[dict[str, Any]]) -> str:
+    tiers = [_confidence_tier(unit) for unit in units if _confidence_tier(unit) != "N/A"]
+    if not tiers:
+        return "D"
+    # Overall confidence is the weakest included linguistic unit; per-unit tiers remain visible.
+    return max(tiers, key=lambda tier: {"A": 0, "B": 1, "C": 2, "D": 3}[tier])
 
 
 def _map_ipa(ipa: str) -> tuple[str | None, str | None]:
@@ -198,14 +221,18 @@ def _analyze_unit(unit: str) -> dict[str, Any]:
                 vowel = "ɑː" if register == "first" else "ɔː"
                 ipa = onset + vowel
                 ukrainian, unsupported = map_ipa_string(ipa)
+                consonant_evidence = next(
+                    (item.get("evidence", []) for item in CONSONANTS if item.get("char") == syllable.get("base_consonant")),
+                    [],
+                )
                 return {
                     "source": unit,
                     "ipa": ipa if unsupported is None else None,
                     "ukrainian": ukrainian,
                     "status": "PROPOSED" if unsupported is None else "NOT_ESTABLISHED",
                     "rule_trace": ["KHMER_REGISTER_SERIES_INHERENT_VOWEL", "IPA_TO_UKRAINIAN_LONGEST_MATCH"],
-                    "reason": "Conservative series-based inherent-vowel rule; status remains proposed pending profile-matched adjudication.",
-                    "evidence": [],
+                    "reason": "Conservative series-based inherent-vowel rule; source evidence is recorded, but the output remains proposed pending profile-matched adjudication.",
+                    "evidence": list(consonant_evidence),
                     "structure": structure.phonological_representation,
                 }
 
@@ -268,6 +295,8 @@ class RuleBasedKhmerEngine:
             else:
                 rendered.append(_analyze_unit(token))
 
+        for unit in rendered:
+            unit["confidence_tier"] = _confidence_tier(unit)
         linguistic = [unit for unit in rendered if unit["status"] not in {"PUNCTUATION", "NON_LINGUISTIC"}]
         resolved = [unit for unit in linguistic if unit["status"] == "PROPOSED"]
         complete = bool(linguistic) and all(
@@ -352,6 +381,8 @@ class RuleBasedKhmerEngine:
             "engine": self.engine_id, "deterministic": True,
             "ipa": ipa, "ukrainian": ukrainian,
             "status": _combine_status(linguistic),
+            "confidence_tier": _aggregate_confidence_tier(linguistic),
+            "confidence_tier_explanation": "A = independently adjudicated profile-matched gold; B = source-traceable provisional IPA with successful Ukrainian IPA adaptation; C = experimental/partial evidence; D = unsupported or unavailable. Tiers are categorical evidence labels, not probabilities or accuracy scores.",
             "rule_trace": rule_trace,
             "reason": " ".join(reasons),
             "evidence": evidence,
