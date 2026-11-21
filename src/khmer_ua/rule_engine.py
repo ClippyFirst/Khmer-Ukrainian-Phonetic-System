@@ -21,6 +21,16 @@ ROOT = Path(__file__).resolve().parents[2]
 _FIXTURE_PATH = ROOT / "data" / "tests" / "web-fixtures.json"
 with _FIXTURE_PATH.open(encoding="utf-8") as _handle:
     _LEXICON: dict[str, dict[str, Any]] = json.load(_handle)
+_SOURCE_REGISTRY_PATH = ROOT / "data" / "khmer" / "sources.json"
+with _SOURCE_REGISTRY_PATH.open(encoding="utf-8") as _handle:
+    _SOURCE_REGISTRY = json.load(_handle)
+_PRONUNCIATION_SOURCE_STATUSES = {
+    "PRIMARY_PHONETIC_SOURCE", "SPECIALIST_REFERENCE", "SECONDARY_LEXICAL_REFERENCE",
+}
+_REGISTERED_PRONUNCIATION_SOURCE_IDS = {
+    source["id"] for source in _SOURCE_REGISTRY
+    if source.get("status") in _PRONUNCIATION_SOURCE_STATUSES
+}
 
 _PROFILE = "khmer-pph-careful-citation-v1"
 _ENGINE = "khmer-deterministic-rules-v1"
@@ -33,7 +43,17 @@ def _confidence_tier(unit: dict[str, Any]) -> str:
     status = unit.get("status")
     if status == "ADJUDICATED_GOLD" and unit.get("profile_adjudicated") is True:
         return "A"
-    if status in {"PROPOSED", "PROVISIONAL"} and unit.get("ipa") and unit.get("ukrainian") is not None and unit.get("evidence"):
+    registered_phonology_source = any(
+        evidence_id in _REGISTERED_PRONUNCIATION_SOURCE_IDS
+        for evidence_id in unit.get("evidence", [])
+    )
+    if (
+        status in {"PROPOSED", "PROVISIONAL"}
+        and unit.get("ipa")
+        and unit.get("ukrainian") is not None
+        and unit.get("source_locator")
+        and registered_phonology_source
+    ):
         return "B"
     if unit.get("provisional_ipa") or status in {"EVIDENCE_LIMITED", "PROPOSED", "PROVISIONAL", "ANALYSIS_DEPENDENT"}:
         return "C"
@@ -175,6 +195,7 @@ def _analyze_unit(unit: str) -> dict[str, Any]:
                 "rule_trace": ["KHMER_LEXICAL_FIXTURE_WITHHELD"],
                 "reason": fixture.get("note", "The lexical fixture has no established IPA value."),
                 "evidence": fixture.get("evidence", []),
+                "source_locator": fixture.get("source_locator"),
             }
         ipa = raw_ipa.strip().strip("/")
         ukrainian, unsupported = map_ipa_string(ipa)
@@ -184,6 +205,7 @@ def _analyze_unit(unit: str) -> dict[str, Any]:
             "rule_trace": ["KHMER_LEXICAL_FIXTURE", "IPA_TO_UKRAINIAN_LONGEST_MATCH"],
             "reason": fixture.get("note", "") if unsupported is None else f"Unsupported IPA sequence: {unsupported}",
             "evidence": fixture.get("evidence", []),
+            "source_locator": fixture.get("source_locator"),
             "lexical_ua_reference": fixture.get("ua"),
             "lexical_mapping_agrees": ukrainian == fixture.get("ua") if ukrainian is not None else False,
         }
