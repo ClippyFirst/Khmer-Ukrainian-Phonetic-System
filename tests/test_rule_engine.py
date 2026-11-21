@@ -155,7 +155,7 @@ def test_shared_onset_fallback_fixture_preserves_canonical_abstention():
 
 def test_source_traceable_proposed_ipa_requires_registered_exact_locator():
     engine = RuleBasedKhmerEngine()
-    for source in ("ក", "គ", "ខ្មែរ", "ភាសា", "ភ្នំពេញ", "កម្ពុជា", "ខ្ញុំ"):
+    for source in ("ក", "គ", "ខ្មែរ", "ភាសា", "ភ្នំពេញ", "កម្ពុជា", "ខ្ញុំ", "ជាខ្មែរ"):
         result = engine.analyze(source)
         assert result["confidence_tier"] == "B", source
         assert result["units"][0]["confidence_tier"] == "B", source
@@ -172,6 +172,12 @@ def test_source_traceable_proposed_ipa_requires_registered_exact_locator():
     # The phrase is composed from separately cited words, not a direct phrase entry.
     phrase = engine.analyze("ភាសាខ្មែរ")
     assert phrase["confidence_tier"] == "C"
+
+    # A separate Wiktionary entry supplies direct phrase-level IPA for ជាខ្មែរ.
+    sourced_phrase = engine.analyze("ជាខ្មែរ")
+    assert sourced_phrase["confidence_tier"] == "B"
+    assert sourced_phrase["units"][0]["source_locator"]
+    assert sourced_phrase["units"][0]["lexical_mapping_agrees"] is True
 
     unreferenced = engine.analyze("កី")
     assert unreferenced["confidence_tier"] == "C"
