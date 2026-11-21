@@ -1,6 +1,6 @@
 ## Output-level refinement checkpoint — 2026-11-21
 
-- Latest implementation head: pending after adding regression assertions (PR #507); branch remains based directly on current `main` with no behind commits.
+- Latest code, README and regression-test commit: `57b7950f9a1be19830c8a6e6dd01313a35ac9634` (PR #507); handoff refreshed immediately after it. Branch remains based directly on current `main` with no behind commits.
 - Distinct behavior refined: careful hides candidate/unit diagnostics; balanced shows available non-Google / core diagnostic candidates (Khmer: unit-level statuses and explanations); exploratory adds the widest available diagnostics (Burmese: Google candidate if deployed; Khmer: existing onset-only provisional hints).
 - **Verification status remains PARTIAL:** no exact-head CI run IDs or local test results are available in this session. Do not merge until the repository test/check, production build and browser workflow pass on this exact head; inspect the rendered site and confirm phonetic/romanization switching.
 
