@@ -3532,3 +3532,13 @@ Final main SHA `96c2329d627056daececef1848a76cc977051d65` is fully green: Qualit
 - Local checkout and local test execution were unavailable through this GitHub connector session. The statements above rely on exact-commit GitHub Actions check-run metadata, repository files, issue/PR state and branch metadata; no local test command is claimed.
 
 Task ledger: engineering/build/deployment = DONE_VERIFIED; repository-owned code/docs/research-data license and citation declarations = DONE_VERIFIED; third-party item-level rights = PARTIAL/BLOCKED where registered; gold pilot = BLOCKED (human/source-rights); manual accessibility = TODO (human QA); contextual vowel and lexical segmentation evidence = PARTIAL. Overall status: deployed research-ready partial prototype, not linguistically release-ready and not WCAG-conformance-certified.
+
+
+## Human pilot, rights and research continuation — 2026-11-21
+
+- KHM-GOLD-PILOT-001: BLOCKED. See Issue #104. Runbook exists; no private workspace, recruited roles, approved convention, rights-cleared 30-group sample, blind submissions or adjudication. Gold=0; accuracy unmeasured.
+- KHM-PRIVATE-INTAKE-001: PARTIAL. Private blind-intake operational design added; provisioning, access grants, synthetic-data isolation test and actual use are outstanding. Public GitHub is not a blind channel.
+- KHM-THIRD-PARTY-RIGHTS-001: PARTIAL/BLOCKED. See 2026-11-21 source reconciliation; MekongPhon UNKNOWN, Khmer acoustic dictionary CONFLICT, ALT/khPOS RESTRICTED with privacy conditions, Kirby audio UNKNOWN.
+- KHM-CONTEXTUAL-VOWEL-MATRIX-002: PARTIAL. New research synthesis clarifies evidence strata and missing metadata; no new row is promoted to gold or runtime rule.
+- KHM-LEXICAL-WORD-SEGMENTATION-001: BLOCKED. Morpheme/surface-word conventions, domain fit, data rights/privacy and a human boundary pilot remain unresolved.
+- KHM-MANUAL-A11Y-001: TODO. Issue #463 remains open pending manual human evidence.
