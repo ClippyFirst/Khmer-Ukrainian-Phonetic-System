@@ -669,7 +669,7 @@ if (typeof document !== "undefined") {
       const values = document.createElement("p");
       values.className = "unit-values";
       values.textContent = "IPA: " + unit.ipa + " · Українська: " + unit.ua
-        + (outputLevelMode === "exploratory" && unit.provisional_ipa ? " · Часткова структурна підказка: " + unit.provisional_ipa + " → " + unit.provisional_ukrainian + " [PROVISIONAL · НЕ ПОВНИЙ IPA]" : "");
+        + (unit.provisional_ipa ? " · Попередня підказка: " + unit.provisional_ipa + " → " + unit.provisional_ukrainian + " [PROVISIONAL]" : "");
       const note = document.createElement("p");
       note.className = "unit-note";
       note.textContent = unit.note || "Окремого пояснення для цієї одиниці немає.";
