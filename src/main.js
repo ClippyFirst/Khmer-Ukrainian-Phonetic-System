@@ -496,7 +496,7 @@ function confidenceTier(item) {
     item.source_locator &&
     item.evidence?.some(sourceId => REGISTERED_PRONUNCIATION_SOURCE_IDS.has(sourceId))
   ) return "B";
-  if (item.provisional_ipa || ["EVIDENCE_LIMITED", "PROPOSED", "PROVISIONAL", "ANALYSIS_DEPENDENT"].includes(item.status)) return "C";
+  if (item.provisional_ipa || item.fallback_status === "PROVISIONAL" || ["EVIDENCE_LIMITED", "PROPOSED", "PROVISIONAL", "ANALYSIS_DEPENDENT"].includes(item.status)) return "C";
   if (["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)) return "N/A";
   return "D";
 }
@@ -578,7 +578,9 @@ function convert(text, profile) {
     provenance: {
       phonology: item.evidence ?? [],
       structure: item.analysis ? ["unicode17-ch16"] : [],
-      target_policy: item.mapping_check ? ["data/ukrainian/practical-policy.json"] : [],
+      target_policy: item.mapping_check
+        ? ["data/ukrainian/practical-policy.json"]
+        : item.fallback_status === "PROVISIONAL" ? ["src/khmer-romanization-ukrainian.js"] : [],
     },
     uncertainty: ["PUNCTUATION", "NON_LINGUISTIC", "PROPOSED"].includes(item.status)
       ? []
