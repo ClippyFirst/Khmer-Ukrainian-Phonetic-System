@@ -10,6 +10,20 @@ The engine has two distinct result layers:
 
 Provider order is a reproducible selection order, not a quality ranking. No majority vote or synthetic consensus is performed. The caller can inspect every candidate and its failure reasons. A provider output that cannot be mapped to Ukrainian remains visible in `external_candidates` with `ukrainian_mapping_failure`, but is not selected as a full practical result.
 
+The `profile` field identifies the target profile requested from the adapter boundary; `profile_match` separately records whether the provider is actually validated for that profile. The built-in external adapters currently return `profile_match: "UNVERIFIED"`. This prevents a target-profile label from being mistaken for evidence of provider/profile equivalence.
+
+## Observed smoke candidate
+
+The pinned Khmer Phonemizer 0.0.3 workflow was run on the reported input `កម្ពុជាប្រជាធិបតេយ្យ`. It returned this raw broad-phonetic candidate:
+
+- IPA candidate: `kampuciə prɑciətʰɨppaʔtaj`
+- Ukrainian adapter candidate: `кампутьіє пратьієт'иппатай`
+- Status: `PROVISIONAL` / provider candidate `PARTIAL`
+- Provider profile match: `UNVERIFIED`
+- Provider tokenization: `កម្ពុជា` + `ប្រជាធិបតេយ្យ`
+
+This is evidence that an available G2P engine can produce an IPA-like candidate instead of returning no candidate. It is **not** a claim that this candidate is the correct Phnom Penh careful-citation pronunciation: the provider's dialect/style convention, tone, stress and segmental choices have not been adjudicated. The project's canonical deterministic IPA remains unchanged. The CI artifact is a raw provider diagnostic, not a gold label or benchmark score.
+
 ## Built-in optional providers
 
 ### Khmer Phonemizer
