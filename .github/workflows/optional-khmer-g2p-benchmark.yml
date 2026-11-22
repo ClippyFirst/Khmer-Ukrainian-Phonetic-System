@@ -30,7 +30,7 @@ jobs:
           cache: pip
       - name: Install project and pinned CPU inference runtime
         run: |
-          python -m pip install -e .
+          python -m pip install -e ".[phonemizer]"
           python -m pip install --index-url https://download.pytorch.org/whl/cpu "torch==2.5.1"
           python -m pip install "transformers==4.46.3" "tokenizers==0.20.3" "huggingface-hub==0.26.2" "safetensors==0.4.5"
       - name: Run the pinned MekongPhon Khmer IPA model
@@ -47,7 +47,7 @@ jobs:
           from khmer_ua import create_hybrid_engine
 
           source = "កម្ពុជាប្រជាធិបតេយ្យ"
-          result = create_hybrid_engine(include_mekongphon=True).analyze(source)
+          result = create_hybrid_engine(include_mekongphon=True, include_khmerphonemizer=True).analyze(source)
           payload = {
               "source": source,
               "hybrid_engine": result["hybrid_engine"],
