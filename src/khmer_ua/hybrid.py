@@ -207,6 +207,7 @@ def make_epitran_backend(language_code: str = "khm-Khmr") -> Provider:
             "provenance": {
                 "engine": "epitran",
                 "package_version": "1.35.1",
+                "upstream_revision": "2014d532bf429739d75f03d703aed8e32bad096c",
                 "language_code": language_code,
                 "language_support_status": "PROVISIONAL",
                 "license": "MIT-Modern-Variant",
