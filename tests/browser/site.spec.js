@@ -229,7 +229,7 @@ test("clear control restores the empty state", async ({ page }) => {
 
 test("IPA and romanization method switches are visible beside the primary result without opening research details", async ({ page }) => {
   await page.goto("/");
-  await page.locator("#source").fill("សុខា");
+  await page.locator("#source").fill("Kâmpŭchéa");
   const drawer = page.locator("#research-details");
   await expect(drawer).not.toHaveAttribute("open", "");
   const group = page.getByRole("group", { name: "Метод українського запису" });
@@ -237,12 +237,13 @@ test("IPA and romanization method switches are visible beside the primary result
   await expect(group.getByRole("button", { name: "За IPA" })).toBeVisible();
   await expect(group.getByRole("button", { name: "З романізації" })).toBeVisible();
   await expect(page.locator("#ua-result-title")).toHaveText("Українська за вимовою (IPA)");
+  await expect(page.locator("#ua-result")).toContainText("IPA не застосовується");
   await group.getByRole("button", { name: "З романізації" }).click();
   await expect(page.locator("#ua-result-title")).toHaveText("Українська з романізації");
-  await expect(page.locator("#ua-result")).toHaveText("Сок'а");
+  await expect(page.locator("#ua-result")).toHaveText("Кампучеа");
   await group.getByRole("button", { name: "За IPA" }).click();
   await expect(page.locator("#ua-result-title")).toHaveText("Українська за вимовою (IPA)");
-  await expect(page.locator("#ua-result")).not.toHaveText("Сок'а");
+  await expect(page.locator("#ua-result")).toContainText("IPA не застосовується");
 });
 
 test("romanization mode renders a separate provisional Ukrainian form", async ({ page }) => {
