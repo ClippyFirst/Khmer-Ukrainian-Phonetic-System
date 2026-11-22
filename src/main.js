@@ -665,14 +665,20 @@ if (typeof document !== "undefined") {
           : chars.slice(0, firstNumber).join("") + "???" + chars.slice(firstNumber).join("");
       }).join("");
     const hasUkrainianCandidate = /[\p{L}]/u.test(String(data.ua || "").split("???").join(""));
-    const useRomanizationFallback = usesKhmerRomanizer && !hasUkrainianCandidate && Boolean(uaRomanized.text);
-    $("ua-result").textContent = romanizationOnlyInput || useRomanizationFallback
+    const useRomanizationFallback = usesKhmerRomanizer && !hasUkrainianCandidate && Boolean(uaRomanized.text) && uaRomanized.unsupported === 0 && !/⟦/u.test(uaRomanized.text);
+    // If the IPA-first engine cannot establish a complete result, offer the
+    // existing BGN/PCGN-derived Ukrainian spelling as a separate, explicitly
+    // provisional candidate. Do not append ??? to a candidate that is already
+    // fully rendered; its non-phonetic provenance is stated in the status.
+    $("ua-result").textContent = romanizationOnlyInput
       ? appendMarkerToEveryWord(uaRomanized.text || "—")
-      : moveMarkerToWordEnd(data.ua);
+      : useRomanizationFallback
+        ? uaRomanized.text
+        : moveMarkerToWordEnd(data.ua);
     $("status").textContent = romanizationOnlyInput
       ? "BGN/PCGN LATIN INPUT · PROVISIONAL · ??? наприкінці слова означає невстановлену точність · доказовий рівень C"
       : useRomanizationFallback
-        ? "KHMER ROMANIZATION FALLBACK · PROVISIONAL · орфографічна підказка; ??? наприкінці слова означає невстановлену точність · доказовий рівень C"
+        ? "KHMER ROMANIZATION FALLBACK · PROVISIONAL · кандидат з орфографічної романізації, не IPA-вимова · доказовий рівень C"
         : data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
     const levelGuidance = {
       strict: "Обережний рівень: показано лише наявні джерельно індексовані пропозиції; непідтверджені IPA/українські форми не реконструюються. PROPOSED не є експертним gold.",

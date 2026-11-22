@@ -5983,3 +5983,12 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - The Ukrainian practical form is the primary result. Profile and Strict / Soft / Super-soft controls are in a collapsed settings disclosure; IPA, romanization, per-unit status, and detailed explanations are grouped under “Докладний аналіз”. The beta notice is concise by default and expandable.
 - Existing engine-facing IDs and `data-method-panel` hooks were preserved. No Khmer phonological rules, IPA values, Ukrainian adaptations, or uncertainty semantics were changed.
 - Quality checks [#45062629220](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45062629220), Chromium browser smoke [#45062629118](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45062629118), and GitHub Pages deployment [#45062629122](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45062629122) all passed.
+
+
+## Provisional Ukrainian candidate for unresolved Khmer input — 2026-11-22
+
+- **Implementation submitted for exact-head verification:** branch `fix/khmer-provisional-pronunciation-candidate-20261122`, based on main `92de8637336d857ec852db95f749f9bfa0fb7b31`.
+- When the phonetic engine has no complete IPA-derived Ukrainian output, but the whole Khmer input is renderable by the already-shipped BGN/PCGN-derived romanizer, the primary Ukrainian field now shows that orthographic adaptation as a `PROVISIONAL` candidate without appending `???`. For `កម្ពុជាប្រជាធិបតេយ្យ`, the expected visible candidate is `Кампучеапчеат'іптей`.
+- The IPA line remains `⟦NOT_ESTABLISHED⟧`; per-unit uncertainty and evidence provenance are unchanged. The UI status explicitly identifies the candidate as an orthographic-romanization fallback, not an IPA-derived pronunciation. Mixed partially-resolved input and malformed/unrenderable fragments retain local abstention markers.
+- Updated the browser regression for the reported phrase and the shared onset-fallback fixture, plus README and deterministic-engine contract. No phonological rule, IPA value, gold label, or accuracy claim was added.
+- **Acceptance:** exact-head Node/web tests, production build, Chromium browser suite, and post-merge Pages deployment/smoke must pass. Until then this change is PARTIAL, not DONE_VERIFIED.
