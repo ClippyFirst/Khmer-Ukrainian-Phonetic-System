@@ -71,7 +71,7 @@
         },
         "ukrainian": {
           "type": "string",
-          "description": "IPA-derived Ukrainian form or an explicit local uncertainty marker."
+          "description": "IPA-derived Ukrainian form, a separately typed orthographic-romanization fallback candidate, or an explicit local uncertainty marker."
         },
         "profile": {
           "type": "string"
@@ -147,6 +147,16 @@
             "NOT_APPLICABLE"
           ],
           "description": "Explicit transcription kind. Current internal outputs remain UNRESOLVED until the target-profile convention is approved; punctuation is NOT_APPLICABLE."
+        },
+        "ukrainian_kind": {
+          "type": "string",
+          "enum": [
+            "IPA_DERIVED",
+            "ORTHOGRAPHIC_ROMANIZATION_FALLBACK",
+            "UNRESOLVED",
+            "NOT_APPLICABLE"
+          ],
+          "description": "Identifies whether the Ukrainian string is derived from IPA or is a separately sourced provisional orthographic-romanization candidate."
         }
       },
       "additionalProperties": false
