@@ -661,8 +661,14 @@ if (typeof document !== "undefined") {
     modeRomanization.classList.toggle("is-active", mode === "romanization");
     modeRomanization.setAttribute("aria-pressed", String(mode === "romanization"));
     outputMethodNote.textContent = mode === "phonetic"
-      ? "Фонетичний режим: детерміновані правила орфографія → IPA → українська адаптація; непідтверджені форми не вгадуються."
-       : "Романізаційний режим: можна ввести кмерський текст (автоматична ASCII-романізація) або готову латинську BGN/PCGN-форму з діакритиками; вводьте один формат за раз. Профіль вимови діє лише у фонетичному режимі. Невідомі фрагменти не вгадуються; IPA-fallback не використовується.";
+      ? "Шлях 1 · за вимовою: кмерська графіка → структурний і фонологічний аналіз → IPA → українська адаптація. Невстановлені IPA-фрагменти залишаються явно позначеними."
+      : "Шлях 2 · з романізації: кмерська графіка → BGN/PCGN-derived латинський запис або готова BGN/PCGN-форма → українська орфографічна передача. Це не фонетична транскрипція; IPA тут не використовується.";
+    $("ua-result-title").textContent = mode === "phonetic"
+      ? "Українська за вимовою (IPA)"
+      : "Українська з романізації";
+    $("ua-result-description").textContent = mode === "phonetic"
+      ? "Результат проходить через IPA та українську фонетичну адаптацію."
+      : "Окремий орфографічний шлях через BGN/PCGN; не залежить від стану IPA.";
     render();
   }
 
@@ -736,17 +742,27 @@ if (typeof document !== "undefined") {
     // existing BGN/PCGN-derived Ukrainian spelling as a separate, explicitly
     // provisional candidate. Do not append ??? to a candidate that is already
     // fully rendered; its non-phonetic provenance is stated in the status.
-    $("ua-result").textContent = romanizationOnlyInput
-      ? appendMarkerToEveryWord(uaRomanized.text || "—")
+    const phoneticUaOutput = romanizationOnlyInput
+      ? "— · для готової романізації оберіть метод «З романізації»"
       : useRomanizationFallback
         ? uaRomanized.text
         : moveMarkerToWordEnd(data.ua);
+    const romanizationUaOutput = uaRomanized.text
+      ? uaRomanized.text
+      : "???";
     const hasUnitFallback = data.units.some((unit) => unit.fallback_status === "PROVISIONAL");
-    $("status").textContent = romanizationOnlyInput
-      ? "BGN/PCGN LATIN INPUT · PROVISIONAL · ??? наприкінці слова означає невстановлену точність · доказовий рівень C"
-      : useRomanizationFallback || hasUnitFallback
-        ? "PROVISIONAL CANDIDATE · орфографічна романізація, не IPA-вимова · доказовий рівень C"
-        : data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
+    $("ua-result").textContent = activeMode === "romanization"
+      ? romanizationUaOutput
+      : phoneticUaOutput;
+    $("status").textContent = activeMode === "romanization"
+      ? romanizationOnlyInput
+        ? "РОМАНІЗАЦІЯ · ВХІД УЖЕ ЛАТИНКОЮ · " + uaRomanized.status
+        : "РОМАНІЗАЦІЯ · BGN/PCGN-DERIVED · " + uaRomanized.status
+      : romanizationOnlyInput
+        ? "IPA НЕ ЗАСТОСОВУЄТЬСЯ ДО ГОТОВОЇ РОМАНІЗАЦІЇ"
+        : useRomanizationFallback || hasUnitFallback
+          ? "PROVISIONAL CANDIDATE · орфографічна романізація, не IPA-вимова · доказовий рівень C"
+          : data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
     const levelGuidance = {
       strict: "Обережний рівень: показано лише наявні джерельно індексовані пропозиції; непідтверджені IPA/українські форми не реконструюються. PROPOSED не є експертним gold.",
       balanced: "Збалансований рівень: показує основний частковий результат, статус кожної одиниці та причини невизначеності. Невстановлені фрагменти зберігаються на своїх позиціях.",
