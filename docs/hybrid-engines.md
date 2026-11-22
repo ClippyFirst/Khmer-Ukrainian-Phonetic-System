@@ -6,7 +6,7 @@ The engine has two distinct result layers:
 
 - `ipa` / `ukrainian`: canonical fields from `RuleBasedKhmerEngine`; these are never overwritten by an external model.
 - `external_candidates`: every successfully validated external IPA candidate, with provider, IPA kind, profile, uncertainty and provenance.
-- `provisional_candidate`: when the canonical IPA is unresolved, the first configured provider whose IPA also passes the project's Ukrainian IPA adapter is exposed as a source-attributed `PROVISIONAL` candidate. It is not relabelled as established, gold or accurate.
+- `provisional_candidate`: when canonical IPA is unresolved, the first configured provider whose IPA passes the Ukrainian adapter is exposed as a source-attributed `PROVISIONAL` candidate. If no provider candidate maps completely, the first valid IPA candidate is still exposed with a null Ukrainian field and its exact mapping failure. It is not relabelled as established, gold or accurate.
 
 Provider order is a reproducible selection order, not a quality ranking. No majority vote or synthetic consensus is performed. The caller can inspect every candidate and its failure reasons. A provider output that cannot be mapped to Ukrainian remains visible in `external_candidates` with `ukrainian_mapping_failure`, but is not selected as a full practical result.
 
@@ -23,6 +23,8 @@ The pinned Khmer Phonemizer 0.0.3 workflow was run on the reported input `កម
 - Provider tokenization: `កម្ពុជា` + `ប្រជាធិបតេយ្យ`
 
 This is evidence that an available G2P engine can produce an IPA-like candidate instead of returning no candidate. It is **not** a claim that this candidate is the correct Phnom Penh careful-citation pronunciation: the provider's dialect/style convention, tone, stress and segmental choices have not been adjudicated. The project's canonical deterministic IPA remains unchanged. The CI artifact is a raw provider diagnostic, not a gold label or benchmark score.
+
+The pinned MekongPhon model was also exercised independently on the same phrase. It returned `kampucieprɑcietʰiʔpaʔtay`. The current Ukrainian adapter deliberately withholds a complete target spelling at the final `y` segment rather than guessing its intended value. This second candidate remains visible with `ukrainian: null` and `ukrainian_mapping_failure: "y"`. The model output is therefore useful as an independent IPA-like candidate, but not yet a fully mappable Ukrainian result. A combined hybrid run can retain both candidates and choose the Khmer Phonemizer candidate for the complete provisional Ukrainian output while preserving MekongPhon as an alternative.
 
 ## Built-in optional providers
 
