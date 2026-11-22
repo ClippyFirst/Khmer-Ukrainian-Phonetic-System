@@ -3,7 +3,8 @@ import { test, expect } from "@playwright/test";
 test.beforeEach(async ({ page }, testInfo) => {
   if ([
     "research tools are collapsed by default and can be opened on demand",
-    "IPA and Latin romanization remain visible outside the collapsed analysis drawer"
+    "IPA and Latin romanization remain visible outside the collapsed analysis drawer",
+    "IPA and romanization method switches are visible beside the primary result without opening research details"
   ].includes(testInfo.title)) return;
   await page.addInitScript(() => {
     document.addEventListener("DOMContentLoaded", () => {
