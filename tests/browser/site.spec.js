@@ -358,6 +358,7 @@ test("romanization candidates remain automatic at every detail level without lea
     await expect(page.locator("#ua-result")).not.toHaveText("Кампучеапчеат'іптей");
     await page.locator("#mode-romanization").click();
     await expect(page.locator("#ua-result")).toHaveText("Кампучеапчеат'іптей");
+    await page.locator("#mode-phonetic").click();
   }
 });
 
@@ -365,7 +366,7 @@ test("unresolved Khmer cluster exposes romanization only after selecting the rom
   await page.goto("/");
   await page.locator("#source").fill("ក្ក");
   await expect(page.locator("#ipa-result")).toHaveText("⟦NOT_ESTABLISHED⟧");
-  await expect(page.locator("#ua-result")).toContainText("НЕВСТАНОВЛЕНО");
+  await expect(page.locator("#ua-result")).toContainText("???");
   await page.locator("#mode-romanization").click();
   await expect(page.locator("#ua-result")).not.toContainText("???");
   await expect(page.locator("#status")).toContainText("РОМАНІЗАЦІЯ");
