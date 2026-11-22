@@ -1,7 +1,10 @@
 import { test, expect } from "@playwright/test";
 
 test.beforeEach(async ({ page }, testInfo) => {
-  if (testInfo.title === "research tools are collapsed by default and can be opened on demand") return;
+  if ([
+    "research tools are collapsed by default and can be opened on demand",
+    "IPA and Latin romanization remain visible outside the collapsed analysis drawer"
+  ].includes(testInfo.title)) return;
   await page.addInitScript(() => {
     document.addEventListener("DOMContentLoaded", () => {
       const drawer = document.querySelector("#research-details");
@@ -216,7 +219,7 @@ test("romanization mode renders a separate provisional Ukrainian form", async ({
   await expect(page.locator("#romanization-result")).toHaveText("Sokha");
   await expect(page.locator("#ua-romanization-result")).toHaveText("Сок'а");
   await expect(page.locator("#ua-romanization-status")).toContainText("PROVISIONAL");
-  await expect(page.locator("#ipa-result")).toBeHidden();
+  await expect(page.locator("#ipa-result")).toBeVisible();
 });
 
 
