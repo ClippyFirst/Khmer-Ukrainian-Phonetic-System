@@ -665,7 +665,7 @@ if (typeof document !== "undefined") {
           : chars.slice(0, firstNumber).join("") + "???" + chars.slice(firstNumber).join("");
       }).join("");
     const hasUkrainianCandidate = /[\p{L}]/u.test(String(data.ua || "").split("???").join(""));
-    const useRomanizationFallback = usesKhmerRomanizer && !hasUkrainianCandidate && Boolean(uaRomanized.text) && uaRomanized.unsupported === 0 && !/⟦/u.test(uaRomanized.text);
+    const useRomanizationFallback = outputLevelMode !== "strict" && usesKhmerRomanizer && !hasUkrainianCandidate && Boolean(uaRomanized.text) && uaRomanized.unsupported === 0 && !/⟦/u.test(uaRomanized.text);
     // If the IPA-first engine cannot establish a complete result, offer the
     // existing BGN/PCGN-derived Ukrainian spelling as a separate, explicitly
     // provisional candidate. Do not append ??? to a candidate that is already
