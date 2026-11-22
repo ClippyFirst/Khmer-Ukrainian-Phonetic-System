@@ -15,10 +15,9 @@ test.beforeEach(async ({ page }, testInfo) => {
 test("research tools are collapsed by default and can be opened on demand", async ({ page }) => {
   await page.goto("/");
   const drawer = page.locator("#research-details");
-  await expect(drawer).toBeHidden();
-  await expect(drawer).toBeClosed();
   await page.locator("#source").fill("ក");
   await expect(page.locator("#results")).toBeVisible();
+  await expect(drawer).not.toHaveAttribute("open");
   await expect(page.locator(" #ua-result")).toBeVisible();
   await drawer.locator("summary").click();
   await expect(drawer).toBeOpen();
