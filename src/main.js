@@ -553,12 +553,26 @@ function convert(text, profile) {
   // Lao-style final abstention: retain supported neighbours, but use a clear
   // three-question-mark placeholder for any unresolved linguistic unit.
   // Detailed per-unit diagnostics and provisional hints remain separate.
-  const ua = rendered.map((item) => ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
-    ? item.ua
-    : item.status === "PROPOSED" ? item.ua
-      : item.fallback_status === "PROVISIONAL" && item.fallback_ukrainian
-        ? item.fallback_ukrainian
-        : "???").join("");
+  let hasStartedOutputRun = false;
+  const ua = rendered.map((item) => {
+    if (item.status === "PUNCTUATION") {
+      hasStartedOutputRun = false;
+      return item.ua;
+    }
+    if (item.status === "NON_LINGUISTIC") return item.ua;
+    hasStartedOutputRun = true;
+    if (item.status === "PROPOSED") return item.ua;
+    if (item.fallback_status === "PROVISIONAL" && item.fallback_ukrainian) {
+      // The upstream romanizer is called per orthographic unit here, so it
+      // may title-case each call. Preserve sentence-level casing: only the
+      // first unit in a contiguous run starts uppercase.
+      const candidate = item.fallback_ukrainian;
+      return hasStartedOutputRun && item !== rendered.find((entry) => entry === item)
+        ? candidate.toLocaleLowerCase("uk")
+        : candidate;
+    }
+    return "???";
+  }).join("");
   const complete = linguistic.length > 0 && linguistic.every((item) =>
     item.status === "PROPOSED" && !/⟦/.test(item.ipa) && !/⟦/.test(item.ua)
   );
