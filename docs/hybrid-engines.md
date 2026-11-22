@@ -26,6 +26,8 @@ This is evidence that an available G2P engine can produce an IPA-like candidate 
 
 The pinned MekongPhon model was also exercised independently on the same phrase. It returned `kampucieprɑcietʰiʔpaʔtay`. The current Ukrainian adapter deliberately withholds a complete target spelling at the final `y` segment rather than guessing its intended value. This second candidate remains visible with `ukrainian: null` and `ukrainian_mapping_failure: "y"`. The model output is therefore useful as an independent IPA-like candidate, but not yet a fully mappable Ukrainian result. A combined hybrid run can retain both candidates and choose the Khmer Phonemizer candidate for the complete provisional Ukrainian output while preserving MekongPhon as an alternative.
 
+Epitran 1.35.1 was exercised in the same combined run. It emitted `kɑːmpɔːុcɔːាɓrɔːcɔːាtʰɔːិɓɑːtɑːេjjɔː`; the Khmer vowel signs `ុ`, `ា`, `ិ` and `េ` remain in the output. The IPA boundary rejects these non-IPA combining marks and retains the exact raw string plus validation failure. This is a useful diagnostic of the provisional mapping's incomplete vowel handling, not a third valid IPA candidate.
+
 ## Built-in optional providers
 
 ### Khmer Phonemizer
@@ -51,7 +53,7 @@ print(result["external_candidates"])
 
 #### Epitran Khmer G2P
 
-Epitran includes the `khm-Khmr` mapping, but its own language-support documentation classifies Khmer as **Provisional**. The adapter therefore returns a PARTIAL phonemic candidate with `profile_match: "UNVERIFIED"`; it does not imply complete Khmer phonology.
+Epitran includes the `khm-Khmr` mapping, but its own language-support documentation classifies Khmer as **Provisional**. The adapter preserves the raw result and submits it to the shared IPA validator. On the reported phrase, Epitran left Khmer vowel-sign marks in its output; those are not IPA diacritics, so the candidate is rejected as invalid IPA and retained in `backend_failures.raw_output` with the exact validation reason. It is not silently cleaned or promoted.
 
 Install the optional extra:
 
