@@ -648,7 +648,7 @@ if (typeof document !== "undefined") {
     $("ipa-result").textContent = romanizationOnlyInput
       ? "— · IPA не застосовується до готової романізації"
       : data.ipa;
-    const markUncertainWords = (value) => String(value || "").split(/(\\s+)/u)
+    const markUncertainWords = (value) => String(value || "").split(/(\s+)/u)
       .map((part) => /^\\s+$/u.test(part) || !part ? part : part + "???")
       .join("");
     $("ua-result").textContent = romanizationOnlyInput
