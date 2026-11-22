@@ -237,7 +237,7 @@ test("IPA and romanization method switches are visible beside the primary result
   await expect(group.getByRole("button", { name: "За IPA" })).toBeVisible();
   await expect(group.getByRole("button", { name: "З романізації" })).toBeVisible();
   await expect(page.locator("#ua-result-title")).toHaveText("Українська за вимовою (IPA)");
-  await expect(page.locator("#ua-result")).toContainText("IPA не застосовується");
+  await expect(page.locator("#status")).toContainText("IPA НЕ ЗАСТОСОВУЄТЬСЯ");
   await group.getByRole("button", { name: "З романізації" }).click();
   await expect(page.locator("#ua-result-title")).toHaveText("Українська з романізації");
   await expect(page.locator("#ua-result")).toHaveText("Кампучеа");
