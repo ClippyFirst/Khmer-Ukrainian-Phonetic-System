@@ -1,6 +1,6 @@
 import pytest
 
-from khmer_ua import HybridKhmerEngine, RuleBasedKhmerEngine, create_hybrid_engine, make_khmerphonemizer_backend
+from khmer_ua import HybridKhmerEngine, RuleBasedKhmerEngine, create_hybrid_engine, make_khmerphonemizer_backend, make_epitran_backend
 
 
 def typed(ipa, *, status="PARTIAL", uncertainty=("not independently adjudicated",), kind="PHONETIC_BROAD"):
@@ -102,6 +102,35 @@ def test_hybrid_factory_can_opt_in_to_lazy_khmerphonemizer_provider():
     assert isinstance(engine, HybridKhmerEngine)
     assert "khmer-phonemizer" in engine.providers
 
+
+
+def test_epitran_adapter_returns_provisional_profile_unverified_candidate(monkeypatch):
+    import sys
+    from types import SimpleNamespace
+
+    class FakeEpitran:
+        def __init__(self, language_code):
+            assert language_code == "khm-Khmr"
+
+        def transliterate(self, text):
+            assert text == "កម្ពុជា"
+            return "kɑːmpuciə"
+
+    monkeypatch.setitem(sys.modules, "epitran", SimpleNamespace(Epitran=FakeEpitran))
+    candidate = make_epitran_backend()("កម្ពុជា")
+    assert candidate["ipa"] == "kɑːmpuciə"
+    assert candidate["kind"] == "PHONEMIC"
+    assert candidate["status"] == "PARTIAL"
+    assert candidate["profile_match"] == "UNVERIFIED"
+    assert candidate["provenance"]["language_support_status"] == "PROVISIONAL"
+
+
+def test_hybrid_factory_auto_enables_installed_epitran(monkeypatch):
+    import khmer_ua.hybrid as hybrid
+
+    monkeypatch.setattr(hybrid, "find_spec", lambda name: object() if name == "epitran" else None)
+    engine = create_hybrid_engine()
+    assert "epitran" in engine.providers
 
 def test_hybrid_factory_auto_enables_installed_khmerphonemizer(monkeypatch):
     import khmer_ua.hybrid as hybrid
