@@ -30,11 +30,12 @@ assert.ok(result.units.filter((unit) => unit.status !== "PUNCTUATION").every((un
  
 const unresolvedWord = convert("កម្ពុជាប្រជាធិបតេយ្យ", "khmer-pph-careful-citation-v1");
 assert.equal(unresolvedWord.ipa, "⟦NOT_ESTABLISHED⟧", "the public IPA line must retain one abstention marker for the unresolved Khmer word/run");
-assert.equal(unresolvedWord.ua, "Кампучеапчеат'іптей", "the user-facing Ukrainian result must offer the best available per-unit orthographic candidate without requiring a mode switch");
+assert.ok(unresolvedWord.ua.includes("???"), "the IPA-derived Ukrainian field must retain an unresolved marker instead of importing romanization");
+assert.notEqual(unresolvedWord.ua, "Кампучеапчеат'іптей", "the IPA-derived result must not silently switch to the romanization path");
 assert.equal(unresolvedWord.units.filter((unit) => unit.status === "NOT_ESTABLISHED").length, 3, "per-unit phonetic status must retain all three unresolved orthographic units");
-assert.ok(unresolvedWord.units.every((unit) => unit.fallback_status === "PROVISIONAL" && unit.ua && unit.ua !== "⟦НЕВСТАНОВЛЕНО⟧"), "each unresolved but romanizable unit must expose a provisional Ukrainian candidate");
+assert.ok(unresolvedWord.units.every((unit) => unit.fallback_status === "PROVISIONAL" && unit.fallback_ukrainian), "each unresolved but romanizable unit must retain a separate provisional romanization candidate");
 assert.equal(unresolvedWord.phonetic_result.units.filter((unit) => unit.status === "NOT_ESTABLISHED").length, 3, "machine-readable IPA provenance must retain per-unit uncertainty");
-assert.ok(unresolvedWord.phonetic_result.units.every((unit) => unit.ukrainian_kind === "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"), "machine-readable output must distinguish orthographic fallback from IPA-derived Ukrainian");
+assert.ok(unresolvedWord.phonetic_result.units.every((unit) => unit.ukrainian_kind === "UNRESOLVED" && unit.ukrainian === "???"), "machine-readable IPA output must not carry the separate romanization candidate");
 assert.ok(unresolvedWord.phonetic_result.units.every((unit) => unit.ipa === "⟦NOT_ESTABLISHED⟧"), "a Ukrainian fallback must never manufacture IPA");
 
 
