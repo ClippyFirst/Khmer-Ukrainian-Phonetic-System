@@ -5964,3 +5964,14 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - **DONE_VERIFIED (main post-merge):** PR #505 merged as `3ba032ed67b3d5d165005b49bf134f18e0605228`. Quality run [44942983400](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44942983400) SUCCESS — 451 Python tests + 70 subtests; browser run [44942983385](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44942983385) SUCCESS — 26 Playwright tests; Pages build/deploy run [44942983387](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44942983387) SUCCESS, including deployed index/system HTML and JS/CSS asset smoke; raw-output diagnostic [44942983415](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44942983415) SUCCESS. Public beta: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/.
 - The three new permanent-locator Wiktionary entries are integrated and browser-visible at tier B; IPA preserves vowel length, while the Ukrainian practical adapter explicitly omits post-vocalic `ː` without rewriting the IPA source.
 - Independent gold remains empty; empirical accuracy remains NOT_ASSESSED.
+
+
+## Shared Strict / Soft / Super-soft output vocabulary — 2026-11-22
+
+- PR [#509](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/509) merged to main as `5d2b3e54f050df07eb9d07fdc135c1bd6486f532`.
+- The browser's existing internal values `strict`, `balanced`, and `exploratory` are preserved; user-facing labels are now **Strict**, **Soft**, and **Super-soft**.
+- The semantics remain distinct: Strict = source-indexed supported proposals only; Soft = partial output with per-unit uncertainty; Super-soft = additional structural/onset research hints. These are disclosure/acceptance levels, not accuracy scores.
+- `???` remains the final Ukrainian placeholder for unresolved units. Candidate output does not overwrite the Strict result. No phonological rules, evidence rows, or target mappings were changed by this UI vocabulary update.
+- Exact main verification: Quality checks [45002252229](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/45002252229) SUCCESS; Khmer browser smoke [45002252063](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/45002252063) SUCCESS; Pages deployment [45002252084](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/45002252084) SUCCESS.
+- Published site: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/.
+- Linguistic validation and independently adjudicated IPA gold remain separate release gates; this change makes no accuracy claim.
