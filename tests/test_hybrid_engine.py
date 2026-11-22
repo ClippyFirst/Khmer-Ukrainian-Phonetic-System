@@ -102,6 +102,14 @@ def test_hybrid_factory_can_opt_in_to_lazy_khmerphonemizer_provider():
     assert isinstance(engine, HybridKhmerEngine)
     assert "khmer-phonemizer" in engine.providers
 
+
+def test_hybrid_factory_auto_enables_installed_khmerphonemizer(monkeypatch):
+    import khmer_ua.hybrid as hybrid
+
+    monkeypatch.setattr(hybrid, "find_spec", lambda name: object() if name == "khmerphonemizer" else None)
+    engine = create_hybrid_engine()
+    assert "khmer-phonemizer" in engine.providers
+
 def test_bare_string_provider_output_is_rejected():
     result = HybridKhmerEngine({"untyped": lambda _: "kʰmae"}).analyze("ខ្មែរ")
     assert result["external_candidates"] == []
