@@ -560,17 +560,21 @@ function convert(text, profile) {
       return item.ua;
     }
     if (item.status === "NON_LINGUISTIC") return item.ua;
-    hasStartedOutputRun = true;
-    if (item.status === "PROPOSED") return item.ua;
+    if (item.status === "PROPOSED") {
+      hasStartedOutputRun = true;
+      return item.ua;
+    }
     if (item.fallback_status === "PROVISIONAL" && item.fallback_ukrainian) {
       // The upstream romanizer is called per orthographic unit here, so it
       // may title-case each call. Preserve sentence-level casing: only the
       // first unit in a contiguous run starts uppercase.
-      const candidate = item.fallback_ukrainian;
-      return hasStartedOutputRun && item !== rendered.find((entry) => entry === item)
-        ? candidate.toLocaleLowerCase("uk")
-        : candidate;
+      const candidate = hasStartedOutputRun
+        ? item.fallback_ukrainian.toLocaleLowerCase("uk")
+        : item.fallback_ukrainian;
+      hasStartedOutputRun = true;
+      return candidate;
     }
+    hasStartedOutputRun = true;
     return "???";
   }).join("");
   const complete = linguistic.length > 0 && linguistic.every((item) =>
