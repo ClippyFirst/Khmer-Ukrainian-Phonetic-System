@@ -69,9 +69,8 @@ def test_khmerphonemizer_adapter_returns_token_aligned_partial_ipa(monkeypatch):
     import sys
     from types import SimpleNamespace
 
-    def fake_phonemize(text, **kwargs):
+    def fake_phonemize(text):
         assert text == "ខ្មែរ"
-        assert kwargs["beam"] == 500
         return ["ខ្មែរ"], [["k", "ʰ", "m", "a", "e"]]
 
     monkeypatch.setitem(sys.modules, "khmerphonemizer", SimpleNamespace(phonemize=fake_phonemize))
