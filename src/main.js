@@ -648,15 +648,25 @@ if (typeof document !== "undefined") {
     $("ipa-result").textContent = romanizationOnlyInput
       ? "— · IPA не застосовується до готової романізації"
       : data.ipa;
-    const markUncertainWords = (value) => String(value || "").split(/(\s+)/u)
-      .map((part) => /^\\s+$/u.test(part) || !part ? part : part + "???")
+    const appendMarkerToEveryWord = (value) => String(value || "").split(/(\s+)/u)
+      .map((part) => /^\s+$/u.test(part) || !part ? part : part + "???")
       .join("");
-    $("ua-result").textContent = romanizationOnlyInput
-      ? markUncertainWords(uaRomanized.text || "—")
-      : data.ua;
+    const moveMarkerToWordEnd = (value) => String(value || "").split(/(\s+)/u)
+      .map((part) => {
+        if (/^\s+$/u.test(part) || !part || !part.includes("???")) return part;
+        const candidate = part.split("???").join("");
+        return (candidate || "") + "???";
+      }).join("");
+    const hasUkrainianCandidate = /[\p{L}]/u.test(String(data.ua || "").split("???").join(""));
+    const useRomanizationFallback = usesKhmerRomanizer && !hasUkrainianCandidate && Boolean(uaRomanized.text);
+    $("ua-result").textContent = romanizationOnlyInput || useRomanizationFallback
+      ? appendMarkerToEveryWord(uaRomanized.text || "—")
+      : moveMarkerToWordEnd(data.ua);
     $("status").textContent = romanizationOnlyInput
       ? "BGN/PCGN LATIN INPUT · PROVISIONAL · ??? наприкінці слова означає невстановлену точність · доказовий рівень C"
-      : data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
+      : useRomanizationFallback
+        ? "KHMER ROMANIZATION FALLBACK · PROVISIONAL · орфографічна підказка; ??? наприкінці слова означає невстановлену точність · доказовий рівень C"
+        : data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
     const levelGuidance = {
       strict: "Обережний рівень: показано лише наявні джерельно індексовані пропозиції; непідтверджені IPA/українські форми не реконструюються. PROPOSED не є експертним gold.",
       balanced: "Збалансований рівень: показує основний частковий результат, статус кожної одиниці та причини невизначеності. Невстановлені фрагменти зберігаються на своїх позиціях.",
