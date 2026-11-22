@@ -65,6 +65,7 @@ class HybridKhmerEngine:
                     "priority": PROVIDER_PRIORITY.get(provider_id, DEFAULT_PROVIDER_PRIORITY),
                     "ipa_raw": candidate.raw_output,
                     "profile": candidate.profile,
+                    "profile_match": raw.get("profile_match", "UNVERIFIED"),
                     "kind": candidate.kind,
                     "status": candidate.status.value,
                     "uncertainty": list(candidate.uncertainty),
@@ -94,6 +95,7 @@ class HybridKhmerEngine:
                 "status": "PROVISIONAL",
                 "provider": selected_candidate["provider"],
                 "profile": selected_candidate["profile"],
+                "profile_match": selected_candidate["profile_match"],
                 "kind": selected_candidate["kind"],
                 "uncertainty": list(selected_candidate["uncertainty"]) + [
                     "Candidate selected by configured provider order, not by measured accuracy or majority vote."
@@ -161,6 +163,7 @@ def make_mekongphon_backend(
             "profile": DEFAULT_PROFILE,
             "kind": "PHONETIC_BROAD",
             "status": "PARTIAL",
+            "profile_match": "UNVERIFIED",
             "uncertainty": ["External model output has not been independently adjudicated for this profile."],
             "provenance": {
                 "engine": model_id,
@@ -197,6 +200,7 @@ def make_khmerphonemizer_backend() -> Provider:
             "profile": DEFAULT_PROFILE,
             "kind": "PHONETIC_BROAD",
             "status": "PARTIAL",
+            "profile_match": "UNVERIFIED",
             "uncertainty": [
                 "Khmer Phonemizer output is an external G2P candidate, not independently adjudicated.",
                 "Its dialect, style and segmental conventions have not been demonstrated equivalent to the project's Phnom Penh careful-citation profile.",
