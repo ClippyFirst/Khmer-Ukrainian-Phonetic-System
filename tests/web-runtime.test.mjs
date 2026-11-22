@@ -29,9 +29,13 @@ assert.equal(result.units.filter((unit) => unit.status !== "PUNCTUATION").length
 assert.ok(result.units.filter((unit) => unit.status !== "PUNCTUATION").every((unit) => unit.status === "PROPOSED"), "no linguistic unit in the 32-item regression block may remain unresolved");
  
 const unresolvedWord = convert("កម្ពុជាប្រជាធិបតេយ្យ", "khmer-pph-careful-citation-v1");
-assert.equal(unresolvedWord.ipa, "⟦NOT_ESTABLISHED⟧", "the public IPA line must show one abstention marker for a contiguous unresolved Khmer word/run, not one per orthographic unit");
-assert.equal(unresolvedWord.units.filter((unit) => unit.status === "NOT_ESTABLISHED").length, 3, "per-unit diagnostics must retain all three unresolved orthographic units");
+assert.equal(unresolvedWord.ipa, "⟦NOT_ESTABLISHED⟧", "the public IPA line must retain one abstention marker for the unresolved Khmer word/run");
+assert.equal(unresolvedWord.ua, "Кампучеапчеат'іптей", "the user-facing Ukrainian result must offer the best available per-unit orthographic candidate without requiring a mode switch");
+assert.equal(unresolvedWord.units.filter((unit) => unit.status === "NOT_ESTABLISHED").length, 3, "per-unit phonetic status must retain all three unresolved orthographic units");
+assert.ok(unresolvedWord.units.every((unit) => unit.fallback_status === "PROVISIONAL" && unit.ua && unit.ua !== "⟦НЕВСТАНОВЛЕНО⟧"), "each unresolved but romanizable unit must expose a provisional Ukrainian candidate");
 assert.equal(unresolvedWord.phonetic_result.units.filter((unit) => unit.status === "NOT_ESTABLISHED").length, 3, "machine-readable IPA provenance must retain per-unit uncertainty");
+assert.ok(unresolvedWord.phonetic_result.units.every((unit) => unit.ukrainian_kind === "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"), "machine-readable output must distinguish orthographic fallback from IPA-derived Ukrainian");
+assert.ok(unresolvedWord.phonetic_result.units.every((unit) => unit.ipa === "⟦NOT_ESTABLISHED⟧"), "a Ukrainian fallback must never manufacture IPA");
 
 
 const bySource = Object.fromEntries(result.units.map((unit) => [unit.source, unit]));
