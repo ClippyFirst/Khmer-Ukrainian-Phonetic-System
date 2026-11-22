@@ -1,5 +1,28 @@
 import { test, expect } from "@playwright/test";
 
+test.beforeEach(async ({ page }, testInfo) => {
+  if (testInfo.title === "research tools are collapsed by default and can be opened on demand") return;
+  await page.addInitScript(() => {
+    document.addEventListener("DOMContentLoaded", () => {
+      const drawer = document.querySelector("#research-details");
+      if (drawer) drawer.open = true;
+      const settings = document.querySelector(".input-research-options");
+      if (settings) settings.open = true;
+    });
+  });
+});
+
+test("research tools are collapsed by default and can be opened on demand", async ({ page }) => {
+  await page.goto("/");
+  const drawer = page.locator("#research-details");
+  await page.locator("#source").fill("ក");
+  await expect(page.locator("#results")).toBeVisible();
+  await expect(drawer).not.toHaveAttribute("open");
+  await expect(page.locator(" #ua-result")).toBeVisible();
+  await drawer.locator("summary").click();
+  await expect(drawer).toHaveJSProperty("open", true);
+});
+
 async function contrastRatio(page, foregroundSelector, backgroundSelector) {
   return page.evaluate(({ foregroundSelector, backgroundSelector }) => {
     const foreground = document.querySelector(foregroundSelector);
