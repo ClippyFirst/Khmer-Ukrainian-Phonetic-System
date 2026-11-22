@@ -648,9 +648,14 @@ if (typeof document !== "undefined") {
     $("ipa-result").textContent = romanizationOnlyInput
       ? "— · IPA не застосовується до готової романізації"
       : data.ipa;
-    $("ua-result").textContent = romanizationOnlyInput ? (uaRomanized.text || "—") : data.ua;
+    const markUncertainWords = (value) => String(value || "").split(/(\\s+)/u)
+      .map((part) => /^\\s+$/u.test(part) || !part ? part : part + "???")
+      .join("");
+    $("ua-result").textContent = romanizationOnlyInput
+      ? markUncertainWords(uaRomanized.text || "—")
+      : data.ua;
     $("status").textContent = romanizationOnlyInput
-      ? "BGN/PCGN LATIN INPUT · PROVISIONAL · доказовий рівень C"
+      ? "BGN/PCGN LATIN INPUT · PROVISIONAL · ??? наприкінці слова означає невстановлену точність · доказовий рівень C"
       : data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
     const levelGuidance = {
       strict: "Обережний рівень: показано лише наявні джерельно індексовані пропозиції; непідтверджені IPA/українські форми не реконструюються. PROPOSED не є експертним gold.",
