@@ -48,6 +48,7 @@ class HybridKhmerEngine:
             self.providers.items(),
             key=lambda item: (PROVIDER_PRIORITY.get(item[0], DEFAULT_PROVIDER_PRIORITY), item[0]),
         ):
+            raw: Any = None
             try:
                 raw = provider(normalized)
                 if not isinstance(raw, dict):
@@ -76,7 +77,10 @@ class HybridKhmerEngine:
                     "promotion": "WITHHELD_PENDING_INDEPENDENT_PROFILE_MATCHED_ADJUDICATION",
                 })
             except Exception as exc:
-                failures.append({"provider": provider_id, "reason": str(exc) or type(exc).__name__})
+                failure = {"provider": provider_id, "reason": str(exc) or type(exc).__name__}
+                if isinstance(raw, dict) and isinstance(raw.get("ipa"), str):
+                    failure["raw_output"] = raw["ipa"]
+                failures.append(failure)
 
         # Keep canonical fields untouched. When they are unresolved, expose the
         # first provider candidate that crosses the existing Ukrainian IPA
