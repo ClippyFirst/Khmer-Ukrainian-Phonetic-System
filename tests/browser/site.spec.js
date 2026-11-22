@@ -312,6 +312,7 @@ test("romanization method can be activated by keyboard and status is announced",
 test("unresolved Khmer-script phrase shows the actual romanization-derived candidate with one final marker", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("កម្ពុជាប្រជាធិបតេយ្យ");
+  await expect(page.locator("#ipa-result")).toHaveText("⟦NOT_ESTABLISHED⟧");
   await expect(page.locator("#ua-result")).not.toHaveText("???");
   await expect(page.locator("#ua-result")).toHaveText(/\?\?\?$/u);
   await expect(page.locator("#status")).toContainText("KHMER ROMANIZATION FALLBACK");
