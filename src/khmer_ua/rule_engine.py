@@ -362,6 +362,11 @@ class RuleBasedKhmerEngine:
                 ukrainian=ua_value,
                 profile=self.profile,
                 ipa_kind="NOT_APPLICABLE" if status in {"PUNCTUATION", "NON_LINGUISTIC"} else "UNRESOLVED",
+                ukrainian_kind=(
+                    "NOT_APPLICABLE" if status in {"PUNCTUATION", "NON_LINGUISTIC"}
+                    else "IPA_DERIVED" if status == "PROPOSED" and source_ipa is not None and source_ua is not None
+                    else "UNRESOLVED"
+                ),
                 rule_trace=tuple(unit.get("rule_trace", [])),
                 provenance={
                     "structure": tuple(structural_sources),
