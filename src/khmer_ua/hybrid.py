@@ -179,6 +179,44 @@ def make_mekongphon_backend(
     return predict
 
 
+def make_epitran_backend(language_code: str = "khm-Khmr") -> Provider:
+    """Lazy adapter for Epitran's explicitly provisional Khmer map."""
+    state: dict[str, Any] = {}
+
+    def predict(text: str) -> dict[str, Any]:
+        if not state:
+            try:
+                import epitran
+            except ImportError as exc:
+                raise RuntimeError(
+                    "Install the optional Epitran extra: pip install .[epitran]"
+                ) from exc
+            state["engine"] = epitran.Epitran(language_code)
+        ipa = state["engine"].transliterate(text)
+        return {
+            "ipa": ipa,
+            "profile": DEFAULT_PROFILE,
+            "profile_match": "UNVERIFIED",
+            "kind": "PHONEMIC",
+            "status": "PARTIAL",
+            "uncertainty": [
+                "Epitran classifies khm-Khmr as provisional language support.",
+                "The available mapping is not independently adjudicated for the project's Phnom Penh careful-citation profile.",
+                "Coverage of vowel signs, codas, register interactions and tone has not been demonstrated complete."
+            ],
+            "provenance": {
+                "engine": "epitran",
+                "package_version": "1.35.1",
+                "language_code": language_code,
+                "language_support_status": "PROVISIONAL",
+                "license": "MIT-Modern-Variant",
+                "map_file_sha256": "9c0dd7d9f63ab260ac38f5b7a0d51b18ab28da2b",
+                "postprocessor_file_sha256": "e84cf98f408df1f135404549ea95ecb2a80a844d",
+            },
+        }
+    return predict
+
+
 def make_khmerphonemizer_backend() -> Provider:
     """Lazy adapter for the MIT-licensed Khmer Phonemizer 0.0.3 package.
 
@@ -222,6 +260,7 @@ def create_hybrid_engine(
     providers: dict[str, Provider] | None = None,
     *,
     include_khmerphonemizer: bool | None = None,
+    include_epitran: bool | None = None,
     include_mekongphon: bool = False,
 ) -> HybridKhmerEngine:
     """Create a hybrid engine, auto-using Khmer Phonemizer when installed.
@@ -234,6 +273,10 @@ def create_hybrid_engine(
         include_khmerphonemizer = providers is None and find_spec("khmerphonemizer") is not None
     if include_khmerphonemizer:
         selected.setdefault("khmer-phonemizer", make_khmerphonemizer_backend())
+    if include_epitran is None:
+        include_epitran = providers is None and find_spec("epitran") is not None
+    if include_epitran:
+        selected.setdefault("epitran", make_epitran_backend())
     if include_mekongphon:
         selected.setdefault("mekongphon", make_mekongphon_backend())
     return HybridKhmerEngine(providers=selected)
@@ -267,5 +310,6 @@ __all__ = [
     "create_hybrid_engine",
     "make_mekongphon_backend",
     "make_khmerphonemizer_backend",
+    "make_epitran_backend",
     "make_command_backend",
 ]
