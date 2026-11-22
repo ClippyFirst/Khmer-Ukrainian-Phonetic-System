@@ -52,6 +52,19 @@ def test_mappable_external_ipa_is_exposed_as_provisional_when_internal_ipa_is_un
     assert "not independently adjudicated" in candidate["uncertainty"][0]
 
 
+
+def test_valid_external_ipa_is_retained_even_when_ukrainian_mapping_is_missing():
+    source = "កម្ពុជាប្រជាធិបតេយ្យ"
+    result = HybridKhmerEngine({
+        "khmer-phonemizer": lambda _: typed("q")
+    }).analyze(source)
+
+    candidate = result["provisional_candidate"]
+    assert candidate["ipa"] == "q"
+    assert candidate["status"] == "PROVISIONAL"
+    assert candidate["ukrainian"] is None
+    assert candidate["ukrainian_mapping_failure"] == "q"
+
 def test_khmerphonemizer_adapter_returns_token_aligned_partial_ipa(monkeypatch):
     import sys
     from types import SimpleNamespace
