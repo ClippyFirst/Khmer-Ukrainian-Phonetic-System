@@ -5992,3 +5992,11 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - The IPA line remains `⟦NOT_ESTABLISHED⟧`; per-unit uncertainty and evidence provenance are unchanged. The UI status explicitly identifies the candidate as an orthographic-romanization fallback, not an IPA-derived pronunciation. Mixed partially-resolved input and malformed/unrenderable fragments retain local abstention markers.
 - Updated the browser regression for the reported phrase and the shared onset-fallback fixture, plus README and deterministic-engine contract. No phonological rule, IPA value, gold label, or accuracy claim was added.
 - **Acceptance:** exact-head Node/web tests, production build, Chromium browser suite, and post-merge Pages deployment/smoke must pass. Until then this change is PARTIAL, not DONE_VERIFIED.
+
+
+### Strict-level boundary follow-up — 2026-11-22
+
+- Follow-up branch `fix/strict-level-romanization-fallback-guard-20261122`, based on merged candidate commit `03866cbc024b4bc9211f1e3d03a76561b43efb46`.
+- The provisional orthographic fallback is shown only in Soft and Super-soft. Strict continues to show `???` for unresolved phonetic units, preserving the existing Strict contract.
+- Browser regression explicitly switches the reported phrase from Soft → Strict → Soft and checks both behaviors. README and engine contract now state this boundary.
+- **Acceptance:** exact-head Quality checks and Chromium browser smoke must pass before merge; Pages deployment must pass after merge.
