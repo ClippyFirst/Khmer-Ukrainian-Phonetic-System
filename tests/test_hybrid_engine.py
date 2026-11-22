@@ -1,6 +1,6 @@
 import pytest
 
-from khmer_ua import HybridKhmerEngine, RuleBasedKhmerEngine, create_hybrid_engine
+from khmer_ua import HybridKhmerEngine, RuleBasedKhmerEngine, create_hybrid_engine, make_khmerphonemizer_backend
 
 
 def typed(ipa, *, status="PARTIAL", uncertainty=("not independently adjudicated",), kind="PHONETIC_BROAD"):
@@ -33,6 +33,46 @@ def test_provider_candidate_uses_typed_ipa_boundary_and_preserves_raw_string():
     assert candidate["promotion"].startswith("WITHHELD")
     assert result["ipa"] == RuleBasedKhmerEngine().analyze("ខ្មែរ")["ipa"]
 
+
+
+def test_mappable_external_ipa_is_exposed_as_provisional_when_internal_ipa_is_unresolved():
+    source = "កម្ពុជាប្រជាធិបតេយ្យ"
+    baseline = RuleBasedKhmerEngine().analyze(source)
+    result = HybridKhmerEngine({
+        "khmer-phonemizer": lambda _: typed("/kɑː/")
+    }).analyze(source)
+
+    assert result["ipa"] == baseline["ipa"]
+    assert result["ukrainian"] == baseline["ukrainian"]
+    candidate = result["provisional_candidate"]
+    assert candidate["status"] == "PROVISIONAL"
+    assert candidate["provider"] == "khmer-phonemizer"
+    assert candidate["ipa"] == "/kɑː/"
+    assert candidate["ukrainian"] == "ка"
+    assert "not independently adjudicated" in candidate["uncertainty"][0]
+
+
+def test_khmerphonemizer_adapter_returns_token_aligned_partial_ipa(monkeypatch):
+    import sys
+    from types import SimpleNamespace
+
+    def fake_phonemize(text, **kwargs):
+        assert text == "ខ្មែរ"
+        assert kwargs["beam"] == 500
+        return ["ខ្មែរ"], [["k", "ʰ", "m", "a", "e"]]
+
+    monkeypatch.setitem(sys.modules, "khmerphonemizer", SimpleNamespace(phonemize=fake_phonemize))
+    candidate = make_khmerphonemizer_backend()("ខ្មែរ")
+    assert candidate["ipa"] == "kʰmae"
+    assert candidate["status"] == "PARTIAL"
+    assert candidate["kind"] == "PHONETIC_BROAD"
+    assert candidate["provenance"]["license"] == "MIT"
+
+
+def test_hybrid_factory_can_opt_in_to_lazy_khmerphonemizer_provider():
+    engine = create_hybrid_engine(include_khmerphonemizer=True)
+    assert isinstance(engine, HybridKhmerEngine)
+    assert "khmer-phonemizer" in engine.providers
 
 def test_bare_string_provider_output_is_rejected():
     result = HybridKhmerEngine({"untyped": lambda _: "kʰmae"}).analyze("ខ្មែរ")
