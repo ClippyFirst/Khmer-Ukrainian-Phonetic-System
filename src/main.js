@@ -641,9 +641,17 @@ if (typeof document !== "undefined") {
       : uaRomanized.status === "PARTIAL"
         ? "PARTIAL · зіставлено " + uaRomanized.mapped + " фрагм.; " + uaRomanized.unsupported + " непідтримуваних фрагм. позначено в ⟦…⟧."
         : "PASSTHROUGH · латинських фрагментів для романізації немає; сторонній текст збережено.";
-    $("ipa-result").textContent = data.ipa;
-    $("ua-result").textContent = data.ua;
-    $("status").textContent = data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
+    const romanizationOnlyInput = hasLatin && !hasKhmer;
+    // A Latin BGN/PCGN input is already romanized: do not send it through the
+    // Khmer orthography parser and then present its expected abstention as the
+    // primary result. Route it to the separate orthographic UA renderer.
+    $("ipa-result").textContent = romanizationOnlyInput
+      ? "— · IPA не застосовується до готової романізації"
+      : data.ipa;
+    $("ua-result").textContent = romanizationOnlyInput ? (uaRomanized.text || "—") : data.ua;
+    $("status").textContent = romanizationOnlyInput
+      ? "BGN/PCGN LATIN INPUT · PROVISIONAL · доказовий рівень C"
+      : data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
     const levelGuidance = {
       strict: "Обережний рівень: показано лише наявні джерельно індексовані пропозиції; непідтверджені IPA/українські форми не реконструюються. PROPOSED не є експертним gold.",
       balanced: "Збалансований рівень: показує основний частковий результат, статус кожної одиниці та причини невизначеності. Невстановлені фрагменти зберігаються на своїх позиціях.",
