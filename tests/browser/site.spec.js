@@ -20,7 +20,7 @@ test("research tools are collapsed by default and can be opened on demand", asyn
   await expect(drawer).not.toHaveAttribute("open");
   await expect(page.locator(" #ua-result")).toBeVisible();
   await drawer.locator("summary").click();
-  await expect(drawer).toBeOpen();
+  await expect(drawer).toHaveJSProperty("open", true);
 });
 
 async function contrastRatio(page, foregroundSelector, backgroundSelector) {
