@@ -339,7 +339,7 @@ test("unresolved Khmer phrase keeps IPA and romanization candidates in separate 
   await page.locator("#source").fill("កម្ពុជាប្រជាធិបតេយ្យ");
   await expect(page.locator("#ipa-result")).toHaveText("⟦NOT_ESTABLISHED⟧");
   await expect(page.locator("#ua-result")).not.toHaveText("Кампучеапчеат'іптей");
-  await expect(page.locator("#ua-result")).toContainText("НЕВСТАНОВЛЕНО");
+  await expect(page.locator("#ua-result")).toContainText("???");
   await page.locator("#mode-romanization").click();
   await expect(page.locator("#ua-result")).toHaveText("Кампучеапчеат'іптей");
   await expect(page.locator("#ua-result")).not.toContainText("???");
