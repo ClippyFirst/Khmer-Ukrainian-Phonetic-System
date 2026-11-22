@@ -6000,3 +6000,13 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - The provisional orthographic fallback is shown only in Soft and Super-soft. Strict continues to show `???` for unresolved phonetic units, preserving the existing Strict contract.
 - Browser regression explicitly switches the reported phrase from Soft → Strict → Soft and checks both behaviors. README and engine contract now state this boundary.
 - **Acceptance:** exact-head Quality checks and Chromium browser smoke must pass before merge; Pages deployment must pass after merge.
+
+
+## Post-merge closeout — provisional Khmer Ukrainian candidate — 2026-11-22
+
+- **DONE_VERIFIED — PR #516:** merged as `03866cbc024b4bc9211f1e3d03a76561b43efb46`. In Soft/Super-soft, fully renderable unresolved Khmer input now receives the BGN/PCGN-derived Ukrainian orthographic candidate without a trailing `???`; status explicitly labels it PROVISIONAL and not IPA-derived. For `កម្ពុជាប្រជាធិបតេយ្យ`, expected candidate: `Кампучеапчеат'іптей`. IPA remains `⟦NOT_ESTABLISHED⟧` and all per-unit uncertainty remains.
+- **DONE_VERIFIED — PR #517:** merged as `c9939495943d4fd264eeac34e4a52ba0ed67a4a9`. Strict withholds the orthographic fallback; Soft and Super-soft show it. Browser regression switches Soft → Strict → Soft.
+- **Exact-head PR checks:** PR #516 Quality [45074940396](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45074940396) SUCCESS and Chromium [45074940435](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45074940435) SUCCESS. PR #517 Quality [45075099714](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45075099714) SUCCESS and Chromium [45075099754](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45075099754) SUCCESS.
+- **Post-merge main verification:** Quality [45075171449](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45075171449) SUCCESS; Chromium [45075171521](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45075171521) SUCCESS; GitHub Pages build/deploy [45075171498](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45075171498) SUCCESS, including production Chromium exercise and deployed site/runtime-asset smoke.
+- **Published:** https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/
+- No IPA, phonological rules, benchmark labels, expert-gold rows or accuracy claims were invented. The fallback is an orthographic candidate only; full source-language phonology/IPA coverage remains incomplete and linguistic accuracy remains NOT_ASSESSED.
