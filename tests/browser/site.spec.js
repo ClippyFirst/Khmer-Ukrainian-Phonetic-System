@@ -22,7 +22,7 @@ test("Latin BGN/PCGN input renders a provisional Ukrainian form in the primary r
   await page.locator("#source").fill("Kampucheapcheathiptey");
   await expect(page.locator("#ua-result")).toContainText("Кампучеа???");
   await expect(page.locator("#status")).toContainText("BGN/PCGN LATIN INPUT");
-  await expect(page.locator("#ua-result")).toHaveText(/\\?\\?\\?$/u);
+  await expect(page.locator("#ua-result")).toHaveText(/\?\?\?$/u);
   await expect(page.locator("#ipa-result")).toContainText("IPA не застосовується");
 });
 
@@ -313,7 +313,7 @@ test("unresolved Khmer-script phrase shows the actual romanization-derived candi
   await page.goto("/");
   await page.locator("#source").fill("កម្ពុជាប្រជាធិបតេយ្យ");
   await expect(page.locator("#ua-result")).not.toHaveText("???");
-  await expect(page.locator("#ua-result")).toHaveText(/\\?\\?\\?$/u);
+  await expect(page.locator("#ua-result")).toHaveText(/\?\?\?$/u);
   await expect(page.locator("#status")).toContainText("KHMER ROMANIZATION FALLBACK");
 });
 
@@ -327,7 +327,7 @@ test("shared onset fallback fixture keeps IPA unresolved and shows the actual ro
     await page.locator("#source").fill(item.source);
     await expect(page.locator("#results")).toBeVisible();
     await expect(page.locator("#ipa-result")).toHaveText(item.canonical_ipa_display);
-    await expect(page.locator("#ua-result")).toHaveText(/\\?\\?\\?$/u);
+    await expect(page.locator("#ua-result")).toHaveText(/\?\?\?$/u);
     await expect(page.locator("#status")).toContainText("PROVISIONAL");
     await expect(page.locator("#unit-details")).toContainText("Попередня підказка: " + item.provisional_ipa + " → " + item.provisional_ukrainian + " [PROVISIONAL]");
     await expect(page.locator(".unit-detail")).toHaveAttribute("data-fallback-rule-id", item.rule_id);
