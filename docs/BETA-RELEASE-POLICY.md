@@ -55,3 +55,16 @@ The project will not wait indefinitely for external specialists who are unavaila
 3. Inspect generated artifacts and confirm no uncleared data/model assets entered the build.
 4. Publish a beta release only after the repository owner explicitly authorizes publication.
 5. Preserve this policy and record any later linguistic validation as a separate evidence milestone.
+
+
+## Shared strictness-level semantics (2026-11-22)
+
+The browser exposes three levels under the shared project vocabulary. Existing internal values are retained for backward compatibility:
+
+| Shared level | Internal value | Inclusion rule |
+|---|---|---|
+| **Strict** | `strict` | Only source-indexed proposals with explicit support. Unsupported IPA and Ukrainian forms are not reconstructed. |
+| **Soft** | `balanced` | Show the available partial result, per-unit status and reasons for uncertainty; unresolved fragments retain their positions. |
+| **Super-soft** | `exploratory` | Additionally expose partial structural/onset hints. These are not complete syllables, IPA or confirmed Ukrainian pronunciation. |
+
+These are disclosure/acceptance levels, not three different phonological truth claims. The Super-soft channel must remain visibly research-only and must not overwrite the Strict result. The UI note and per-unit statuses remain authoritative. If a future rule cannot preserve this distinction, it must not be enabled by a label change alone.
