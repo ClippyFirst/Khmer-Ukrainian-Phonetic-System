@@ -565,14 +565,10 @@ function convert(text, profile) {
       return item.ua;
     }
     if (item.fallback_status === "PROVISIONAL" && item.fallback_ukrainian) {
-      // The upstream romanizer is called per orthographic unit here, so it
-      // may title-case each call. Preserve sentence-level casing: only the
-      // first unit in a contiguous run starts uppercase.
-      const candidate = hasStartedOutputRun
-        ? item.fallback_ukrainian.toLocaleLowerCase("uk")
-        : item.fallback_ukrainian;
+      // A provisional romanization is available in the separate method
+      // selector, but it must never be inserted into the IPA-derived result.
       hasStartedOutputRun = true;
-      return candidate;
+      return "???";
     }
     hasStartedOutputRun = true;
     return "???";
@@ -586,12 +582,10 @@ function convert(text, profile) {
     ipa_kind: ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status) ? "NOT_APPLICABLE" : "UNRESOLVED",
     rule_trace: item.rule_trace ?? [],
     ipa: item.status !== "PUNCTUATION" && /^\/.*\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa,
-    ukrainian: item.ua,
-    ukrainian_kind: item.fallback_status === "PROVISIONAL"
-      ? "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
-      : ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
-        ? "NOT_APPLICABLE"
-        : item.status === "PROPOSED" ? "IPA_DERIVED" : "UNRESOLVED",
+    ukrainian: item.fallback_status === "PROVISIONAL" ? "???" : item.ua,
+    ukrainian_kind: ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
+      ? "NOT_APPLICABLE"
+      : item.status === "PROPOSED" ? "IPA_DERIVED" : "UNRESOLVED",
     profile,
     provenance: {
       phonology: item.evidence ?? [],
@@ -617,7 +611,7 @@ function convert(text, profile) {
       + unresolved.length + " потребують окремого встановлення або перевірки (" + notEstablished
       + " не встановлено, " + evidenceLimited + " з обмеженою доказовістю, " + invalid
       + " некоректних/непідтримуваних); " + linguistic.filter((item) => item.fallback_status === "PROVISIONAL").length
-      + " мають попередній орфографічний український кандидат. Невизначеність IPA збережено; доступні кандидати показано без вимоги перемикати режими."
+      + " мають попередній орфографічний український кандидат, доступний в окремому режимі романізації. Невизначеність IPA збережено; результати двох методів не змішуються."
       + (unresolvedNames.length ? " Невстановлені/проблемні одиниці: " + unresolvedNames.join(" · ") + "." : ""),
     profile,
     units: rendered,
