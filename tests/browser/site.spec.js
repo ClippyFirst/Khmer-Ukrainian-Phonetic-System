@@ -231,7 +231,7 @@ test("pre-romanized BGN/PCGN input maps directly to Ukrainian with diacritics", 
   await expect(page.locator("#ua-romanization-result")).toHaveText("Кампучеа");
   await expect(page.locator("#ua-romanization-status")).toContainText("PROVISIONAL");
   await expect(page.locator("#romanization-title")).toHaveText("Вхідна романізація · BGN/PCGN 1972");
-  await expect(page.locator("#ipa-result")).toBeHidden();
+  await expect(page.locator("#ipa-result")).toBeVisible();
 });
 
 test("unknown pre-romanized fragments are bracketed, not guessed", async ({ page }) => {
