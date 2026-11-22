@@ -20,8 +20,11 @@ test.beforeEach(async ({ page }, testInfo) => {
 test("Latin BGN/PCGN input renders a provisional Ukrainian form in the primary result", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("Kampucheapcheathiptey");
-  await expect(page.locator("#ua-result")).toContainText("Кампучеапчеат'іптей???");
-  await expect(page.locator("#status")).toContainText("BGN/PCGN LATIN INPUT");
+  await expect(page.locator("#ua-result")).toHaveText("— · для готової романізації оберіть метод «З романізації»");
+  await expect(page.locator("#status")).toContainText("IPA НЕ ЗАСТОСОВУЄТЬСЯ");
+  await page.locator("#mode-romanization").click();
+  await expect(page.locator("#ua-result")).toHaveText("Кампучеапчеат'іптей");
+  await expect(page.locator("#status")).toContainText("РОМАНІЗАЦІЯ");
   await expect(page.locator("#ua-result")).toHaveText(/\?\?\?$/u);
   await expect(page.locator("#ipa-result")).toContainText("IPA не застосовується");
 });
@@ -223,12 +226,32 @@ test("clear control restores the empty state", async ({ page }) => {
   await expect(page.locator("#empty")).toBeVisible();
 });
 
+
+test("IPA and romanization method switches are visible beside the primary result without opening research details", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("សុខា");
+  const drawer = page.locator("#research-details");
+  await expect(drawer).not.toHaveAttribute("open", "");
+  const group = page.getByRole("group", { name: "Метод українського запису" });
+  await expect(group).toBeVisible();
+  await expect(group.getByRole("button", { name: "За IPA" })).toBeVisible();
+  await expect(group.getByRole("button", { name: "З романізації" })).toBeVisible();
+  await expect(page.locator("#ua-result-title")).toHaveText("Українська за вимовою (IPA)");
+  await group.getByRole("button", { name: "З романізації" }).click();
+  await expect(page.locator("#ua-result-title")).toHaveText("Українська з романізації");
+  await expect(page.locator("#ua-result")).toHaveText("Сок'а");
+  await group.getByRole("button", { name: "За IPA" }).click();
+  await expect(page.locator("#ua-result-title")).toHaveText("Українська за вимовою (IPA)");
+  await expect(page.locator("#ua-result")).not.toHaveText("Сок'а");
+});
+
 test("romanization mode renders a separate provisional Ukrainian form", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("សុខា");
   await page.locator("#mode-romanization").click();
   await expect(page.locator("#romanization-result")).toHaveText("Sokha");
   await expect(page.locator("#ua-romanization-result")).toHaveText("Сок'а");
+  await expect(page.locator("#ua-result")).toHaveText("Сок'а");
   await expect(page.locator("#ua-romanization-status")).toContainText("PROVISIONAL");
   await expect(page.locator("#ipa-result")).toBeVisible();
 });
@@ -240,6 +263,7 @@ test("pre-romanized BGN/PCGN input maps directly to Ukrainian with diacritics", 
   await page.locator("#mode-romanization").click();
   await expect(page.locator("#romanization-result")).toHaveText("Kâmpŭchéa");
   await expect(page.locator("#ua-romanization-result")).toHaveText("Кампучеа");
+  await expect(page.locator("#ua-result")).toHaveText("Кампучеа");
   await expect(page.locator("#ua-romanization-status")).toContainText("PROVISIONAL");
   await expect(page.locator("#romanization-title")).toHaveText("Вхідна романізація · BGN/PCGN 1972");
   await expect(page.locator("#ipa-result")).toBeVisible();
@@ -291,15 +315,15 @@ test("primary input and method controls expose accessible names", async ({ page 
   await expect(page.getByRole("textbox", { name: "Введіть кмерський текст або латинську романізацію BGN/PCGN 1972" })).toBeVisible();
   await page.locator("#source").fill("ក");
   const methodGroup = page.getByRole("group", { name: "Метод українського запису" });
-  await expect(methodGroup.getByRole("button", { name: "Фонетичний" })).toBeVisible();
-  await expect(methodGroup.getByRole("button", { name: "За романізацією" })).toBeVisible();
+  await expect(methodGroup.getByRole("button", { name: "За IPA" })).toBeVisible();
+  await expect(methodGroup.getByRole("button", { name: "З романізації" })).toBeVisible();
   await expect(page.getByRole("button", { name: "Очистити" })).toBeVisible();
 });
 
 test("romanization method can be activated by keyboard and status is announced", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("Kâmpŭchéa");
-  const romanizationButton = page.getByRole("button", { name: "За романізацією" });
+  const romanizationButton = page.getByRole("button", { name: "З романізації" });
   await romanizationButton.focus();
   await page.keyboard.press("Enter");
   await expect(romanizationButton).toHaveAttribute("aria-pressed", "true");
