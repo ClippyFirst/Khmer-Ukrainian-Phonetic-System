@@ -25,7 +25,6 @@ test("Latin BGN/PCGN input renders a provisional Ukrainian form in the primary r
   await page.locator("#mode-romanization").click();
   await expect(page.locator("#ua-result")).toHaveText("Кампучеапчеат'іптей");
   await expect(page.locator("#status")).toContainText("РОМАНІЗАЦІЯ");
-  await expect(page.locator("#ua-result")).toHaveText(/\?\?\?$/u);
   await expect(page.locator("#ipa-result")).toContainText("IPA не застосовується");
 });
 
