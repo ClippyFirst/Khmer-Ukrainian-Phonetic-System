@@ -194,13 +194,7 @@ def make_khmerphonemizer_backend(
             raise RuntimeError(
                 "Install the optional phonemizer extra: pip install .[phonemizer]"
             ) from exc
-        tokens, phone_lists = phonemize(
-            text,
-            beam=beam,
-            min_beam=min_beam,
-            beam_score=beam_score,
-            use_lexicon=use_lexicon,
-        )
+        tokens, phone_lists = phonemize(text)
         if not tokens or not phone_lists or len(tokens) != len(phone_lists):
             raise ValueError("Khmer Phonemizer returned no aligned token/phone output")
         ipa = " ".join("".join(str(phone) for phone in phones) for phones in phone_lists)
@@ -219,10 +213,7 @@ def make_khmerphonemizer_backend(
                 "package_version": "0.0.3",
                 "license": "MIT",
                 "tokens": list(tokens),
-                "beam": beam,
-                "min_beam": min_beam,
-                "beam_score": beam_score,
-                "use_lexicon": use_lexicon,
+                "inference_parameters": "package phonemize() defaults; the public word-level wrapper does not accept beam overrides",
             },
         }
     return predict
