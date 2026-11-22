@@ -319,6 +319,17 @@ test("unresolved Khmer-script phrase shows a provisional romanization-derived ca
   await expect(page.locator("#status")).toContainText("не IPA-вимова");
 });
 
+test("Strict output level withholds the orthographic fallback while Soft offers it", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("កម្ពុជាប្រជាធិបតេយ្យ");
+  await expect(page.locator("#ua-result")).toHaveText("Кампучеапчеат'іптей");
+  await page.locator("#output-level").selectOption("strict");
+  await expect(page.locator("#ua-result")).toHaveText("???");
+  await expect(page.locator("#status")).toContainText("NOT ESTABLISHED");
+  await page.locator("#output-level").selectOption("balanced");
+  await expect(page.locator("#ua-result")).toHaveText("Кампучеапчеат'іптей");
+});
+
 test("shared onset fallback fixture keeps IPA unresolved and shows the actual romanization-derived preview", async ({ page }) => {
   const { readFileSync } = await import("node:fs");
   const fixture = JSON.parse(readFileSync(new URL("../../data/tests/khmer-onset-fallback-fixtures.json", import.meta.url), "utf8"));
