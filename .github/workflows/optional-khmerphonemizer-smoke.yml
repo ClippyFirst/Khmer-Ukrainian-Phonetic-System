@@ -59,7 +59,7 @@ jobs:
               "interpretation": "Raw optional provider diagnostic; not an accuracy score or adjudicated gold.",
           }
           Path("artifacts/hybrid/khmer-phonemizer-hybrid-candidate.json").write_text(
-              json.dumps(payload, ensure_ascii=False, indent=2) + "\\n",
+              json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
               encoding="utf-8",
           )
           print(json.dumps(payload, ensure_ascii=False, indent=2))
