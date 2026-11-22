@@ -78,6 +78,7 @@ def test_khmerphonemizer_adapter_returns_token_aligned_partial_ipa(monkeypatch):
     assert candidate["ipa"] == "kʰmae"
     assert candidate["status"] == "PARTIAL"
     assert candidate["kind"] == "PHONETIC_BROAD"
+    assert candidate["profile_match"] == "UNVERIFIED"
     assert candidate["provenance"]["license"] == "MIT"
 
 
