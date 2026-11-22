@@ -6010,3 +6010,12 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - **Post-merge main verification:** Quality [45075171449](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45075171449) SUCCESS; Chromium [45075171521](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45075171521) SUCCESS; GitHub Pages build/deploy [45075171498](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45075171498) SUCCESS, including production Chromium exercise and deployed site/runtime-asset smoke.
 - **Published:** https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/
 - No IPA, phonological rules, benchmark labels, expert-gold rows or accuracy claims were invented. The fallback is an orthographic candidate only; full source-language phonology/IPA coverage remains incomplete and linguistic accuracy remains NOT_ASSESSED.
+
+## Automatic best-effort Ukrainian output — 2026-11-23
+
+- User clarified that selecting Strict/Soft/Super-soft is not an acceptable prerequisite for seeing an approximate candidate. The expected default is: established IPA-derived forms render normally; unresolved but romanizable units automatically receive a provisional Ukrainian candidate; genuinely unrenderable/malformed units retain a local `???`.
+- Implemented in `src/main.js`: each unresolved Khmer orthographic unit is independently passed through the existing BGN/PCGN-derived romanizer and Ukrainian orthographic adapter. The candidate is displayed in the primary output and unit diagnostics, with explicit `PROVISIONAL` provenance. This does not fabricate IPA; the unit's IPA and phonetic status remain `NOT_ESTABLISHED`.
+- Removed the detail-level gate from the remaining whole-input fallback. The best-effort candidate is now automatic at Strict, Balanced and Exploratory detail levels.
+- Extended `schemas/phonetic-result.schema.json` with `ukrainian_kind=ORTHOGRAPHIC_ROMANIZATION_FALLBACK`, keeping it distinct from `IPA_DERIVED` and `UNRESOLVED`.
+- Added runtime and browser regression coverage for the reported phrase, all three detail levels, and an unresolved Khmer cluster.
+- **Acceptance still pending:** exact-head Quality, browser, schema validation, build, and post-merge Pages smoke. Do not mark DONE_VERIFIED until all pass. Linguistic accuracy remains unmeasured; this is an explicitly provisional orthographic fallback, not a phonetic gold result.

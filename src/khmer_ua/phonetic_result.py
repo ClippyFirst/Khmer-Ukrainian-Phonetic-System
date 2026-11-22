@@ -32,6 +32,7 @@ class PhoneticUnitResult:
     # Until the expert-approved convention exists, preserve an explicit unresolved type.
     # Do not silently call the current output phonemic or phonetic.
     ipa_kind: str = "UNRESOLVED"
+    ukrainian_kind: str = "UNRESOLVED"
     rule_trace: tuple[str, ...] = ()
     uncertainty: tuple[PhoneticUncertainty, ...] = ()
 

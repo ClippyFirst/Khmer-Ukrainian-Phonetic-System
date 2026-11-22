@@ -14,7 +14,8 @@ def test_shared_strictness_labels_preserve_existing_semantics():
     assert 'strict: "Обережний рівень:' in engine
     assert 'balanced: "Збалансований рівень:' in engine
     assert 'exploratory: "Дослідницький рівень:' in engine
-    assert 'item.status === "PROPOSED" ? item.ua : "???"' in engine
+    assert 'item.fallback_status === "PROVISIONAL"' in engine
+    assert 'outputLevelMode !== "strict"' not in engine
 
 
 def test_strictness_labels_are_not_confidence_or_accuracy_claims():
