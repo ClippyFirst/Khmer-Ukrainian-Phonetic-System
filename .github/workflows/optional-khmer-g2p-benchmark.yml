@@ -39,7 +39,7 @@ jobs:
           python scripts/benchmark_mekongphon_model.py \
             --corpus mekongphon/data/splits/khmer_eval.csv \
             --output artifacts/khmer-mekongphon-neural-raw-output.json
-      - name: Run the pinned MekongPhon adapter on the reported phrase
+      - name: Run the pinned MekongPhon, Khmer Phonemizer and Epitran adapters on the reported phrase
         run: |
           python - <<'PY'
           import json
@@ -68,7 +68,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: khmer-mekongphon-neural-raw-output
+          name: khmer-hybrid-multi-g2p-raw-output
           path: |
             artifacts/khmer-mekongphon-neural-raw-output.json*
             artifacts/khmer-mekongphon-hybrid-candidate.json
