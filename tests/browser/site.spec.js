@@ -1,7 +1,10 @@
 import { test, expect } from "@playwright/test";
 
 test.beforeEach(async ({ page }, testInfo) => {
-  if (testInfo.title === "research tools are collapsed by default and can be opened on demand") return;
+  if ([
+    "research tools are collapsed by default and can be opened on demand",
+    "IPA and Latin romanization remain visible outside the collapsed analysis drawer"
+  ].includes(testInfo.title)) return;
   await page.addInitScript(() => {
     document.addEventListener("DOMContentLoaded", () => {
       const drawer = document.querySelector("#research-details");
@@ -140,6 +143,15 @@ test("directly source-attested Khmer phrase is tier B and differs from compositi
   await expect(page.locator(".unit-source-locator")).toContainText("oldid=68806374");
 });
 
+test("IPA and Latin romanization remain visible outside the collapsed analysis drawer", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("textbox").fill("សុខា");
+  await expect(page.locator("#ipa-result")).toBeVisible();
+  await expect(page.locator("#romanization-result")).toBeVisible();
+  await expect(page.locator("#research-details")).not.toHaveAttribute("open", "");
+  await expect(page.locator("#unit-details")).toBeHidden();
+});
+
 test("source-attested Khmer cluster word retains every IPA segment through the adapter", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("ល្ងាច");
@@ -207,7 +219,7 @@ test("romanization mode renders a separate provisional Ukrainian form", async ({
   await expect(page.locator("#romanization-result")).toHaveText("Sokha");
   await expect(page.locator("#ua-romanization-result")).toHaveText("Сок'а");
   await expect(page.locator("#ua-romanization-status")).toContainText("PROVISIONAL");
-  await expect(page.locator("#ipa-result")).toBeHidden();
+  await expect(page.locator("#ipa-result")).toBeVisible();
 });
 
 
@@ -219,7 +231,7 @@ test("pre-romanized BGN/PCGN input maps directly to Ukrainian with diacritics", 
   await expect(page.locator("#ua-romanization-result")).toHaveText("Кампучеа");
   await expect(page.locator("#ua-romanization-status")).toContainText("PROVISIONAL");
   await expect(page.locator("#romanization-title")).toHaveText("Вхідна романізація · BGN/PCGN 1972");
-  await expect(page.locator("#ipa-result")).toBeHidden();
+  await expect(page.locator("#ipa-result")).toBeVisible();
 });
 
 test("unknown pre-romanized fragments are bracketed, not guessed", async ({ page }) => {
