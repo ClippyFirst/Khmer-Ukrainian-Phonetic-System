@@ -334,33 +334,41 @@ test("romanization method can be activated by keyboard and status is announced",
 
 
 
-test("unresolved Khmer phrase offers per-unit Ukrainian candidates while keeping IPA unresolved", async ({ page }) => {
+test("unresolved Khmer phrase keeps IPA and romanization candidates in separate selectable routes", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("កម្ពុជាប្រជាធិបតេយ្យ");
   await expect(page.locator("#ipa-result")).toHaveText("⟦NOT_ESTABLISHED⟧");
+  await expect(page.locator("#ua-result")).not.toHaveText("Кампучеапчеат'іптей");
+  await expect(page.locator("#ua-result")).toContainText("НЕВСТАНОВЛЕНО");
+  await page.locator("#mode-romanization").click();
   await expect(page.locator("#ua-result")).toHaveText("Кампучеапчеат'іптей");
   await expect(page.locator("#ua-result")).not.toContainText("???");
-  await expect(page.locator("#status")).toContainText("PROVISIONAL CANDIDATE");
+  await expect(page.locator("#status")).toContainText("РОМАНІЗАЦІЯ");
   await expect(page.locator("#unit-details")).toContainText("Попередня українська форма:");
   await expect(page.locator("#unit-details")).toContainText("BGN/PCGN, не IPA");
 });
 
-test("best-effort Ukrainian candidates are automatic at every detail level", async ({ page }) => {
+test("romanization candidates remain automatic at every detail level without leaking into IPA mode", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("កម្ពុជាប្រជាធិបតេយ្យ");
   for (const level of ["strict", "balanced", "exploratory"]) {
     await page.locator("#output-level").selectOption(level);
-    await expect(page.locator("#ua-result")).toHaveText("Кампучеапчеат'іптей");
+    await page.locator("#mode-phonetic").click();
     await expect(page.locator("#ipa-result")).toHaveText("⟦NOT_ESTABLISHED⟧");
+    await expect(page.locator("#ua-result")).not.toHaveText("Кампучеапчеат'іптей");
+    await page.locator("#mode-romanization").click();
+    await expect(page.locator("#ua-result")).toHaveText("Кампучеапчеат'іптей");
   }
 });
 
-test("unresolved Khmer cluster offers a romanization candidate instead of only an onset hint", async ({ page }) => {
+test("unresolved Khmer cluster exposes romanization only after selecting the romanization route", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("ក្ក");
   await expect(page.locator("#ipa-result")).toHaveText("⟦NOT_ESTABLISHED⟧");
+  await expect(page.locator("#ua-result")).not.toContainText("К");
+  await page.locator("#mode-romanization").click();
   await expect(page.locator("#ua-result")).not.toContainText("???");
-  await expect(page.locator("#status")).toContainText("PROVISIONAL CANDIDATE");
+  await expect(page.locator("#status")).toContainText("РОМАНІЗАЦІЯ");
   await expect(page.locator("#unit-details")).toContainText("Попередня українська форма:");
   await expect(page.locator(".unit-detail")).toHaveAttribute("data-fallback-rule-id", "KHMER-BGN-PCGN-ORTHOGRAPHIC-FALLBACK-V1");
   await expect(page.locator(".unit-detail")).toHaveAttribute("data-fallback-position", "whole-unit");
