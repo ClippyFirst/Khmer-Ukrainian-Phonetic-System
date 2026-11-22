@@ -81,24 +81,25 @@ class HybridKhmerEngine:
         # adapter as a clearly provisional, source-attributed alternative.
         canonical_ipa = result.get("ipa")
         canonical_unresolved = not canonical_ipa or "⟦" in str(canonical_ipa)
-        mapped_candidate = next(
+        selected_candidate = next(
             (item for item in candidates if item.get("ukrainian_candidate") is not None),
-            None,
+            candidates[0] if candidates else None,
         )
         provisional_candidate = None
-        if canonical_unresolved and mapped_candidate is not None:
+        if canonical_unresolved and selected_candidate is not None:
             provisional_candidate = {
-                "ipa": mapped_candidate["ipa_raw"],
-                "ukrainian": mapped_candidate["ukrainian_candidate"],
+                "ipa": selected_candidate["ipa_raw"],
+                "ukrainian": selected_candidate["ukrainian_candidate"],
+                "ukrainian_mapping_failure": selected_candidate["ukrainian_mapping_failure"],
                 "status": "PROVISIONAL",
-                "provider": mapped_candidate["provider"],
-                "profile": mapped_candidate["profile"],
-                "kind": mapped_candidate["kind"],
-                "uncertainty": list(mapped_candidate["uncertainty"]) + [
+                "provider": selected_candidate["provider"],
+                "profile": selected_candidate["profile"],
+                "kind": selected_candidate["kind"],
+                "uncertainty": list(selected_candidate["uncertainty"]) + [
                     "Candidate selected by configured provider order, not by measured accuracy or majority vote."
                 ],
-                "provenance": mapped_candidate["provenance"],
-                "selection": "FIRST_MAPPABLE_CONFIGURED_PROVIDER",
+                "provenance": selected_candidate["provenance"],
+                "selection": "FIRST_MAPPABLE_OR_FIRST_VALID_CONFIGURED_PROVIDER",
             }
         result.update({
             "hybrid_engine": "khmer-evidence-gated-hybrid-v3",
@@ -113,7 +114,7 @@ class HybridKhmerEngine:
             "selection_policy": (
                 "canonical deterministic output is preserved; when unresolved, the first "
                 "configured provider whose typed IPA maps through the Ukrainian adapter is "
-                "exposed separately as PROVISIONAL; no majority vote or accuracy claim"
+                "exposed separately as PROVISIONAL even if Ukrainian mapping is unavailable; no majority vote or accuracy claim"
             ),
         })
         return result
