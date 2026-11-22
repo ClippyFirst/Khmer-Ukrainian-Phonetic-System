@@ -27,6 +27,12 @@ assert.equal(result.ipa, expectedIpa);
 assert.equal(result.ua, expectedUa);
 assert.equal(result.units.filter((unit) => unit.status !== "PUNCTUATION").length, 32);
 assert.ok(result.units.filter((unit) => unit.status !== "PUNCTUATION").every((unit) => unit.status === "PROPOSED"), "no linguistic unit in the 32-item regression block may remain unresolved");
+ 
+const unresolvedWord = convert("កម្ពុជាប្រជាធិបតេយ្យ", "khmer-pph-careful-citation-v1");
+assert.equal(unresolvedWord.ipa, "⟦NOT_ESTABLISHED⟧", "the public IPA line must show one abstention marker for a contiguous unresolved Khmer word/run, not one per orthographic unit");
+assert.equal(unresolvedWord.units.filter((unit) => unit.status === "NOT_ESTABLISHED").length, 3, "per-unit diagnostics must retain all three unresolved orthographic units");
+assert.equal(unresolvedWord.phonetic_result.units.filter((unit) => unit.status === "NOT_ESTABLISHED").length, 3, "machine-readable IPA provenance must retain per-unit uncertainty");
+
 
 const bySource = Object.fromEntries(result.units.map((unit) => [unit.source, unit]));
 assert.deepEqual(
