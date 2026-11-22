@@ -262,8 +262,6 @@ def make_command_backend(command: list[str], *, engine_id: str, revision: str) -
     return run
 
 
-def create_hybrid_engine(providers: dict[str, Provider] | None = None) -> HybridKhmerEngine:
-    return HybridKhmerEngine(providers=providers)
 
 
 __all__ = [
