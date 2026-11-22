@@ -8,6 +8,7 @@ never relabelled as established or expert-adjudicated.
 from __future__ import annotations
 
 from typing import Any, Callable
+from importlib.util import find_spec
 
 from .ipa import IPACandidateStatus, validate_ipa_candidate
 from .rule_engine import RuleBasedKhmerEngine
