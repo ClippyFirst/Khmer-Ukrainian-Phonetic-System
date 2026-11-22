@@ -1,15 +1,18 @@
-"""Evidence-gated research adapter for external Khmer IPA candidates.
+"""Hybrid Khmer IPA engine with explicit provisional external candidates.
 
-The deterministic rule engine remains the sole final-output authority.
-External provider results cross the shared typed IPA validation boundary and
-are returned as diagnostic candidates only; this module never promotes them.
+The deterministic rule engine remains the canonical authority. Optional,
+pinned G2P providers can supply a separately labelled best-effort IPA and
+Ukrainian candidate when deterministic IPA is unavailable. Provider output is
+never relabelled as established or expert-adjudicated.
 """
 from __future__ import annotations
 
 from typing import Any, Callable
+from importlib.util import find_spec
 
 from .ipa import IPACandidateStatus, validate_ipa_candidate
 from .rule_engine import RuleBasedKhmerEngine
+from .practical import map_ipa_string
 
 Provider = Callable[[str], dict[str, Any]]
 
@@ -45,6 +48,7 @@ class HybridKhmerEngine:
             self.providers.items(),
             key=lambda item: (PROVIDER_PRIORITY.get(item[0], DEFAULT_PROVIDER_PRIORITY), item[0]),
         ):
+            raw: Any = None
             try:
                 raw = provider(normalized)
                 if not isinstance(raw, dict):
@@ -57,24 +61,57 @@ class HybridKhmerEngine:
                     provider=provider_id,
                     uncertainty=raw.get("uncertainty", ()),
                 )
+                ukrainian, unsupported = map_ipa_string(candidate.ipa)
                 candidates.append({
                     "provider": candidate.provider,
                     "priority": PROVIDER_PRIORITY.get(provider_id, DEFAULT_PROVIDER_PRIORITY),
                     "ipa_raw": candidate.raw_output,
                     "profile": candidate.profile,
+                    "profile_match": raw.get("profile_match", "UNVERIFIED"),
                     "kind": candidate.kind,
                     "status": candidate.status.value,
                     "uncertainty": list(candidate.uncertainty),
                     "provenance": raw.get("provenance", {}),
+                    "ukrainian_candidate": ukrainian,
+                    "ukrainian_mapping_failure": unsupported,
                     "promotion": "WITHHELD_PENDING_INDEPENDENT_PROFILE_MATCHED_ADJUDICATION",
                 })
             except Exception as exc:
-                failures.append({"provider": provider_id, "reason": str(exc) or type(exc).__name__})
+                failure = {"provider": provider_id, "reason": str(exc) or type(exc).__name__}
+                if isinstance(raw, dict) and isinstance(raw.get("ipa"), str):
+                    failure["raw_output"] = raw["ipa"]
+                failures.append(failure)
 
-        # Never replace or derive the published IPA/Ukrainian result from a provider.
+        # Keep canonical fields untouched. When they are unresolved, expose the
+        # first provider candidate that crosses the existing Ukrainian IPA
+        # adapter as a clearly provisional, source-attributed alternative.
+        canonical_ipa = result.get("ipa")
+        canonical_unresolved = not canonical_ipa or "⟦" in str(canonical_ipa)
+        selected_candidate = next(
+            (item for item in candidates if item.get("ukrainian_candidate") is not None),
+            candidates[0] if candidates else None,
+        )
+        provisional_candidate = None
+        if canonical_unresolved and selected_candidate is not None:
+            provisional_candidate = {
+                "ipa": selected_candidate["ipa_raw"],
+                "ukrainian": selected_candidate["ukrainian_candidate"],
+                "ukrainian_mapping_failure": selected_candidate["ukrainian_mapping_failure"],
+                "status": "PROVISIONAL",
+                "provider": selected_candidate["provider"],
+                "profile": selected_candidate["profile"],
+                "profile_match": selected_candidate["profile_match"],
+                "kind": selected_candidate["kind"],
+                "uncertainty": list(selected_candidate["uncertainty"]) + [
+                    "Candidate selected by configured provider order, not by measured accuracy or majority vote."
+                ],
+                "provenance": selected_candidate["provenance"],
+                "selection": "FIRST_MAPPABLE_OR_FIRST_VALID_CONFIGURED_PROVIDER",
+            }
         result.update({
-            "hybrid_engine": "khmer-evidence-gated-hybrid-v2",
+            "hybrid_engine": "khmer-evidence-gated-hybrid-v3",
             "external_candidates": candidates,
+            "provisional_candidate": provisional_candidate,
             "backend_failures": failures,
             "external_candidate_count": len(candidates),
             "provider_priority_policy": (
@@ -82,8 +119,9 @@ class HybridKhmerEngine:
                 "triage only, not accuracy, confidence, voting or promotion"
             ),
             "selection_policy": (
-                "internal deterministic output is preserved; typed external candidates "
-                "are diagnostic only; no voting or promotion"
+                "canonical deterministic output is preserved; when unresolved, the first "
+                "configured provider whose typed IPA maps through the Ukrainian adapter is "
+                "exposed separately as PROVISIONAL even if Ukrainian mapping is unavailable; no majority vote or accuracy claim"
             ),
         })
         return result
@@ -130,6 +168,7 @@ def make_mekongphon_backend(
             "profile": DEFAULT_PROFILE,
             "kind": "PHONETIC_BROAD",
             "status": "PARTIAL",
+            "profile_match": "UNVERIFIED",
             "uncertainty": ["External model output has not been independently adjudicated for this profile."],
             "provenance": {
                 "engine": model_id,
@@ -142,6 +181,110 @@ def make_mekongphon_backend(
         }
 
     return predict
+
+
+def make_epitran_backend(language_code: str = "khm-Khmr") -> Provider:
+    """Lazy adapter for Epitran's explicitly provisional Khmer map."""
+    state: dict[str, Any] = {}
+
+    def predict(text: str) -> dict[str, Any]:
+        if not state:
+            try:
+                import epitran
+            except ImportError as exc:
+                raise RuntimeError(
+                    "Install the optional Epitran extra: pip install .[epitran]"
+                ) from exc
+            state["engine"] = epitran.Epitran(language_code)
+        ipa = state["engine"].transliterate(text)
+        return {
+            "ipa": ipa,
+            "profile": DEFAULT_PROFILE,
+            "profile_match": "UNVERIFIED",
+            "kind": "PHONEMIC",
+            "status": "PARTIAL",
+            "uncertainty": [
+                "Epitran classifies khm-Khmr as provisional language support.",
+                "The available mapping is not independently adjudicated for the project's Phnom Penh careful-citation profile.",
+                "Coverage of vowel signs, codas, register interactions and tone has not been demonstrated complete."
+            ],
+            "provenance": {
+                "engine": "epitran",
+                "package_version": "1.35.1",
+                "upstream_revision": "2014d532bf429739d75f03d703aed8e32bad096c",
+                "language_code": language_code,
+                "language_support_status": "PROVISIONAL",
+                "license": "MIT-Modern-Variant",
+                "map_file_git_blob_sha1": "9c0dd7d9f63ab260ac38f5b7a0d51b18ab28da2b",
+                "postprocessor_file_git_blob_sha1": "e84cf98f408df1f135404549ea95ecb2a80a844d",
+            },
+        }
+    return predict
+
+
+def make_khmerphonemizer_backend() -> Provider:
+    """Lazy adapter for the MIT-licensed Khmer Phonemizer 0.0.3 package.
+
+    The package returns token-aligned phone lists rather than profile-matched
+    narrow IPA. The result is retained as a PARTIAL broad-phonetic candidate.
+    """
+    def predict(text: str) -> dict[str, Any]:
+        try:
+            from khmerphonemizer import phonemize
+        except ImportError as exc:
+            raise RuntimeError(
+                "Install the optional phonemizer extra: pip install .[phonemizer]"
+            ) from exc
+        tokens, phone_lists = phonemize(text)
+        if not tokens or not phone_lists or len(tokens) != len(phone_lists):
+            raise ValueError("Khmer Phonemizer returned no aligned token/phone output")
+        ipa = " ".join("".join(str(phone) for phone in phones) for phones in phone_lists)
+        return {
+            "ipa": ipa,
+            "profile": DEFAULT_PROFILE,
+            "kind": "PHONETIC_BROAD",
+            "status": "PARTIAL",
+            "profile_match": "UNVERIFIED",
+            "uncertainty": [
+                "Khmer Phonemizer output is an external G2P candidate, not independently adjudicated.",
+                "Its dialect, style and segmental conventions have not been demonstrated equivalent to the project's Phnom Penh careful-citation profile.",
+                "Token-level output does not establish lexical stress, tone or narrow phonetic detail."
+            ],
+            "provenance": {
+                "engine": "khmerphonemizer",
+                "package_version": "0.0.3",
+                "license": "MIT",
+                "tokens": list(tokens),
+                "inference_parameters": "package phonemize() defaults; the public word-level wrapper does not accept beam overrides",
+            },
+        }
+    return predict
+
+
+def create_hybrid_engine(
+    providers: dict[str, Provider] | None = None,
+    *,
+    include_khmerphonemizer: bool | None = None,
+    include_epitran: bool | None = None,
+    include_mekongphon: bool = False,
+) -> HybridKhmerEngine:
+    """Create a hybrid engine, auto-using Khmer Phonemizer when installed.
+
+    The large MekongPhon model remains explicit opt-in to avoid unexpected
+    model downloads, memory use and cold starts.
+    """
+    selected = dict(providers or {})
+    if include_khmerphonemizer is None:
+        include_khmerphonemizer = providers is None and find_spec("khmerphonemizer") is not None
+    if include_khmerphonemizer:
+        selected.setdefault("khmer-phonemizer", make_khmerphonemizer_backend())
+    if include_epitran is None:
+        include_epitran = providers is None and find_spec("epitran") is not None
+    if include_epitran:
+        selected.setdefault("epitran", make_epitran_backend())
+    if include_mekongphon:
+        selected.setdefault("mekongphon", make_mekongphon_backend())
+    return HybridKhmerEngine(providers=selected)
 
 
 def make_command_backend(command: list[str], *, engine_id: str, revision: str) -> Provider:
@@ -164,8 +307,6 @@ def make_command_backend(command: list[str], *, engine_id: str, revision: str) -
     return run
 
 
-def create_hybrid_engine(providers: dict[str, Provider] | None = None) -> HybridKhmerEngine:
-    return HybridKhmerEngine(providers=providers)
 
 
 __all__ = [
@@ -173,5 +314,7 @@ __all__ = [
     "RuleBasedKhmerEngine",
     "create_hybrid_engine",
     "make_mekongphon_backend",
+    "make_khmerphonemizer_backend",
+    "make_epitran_backend",
     "make_command_backend",
 ]

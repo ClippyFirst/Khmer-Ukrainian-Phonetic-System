@@ -19,6 +19,13 @@ CANDIDATE_STATUSES = {"COMPLETE", "PARTIAL"}
 # Brackets/slashes are accepted only as balanced outer delimiters.
 _IPA_SYMBOLS = set("ˈˌːˑ˥˦˧˨˩͜͡‿.·|/-[]")
 _IPA_DIGITS = set("0123456789")
+_IPA_COMBINING_RANGES = (
+    (0x0300, 0x036F),
+    (0x1AB0, 0x1AFF),
+    (0x1DC0, 0x1DFF),
+    (0x20D0, 0x20FF),
+    (0xFE20, 0xFE2F),
+)
 
 
 class IPACandidateStatus(str, Enum):
@@ -44,6 +51,13 @@ def _is_ipa_segment_letter(character: str) -> bool:
     name = unicodedata.name(character, "")
     return category.startswith("L") and category != "Lm" and (
         "LATIN" in name or "GREEK" in name
+    )
+
+
+def _is_ipa_combining_mark(character: str) -> bool:
+    codepoint = ord(character)
+    return unicodedata.category(character).startswith("M") and any(
+        start <= codepoint <= end for start, end in _IPA_COMBINING_RANGES
     )
 
 
@@ -99,10 +113,14 @@ def _validate_ipa_notation(ipa: str) -> None:
             # count as segment letters and do not rewrite the source string.
             continue
         if category.startswith("M"):
+            if not _is_ipa_combining_mark(character):
+                raise ValueError(
+                    f"unsupported non-IPA combining mark U+{ord(character):04X} at IPA offset {index}"
+                )
             if not has_preceding_segment:
                 raise ValueError(f"orphan combining mark at IPA offset {index}")
-            # Ordinary combining diacritics modify the preceding segment;
-            # they do not erase its availability as the first tied segment.
+            # IPA combining diacritics modify the preceding segment; marks
+            # from other scripts (e.g. Khmer vowel signs) are not IPA.
             continue
         if character in _IPA_DIGITS:
             has_preceding_segment = False

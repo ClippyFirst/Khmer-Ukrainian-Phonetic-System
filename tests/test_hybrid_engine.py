@@ -1,6 +1,6 @@
 import pytest
 
-from khmer_ua import HybridKhmerEngine, RuleBasedKhmerEngine, create_hybrid_engine
+from khmer_ua import HybridKhmerEngine, RuleBasedKhmerEngine, create_hybrid_engine, make_khmerphonemizer_backend, make_epitran_backend
 
 
 def typed(ipa, *, status="PARTIAL", uncertainty=("not independently adjudicated",), kind="PHONETIC_BROAD"):
@@ -33,6 +33,123 @@ def test_provider_candidate_uses_typed_ipa_boundary_and_preserves_raw_string():
     assert candidate["promotion"].startswith("WITHHELD")
     assert result["ipa"] == RuleBasedKhmerEngine().analyze("ខ្មែរ")["ipa"]
 
+
+
+
+def test_non_ipa_script_marks_are_rejected_but_raw_epitran_output_is_preserved():
+    raw = "kɑːmpɔːុcɔːា"
+    result = HybridKhmerEngine({
+        "epitran": lambda _: typed(raw)
+    }).analyze("កម្ពុជា")
+
+    assert not any(item["provider"] == "epitran" for item in result["external_candidates"])
+    failure = next(item for item in result["backend_failures"] if item["provider"] == "epitran")
+    assert failure["raw_output"] == raw
+    assert "unsupported non-IPA combining mark" in failure["reason"]
+
+def test_mappable_external_ipa_is_exposed_as_provisional_when_internal_ipa_is_unresolved():
+    source = "កម្ពុជាប្រជាធិបតេយ្យ"
+    baseline = RuleBasedKhmerEngine().analyze(source)
+    result = HybridKhmerEngine({
+        "khmer-phonemizer": lambda _: typed("/kɑː/")
+    }).analyze(source)
+
+    assert result["ipa"] == baseline["ipa"]
+    assert result["ukrainian"] == baseline["ukrainian"]
+    candidate = result["provisional_candidate"]
+    assert candidate["status"] == "PROVISIONAL"
+    assert candidate["provider"] == "khmer-phonemizer"
+    assert candidate["ipa"] == "/kɑː/"
+    assert candidate["ukrainian"] == "ка"
+    assert "not independently adjudicated" in candidate["uncertainty"][0]
+
+
+
+def test_valid_external_ipa_is_retained_even_when_ukrainian_mapping_is_missing():
+    source = "កម្ពុជាប្រជាធិបតេយ្យ"
+    result = HybridKhmerEngine({
+        "khmer-phonemizer": lambda _: typed("q")
+    }).analyze(source)
+
+    candidate = result["provisional_candidate"]
+    assert candidate["ipa"] == "q"
+    assert candidate["status"] == "PROVISIONAL"
+    assert candidate["ukrainian"] is None
+    assert candidate["ukrainian_mapping_failure"] == "q"
+
+
+def test_hybrid_prefers_first_ukrainian_mappable_candidate_without_dropping_other_ipa():
+    result = HybridKhmerEngine({
+        "khmer-phonemizer": lambda _: typed("/kɑː/"),
+        "mekongphon": lambda _: typed("q"),
+    }).analyze("កម្ពុជាប្រជាធិបតេយ្យ")
+
+    assert [item["provider"] for item in result["external_candidates"]] == [
+        "mekongphon", "khmer-phonemizer"
+    ]
+    assert result["external_candidates"][0]["ukrainian_candidate"] is None
+    assert result["external_candidates"][1]["ukrainian_candidate"] == "ка"
+    assert result["provisional_candidate"]["provider"] == "khmer-phonemizer"
+    assert result["provisional_candidate"]["ukrainian"] == "ка"
+
+def test_khmerphonemizer_adapter_returns_token_aligned_partial_ipa(monkeypatch):
+    import sys
+    from types import SimpleNamespace
+
+    def fake_phonemize(text):
+        assert text == "ខ្មែរ"
+        return ["ខ្មែរ"], [["k", "ʰ", "m", "a", "e"]]
+
+    monkeypatch.setitem(sys.modules, "khmerphonemizer", SimpleNamespace(phonemize=fake_phonemize))
+    candidate = make_khmerphonemizer_backend()("ខ្មែរ")
+    assert candidate["ipa"] == "kʰmae"
+    assert candidate["status"] == "PARTIAL"
+    assert candidate["kind"] == "PHONETIC_BROAD"
+    assert candidate["profile_match"] == "UNVERIFIED"
+    assert candidate["provenance"]["license"] == "MIT"
+
+
+def test_hybrid_factory_can_opt_in_to_lazy_khmerphonemizer_provider():
+    engine = create_hybrid_engine(include_khmerphonemizer=True)
+    assert isinstance(engine, HybridKhmerEngine)
+    assert "khmer-phonemizer" in engine.providers
+
+
+
+def test_epitran_adapter_returns_provisional_profile_unverified_candidate(monkeypatch):
+    import sys
+    from types import SimpleNamespace
+
+    class FakeEpitran:
+        def __init__(self, language_code):
+            assert language_code == "khm-Khmr"
+
+        def transliterate(self, text):
+            assert text == "កម្ពុជា"
+            return "kɑːmpuciə"
+
+    monkeypatch.setitem(sys.modules, "epitran", SimpleNamespace(Epitran=FakeEpitran))
+    candidate = make_epitran_backend()("កម្ពុជា")
+    assert candidate["ipa"] == "kɑːmpuciə"
+    assert candidate["kind"] == "PHONEMIC"
+    assert candidate["status"] == "PARTIAL"
+    assert candidate["profile_match"] == "UNVERIFIED"
+    assert candidate["provenance"]["language_support_status"] == "PROVISIONAL"
+
+
+def test_hybrid_factory_auto_enables_installed_epitran(monkeypatch):
+    import khmer_ua.hybrid as hybrid
+
+    monkeypatch.setattr(hybrid, "find_spec", lambda name: object() if name == "epitran" else None)
+    engine = create_hybrid_engine()
+    assert "epitran" in engine.providers
+
+def test_hybrid_factory_auto_enables_installed_khmerphonemizer(monkeypatch):
+    import khmer_ua.hybrid as hybrid
+
+    monkeypatch.setattr(hybrid, "find_spec", lambda name: object() if name == "khmerphonemizer" else None)
+    engine = create_hybrid_engine()
+    assert "khmer-phonemizer" in engine.providers
 
 def test_bare_string_provider_output_is_rejected():
     result = HybridKhmerEngine({"untyped": lambda _: "kʰmae"}).analyze("ខ្មែរ")

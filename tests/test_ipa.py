@@ -66,7 +66,7 @@ def test_partial_candidate_without_uncertainty_is_rejected():
         )
 
 
-@pytest.mark.parametrize("raw", ["", "   ", "???", "ក្មែរ", "kʰ🙂", "k\u0301"])
+@pytest.mark.parametrize("raw", ["", "   ", "???", "ក្មែរ", "kʰ🙂", "k\u0301", "kɑːុ", "kɑːា"])
 def test_invalid_or_unverifiable_candidate_notation_is_rejected(raw):
     with pytest.raises(ValueError):
         validate_ipa_candidate(

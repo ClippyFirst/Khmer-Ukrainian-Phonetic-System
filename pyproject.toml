@@ -12,6 +12,9 @@ dependencies = []
 
 [project.optional-dependencies]
 test = ["pytest>=8,<10", "jsonschema>=4.20,<5"]
+phonemizer = ["khmerphonemizer==0.0.3"]
+epitran = ["epitran==1.35.1"]
+mekongphon = ["torch==2.5.1", "transformers==4.46.3", "tokenizers==0.20.3", "huggingface-hub==0.26.2", "safetensors==0.4.5"]
 
 [project.scripts]
 khmer-ua = "khmer_ua.cli:main"
