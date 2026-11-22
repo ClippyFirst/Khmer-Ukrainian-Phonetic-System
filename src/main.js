@@ -372,9 +372,9 @@ function deriveOrthographicRomanizationFallback(unit) {
   // reconstruction. It offers the best existing BGN/PCGN-derived candidate
   // for a complete unit while keeping phonetic status unresolved.
   const latin = khmerToLatin(unit);
-  if (!latin || /[\\p{Script=Khmer}]/u.test(latin)) return null;
+  if (!latin || /[\p{Script=Khmer}]/u.test(latin)) return null;
   const rendered = renderLatinWord(latin);
-  if (!rendered.text || rendered.unsupported > 0 || /[⟦\\p{Script=Khmer}]/u.test(rendered.text)) return null;
+  if (!rendered.text || rendered.unsupported > 0 || /[⟦\p{Script=Khmer}]/u.test(rendered.text)) return null;
   return rendered.text;
 }
 
