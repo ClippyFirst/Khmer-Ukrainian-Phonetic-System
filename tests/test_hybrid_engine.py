@@ -35,6 +35,18 @@ def test_provider_candidate_uses_typed_ipa_boundary_and_preserves_raw_string():
 
 
 
+
+def test_non_ipa_script_marks_are_rejected_but_raw_epitran_output_is_preserved():
+    raw = "kɑːmpɔːុcɔːា"
+    result = HybridKhmerEngine({
+        "epitran": lambda _: typed(raw)
+    }).analyze("កម្ពុជា")
+
+    assert not any(item["provider"] == "epitran" for item in result["external_candidates"])
+    failure = next(item for item in result["backend_failures"] if item["provider"] == "epitran")
+    assert failure["raw_output"] == raw
+    assert "unsupported non-IPA combining mark" in failure["reason"]
+
 def test_mappable_external_ipa_is_exposed_as_provisional_when_internal_ipa_is_unresolved():
     source = "កម្ពុជាប្រជាធិបតេយ្យ"
     baseline = RuleBasedKhmerEngine().analyze(source)
