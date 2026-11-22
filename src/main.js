@@ -736,21 +736,14 @@ if (typeof document !== "undefined") {
           ? candidate + "???"
           : chars.slice(0, firstNumber).join("") + "???" + chars.slice(firstNumber).join("");
       }).join("");
-    const hasUkrainianCandidate = /[\p{L}]/u.test(String(data.ua || "").split("???").join(""));
-    const useRomanizationFallback = usesKhmerRomanizer && !hasUkrainianCandidate && Boolean(uaRomanized.text) && uaRomanized.unsupported === 0 && !/⟦/u.test(uaRomanized.text);
-    // If the IPA-first engine cannot establish a complete result, offer the
-    // existing BGN/PCGN-derived Ukrainian spelling as a separate, explicitly
-    // provisional candidate. Do not append ??? to a candidate that is already
-    // fully rendered; its non-phonetic provenance is stated in the status.
+    // Keep the two user-selectable pipelines strictly independent. The IPA
+    // route never consumes a BGN/PCGN fallback, even when one is available.
     const phoneticUaOutput = romanizationOnlyInput
       ? "— · для готової романізації оберіть метод «З романізації»"
-      : useRomanizationFallback
-        ? uaRomanized.text
-        : moveMarkerToWordEnd(data.ua);
+      : moveMarkerToWordEnd(data.ua);
     const romanizationUaOutput = uaRomanized.text
       ? uaRomanized.text
       : "???";
-    const hasUnitFallback = data.units.some((unit) => unit.fallback_status === "PROVISIONAL");
     $("ua-result").textContent = activeMode === "romanization"
       ? romanizationUaOutput
       : phoneticUaOutput;
@@ -760,9 +753,7 @@ if (typeof document !== "undefined") {
         : "РОМАНІЗАЦІЯ · BGN/PCGN-DERIVED · " + uaRomanized.status
       : romanizationOnlyInput
         ? "IPA НЕ ЗАСТОСОВУЄТЬСЯ ДО ГОТОВОЇ РОМАНІЗАЦІЇ"
-        : useRomanizationFallback || hasUnitFallback
-          ? "PROVISIONAL CANDIDATE · орфографічна романізація, не IPA-вимова · доказовий рівень C"
-          : data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
+        : data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
     const levelGuidance = {
       strict: "Обережний рівень: показано лише наявні джерельно індексовані пропозиції; непідтверджені IPA/українські форми не реконструюються. PROPOSED не є експертним gold.",
       balanced: "Збалансований рівень: показує основний частковий результат, статус кожної одиниці та причини невизначеності. Невстановлені фрагменти зберігаються на своїх позиціях.",
