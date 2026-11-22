@@ -32,11 +32,13 @@ The pinned MekongPhon model was also exercised independently on the same phrase.
 
 The pinned optional adapter targets `khmerphonemizer==0.0.3` (MIT). It uses the documented `phonemize` API and preserves token-aligned phone lists in provenance. The concatenated output is typed as broad phonetic and PARTIAL. The package's variety/style conventions have not been shown to match the project's Phnom Penh careful-citation profile, and it does not establish tone, stress or narrow phonetic detail.
 
-Install and enable:
+Install the optional extra:
 
 ```bash
 pip install -e ".[phonemizer]"
 ```
+
+When the package is installed, `create_hybrid_engine()` discovers it automatically. It can also be forced explicitly:
 
 ```python
 from khmer_ua import create_hybrid_engine
