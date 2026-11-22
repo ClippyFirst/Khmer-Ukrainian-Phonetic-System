@@ -49,7 +49,19 @@ print(result["provisional_candidate"])
 print(result["external_candidates"])
 ```
 
-### MekongPhon Khmer IPA model
+#### Epitran Khmer G2P
+
+Epitran includes the `khm-Khmr` mapping, but its own language-support documentation classifies Khmer as **Provisional**. The adapter therefore returns a PARTIAL phonemic candidate with `profile_match: "UNVERIFIED"`; it does not imply complete Khmer phonology.
+
+Install the optional extra:
+
+```bash
+pip install -e ".[epitran]"
+```
+
+When Epitran is installed, `create_hybrid_engine()` discovers it automatically. The adapter pins package version 1.35.1 and records the Khmer map and postprocessor file digests. Epitran is distributed under the MIT-Modern-Variant license; the upstream repository's language-support table lists `khm-Khmr` as provisional.
+
+## MekongPhon Khmer IPA model
 
 The pinned `byumatrixlab/khmer-ipa` model is licensed Apache-2.0 on its Hugging Face model card and can be enabled separately. It is a 33.6M-parameter encoder-decoder model; its documented `pron_no_tones` output does not establish tone. Its model training/evaluation setup is not independent expert adjudication for this project's selected profile.
 
