@@ -20,8 +20,9 @@ test.beforeEach(async ({ page }, testInfo) => {
 test("Latin BGN/PCGN input renders a provisional Ukrainian form in the primary result", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("Kampucheapcheathiptey");
-  await expect(page.locator("#ua-result")).toContainText("Кампучеа");
+  await expect(page.locator("#ua-result")).toContainText("Кампучеа???");
   await expect(page.locator("#status")).toContainText("BGN/PCGN LATIN INPUT");
+  await expect(page.locator("#ua-result")).toHaveText(/\\?\\?\\?$/u);
   await expect(page.locator("#ipa-result")).toContainText("IPA не застосовується");
 });
 
