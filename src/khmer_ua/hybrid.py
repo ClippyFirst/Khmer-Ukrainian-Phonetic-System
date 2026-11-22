@@ -175,13 +175,7 @@ def make_mekongphon_backend(
     return predict
 
 
-def make_khmerphonemizer_backend(
-    *,
-    beam: int = 500,
-    min_beam: int = 100,
-    beam_score: float = 0.6,
-    use_lexicon: bool = True,
-) -> Provider:
+def make_khmerphonemizer_backend() -> Provider:
     """Lazy adapter for the MIT-licensed Khmer Phonemizer 0.0.3 package.
 
     The package returns token-aligned phone lists rather than profile-matched
