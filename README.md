@@ -35,6 +35,13 @@ The repository now contains the two-page public web layer:
 
 The visual direction is intentionally based on **Cambodia's blue, red and white national palette**, used as controlled accents within an editorial, typographic research-tool design. The structure follows the user's established Chinese service pattern while keeping Khmer-specific linguistic logic independent.
 
+The primary Ukrainian result has two visibly selectable methods, following the Lao service:
+
+1. **За IPA** — Khmer orthography → structural/phonological analysis → IPA → Ukrainian adaptation.
+2. **З романізації** — Khmer orthography or supplied BGN/PCGN Latin → romanization → Ukrainian orthographic rendering.
+
+The selector is beside the main result and works without opening the research drawer. These are separate pipelines: the romanization path is not presented as pronunciation, and an unresolved IPA result does not silently switch methods.
+
 The browser service is:
 
 - static and local-first;
