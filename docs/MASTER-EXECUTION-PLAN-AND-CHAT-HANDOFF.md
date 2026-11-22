@@ -5975,3 +5975,11 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - Exact main verification: Quality checks [45002252229](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/45002252229) SUCCESS; Khmer browser smoke [45002252063](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/45002252063) SUCCESS; Pages deployment [45002252084](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/45002252084) SUCCESS.
 - Published site: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/.
 - Linguistic validation and independently adjudicated IPA gold remain separate release gates; this change makes no accuracy claim.
+
+
+## UI/UX quick-transcription-first update — 2026-11-22
+
+- **DONE_VERIFIED — merged, tested, and deployed:** PR [#511](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/511) merged; final UI/CSS follow-up on `main` is `1476d939fb0b0de560dc0211d6611e9971e4478e`.
+- The Ukrainian practical form is the primary result. Profile and Strict / Soft / Super-soft controls are in a collapsed settings disclosure; IPA, romanization, per-unit status, and detailed explanations are grouped under “Докладний аналіз”. The beta notice is concise by default and expandable.
+- Existing engine-facing IDs and `data-method-panel` hooks were preserved. No Khmer phonological rules, IPA values, Ukrainian adaptations, or uncertainty semantics were changed.
+- Quality checks [#45062629220](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45062629220), Chromium browser smoke [#45062629118](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45062629118), and GitHub Pages deployment [#45062629122](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45062629122) all passed.
