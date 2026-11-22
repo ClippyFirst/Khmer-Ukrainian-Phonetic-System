@@ -210,8 +210,8 @@ def make_epitran_backend(language_code: str = "khm-Khmr") -> Provider:
                 "language_code": language_code,
                 "language_support_status": "PROVISIONAL",
                 "license": "MIT-Modern-Variant",
-                "map_file_sha256": "9c0dd7d9f63ab260ac38f5b7a0d51b18ab28da2b",
-                "postprocessor_file_sha256": "e84cf98f408df1f135404549ea95ecb2a80a844d",
+                "map_file_git_blob_sha1": "9c0dd7d9f63ab260ac38f5b7a0d51b18ab28da2b",
+                "postprocessor_file_git_blob_sha1": "e84cf98f408df1f135404549ea95ecb2a80a844d",
             },
         }
     return predict
