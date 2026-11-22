@@ -309,13 +309,14 @@ test("romanization method can be activated by keyboard and status is announced",
 
 
 
-test("unresolved Khmer-script phrase shows the actual romanization-derived candidate with one final marker", async ({ page }) => {
+test("unresolved Khmer-script phrase shows a provisional romanization-derived candidate without ???", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("កម្ពុជាប្រជាធិបតេយ្យ");
   await expect(page.locator("#ipa-result")).toHaveText("⟦NOT_ESTABLISHED⟧");
-  await expect(page.locator("#ua-result")).not.toHaveText("???");
-  await expect(page.locator("#ua-result")).toHaveText(/\?\?\?$/u);
+  await expect(page.locator("#ua-result")).toHaveText("Кампучеапчеат'іптей");
+  await expect(page.locator("#ua-result")).not.toContainText("???");
   await expect(page.locator("#status")).toContainText("KHMER ROMANIZATION FALLBACK");
+  await expect(page.locator("#status")).toContainText("не IPA-вимова");
 });
 
 test("shared onset fallback fixture keeps IPA unresolved and shows the actual romanization-derived preview", async ({ page }) => {
@@ -328,7 +329,7 @@ test("shared onset fallback fixture keeps IPA unresolved and shows the actual ro
     await page.locator("#source").fill(item.source);
     await expect(page.locator("#results")).toBeVisible();
     await expect(page.locator("#ipa-result")).toHaveText(item.canonical_ipa_display);
-    await expect(page.locator("#ua-result")).toHaveText(/\?\?\?$/u);
+    await expect(page.locator("#ua-result")).not.toHaveText(/\?\?\?$/u);
     await expect(page.locator("#status")).toContainText("PROVISIONAL");
     await expect(page.locator("#unit-details")).toContainText("Попередня підказка: " + item.provisional_ipa + " → " + item.provisional_ukrainian + " [PROVISIONAL]");
     await expect(page.locator(".unit-detail")).toHaveAttribute("data-fallback-rule-id", item.rule_id);
