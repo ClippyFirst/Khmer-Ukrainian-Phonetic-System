@@ -220,11 +220,17 @@ def make_khmerphonemizer_backend() -> Provider:
 def create_hybrid_engine(
     providers: dict[str, Provider] | None = None,
     *,
-    include_khmerphonemizer: bool = False,
+    include_khmerphonemizer: bool | None = None,
     include_mekongphon: bool = False,
 ) -> HybridKhmerEngine:
-    """Create an engine with explicitly opted-in optional G2P providers."""
+    """Create a hybrid engine, auto-using Khmer Phonemizer when installed.
+
+    The large MekongPhon model remains explicit opt-in to avoid unexpected
+    model downloads, memory use and cold starts.
+    """
     selected = dict(providers or {})
+    if include_khmerphonemizer is None:
+        include_khmerphonemizer = providers is None and find_spec("khmerphonemizer") is not None
     if include_khmerphonemizer:
         selected.setdefault("khmer-phonemizer", make_khmerphonemizer_backend())
     if include_mekongphon:
