@@ -15,6 +15,16 @@ test.beforeEach(async ({ page }, testInfo) => {
   });
 });
 
+
+
+test("Latin BGN/PCGN input renders a provisional Ukrainian form in the primary result", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("Kampucheapcheathiptey");
+  await expect(page.locator("#ua-result")).toContainText("Кампучеа");
+  await expect(page.locator("#status")).toContainText("BGN/PCGN LATIN INPUT");
+  await expect(page.locator("#ipa-result")).toContainText("IPA не застосовується");
+});
+
 test("research tools are collapsed by default and can be opened on demand", async ({ page }) => {
   await page.goto("/");
   const drawer = page.locator("#research-details");
