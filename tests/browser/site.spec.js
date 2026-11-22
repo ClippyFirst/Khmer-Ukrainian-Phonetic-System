@@ -243,7 +243,7 @@ test("IPA and romanization method switches are visible beside the primary result
   await expect(page.locator("#ua-result")).toHaveText("Кампучеа");
   await group.getByRole("button", { name: "За IPA" }).click();
   await expect(page.locator("#ua-result-title")).toHaveText("Українська за вимовою (IPA)");
-  await expect(page.locator("#ua-result")).toContainText("IPA не застосовується");
+  await expect(page.locator("#status")).toContainText("IPA НЕ ЗАСТОСОВУЄТЬСЯ");
 });
 
 test("romanization mode renders a separate provisional Ukrainian form", async ({ page }) => {
