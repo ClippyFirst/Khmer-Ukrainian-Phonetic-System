@@ -507,10 +507,12 @@ function convert(text, profile) {
   const evidenceLimited = linguistic.filter((item) => item.status === "EVIDENCE_LIMITED").length;
   const notEstablished = linguistic.filter((item) => item.status === "NOT_ESTABLISHED").length;
   const invalid = linguistic.filter((item) => item.status === "INVALID_OR_UNSUPPORTED").length;
-  // Keep every unit aligned through the complete IPA-first pipeline. Unknown
-  // units retain explicit markers at their own positions; neighboring results
-  // are never discarded and the overall status still signals incompleteness.
-  const ipa = rendered.map((item) => item.ipa).join("");
+  // Keep every unit aligned through the complete IPA-first pipeline. The
+  // detailed per-unit records below retain every status, but the public IPA
+  // line must not repeat the same abstention token for each unresolved
+  // orthographic unit in one uninterrupted Khmer word/run.
+  const rawIpa = rendered.map((item) => item.ipa).join("");
+  const ipa = rawIpa.replace(/(⟦NOT_ESTABLISHED⟧){2,}/gu, "⟦NOT_ESTABLISHED⟧");
   // Lao-style final abstention: retain supported neighbours, but use a clear
   // three-question-mark placeholder for any unresolved linguistic unit.
   // Detailed per-unit diagnostics and provisional hints remain separate.
