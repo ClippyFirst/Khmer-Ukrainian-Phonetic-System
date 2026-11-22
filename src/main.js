@@ -648,10 +648,30 @@ if (typeof document !== "undefined") {
     $("ipa-result").textContent = romanizationOnlyInput
       ? "— · IPA не застосовується до готової романізації"
       : data.ipa;
-    $("ua-result").textContent = romanizationOnlyInput ? (uaRomanized.text || "—") : data.ua;
+    const appendMarkerToEveryWord = (value) => String(value || "").split(/(\s+)/u)
+      .map((part) => /^\s+$/u.test(part) || !part ? part : part + "???")
+      .join("");
+    const moveMarkerToWordEnd = (value) => String(value || "").split(/(\s+)/u)
+      .map((part) => {
+        if (/^\s+$/u.test(part) || !part || !part.includes("???")) return part;
+        const candidate = part.split("???").join("");
+        if (!candidate) return "???";
+        const chars = Array.from(candidate);
+        const firstNumber = chars.findIndex((char) => /\p{N}/u.test(char));
+        return firstNumber < 0
+          ? candidate + "???"
+          : chars.slice(0, firstNumber).join("") + "???" + chars.slice(firstNumber).join("");
+      }).join("");
+    const hasUkrainianCandidate = /[\p{L}]/u.test(String(data.ua || "").split("???").join(""));
+    const useRomanizationFallback = usesKhmerRomanizer && !hasUkrainianCandidate && Boolean(uaRomanized.text);
+    $("ua-result").textContent = romanizationOnlyInput || useRomanizationFallback
+      ? appendMarkerToEveryWord(uaRomanized.text || "—")
+      : moveMarkerToWordEnd(data.ua);
     $("status").textContent = romanizationOnlyInput
-      ? "BGN/PCGN LATIN INPUT · PROVISIONAL · доказовий рівень C"
-      : data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
+      ? "BGN/PCGN LATIN INPUT · PROVISIONAL · ??? наприкінці слова означає невстановлену точність · доказовий рівень C"
+      : useRomanizationFallback
+        ? "KHMER ROMANIZATION FALLBACK · PROVISIONAL · орфографічна підказка; ??? наприкінці слова означає невстановлену точність · доказовий рівень C"
+        : data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
     const levelGuidance = {
       strict: "Обережний рівень: показано лише наявні джерельно індексовані пропозиції; непідтверджені IPA/українські форми не реконструюються. PROPOSED не є експертним gold.",
       balanced: "Збалансований рівень: показує основний частковий результат, статус кожної одиниці та причини невизначеності. Невстановлені фрагменти зберігаються на своїх позиціях.",

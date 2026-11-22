@@ -20,8 +20,9 @@ test.beforeEach(async ({ page }, testInfo) => {
 test("Latin BGN/PCGN input renders a provisional Ukrainian form in the primary result", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("Kampucheapcheathiptey");
-  await expect(page.locator("#ua-result")).toContainText("Кампучеа");
+  await expect(page.locator("#ua-result")).toContainText("Кампучеапчеат'іптей???");
   await expect(page.locator("#status")).toContainText("BGN/PCGN LATIN INPUT");
+  await expect(page.locator("#ua-result")).toHaveText(/\?\?\?$/u);
   await expect(page.locator("#ipa-result")).toContainText("IPA не застосовується");
 });
 
@@ -202,7 +203,7 @@ test("mixed scripts and Khmer numerals preserve neighboring output and source or
   await expect(page.locator("#results")).toBeVisible();
   await expect(page.locator("#status")).toHaveText("EVIDENCE LIMITED · доказовий рівень D");
   await expect(page.locator("#ipa-result")).toHaveText("/kɑː/⟦INVALID_OR_UNSUPPORTED⟧/kɔː/៦១១");
-  await expect(page.locator("#ua-result")).toHaveText("ка???ко៦១១");
+  await expect(page.locator("#ua-result")).toHaveText("како???៦១១");
 });
 
 test("one unsupported unit does not hide neighboring IPA and Ukrainian output", async ({ page }) => {
@@ -307,7 +308,16 @@ test("romanization method can be activated by keyboard and status is announced",
 });
 
 
-test("shared onset fallback fixture keeps canonical output unresolved", async ({ page }) => {
+
+test("unresolved Khmer-script phrase shows the actual romanization-derived candidate with one final marker", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("កម្ពុជាប្រជាធិបតេយ្យ");
+  await expect(page.locator("#ua-result")).not.toHaveText("???");
+  await expect(page.locator("#ua-result")).toHaveText(/\?\?\?$/u);
+  await expect(page.locator("#status")).toContainText("KHMER ROMANIZATION FALLBACK");
+});
+
+test("shared onset fallback fixture keeps IPA unresolved and shows the actual romanization-derived preview", async ({ page }) => {
   const { readFileSync } = await import("node:fs");
   const fixture = JSON.parse(readFileSync(new URL("../../data/tests/khmer-onset-fallback-fixtures.json", import.meta.url), "utf8"));
   expect(fixture.schema).toBe("khmer-onset-fallback-fixtures/v1");
@@ -317,8 +327,8 @@ test("shared onset fallback fixture keeps canonical output unresolved", async ({
     await page.locator("#source").fill(item.source);
     await expect(page.locator("#results")).toBeVisible();
     await expect(page.locator("#ipa-result")).toHaveText(item.canonical_ipa_display);
-    await expect(page.locator("#ua-result")).toHaveText(item.canonical_ukrainian_display);
-    await expect(page.locator("#status")).toHaveText("NOT ESTABLISHED · доказовий рівень C");
+    await expect(page.locator("#ua-result")).toHaveText(/\?\?\?$/u);
+    await expect(page.locator("#status")).toContainText("PROVISIONAL");
     await expect(page.locator("#unit-details")).toContainText("Попередня підказка: " + item.provisional_ipa + " → " + item.provisional_ukrainian + " [PROVISIONAL]");
     await expect(page.locator(".unit-detail")).toHaveAttribute("data-fallback-rule-id", item.rule_id);
     await expect(page.locator(".unit-detail")).toHaveAttribute("data-fallback-position", item.position);
