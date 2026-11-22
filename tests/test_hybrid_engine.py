@@ -65,6 +65,21 @@ def test_valid_external_ipa_is_retained_even_when_ukrainian_mapping_is_missing()
     assert candidate["ukrainian"] is None
     assert candidate["ukrainian_mapping_failure"] == "q"
 
+
+def test_hybrid_prefers_first_ukrainian_mappable_candidate_without_dropping_other_ipa():
+    result = HybridKhmerEngine({
+        "khmer-phonemizer": lambda _: typed("/kɑː/"),
+        "mekongphon": lambda _: typed("q"),
+    }).analyze("កម្ពុជាប្រជាធិបតេយ្យ")
+
+    assert [item["provider"] for item in result["external_candidates"]] == [
+        "mekongphon", "khmer-phonemizer"
+    ]
+    assert result["external_candidates"][0]["ukrainian_candidate"] is None
+    assert result["external_candidates"][1]["ukrainian_candidate"] == "ка"
+    assert result["provisional_candidate"]["provider"] == "khmer-phonemizer"
+    assert result["provisional_candidate"]["ukrainian"] == "ка"
+
 def test_khmerphonemizer_adapter_returns_token_aligned_partial_ipa(monkeypatch):
     import sys
     from types import SimpleNamespace
