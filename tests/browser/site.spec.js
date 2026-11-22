@@ -140,6 +140,15 @@ test("directly source-attested Khmer phrase is tier B and differs from compositi
   await expect(page.locator(".unit-source-locator")).toContainText("oldid=68806374");
 });
 
+test("IPA and Latin romanization remain visible outside the collapsed analysis drawer", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("textbox").fill("សុខា");
+  await expect(page.locator("#ipa-result")).toBeVisible();
+  await expect(page.locator("#romanization-result")).toBeVisible();
+  await expect(page.locator("#research-details")).not.toHaveAttribute("open", "");
+  await expect(page.locator("#unit-details")).toBeHidden();
+});
+
 test("source-attested Khmer cluster word retains every IPA segment through the adapter", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("ល្ងាច");
