@@ -423,7 +423,7 @@ function renderUnknownUnit(unit, profile) {
       ua: "⟦НЕВСТАНОВЛЕНО⟧",
       status: "NOT_ESTABLISHED",
       rule_trace: ["KHMER_STRUCTURE_PARSED", "IPA_NOT_ESTABLISHED", "BGN_PCNG_ORTHOGRAPHIC_UKRAINIAN_FALLBACK"],
-      note: "IPA-вимову для цієї одиниці не встановлено. Показано найкращий доступний попередній український кандидат із BGN/PCGN-похідної романізації; це орфографічна апроксимація, а не підтверджена вимова.",
+      note: "IPA-вимову для цієї одиниці не встановлено. Окремий режим романізації пропонує BGN/PCGN-похідного українського кандидата; це орфографічна апроксимація, а не підтверджена вимова.",
       analysis,
       profile,
       fallback_status: "PROVISIONAL",
@@ -592,7 +592,7 @@ function convert(text, profile) {
       structure: item.analysis ? ["unicode17-ch16"] : [],
       target_policy: item.mapping_check
         ? ["data/ukrainian/practical-policy.json"]
-        : item.fallback_status === "PROVISIONAL" ? ["src/khmer-romanization-ukrainian.js"] : [],
+        : [],
     },
     uncertainty: ["PUNCTUATION", "NON_LINGUISTIC", "PROPOSED"].includes(item.status)
       ? []
