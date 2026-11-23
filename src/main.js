@@ -206,9 +206,11 @@ if (typeof document !== "undefined") {
           chunkTitle.lang = "km";
           chunkTitle.textContent = chunk.method === "LEXICAL_FIXTURE_PROTECTED"
             ? "Захищена лексична одиниця: " + chunk.source
-            : "Фрагмент для словникового пошуку: " + chunk.source;
+            : chunk.method === "DIAGNOSTICS_SKIPPED_LENGTH_LIMIT"
+              ? "Додаткові варіанти пропущено: понад 128 кластерів; основна сегментація не змінена."
+              : "Фрагмент для словникового пошуку: " + chunk.source;
           runCard.append(chunkTitle);
-          chunk.candidates.forEach((candidate) => {
+          if (chunk.method !== "LEXICAL_FIXTURE_PROTECTED") chunk.candidates.forEach((candidate) => {
             const candidateLine = document.createElement("p");
             candidateLine.className = "unit-values";
             const rendered = candidate.segments.map((segment) =>
