@@ -36,3 +36,26 @@ python scripts/evaluate_khpos.py
 ```
 
 The command downloads the pinned open test file, verifies the Git blob SHA-1, runs Python and JavaScript parity evaluation, prints aggregate metrics, and removes the temporary corpus copy.
+
+
+## Measured result — 2026-11-23
+
+The exact pinned benchmark completed successfully in [GitHub Actions run 45220729721](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45220729721). Both the Python engine and browser JavaScript tokenizer returned identical aggregate counts:
+
+| Metric | Result |
+|---|---:|
+| Sentences | 1,000 |
+| Raw gold tokens | 10,778 |
+| Khmer gold word tokens | 10,068 |
+| Sentences with at least one gold boundary | 999 |
+| Gold boundaries | 8,752 |
+| Predicted boundaries | 9,538 |
+| True-positive boundaries | 8,370 |
+| False-positive boundaries | 1,168 |
+| False-negative boundaries | 382 |
+| Boundary precision | 87.75% |
+| Boundary recall | 95.64% |
+| Boundary F1 | 91.53% |
+| Exact sentence segmentations | 487 / 999 (48.75%) |
+
+This is a useful external agreement measurement, not target-profile segmentation accuracy. Precision is lower than recall, so the current system tends to introduce too many boundaries relative to this corpus. The score must not be generalized beyond this dataset's annotation convention, and possible overlap with FineWeb-2 source texts remains unknown. The project's target-profile segmentation accuracy stays `NOT ASSESSED`.
