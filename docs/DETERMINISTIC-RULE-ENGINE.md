@@ -35,13 +35,14 @@ The optional Python `HybridKhmerEngine` is a separate diagnostic wrapper. It run
 
 ## Браузерне виконання без блокування інтерфейсу — 2026-11-23
 
-Детермінований IPA-first рушій тепер запускається в окремому Web Worker через `src/khmer-engine-client.js` та `src/khmer-engine.worker.js`. Worker імпортує той самий локальний `convert()` із `src/khmer-engine-core.js`, тому не створює другої реалізації правил і не змінює семантику IPA/українського результату. Мережевих запитів для обчислення немає; текст передається лише між головним потоком і Worker у межах вкладки.
+Детермінований IPA-first рушій запускається в окремому Web Worker через `src/khmer-engine-client.js` та `src/khmer-engine.worker.js`. Worker імпортує локальний `convert()` із `src/khmer-engine-core.js`, не створюючи другої реалізації правил. Введений текст передається лише через локальний механізм повідомлень Worker у межах вкладки; мережевого API для обчислення немає.
 
-Клієнт використовує локальний синхронний `convert()` як fail-safe, якщо Worker недоступний або повернув помилку. Номер ревізії рендерингу відкидає застарілі відповіді при швидкому наборі тексту. Романізаційний шлях лишається окремим і не підміняє IPA-first фонетичний рушій.
+Клієнт використовує той самий синхронний `convert()` як резерв, якщо Worker недоступний або повернув помилку. Ревізія рендерингу відкидає застарілі відповіді під час швидкого набору. Романізаційний шлях залишається окремим.
 
-Це оптимізація чуйності інтерфейсу, а не нова фонологічна модель і не доказ точності. Паритет Python↔JavaScript, ширше покриття та незалежна експертна IPA-ад'юдикація залишаються окремими критеріями.
+## Розділення рушія та UI — 2026-11-23
 
+Детерміновану логіку винесено в `src/khmer-engine-core.js`; UI entry point залишається в `src/main.js`. Worker імпортує лише core, не підвантажуючи DOM-rendering entry point. Це зменшило Worker bundle з 136.40 до 124.02 kB у відповідних production builds. Це оптимізація складання/ізоляції та чуйності UI, а не виміряний приріст швидкості фонологічного обчислення й не нова фонологічна модель.
 
-### Engine/UI module separation — 2026-11-23
+Перевірка точного коду head `9fd26941efb7e4936d921d700ee5215569449bda`: Quality [45136120659](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136120659) — 453 Python tests + 70 subtests, Node checks і Vite build успішні; Chromium [45136120671](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136120671) — 33/33, включно з реальним Worker та fallback при недоступному Worker asset.
 
-The deterministic engine has been extracted into `src/khmer-engine-core.js`. The UI entry point `src/main.js` now imports only the functions it needs, while the Worker imports the core directly and no longer bundles the DOM-rendering entry point. Runtime, register-shifter and structural tests now import the core module; static source guards inspect both core and UI where appropriate. The core retains the existing deterministic rules and local romanization-derived fallback dependency; this is modularization, not a new phonology model.
+Паритет Python↔JavaScript, tokenizer/OOV model і незалежна IPA-ад'юдикація залишаються окремими критеріями. Жодних сторонніх ваг або корпусів не додано; права на їх розповсюдження залишаються непідтвердженими.
