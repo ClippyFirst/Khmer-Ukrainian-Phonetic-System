@@ -12,9 +12,10 @@
       "input": "កម",
       "units": [
         "ក",
+        " ",
         "ម"
       ],
-      "reason": "Conservative explicit consonant boundary"
+      "reason": "The frequency dictionary proposes two known word units; the inserted space marks a candidate boundary, not gold."
     },
     {
       "input": "កx",
@@ -52,6 +53,19 @@
         "ម"
       ],
       "reason": "Zero-width space is an explicit boundary"
+    },
+    {
+      "input": "ខ្ញុំស្រឡាញ់ប្រទេសកម្ពុជា",
+      "units": [
+        "ខ្ញុំ",
+        " ",
+        "ស្រឡាញ់",
+        " ",
+        "ប្រទេស",
+        " ",
+        "កម្ពុជា"
+      ],
+      "reason": "Multiword Khmer sentence segmented into four dictionary-known words; candidate boundaries are not independently adjudicated."
     }
   ]
 }
