@@ -6550,3 +6550,12 @@ Each cell is F1. “All” is all-token exact spans; “Khmer” is Khmer-only e
 - **Do not integrate or bundle the trained tagger, HMM, or Rust dependency in production.** Keep the experiment as a reproducible research gate. Any future model candidate requires further dialect/corpus coverage, rights review, and cross-corpus evidence; an in-domain score alone is not an acceptance criterion.
 
 This supersedes the earlier `DEFERRED` status for *conducting* a local tagger experiment: that research experiment is now `DONE_VERIFIED`. Model distribution and production adoption remain `DEFERRED` / `NO ADOPTION`.
+
+
+## Open PR reconciliation — PR #519 (checked 2026-11-23)
+
+- PR [#519](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/519) remains **OPEN and untouched**. Its head is `1d7d224858a4f8211802030c026cce31ce9a810c`, based on `fe870f1b6d138d39bc271362cdda4165c1e3517e`. Compared with current main `454ed1afa15b79dab718aaba2dc80794e0efc87a`, the branch is diverged: 73 commits ahead / 32 behind; GitHub reports `mergeable=false`.
+- The browser-side method selector and separate `data-method` routes are already present on current main and covered by the current Chromium smoke workflow. The PR's old UI/README changes must therefore not be merged wholesale over current main.
+- The PR's remaining distinct work is primarily optional Python-side Khmer Phonemizer / Epitran / MekongPhon adapters, their optional dependencies, and raw-output smoke workflows. The current main already has the typed `HybridKhmerEngine` injection boundary but does not include those optional provider adapters.
+- The GitHub Pages app is static and has no Python runtime or deployed inference API. These adapters cannot serve live requests from the public browser as currently hosted. Their candidates are unadjudicated and remain provisional; no provider accuracy or target-profile match is established.
+- **Decision:** do not merge or rebase PR #519 blindly, do not force-update or close its branch, and do not port its provider adapters into the public runtime without a supported inference backend, explicit data/model-rights review, and independent IPA validation. Keep the PR open for later selective reconciliation. The existing public method switch remains the accepted implementation on main.
