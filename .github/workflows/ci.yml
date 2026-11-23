@@ -45,6 +45,9 @@ jobs:
       - name: Run Python and JavaScript structural parity tests
         run: npm run test:parity
 
+      - name: Run Python and JavaScript lexical fixture parity tests
+        run: npm run test:lexical-parity
+
       - name: Benchmark browser tokenizer
         run: npm run bench:tokenizer
 
