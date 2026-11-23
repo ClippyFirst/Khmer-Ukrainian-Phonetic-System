@@ -6141,3 +6141,12 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - Exact-head Chromium [45147375800](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147375800): 34/34 passed.
 - Tokenizer stress on this run: 8,000 code points; trie median 6.19 ms vs pre-trie 473.60 ms, 76.5×. CI-host variance means this is comparative synthetic evidence only.
 - Full contextual phonology and complete result-schema parity remain PARTIAL; lexical word segmentation/OOV remains TODO; third-party model/corpus redistribution remains BLOCKED pending rights review.
+
+
+## Cross-runtime engine throughput benchmark — 2026-11-23
+
+- Added `npm run bench:engine`, which warms both runtimes and measures 25 batches of the same 36 lexical fixtures through JS `convert()` and Python `RuleBasedKhmerEngine.analyze()`. It is a non-gating CI microbenchmark, not a device-specific latency guarantee.
+- Exact code head `bcd3421a63711812f2e9ea3533e9215796c8db59`: Quality [45147739766](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147739766) passed 455 Python tests + 70 subtests, Node checks, 129 structural parity cases, 36 lexical fixture parity cases, engine and tokenizer benchmarks, and Vite build. Browser [45147739801](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147739801) passed 34/34.
+- Same-run fixture-batch medians: JS 0.4274 ms (84,229 fixture analyses/s), Python 4.3880 ms (8,204/s), observed JS/Python ratio 10.27×. Interpret as measured implementation latency on this CI runner only: Python constructs a richer research result/structure contract and JS output contract is not yet fully identical, so this is not a controlled algorithm-only speedup or a promise for other devices.
+- Tokenizer stress benchmark on the same head: 8,000 code points, trie 4.66 ms vs pre-trie 415.96 ms, 89.3×. Synthetic tokenizer-only comparison.
+- **Task ledger:** comparable same-corpus runtime benchmark = DONE_VERIFIED; fair apples-to-apples full-output benchmark = PARTIAL pending full result-contract parity; end-to-end browser latency on representative mobile devices = TODO.
