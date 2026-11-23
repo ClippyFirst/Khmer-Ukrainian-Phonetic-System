@@ -362,17 +362,38 @@ function renderIpaProfile(ipa, profile) {
 function renderFixture(fixture, profile) {
   if (!PROFILES.has(profile)) throw new Error("Unsupported pronunciation profile: " + profile);
   if (!fixture.ipa) {
+    // A withheld full-word fixture must not erase independently supported
+    // phonetic material. For evidence-limited register conflicts, preserve
+    // only the structurally identifiable onset; never infer the vowel,
+    // register realization, coda, tone or complete lexical pronunciation.
+    const analysis = fixture.status === "EVIDENCE_LIMITED" ? parseSyllable(fixture.source) : null;
+    const onsetIpa = analysis?.status === "EVIDENCE_LIMITED" ? analysis.onset_ipa : null;
+    const onsetMapping = onsetIpa ? mapIpa(onsetIpa, practicalPolicy) : null;
+    const hasPartialOnset = Boolean(onsetIpa && onsetMapping?.value !== null);
+    const partialUkrainian = hasPartialOnset ? onsetMapping.value + "???" : null;
     return {
       source: fixture.source,
-      ipa: fixture.status === "NOT_ESTABLISHED" ? "⟦NOT_ESTABLISHED⟧" : "⟦EVIDENCE_LIMITED⟧",
-      ua: "⟦НЕВСТАНОВЛЕНО⟧",
+      ipa: hasPartialOnset ? "/" + onsetIpa + "/⟦EVIDENCE_LIMITED⟧"
+        : fixture.status === "NOT_ESTABLISHED" ? "⟦NOT_ESTABLISHED⟧" : "⟦EVIDENCE_LIMITED⟧",
+      ua: hasPartialOnset ? partialUkrainian : "⟦НЕВСТАНОВЛЕНО⟧",
       status: fixture.status,
-      rule_trace: ["KHMER_LEXICAL_FIXTURE_WITHHELD"],
-      note: fixture.note,
+      rule_trace: hasPartialOnset
+        ? ["KHMER_LEXICAL_FIXTURE_WITHHELD", "PARTIAL_ONSET_IPA_ONLY"]
+        : ["KHMER_LEXICAL_FIXTURE_WITHHELD"],
+      note: hasPartialOnset
+        ? fixture.note + " Частковий результат: початковий приголосний /" + onsetIpa
+          + "/ розпізнано окремо; голосну, регістр, фіналь і тон не встановлено. Знак ??? позначає невстановлений залишок."
+        : fixture.note,
       profile,
       mapping_check: null,
       evidence: fixture.evidence ?? [],
       source_locator: fixture.source_locator ?? null,
+      ...(hasPartialOnset ? {
+        provisional_ipa: onsetIpa,
+        provisional_ukrainian: partialUkrainian,
+        partial_ipa: onsetIpa,
+        partial_candidate_kind: "ONSET_ONLY",
+      } : {}),
     };
   }
 
@@ -630,6 +651,11 @@ function convert(text, profile) {
       uaParts.push(item.ua);
       continue;
     }
+    if (item.partial_candidate_kind === "ONSET_ONLY") {
+      flushUnresolved();
+      uaParts.push(item.ua);
+      continue;
+    }
     if (item.status === "PROPOSED") {
       flushUnresolved();
       uaParts.push(item.ua);
@@ -649,7 +675,7 @@ function convert(text, profile) {
     status: item.status,
     ipa_kind: ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status) ? "NOT_APPLICABLE" : "UNRESOLVED",
     rule_trace: item.rule_trace ?? [],
-    ipa: item.status !== "PUNCTUATION" && /^\/.*\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa,
+    ipa: item.partial_ipa ?? (item.status !== "PUNCTUATION" && /^\/.*\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa),
     ukrainian: item.ua,
     ukrainian_kind: item.fallback_status === "PROVISIONAL"
       ? "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
@@ -733,7 +759,8 @@ function convert(text, profile) {
     backend_failures: providerEntry?.backend_failures ?? [],
     selected_external_candidate: selectedExternalCandidate,
     complete,
-    partial: !complete && (resolved.length > 0 || Boolean(selectedExternalCandidate)),
+    partial: !complete && (resolved.length > 0 || Boolean(selectedExternalCandidate)
+      || rendered.some((item) => item.partial_candidate_kind === "ONSET_ONLY")),
     status: displayStatus,
     confidence_tier: selectedExternalCandidate ? "C" : confidence,
     note: note + segmentationNote,
@@ -744,7 +771,8 @@ function convert(text, profile) {
       schema: "khmer-phonetic-result/v1",
       pipeline: ["source-orthography", "structural-analysis", "source-phonology", "ipa", "ukrainian-target-adaptation"],
       complete,
-      partial: !complete && resolved.length > 0,
+      partial: !complete && (resolved.length > 0
+        || rendered.some((item) => item.partial_candidate_kind === "ONSET_ONLY")),
       units: phoneticResults,
     },
     analyses,
