@@ -134,7 +134,20 @@ export function describeWordSegmentation(units, fixtureKeys = new Set(), sourceT
         ? "LEXICAL_FIXTURE"
         : isKnownKhmerWord(text) ? "DICTIONARY_MATCH" : "OOV_RUN",
     }));
-  const candidateRuns = [...sourceText.matchAll(/[\\u1780-\\u17d3\\u17dd\\u200c\\u200d]+/gu)].map(([run]) => {
+  const sourceRuns = [];
+  let pendingRun = "";
+  for (const character of sourceText) {
+    const codepoint = character.codePointAt(0);
+    if ((codepoint >= 0x1780 && codepoint <= 0x17d3)
+        || [0x17dd, 0x200c, 0x200d].includes(codepoint)) {
+      pendingRun += character;
+    } else if (pendingRun) {
+      sourceRuns.push(pendingRun);
+      pendingRun = "";
+    }
+  }
+  if (pendingRun) sourceRuns.push(pendingRun);
+  const candidateRuns = sourceRuns.map((run) => {
     const protectedFixtures = [...fixtureKeys].filter((key) => {
       if (!run.includes(key)) return false;
       const { chars, bounds } = clusterStarts(key);
