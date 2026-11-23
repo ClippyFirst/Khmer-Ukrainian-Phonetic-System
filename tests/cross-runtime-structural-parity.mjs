@@ -55,6 +55,6 @@ for (const row of reference.cases) {
 const fallbackReference = reference.cases.find((row) => row.input === "ក្ក");
 assert.ok(fallbackReference, "unresolved fallback parity fixture is missing");
 const fallbackBrowser = convert("ក្ក", "khmer-pph-careful-citation-v1");
-assert.equal(fallbackBrowser.ua, fallbackReference.engine_unit.ukrainian,
-  "orthographic romanization fallback must not leak into the Python/JavaScript IPA-derived aggregate");
+assert.equal(fallbackBrowser.canonical_ua, fallbackReference.engine_unit.ukrainian ?? "???",
+  "orthographic romanization fallback must not leak into the IPA-derived aggregate; null Python output maps to the browser's explicit ??? placeholder");
 console.log("Python ↔ JavaScript structural parity: PASS (" + reference.cases.length + " cases)");
