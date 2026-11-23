@@ -42,3 +42,14 @@ Provider priority (MekongPhon 10, Khmer Phonemizer 20, Epitran 30, unknown 50, G
 The existing MekongPhon diagnostic harness and manual-only workflow are separate from this runtime API. No corpus is copied or automatically downloaded by this module. Corpus rights and train/evaluation split independence remain unresolved. Independent adjudicated Phnom Penh IPA gold remains 0; empirical accuracy remains null.
 
 This is a research interface, not a production fallback or a phonological truth validator.
+
+## Archived browser candidate snapshot
+
+The static browser does not run Python providers or call external G2P services. It contains one explicit, phrase-scoped snapshot from Quality workflow run [45080727416](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45080727416), artifact [14777495017](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45080727416/artifacts/14777495017), stored in `data/khmer/provisional-ipa-candidates.json`.
+
+For `កម្ពុជាប្រជាធិបតេយ្យ`:
+- Khmer Phonemizer 0.0.3 produced `kampuciə prɑciətʰɨppaʔtaj`. The browser re-runs the canonical IPA→Ukrainian adapter over this saved IPA and checks it against the artifact's recorded mapping before selecting it for display.
+- MekongPhon revision `20e069d384b240da76320e1569958568c12a54bc` produced `kampucieprɑcietʰiʔpaʔtay`; the current Ukrainian mapping is withheld at `y`.
+- Epitran's raw output is retained only as a rejected backend failure because it contains a non-IPA Khmer combining mark.
+
+The selected browser display is `/kampuciə prɑciətʰɨppaʔtaj/???` and `кампутьіє пратьієт'иппатай???`. The marker applies to the complete unadjudicated candidate. `profile_match=UNVERIFIED`; this snapshot is not expert gold, a measured-accuracy result, or evidence that the external provider's dialect/style equals the selected citation profile. The canonical deterministic result and all raw candidate/failure records remain separately inspectable. Provider order selects a display candidate only; it is not voting or ranking by accuracy.

@@ -1,3 +1,15 @@
+## Archived provisional IPA candidates surfaced in browser — 2026-11-23
+
+- **PARTIAL until exact-head CI and Pages deployment:** PR [#522](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/522) now carries the prior multi-provider output into the browser IPA result for the exact input `កម្ពុជាប្រជាធិបតេយ្យ`.
+- Source is the previously completed Quality workflow run [45080727416](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45080727416), artifact [14777495017](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45080727416/artifacts/14777495017), with its digest and provider metadata preserved in `data/khmer/provisional-ipa-candidates.json`.
+- The browser's displayed candidate is `/kampuciə prɑciətʰɨppaʔtaj/???` → `кампутьіє пратьієт'иппатай???`. The browser re-runs the canonical IPA→Ukrainian mapping and checks it against the recorded artifact mapping before display.
+- The second raw candidate, MekongPhon `kampucieprɑcietʰiʔpaʔtay`, remains visible with its unresolved Ukrainian mapping at `y`. Epitran's raw output and validation failure are retained as a rejected provider result, not presented as IPA.
+- All external outputs remain `PROVISIONAL`/`PARTIAL`, `PHONETIC_BROAD`, and `profile_match=UNVERIFIED`. The selected provider order is not an accuracy ranking or vote. The internal deterministic result remains separately available as `canonical_ipa`, `canonical_ua`, and typed per-unit records.
+- The BGN/PCGN-derived orthographic fallback remains a separate candidate route; where shown, it also retains its own `???` marker. No external provider is called live by GitHub Pages.
+- Regression tests now assert the exact IPA and Ukrainian candidate outputs, the second provider's mapping failure, and Epitran's rejected output. Exact-head CI and Pages deployment are pending.
+
+---
+
 ## Final beta engineering release — 2026-11-23
 
 - **DONE_VERIFIED — browser execution:** PR [#520](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/520) was squash-merged into `main` as `9ca91136c037a83271517a80de65d3896739d9ec`. The merged implementation adds `src/khmer-engine-core.js`, `src/khmer-engine-client.js` and `src/khmer-engine.worker.js`; the UI and Worker share the same deterministic JavaScript core, and Worker failure falls back locally to that core.

@@ -29,8 +29,19 @@ assert.equal(result.units.filter((unit) => unit.status !== "PUNCTUATION").length
 assert.ok(result.units.filter((unit) => unit.status !== "PUNCTUATION").every((unit) => unit.status === "PROPOSED"), "no linguistic unit in the 32-item regression block may remain unresolved");
  
 const unresolvedWord = convert("កម្ពុជាប្រជាធិបតេយ្យ", "khmer-pph-careful-citation-v1");
-assert.equal(unresolvedWord.ipa, "⟦NOT_ESTABLISHED⟧", "the public IPA line must retain one abstention marker for the unresolved Khmer word/run");
-assert.equal(unresolvedWord.ua, "Кампучеапчеат'іптей", "the user-facing Ukrainian result must offer the best available per-unit orthographic candidate without requiring a mode switch");
+assert.equal(unresolvedWord.ipa, "/kampuciə prɑciətʰɨppaʔtaj/???", "the browser IPA result must preserve the archived Khmer Phonemizer candidate and mark it as unverified");
+assert.equal(unresolvedWord.ua, "кампутьіє пратьієт'иппатай???", "the browser IPA adapter must render the selected provisional IPA candidate and append one uncertainty marker");
+assert.ok(unresolvedWord.ipa.endsWith("???") && unresolvedWord.ipa !== "???", "an unresolved IPA result must retain its candidate before the uncertainty marker");
+assert.ok(unresolvedWord.ua.endsWith("???") && unresolvedWord.ua !== "???", "an unresolved Ukrainian result must retain its candidate before the uncertainty marker");
+assert.equal(unresolvedWord.status, "PROVISIONAL");
+assert.equal(unresolvedWord.confidence_tier, "C");
+assert.equal(unresolvedWord.selected_external_candidate.provider, "khmer-phonemizer");
+assert.equal(unresolvedWord.selected_external_candidate.profile_match, "UNVERIFIED");
+assert.equal(unresolvedWord.external_candidates.length, 2, "both previously captured provider IPA candidates must remain inspectable");
+assert.equal(unresolvedWord.external_candidates.find((candidate) => candidate.provider === "mekongphon").mapping_failure, "y");
+assert.equal(unresolvedWord.backend_failures[0].provider, "epitran", "rejected provider output must remain visible as a failure, not be promoted to IPA");
+assert.ok(unresolvedWord.canonical_ipa.includes("NOT_ESTABLISHED"), "the internal deterministic result must remain separately preserved");
+assert.ok(unresolvedWord.canonical_ua.endsWith("???"), "the orthographic fallback remains available separately from the external IPA candidate");
 assert.equal(unresolvedWord.units.filter((unit) => unit.status === "NOT_ESTABLISHED").length, 3, "per-unit phonetic status must retain all three unresolved orthographic units");
 assert.ok(unresolvedWord.units.every((unit) => unit.fallback_status === "PROVISIONAL" && unit.ua && unit.ua !== "⟦НЕВСТАНОВЛЕНО⟧"), "each unresolved but romanizable unit must expose a provisional Ukrainian candidate");
 assert.equal(unresolvedWord.phonetic_result.units.filter((unit) => unit.status === "NOT_ESTABLISHED").length, 3, "machine-readable IPA provenance must retain per-unit uncertainty");
@@ -171,6 +182,9 @@ assert.throws(() => convert("ក", "unsupported_profile"), /Unsupported pronunci
 assert.equal(convert("   ", "khmer-pph-careful-citation-v1"), null);
 
 
+const externalNotice = getStatusNotice(unresolvedWord);
+assert.match(externalNotice, /profile_match=UNVERIFIED/u);
+assert.match(externalNotice, /khmer-phonemizer/u);
 const proposedNotice = getStatusNotice(convert("ក", "khmer-pph-careful-citation-v1"));
 assert.match(proposedNotice, /PROPOSED/u);
 assert.match(proposedNotice, /дослідницькими пропозиціями/u);
