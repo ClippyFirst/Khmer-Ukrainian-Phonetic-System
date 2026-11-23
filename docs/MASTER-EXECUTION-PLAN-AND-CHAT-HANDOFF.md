@@ -5,6 +5,30 @@
 - **DONE_VERIFIED — hybrid Python candidate selection (PR head):** `HybridKhmerEngine` validates all injected provider outputs, maps each through the existing IPA→Ukrainian adapter, and exposes `provisional_candidate` only when canonical IPA is unresolved. It selects the first mappable candidate, or the first valid IPA candidate if none maps; canonical `ipa` and `ukrainian` fields are never overwritten. Every candidate retains provider, profile, kind, status, mapping failure, uncertainty and provenance. Provider order is not an accuracy ranking or vote.
 - **DONE_VERIFIED — explicit optional provider:** `khmerphonemizer==0.0.3` is available through the `phonemizer` extra and `create_hybrid_engine(include_khmerphonemizer=True)`. It is lazy and opt-in. Exact-final-head smoke [45276031279](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45276031279) produced `kampuciə prɑciətʰɨppaʔtaj` → `кампутьіє пратьієт'иппатай`, status `PROVISIONAL`, `profile_match=UNVERIFIED`, provider status `PARTIAL`; canonical deterministic fields remained unchanged. Artifact [14867585801](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45276031279/artifacts/14867585801), SHA-256 `f91d71309b75de4fcfad6218aaf023b8ef80d688e65a360dcd6846afdbbaae12`.
 - **Test-first and exact-head verification:** the onset regression first failed on test-only head [45272634271](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45272634271); subsequent parity failures were corrected rather than waived. Pre-closeout PR head `705c87fa24929a02d20578ff8b64f221520c7bcf`: Quality [45276031220](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45276031220) passed **475 Python tests + 70 subtests**, Node/web checks, 129 structural cases, 38 lexical fixtures, 46 consonant/rule cases, 6 segmentation fixtures, both benchmarks and Vite build; Chromium [45276031278](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45276031278) passed **39/39**; external khPOS benchmark [45276031208](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45276031208), pinned Rust comparison [45276031128](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45276031128), and optional provider smoke [45276031279](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45276031279) all passed. The final handoff refresh is docs-only after this verified code head; its Quality workflow is re-run separately. No linguistic accuracy claim follows from these engineering checks.
+- **Exact commands executed by GitHub Actions:**
+  ```sh
+  python scripts/ipa_gold_corpus.py validate --language khmer
+  python -m pip install -e ".[test]"
+  pytest -q
+  npm ci --no-audit --no-fund
+  npm run check
+  npm run test:parity
+  npm run test:lexical-parity
+  npm run test:rule-parity
+  npm run test:segmentation-parity
+  npm run bench:engine
+  npm run bench:tokenizer
+  npm run build
+  npx playwright install --with-deps chromium
+  npm run test:browser
+  python -m pip install -e ".[test,phonemizer]"
+  python scripts/benchmark_g2p.py --output artifacts/external-g2p/khmer-phonemizer.json
+  python scripts/evaluate_khpos.py
+  python scripts/evaluate_khpos_external_rust.py --upstream .bench-upstream
+  python scripts/evaluate_khpos_external_rust_models.py --upstream .bench-upstream
+  ```
+  The optional-provider workflow also ran an inline Python smoke that asserts the candidate is typed `PROVISIONAL` / `UNVERIFIED` and does not overwrite canonical IPA or Ukrainian output.
+
 - **Public-browser boundary — BLOCKED for live multi-provider inference:** GitHub Pages remains a static browser app with `connect-src 'none'`; it cannot invoke Python providers. The browser can use its deterministic partial-onset path and existing exact-input archived candidate snapshot, but it cannot generate a fresh Khmer Phonemizer/MekongPhon result for arbitrary input. No remote inference service, user-text transmission, model download or new server was introduced. A live provider-backed browser path requires a separately approved deployment/privacy/licensing design or a validated local browser model.
 - **Provider selection policy:** no candidate is promoted to established IPA or gold. `profile_match=UNVERIFIED` remains explicit. Epitran is not enabled because its known Khmer output retained non-IPA Khmer combining marks and fails the shared validator. MekongPhon remains a separately injectable large model; no weights/corpus were copied, and its tone coverage remains limited.
 - **Engineering workflow adopted from the supplied repositories:** exact reproduction and minimization → root-cause hypothesis/instrumentation → failing regression test → smallest fix → full Quality/parity/browser/build checks → diff review → evidence/handoff update. This applies Superpowers' systematic-debugging and verification gates, Matt Pocock's bug-diagnosis loop, Spec Kit's separate bug-fix path, gstack's independent QA/build-check, ECC's regression/evidence discipline, and Alibaba Open Code Review's focused review principle. No repository was copied wholesale and no duplicate agent framework was installed.
