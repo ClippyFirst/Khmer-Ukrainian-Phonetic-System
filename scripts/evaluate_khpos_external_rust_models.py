@@ -246,7 +246,7 @@ def main() -> None:
         khpos_sentences = sentences
         khpos_token_count = token_count
         alt_path = root / "data_km.km-tok.nova"
-        alt_raw = download_alt_test(root / "km-nova.zip")
+        alt_raw = download_alt_test(alt_path)
         alt_sentences, alt_token_count, alt_source_lines = parse_alt_test(alt_raw)
         all_sentences = [*khpos_sentences, *alt_sentences]
         test_sources = {sentence.source for sentence in all_sentences}
