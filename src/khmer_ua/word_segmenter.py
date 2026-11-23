@@ -1,6 +1,6 @@
 """Dictionary/Viterbi Khmer word segmentation candidate.
 
-The bundled lexicon is a 3,009-entry attributed sample. Word boundaries are
+The bundled lexicon is a 61,980-entry attributed frequency dictionary. Word boundaries are
 provisional and are not treated as linguistic gold.
 """
 from __future__ import annotations
@@ -13,12 +13,12 @@ from pathlib import Path
 from .data import CONSONANTS
 
 ROOT = Path(__file__).resolve().parents[2]
-_DATA_PATH = ROOT / "data" / "khmer" / "google-pronunciation-sample.json"
+_DATA_PATH = ROOT / "data" / "khmer" / "google-khmer-word-frequencies.json"
 with _DATA_PATH.open(encoding="utf-8") as _handle:
     _DATASET = json.load(_handle)
 _CONSONANT_CHARS = {item["char"] for item in CONSONANTS}
 
-WORD_SEGMENTER_ID = "google-khmer-pronunciation-frequency-viterbi-sample-v1"
+WORD_SEGMENTER_ID = "google-khmer-fineweb2-frequency-viterbi-full-v1"
 WORD_DICTIONARY_SIZE = len(_DATASET["entries"])
 _COENG = "\u17d2"
 _MAX_CLUSTERS = 12
