@@ -36,7 +36,9 @@ result = engine.analyze("ខ្មែរ")
 
 ## Optional adapters and limitations
 
-`make_mekongphon_backend` lazily loads the pinned external model only when explicitly injected and called. `make_command_backend` wraps a caller-supplied pinned CLI command. Neither adapter is enabled by default; optional dependencies are not installed by the core package. When a caller injects a provider, a mappable result can be surfaced through `provisional_candidate` without changing canonical fields.
+`make_khmerphonemizer_backend` lazily imports the pinned Khmer Phonemizer package and returns an unadjudicated `PHONETIC_BROAD` / `PARTIAL` candidate. Install it with `pip install -e ".[phonemizer]"` and explicitly enable it with `create_hybrid_engine(include_khmerphonemizer=True)`. The core package never auto-discovers or silently invokes external providers.
+
+`make_mekongphon_backend` lazily loads the pinned external model only when explicitly injected and called. `make_command_backend` wraps a caller-supplied pinned CLI command. These adapters are also opt-in; optional dependencies are not installed by the core package. When canonical IPA is unresolved, the first mappable provider result is surfaced through `provisional_candidate`; if no candidate maps fully, the first valid IPA is still returned with its exact mapping failure. Canonical fields are unchanged.
 
 Provider priority (MekongPhon 10, Khmer Phonemizer 20, Epitran 30, unknown 50, Goruut 90) is diagnostic ordering only, not a quality score. Provider execution is opt-in and may invoke external code; callers are responsible for pinning, sandboxing and reviewing the command/dependency and its rights.
 
