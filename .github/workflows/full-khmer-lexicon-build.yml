@@ -40,6 +40,17 @@ jobs:
         run: |
           mkdir -p data/raw
           cp "${{ github.workspace }}/data/khmer/google-pronunciation-full.tsv" data/raw/google-km-lexicon.tsv
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+
+          source = Path("data/raw/google-km-lexicon.tsv")
+          actual = hashlib.sha256(source.read_bytes()).hexdigest()
+          expected = "b3f2e700d07d6c01a4c8cac5aa2f13b9a66885668ac482cc0c513f73c56495e5"
+          if actual != expected:
+              raise SystemExit(f"Google source SHA-256 mismatch: {actual}")
+          print(f"Google source SHA-256 verified: {actual}")
+          PY
           uv sync --locked --group data
           uv run --locked --group data python scripts/build_data.py --raw data/raw --out "${{ runner.temp }}/khmer-full-build" --workers 8
 
