@@ -1,0 +1,44 @@
+{
+  "schema": "khmer-word-segmentation-parity/v1",
+  "method": "DICTIONARY_VITERBI_CANDIDATE",
+  "cases": [
+    {
+      "input": "ផ្ឯម",
+      "units": [
+        "ផ្ឯម"
+      ],
+      "reason": "Unknown KCC run must remain intact when followed by a bare letter-name cluster."
+    },
+    {
+      "input": "កម",
+      "units": [
+        "ក",
+        " ",
+        "ម"
+      ],
+      "reason": "The frequency dictionary proposes two known units; the inserted boundary is a candidate, not gold."
+    },
+    {
+      "input": "ខ្ញុំស្រឡាញ់ប្រទេសកម្ពុជា",
+      "units": [
+        "ខ្ញុំ",
+        " ",
+        "ស្រឡាញ់",
+        " ",
+        "ប្រទេស",
+        " ",
+        "កម្ពុជា"
+      ],
+      "reason": "Continuous sentence split into four dictionary-known words; no independent segmentation gold is claimed."
+    },
+    {
+      "input": "សុខសប្បាយទេ",
+      "units": [
+        "សុខសប្បាយ",
+        " ",
+        "ទេ"
+      ],
+      "reason": "Common continuous phrase split by the local frequency dictionary."
+    }
+  ]
+}

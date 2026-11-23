@@ -1,6 +1,7 @@
 import { convert, tokenize } from "../src/khmer-engine-core.js";
 import fs from "node:fs";
 import { mapIpa } from "../src/ukrainian-practical.js";
+import { segmentKhmerWordsDetailed } from "../src/khmer-word-segmenter.js";
 
 const html = fs.readFileSync("index.html", "utf8");
 const systemHtml = fs.readFileSync("system.html", "utf8");
@@ -12,7 +13,7 @@ const adapterSource = fs.readFileSync("src/ukrainian-practical.js", "utf8");
 const policy = JSON.parse(fs.readFileSync("data/ukrainian/practical-policy.json", "utf8"));
 const fixtures = JSON.parse(fs.readFileSync("data/tests/web-fixtures.json", "utf8"));
 const adversarial = JSON.parse(fs.readFileSync("data/tests/adversarial-cases.json", "utf8"));
-const tokenizerParity = JSON.parse(fs.readFileSync("data/tests/tokenizer-parity.json", "utf8"));
+const wordSegmentationParity = JSON.parse(fs.readFileSync("data/tests/word-segmentation-parity.json", "utf8"));
 const vite = fs.readFileSync("vite.config.js", "utf8");
 
 for (const x of ["Content-Security-Policy", "src/main.js", 'id="source"', 'id="results"']) {
@@ -214,7 +215,7 @@ for (const x of ['<nav class="site-nav" aria-label="Основна навіга�
 if (!js.includes("function confidenceTier(item)") || !js.includes("доказовий рівень") || !js.includes("unit.confidence_tier")) throw new Error("evidence confidence tiers are not surfaced in the browser");
 
 // Shared expected boundaries are consumed by both Python and browser tests.
-for (const item of tokenizerParity.cases) {
+for (const item of wordSegmentationParity.cases) {
   const actual = tokenize(item.input);
   if (JSON.stringify(actual) !== JSON.stringify(item.units)) {
     throw new Error("browser/Python tokenizer parity mismatch for " + JSON.stringify(item.input)
@@ -224,8 +225,20 @@ for (const item of tokenizerParity.cases) {
 
 const longKhmerRun = "ម".repeat(4096);
 const longRunUnits = tokenize(longKhmerRun);
-if (longRunUnits.length !== 4096 || longRunUnits.join("") !== longKhmerRun) {
-  throw new Error("browser tokenizer must preserve long Khmer runs without losing or merging orthographic boundaries");
+const longRunWords = longRunUnits.filter((unit) => unit !== " ");
+if (longRunWords.length !== 4096 || longRunWords.join("") !== longKhmerRun) {
+  throw new Error("browser tokenizer must preserve long Khmer runs across provisional word boundaries");
+}
+const sentenceSegments = segmentKhmerWordsDetailed("ខ្ញុំស្រឡាញ់ប្រទេសកម្ពុជា");
+if (sentenceSegments.map((item) => item.text).join("|") !== "ខ្ញុំ|ស្រឡាញ់|ប្រទេស|កម្ពុជា"
+    || sentenceSegments.some((item) => !item.known)) {
+  throw new Error("Khmer sentence must be segmented into the expected known dictionary words");
+}
+const sentenceResult = convert("ខ្ញុំស្រឡាញ់ប្រទេសកម្ពុជា", "khmer-pph-careful-citation-v1");
+if (sentenceResult.word_segmentation?.known_words !== 4
+    || sentenceResult.word_segmentation?.oov_runs !== 0
+    || !sentenceResult.note.includes("точність не виміряна")) {
+  throw new Error("browser result must expose provisional word-segmentation provenance and limits");
 }
 
 const unicode18SubscriptVowel = convert("ផ្ឯម", "khmer-pph-careful-citation-v1");

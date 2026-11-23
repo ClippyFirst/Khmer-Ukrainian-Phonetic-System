@@ -13,7 +13,8 @@ from typing import Any
 
 from .data import CONSONANTS
 from .normalize import normalize_khmer
-from .parser import analyze as analyze_structure, segment_syllables
+from .parser import analyze as analyze_structure
+from .word_segmenter import describe_word_segmentation, segment_words
 from .phonetic_result import PhoneticResult, PhoneticUnitResult, PhoneticUncertainty
 from .practical import map_ipa_string
 
@@ -80,21 +81,43 @@ def _is_separator(character: str | None) -> bool:
     return character is None or character.isspace() or unicodedata.category(character).startswith("P")
 
 
-def _tokenize_input(text: str) -> list[str]:
-    """Prefer exact lexical fixtures, then use the structural parser per chunk.
+def _script_bucket(character: str) -> str:
+    category = unicodedata.category(character)
+    if category.startswith("N"):
+        return "number"
+    codepoint = ord(character)
+    if 0x1780 <= codepoint <= 0x17FF:
+        return "khmer"
+    if category.startswith("L"):
+        return "foreign"
+    return "other"
 
-    This is a conservative adapter boundary, not a claim of full Khmer word
-    segmentation. Spaces and punctuation are retained as independent units.
+
+def _contains_khmer(text: str) -> bool:
+    return any(0x1780 <= ord(character) <= 0x17FF for character in text)
+
+
+def _tokenize_input(text: str) -> list[str]:
+    """Prefer exact lexical fixtures, then segment Khmer runs with the provisional
+    frequency-weighted dictionary/Viterbi candidate. Word boundaries are not gold;
+    unknown runs, spaces and punctuation are retained.
     """
     characters = list(text)
     fixture_keys = sorted(_LEXICON, key=len, reverse=True)
     units: list[str] = []
     chunk: list[str] = []
+    chunk_bucket: str | None = None
 
     def flush_chunk() -> None:
         if chunk:
-            units.extend(segment_syllables("".join(chunk)))
+            words = segment_words("".join(chunk))
+            for index, word in enumerate(words):
+                if index:
+                    units.append(" ")
+                units.append(word.text)
             chunk.clear()
+        nonlocal chunk_bucket
+        chunk_bucket = None
 
     index = 0
     while index < len(characters):
@@ -116,10 +139,17 @@ def _tokenize_input(text: str) -> list[str]:
         )
         if fixture is not None:
             flush_chunk()
+            if units and _contains_khmer(units[-1]) and _contains_khmer(fixture):
+                units.append(" ")
             units.append(fixture)
             index += len(fixture)
             continue
 
+        bucket = _script_bucket(character)
+        if chunk and chunk_bucket is not None and bucket != chunk_bucket:
+            flush_chunk()
+        if not chunk:
+            chunk_bucket = bucket
         chunk.append(character)
         index += 1
 
@@ -417,6 +447,7 @@ class RuleBasedKhmerEngine:
             "reason": " ".join(reasons),
             "evidence": evidence,
             "units": rendered,
+            "word_segmentation": describe_word_segmentation(tokens, set(_LEXICON)),
             "phonetic_result": phonetic_result,
             "structure": structure.phonological_representation,
             "complete": complete,

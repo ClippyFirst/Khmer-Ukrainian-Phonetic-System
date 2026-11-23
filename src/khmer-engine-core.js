@@ -8,6 +8,7 @@ import provisionalIpaCandidates from "../data/khmer/provisional-ipa-candidates.j
 import sources from "../data/khmer/sources.json" with { type: "json" };
 import { khmerToLatin } from "@gmana/km-translit";
 import { mapIpa } from "./ukrainian-practical.js";
+import { segmentKhmerWords, describeWordSegmentation } from "./khmer-word-segmenter.js";
 import { renderLatinWord } from "./khmer-romanization-ukrainian.js";
 
 const CONSONANTS = Object.fromEntries(consonants.map((item) => [item.char, item]));
@@ -80,7 +81,15 @@ function tokenize(text) {
 
   const flush = () => {
     if (current) {
-      units.push(current);
+      if (currentBucket === "khmer") {
+        const words = segmentKhmerWords(current);
+        words.forEach((word, index) => {
+          if (index > 0) units.push(" ");
+          units.push(word);
+        });
+      } else {
+        units.push(current);
+      }
       current = "";
     }
     currentBucket = null;
@@ -126,6 +135,9 @@ function tokenize(text) {
 
     if (fixtureKey) {
       flush();
+      const previous = units.at(-1);
+      if (previous && scriptBucket([...previous].at(-1)) === "khmer"
+          && scriptBucket([...fixtureKey][0]) === "khmer") units.push(" ");
       units.push(fixtureKey);
       index += [...fixtureKey].length;
       continue;
@@ -135,10 +147,6 @@ function tokenize(text) {
     if (current && currentBucket !== null && bucket !== currentBucket) flush();
     if (!current) currentBucket = bucket;
 
-    if (current && bucket === "khmer" && startsNewOrthographicSyllable(chars, index)) {
-      flush();
-      currentBucket = "khmer";
-    }
     current += char;
     index += 1;
   }
@@ -702,6 +710,11 @@ function convert(text, profile) {
   const confidence = linguistic.length
     ? linguistic.map((item) => item.confidence_tier).sort((a, b) => ({A:0,B:1,C:2,D:3}[b] - {A:0,B:1,C:2,D:3}[a]))[0]
     : "D";
+  const wordSegmentation = describeWordSegmentation(units, new Set(Object.keys(fixtures)));
+  const segmentationNote = wordSegmentation.tokens.length
+    ? " Сегментація слів: " + wordSegmentation.known_words + " словникових збігів, "
+      + wordSegmentation.oov_runs + " невідомих фрагментів; межі є кандидатними, точність не виміряна."
+    : "";
   const resultNote = "Локальний аналіз: " + resolved.length + " одиниць мають зафіксовану IPA та проєктну українську форму; "
     + unresolved.length + " потребують окремого встановлення або перевірки (" + notEstablished
     + " не встановлено, " + evidenceLimited + " з обмеженою доказовістю, " + invalid
@@ -727,9 +740,10 @@ function convert(text, profile) {
     partial: !complete && (resolved.length > 0 || Boolean(selectedExternalCandidate)),
     status: displayStatus,
     confidence_tier: selectedExternalCandidate ? "C" : confidence,
-    note,
+    note: note + segmentationNote,
     profile,
     units: rendered,
+    word_segmentation: wordSegmentation,
     phonetic_result: {
       schema: "khmer-phonetic-result/v1",
       pipeline: ["source-orthography", "structural-analysis", "source-phonology", "ipa", "ukrainian-target-adaptation"],

@@ -1,3 +1,15 @@
+## Full-text Khmer word-boundary candidate — 2026-11-23
+
+- **PARTIAL — implementation on branch `feat/khmer-full-text-word-segmentation-2026-11-23`:** the browser and Python engines now segment continuous Khmer runs with the same deterministic frequency-weighted Viterbi dictionary, based on an attributed 3,009-entry Google Khmer pronunciation sample. Word boundaries are emitted as visible spaces; unknown spans remain OOV rather than being silently split into apparent words.
+- The sample is pinned to Google source revision `a90601024f07ab7e96c911243324e0adeb16da96` (CC BY 4.0) and FineWeb-2 revision `af9c13333eb981300149d5ca60a8e9d659b276b9` (ODC-By 1.0). Attribution and exact SHA-256 provenance are in `data/khmer/GOOGLE_PRONUNCIATION_SAMPLE_ATTRIBUTION.md`.
+- The bundled phonemic strings are **not IPA** and are not used as canonical pronunciations. They are retained only as a separate source representation for future research.
+- **TODO — segmentation validation:** evaluate the candidate segmenter against an independently manually segmented corpus, including ambiguous compounds, proper names, malformed KCC, ZWSP, punctuation and long mixed-script input. Current project accuracy is NOT_ASSESSED.
+- **TODO — coverage:** the bundled sample contains 3,009 entries; upstream reports a reproducible full lexicon of 61,980 entries. Full-data build and its reproducibility/licensing gate have not yet been integrated.
+- **TODO — phonology:** word segmentation does not solve grapheme-to-phoneme coverage. The existing structural parser still withholds unsupported vowels/codas; the Google phonemic notation must not be relabelled IPA without a verified adapter and profile-matched review.
+- CI and browser checks are pending for this branch; no pass is claimed here.
+
+---
+
 ## Contextual Ukrainian IPA spelling repair — 2026-11-23
 
 - **PARTIAL — implementation submitted on branch `fix/contextual-ipa-ukrainian-adaptation-2026-11-23`:** the canonical target policy now has a longest-match contextual sequence layer. It addresses the concrete `/ciə/` → `тьіє` defect by rendering `тіє` as a full sequence: Ukrainian `і` already marks the preceding dental consonant as soft, so a separate `ь` is redundant under the 2026 Ukrainian Orthography §27.1.3. The palatal stop `/c/` remains `ть` before other vowels (e.g. `/cɑ/` → `тьа`).

@@ -717,4 +717,23 @@
     "status": "SECONDARY_LEXICAL_REFERENCE",
     "license": "Page footer identifies Creative Commons Attribution-ShareAlike (version not stated on the page); Wiktionary:Copyrights states CC BY-SA 4.0/GFDL but labels itself draft/unofficial. Preserve exact revision and attribution; check applicable Wikimedia Terms of Use. No audio/media copied."
   }
+,
+  {
+    "id": "google-khmer-pronunciation-sample-2026",
+    "type": "licensed_word_segmentation_dictionary",
+    "title": "Google Khmer Pronunciation Lexicon — attributed 3,009-entry sample",
+    "url": "https://github.com/google/language-resources/tree/a90601024f07ab7e96c911243324e0adeb16da96/km",
+    "repository_url": "https://github.com/pheasaKhmer/khmer-engine",
+    "repository_revision": "31b72cd4665f69678fc835da2f501771e42f097a",
+    "scope": "3,009 normalized Khmer word entries with frequencies derived from the FineWeb-2 khm_Khmr test split; used only for frequency-weighted candidate word segmentation. The retained phonemic strings are not treated as project IPA and do not feed the Ukrainian IPA adapter.",
+    "status": "CANDIDATE_WORD_SEGMENTATION_DICTIONARY",
+    "pronunciation_data_license": "CC BY 4.0",
+    "pronunciation_data_source_revision": "a90601024f07ab7e96c911243324e0adeb16da96",
+    "pronunciation_data_sha256": "b3f2e700d07d6c01a4c8cac5aa2f13b9a66885668ac482cc0c513f73c56495e5",
+    "frequency_data_license": "ODC-By 1.0",
+    "frequency_data_source_revision": "af9c13333eb981300149d5ca60a8e9d659b276b9",
+    "frequency_data_sha256": "26ae4e654770b07e24a4ef6b8ef3a01c84076a920f1922ac014364ab411b84f0",
+    "upstream_code_license": "MIT",
+    "limitations": "Only the 3,009-entry sample is bundled. Candidate boundaries have not been evaluated against an independent manually segmented Khmer corpus. OOV runs are preserved; known-word matches are not proof that a particular segmentation is correct. Pronunciation strings remain in the upstream phonemic notation, not project IPA."
+  }
 ]
