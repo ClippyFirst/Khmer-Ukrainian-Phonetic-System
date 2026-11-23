@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { convert, parseSyllable, scanOrthographicComponents, tokenize, getStatusNotice } from "../src/main.js";
+import { convert, parseSyllable, scanOrthographicComponents, tokenize, getStatusNotice } from "../src/khmer-engine-core.js";
 import { parseOrthographicSyllables } from "../src/orthographic-syllables.js";
 
 const adversarial = "ក គ កា គា កូ គូ កី គី កេ គេ កែ គែ កើ គើ កៅ គៅ ប ប៉ ប៊ ផ ព ត ថ ទ ធ ច ឆ ជ ឈ ស ហ វ";
