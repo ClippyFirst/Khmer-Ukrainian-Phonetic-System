@@ -57,7 +57,7 @@
 - **DONE_VERIFIED — browser execution:** PR [#520](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/520) was squash-merged into `main` as `9ca91136c037a83271517a80de65d3896739d9ec`. The merged implementation adds `src/khmer-engine-core.js`, `src/khmer-engine-client.js` and `src/khmer-engine.worker.js`; the UI and Worker share the same deterministic JavaScript core, and Worker failure falls back locally to that core.
 - **Exact-head verification before merge:** Quality run [45162250546](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45162250546) SUCCESS: 455 Python tests + 70 subtests, web checks, 129 structural parity cases, 36 lexical fixtures, 46 consonant/rule-output cases, engine/tokenizer benchmarks and Vite production build. Chromium run [45162250521](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45162250521) SUCCESS: 35/35, including Worker execution, local fallback, no external requests after Khmer text entry and stale-response protection.
 - **Benchmarks (CI runner only):** 36-fixture warmed JS/Python batch benchmark reported 9.25× JS/Python timing ratio; synthetic trie stress benchmark reported 84.9× vs the pre-trie reference. These are workload-specific engineering measurements, not device latency guarantees or linguistic accuracy.
-- **DONE_VERIFIED — live Pages assets:** canonical site URL is [https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/](https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/). Live HTML returned HTTP 200 and referenced the production entry asset `service-yGSUMeDP.js`; the entry asset, Worker asset `khmer-engine.worker-CzSCGl0G.js`, shared preload JS and CSS each returned HTTP 200. The previous URL with a trailing hyphen returns 404; current README and both public pages now use the canonical repository/site slug.
+- **DONE_VERIFIED — live Pages assets:** canonical site URL is [https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/](https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/). Live HTML returned HTTP 200 and referenced the production entry asset `service-yGSUMeDP.js`; the entry asset, Worker asset `khmer-engine.worker-CzSCGl0G.js`, shared preload JS and CSS each returned HTTP 200. The previously used URL with a trailing hyphen returned 404; current README and both public pages now use the canonical repository/site slug.
 - **PR #519 reconciliation:** remains OPEN and untouched. After PR #520 merged, its branch is 73 commits ahead and 1 behind `main`, is marked non-mergeable, and overlaps `src/main.js`, browser tests and shared docs. Its method-switch / optional hybrid-provider behavior needs a deliberate rebase and semantic review; do not merge the stale branch wholesale.
 - **PARTIAL:** full Python↔JavaScript semantic/result-schema parity, contextual vowel/subscript/coda phonology, general lexical word segmentation/OOV inference and representative mobile latency remain incomplete.
 - **DEFERRED for public beta / BLOCKED for expert-validated claims:** independent expert-adjudicated IPA gold remains empty; empirical accuracy remains `NOT_ASSESSED`. Qualified independent annotators, adjudicator, approved profile-specific IPA convention and rights-cleared blind corpus are not available.
@@ -68,20 +68,20 @@
 
 ## Lao-style unresolved final-output marker — 2026-11-22
 
-- **DONE_VERIFIED — engineering/UI scope:** PR [#508](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/508) merged to `main` as `35866ecf493bdd61e62fe3a7784893a6f94ef8eb`.
+- **DONE_VERIFIED — engineering/UI scope:** PR [#508](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/508) merged to `main` as `35866ecf493bdd61e62fe3a7784893a6f94ef8eb`.
 - The public canonical Ukrainian field renders `???` for each linguistic unit whose result is not `PROPOSED`; punctuation and numeric literals remain unchanged, and supported neighbouring units remain visible. Per-unit statuses, source provenance and provisional onset hints remain in diagnostics, not the final result. Romanization is unchanged.
-- Exact-head Quality [#44956091937](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44956091937) and [#44956095933](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44956095933) passed; browser smoke [#44956095934](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44956095934) passed. Post-merge main Quality [#44956195460](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44956195460), browser smoke [#44956195589](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44956195589), and Pages deployment [#44956195493](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44956195493) passed.
+- Exact-head Quality [#44956091937](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44956091937) and [#44956095933](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44956095933) passed; browser smoke [#44956095934](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44956095934) passed. Post-merge main Quality [#44956195460](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44956195460), browser smoke [#44956195589](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44956195589), and Pages deployment [#44956195493](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44956195493) passed.
 - Python research API internals and their typed diagnostic placeholders are unchanged. No phonological rule, IPA value, evidence label or accuracy claim changed.
 
 ---
 
 ## Public output levels — post-merge beta verification — 2026-11-21
 
-- **DONE_VERIFIED — engineering/UI scope:** PR [#507](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/507) merged to `main`; merge commit `2dc432a8237ac56da7337c9787a1030890eeb9a3`.
+- **DONE_VERIFIED — engineering/UI scope:** PR [#507](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/507) merged to `main`; merge commit `2dc432a8237ac56da7337c9787a1030890eeb9a3`.
 - Public selector: careful / balanced (default) / exploratory. Careful hides per-unit diagnostics; balanced shows per-unit results/statuses and separately labelled PROVISIONAL onset hints; exploratory additionally reveals existing parsed graphemic structure. No new vowel, coda, tone or full IPA is inferred. BGN/PCGN romanization remains independent.
-- Exact-head PR checks: Quality #6026 [44952265766](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44952265766) passed, including Python corpus validation, 451 pytest tests (70 subtests), and Node/web checks with output-level regression assertions. Browser #1321 [44952265803](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44952265803) passed production build and Chromium smoke.
-- **Main deployment:** Pages #795 [44952354090](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44952354090) passed build, web checks, production build, Chromium, artifact upload, deploy and deployed asset smoke test.
-- Live verification: [GitHub Pages](https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/) returned HTTP 200 and exposed all three selector options.
+- Exact-head PR checks: Quality #6026 [44952265766](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44952265766) passed, including Python corpus validation, 451 pytest tests (70 subtests), and Node/web checks with output-level regression assertions. Browser #1321 [44952265803](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44952265803) passed production build and Chromium smoke.
+- **Main deployment:** Pages #795 [44952354090](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44952354090) passed build, web checks, production build, Chromium, artifact upload, deploy and deployed asset smoke test.
+- Live verification: [GitHub Pages](https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/) returned HTTP 200 and exposed all three selector options.
 - Linguistic limits unchanged: PROPOSED fixtures are not expert gold; independent adjudicated IPA gold remains empty and empirical accuracy remains `NOT_ASSESSED`. External KhmerPhonemizer/Goruut/MekongPhon are not silently promoted or presented as canonical site engines.
 - Remaining gates: independent IPA gold / expert adjudication, complete vowel-tone-prosody coverage, manual accessibility review and any claim beyond the labelled beta.
 
@@ -166,33 +166,33 @@ Canonical criteria: [docs/BETA-RELEASE-POLICY.md](BETA-RELEASE-POLICY.md). This 
 - Primary evidence: https://aclanthology.org/2026.lrec-1.129.pdf; https://github.com/byu-matrix-lab/MekongPhon/tree/f80f6c1840c4818b51e05f2e00cded4701a5b662.
 ## Post-merge reconciliation — Khmer G2P diagnostic provenance (2026-11-03)
 
-- PR [#129](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/129) is merged into main as **2138f6f10df875591e846c81fae69c7cfde69bb5**; this is the current mainline checkpoint for this change.
-- Exact final PR-head checks on c4741aa4a70e228ea8a5b2af42a5657da0ed4629: Quality [41726874329](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41726874329) SUCCESS (172 tests + 60 subtests), browser [41726874307](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41726874307) SUCCESS, optional G2P [41726874306](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41726874306) SUCCESS. The downloaded artifact contains the JSON report, .json.sha256 sidecar, and separate source diagnostic file; 90-day retention.
+- PR [#129](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/129) is merged into main as **2138f6f10df875591e846c81fae69c7cfde69bb5**; this is the current mainline checkpoint for this change.
+- Exact final PR-head checks on c4741aa4a70e228ea8a5b2af42a5657da0ed4629: Quality [41726874329](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41726874329) SUCCESS (172 tests + 60 subtests), browser [41726874307](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41726874307) SUCCESS, optional G2P [41726874306](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41726874306) SUCCESS. The downloaded artifact contains the JSON report, .json.sha256 sidecar, and separate source diagnostic file; 90-day retention.
 - The post-merge push-run result was not available through the connected workflow-run query at this checkpoint; no post-merge CI result is claimed. PR-head verification is the available evidence.
 - Research boundary unchanged: independent adjudicated Khmer IPA gold remains 0; empirical accuracy remains null.
 
 ## Continuation update — external Khmer G2P report provenance and integrity (2026-11-03)
 
 - **KHMER-G2P-PROVENANCE-001 — DONE_VERIFIED (diagnostic reproducibility only):** scripts/benchmark_g2p.py now embeds an inspectable provenance block with exact harness SHA-256, corpus path/hash, engine name/version, Python version/implementation, platform, and clearly named GitHub event SHA/ref/head-ref fields. It writes an adjacent .json.sha256 sidecar and creates parent directories.
-- **Test-first evidence:** regression test added first; expected RED [41725130084](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41725130084). Transient integration defects (main output not yet routed through checksum writer; then literal escaped newline) were exposed by CI and corrected.
-- **Final exact PR-head verification:** head 54c6a321c894468a7dd1625192a43f15fd806822; Quality [41726222759](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41726222759) SUCCESS (172 tests + 60 subtests); browser [41726222701](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41726222701) SUCCESS; optional Khmer G2P [41726222858](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41726222858) SUCCESS. Downloaded artifact was inspected and contains the JSON report, its SHA-256 sidecar, and the separate source diagnostic file; 90-day retention expires 2027-02-01.
+- **Test-first evidence:** regression test added first; expected RED [41725130084](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41725130084). Transient integration defects (main output not yet routed through checksum writer; then literal escaped newline) were exposed by CI and corrected.
+- **Final exact PR-head verification:** head 54c6a321c894468a7dd1625192a43f15fd806822; Quality [41726222759](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41726222759) SUCCESS (172 tests + 60 subtests); browser [41726222701](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41726222701) SUCCESS; optional Khmer G2P [41726222858](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41726222858) SUCCESS. Downloaded artifact was inspected and contains the JSON report, its SHA-256 sidecar, and the separate source diagnostic file; 90-day retention expires 2027-02-01.
 - **Research boundary:** integrity/reproducibility only. Source-attested IPA remains non-gold; independent adjudicated Khmer IPA gold remains 0 and empirical accuracy remains null. No pronunciation rules, source labels, or accuracy values changed.
-- **PR:** [#129](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/129), branch head 54c6a321c894468a7dd1625192a43f15fd806822.
+- **PR:** [#129](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/129), branch head 54c6a321c894468a7dd1625192a43f15fd806822.
 
 ## Continuation update — external Khmer G2P report provenance and integrity (2026-11-03)
 
 - **KHMER-G2P-PROVENANCE-001 — DONE_VERIFIED (diagnostic reproducibility only):** scripts/benchmark_g2p.py now embeds an inspectable provenance block with the exact harness SHA-256, corpus path/hash, external engine name/version, Python version/implementation, platform, and GitHub source revision when running in Actions. The report writer emits an adjacent .json.sha256 digest sidecar and creates parent directories.
-- **Test-first evidence:** regression test added first; expected RED on [41725130084](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41725130084). A transient integration failure [41725258719](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41725258719) exposed that the main path had not yet routed output through the checksum writer; fixed before final verification.
-- **Exact implementation-head verification:** Quality [41725569108](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41725569108) SUCCESS (172 tests + 60 subtests); browser smoke [41725569152](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41725569152) SUCCESS; optional Khmer G2P run [41725569100](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41725569100) SUCCESS. Artifact khmer-phonemizer-raw-output is present and retained until 2027-02-01.
+- **Test-first evidence:** regression test added first; expected RED on [41725130084](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41725130084). A transient integration failure [41725258719](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41725258719) exposed that the main path had not yet routed output through the checksum writer; fixed before final verification.
+- **Exact implementation-head verification:** Quality [41725569108](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41725569108) SUCCESS (172 tests + 60 subtests); browser smoke [41725569152](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41725569152) SUCCESS; optional Khmer G2P run [41725569100](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41725569100) SUCCESS. Artifact khmer-phonemizer-raw-output is present and retained until 2027-02-01.
 - **Research boundary:** report integrity and reproducibility only. Source-attested IPA remains non-gold; independent adjudicated Khmer IPA gold remains 0 and empirical accuracy remains null. No phonological rules, source labels, or accuracy values changed.
-- **PR:** [#129](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/129), branch head 0607f7d2ad2ed481f0b75dcd486a2dcaefa31c6c; pending review/merge at this checkpoint.
+- **PR:** [#129](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/129), branch head 0607f7d2ad2ed481f0b75dcd486a2dcaefa31c6c; pending review/merge at this checkpoint.
 
 ## Continuation update — Unicode punctuation token boundaries (2026-11-03)
 
 - **UNICODE-TOKEN-BOUNDARY-001 — DONE_VERIFIED:** browser tokenization now recognizes the Unicode general category `Punctuation`, matching Python's `unicodedata.category(...).startswith("P")` separator contract. Previously, the browser used a hand-maintained punctuation allowlist; punctuation outside it (for example U+3002 IDEOGRAPHIC FULL STOP) could be absorbed into a neighboring Khmer token and incorrectly mark that unit unsupported.
 - **Regression:** `tests/web-runtime.test.mjs` exercises `ក។គ`; it checks exact source reconstruction, three distinct units, punctuation status, and that both Khmer neighbors retain their existing IPA/Ukrainian results.
-- **PR:** [#126](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/126), squash-merged as `2a2f1c55282e076d6c4e0640d80af1053783bd6b`.
-- **Verification on exact PR head `ec38f92efa0a59dd0d887e436a7194ded23c4e23`:** Quality checks [41710399396](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41710399396) SUCCESS; browser smoke [41710399684](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41710399684) SUCCESS. Deterministic web checks and production build also passed in the browser workflow.
+- **PR:** [#126](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/126), squash-merged as `2a2f1c55282e076d6c4e0640d80af1053783bd6b`.
+- **Verification on exact PR head `ec38f92efa0a59dd0d887e436a7194ded23c4e23`:** Quality checks [41710399396](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41710399396) SUCCESS; browser smoke [41710399684](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41710399684) SUCCESS. Deterministic web checks and production build also passed in the browser workflow.
 - **Scope boundary:** this is a tokenizer parity/source-boundary fix, not a Khmer phonology rule, IPA convention decision, gold-corpus addition, or accuracy result. Independent adjudicated Khmer IPA gold remains 0; empirical accuracy remains null.
 
 # Master execution plan and chat handoff
@@ -202,7 +202,7 @@ Canonical criteria: [docs/BETA-RELEASE-POLICY.md](BETA-RELEASE-POLICY.md). This 
 - Current main before this documentation checkpoint: `98e66afecbce5528850e3a6906a8d9522385d3ed`. No open PRs; open human research issue #104 remains.
 - PR #134 documented the Khmer Acoustic Model's unreconciled 29,204 vs 33,091 dictionary counts, CC BY-SA 4.0 vs CC BY 4.0 data-license statements, and missing full dictionary in the public tree. Exact-head and post-merge Quality, browser and Pages checks all SUCCESS (runs 41799402432, 41799595059, 41799595047, 41799595094).
 - PR #135 registered DDD Khmer ASR Cultural Dataset v3 Part 1: 134.60h, 8 speakers, 13 topics/401 subtopics, CC BY-SA 4.0. PR-head Quality and post-merge Quality/browser/Pages all SUCCESS (41799786264, 41799802512, 41799887156, 41799887167, 41799887180). Use only after profile and share-alike review; city metadata does not establish Phnom Penh.
-- PR #137 registered Common Voice 27.0 Khmer: 739 clips/0.98h, 213 validated/0.28h, 15 speakers, 364 validated sentences, accent/gender unreported. CC0-1.0 but no speaker identification or re-hosting/re-sharing. PR-head Quality [41800443113](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41800443113), browser [41800443035](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41800443035), post-merge Quality [41800575946](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41800575946), browser [41800575935](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41800575935), Pages [41800575937](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41800575937) SUCCESS.
+- PR #137 registered Common Voice 27.0 Khmer: 739 clips/0.98h, 213 validated/0.28h, 15 speakers, 364 validated sentences, accent/gender unreported. CC0-1.0 but no speaker identification or re-hosting/re-sharing. PR-head Quality [41800443113](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41800443113), browser [41800443035](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41800443035), post-merge Quality [41800575946](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41800575946), browser [41800575935](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41800575935), Pages [41800575937](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41800575937) SUCCESS.
 - Neither audio corpus supplies IPA. Use provider-hosted clips only, no speaker identification/re-hosting, exact word-span/time locators, profile screening, two blind annotations and third-person adjudication. Independent gold remains 0; accuracy remains null. Issue #104 remains blocked on human convention/recruitment/intake and item-level rights/profile review.
 
 
@@ -218,8 +218,8 @@ Canonical criteria: [docs/BETA-RELEASE-POLICY.md](BETA-RELEASE-POLICY.md). This 
 ## Verified mainline checkpoint — Khmer external-source research (2026-11-04)
 
 - Current main: `ccd24f1f53dda8ccf19dbdbac0766ed4509f99e4` (PR #135). No open PRs at checkpoint.
-- PR #134 merged as `09640f83141127eeb5c9d201d96671d243d03019`: recorded the Khmer acoustic-model dictionary's conflicting counts (29,204 vs 33,091), conflicting data-license declarations (CC BY-SA 4.0 vs CC BY 4.0), and absence of a full dictionary/release asset in the visible upstream tree. Exact-head Quality [41799402432](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41799402432) and post-merge Quality [41799595059](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41799595059), browser [41799595047](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41799595047), Pages [41799595094](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41799595094) SUCCESS.
-- PR #135 merged as `ccd24f1f53dda8ccf19dbdbac0766ed4509f99e4`: registered DDD Khmer ASR Cultural Dataset v3 Part 1 as a candidate audio source, explicitly not IPA gold. PR-head Quality [41799786264](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41799786264) and [41799802512](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41799802512) SUCCESS; post-merge Quality [41799887156](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41799887156), browser [41799887167](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41799887167), Pages [41799887180](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41799887180) SUCCESS.
+- PR #134 merged as `09640f83141127eeb5c9d201d96671d243d03019`: recorded the Khmer acoustic-model dictionary's conflicting counts (29,204 vs 33,091), conflicting data-license declarations (CC BY-SA 4.0 vs CC BY 4.0), and absence of a full dictionary/release asset in the visible upstream tree. Exact-head Quality [41799402432](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41799402432) and post-merge Quality [41799595059](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41799595059), browser [41799595047](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41799595047), Pages [41799595094](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41799595094) SUCCESS.
+- PR #135 merged as `ccd24f1f53dda8ccf19dbdbac0766ed4509f99e4`: registered DDD Khmer ASR Cultural Dataset v3 Part 1 as a candidate audio source, explicitly not IPA gold. PR-head Quality [41799786264](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41799786264) and [41799802512](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41799802512) SUCCESS; post-merge Quality [41799887156](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41799887156), browser [41799887167](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41799887167), Pages [41799887180](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41799887180) SUCCESS.
 - Research boundary: DDD provides audio + orthographic transcripts; the 8 speakers and city metadata do not independently establish Phnom Penh phonology. CC BY-SA obligations and exact word-span/time locators remain to be reviewed before pilot use. The Khmer acoustic dictionary remains blocked for reuse. Independent adjudicated IPA gold remains 0; accuracy remains null.
 
 
@@ -244,14 +244,14 @@ Canonical criteria: [docs/BETA-RELEASE-POLICY.md](BETA-RELEASE-POLICY.md). This 
 
 - **JSON-INPUT-003 — DONE_VERIFIED:** JSONL corpus records and the license registry now reject JavaScript-only constants `NaN`, `Infinity`, and `-Infinity` through the JSON decoder's `parse_constant` hook. Diagnostics retain file and line context.
 - **Regression coverage:** invalid constants in a corpus JSONL row and in `licenses.json`.
-- **Test-first RED:** [41692662080](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41692662080) — exactly the two new regression tests failed before the parser change.
-- **Implementation-head CI:** [41694124825](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41694124825) SUCCESS — 171 Python tests + 60 subtests; 3 browser smoke tests (run 41694138503).
+- **Test-first RED:** [41692662080](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41692662080) — exactly the two new regression tests failed before the parser change.
+- **Implementation-head CI:** [41694124825](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41694124825) SUCCESS — 171 Python tests + 60 subtests; 3 browser smoke tests (run 41694138503).
 - **Scope boundary:** this enforces RFC-compliant JSON syntax only; no corpus labels, license permissions, or gold records were changed.
 
 ## Continuation update — duplicate JSON keys in license registry (2026-11-03)
 
 - **JSONL-INPUT-002 — DONE_VERIFIED:** the standalone `data/benchmark/licenses.json` registry is now parsed with the same duplicate-key rejection as JSONL corpus files. Duplicate top-level `licenses` and nested `redistributable` keys fail with path-qualified diagnostics; this prevents last-key-wins ambiguity in redistribution decisions.
-- **Regression coverage:** duplicate top-level and nested license-registry JSON keys. Test-first RED: [41690144835](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41690144835); exact implementation-head CI: [41690306190](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41690306190) SUCCESS — 169 Python tests + 54 subtests; 3 browser smoke tests (run 41690316616).
+- **Regression coverage:** duplicate top-level and nested license-registry JSON keys. Test-first RED: [41690144835](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41690144835); exact implementation-head CI: [41690306190](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41690306190) SUCCESS — 169 Python tests + 54 subtests; 3 browser smoke tests (run 41690316616).
 - **Scope boundary:** no license grant is inferred or changed, and no source records or IPA labels are added. Existing rights evidence requirements remain in force.
 
 ## Continuation update — duplicate JSON object-key rejection (2026-11-03)
@@ -266,7 +266,7 @@ Canonical criteria: [docs/BETA-RELEASE-POLICY.md](BETA-RELEASE-POLICY.md). This 
 
 - **Implementation commit:** `46e7eda242f134a792060c3002992bdea42bdb6c` on `fix/heldout-ipa-benchmark-20261103` (PR #123; subsequent documentation commits follow it).
 - **DONE_VERIFIED (input integrity):** `read_tsv()` now rejects duplicate column names, blank header names, and nonblank rows with missing or extra fields. Physically blank lines remain ignored; values are not silently padded, truncated, or rewritten.
-- **Regression coverage:** duplicate gold and prediction headers, extra gold fields, and short prediction rows. Test-first RED: [41665735912](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41665735912); focused GREEN after implementation: [41665873021](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41665873021).
+- **Regression coverage:** duplicate gold and prediction headers, extra gold fields, and short prediction rows. Test-first RED: [41665735912](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41665735912); focused GREEN after implementation: [41665873021](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41665873021).
 - **Scope boundary:** this is TSV/input-integrity hardening only. It does not add IPA labels, change linguistic rules, or establish empirical accuracy. Independent adjudicated gold remains 0 and accuracy remains null.
 
 ## Current repository state — 2026-11-03 (post-merge)
@@ -274,7 +274,7 @@ Canonical criteria: [docs/BETA-RELEASE-POLICY.md](BETA-RELEASE-POLICY.md). This 
 - **Mainline integration:** benchmark implementation PR #123 was squash-merged as `0f73d006bfc05f6106a3b1e463c2cc7d6471ffae`; the handoff/register reconciliation PR #124 was squash-merged as `ebd8432b4abacecb50e30bae43ff64c42ac4063b`. No open PRs remained at this checkpoint.
 - **Held-out benchmark contract:** gold export preserves `split`, `split_seed`, and `split_version`; adjudicated records without a frozen split fail closed; the scorer defaults to `test`; train/dev/all require explicit diagnostic selection; mixed manifest identities and empty prediction files are rejected.
 - **Input integrity:** benchmark TSV headers/row widths, whitespace-only identifiers, duplicate JSON object keys, and non-standard JSON constants are rejected with regression coverage.
-- **Post-merge exact-main verification:** Post-merge Quality checks, built-site Chromium browser smoke, GitHub Pages deployment, and deployed-site/runtime-asset smoke all passed on the exact `main` head. [workflow](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41707503253); [browser smoke](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41707503102); [Pages deployment and deployed smoke](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41707503262)
+- **Post-merge exact-main verification:** Post-merge Quality checks, built-site Chromium browser smoke, GitHub Pages deployment, and deployed-site/runtime-asset smoke all passed on the exact `main` head. [workflow](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41707503253); [browser smoke](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41707503102); [Pages deployment and deployed smoke](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41707503262)
 - **Research boundary:** Independent expert-adjudicated Khmer IPA gold remains 0; `data/benchmark/gold.tsv` is header-only; empirical accuracy remains null. Engineering, browser and deployment checks do not establish pronunciation accuracy.
 
 ## Current task ledger and blockers
@@ -291,7 +291,7 @@ Canonical criteria: [docs/BETA-RELEASE-POLICY.md](BETA-RELEASE-POLICY.md). This 
 - **DONE_VERIFIED (engineering):** independent IPA corpus schemas, runtime validation, deterministic split/rights gates, source/evidence documentation, and the exact-head automated engineering checks recorded in the historical entries below. This is not linguistic validation.
 - **DONE_VERIFIED (web output hotfix):** PR #108 removed the stale `source-result` DOM write; current `main` no longer dereferences the absent element. Exact-main Quality, Chromium browser smoke, Pages deployment, and deployed-site asset smoke all passed on merge commit `e9894e5726f5f6aa2510d7d3beed69b2d03fb666`. This verifies the UI regression fix and deployment, not pronunciation accuracy. Manual visual, keyboard, screen-reader and mobile QA remain open.
 - **PARTIAL:** source-language phonology, IPA conventions, and Ukrainian target adaptation remain bounded by the language-specific evidence matrices and unresolved cases. PR #107 separately narrows the runtime to the selected Phnom Penh careful-citation profile; it must not be conflated with the isolated UI hotfix.
-- **BLOCKED:** the 30-lexeme blind pilot cannot start until the IPA convention is approved, two qualified independent annotators and a separate adjudicator are confirmed, rights-cleared source packets are prepared, and blind intake is arranged. See [issue #104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104).
+- **BLOCKED:** the 30-lexeme blind pilot cannot start until the IPA convention is approved, two qualified independent annotators and a separate adjudicator are confirmed, rights-cleared source packets are prepared, and blind intake is arranged. See [issue #104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/104).
 - **TODO:** manual visual, keyboard, assistive-technology and mobile QA on the deployed site; automated Chromium tests do not replace this human QA.
 - **Next actionable engineering step:** reconcile PR #107 against post-hotfix `main` without reintroducing the removed DOM write; re-run exact-head tests and inspect the full profile diff before any merge. Separately complete manual keyboard, screen-reader and mobile QA. PR #108 is already merged; no release was published.
 
@@ -305,7 +305,7 @@ The dated entries below are retained as audit history. When a historical status 
 ## Historical master handoff snapshot — 2026-10-25
 
 **Last updated:** 2026-10-25  
-**Repository:** https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-  
+**Repository:** https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System  
 **Default branch:** main  
 **Last audited base revision:** 6cc30bb48bedb83d86534a5fbff92839e26673dd  
 **Latest implementation commits:** 479eda62aa32172bd6799caa324222c0260a7fc9 (style per-unit evidence breakdown), e1a2ba7304e96fe6afb392c74c0bfebd94531c2b (render per-unit IPA/status/source note safely), 117181206a4ec0b7be8c13e44da9c2f3d22367aa (show provisional-result notice), 9f4d583d469988e970c76d0080f32adfa92020f4 (test notice behaviour). Earlier audited revision: 3907ee710bad5c749805ce00d828c272a01838f9. This handoff update itself is a subsequent documentation commit; re-check main before the next code change. Recent implementation commits: 37d8e5dfb17144ed7c673841d2643fb38a9be9a6 (centralize effective register resolver), 7d3abf49720f05ed3f9f832fad22a105932e74bc (parser uses shared resolver), b45ecbd2a3567727db6c47ffbd56be5b75b4b556 (register regression tests), e4ff44656166d82d9dbb2554cf0d471612e37b4c (API status contract tests). Earlier matrix commits: d5686e6a1e4a8e5edbbf212ae7966305bdc6f1f8 and 9b7936c24b7ec584797d9e47aeb835afd670d091. Recheck latest main SHA and Actions runs before further work.
@@ -348,23 +348,23 @@ The dated entries below are retained as audit history. When a historical status 
 - There is no adjudicated gold corpus and no empirical accuracy score.
 - A browser screenshot/pixel audit was not confirmed in the previous handoff/context; current responsive/accessibility behaviour still needs a dedicated check.
 - The register helper inconsistency has been addressed in commits 37d8e5d and 7d3abf4: phonology.resolve_effective_register() now owns the shifter rules, parser.decompose_khmer_syllable() calls it, and phonology.resolve_register() applies it to a KhmerSyllable. Regression tests cover MUUSIKATOAN on second-series ង, the ប៉ exception, and an ineligible shifter. Python tests passed in Quality run 193 for commit b45ecbd2; the full workflow was still running at the last check. Recheck final run conclusion before calling the work verified.
-- The previous deterministic /r/-loss profile was identified as overconfident because primary phonetic research reports variable aspiration, F0, phonation and vowel effects. The guard is merged as `1cbb5abdef1d7b7ac062199bfebdad14d9fe74b2`; exact-head Quality checks [40215678125](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40215678125) passed Python tests, web checks and site build. This is a fail-closed guard, not a complete profile model.
+- The previous deterministic /r/-loss profile was identified as overconfident because primary phonetic research reports variable aspiration, F0, phonation and vowel effects. The guard is merged as `1cbb5abdef1d7b7ac062199bfebdad14d9fe74b2`; exact-head Quality checks [40215678125](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40215678125) passed Python tests, web checks and site build. This is a fail-closed guard, not a complete profile model.
 
 ## Prioritized task register
 
 | ID | Task | Priority | Status | Dependencies | Acceptance / verification |
 |---|---|---|---|---|---|
-| KH-VOW-001 | Expand vowel matrix using attested orthographic patterns, register, vowel sign, coda and profile | P0 | IN_PROGRESS | authoritative source extraction | Every row has source, confidence, IPA status, and test or explicit unresolved status; no arbitrary Cartesian product. PR #41 merged as `08fe98a88f5e3c0c3a21519b6cdc2024992d2f02`; evidence-gate CI [40210193894](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40210193894) passed source/status/conflict validation. Initial source-indexed rows are in matrix commit 9b7936c. |
+| KH-VOW-001 | Expand vowel matrix using attested orthographic patterns, register, vowel sign, coda and profile | P0 | IN_PROGRESS | authoritative source extraction | Every row has source, confidence, IPA status, and test or explicit unresolved status; no arbitrary Cartesian product. PR #41 merged as `08fe98a88f5e3c0c3a21519b6cdc2024992d2f02`; evidence-gate CI [40210193894](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40210193894) passed source/status/conflict validation. Initial source-indexed rows are in matrix commit 9b7936c. |
 | KH-VOW-002 | Verify vowel-sign inventories and contextual effects against Unicode + specialist phonology + acoustic literature | P0 | IN_PROGRESS | KH-VOW-001 | Orthographic inventory and R12A contextual descriptions reviewed; acoustic study and unresolved source/version differences still need review. Distinguish orthographic evidence from phonetic evidence. |
 | KH-CODA-001 | Add coda-conditioned and syllable-structure cases, including NIKAHIT and REAHMUK | P0 | IN_PROGRESS | KH-VOW-001 | Source-indexed contrasts identified; conservative parser tests now assert that NIKAHIT/REAHMUK preserve structure without fabricating IPA (commit 262cffd). The NIKAHIT pairs are present in Unicode 17.0; independent lexical/phonetic adjudication remains open. |
-| KH-IPA-001 | Audit parser-to-IPA API boundary and status semantics | P0 | IN_PROGRESS | matrix + model review | Python API contract tests in e4ff446 separate structural success from phonetic success. Browser shows a visible provisional notice and per-unit evidence breakdown. The unknown/mixed-script guard from PR #35 was merged into `main` as `a4912d520077f3e0df4e7236ae8784d8245354ff`; exact-main CI [40196341065](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40196341065) passed Python tests, web checks and site build. Follow-up PR #37 is now merged as `e39143cf5d880214765fff8f5a237e58d24ab00b`: browser parsing also rejects unknown material inside a Khmer unit, matching Python. Exact-head CI [40197626232](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40197626232) passed. General IPA generation, vowel/coda context coverage, and independent gold remain open; the overall task stays IN_PROGRESS. |
+| KH-IPA-001 | Audit parser-to-IPA API boundary and status semantics | P0 | IN_PROGRESS | matrix + model review | Python API contract tests in e4ff446 separate structural success from phonetic success. Browser shows a visible provisional notice and per-unit evidence breakdown. The unknown/mixed-script guard from PR #35 was merged into `main` as `a4912d520077f3e0df4e7236ae8784d8245354ff`; exact-main CI [40196341065](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40196341065) passed Python tests, web checks and site build. Follow-up PR #37 is now merged as `e39143cf5d880214765fff8f5a237e58d24ab00b`: browser parsing also rejects unknown material inside a Khmer unit, matching Python. Exact-head CI [40197626232](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40197626232) passed. General IPA generation, vowel/coda context coverage, and independent gold remain open; the overall task stays IN_PROGRESS. |
 | KH-TEST-001 | Expand independently adjudicated lexical corpus | P0 | IN_PROGRESS | source review | Source-attested examples are now explicitly distinguished from independently adjudicated gold; build a held-out corpus with profile/audio adjudication before scoring |
-| KH-REG-001 | Check helper register resolver against shifter-aware parser | P1 | DONE_VERIFIED | code-path review | PR #39 merged as `a0f5f6a272f10d79d5c383bf717363b5e18b053f`. Shared six-case JSON contract is consumed by Python and browser tests; both runtimes agree on effective register, rule ID and structural status for valid, ineligible and multiple shifters. Exact-head CI [40209903755](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40209903755) passed pytest, web checks and build. | The orthographic register resolver is verified. Inherent-vowel IPA quality, the full vowel/coda context matrix, and colloquial phonetics remain separate IN_PROGRESS research tasks. |
-| KH-REG-002 | Verify encoded order of Khmer register shifters around visually prebase vowels | P1 | DONE_VERIFIED | Shared Python/browser fixture now tests `ង៉េ` (base + shifter + vowel sign in encoded order) and rejects `ងេ៉` (shifter after vowel sign). PR #51 merged as `123314b3fbb19e016270e7252fc86a933192cb93`; exact-head Quality checks [40222606376](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40222606376) passed. | Unicode 17.0 Chapter 16 says register shifters are encoded immediately after the base consonant; visual prebase placement must not be mistaken for code-point order. This is orthographic structure validation, not IPA gold. Main CI/Pages for the merge is pending as of this checkpoint. |
-| KH-SOURCE-002 | Add source locators to all Khmer rule registry records | P1 | DONE_VERIFIED | PR #53 merged as `8c8c2939b44734bd30b7e63419c96c77e13217d4`; each rule now has a section-level locator, unique rule ID and registered source are validated. Exact-head Quality runs [40223685839](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40223685839) and [40223679988](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40223679988) passed. | Source traceability is improved; it does not resolve the full vowel × register × coda IPA matrix or create independent lexical gold. |
-| KH-SOURCE-003 | Validate Khmer rule registry provenance and uncertainty contract | P1 | DONE_VERIFIED | PR #55 merged as `b447124dc429e60825e5da48a4feeecd04e54d4f`; exact-head Quality runs [40225032146](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40225032146) and [40225019704](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40225019704) passed. | Added `tests/test_rule_registry_provenance.py` validating unique IDs, source references, HTTPS records, specific locators, allowed statuses and the context-dependent NIKAHIT/REAHMUK contract. This verifies metadata/provenance only; it does not validate pronunciation accuracy. |
-| KH-PROFILE-001 | Remove unsupported deterministic /r/-loss guess | P1 | DONE_VERIFIED | primary source review and exact-head CI | Merged as `1cbb5abdef1d7b7ac062199bfebdad14d9fe74b2`. `render_ipa_profile()` now raises an explicit `ValueError` for boundary-marked /CrV/ candidates under `phnom_penh_colloquial`; exact-head Quality run [40215678125](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40215678125) passed Python tests, web checks and site build. This verifies the fail-closed contract only, not colloquial IPA correctness. |
-| KH-PROFILE-002 | Include aspirated IPA stop-/r/ onsets in colloquial uncertainty gate | P1 | DONE_VERIFIED | Exact-head Quality CI after regex and regression update | PR [#49](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/49) merged as `86c63af497ecb728eb8df338bd02ace85cf04a44`; optional IPA aspiration marker `ʰ` is now accepted before `r`, with regressions for `pʰrɑː`, `tʰrɑː`, `kʰrɑː`, and `cʰrɑː`. Exact-head Quality runs [40220444930](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40220444930) and [40220435721](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40220435721) passed. This closes a regex bypass only; it does not establish a complete /r/-loss environment model or gold IPA. |
+| KH-REG-001 | Check helper register resolver against shifter-aware parser | P1 | DONE_VERIFIED | code-path review | PR #39 merged as `a0f5f6a272f10d79d5c383bf717363b5e18b053f`. Shared six-case JSON contract is consumed by Python and browser tests; both runtimes agree on effective register, rule ID and structural status for valid, ineligible and multiple shifters. Exact-head CI [40209903755](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40209903755) passed pytest, web checks and build. | The orthographic register resolver is verified. Inherent-vowel IPA quality, the full vowel/coda context matrix, and colloquial phonetics remain separate IN_PROGRESS research tasks. |
+| KH-REG-002 | Verify encoded order of Khmer register shifters around visually prebase vowels | P1 | DONE_VERIFIED | Shared Python/browser fixture now tests `ង៉េ` (base + shifter + vowel sign in encoded order) and rejects `ងេ៉` (shifter after vowel sign). PR #51 merged as `123314b3fbb19e016270e7252fc86a933192cb93`; exact-head Quality checks [40222606376](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40222606376) passed. | Unicode 17.0 Chapter 16 says register shifters are encoded immediately after the base consonant; visual prebase placement must not be mistaken for code-point order. This is orthographic structure validation, not IPA gold. Main CI/Pages for the merge is pending as of this checkpoint. |
+| KH-SOURCE-002 | Add source locators to all Khmer rule registry records | P1 | DONE_VERIFIED | PR #53 merged as `8c8c2939b44734bd30b7e63419c96c77e13217d4`; each rule now has a section-level locator, unique rule ID and registered source are validated. Exact-head Quality runs [40223685839](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40223685839) and [40223679988](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40223679988) passed. | Source traceability is improved; it does not resolve the full vowel × register × coda IPA matrix or create independent lexical gold. |
+| KH-SOURCE-003 | Validate Khmer rule registry provenance and uncertainty contract | P1 | DONE_VERIFIED | PR #55 merged as `b447124dc429e60825e5da48a4feeecd04e54d4f`; exact-head Quality runs [40225032146](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40225032146) and [40225019704](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40225019704) passed. | Added `tests/test_rule_registry_provenance.py` validating unique IDs, source references, HTTPS records, specific locators, allowed statuses and the context-dependent NIKAHIT/REAHMUK contract. This verifies metadata/provenance only; it does not validate pronunciation accuracy. |
+| KH-PROFILE-001 | Remove unsupported deterministic /r/-loss guess | P1 | DONE_VERIFIED | primary source review and exact-head CI | Merged as `1cbb5abdef1d7b7ac062199bfebdad14d9fe74b2`. `render_ipa_profile()` now raises an explicit `ValueError` for boundary-marked /CrV/ candidates under `phnom_penh_colloquial`; exact-head Quality run [40215678125](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40215678125) passed Python tests, web checks and site build. This verifies the fail-closed contract only, not colloquial IPA correctness. |
+| KH-PROFILE-002 | Include aspirated IPA stop-/r/ onsets in colloquial uncertainty gate | P1 | DONE_VERIFIED | Exact-head Quality CI after regex and regression update | PR [#49](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/49) merged as `86c63af497ecb728eb8df338bd02ace85cf04a44`; optional IPA aspiration marker `ʰ` is now accepted before `r`, with regressions for `pʰrɑː`, `tʰrɑː`, `kʰrɑː`, and `cʰrɑː`. Exact-head Quality runs [40220444930](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40220444930) and [40220435721](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40220435721) passed. This closes a regex bypass only; it does not establish a complete /r/-loss environment model or gold IPA. |
 | KH-UI-001 | Browser runtime, mobile viewport, accessibility and visual audit | P1 | IN_PROGRESS | stable engine cases | Added visible PROPOSED caution and per-unit status/evidence notes with safe text-only DOM construction. Still need keyboard/focus and responsive/browser visual audit; verify latest Quality/Pages workflows. |
 | KH-REL-001 | License, CITATION.cff, release and Zenodo metadata review | P2 | TODO | authorship/license/data provenance decisions | Metadata accurate, source/data licensing checked, reproducible release archive; no invented author claims |
 | KH-DOC-001 | Methodology note: “Khmer-to-Ukrainian Transcription: Register-Conditioned Vowels and Conservative IPA Analysis” | P1 | TODO | KH-VOW-001/002, KH-IPA-001 | Clearly separates orthography, phonology, broad IPA, phonetic profile, Ukrainian proposal and limits |
@@ -462,9 +462,9 @@ The dated entries below are retained as audit history. When a historical status 
 
 ### 2026-10-20 — CI verification after onset-fixture correction
 
-- Quality checks run [#242](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/39488865390) completed **successfully** for commit `64fc5f8a717e91b39f3970ea20bb42c831ed3d46`.
+- Quality checks run [#242](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/39488865390) completed **successfully** for commit `64fc5f8a717e91b39f3970ea20bb42c831ed3d46`.
 - The job's Python tests, web checks, and site build all completed successfully on that SHA. This resolves the known malformed-fixture failure; it is software-test/build evidence, not independent phonetic validation.
-- GitHub Pages deployment run [#252](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/39488865332) was still in progress when checked. Verify its final result separately; do not assume a successful deployment from a successful build.
+- GitHub Pages deployment run [#252](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/39488865332) was still in progress when checked. Verify its final result separately; do not assume a successful deployment from a successful build.
 
 
 ## Continuation update — 2026-10-21 (coverage audit tooling)
@@ -477,7 +477,7 @@ The dated entries below are retained as audit history. When a historical status 
 
 - **DONE_VERIFIED — repository inspection:** Confirmed the default branch head, current source-indexed evidence registry, sign/consonant/register inventories, vowel and coda matrices, README, Python package, web tests, and CI workflow. Existing data and explicit source conflicts were preserved.
 - **DONE_VERIFIED — deterministic inventory and generated artifact:** `scripts/coverage.py` builds `reports/khmer-coverage-audit.json` from canonical data, supports `--check` drift validation, validates required input shapes, counts register records correctly, and gives conflicts precedence over non-conflicting rows. The committed report currently contains 32 dependent-sign × series cells (16 dependent signs × two series), 4 source-attested-not-gold cells, 28 not-established cells, and no conflicts inside this narrow matrix. The source registry separately preserves conflicts KHV-007 and KHV-008. These counts describe evidence coverage, not pronunciation accuracy.
-- **DONE_VERIFIED — regression coverage added:** `tests/test_coverage_report.py` checks reproducibility, matrix dimensions/status arithmetic, source conflict preservation, and that unresolved cells do not fabricate IPA. GitHub Actions Quality checks run [39570181898](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/39570181898) passed on implementation/doc commit `d279c60cb89e6d0bca9e0c38eaf747fdb1143d10`: **58 Python tests passed**, web engine/runtime checks passed, and Vite production build passed. The handoff-only follow-up commit is checked again by CI separately.
+- **DONE_VERIFIED — regression coverage added:** `tests/test_coverage_report.py` checks reproducibility, matrix dimensions/status arithmetic, source conflict preservation, and that unresolved cells do not fabricate IPA. GitHub Actions Quality checks run [39570181898](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/39570181898) passed on implementation/doc commit `d279c60cb89e6d0bca9e0c38eaf747fdb1143d10`: **58 Python tests passed**, web engine/runtime checks passed, and Vite production build passed. The handoff-only follow-up commit is checked again by CI separately.
 - **PARTIAL — phonological evidence coverage:** Source-attested examples remain examples, not gold. The report covers only dependent sign × consonant series; inherent vowels and sign combinations with codas, length, syllabification, register shifters, lexical context, and pronunciation profiles remain separate open dimensions.
 - **BLOCKED / evidence-limited:** Do not fill missing cells from Unicode names or structural patterns. KHV-007 and KHV-008 preserve non-equivalent source transcriptions and must not be normalized into one project IPA without source-convention, lexical, and profile reconciliation.
 - **TODO — linguistic acceptance:** Build a versioned independently adjudicated corpus and complete the full context matrix; acceptance requires each deterministic output to have scoped provenance and regression coverage, while unsupported contexts must remain explicit.
@@ -505,32 +505,32 @@ The repository-scoped open-PR query returned no open PRs at the start of this pa
 
 - **DONE_VERIFIED — site integration:** `system.html` now contains a responsive evidence-coverage dashboard. `src/coverage.js` imports the committed report as a build-time JSON module, renders all 32 dependent-vowel × series cells, shows the four summary counts, preserves source-conflict IDs, and links to the complete machine-readable report. It uses DOM `textContent` rather than inserting report values as HTML. The existing local-first CSP remains unchanged; the dashboard requires no network requests or analytics.
 - **DONE_VERIFIED — site regression guard:** `tests/web-engine.test.mjs` asserts the dashboard mount, adapter, status vocabulary, report dimensions, and report link.
-- **DONE_VERIFIED — CI on dashboard commit:** Quality checks [run 39598081311](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/39598081311) passed on `976cc5a40c633fee9a43868be980784539172a74`: 58 Python tests, web engine/runtime checks, and Vite production build. An earlier run on intermediate commit `a2c904bee6ef22cd62256e5dd281cdc4fab2b23f` failed because the HTML reference was committed just before the adapter file; the complete subsequent commit passed CI. No unresolved build failure remains at the verified head.
-- **DONE_VERIFIED — public deployment (subsequently completed):** PR #1 was merged only after exact-head CI passed and GitHub reported mergeable. The Pages deployment for main commit `7f99f46beb290cfb240ded7438e568f0be0cd4d4` succeeded in run [39598303846](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/39598303846). A follow-up fix then made the linked JSON a public static asset.
+- **DONE_VERIFIED — CI on dashboard commit:** Quality checks [run 39598081311](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/39598081311) passed on `976cc5a40c633fee9a43868be980784539172a74`: 58 Python tests, web engine/runtime checks, and Vite production build. An earlier run on intermediate commit `a2c904bee6ef22cd62256e5dd281cdc4fab2b23f` failed because the HTML reference was committed just before the adapter file; the complete subsequent commit passed CI. No unresolved build failure remains at the verified head.
+- **DONE_VERIFIED — public deployment (subsequently completed):** PR #1 was merged only after exact-head CI passed and GitHub reported mergeable. The Pages deployment for main commit `7f99f46beb290cfb240ded7438e568f0be0cd4d4` succeeded in run [39598303846](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/39598303846). A follow-up fix then made the linked JSON a public static asset.
 - **TODO — linguistics:** Dashboard displays existing evidence only; it does not close the vowel/coda/context matrix, establish a gold corpus, or adjudicate KHV-007/KHV-008. Keep release classification as evidence-limited research preview until those acceptance criteria are met.
 
 
 ## Continuation update — 2026-10-21 (public report asset fix)
 
 - **DONE_VERIFIED — identified and fixed static-asset gap:** Vite only publishes files in its public directory; the dashboard's JSON hyperlink would otherwise target a report file that exists in the repository but is not copied to `dist`. The generator now writes both the canonical report and a byte-identical `public/reports/khmer-coverage-audit.json`; `--check` validates both copies, and a new pytest checks byte identity.
-- **DONE_VERIFIED — fix branch CI:** Quality checks [run 39598494026](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/39598494026) passed on `7754524b104269cd7b1069549c7c07b84680bbde`: Python tests, browser checks, and Vite build all passed.
-- **DONE_VERIFIED — public asset merged and deployed:** PR #2 was merged at `48a1e2697ad802c31f21b99a404a10d7ab65b45c`. GitHub Pages run [39598640164](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/39598640164) completed successfully, with build and deploy jobs green.
+- **DONE_VERIFIED — fix branch CI:** Quality checks [run 39598494026](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/39598494026) passed on `7754524b104269cd7b1069549c7c07b84680bbde`: Python tests, browser checks, and Vite build all passed.
+- **DONE_VERIFIED — public asset merged and deployed:** PR #2 was merged at `48a1e2697ad802c31f21b99a404a10d7ab65b45c`. GitHub Pages run [39598640164](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/39598640164) completed successfully, with build and deploy jobs green.
 
 
 ## Final continuation checkpoint — 2026-10-21
 
-- **Live site:** https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/system.html#coverage-audit
-- **Public JSON asset:** https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/reports/khmer-coverage-audit.json
+- **Live site:** https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/system.html#coverage-audit
+- **Public JSON asset:** https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/reports/khmer-coverage-audit.json
 - **Last verified deployed main SHA before this documentation-only checkpoint:** `48a1e2697ad802c31f21b99a404a10d7ab65b45c`.
-- **Quality checks:** [run 39598640050](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/39598640050) passed on the deployed main SHA.
-- **Pages deployment:** [run 39598640164](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/39598640164) passed on the deployed main SHA.
+- **Quality checks:** [run 39598640050](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/39598640050) passed on the deployed main SHA.
+- **Pages deployment:** [run 39598640164](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/39598640164) passed on the deployed main SHA.
 - **Task ledger:** Dashboard, generated report, public static report copy, drift checks, regression tests, README, and deployment are `DONE_VERIFIED`. Full phonological/context matrix and independently adjudicated lexical gold corpus remain `TODO/BLOCKED` on evidence; KHV-007 and KHV-008 remain unresolved.
 - **Release assessment:** Public research preview is deployed; the project is not certified as a complete or universally accurate Khmer-to-Ukrainian transcription engine.
 
 
 ## Continuation update — external Khmer G2P evidence reconciliation (2026-10-24)
 
-- The optional Khmer Phonemizer 0.0.3 smoke run [40091745346](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40091745346) produced 6/6 outputs with 0 runtime errors. Its report records `independent_gold_count: 0` and `accuracy: null`; do not describe this as a 100% benchmark.
+- The optional Khmer Phonemizer 0.0.3 smoke run [40091745346](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40091745346) produced 6/6 outputs with 0 runtime errors. Its report records `independent_gold_count: 0` and `accuracy: null`; do not describe this as a 100% benchmark.
 - Corrected the source-attested `ខ្ញុំ` entry: the cited Wiktionary page's standard IPA is `/kɲom/`; `k̥ʰñuṃ` is its separate orthographic/phonemic transcription. The previous `/kʰɲom/` value was not supported by that locator. A regression test now guards this distinction. Source: https://en.wiktionary.org/wiki/ខ្ញុំ
 - For `ភ្នំពេញ`, the source gives `/pʰnum ˈpɨɲ/`, including a boundary/space and stress marker. The engine's token output omits those marks. This is an unresolved output-convention/representation difference, not an adjudicated phonological error. Source: https://en.wiktionary.org/wiki/ភ្នំពេញ
 - Broader phonetic context: Khmer contrasts plain and aspirated stops (https://aclanthology.org/Y16-1.pdf); colloquial Phnom Penh /CrV/ realizations may differ through aspiration, f0 and phonation (https://doi.org/10.1016/j.wocn.2014.02.001). These papers do not independently adjudicate the candidate outputs for these lexical items.
@@ -546,9 +546,9 @@ The repository-scoped open-PR query returned no open PRs at the start of this pa
 
 ## Final checkpoint — G2P source IPA reconciliation merged (2026-10-24)
 
-- **Merged PR:** [#11](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/11), merge commit `35ce7142bf71f7e4cdb1acbb44d94d45ef71693a`.
-- **Quality verification:** [run 40093054206](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40093054206) passed after the fixture correction, including Python tests, web-engine/runtime checks and site build. The earlier failures are recorded above: the canonical corpus correction first exposed stale JSON and JavaScript fixture expectations; both were aligned with the cited source.
-- **Latest raw-output smoke:** [run 40093054099](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40093054099) passed. `khmerphonemizer==0.0.3`, 6/6 outputs, 0 errors; corpus SHA-256 `4b0fafa4a178c0a3e769ddb168f2115cd1fda0c98919c3bc2d731c13cbe6a7f4`; artifact SHA-256 `89eb762a46da84941bf47c7b26d7b18134270bcdede29bc7f1be8bcd60653f89`.
+- **Merged PR:** [#11](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/11), merge commit `35ce7142bf71f7e4cdb1acbb44d94d45ef71693a`.
+- **Quality verification:** [run 40093054206](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40093054206) passed after the fixture correction, including Python tests, web-engine/runtime checks and site build. The earlier failures are recorded above: the canonical corpus correction first exposed stale JSON and JavaScript fixture expectations; both were aligned with the cited source.
+- **Latest raw-output smoke:** [run 40093054099](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40093054099) passed. `khmerphonemizer==0.0.3`, 6/6 outputs, 0 errors; corpus SHA-256 `4b0fafa4a178c0a3e769ddb168f2115cd1fda0c98919c3bc2d731c13cbe6a7f4`; artifact SHA-256 `89eb762a46da84941bf47c7b26d7b18134270bcdede29bc7f1be8bcd60653f89`.
 - **Source correction:** current cited Wiktionary standard IPA for `ខ្ញុំ` is `/kɲom/`; `k̥ʰñuṃ` is kept as separate orthographic/phonemic notation. For `ភ្នំពេញ`, source IPA `/pʰnum ˈpɨɲ/` includes stress/boundary information absent from the external phone-token output. No independent gold corpus exists; report still has `independent_gold_count: 0`, `accuracy: null`.
 - **Release status:** research preview / partial prototype, not a complete or empirically accuracy-certified Khmer→Ukrainian engine. External engine remains diagnostic-only.
 
@@ -574,8 +574,8 @@ The Python profile adapter in `src/khmer_ua/ipa.py` correctly restricts the Phno
 - Existing Python behavioral tests cover word-initial and explicitly segmented onset clusters, unsegmented medial matches, and coda /r/.
 
 ### Verification boundary
-- Change is on PR [#14](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/14), based on main `1977822694cb5ce31fc9cb54ab79446605907738`.
-- The browser test is a source-guard test; the existing Python tests are the behavioral reference. Quality workflow [40112562271](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40112562271) passed on the exact PR head `6fcd4442746f091159136e0b2b5ec126224c6e1b`: Python tests, web checks, and site build all succeeded. PR #14 merged as `d5245c0d7ab94de9c1774a705da1a3a7a14617f5`; post-merge quality [40113051028](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40113051028) and GitHub Pages deployment [40113051034](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40113051034) both passed on the merged HEAD.
+- Change is on PR [#14](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/14), based on main `1977822694cb5ce31fc9cb54ab79446605907738`.
+- The browser test is a source-guard test; the existing Python tests are the behavioral reference. Quality workflow [40112562271](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40112562271) passed on the exact PR head `6fcd4442746f091159136e0b2b5ec126224c6e1b`: Python tests, web checks, and site build all succeeded. PR #14 merged as `d5245c0d7ab94de9c1774a705da1a3a7a14617f5`; post-merge quality [40113051028](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40113051028) and GitHub Pages deployment [40113051034](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40113051034) both passed on the merged HEAD.
 - This fixes implementation parity; it does not validate the underlying linguistic hypothesis or expand the evidence-backed contexts in which the colloquial rule may apply.
 
 
@@ -601,7 +601,7 @@ The Python profile adapter in `src/khmer_ua/ipa.py` correctly restricts the Phno
 
 ### Verified status as of 2026-10-24
 
-PR #17 merged as `edf625847029bbc3a043a0c01a09115e263164fb`. Latest quality checks and external smoke passed; 72 tests and 22 subtests passed. Khmer Phonemizer 0.0.3: 6 outputs, 0 runtime errors, independent gold=0, accuracy=null. Durable report: `data/benchmark/runs/external-g2p-smoke-2026-10-24.json`; artifact: https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40120003193/artifacts/12569269396.
+PR #17 merged as `edf625847029bbc3a043a0c01a09115e263164fb`. Latest quality checks and external smoke passed; 72 tests and 22 subtests passed. Khmer Phonemizer 0.0.3: 6 outputs, 0 runtime errors, independent gold=0, accuracy=null. Durable report: `data/benchmark/runs/external-g2p-smoke-2026-10-24.json`; artifact: https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40120003193/artifacts/12569269396.
 
 - Keep IPA adaptation boundary: source spelling → structural parse → source phonology → typed IPA → Ukrainian adapter. Third-party candidates remain optional and disabled in production.
 - Current true blocker: a source-located, independently adjudicated language-specific gold corpus with a documented dialect and IPA convention. Do not report accuracy until it exists.
@@ -610,32 +610,32 @@ PR #17 merged as `edf625847029bbc3a043a0c01a09115e263164fb`. Latest quality chec
 ## IPA gold provenance gate — merged 2026-10-24
 
 - PR #21 merged; benchmark scoring now fails closed when an ADJUDICATED row lacks non-empty `gold_ipa`, `source_id`, or `profile`. Regression tests and optional Khmer G2P smoke passed on the merged head. This validates metadata completeness only; it does not validate the phonetic truth of a label.
-- Latest successful Khmer Phonemizer 0.0.3 run [40121359605](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40121359605): 6 outputs, 0 runtime errors, 0 independent gold rows, accuracy null. Raw phone-token arrays remain unadjudicated and not directly string-comparable to source IPA without a declared convention.
+- Latest successful Khmer Phonemizer 0.0.3 run [40121359605](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40121359605): 6 outputs, 0 runtime errors, 0 independent gold rows, accuracy null. Raw phone-token arrays remain unadjudicated and not directly string-comparable to source IPA without a declared convention.
 - Artifact ZIP SHA-256: `3cd5ad913909cd1ff692c192614f354b707f705c1b6a2f1dc7ad971a4baf63a5`.
 
 
 ### Khmer external IPA notation diagnostic — 2026-10-24
 
-- Pinned `khmerphonemizer==0.0.3` run [40128165807](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40128165807) passed with 6/6 outputs and 0 runtime errors. Strict token-join vs source IPA content matches 2/6; a separate notation-only comparison ignoring only slash wrappers, whitespace, syllable dots and stress marks matches 6/6. Aspiration, length, diacritics, tie bars and phone symbols remain significant. These are source-attested comparisons, not accuracy; independent gold count is 0. Artifact ZIP SHA-256: `2cbc7b00d35325e2e97fc98e80efeb9fdfecd477bf5ae5be24c43b6726c33299`.
+- Pinned `khmerphonemizer==0.0.3` run [40128165807](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40128165807) passed with 6/6 outputs and 0 runtime errors. Strict token-join vs source IPA content matches 2/6; a separate notation-only comparison ignoring only slash wrappers, whitespace, syllable dots and stress marks matches 6/6. Aspiration, length, diacritics, tie bars and phone symbols remain significant. These are source-attested comparisons, not accuracy; independent gold count is 0. Artifact ZIP SHA-256: `2cbc7b00d35325e2e97fc98e80efeb9fdfecd477bf5ae5be24c43b6726c33299`.
 
 ## Authoritative current-head checkpoint — 2026-10-25
 
 This checkpoint supersedes earlier readiness notes with stale main SHAs or queued-workflow status.
 
 - Current `main`: `cb5331d2b587733180d9a585631dee26d0c370d9`.
-- Quality checks [40129501080](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40129501080): `success`; Pages deployment [40129501022](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40129501022): `success`; optional Khmer G2P smoke [40129500995](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40129500995): `success`.
-- The evidence registry is synchronized with the latest inspected smoke evidence from run [40128165807](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40128165807): 6 outputs, 0 runtime errors, 0 independent gold, accuracy null. Smoke outputs and notation-normalization agreement remain diagnostics, not adjudicated accuracy.
+- Quality checks [40129501080](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40129501080): `success`; Pages deployment [40129501022](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40129501022): `success`; optional Khmer G2P smoke [40129500995](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40129500995): `success`.
+- The evidence registry is synchronized with the latest inspected smoke evidence from run [40128165807](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40128165807): 6 outputs, 0 runtime errors, 0 independent gold, accuracy null. Smoke outputs and notation-normalization agreement remain diagnostics, not adjudicated accuracy.
 - Generated report, public report copy, drift checks and software CI are verified. The complete vowel/coda/context matrix, unresolved KHV-007/KHV-008 source-profile reconciliation and independent expert-adjudicated Khmer IPA gold remain PARTIAL/BLOCKED. Do not fill missing evidence from Unicode names or external G2P agreement.
 
 ## Latest external-smoke artifact reconciliation — 2026-10-25
 
-- Inspected current-main smoke [40129500995](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40129500995), artifact [12574167928](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40129500995/artifacts/12574167928), SHA-256 `da53268c5d66ba3e2e5682029deb4bd6c2566466fbd920d72a6e3d9cab322f33`. The artifact contains one valid JSON report: khmerphonemizer 0.0.3, 6/6 outputs, 0 runtime errors, corpus SHA-256 `4b0fafa4a178c0a3e769ddb168f2115cd1fda0c98919c3bc2d731c13cbe6a7f4`.
+- Inspected current-main smoke [40129500995](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40129500995), artifact [12574167928](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40129500995/artifacts/12574167928), SHA-256 `da53268c5d66ba3e2e5682029deb4bd6c2566466fbd920d72a6e3d9cab322f33`. The artifact contains one valid JSON report: khmerphonemizer 0.0.3, 6/6 outputs, 0 runtime errors, corpus SHA-256 `4b0fafa4a178c0a3e769ddb168f2115cd1fda0c98919c3bc2d731c13cbe6a7f4`.
 - Source-attested notation diagnostic: 2/6 strict matches, 6/6 after limited normalization of slash wrappers, whitespace, syllable dots and stress only. Do not call this accuracy or gold agreement. Independent gold remains 0; accuracy remains null.
 - The external-system registry and benchmarking documentation now reference this latest inspected artifact; earlier run records are retained for provenance.
 
 ## Final smoke and trigger-loop checkpoint — 2026-10-25
 
-- After PR #32 narrowed the optional smoke workflow's automatic path filters, current-main smoke [40133705156](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40133705156) passed; inspected artifact [12575459926](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40133705156/artifacts/12575459926), ZIP SHA-256 `ff588e5d6a0e533aa4de7427e4786672f03999c3f7131abb1c89cb828936a677`.
+- After PR #32 narrowed the optional smoke workflow's automatic path filters, current-main smoke [40133705156](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40133705156) passed; inspected artifact [12575459926](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40133705156/artifacts/12575459926), ZIP SHA-256 `ff588e5d6a0e533aa4de7427e4786672f03999c3f7131abb1c89cb828936a677`.
 - Report: 6/6 outputs, 0 runtime errors, corpus SHA-256 `4b0fafa4a178c0a3e769ddb168f2115cd1fda0c98919c3bc2d731c13cbe6a7f4`; 2/6 strict source-attested string matches and 6/6 limited notation matches. Independent gold 0, accuracy null.
 - Registry and benchmark documentation now point to this final inspected run. Evidence-only updates no longer trigger optional smoke, avoiding a self-referential sequence of new run IDs and registry edits.
 - Remaining research blockers unchanged: independently adjudicated Khmer IPA gold, unresolved source/profile conflicts KHV-007/KHV-008, and complete vowel/coda/context evidence. No engine promoted to production.
@@ -643,26 +643,26 @@ This checkpoint supersedes earlier readiness notes with stale main SHAs or queue
 
 ## Multiple register-shifter uncertainty regression — 2026-10-25
 
-- PR #34: https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/34
+- PR #34: https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/34
 - Added a runtime test asserting that a syllable with multiple register shifters returns `EVIDENCE_LIMITED` / `MULTIPLE_REGISTER_SHIFTERS`; wired it into both `npm test` and `npm run check`.
-- Verification: Quality checks [40192533827](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40192533827) completed successfully on commit `78ec839322ca3211469ff7c0d46639c0d55eb78c`.
+- Verification: Quality checks [40192533827](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40192533827) completed successfully on commit `78ec839322ca3211469ff7c0d46639c0d55eb78c`.
 - This verifies conservative parser behavior only. The external G2P diagnostic remains 6/6 outputs with 0 runtime errors, but independent gold remains 0 and accuracy remains null. Complete vowel/coda/context evidence and unresolved source/profile conflicts remain open.
 
 
 ## Unknown-character fail-closed correction — 2026-10-25
 
-- Branch: `fix/khmer-reject-unknown-grapheme-material-20261025`; PR [#35](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/35).
+- Branch: `fix/khmer-reject-unknown-grapheme-material-20261025`; PR [#35](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/35).
 - Defect: `decompose_khmer_syllable` recorded an unknown character as `sign_or_unknown` but continued; if the same unit contained a recognized Khmer base consonant, final status could be `ESTABLISHED_STRUCTURE`. Example: mixed-script input `កx`.
-- Test-first evidence: [run 40195870960](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40195870960) failed as expected because `analyze("កx")` returned `ESTABLISHED_STRUCTURE`.
+- Test-first evidence: [run 40195870960](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40195870960) failed as expected because `analyze("កx")` returned `ESTABLISHED_STRUCTURE`.
 - Fix: the parser now returns `INVALID_OR_UNSUPPORTED`, confidence `0.0`, and source-labeled grapheme diagnostics immediately when a character is not in the known Khmer sign registry. This is a structural rejection, not an IPA rule.
-- Verification: post-fix exact-head run [40195885161](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40195885161) **passed** Python tests, web checks and site build.
+- Verification: post-fix exact-head run [40195885161](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40195885161) **passed** Python tests, web checks and site build.
 - Linguistic gate remains open: the general orthography-to-IPA pipeline still intentionally withholds IPA; representative register/vowel examples and acoustic literature are not a complete context-conditioned mapping or independent adjudicated lexical gold. Independent gold count remains 0.
 
 
 ## Post-merge checkpoint — 2026-10-25
 
 - Default branch now contains merge commit `a4912d520077f3e0df4e7236ae8784d8245354ff` for the unknown-character structural guard.
-- Exact-main workflow [40196341065](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40196341065) passed Python tests, web checks and site build.
+- Exact-main workflow [40196341065](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40196341065) passed Python tests, web checks and site build.
 - This closes the specific mixed-script false-positive, not the overall KH-IPA-001 task. IPA mapping, source/profile conflicts, vowel/coda context, and independent gold remain unresolved.
 
 
@@ -676,7 +676,7 @@ This checkpoint supersedes earlier readiness notes with stale main SHAs or queue
 ## Browser unknown-character guard merged — 2026-10-25
 
 - PR #37 merged to `main` as `e39143cf5d880214765fff8f5a237e58d24ab00b`.
-- Exact-head quality workflow [40197626232](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40197626232) passed. The regression verifies `កx` is `INVALID_OR_UNSUPPORTED` end-to-end in the browser, including unit-level status and output withholding.
+- Exact-head quality workflow [40197626232](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40197626232) passed. The regression verifies `កx` is `INVALID_OR_UNSUPPORTED` end-to-end in the browser, including unit-level status and output withholding.
 - This closes a structural parity defect only. The repository still lacks a general source-orthography-to-IPA engine and independent adjudicated gold; do not mark the full IPA task complete.
 
 
@@ -690,7 +690,7 @@ This checkpoint supersedes earlier readiness notes with stale main SHAs or queue
 ## Khmer register-resolver verification — 2026-10-25
 
 - Reviewed the Python parser, `resolve_effective_register`, `resolve_register`, browser `resolveRegister`, and all direct tests/call sites. Both implementations remove ZWNJ for shifter-position calculation and preserve the same eligibility, exception, and fail-closed rules.
-- PR #39 merged as `a0f5f6a272f10d79d5c383bf717363b5e18b053f`. Exact-head CI [40209903755](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40209903755) passed pytest, web checks and site build; the browser contract test is wired into `npm run check`.
+- PR #39 merged as `a0f5f6a272f10d79d5c383bf717363b5e18b053f`. Exact-head CI [40209903755](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40209903755) passed pytest, web checks and site build; the browser contract test is wired into `npm run check`.
 - KH-REG-001 is DONE_VERIFIED for orthographic register resolution only. This does not validate inherent-vowel IPA or phonetic realization.
 
 
@@ -701,7 +701,7 @@ This checkpoint supersedes earlier readiness notes with stale main SHAs or queue
 - This validates provenance and withholding contracts, not the correctness of any IPA row. Exact-head CI must pass before merge.
 
 
-- Post-merge evidence-gate checkpoint: PR #41 merged as `08fe98a88f5e3c0c3a21519b6cdc2024992d2f02`; exact-head CI [40210193894](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40210193894) passed. KH-VOW-001 remains IN_PROGRESS because provenance validation does not adjudicate source disagreements or establish the full vowel/coda/context matrix.
+- Post-merge evidence-gate checkpoint: PR #41 merged as `08fe98a88f5e3c0c3a21519b6cdc2024992d2f02`; exact-head CI [40210193894](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40210193894) passed. KH-VOW-001 remains IN_PROGRESS because provenance validation does not adjudicate source disagreements or establish the full vowel/coda/context matrix.
 
 
 ## Research and implementation checkpoint — 2026-10-25
@@ -709,7 +709,7 @@ This checkpoint supersedes earlier readiness notes with stale main SHAs or queue
 - Reviewed the publisher-hosted author manuscript for Kirby (2014), DOI [10.1016/j.wocn.2014.02.001](https://doi.org/10.1016/j.wocn.2014.02.001), alongside Wayland (2005). The source describes several /r/-loss correlates and multiple colloquial realizations; aspiration-only output is not a uniquely determined result from a broad IPA string.
 - Branch `fix/khmer-r-loss-profile-fail-closed-20261025` changes `src/khmer_ua/ipa.py` to reject ambiguous deterministic colloquial rendering; `tests/test_ipa.py` now checks the uncertainty boundary; `docs/phonology.md` records the evidence and limitation.
 - This is a correctness guard, not added phonological coverage. The full orthography-to-IPA engine and independently adjudicated corpus remain absent; do not increase readiness based on this change alone.
-- Exact-head Quality run [40215678125](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40215678125) passed Python tests, web checks and site build for the merged fail-closed profile guard. No local test result is claimed.
+- Exact-head Quality run [40215678125](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40215678125) passed Python tests, web checks and site build for the merged fail-closed profile guard. No local test result is claimed.
 
 
 - Next profile task: `TODO` — design an alternatives-aware result contract that can represent multiple colloquial realizations with lexical/profile metadata. Do not re-enable a single deterministic aspiration-only output from a broad IPA string.
@@ -718,7 +718,7 @@ This checkpoint supersedes earlier readiness notes with stale main SHAs or queue
 ## Post-merge current-head checkpoint — 2026-10-25
 
 - Current `main` after the colloquial /r/-loss fail-closed correction is `33778677a776fe8bbd51d8789368daac2cda74d9`.
-- Current-main Quality checks [40215767648](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40215767648) and Pages deployment [40215767572](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40215767572) passed. The colloquial profile no longer collapses source-attested variable /r/-loss outcomes into an unsupported single aspiration-only rendering.
+- Current-main Quality checks [40215767648](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40215767648) and Pages deployment [40215767572](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40215767572) passed. The colloquial profile no longer collapses source-attested variable /r/-loss outcomes into an unsupported single aspiration-only rendering.
 - Remaining P0 blockers are still substantive: contextual vowel × register × coda derivation, complete phonological IPA generation, and a source-located independently adjudicated lexical/audio gold set. This checkpoint does not raise measured accuracy; gold accuracy remains unmeasured.
 
 
@@ -731,50 +731,50 @@ This checkpoint supersedes earlier readiness notes with stale main SHAs or queue
 
 ## Post-merge target-comparator checkpoint — 2026-10-25
 
-- The Russian comparator fallback correction merged as `894a2628b20c75f54733adcf49b3242625e2803d` via [PR #47](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/47). The earlier conflicted PR #46 was closed as superseded; its branch was left untouched.
-- Exact-head Quality checks [40217188087](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40217188087) passed. The change ensures missing Russian comparator entries are `NOT_ESTABLISHED` rather than silently copied from the Ukrainian mapping.
+- The Russian comparator fallback correction merged as `894a2628b20c75f54733adcf49b3242625e2803d` via [PR #47](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/47). The earlier conflicted PR #46 was closed as superseded; its branch was left untouched.
+- Exact-head Quality checks [40217188087](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40217188087) passed. The change ensures missing Russian comparator entries are `NOT_ESTABLISHED` rather than silently copied from the Ukrainian mapping.
 - This fixes target-policy provenance only. Khmer phonological IPA generation and independent gold remain the primary P0 blockers; no empirical accuracy percentage is claimed.
 
 
 ## Aspirated stop-/r/ uncertainty guard — 2026-10-25
 
-- PR [#49](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/49) merged as `86c63af497ecb728eb8df338bd02ace85cf04a44`.
+- PR [#49](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/49) merged as `86c63af497ecb728eb8df338bd02ace85cf04a44`.
 - The previous `/CrV/` candidate regex did not match IPA forms where the aspiration diacritic `ʰ` occurs between the stop and `r`, allowing such forms to bypass the colloquial uncertainty guard. The pattern now accepts an optional `ʰ` and tests the aspirated sequences `pʰrɑː`, `tʰrɑː`, `kʰrɑː`, and `cʰrɑː`.
-- Exact-head Quality runs [40220444930](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40220444930) and [40220435721](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40220435721) passed. This verifies a conservative guard, not a complete colloquial phonetic model.
+- Exact-head Quality runs [40220444930](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40220444930) and [40220435721](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40220435721) passed. This verifies a conservative guard, not a complete colloquial phonetic model.
 - The broader alternatives-aware profile result contract, contextual vowel/coda IPA, unresolved source/profile reconciliation and independent expert-adjudicated gold remain open.
 
 
 ## Register-shifter encoded-order checkpoint — 2026-10-25
 
-- PR [#51](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/51) merged as `123314b3fbb19e016270e7252fc86a933192cb93`.
+- PR [#51](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/51) merged as `123314b3fbb19e016270e7252fc86a933192cb93`.
 - Extended `data/tests/register-shifter-contract.json`, shared by Python and browser tests, with a valid base + shifter + vowel-sign sequence `ង៉េ` and an invalid shifter-after-vowel sequence `ងេ៉`.
 - Primary source: Unicode 17.0.0 Chapter 16, Khmer “Consonant Shifters” and “Ordering of Syllable Components”: https://www.unicode.org/versions/Unicode17.0.0/core-spec/chapter-16/. It states that shifters are encoded immediately after the base consonant even where vowel glyphs are visually reordered. The new fixture is a structural regression contract, not a lexical IPA label.
-- Exact-head Quality checks [40222606376](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40222606376) passed. Post-merge main checks [40222854594](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40222854594) and Pages [40222854484](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40222854484) were queued when this checkpoint was authored; verify before claiming the merged head is green.
+- Exact-head Quality checks [40222606376](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40222606376) passed. Post-merge main checks [40222854594](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40222854594) and Pages [40222854484](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40222854484) were queued when this checkpoint was authored; verify before claiming the merged head is green.
 - The full contextual vowel/coda/register-to-IPA matrix and independent lexical/audio gold remain open.
 
 
 ## Rule source-locator checkpoint — 2026-10-25
 
-- PR [#53](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/53) merged as `8c8c2939b44734bd30b7e63419c96c77e13217d4`.
+- PR [#53](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/53) merged as `8c8c2939b44734bd30b7e63419c96c77e13217d4`.
 - Added explicit section-level locators to each canonical `data/khmer/rules.json` record. Orthographic claims cite Unicode 17.0 §16.4 Khmer; NIKAHIT and REAHMUK cite Richard Ishida’s specialist orthography notes.
-- Tests now require unique rule IDs, known source IDs and non-empty, non-pending locators. Exact-head Quality runs [40223685839](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40223685839) and [40223679988](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40223679988) passed.
+- Tests now require unique rule IDs, known source IDs and non-empty, non-pending locators. Exact-head Quality runs [40223685839](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40223685839) and [40223679988](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40223679988) passed.
 - This closes a source-traceability gap, not the contextual IPA gap. Independent lexical/audio gold remains unavailable; no accuracy claim is added.
 
 
 ## Rule registry provenance contract — 2026-10-25
 
-- PR [#55](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/55) merged as `b447124dc429e60825e5da48a4feeecd04e54d4f`.
+- PR [#55](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/55) merged as `b447124dc429e60825e5da48a4feeecd04e54d4f`.
 - Added `tests/test_rule_registry_provenance.py` for `data/khmer/rules.json` and `data/khmer/sources.json`. It checks unique IDs, registered sources, HTTPS records, section/table/code-point-level locators, required fields and evidence statuses.
 - The test explicitly protects the context-dependent status for NIKAHIT and REAHMUK and ensures the register-shifter record remains a script/register claim rather than a complete contextual IPA mapping.
-- Exact-head Quality checks [40225032146](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40225032146) and [40225019704](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40225019704) passed. No local tests are claimed.
+- Exact-head Quality checks [40225032146](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40225032146) and [40225019704](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40225019704) passed. No local tests are claimed.
 - First unresolved P0 tasks remain the full vowel × register × coda/profile matrix, source conflict reconciliation, and independently adjudicated lexical/audio gold. This metadata test does not close those tasks.
 
 
 ## Romanization → IPA → Ukrainian result order — 2026-10-29
 
-- Open draft PR [#57](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/57) adds a separate Khmer romanization card before the existing IPA and Ukrainian candidate cards. The original Khmer text remains available as a later source card.
+- Open draft PR [#57](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/57) adds a separate Khmer romanization card before the existing IPA and Ukrainian candidate cards. The original Khmer text remains available as a later source card.
 - Romanization engine: `@gmana/km-translit@0.1.2`, MIT, BGN/PCGN-derived ASCII profile. The package explicitly says it drops diacritics and is **not** a fully conformant BGN/PCGN implementation; UI labels it accordingly. This is a separate orthographic romanization output and does not feed IPA or Ukrainian conversion.
-- Exact-head CI for `aed14ec04b123d1aff81a5cd11b59eda35c3b961`: [Quality checks run 40780984225](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40780984225) **passed**. Python tests, Node checks, build, and generated-page checks passed. The added romanization test is included in `npm run check`; there is no dedicated browser automation in this repository.
+- Exact-head CI for `aed14ec04b123d1aff81a5cd11b59eda35c3b961`: [Quality checks run 40780984225](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40780984225) **passed**. Python tests, Node checks, build, and generated-page checks passed. The added romanization test is included in `npm run check`; there is no dedicated browser automation in this repository.
 - Status: UI/engine integration **PARTIAL / CI-PASS**. Independent Khmer pronunciation gold remains unavailable; do not treat the Latin output or the existing research IPA/Ukrainian candidate as normative.
 - Next acceptance gates: independently inspect mixed-script/punctuation behavior in a browser; expand source-backed romanization fixtures; retain the profile/license notice; keep this PR draft until the owner approves the intended profile and the remaining language-engine evidence gates are reviewed.
 
@@ -784,8 +784,8 @@ This checkpoint supersedes earlier readiness notes with stale main SHAs or queue
 This checkpoint supersedes earlier notes in this handoff saying the romanization PR was open/draft.
 
 - PR #57 was merged to main as 875054f3ff31a2cebabd2d23672843791b746142.
-- Exact post-merge Quality checks [40782813125](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40782813125) passed.
-- Exact post-merge GitHub Pages deployment [40782813148](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/40782813148) passed and reported URL: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/
+- Exact post-merge Quality checks [40782813125](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40782813125) passed.
+- Exact post-merge GitHub Pages deployment [40782813148](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/40782813148) passed and reported URL: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/
 - Published output order: Khmer romanization → IPA → Ukrainian candidate; the romanization is independent and its upstream profile limitations remain as documented above.
 - Remaining linguistic/UI acceptance gates are unchanged: independent Khmer pronunciation gold, broader source-backed romanization fixtures, and manual browser/mobile/accessibility QA. Publication does not mean linguistic completeness.
 
@@ -796,7 +796,7 @@ This checkpoint supersedes earlier notes in this handoff saying the romanization
 - Added explicit target mappings for /t͡s/ → ц, /d͡z/ → дз, /t͡ʃ/ and alveolo-palatal /tɕ/ → ч, /d͡ʒ/ and /dʑ/ → дж, /ʃ/ → ш, /ʒ/ → ж, plus supported palatalized sequences.
 - The apostrophe marks aspiration only. It is not an output for /ʔ/ and is not the Ukrainian orthographic apostrophe. Adjacent consonants are not fused into an affricate without a source phonological affricate analysis.
 - Updated source-attested lexical practical proposals: `ភាសាខ្មែរ` → `п'ієса к'мае`; `ហើយ` with /h/ → `гаеі`. The Phnom Penh colloquial profile's attested /cʰ/ candidate now outputs ч' rather than neutralizing aspiration.
-- Exact-head CI [41076121018](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41076121018) passed Python (82 tests, 25 subtests) and all web checks, including runtime, register-shifter and romanization contracts. Branch head at verification: `677a9191e0614a7c9d9a55a259920689e0d04ec3`.
+- Exact-head CI [41076121018](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41076121018) passed Python (82 tests, 25 subtests) and all web checks, including runtime, register-shifter and romanization contracts. Branch head at verification: `677a9191e0614a7c9d9a55a259920689e0d04ec3`.
 - Existing PR #58 was left untouched. This PR is still draft and is not merged.
 
 These changes implement project-approved target conventions; they are not a new official Ukrainian standard and do not create new Khmer pronunciation evidence. Existing research blockers remain: contextual vowel/register/coda derivation, complete phonological IPA coverage and independent lexical/audio adjudication. Accuracy remains unmeasured.
@@ -817,7 +817,7 @@ These changes implement project-approved target conventions; they are not a new 
 - Added data/khmer/romanization_ukrainian.csv with the 22 official PCGN 2017 consonant/subscript table rows. Each row carries exact source-unit sequences, BGN/PCGN romanization, Ukrainian candidate/status, official PCGN URL and row-level locator. Row 18 records that ឡ has no subscript form; no extra ឝ row is claimed.
 - Added tests/test_romanization_matrix.py. It checks all 22 official row IDs, exact Khmer source-unit sequences, romanization and Ukrainian candidate fields, provenance, locators and evidence statuses. It deliberately does not treat the CSV as a complete vowel/rime inventory.
 - Source reconciliation: the first draft used an incorrect row transcription and an ASCII apostrophe. Inspection of the official PCGN 2017 PDF (page 2 table and notes) showed the apostrophe marker is U+2019 and corrected rows include 8/9 (ឋ/ឍ and ថ/ធ), 12/13 (ប and ព), and 18 (ឡ/ល). The data and test now assert the official source, not the earlier draft.
-- Exact-head verification: workflow [41229686270](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41229686270) completed successfully: pytest 84 passed / 25 subtests passed; npm run check passed; production build passed.
+- Exact-head verification: workflow [41229686270](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41229686270) completed successfully: pytest 84 passed / 25 subtests passed; npm run check passed; production build passed.
 - KHM-ROM-ONSET-001 is DONE_VERIFIED for the 22-row PCGN consonant/subscript table; this is a bounded consonant-table acceptance, not whole-language romanization coverage. KHM-ROM-MATRIX-001 remains PARTIAL: contextual vowel signs, shortening, anusvara/visarga, diacritics and numerals still need a source-exact data matrix and Ukrainian adjudication.
 
 
@@ -826,8 +826,8 @@ These changes implement project-approved target conventions; they are not a new 
 - Added an accessible two-button method switch to the service: **Фонетичний** and **За романізацією**. The default remains phonetic.
 - The phonetic panel contains IPA, Ukrainian phonetic output, unit-level IPA/UA analysis and phonetic issue notices.
 - The romanization panel contains the current BGN/PCGN-derived Latin output and a clearly labelled PARTIAL Ukrainian crosswalk state linked to the canonical research matrix. It does not reuse IPA or the phonetic Ukrainian output as a fallback.
-- Test-first RED: workflow [41229998528](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41229998528) failed because the required mode controls/panels did not exist.
-- Exact-head GREEN: workflow [41230217547](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41230217547) passed: pytest 84 passed / 25 subtests passed, npm run check and production build.
+- Test-first RED: workflow [41229998528](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41229998528) failed because the required mode controls/panels did not exist.
+- Exact-head GREEN: workflow [41230217547](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41230217547) passed: pytest 84 passed / 25 subtests passed, npm run check and production build.
 - The UI now separates the methods, but the Khmer Latin output is still the @gmana ASCII simplifier (diacritics omitted), and the independent syllable-level BGN/PCGN → Ukrainian adapter remains TODO. The romanization tab exposes that limitation rather than pretending it is complete.
 
 
@@ -835,8 +835,8 @@ These changes implement project-approved target conventions; they are not a new 
 
 - Main commit: a351b0f66a608d7b4372e7c7bd0179808488be70 (PR #68, dual-method tabs).
 - The final audit register records the source-corrected PCGN 2017 consonant matrix and the separate romanization/phonetic UI contract.
-- Main quality workflow [41230505480](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41230505480) passed.
-- GitHub Pages deployment [41230505474](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41230505474) succeeded: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/ .
+- Main quality workflow [41230505480](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41230505480) passed.
+- GitHub Pages deployment [41230505474](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41230505474) succeeded: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/ .
 - Final statuses: KHM-ROM-STD-001 DONE_VERIFIED; KHM-ROM-ONSET-001 DONE_VERIFIED; KHM-ROM-ENGINE-001 PARTIAL; KHM-ROM-MATRIX-001 PARTIAL; KHM-ROM-UA-001 TODO; KHM-ROM-TEST-001 PARTIAL; phonetic independent lexical gold BLOCKED (none supplied/adjudicated).
 - The website exposes two separate methods, but the romanization route's Ukrainian result is intentionally PARTIAL. Do not call the romanization mode complete until the full context-sensitive source → BGN/PCGN → Ukrainian syllable matrix and adapter are implemented and tested.
 
@@ -856,22 +856,22 @@ These changes implement project-approved target conventions; they are not a new 
 
 - Direct inspection of the official PCGN 1972 PDF (pp. 2–4) corrected the shared vowel table inventory: 12 independent-character entries occupy rows 3, 4, 7, and 14–22; 17 dependent-vowel entries occupy rows 1–17; together these span the shared 22-row table. The earlier draft's 13-item independent list was inaccurate and has been replaced.
 - Added all six diacritic rows and ten numeral rows in `data/khmer/romanization_marks_numerals.csv`; notes for series-shifting, shortening, `rC`, positional inherent-vowel behavior and silent `◌៍` are retained as contextual rules, not letter substitutions.
-- The first CI attempt [41232327611](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41232327611) exposed a missing `source_url` field in the vowel CSV (86 passed, one failed). The source URL has been inserted into all 37 rows; a fresh exact-head run is required before closing this checkpoint.
+- The first CI attempt [41232327611](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41232327611) exposed a missing `source_url` field in the vowel CSV (86 passed, one failed). The source URL has been inserted into all 37 rows; a fresh exact-head run is required before closing this checkpoint.
 
 
 ## Verified Khmer PCGN orthographic inventory — 2026-10-31
 
-- Exact PR-head workflow [41232468242](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41232468242) checked out merge commit `a1ce5ff` containing head `49f595e4ea030c4b4726ed3335c4bf9d22863271` and passed: pytest **87 passed / 25 subtests passed**, `npm run check` passed (engine, runtime, register-shifter, and romanization checks), and Vite production build passed.
-- The first failed attempt [41232327611](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41232327611) exposed the omitted source URL in the vowel CSV; all 37 rows now carry the official PCGN PDF URL and row locator. The exact-head verification branch was created from the corrected tree.
+- Exact PR-head workflow [41232468242](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41232468242) checked out merge commit `a1ce5ff` containing head `49f595e4ea030c4b4726ed3335c4bf9d22863271` and passed: pytest **87 passed / 25 subtests passed**, `npm run check` passed (engine, runtime, register-shifter, and romanization checks), and Vite production build passed.
+- The first failed attempt [41232327611](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41232327611) exposed the omitted source URL in the vowel CSV; all 37 rows now carry the official PCGN PDF URL and row locator. The exact-head verification branch was created from the corrected tree.
 - `KHM-ROM-VOWEL-INVENTORY-001` is `DONE_VERIFIED` for the bounded 37-row source inventory; `KHM-ROM-MARKS-NUMERALS-001` is `DONE_VERIFIED` for six diacritic rows and ten numeral rows. `KHM-ROM-MATRIX-001` remains `PARTIAL`; `KHM-ROM-ENGINE-001` remains `PARTIAL`; `KHM-ROM-UA-001` remains `TODO`.
-- This does not establish all contextual BGN/PCGN transformations, nor does it complete the syllable-level BGN/PCGN → Ukrainian adapter. Existing @gmana ASCII output still drops diacritics. No new live Pages deployment was needed for these source-data and test changes; existing Pages site remains https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/.
-- Verification PR: [#71](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/71), branch `verify/romanization-evidence-20261031`. PR #70 contains the earlier attempt and is superseded by #71.
+- This does not establish all contextual BGN/PCGN transformations, nor does it complete the syllable-level BGN/PCGN → Ukrainian adapter. Existing @gmana ASCII output still drops diacritics. No new live Pages deployment was needed for these source-data and test changes; existing Pages site remains https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/.
+- Verification PR: [#71](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/71), branch `verify/romanization-evidence-20261031`. PR #70 contains the earlier attempt and is superseded by #71.
 
 
 ## Post-merge main checkpoint — 2026-10-31
 
 - PR #71 merged by squash as `2b8c9d4869c1fa4f179c3a087057e44bf5ef213b`; this is the main-branch implementation merge SHA for the romanization evidence inventory.
-- Exact code-verification workflow [41232468242](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41232468242) passed: 87 Python tests + 25 subtests; web checks and Vite production build passed. The exact code-verification run checked out head `49f595e4ea030c4b4726ed3335c4bf9d22863271`; subsequent changes before merge were documentation-only.
+- Exact code-verification workflow [41232468242](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41232468242) passed: 87 Python tests + 25 subtests; web checks and Vite production build passed. The exact code-verification run checked out head `49f595e4ea030c4b4726ed3335c4bf9d22863271`; subsequent changes before merge were documentation-only.
 - The bounded source inventory and its tests are now on `main`. The overall orthographic matrix and runtime adapter remain incomplete; see the PARTIAL/TODO statuses above.
 - No runtime behavior or Pages build inputs changed in this PR; the already deployed GitHub Pages site remains the existing public service. A new Pages deployment was not necessary for these data/documentation-only changes.
 
@@ -890,24 +890,24 @@ These changes implement project-approved target conventions; they are not a new 
 ## Exact-head verification blocker for final PCGN glyph correction — 2026-10-31
 
 - Programmatic branch-content validation confirms 37 vowel/rime rows, all 37 official source URLs, all 37 exact source-glyph + BGN/PCGN value pairs, 16 diacritic/numeral rows, and no Ukrainian candidate on any `EVIDENCE_LIMITED` row.
-- The latest exact-head Quality checks run [41233203184](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41233203184) remains `queued` (job 124631488043). A local `git clone`/pytest attempt is blocked by the execution environment's DNS error (`Could not resolve host: github.com`). Therefore the new exact-glyph assertions have **not** been reported as passed.
+- The latest exact-head Quality checks run [41233203184](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41233203184) remains `queued` (job 124631488043). A local `git clone`/pytest attempt is blocked by the execution environment's DNS error (`Could not resolve host: github.com`). Therefore the new exact-glyph assertions have **not** been reported as passed.
 - The matrix records `KHM-ROM-VOWEL-INVENTORY-001` and `KHM-ROM-MARKS-NUMERALS-001` as `PARTIAL` pending exact-head CI. PR #75 contains the correction and is mergeable; merge does not imply CI passed. Re-run/confirm CI after the runner becomes available before promoting these rows to `DONE_VERIFIED`.
 
 
 ## Final main SHA and merged source correction — 2026-10-31
 
 - The corrected PCGN source glyph inventory and exact-row tests were merged by PR #75 as `5959113931c2e08ac279f4e064fa14a669a96f87`; the subsequent ledger correction PR #76 merged as `799d66f2038053e03b3a1c82d33fec7bbef4bfc8`. This is the main head before this final handoff-only update.
-- PR #75's exact-head workflow [41233203184](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41233203184) remains queued. The local clone attempt failed with `Could not resolve host: github.com`; no test pass is claimed for the latest exact-glyph assertions. The matrix correctly leaves the bounded vowel and marks/numerals tasks PARTIAL pending CI.
+- PR #75's exact-head workflow [41233203184](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41233203184) remains queued. The local clone attempt failed with `Could not resolve host: github.com`; no test pass is claimed for the latest exact-glyph assertions. The matrix correctly leaves the bounded vowel and marks/numerals tasks PARTIAL pending CI.
 - Remaining acceptance: exact-head CI green; complete context-dependent BGN/PCGN engine; complete romanization-syllable → Ukrainian table and adapter; broader IPA gold and ambiguity tests. No runtime changes or new Pages deployment were made.
 
 
 ## Exact PCGN glyph inventory verification checkpoint — 2026-10-31
 
 - Current main before this documentation checkpoint: `5f3a9184f61d2e6e559cde30767e8c681a995a68`; matrix status update commit: `37990bcaf9550d6d2d45506ae9f56eb7717c2a2f`.
-- Previously queued exact-head workflow [41233203184](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41233203184) is now completed with conclusion `success`. Job `test` (ID `124631488043`) completed all steps successfully: Python dependency setup and tests, Node dependency setup, web checks, and site build.
+- Previously queued exact-head workflow [41233203184](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41233203184) is now completed with conclusion `success`. Job `test` (ID `124631488043`) completed all steps successfully: Python dependency setup and tests, Node dependency setup, web checks, and site build.
 - Updated `docs/romanization-to-ukrainian-matrix.md`: `KHM-ROM-VOWEL-INVENTORY-001` and `KHM-ROM-MARKS-NUMERALS-001` are now `DONE_VERIFIED` as bounded source-table inventories with exact-glyph/romanization assertions; `KHM-ROM-TEST-001` remains `PARTIAL` because broader mixed-script, punctuation, malformed-unit and ambiguity coverage is still outstanding.
 - This CI result verifies the bounded PCGN inventory assertions only. It does **not** establish the complete contextual vowel × consonant-series × shortening × coda matrix, a conformant runtime PCGN engine, a complete Ukrainian syllable adapter, or phonetic IPA coverage.
-- No runtime code or Pages build inputs changed; no new deployment is required for this documentation-only update. Existing live site: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/.
+- No runtime code or Pages build inputs changed; no new deployment is required for this documentation-only update. Existing live site: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/.
 - Next implementation priority remains the context-dependent Khmer vowel/rime matrix and a source-aware PCGN engine; do not replace evidence gaps with guessed Ukrainian candidates.
 
 
@@ -915,14 +915,14 @@ These changes implement project-approved target conventions; they are not a new 
 
 - Audit-register update commit: `a74a33dc77d1180eab32dbe79688442458d65d40`.
 - Latest verified mainline documentation commit before this handoff update: `a74a33dc77d1180eab32dbe79688442458d65d40`.
-- Matrix, repository audit, and handoff agree that workflow [41233203184](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41233203184) passed exact PCGN glyph and romanization assertions. The bounded inventory tasks are DONE_VERIFIED; the contextual romanization engine, full matrix, Ukrainian syllable adapter and broader adversarial coverage remain open.
+- Matrix, repository audit, and handoff agree that workflow [41233203184](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41233203184) passed exact PCGN glyph and romanization assertions. The bounded inventory tasks are DONE_VERIFIED; the contextual romanization engine, full matrix, Ukrainian syllable adapter and broader adversarial coverage remain open.
 - No production runtime or Pages build input changed in this cycle; the prior successful Pages deployment remains the live site evidence.
 - Next implementation work must use source-backed contextual PCGN rules and explicit unresolved states. Do not synthesize unsupported Ukrainian candidates or treat the inventory CI as phonetic validation.
 
 
 ## Exact CI log detail and current head — 2026-10-31
 
-- The exact-head workflow [41233203184](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41233203184), job `124631488043`, was inspected at the log level, not only by job conclusion.
+- The exact-head workflow [41233203184](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41233203184), job `124631488043`, was inspected at the log level, not only by job conclusion.
 - Exact results: `pytest -q` → **87 passed, 25 subtests passed**; `npm run check` → all configured web-engine, runtime, register-shifter and romanization checks passed (including the sample romanization test); `npm run build` → Vite production build succeeded and emitted `index.html`, `system.html`, and the expected asset bundles.
 - The CI log contains non-fatal Node `punycode` deprecation and npm install-script warnings; no configured step failed.
 - Latest handoff update commit before this section: `27b30e3250c8f8c92899cd50c654b7cca673a32e`. Treat this as a documentation-only checkpoint; no runtime behavior or Pages artifact inputs changed.
@@ -945,9 +945,9 @@ These changes implement project-approved target conventions; they are not a new 
  
 ## Responsive layout merge and verification — 2026-10-31
 
-- PR [#78](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/78) was merged by squash as `3b6e08177f9c90dddb27e787cc7a6deaa015c33e`.
+- PR [#78](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/78) was merged by squash as `3b6e08177f9c90dddb27e787cc7a6deaa015c33e`.
 - The PR adds 53 lines of focused responsive CSS overrides in `src/styles/main.css`; existing method-switch, IPA fallback, source-card and status styles were preserved rather than replacing the stylesheet from the diverged PR #64.
-- Exact PR-head Quality workflow [41234615041](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41234615041) completed successfully. The sole job passed setup, checkout, Python dependency installation, `pytest -q`, Node dependency installation, `npm run check`, and `npm run build`.
+- Exact PR-head Quality workflow [41234615041](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41234615041) completed successfully. The sole job passed setup, checkout, Python dependency installation, `pytest -q`, Node dependency installation, `npm run check`, and `npm run build`.
 - PR #64 remains open and untouched: its branch is substantially diverged; only the responsive behavior needed here was ported. Do not merge its broader CSS wholesale.
 - The merge is UI-only. No Khmer phonological coverage, BGN/PCGN runtime, Ukrainian syllable adapter, or gold IPA corpus is completed by this change. Research prototype status remains unchanged.
 - Pages deployment after this merge has not yet been verified. Check the Pages workflow and deployed site before claiming the live site includes this CSS.
@@ -955,11 +955,11 @@ These changes implement project-approved target conventions; they are not a new 
 
 ## Sentence-level source-preservation regression — 2026-10-31
 
-- Added and merged PR [#80](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/80) as `14113b5d45bbd36e53510b24a6f48f565a54bcd0`.
+- Added and merged PR [#80](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/80) as `14113b5d45bbd36e53510b24a6f48f565a54bcd0`.
 - The runtime regression passes the supplied Khmer greeting sentence through `convert()` and asserts that the normalized source and the concatenated per-unit source spans are identical, preserving whitespace and punctuation. It also requires an explicit aggregate Ukrainian result or fail-closed marker.
-- Exact-head Quality workflow [41238197962](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41238197962) passed Python tests, Node web checks (including the runtime regression), and Vite build.
+- Exact-head Quality workflow [41238197962](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41238197962) passed Python tests, Node web checks (including the runtime regression), and Vite build.
 - This is a segmentation/source-preservation check, not independent IPA gold or a claim that every word in the sentence has an established pronunciation. The aggregate converter remains deliberately fail-closed when any unit is unresolved.
-- The latest Pages deployment [41237778259](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41237778259) succeeded for main commit `cb48d4c660d3e7f826c677d871654157914ae59c`; PR #80 adds tests only and does not change the deployed runtime.
+- The latest Pages deployment [41237778259](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41237778259) succeeded for main commit `cb48d4c660d3e7f826c677d871654157914ae59c`; PR #80 adds tests only and does not change the deployed runtime.
 
 
 ### Reconciliation update — open layout PR #64 — 2026-10-31
@@ -972,17 +972,17 @@ These changes implement project-approved target conventions; they are not a new 
 
 ### Full-sentence fail-closed output contract — 2026-10-31
 
-- PR [#83](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/83) merged as `4a2e29dad27c80f2185db645a3971afe6315e022`.
+- PR [#83](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/83) merged as `4a2e29dad27c80f2185db645a3971afe6315e022`.
 - The sentence regression now asserts the exact aggregate markers `⟦ВИМОВУ НЕ ВСТАНОВЛЕНО ДЛЯ ЧАСТИНИ ВВОДУ⟧` and `⟦ТРАНСКРИПЦІЮ НЕ ВСТАНОВЛЕНО ДЛЯ ЧАСТИНИ ВВОДУ⟧` for the supplied greeting. This confirms that the engine preserves the input but does not claim a complete IPA or Ukrainian transcription when lexical units are not established.
-- Exact-head Quality workflow [41239297284](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41239297284) passed Python tests, Node web/runtime tests, and Vite build.
+- Exact-head Quality workflow [41239297284](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41239297284) passed Python tests, Node web/runtime tests, and Vite build.
 - This is an explicit expected limitation, not a successful phonetic result. Supporting the sentence requires source-backed contextual phonology and lexical evidence, not weakening the fail-closed rule.
 
 ## Full-sentence romanization integration — 2026-10-31
 
 - Main head: \`076ffaa1523afa7cc9ec9b8c2ca8e3a83cea101f\` (PR #89).
-- PR #87 added the supplied full Khmer greeting sentence to the romanization test. Exact-head Quality workflow [41240282424](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41240282424) passed: 87 Python tests + 25 subtests, configured Node web/runtime/romanization checks, and Vite build.
+- PR #87 added the supplied full Khmer greeting sentence to the romanization test. Exact-head Quality workflow [41240282424](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41240282424) passed: 87 Python tests + 25 subtests, configured Node web/runtime/romanization checks, and Vite build.
 - PR #89 merged the bounded UI integration fix: \`src/main.js\` now passes the complete input string to \`khmerToLatin(data.source)\`, rather than manually splitting on whitespace and invoking the library token by token. This follows the package's documented whole-text contract for preserving whitespace and punctuation, and its handling of the Khmer repetition mark \`ៗ\` ([package documentation](https://www.npmjs.com/package/@gmana/km-translit)).
-- The exact regression checks that the sample is converted out of Khmer letters/signs while preserving both Khmer sentence stops, spaces, and the exclamation mark. Exact-head Quality workflow [41241149726](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41241149726) passed Python tests, Node web checks, and the Vite production build.
+- The exact regression checks that the sample is converted out of Khmer letters/signs while preserving both Khmer sentence stops, spaces, and the exclamation mark. Exact-head Quality workflow [41241149726](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41241149726) passed Python tests, Node web checks, and the Vite production build.
 - This does not solve dictionary-based word segmentation inside unspaced Khmer runs; the library explicitly documents that limitation. Nor does it complete conformant BGN/PCGN 1972 contextual romanization or the independent romanization-to-Ukrainian adapter.
 - PR #88 was closed as superseded; it used a stale pre-main branch and an incorrectly escaped Unicode test assertion. PR #64 remains open and untouched because its branch is diverged and replaces the stylesheet wholesale.
 - No new Pages deployment is claimed. The site remains a research prototype; contextual PCGN coverage, a source-backed Ukrainian syllable adapter, and independently adjudicated phonetic gold remain open.
@@ -991,21 +991,21 @@ These changes implement project-approved target conventions; they are not a new 
 
 - PR #92 merged as \`99638ea6758d1553f3853d163c4b42ad8fe0741d\`.
 - The supplied short sample \`សួស្តី 123! ភាសាខ្មែរ។\` now has an explicit whole-text romanization test. It verifies conversion of Khmer letters and preservation of ASCII digits, spaces, exclamation mark and Khmer sentence-stop punctuation.
-- Exact-head Quality workflow [41242382955](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41242382955) passed Python tests, Node web checks and Vite build.
+- Exact-head Quality workflow [41242382955](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41242382955) passed Python tests, Node web checks and Vite build.
 - This is an input-integrity regression, not BGN/PCGN gold or evidence of complete word segmentation/Ukrainian adaptation. No runtime code changed and no new Pages deployment is claimed.
 
 
 ## Native numerals and mixed Latin sentence regression — 2026-10-31
 
 - PR #94 merged as `48e5d6c05d4a6ade8019c853135b7e2f6d655591`. The sample `២០២៦ ABC-42, សួស្តី។` verifies that Khmer numerals remain visible or are rendered as Arabic digits, ASCII digits and Latin text survive, and spaces/comma/Khmer sentence-stop punctuation are preserved while Khmer letters are romanized.
-- Exact PR-head Quality workflows [41242836968](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41242836968) and [41242823462](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41242823462) passed Python tests, Node web checks and Vite build.
+- Exact PR-head Quality workflows [41242836968](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41242836968) and [41242823462](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41242823462) passed Python tests, Node web checks and Vite build.
 - Combined with PR #92's ASCII-number short sentence and PR #89's full Khmer greeting sentence, the romanization route now has explicit coverage for spaces, punctuation, native and ASCII numerals, and mixed Latin text. This is input-integrity evidence only; it does not establish the correct BGN/PCGN numeral rendering, word segmentation inside unspaced runs, complete contextual PCGN conformance, or a Ukrainian romanization adapter.
 
 
 ## Main-head verification after Khmer mixed-text regressions — 2026-10-31
 
 - Current `main` head: `1a6921fc75dd011bc8097f6636b8077fc7c59cff`.
-- Exact-main Quality workflow [41243972009](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41243972009) completed successfully. Pages workflow [41243971788](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41243971788) also completed successfully; both build and deploy jobs passed, including the deployed-site/runtime smoke test.
+- Exact-main Quality workflow [41243972009](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41243972009) completed successfully. Pages workflow [41243971788](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41243971788) also completed successfully; both build and deploy jobs passed, including the deployed-site/runtime smoke test.
 - Main has explicit whole-text romanization regressions for the full Khmer greeting, short mixed-script input, ASCII numbers, native Khmer numerals, Latin text, spaces, commas and Khmer sentence-stop punctuation. The application passes the complete input to the romanization library rather than manually tokenizing by whitespace.
 - The full greeting's phonetic route intentionally remains fail-closed where source-backed contextual phonology is missing. The romanization library's documented inability to segment dictionary words within unspaced Khmer runs is not repaired by these tests.
 - This verifies whole-text input integrity and deployed artifact behavior, not full BGN/PCGN 1972 conformance, Ukrainian romanization adaptation, or independently adjudicated IPA gold.
@@ -1016,17 +1016,17 @@ These changes implement project-approved target conventions; they are not a new 
 ## Post-merge verification for PR #95 — 2026-10-31
 
 - PR #95 merged as `28a9bbb909ca57735ceca92f262c2de9eeb43396`; it synchronizes current whole-text romanization and deployment evidence without changing application code.
-- Exact post-merge Quality workflow [41246343908](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41246343908) passed. Pages deployment [41246343845](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41246343845) also passed, including the deployed-site/runtime smoke test. This is the current verified main head.
+- Exact post-merge Quality workflow [41246343908](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41246343908) passed. Pages deployment [41246343845](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41246343845) also passed, including the deployed-site/runtime smoke test. This is the current verified main head.
 - The full/short sentence, mixed-script, native/ASCII numeral, whitespace and punctuation tests remain engineering/input-integrity coverage. The phonetic route remains fail-closed for unsupported contexts; this is not full PCGN conformance, word segmentation, Ukrainian adaptation or independently adjudicated IPA gold.
 - PR #64 remains open, diverged by 35 commits behind current main and is not merged. Its 7-commit CSS/layout branch is preserved; focused responsive improvements remain in the merged PR #78.
 
 
 ## Whole-message mixed-script segmentation regression — 2026-11-01
 
-- PR [#97](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/97) merged as `72e4644204c879f905ebaa20dddd2d00b6583d32`.
+- PR [#97](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/97) merged as `72e4644204c879f905ebaa20dddd2d00b6583d32`.
 - Added a canonical adversarial case containing Khmer, Latin identifier, ASCII digits, Khmer numerals and punctuation, tab, CRLF, U+200B and an unsupported symbol.
 - The test consumes the canonical fixture, requires exact reconstruction from `segment_syllables()`, confirms a supported Khmer example remains structurally established and confirms the unsupported symbol remains locally invalid/unsupported.
-- Exact PR-head Quality checks [41289845696](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41289845696) passed: Python tests, web checks and production build.
+- Exact PR-head Quality checks [41289845696](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41289845696) passed: Python tests, web checks and production build.
 - The fixture has `ipa: null` and explicit non-phonological provenance; it is structural/source-integrity evidence, not IPA gold or an accuracy benchmark row.
 
 
@@ -1034,7 +1034,7 @@ These changes implement project-approved target conventions; they are not a new 
 
 - Task `KHM-G2P-GORUUT-001`: `PARTIAL` (upstream availability/source triage only; runtime execution and quality validation pending).
 - Inspected and pinned upstream Goruut commit `b224bde02151f8f86d0fe260804e4ca743bda620`; upstream README advertises Khmer Central, IPA output, word tokens and tone support, but no syllable tokens or tie bars and no number/date normalization. MIT applies to source code; embedded dictionary/model asset licenses remain unaudited.
-- Recorded the candidate and limitations in `docs/benchmarking-and-external-ipa.md`, alongside a triage note for Khmer NLP KCC: its advertised G2P tokens are not established as IPA and its downloaded checkpoint/data need separate license review. PR [#98](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/98); exact PR-head CI [41302072416](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41302072416) passed before this handoff-only follow-up commit.
+- Recorded the candidate and limitations in `docs/benchmarking-and-external-ipa.md`, alongside a triage note for Khmer NLP KCC: its advertised G2P tokens are not established as IPA and its downloaded checkpoint/data need separate license review. PR [#98](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/98); exact PR-head CI [41302072416](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41302072416) passed before this handoff-only follow-up commit.
 - No Goruut/KCC runtime invocation or output artifact was produced. Independent gold remains 0; no accuracy or winner claim. Next acceptance: run pinned Goruut in isolated optional CI, audit asset provenance, review Khmer register/inherent-vowel/coda/syllable conventions, and score only independent expert-adjudicated IPA.
 
 
@@ -1083,7 +1083,7 @@ These changes implement project-approved target conventions; they are not a new 
 
 ## KHM-GORUUT-RUNTIME-001 — PARTIAL (exact-head evidence recorded)
 
-- Exact PR #101 head `eeeede50447c41df30f866bcbf77f56824b40190` runtime build and HTTP probe passed: [41310808284](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41310808284); artifact SHA-256 `34330aac3be84a438a7bdc181d715f12b745cfe6f7e15edcd4be08dcbfeb52da`.
+- Exact PR #101 head `eeeede50447c41df30f866bcbf77f56824b40190` runtime build and HTTP probe passed: [41310808284](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41310808284); artifact SHA-256 `34330aac3be84a438a7bdc181d715f12b745cfe6f7e15edcd4be08dcbfeb52da`.
 - Three-repeat results: engineering 8/8 stable; source-attested 6/6 stable; strict concordance 1/6 and limited notation diagnostic 3/6. Stable missing-segment outputs are present; not accuracy, gold=0.
 - Missing `weights9.bin.zlib` warning persists; causal relation unknown. Keep as optional comparator only; production promotion rejected.
 - Full run evidence and config hash: `docs/audits/current/GORUUT-RUNTIME-EVALUATION-2026-11-01.md`.
@@ -1099,7 +1099,7 @@ These changes implement project-approved target conventions; they are not a new 
 ## KHMER Goruut source-coverage gate — PARTIAL
 
 - Raw runtime evidence was re-analysed using `PrePunct`, `CleanWord`, and `PostPunct`; non-empty phonetic output is not sufficient evidence of complete coverage.
-- - Runtime workflow: [41311611360](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41311611360); artifact [13085627015](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41311611360/artifacts/13085627015); ZIP SHA-256 `30988a1aae36261f94319286c0815b184f5effb633527f79d07e6011334d19aa`.
+- - Runtime workflow: [41311611360](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41311611360); artifact [13085627015](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41311611360/artifacts/13085627015); ZIP SHA-256 `30988a1aae36261f94319286c0815b184f5effb633527f79d07e6011334d19aa`.
 - - Input SHA-256 `3d93a49c0162b5de4374c51d742fab0d2f5f975251c09664faefc9870535df49`; engine `b224bde02151f8f86d0fe260804e4ca743bda620`; Go `1.23.12`; config SHA-256 `d2f19f923da8ca089ba9133465018903263f681b57a1177152ab07f2a284225e`.
 - - 97/100 inputs returned at least one phonetic token; 3/100 returned an empty Words array. Of the 97 responses, 96 were stable across three repetitions and one (`ជួត`) was unstable.
 - - Source coverage was independently re-analysed from `PrePunct`, `CleanWord`, and `PostPunct`. A row counts complete only if these fields reconstruct the original input after NFC/whitespace removal and no letters, combining marks or numbers are relegated to PrePunct/PostPunct. Result: **70/100 complete**, **27/100 partial**, **3/100 no output**. This is a source-preservation check, not a phonetic correctness score.
@@ -1125,7 +1125,7 @@ This is a project scope decision, not a legal conclusion about the upstream asse
 
 ## Re-run with source-coverage and randomization counters — 2026-11-01
 
-The updated harness completed on PR branch commit `b9f706473e4e03c6e446254703b7e6e09d863cce`: [runtime workflow 41312379618](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41312379618), artifact [13086660287](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41312379618/artifacts/13086660287), ZIP SHA-256 `dd6934c304e802bf5aabbce2802a92c11855e8a0e3d37d05b7ca7f19b12d41e4`.
+The updated harness completed on PR branch commit `b9f706473e4e03c6e446254703b7e6e09d863cce`: [runtime workflow 41312379618](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41312379618), artifact [13086660287](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41312379618/artifacts/13086660287), ZIP SHA-256 `dd6934c304e802bf5aabbce2802a92c11855e8a0e3d37d05b7ca7f19b12d41e4`.
 
 - The 100-row MekongPhon report independently reproduces **70 complete / 27 partial / 3 no-output** source-coverage results; 96 outputs were repeat-stable, one was unstable. The unstable word carried dictionary-randomization metadata in all three repetitions.
 - Strict source-attested concordance remains 6/100, with 6/100 on the limited notation diagnostic. Accuracy remains null; independent gold remains 0.
@@ -1138,40 +1138,40 @@ This confirms the coverage gate is functioning on a real 100-row run. The curren
 
 ## Final Goruut / Khmer G2P PR #101 reconciliation — 2026-11-01
 
-- Final head `1e9cbfdf4f21514e4f39093d51ea3f923133a90a`: repository checks [41313433562](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41313433562), Khmer G2P [41313433619](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41313433619) and Goruut [41313433641](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41313433641) all **PASS**.
+- Final head `1e9cbfdf4f21514e4f39093d51ea3f923133a90a`: repository checks [41313433562](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41313433562), Khmer G2P [41313433619](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41313433619) and Goruut [41313433641](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41313433641) all **PASS**.
 - Khmerphonemizer 0.0.3 returned 100/100 outputs, but 0/100 rows were comparable because the input split provided no source IPA labels. This is an availability result only, not accuracy.
 - Goruut 100-row results: 97 outputs, 3 no-output; source coverage 70 complete / 27 partial / 3 unknown; 96 stable / 1 unstable; one randomized dictionary input; strict source-attested concordance 6/100. The eight engineering probes had 3 complete and 5 partial outputs. Accuracy remains null, independent gold=0.
-- Artifacts: Khmerphonemizer [13086870731](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41313433619/artifacts/13086870731), SHA-256 `86ef634b67dd60ca121cfe11a8549a42e7ee2e4655447851e91a4eefffb7a1b2`; Goruut [13085864084](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41313433641/artifacts/13085864084), SHA-256 `469bd4f9fc0baa3e8366724e43dfcb802427eca3d70c916be1e98ff6d779583d`. Both downloaded archive hashes matched GitHub's digest.
+- Artifacts: Khmerphonemizer [13086870731](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41313433619/artifacts/13086870731), SHA-256 `86ef634b67dd60ca121cfe11a8549a42e7ee2e4655447851e91a4eefffb7a1b2`; Goruut [13085864084](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41313433641/artifacts/13085864084), SHA-256 `469bd4f9fc0baa3e8366724e43dfcb802427eca3d70c916be1e98ff6d779583d`. Both downloaded archive hashes matched GitHub's digest.
 - Runtime-probe code and exact-head CI are **DONE_VERIFIED**. Goruut production use remains rejected. Khmerphonemizer accuracy and production suitability remain **BLOCKED** until an appropriate source IPA set and independent expert adjudication exist. The `weights9.bin.zlib` warning is unresolved; causality is not established.
 
 
 ## Khmer source-IPA comparator correction — 2026-11-01
 
-The previous addendum's statement that the 100-word MekongPhon split lacked IPA was incorrect. The workflow included `pron_no_tones` under `source_reported_ipa`; the benchmark runner read only `ipa`, silently dropping the reference labels. I added a regression test first and observed the intended failure on [41325025559](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41325025559): 1 failed, 106 passed, 25 subtests. The minimal fix, `source_ipa_from_metadata`, now supports both field names.
+The previous addendum's statement that the 100-word MekongPhon split lacked IPA was incorrect. The workflow included `pron_no_tones` under `source_reported_ipa`; the benchmark runner read only `ipa`, silently dropping the reference labels. I added a regression test first and observed the intended failure on [41325025559](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41325025559): 1 failed, 106 passed, 25 subtests. The minimal fix, `source_ipa_from_metadata`, now supports both field names.
 
-Final head `1a0a8190e60d003b2e48ac29da21ce553822130c` passed repository CI [41325152300](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41325152300) and [41325147911](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41325147911), plus optional G2P run [41325147987](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41325147987). Corrected artifact [13091145662](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41325147987/artifacts/13091145662), SHA-256 `b3e2262c5f72d51c770ec88c3cf880387d1aa03ab5bc4beafc85e0551ec1f2f9`, reports 100/100 outputs, 100 comparable source labels, 18 strict matches and 19 limited-notation matches. These are not accuracy: gold=0, accuracy=null.
+Final head `1a0a8190e60d003b2e48ac29da21ce553822130c` passed repository CI [41325152300](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41325152300) and [41325147911](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41325147911), plus optional G2P run [41325147987](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41325147987). Corrected artifact [13091145662](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41325147987/artifacts/13091145662), SHA-256 `b3e2262c5f72d51c770ec88c3cf880387d1aa03ab5bc4beafc85e0551ec1f2f9`, reports 100/100 outputs, 100 comparable source labels, 18 strict matches and 19 limited-notation matches. These are not accuracy: gold=0, accuracy=null.
 
 The earlier 0-comparable count is superseded. The bug was in our report adapter, not absent source data. The fix is a research-harness correction only; no production phonology changed.
 
 
 ## Final Khmer run reconciliation — PR #101
 
-Final-head repository checks [41325417322](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41325417322) and [41325414211](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41325414211), Goruut [41325417330](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41325417330) and corrected Khmerphonemizer [41325417374](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41325417374) all passed. Goruut artifact [13090873861](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41325417330/artifacts/13090873861): 97/100 outputs, 70 complete / 27 partial / 3 unknown, 96 stable / 1 unstable, 6/100 source-attested exact matches. Khmerphonemizer artifact [13091310659](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41325417374/artifacts/13091310659): 100/100 outputs, 100 comparable source labels, 18 strict and 19 limited-notation matches after fixing the dropped `source_reported_ipa` field. Both archive hashes match GitHub digests. These are source concordance only, not accuracy; independent gold=0, accuracy=null.
+Final-head repository checks [41325417322](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41325417322) and [41325414211](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41325414211), Goruut [41325417330](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41325417330) and corrected Khmerphonemizer [41325417374](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41325417374) all passed. Goruut artifact [13090873861](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41325417330/artifacts/13090873861): 97/100 outputs, 70 complete / 27 partial / 3 unknown, 96 stable / 1 unstable, 6/100 source-attested exact matches. Khmerphonemizer artifact [13091310659](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41325417374/artifacts/13091310659): 100/100 outputs, 100 comparable source labels, 18 strict and 19 limited-notation matches after fixing the dropped `source_reported_ipa` field. Both archive hashes match GitHub digests. These are source concordance only, not accuracy; independent gold=0, accuracy=null.
 
 
 ## Session closeout — 2026-11-01
 
-- PR [#101](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/101) was reviewed and squash-merged into `main` as `211a5273a0bebc8b95bee7c821ec3aa63ebcfa60`; the main branch head was verified to equal that SHA.
-- Post-merge quality checks [41326232442](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41326232442) PASS; optional G2P smoke [41326232443](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41326232443) PASS; GitHub Pages build/deploy and deployed-site/runtime smoke test [41326232421](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41326232421) PASS.
-- Final PR-head Goruut runtime [41325808140](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41325808140) PASS; artifact [13091003881](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41325808140/artifacts/13091003881), SHA-256 `079c6e56ad178815bba2159ec4720f538b01071a17cb1d030fcf4d024f8696f2`: 97/100 outputs, 70 complete / 27 partial / 3 unknown, 96 stable / 1 unstable, 1 randomized input, 6/100 strict source-attested matches. The 8 engineering probes had 3 complete / 5 partial.
-- Corrected Khmerphonemizer 0.0.3 comparison [41325808089](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41325808089) PASS; artifact [13090603852](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41325808089/artifacts/13090603852), SHA-256 `668668bb1a6a3aca45145b0894c83000889695e6d25878d794622fef64e5e5d2`: 100/100 outputs, 100 comparable source labels, 18 strict and 19 limited-notation matches. This follows the test-first fix for the dropped `source_reported_ipa` metadata field (red CI: 1 failed, 106 passed, 25 subtests; final CI passed).
+- PR [#101](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/101) was reviewed and squash-merged into `main` as `211a5273a0bebc8b95bee7c821ec3aa63ebcfa60`; the main branch head was verified to equal that SHA.
+- Post-merge quality checks [41326232442](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41326232442) PASS; optional G2P smoke [41326232443](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41326232443) PASS; GitHub Pages build/deploy and deployed-site/runtime smoke test [41326232421](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41326232421) PASS.
+- Final PR-head Goruut runtime [41325808140](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41325808140) PASS; artifact [13091003881](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41325808140/artifacts/13091003881), SHA-256 `079c6e56ad178815bba2159ec4720f538b01071a17cb1d030fcf4d024f8696f2`: 97/100 outputs, 70 complete / 27 partial / 3 unknown, 96 stable / 1 unstable, 1 randomized input, 6/100 strict source-attested matches. The 8 engineering probes had 3 complete / 5 partial.
+- Corrected Khmerphonemizer 0.0.3 comparison [41325808089](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41325808089) PASS; artifact [13090603852](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41325808089/artifacts/13090603852), SHA-256 `668668bb1a6a3aca45145b0894c83000889695e6d25878d794622fef64e5e5d2`: 100/100 outputs, 100 comparable source labels, 18 strict and 19 limited-notation matches. This follows the test-first fix for the dropped `source_reported_ipa` metadata field (red CI: 1 failed, 106 passed, 25 subtests; final CI passed).
 - Goruut test harness and exact-head CI: **DONE_VERIFIED**. Production phonology remains **PARTIAL/BLOCKED**: 27/100 Goruut outputs partial, 3/100 absent; source labels are not independent gold; independent expert Khmer IPA gold remains 0. Khmerphonemizer concordance is diagnostic only. Permanent source-data/model import remains outside the approved test-only scope.
 - No local checkout was available; engineering verification is from exact-head and post-merge GitHub Actions. See runtime audit for full evidence and hashes.
 
 
 ## Linguistic completion register — 2026-11-01
 
-- Current verified `main` baseline: `c0a2b33c86791b6546e1158c62043fd23acc1f60`; latest exact-main engineering workflow: https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41326462947 (success). See the linked current audit register for the verified status and next acceptance criteria: [Linguistic completion register](audits/current/LINGUISTIC-COMPLETION-REGISTER-2026-11-01.md).
+- Current verified `main` baseline: `c0a2b33c86791b6546e1158c62043fd23acc1f60`; latest exact-main engineering workflow: https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41326462947 (success). See the linked current audit register for the verified status and next acceptance criteria: [Linguistic completion register](audits/current/LINGUISTIC-COMPLETION-REGISTER-2026-11-01.md).
 - Reconfirmed `data/benchmark/gold.tsv` contains only its header. Independent expert-adjudicated lexical IPA gold remains **0**; empirical accuracy remains **null**. No external source-attested labels or engine outputs are promoted to gold.
 - The register separates implementable repository work from external expert, primary-source and licensing blockers. Preserve existing canonical plans, registries, tests and generated data; do not create parallel corpora or weaken fail-closed behavior.
 - No local checkout was available for this pass. GitHub Actions provide exact-main engineering evidence only; they do not prove linguistic accuracy, manual accessibility QA or legal permissions.
@@ -1245,10 +1245,10 @@ The rights registry does not itself grant permission. Each real source still nee
 
 - Starting main SHA: c0a2b33c86791b6546e1158c62043fd23acc1f60 (main remains unchanged).
 - Implementation branch: feat/ipa-gold-corpus-20261101-review.
-- Comprehensive PR: [#103](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/103); PR-head implementation checkpoint SHA: 608d2d92c5e883c095bf0c679b7353bd442ee55c.
-- PR CI: [Quality checks](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41337410745) SUCCESS — 136 Python tests + 27 subtests; Khmer register-shifter browser contract, web checks and Vite build passed.
+- Comprehensive PR: [#103](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/103); PR-head implementation checkpoint SHA: 608d2d92c5e883c095bf0c679b7353bd442ee55c.
+- PR CI: [Quality checks](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41337410745) SUCCESS — 136 Python tests + 27 subtests; Khmer register-shifter browser contract, web checks and Vite build passed.
 - This branch includes the previous documentation-only PR #102 in full; #102 was closed as superseded after its content was verified in #103. No branch was deleted.
-- Legacy PR [#64](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/64) remains open and untouched: it is a divergent legacy CSS/layout patch and was not blindly merged.
+- Legacy PR [#64](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/64) remains open and untouched: it is a divergent legacy CSS/layout patch and was not blindly merged.
 - Existing feature branch feat/independent-ipa-gold-corpus-20261101 was left untouched because its history is substantially broader; the narrower review branch is the PR source.
 - No local checkout was available; all verification claims above are GitHub Actions evidence, not local command runs.
 
@@ -1271,7 +1271,7 @@ The Khmer evidence matrix now contains the full Ishida phone-to-grapheme mapping
 - Added fail-closed cross-annotation consistency: both independent annotations for one record must use the same `ipa.kind`, and a `RESOLVED` adjudicated result must preserve that kind. This prevents phonemic-vs-phonetic representation differences from being misclassified as pronunciation disagreements.
 - Regression evidence: both new tests failed against the pre-fix validator on the test-only commit, then passed after the validator change.
 - New task `IPA-GOLD-REPRESENTATION-KIND-001`: **DONE_VERIFIED** (mechanism and exact-head CI). Blindness, annotator qualifications and independent adjudicator competence remain external operational evidence, not properties CI can prove.
-- Final PR head: `f7f2bf9a471f5fea990c0cf9509d382e3371d17b`; CI run [41338461515](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41338461515) SUCCESS — 139 Python tests + 27 subtests; browser register-shifter contract, web checks and Vite build passed.
+- Final PR head: `f7f2bf9a471f5fea990c0cf9509d382e3371d17b`; CI run [41338461515](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41338461515) SUCCESS — 139 Python tests + 27 subtests; browser register-shifter contract, web checks and Vite build passed.
 - The Khmer matrix remains PARTIAL: full profile × series × stress × coda lexical coverage and an independent broader /r/-loss replication are not available.
 - Gold remains zero; `gold.tsv` remains header-only; empirical accuracy remains null. No IPA labels were generated.
 
@@ -1281,7 +1281,7 @@ The Khmer evidence matrix now contains the full Ishida phone-to-grapheme mapping
 - Status: `DONE_VERIFIED` (CI maintenance only; no Khmer phonology or transcription behavior changed).
 - Updated all five workflow files to current Node.js 24-compatible action majors: `actions/checkout@v7`, `actions/setup-python@v7`, `actions/setup-node@v7`, `actions/setup-go@v7`, and `actions/upload-artifact@v7`. Existing Pages actions remain at `configure-pages@v6`, `upload-pages-artifact@v5`, and `deploy-pages@v5`.
 - Tested code commit: `61d98b1417a6d0200df4722523e8caeae90269fd`.
-- Exact-head verification: [Quality checks 41339636053](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41339636053) SUCCESS; [optional Goruut 41339636042](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41339636042) SUCCESS; [optional G2P smoke 41339636117](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41339636117) SUCCESS.
+- Exact-head verification: [Quality checks 41339636053](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41339636053) SUCCESS; [optional Goruut 41339636042](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41339636042) SUCCESS; [optional G2P smoke 41339636117](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41339636117) SUCCESS.
 - Verified workflow coverage: 139 Python tests + 27 subtests, browser register-shifter contract, web checks and Vite production build passed on the exact code commit.
 - Local checkout was unavailable; verification evidence is GitHub Actions. The gold corpus remains empty and empirical accuracy remains unmeasured.
 
@@ -1290,9 +1290,9 @@ The Khmer evidence matrix now contains the full Ishida phone-to-grapheme mapping
 
 - Status: `DONE_VERIFIED`.
 - Review found that `assign-splits` accepted unknown properties in existing split rows even though the split JSON Schema is closed; the generator could silently discard those fields when rewriting the manifest.
-- RED evidence: regression `test_assign_splits_rejects_unknown_properties_in_existing_manifest` failed as expected on test-only commit `3fdfd9559dfc98c43c4c503b9e707f1632ebad07` ([run 41340259859](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41340259859)).
+- RED evidence: regression `test_assign_splits_rejects_unknown_properties_in_existing_manifest` failed as expected on test-only commit `3fdfd9559dfc98c43c4c503b9e707f1632ebad07` ([run 41340259859](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41340259859)).
 - GREEN implementation: shared `SPLIT_PROPERTIES` is now used by both cross-file validation and `assign-splits`; the generator rejects unknown fields instead of dropping them. Code commit: `64851a4572437d9185b47fcff56bde55e4f092c5`.
-- Exact-head verification: [PR Quality checks 41340405233](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41340405233) SUCCESS and [push checks 41340400309](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41340400309) SUCCESS — 140 Python tests + 27 subtests; browser register-shifter contract, web checks and Vite production build passed. Optional Goruut and G2P smoke checks also passed on this head.
+- Exact-head verification: [PR Quality checks 41340405233](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41340405233) SUCCESS and [push checks 41340400309](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41340400309) SUCCESS — 140 Python tests + 27 subtests; browser register-shifter contract, web checks and Vite production build passed. Optional Goruut and G2P smoke checks also passed on this head.
 - Shared implementation and regression test are byte-identical across Lao, Khmer and Burmese branches. No corpus rows or IPA labels were added; independent gold remains zero and accuracy remains null.
 
 
@@ -1300,9 +1300,9 @@ The Khmer evidence matrix now contains the full Ishida phone-to-grapheme mapping
 
 - Status: `DONE_VERIFIED` (policy enforcement; no source corpus or license grant was changed).
 - Review found that the license registry accepted `redistributable: true` together with `commercial_use: false/null` or unknown attribution/share-alike terms. That could make a non-commercial or legally incomplete entry eligible for the product corpus if the registry were misconfigured.
-- RED evidence: the new runtime and schema-contract tests failed on test-only commit `83cfdc10716eff99f622f5d0e3c9c035bee3b56e` ([run 41340790159](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41340790159)).
+- RED evidence: the new runtime and schema-contract tests failed on test-only commit `83cfdc10716eff99f622f5d0e3c9c035bee3b56e` ([run 41340790159](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41340790159)).
 - GREEN implementation: a redistributable license must explicitly set `commercial_use: true` and boolean `attribution_required` + `share_alike`; the JSON Schema now encodes the same conditional rule. Code/schema commit: `b3104d6815edb3950e13457f7e04bcb8f5f90145`.
-- Exact-head verification: [PR Quality checks 41340930079](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41340930079) SUCCESS and [push checks 41340925788](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41340925788) SUCCESS — 142 Python tests + 31 subtests; browser register-shifter contract, web checks and Vite production build passed. Optional Goruut and G2P smoke diagnostics also passed.
+- Exact-head verification: [PR Quality checks 41340930079](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41340930079) SUCCESS and [push checks 41340925788](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41340925788) SUCCESS — 142 Python tests + 31 subtests; browser register-shifter contract, web checks and Vite production build passed. Optional Goruut and G2P smoke diagnostics also passed.
 - This is a conservative product-corpus eligibility rule, not a legal opinion about all uses of these licenses. Each real source still needs human rights review. No IPA gold rows were added; independent gold remains zero and accuracy remains null.
 
 
@@ -1310,9 +1310,9 @@ The Khmer evidence matrix now contains the full Ishida phone-to-grapheme mapping
 
 - Status: `DONE_VERIFIED`.
 - Review found that the CLI accepted zero/negative `--min-train`, `--min-dev` and `--min-test` thresholds. That could let an operator weaken a release gate below a meaningful non-empty split requirement.
-- RED evidence: the six invalid threshold cases (0 and -1 for each split) failed as expected on test-only commit `888ce85258e0c42b44e082e06023dbcd96401b96` ([run 41341526589](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41341526589)).
+- RED evidence: the six invalid threshold cases (0 and -1 for each split) failed as expected on test-only commit `888ce85258e0c42b44e082e06023dbcd96401b96` ([run 41341526589](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41341526589)).
 - GREEN implementation: all three minimums must be positive integers. Invalid threshold configuration is added to the gate's aggregated findings rather than raised before corpus checks, preserving diagnostics for other blockers. Final code commit: `38aed74299c898461607407b730085e1b70d565d`.
-- Exact-head verification: [PR Quality checks 41341743668](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41341743668) SUCCESS — 143 Python tests + 37 subtests; browser register-shifter contract, web checks and Vite production build passed.
+- Exact-head verification: [PR Quality checks 41341743668](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41341743668) SUCCESS — 143 Python tests + 37 subtests; browser register-shifter contract, web checks and Vite production build passed.
 - The configured release-gate defaults remain train=100, dev=25, test=25. No gold rows or IPA labels were added; independent gold remains zero and accuracy remains null.
 
 
@@ -1359,14 +1359,14 @@ Inspected the official release manifest: https://github.com/common-voice/cv-data
 
 ## Final exact-head verification — 2026-11-01
 
-Branch `feat/ipa-gold-corpus-20261101-review`, source-audit content commit `9bb02272d9da77126ac80392e840228aef18d18f`. Khmer exact-head CI: Quality checks [41345111255](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41345111255) SUCCESS; optional Goruut [41345111267](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41345111267) SUCCESS; optional Khmer G2P [41345111293](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41345111293) SUCCESS. Core job passed corpus structure validation, Python tests, Node web checks, and production site build.
+Branch `feat/ipa-gold-corpus-20261101-review`, source-audit content commit `9bb02272d9da77126ac80392e840228aef18d18f`. Khmer exact-head CI: Quality checks [41345111255](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41345111255) SUCCESS; optional Goruut [41345111267](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41345111267) SUCCESS; optional Khmer G2P [41345111293](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41345111293) SUCCESS. Core job passed corpus structure validation, Python tests, Node web checks, and production site build.
 
 These checks validate the committed repository and its automated engineering contracts. They do **not** validate the linguistic correctness of future human annotations, create gold labels, or change the release blocker. Gold remains empty and accuracy remains null.
 
 
 ## Follow-up handoff-head CI — 2026-11-01
 
-The subsequent documentation-only handoff/register state at commit `1800ab775ade8e6c2ac1264c4318da69a07a53c1` was also checked on its exact head: Quality checks [41345362797](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41345362797) SUCCESS; optional Goruut [41345362827](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41345362827) SUCCESS; optional Khmer G2P [41345362791](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41345362791) SUCCESS. These runs validate the updated documentation and existing automated checks, not future IPA annotations. Any later branch update must be checked again on its new exact head.
+The subsequent documentation-only handoff/register state at commit `1800ab775ade8e6c2ac1264c4318da69a07a53c1` was also checked on its exact head: Quality checks [41345362797](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41345362797) SUCCESS; optional Goruut [41345362827](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41345362827) SUCCESS; optional Khmer G2P [41345362791](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41345362791) SUCCESS. These runs validate the updated documentation and existing automated checks, not future IPA annotations. Any later branch update must be checked again on its new exact head.
 
 
 ## Open-rights state consistency fix — 2026-11-01
@@ -1374,13 +1374,13 @@ The subsequent documentation-only handoff/register state at commit `1800ab775ade
 - Code review found that a source could pass corpus validation with `rights_status: OPEN` but `redistributable: false`. The export and release gate would later exclude/reject it, but the canonical record itself was contradictory.
 - Added a test-first regression. Test-only commit `8e328d06fb13130d878859ca2c297fb154fc0533` failed as expected in the language CI because validation incorrectly returned success for that contradictory state.
 - Added the fail-closed Python validation and matching conditional in `schemas/ipa-gold-record.schema.json`; regression also asserts the schema condition. Exact code/schema head: `e624dd59ce7ae1648cf72262e124764769fbc8a2`.
-- Exact-head CI [41347973905](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41347973905) passed: 144 Python tests + 37 subtests; web checks and production build passed; optional Goruut and Khmer G2P smoke benchmark passed.
+- Exact-head CI [41347973905](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41347973905) passed: 144 Python tests + 37 subtests; web checks and production build passed; optional Goruut and Khmer G2P smoke benchmark passed.
 - No external corpus, restricted source data, IPA label or benchmark record was imported or created. Gold remains 0; `gold.tsv` remains header-only; empirical accuracy remains null.
 
 ## Exact current-head verification and handoff reconciliation — 2026-11-01
 
 - Verified default branch `main` at `c0a2b33c86791b6546e1158c62043fd23acc1f60`; work branch `feat/ipa-gold-corpus-20261101-review` at `508ed94460e210ff9cc07cc0eaa7815246ee37b2`. GitHub compare reports **83/84/82 commits ahead respectively and 0 behind** (see the repository's PR compare; no main commits need porting at this checkpoint).
-- Exact current-head GitHub Actions core run: [41348224247](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41348224247) — SUCCESS. 144 Python tests + 37 subtests; browser register-shifter contract, web checks and Vite production build passed. Optional Goruut KhmerCentral and Khmer G2P diagnostics passed.
+- Exact current-head GitHub Actions core run: [41348224247](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41348224247) — SUCCESS. 144 Python tests + 37 subtests; browser register-shifter contract, web checks and Vite production build passed. Optional Goruut KhmerCentral and Khmer G2P diagnostics passed.
 - These are hosted CI results. No local checkout or local test execution is claimed. Optional G2P/Goruut/Epitran checks are diagnostics only and do not establish linguistic correctness.
 - The current branch contains the open-rights invariant: `rights_status=OPEN` requires `redistributable=true` in both the Python validator and `schemas/ipa-gold-record.schema.json`, with a regression test.
 - Independent expert-adjudicated gold remains **0**; `gold.tsv` remains header-only; empirical accuracy remains **null**. Engineering CI does not close human annotation, profile/convention approval, or linguistic validation gates.
@@ -1389,8 +1389,8 @@ The subsequent documentation-only handoff/register state at commit `1800ab775ade
 
 ## IPA gold nested-record contract hardening — 2026-11-01
 
-- Test-first regression run [41352932018](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41352932018) failed as expected: undeclared fields inside orthography, profile, source and rights_evidence passed runtime validation, and the schema left those objects open.
-- Runtime fix and schema closure: unknown properties are now rejected at all four nested boundaries. Exact code/schema head `8d6b2c8184dc27a126dfa11420bc5c821c1afeb6`; exact-head core CI [41353055958](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41353055958) SUCCESS (146 pytest tests + 44 subtests; web checks, register-shifter browser contract and production build passed).
+- Test-first regression run [41352932018](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41352932018) failed as expected: undeclared fields inside orthography, profile, source and rights_evidence passed runtime validation, and the schema left those objects open.
+- Runtime fix and schema closure: unknown properties are now rejected at all four nested boundaries. Exact code/schema head `8d6b2c8184dc27a126dfa11420bc5c821c1afeb6`; exact-head core CI [41353055958](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41353055958) SUCCESS (146 pytest tests + 44 subtests; web checks, register-shifter browser contract and production build passed).
 - Engineering-only change: no linguistic rules, IPA labels, gold records, source data or accuracy claims added. Independent expert gold remains 0; accuracy remains null. Hosted CI only; no local checkout was available.
 
 
@@ -1398,7 +1398,7 @@ The subsequent documentation-only handoff/register state at commit `1800ab775ade
 
 - Methodology review: the repository's pinned references in `AGENTS.md` already capture the relevant practices from Superpowers (test-first changes and evidence-gated verification), mattpocock/skills (clear module seams and behavior-focused tests), and Ponytail (small complete diffs and connected-code review). They remain methodology references, not runtime dependencies; no external skill bundle was copied into the product.
 - Removed four consecutive duplicate nested-object validation calls from `scripts/ipa_gold_corpus.py` (orthography, profile, source, and rights_evidence). This removes redundant work without changing the contract. The resulting file has the same blob SHA across all three repositories: `a072297e320b4b91a36c59fc90328b6ff98d2a5f`.
-- Code commit: `5c5e14d0458f9afd9c154e36975d86d882b67c0f`. - Core PR CI: https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41354247584 (SUCCESS); core push CI: https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41354242025 (SUCCESS); optional language diagnostics: https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41354247560, https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41354247608 (SUCCESS).
+- Code commit: `5c5e14d0458f9afd9c154e36975d86d882b67c0f`. - Core PR CI: https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41354247584 (SUCCESS); core push CI: https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41354242025 (SUCCESS); optional language diagnostics: https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41354247560, https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41354247608 (SUCCESS).
 - No schema, source data, linguistic rule, IPA label, or gold row changed. Independent expert-adjudicated gold remains 0; accuracy remains null. The next substantive blocker is still qualified target-variety annotation and adjudication, not more validator scaffolding.
 
 
@@ -1413,25 +1413,25 @@ The subsequent documentation-only handoff/register state at commit `1800ab775ade
 ## Exact-head verification — methodology refresh 2026-11-02
 
 - Documentation and agent guidance checkpoint: `73e654b5a592cb84ed29b25b03cb95fb5a7e25e0`.
-- [Quality checks 41358627128](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41358627128) completed SUCCESS on this exact commit; full quality-check workflow.
-- Optional diagnostic runs [41358627194](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41358627194) and [41358627130](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41358627130) also completed SUCCESS. These diagnostics are not accuracy evidence.
+- [Quality checks 41358627128](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41358627128) completed SUCCESS on this exact commit; full quality-check workflow.
+- Optional diagnostic runs [41358627194](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41358627194) and [41358627130](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41358627130) also completed SUCCESS. These diagnostics are not accuracy evidence.
 - The current branch has one subsequent documentation-only evidence-register commit; its exact-head CI is recorded in the final session report. No engine, linguistic rules, IPA labels, gold records, datasets, or runtime dependencies were changed.
 
 
 ## Adjudication schema/runtime parity correction — 2026-11-02
 
 - Found a real contract mismatch: `schemas/ipa-gold-adjudication.schema.json` requires `final_ipa` (nullable), but the Python validator used `row.get("final_ipa")` and therefore accepted an omitted key for `UNRESOLVED`.
-- Test-first evidence: test-only commit `df23f23c573c8311c7c721b02177b65b44117fd7` failed as intended on exact-head PR CI [41407016954](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41407016954); the runtime returned success for a malformed adjudication and the new regression failed.
-- Fix: `dea7008094314b6a1ae88b1b4868e41552cdd54a` now rejects a missing `final_ipa` property for every decision; unresolved cases must explicitly provide `null`. Exact-head PR CI [41407116467](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41407116467) SUCCESS. 147 pytest tests + 44 subtests; web checks and production build passed.
-- Optional diagnostic runs: [41407116367](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41407116367), [41407116301](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41407116301) — SUCCESS.
+- Test-first evidence: test-only commit `df23f23c573c8311c7c721b02177b65b44117fd7` failed as intended on exact-head PR CI [41407016954](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41407016954); the runtime returned success for a malformed adjudication and the new regression failed.
+- Fix: `dea7008094314b6a1ae88b1b4868e41552cdd54a` now rejects a missing `final_ipa` property for every decision; unresolved cases must explicitly provide `null`. Exact-head PR CI [41407116467](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41407116467) SUCCESS. 147 pytest tests + 44 subtests; web checks and production build passed.
+- Optional diagnostic runs: [41407116367](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41407116367), [41407116301](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41407116301) — SUCCESS.
 - This is validator/schema parity only. No linguistic rules, IPA labels, gold records or source datasets changed; independent expert gold remains 0 and accuracy remains null.
 
 
 ## Unresolved adjudication positive-path verification — 2026-11-02
 
 - Added explicit positive-path coverage proving that `UNRESOLVED` with a present `final_ipa: null` remains valid; omitted `final_ipa` is rejected by the new runtime guard. Test commit `8111f28c34b7b3d7118d4f428178e4e90591c336`.
-- Exact-head PR CI [41407396214](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41407396214) SUCCESS. 148 pytest tests + 44 subtests; web checks and production build passed.
-- Optional diagnostic runs: [41407396207](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41407396207), [41407396326](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41407396326) — SUCCESS.
+- Exact-head PR CI [41407396214](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41407396214) SUCCESS. 148 pytest tests + 44 subtests; web checks and production build passed.
+- Optional diagnostic runs: [41407396207](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41407396207), [41407396326](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41407396326) — SUCCESS.
 - No linguistic rules, IPA labels, corpus records, datasets or empirical metrics changed. Independent expert gold remains 0; accuracy remains null.
 
 
@@ -1451,7 +1451,7 @@ No runtime engine benchmark was run in this documentation update. Hosted CI veri
 
 Detailed methods, benchmark context, limitations and per-feature acceptance requirements: [external G2P benchmark and engine coverage audit](research/external-g2p-benchmark-and-engine-coverage-2026-11-02.md).
 
-Khmer: khmerphonemizer 0.0.3, 100 source-attested MekongPhon examples, 100 outputs, 18 strict / 19 limited-normalized matches; Goruut 100 rows, 6/100 exact, 97 outputs, 3 failures, 70 complete/27 partial/3 unknown coverage, 27 unphonemized fragments. No independent gold; accuracy=null. Runs: https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41409092574 and https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41409092578.
+Khmer: khmerphonemizer 0.0.3, 100 source-attested MekongPhon examples, 100 outputs, 18 strict / 19 limited-normalized matches; Goruut 100 rows, 6/100 exact, 97 outputs, 3 failures, 70 complete/27 partial/3 unknown coverage, 27 unphonemized fragments. No independent gold; accuracy=null. Runs: https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41409092574 and https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41409092578.
 
 These are raw-output concordance/coverage diagnostics, not accuracy measurements. All independent gold counts remain zero and accuracy remains null. The missing `weights9.bin.zlib` diagnostic in Goruut's logs is recorded for investigation. Declared language support is not accepted as proof of adequate coverage. No gold labels or production rules were changed based on these runs.
 
@@ -1467,14 +1467,14 @@ The detailed research audit is authoritative for engine versions, benchmark limi
 
 Research audit and completion register are now updated. Last register commit before this handoff update: `85f7537cfa59fe839fad11076f692a70770f1709`.
 
-Quality checks, Khmer G2P diagnostic and Goruut raw-output workflows passed on the same code state before the final register-only documentation commit: https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41409309736, 41409309726, 41409309834.
+Quality checks, Khmer G2P diagnostic and Goruut raw-output workflows passed on the same code state before the final register-only documentation commit: https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41409309736, 41409309726, 41409309834.
 
 The commits after those workflow runs changed only research-audit / handoff / completion-register documentation, not executable code. Do not treat hosted diagnostic jobs as gold evaluation: all independent gold counts remain zero. The current review branch remains ahead of `main` and has not been merged.
 
 
 ## Final exact-head CI reconciliation — 2026-11-02
 
-The previously pending final-head hosted workflows have now completed successfully on this repository's recorded review-branch head `86980925a7dc9eda745268b2bd1fb081d1a82713`. Runs: [Quality 41409583877](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41409583877); [Khmer G2P 41409583886](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41409583886); [Goruut 41409583865](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41409583865). All listed jobs and steps report SUCCESS. This closes the CI-status uncertainty from the preceding checkpoint; it does not close linguistic validation or gold-data acceptance.
+The previously pending final-head hosted workflows have now completed successfully on this repository's recorded review-branch head `86980925a7dc9eda745268b2bd1fb081d1a82713`. Runs: [Quality 41409583877](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41409583877); [Khmer G2P 41409583886](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41409583886); [Goruut 41409583865](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41409583865). All listed jobs and steps report SUCCESS. This closes the CI-status uncertainty from the preceding checkpoint; it does not close linguistic validation or gold-data acceptance.
 
 A follow-up inspection of the pinned Goruut source tree at `b224bde02151f8f86d0fe260804e4ca743bda620` confirms that the language-specific dictionary directories for Lao, Khmer Central and Burmese do not contain `weights9.bin.zlib`; the available language assets include the earlier weight files. Therefore the recurring log warning is consistent with an absent upstream language asset in that snapshot, not evidence that our checkout step failed to fetch an existing file. The server still starts and returns outputs, but the precise model-quality impact of the missing file is not established by this probe. Keep it recorded as an upstream model-bundle coverage limitation; do not patch or synthesize model weights locally.
 
@@ -1485,7 +1485,7 @@ The current review branch remains ahead of `main` and 0 commits behind; no PR wa
 
 The completion register now supersedes the stale action item to locally recover/fix Goruut `weights9.bin.zlib`: the pinned upstream source tree does not publish that file for the three language bundles. The issue is therefore **BLOCKED (upstream dependency)** pending upstream publication or documentation of the intended fallback, not a project-owned file repair. No synthetic weights or substitute model assets were introduced.
 
-The immediately preceding exact-head verification completed successfully on the pre-register-correction commits; the register correction itself changes documentation only. Previous runs: [Khmer Quality 41411555459](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41411555459); [Goruut 41411555448](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41411555448); [Khmer G2P 41411555592](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41411555592). Current branch commit before this handoff checkpoint: `afe5a2b3becc6438362cd9a11ac47b4bc9dc5698`. The handoff update will trigger fresh branch CI; do not treat these preceding run IDs as verification of the new handoff commit.
+The immediately preceding exact-head verification completed successfully on the pre-register-correction commits; the register correction itself changes documentation only. Previous runs: [Khmer Quality 41411555459](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41411555459); [Goruut 41411555448](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41411555448); [Khmer G2P 41411555592](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41411555592). Current branch commit before this handoff checkpoint: `afe5a2b3becc6438362cd9a11ac47b4bc9dc5698`. The handoff update will trigger fresh branch CI; do not treat these preceding run IDs as verification of the new handoff commit.
 
 
 ## Additional Khmer model and dictionary resources discovered — 2026-11-02
@@ -1495,16 +1495,16 @@ A follow-up source search found [`byumatrixlab/khmer-ipa`](https://huggingface.c
 
 ## Main publication reconciliation — 2026-11-02
 
-Supersedes earlier handoff statements that the review branch was still ahead of `main` and unmerged: PR [#103](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/103) was merged into `main` as `b7e0171f77c08a15b0e55a9cb9fd83a001fff4f7`; this was the repository's current `main` tip at reconciliation. Exact-head engineering workflows on the PR head passed: Quality/tests [41414658963](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41414658963), Khmer G2P [41414658924](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41414658924), and Goruut [41414658926](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41414658926). The Pages workflow is configured to deploy from `main` and includes a deployed-site/runtime-asset smoke test. The public deployment result could not be independently inspected from this session, so deployment status remains **BLOCKED (external verification/network access)**, not claimed successful. No frontend source changes were included in this PR. Independent expert-adjudicated gold remains 0 and accuracy remains null; the project is still a research prototype.
+Supersedes earlier handoff statements that the review branch was still ahead of `main` and unmerged: PR [#103](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/103) was merged into `main` as `b7e0171f77c08a15b0e55a9cb9fd83a001fff4f7`; this was the repository's current `main` tip at reconciliation. Exact-head engineering workflows on the PR head passed: Quality/tests [41414658963](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41414658963), Khmer G2P [41414658924](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41414658924), and Goruut [41414658926](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41414658926). The Pages workflow is configured to deploy from `main` and includes a deployed-site/runtime-asset smoke test. The public deployment result could not be independently inspected from this session, so deployment status remains **BLOCKED (external verification/network access)**, not claimed successful. No frontend source changes were included in this PR. Independent expert-adjudicated gold remains 0 and accuracy remains null; the project is still a research prototype.
 
 
 ## Current-main UI publication — 2026-11-02
 
-The older design PR [#64](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/64) was not merged because its branch had diverged (7 commits ahead / 178 behind current `main`). Its responsive CSS and cache-busting intent were ported onto a fresh branch from the then-current `main`; PR [#105](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/105) was merged as `18ee0ae46cb98725c7f59c0436611fa50e4581bf`. The current-main CI [41424009124](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41424009124) passed the IPA gold-corpus structure validation, Python tests, JS web checks and Vite build. Added responsive layout contract tests for control wrapping, Ukrainian-result priority, narrow-phone status and coverage overflow. The Pages workflow is configured for pushes to `main`; actual deployment completion and public-site smoke-test result remain **BLOCKED (external verification/network/DNS unavailable in this session)**. This UI change improves presentation only and does not improve linguistic accuracy. Independent adjudicated gold remains 0; accuracy remains null; research-prototype status is unchanged.
+The older design PR [#64](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/64) was not merged because its branch had diverged (7 commits ahead / 178 behind current `main`). Its responsive CSS and cache-busting intent were ported onto a fresh branch from the then-current `main`; PR [#105](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/105) was merged as `18ee0ae46cb98725c7f59c0436611fa50e4581bf`. The current-main CI [41424009124](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41424009124) passed the IPA gold-corpus structure validation, Python tests, JS web checks and Vite build. Added responsive layout contract tests for control wrapping, Ukrainian-result priority, narrow-phone status and coverage overflow. The Pages workflow is configured for pushes to `main`; actual deployment completion and public-site smoke-test result remain **BLOCKED (external verification/network/DNS unavailable in this session)**. This UI change improves presentation only and does not improve linguistic accuracy. Independent adjudicated gold remains 0; accuracy remains null; research-prototype status is unchanged.
 
 ### Pages smoke-test compatibility follow-up — 2026-11-02
 
-The cache-busted stylesheet URL introduced by the UI polish exposed an overly strict CSS-link extractor in the deployed-site smoke test. Fixed in PR [#106](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/106), merge `7ee049aae9cc7ff571b21eabe18e962627f192a3`; the extractor now accepts an optional query string. PR CI passed (41424681328). The Pages workflow is now compatible with the deployed CSS URL. The post-merge Pages deployment and live-site smoke-test result are still **BLOCKED for independent verification** because external DNS/network access and a workflow-run listing endpoint were unavailable; do not infer deployment success from a merged PR or a successful pull-request CI run.
+The cache-busted stylesheet URL introduced by the UI polish exposed an overly strict CSS-link extractor in the deployed-site smoke test. Fixed in PR [#106](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/106), merge `7ee049aae9cc7ff571b21eabe18e962627f192a3`; the extractor now accepts an optional query string. PR CI passed (41424681328). The Pages workflow is now compatible with the deployed CSS URL. The post-merge Pages deployment and live-site smoke-test result are still **BLOCKED for independent verification** because external DNS/network access and a workflow-run listing endpoint were unavailable; do not infer deployment success from a merged PR or a successful pull-request CI run.
 
 
 ## Focused scholarly source audit — 2026-11-03
@@ -1521,28 +1521,28 @@ Independent expert-adjudicated gold remains 0; accuracy remains null. The source
 
 ## Post-hotfix integration checkpoint — 2026-11-03
 
-- PR [#108](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/108) merged by squash as `e9894e5726f5f6aa2510d7d3beed69b2d03fb666`.
+- PR [#108](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/108) merged by squash as `e9894e5726f5f6aa2510d7d3beed69b2d03fb666`.
 - The merged change removes exactly one invalid DOM dereference from `src/main.js`; `index.html` intentionally has no `#source-result` element. A post-merge source inspection confirms the render path no longer writes to that absent element.
-- Exact `main` push workflows all completed successfully: Quality checks [41641496598](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41641496598), Chromium browser smoke [41641496582](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41641496582), and GitHub Pages build/deploy plus deployed-site smoke [41641496680](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41641496680). The Pages run's build, Chromium production-preview test, deploy and deployed runtime-asset smoke steps all succeeded.
-- The PR's exact pre-merge head `e8ef5ea727758c3339d016fb2636c1108e1549f4` also passed Quality [41536753767](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41536753767) and browser [41536753931](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41536753931); all steps in both job summaries succeeded.
+- Exact `main` push workflows all completed successfully: Quality checks [41641496598](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41641496598), Chromium browser smoke [41641496582](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41641496582), and GitHub Pages build/deploy plus deployed-site smoke [41641496680](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41641496680). The Pages run's build, Chromium production-preview test, deploy and deployed runtime-asset smoke steps all succeeded.
+- The PR's exact pre-merge head `e8ef5ea727758c3339d016fb2636c1108e1549f4` also passed Quality [41536753767](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41536753767) and browser [41536753931](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41536753931); all steps in both job summaries succeeded.
 - The browser regression covers visible IPA/Ukrainian output for `ក`, withholding mixed unsupported input, and clear/reset. This is UI behavior only; no phonology rule, IPA label, or gold row was introduced.
-- PR [#107](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/107) is now 95 commits ahead / 1 behind and reports non-mergeable after the isolated hotfix landed. It contains the same one-line DOM correction plus a broad profile change; do not merge wholesale. Reconcile against new `main`, retain the already-merged hotfix, and re-run all relevant checks.
+- PR [#107](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/107) is now 95 commits ahead / 1 behind and reports non-mergeable after the isolated hotfix landed. It contains the same one-line DOM correction plus a broad profile change; do not merge wholesale. Reconcile against new `main`, retain the already-merged hotfix, and re-run all relevant checks.
 - Independent adjudicated IPA gold remains 0; empirical accuracy remains `null`. The repository remains a research prototype, not a linguistically validated release.
 
 
 ## Rebased Khmer split-manifest correction — 2026-11-03
 
-- Rebased the substantive changes from prior PR [#109](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/109) onto current `main` after PRs #108 and #111; this branch deliberately excludes the already-merged browser hotfix and does not reintroduce its obsolete DOM write.
+- Rebased the substantive changes from prior PR [#109](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/109) onto current `main` after PRs #108 and #111; this branch deliberately excludes the already-merged browser hotfix and does not reintroduce its obsolete DOM write.
 - Enforces one manifest-wide `(seed, version)` identity across all lexeme groups, preserves the identity when extending an existing manifest, rejects conflicting and empty explicit CLI overrides, and adds an acceptance test for creating a new versioned manifest from a separate empty `--splits` input.
-- Prior exact-head CI [41639679611](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41639679611) succeeded on the original PR head, but this rebased port requires its own exact-head tests before merge.
+- Prior exact-head CI [41639679611](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41639679611) succeeded on the original PR head, but this rebased port requires its own exact-head tests before merge.
 - No linguistic gold rows or phonological labels are added. Independent adjudicated gold remains 0; accuracy remains `null`.
 
 
 ## Khmer source evidence and benchmark reconciliation — 2026-11-03
 
-- Ported the source registry, references, external-corpus triage, controlled collection playbook, benchmark audit and provenance tests from prior PR [#110](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/110) onto current `main` after PR #112 merged. The IPA corpus protocol was merged carefully: the existing manifest-wide split instructions are preserved and the agreement-metric boundary is added separately.
+- Ported the source registry, references, external-corpus triage, controlled collection playbook, benchmark audit and provenance tests from prior PR [#110](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/110) onto current `main` after PR #112 merged. The IPA corpus protocol was merged carefully: the existing manifest-wide split instructions are preserved and the agreement-metric boundary is added separately.
 - The MekongPhon record is an external benchmark lead, not project gold. Kirby's 2015 DataShare items are scoped to the specific audio/supplementary resources and their item-level CC BY 4.0 declarations; Praat TextGrids and measurements are not independent lexical IPA gold. Cucchiarini and Oller/Ramsdell are methodological sources, not Khmer-specific scoring algorithms. Woźnica's multi-region thesis is not treated as Phnom Penh-only evidence.
-- Original PR-head Quality workflow [41640011541](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41640011541) succeeded; this clean port requires its own exact-head CI. No external IPA labels imported; independent adjudicated gold remains 0 and accuracy remains `null`.
+- Original PR-head Quality workflow [41640011541](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41640011541) succeeded; this clean port requires its own exact-head CI. No external IPA labels imported; independent adjudicated gold remains 0 and accuracy remains `null`.
 
 
 ## Single careful-citation profile integration — rebased 2026-11-03
@@ -1583,7 +1583,7 @@ Independent expert-adjudicated gold remains 0; accuracy remains null. The source
 - Base `main`: `3809f0de9b77253a08985bb90e18e7308bdda412`; work branch: `fix/heldout-ipa-benchmark-20261103`.
 - Finding: the frozen split manifest existed, but the gold TSV export discarded split identity and the scorer included all adjudicated rows. This could allow train/dev examples into a purported independent evaluation.
 - Implemented: export now requires a frozen assignment and emits `split`; the gold TSV header includes the field; benchmark validation requires a valid split, defaults to `test`, and supports explicit `--split train|dev|all` for non-held-out diagnostics. Reports identify the selected split and distinguish all adjudicated rows from the scored denominator.
-- Exact code/test-head verification: [Quality run 41651903776](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41651903776) SUCCESS on `ca53d628ae9a9ea4696fc85f42cdf59bcedfa2d1`, including Python, web checks and Vite build.
+- Exact code/test-head verification: [Quality run 41651903776](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41651903776) SUCCESS on `ca53d628ae9a9ea4696fc85f42cdf59bcedfa2d1`, including Python, web checks and Vite build.
 - **IPA-BENCH-SPLIT-001 — DONE_VERIFIED (engineering contract).** Independent expert-adjudicated gold remains 0; `gold.tsv` remains header-only; empirical accuracy remains `null`. No phonetic labels were added.
 - Still blocked: two qualified independent annotators, a separate adjudicator, approved IPA convention, controlled blind intake and source-specific rights evidence. Manual visual/keyboard/screen-reader/mobile QA remains TODO.
 
@@ -1596,17 +1596,17 @@ The export and benchmark now preserve and validate the complete frozen split ide
 
 ## Empty prediction dataset guard — 2026-11-03
 
-A further benchmark review found that a header-only prediction TSV exited successfully and emitted a report with no engine entries. This could be mistaken for a completed evaluation even though no engine had been evaluated. Added a regression test and a fail-closed CLI guard requiring at least one prediction row. The guard runs after gold/split-manifest validation so existing malformed-manifest diagnostics remain specific. This does not change the treatment of missing rows within a named engine: those remain in its denominator. Exact-head verification: RED: [41655188132](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41655188132). Final exact-head quality checks: [41655492141](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41655492141) SUCCESS; browser smoke: [41655491334](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41655491334) SUCCESS. The benchmark guard is DONE_VERIFIED as an engineering input-integrity check; no gold rows or accuracy claims were added.
+A further benchmark review found that a header-only prediction TSV exited successfully and emitted a report with no engine entries. This could be mistaken for a completed evaluation even though no engine had been evaluated. Added a regression test and a fail-closed CLI guard requiring at least one prediction row. The guard runs after gold/split-manifest validation so existing malformed-manifest diagnostics remain specific. This does not change the treatment of missing rows within a named engine: those remain in its denominator. Exact-head verification: RED: [41655188132](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41655188132). Final exact-head quality checks: [41655492141](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41655492141) SUCCESS; browser smoke: [41655491334](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41655491334) SUCCESS. The benchmark guard is DONE_VERIFIED as an engineering input-integrity check; no gold rows or accuracy claims were added.
 
 
 ## Continuation — whitespace-only benchmark identifiers (2026-11-03)
 
 A code review found that truthiness-only identifier checks accepted whitespace-only gold IDs, prediction IDs and engine names. Such values could create visually empty keys and make malformed prediction rows look like a named engine. Validation now rejects identifiers whose trimmed value is empty while preserving non-empty identifiers verbatim for exact matching. Regression tests cover each field separately.
 
-- Test-first RED for whitespace-only gold IDs: [workflow run 41660794382](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41660794382) FAILED on the new regression as expected.
-- Test-first RED for prediction engine/ID fields: [workflow run 41662096875](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41662096875).
-- Final exact-code-head verification: [workflow run 41662242906](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41662242906) SUCCESS; 164 Python tests + 50 subtests; 3 browser smoke tests passed; browser smoke [41662242611](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41662242611) SUCCESS.
-- Verified implementation commit: `02807605a78fee4c7ab25cd51315e4343940a3c1`; exact-code-head CI [workflow run 41662242906](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41662242906) SUCCESS.
+- Test-first RED for whitespace-only gold IDs: [workflow run 41660794382](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41660794382) FAILED on the new regression as expected.
+- Test-first RED for prediction engine/ID fields: [workflow run 41662096875](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41662096875).
+- Final exact-code-head verification: [workflow run 41662242906](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41662242906) SUCCESS; 164 Python tests + 50 subtests; 3 browser smoke tests passed; browser smoke [41662242611](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41662242611) SUCCESS.
+- Verified implementation commit: `02807605a78fee4c7ab25cd51315e4343940a3c1`; exact-code-head CI [workflow run 41662242906](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41662242906) SUCCESS.
 - **IPA-BENCH-IDENTIFIERS-001 — DONE_VERIFIED (engineering input-integrity guard).** No linguistic labels, gold records or accuracy claims were added.
 
 ## Verified continuation checkpoint — 2026-11-03 (late session)
@@ -1643,7 +1643,7 @@ A code review found that truthiness-only identifier checks accepted whitespace-o
 
 ## Hosted verification update — 2026-11-04
 
-- Draft PR #139 exact head `3889739aecf0221c7cf1e26be59f025838a914ed`: Quality checks [41844573271](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41844573271) **SUCCESS** and browser smoke [41844573296](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41844573296) **SUCCESS**.
+- Draft PR #139 exact head `3889739aecf0221c7cf1e26be59f025838a914ed`: Quality checks [41844573271](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41844573271) **SUCCESS** and browser smoke [41844573296](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41844573296) **SUCCESS**.
 - Quality job completed IPA gold corpus structure validation, Python tests, web checks and site build. Browser smoke completed successfully.
 - This verifies the docs-only PR head and the repository's current CI contract. It does not establish phonological accuracy or clear the Khmer Acoustic Model / MekongPhon rights questions; the evidence and expert-review blockers above remain unchanged.
 
@@ -1657,7 +1657,7 @@ A code review found that truthiness-only identifier checks accepted whitespace-o
 
 ## Final test-fixture PR verification — 2026-11-04
 
-- Test and handoff changes were present at head `ff656632cb3323612f5c7f647a069c821aceaa48` when the following hosted checks completed: Quality checks [41847143845](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41847143845) **SUCCESS**; browser smoke [41847143819](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41847143819) **SUCCESS**.
+- Test and handoff changes were present at head `ff656632cb3323612f5c7f647a069c821aceaa48` when the following hosted checks completed: Quality checks [41847143845](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41847143845) **SUCCESS**; browser smoke [41847143819](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41847143819) **SUCCESS**.
 - The successful checks include the language-specific IPA-corpus fixture regression, repository data validation, language-specific Python test suite, web build/reproducibility checks and Chromium browser checks where configured.
 - Exact job steps were inspected; every reported step completed with `success`. These are engineering/structural checks, not a linguistic accuracy benchmark. No local tests were run in this connector session.
 
@@ -1678,8 +1678,8 @@ A code review found that truthiness-only identifier checks accepted whitespace-o
 ## Final Khmer external-source PR verification — 2026-11-04
 
 - PR #140 head after the regression assertion correction: `3fd741b420eb217f2fe0d24087642dbbf866c687`.
-- The first Quality run [41849845861](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41849845861) exposed one test-only case-sensitive assertion mismatch (`NOT project gold` vs the source note's `Not project gold`); 173 tests and 60 subtests passed, one new assertion failed. The assertion was corrected to compare case-insensitively; no source classification or production behavior was changed.
-- Corrected-head Quality [41850630303](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41850630303) **SUCCESS**; corrected-head browser smoke [41850630166](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41850630166) **SUCCESS**. The Python suite, web checks, production build and Chromium browser smoke completed successfully.
+- The first Quality run [41849845861](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41849845861) exposed one test-only case-sensitive assertion mismatch (`NOT project gold` vs the source note's `Not project gold`); 173 tests and 60 subtests passed, one new assertion failed. The assertion was corrected to compare case-insensitively; no source classification or production behavior was changed.
+- Corrected-head Quality [41850630303](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41850630303) **SUCCESS**; corrected-head browser smoke [41850630166](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41850630166) **SUCCESS**. The Python suite, web checks, production build and Chromium browser smoke completed successfully.
 - Source records continue to distinguish IPA-Dict's non-commercial/share-alike Khmer IPA, PhonSobon's Khmer-script respelling (not IPA), and the incomplete/licensing-conflicted Khmer Acoustic Model dictionary. No third-party data were copied.
 - This verifies source-registry and rights-boundary engineering only. Independent expert-adjudicated Khmer IPA gold remains 0; empirical accuracy remains null.
 - No local tests were run; hosted CI logs were inspected.
@@ -1696,12 +1696,12 @@ A code review found that truthiness-only identifier checks accepted whitespace-o
 
 ## Final release-gate profile guard verification — 2026-11-04
 
-- TDD RED evidence on the pre-fix implementation: Lao [41868595591](https://github.com/ClippyFirst/Lao-Ukrainian-Phonetic-System/actions/runs/41868595591), Khmer [41868607839](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41868607839), and Burmese [41868623352](https://github.com/ClippyFirst/Burmese-Ukrainian-Phonetic-System-/actions/runs/41868623352). In each repository both new regression cases failed because the old CLI returned `{"release_ready": true, ...}` for a corpus deliberately mixing target profiles and/or IPA kinds despite meeting train/dev/test minimums.
+- TDD RED evidence on the pre-fix implementation: Lao [41868595591](https://github.com/ClippyFirst/Lao-Ukrainian-Phonetic-System/actions/runs/41868595591), Khmer [41868607839](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41868607839), and Burmese [41868623352](https://github.com/ClippyFirst/Burmese-Ukrainian-Phonetic-System-/actions/runs/41868623352). In each repository both new regression cases failed because the old CLI returned `{"release_ready": true, ...}` for a corpus deliberately mixing target profiles and/or IPA kinds despite meeting train/dev/test minimums.
 - GREEN after the shared validator fix:
   - Lao Verify [41868752376](https://github.com/ClippyFirst/Lao-Ukrainian-Phonetic-System/actions/runs/41868752376) **SUCCESS**; 172 Python tests and 4 browser tests passed; data/evidence audit, optional G2P CLI, generated-data reproducibility and Chromium built-site checks also passed.
-  - Khmer Quality [41868942150](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41868942150) **SUCCESS**; 176 tests and 60 subtests passed, plus browser runtime contract and site build checks.
+  - Khmer Quality [41868942150](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41868942150) **SUCCESS**; 176 tests and 60 subtests passed, plus browser runtime contract and site build checks.
   - Burmese tests [41868956132](https://github.com/ClippyFirst/Burmese-Ukrainian-Phonetic-System-/actions/runs/41868956132) **SUCCESS**; 167 tests and 64 subtests passed, generated web data stayed current, npm tests and 54 built-site browser tests passed.
-- Final documentation/register/handoff commits also passed their subsequent push CI: Lao [41869194865](https://github.com/ClippyFirst/Lao-Ukrainian-Phonetic-System/actions/runs/41869194865), Khmer [41869262079](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41869262079), and Burmese [41869342234](https://github.com/ClippyFirst/Burmese-Ukrainian-Phonetic-System-/actions/runs/41869342234). Exact final PR-head runs are tracked in the PRs.
+- Final documentation/register/handoff commits also passed their subsequent push CI: Lao [41869194865](https://github.com/ClippyFirst/Lao-Ukrainian-Phonetic-System/actions/runs/41869194865), Khmer [41869262079](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41869262079), and Burmese [41869342234](https://github.com/ClippyFirst/Burmese-Ukrainian-Phonetic-System-/actions/runs/41869342234). Exact final PR-head runs are tracked in the PRs.
 - The Burmese execution status matrix was updated in the same branch. Lao and Khmer have no separate execution-matrix file; their canonical handoff and linguistic completion register were updated.
 - This verifies an engineering fail-closed guard only. The CLI still does not calculate language-specific contrast coverage, and human convention approval, blind workflow evidence, expert adjudication and rights review remain required. No linguistic data or rules changed.
 - No local checkout/tests were available in this connector session; all test claims above refer to inspected hosted GitHub Actions logs.
@@ -1710,8 +1710,8 @@ A code review found that truthiness-only identifier checks accepted whitespace-o
 ## Mainline merge verification — IPA gold release-profile guard — 2026-11-04
 
 - PR #141 merged to `main` as `4ba59abdc389a797c58216e4e155b8b06408c557`; current main was confirmed at the same SHA immediately after merge.
-- Exact PR-head verification: [41870121484](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41870121484) **SUCCESS** (177 tests; 60 subtests).
-- Exact PR-head browser smoke: [41870121371](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41870121371) **SUCCESS**. Post-merge Quality [41870545200](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41870545200) **SUCCESS** and Pages [41870545069](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41870545069) **SUCCESS**. A duplicate post-merge browser workflow [41870545028](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41870545028) was still installing Chromium at this checkpoint; the exact merged tree had already passed the PR-head browser smoke.
+- Exact PR-head verification: [41870121484](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41870121484) **SUCCESS** (177 tests; 60 subtests).
+- Exact PR-head browser smoke: [41870121371](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41870121371) **SUCCESS**. Post-merge Quality [41870545200](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41870545200) **SUCCESS** and Pages [41870545069](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41870545069) **SUCCESS**. A duplicate post-merge browser workflow [41870545028](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41870545028) was still installing Chromium at this checkpoint; the exact merged tree had already passed the PR-head browser smoke.
 - The branch was based on latest main with zero commits behind at merge; no conflicting PRs were present. The exact diff was reviewed and merged with an expected-head SHA guard.
 - The release guard is now on main. Independent expert-adjudicated gold remains 0; this work does not establish phonetic accuracy or benchmark readiness.
 
@@ -1727,7 +1727,7 @@ A code review found that truthiness-only identifier checks accepted whitespace-o
 
 ## Final expert-lead research PR verification — 2026-11-04
 
-- Exact PR head: `f60e682bb423d951cd4c5b5649ecedbe490dbb10`; Quality [41872769175](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41872769175) **SUCCESS** and browser smoke [41872769410](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41872769410) **SUCCESS**. Inspected steps: independent corpus validation, Python suite, deterministic web checks, production build, Chromium install and visible-results smoke all passed.
+- Exact PR head: `f60e682bb423d951cd4c5b5649ecedbe490dbb10`; Quality [41872769175](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41872769175) **SUCCESS** and browser smoke [41872769410](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/41872769410) **SUCCESS**. Inspected steps: independent corpus validation, Python suite, deterministic web checks, production build, Chromium install and visible-results smoke all passed.
 - The update only improves recruitment evidence. Chem's relationship to his acoustic-model resource is explicitly recorded as a potential conflict; no recruitment, IPA labels, gold data or production phonology changed.
 - No local checkout or local tests were available; these results refer only to the hosted GitHub Actions runs linked above.
 - The human pilot remains blocked on actual invitations/consent, approved versioned IPA convention, two qualified independent target-variety annotators, separate adjudicator, curator, item-level rights and secure blind intake.
@@ -1746,15 +1746,15 @@ A code review found that truthiness-only identifier checks accepted whitespace-o
 - Replaced the model-consensus design with RuleBasedKhmerEngine in src/khmer_ua/rule_engine.py; the legacy HybridKhmerEngine name is only a compatibility alias. There is no provider injection, model vote, network call or external runtime in the active engine.
 - Runtime path: NFC normalization → Khmer structure/register analysis → exact versioned lexical IPA fixtures or narrowly scoped inherent-vowel rule → longest-match IPA → Ukrainian policy. Unsupported structures are withheld.
 - Website copy now explicitly identifies the deterministic local rule path and links to docs/DETERMINISTIC-RULE-ENGINE.md.
-- PR [#152](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/152) merged to main as `913e1b2a117022eb3350c3d1957680f0b5db0661` from branch release/deterministic-rule-engine-2026-11-11. Exact main Quality [43018004334](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43018004334), browser smoke [43018004167](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43018004167), and Pages deployment + post-deploy asset smoke [43018004186](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43018004186) all SUCCESS.
-- Published service: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/
+- PR [#152](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/152) merged to main as `913e1b2a117022eb3350c3d1957680f0b5db0661` from branch release/deterministic-rule-engine-2026-11-11. Exact main Quality [43018004334](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43018004334), browser smoke [43018004167](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43018004167), and Pages deployment + post-deploy asset smoke [43018004186](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43018004186) all SUCCESS.
+- Published service: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/
 - Engineering task DONE_VERIFIED; linguistic coverage remains PARTIAL/PROPOSED. Determinism is verified; phonetic correctness beyond the covered rules/lexical fixtures still requires expert-adjudicated Phnom Penh gold.
 
 ## Final deterministic-engine verification — 2026-11-11
 
 - Post-merge hardening on main head `7585b49fdaac5480940d2511f48961f7690bf6b5`: legacy factory now rejects external provider injection; execution trace is named `rule_trace`, not a fabricated evidence-rule identifier.
-- Exact-head Quality [43019207054](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43019207054), browser smoke [43019207032](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43019207032), and Pages deployment + asset smoke [43019207026](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43019207026) all SUCCESS.
-- Live service: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/. The Python rule engine and published browser runtime are deterministic and do not use model consensus.
+- Exact-head Quality [43019207054](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43019207054), browser smoke [43019207032](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43019207032), and Pages deployment + asset smoke [43019207026](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43019207026) all SUCCESS.
+- Live service: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/. The Python rule engine and published browser runtime are deterministic and do not use model consensus.
 - Remaining linguistic acceptance: independent adjudicated Phnom Penh IPA gold and expanded contextual vowel/coda coverage; no blanket accuracy claim.
 
 
@@ -1764,7 +1764,7 @@ A code review found that truthiness-only identifier checks accepted whitespace-o
 - Starting default-branch SHA: \`2fe36aa1eb64cc47fb60ab1b37561f40d57202a7\`.
 - Verified implementation SHA: \`e7b52ae3921b17fb9d0c400eaad913c8c78d2b50\`.
 - Final verification branch: \`feat/khmer-ukrainian-practical-adapter-final-2026-11-11\`.
-- Draft PR: [#156](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/156), open, not merged.
+- Draft PR: [#156](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/156), open, not merged.
 - Earlier drafts #154 and #155 were closed as superseded; their branches were retained.
 - No main-branch modification and no Pages deployment/publication.
 
@@ -1778,8 +1778,8 @@ A code review found that truthiness-only identifier checks accepted whitespace-o
 - Public system page, README, policy documentation, fixture audit and regression tests were updated. Work was text-only; no audio was used.
 
 ### Verification evidence
-- Quality workflow [43094688835](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43094688835): SUCCESS; 187 Python tests + 62 subtests; deterministic web checks, policy/data validation and production build passed.
-- Browser workflow [43094688837](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43094688837): SUCCESS; Chromium 3/3.
+- Quality workflow [43094688835](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43094688835): SUCCESS; 187 Python tests + 62 subtests; deterministic web checks, policy/data validation and production build passed.
+- Browser workflow [43094688837](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43094688837): SUCCESS; Chromium 3/3.
 - The browser adapter runtime tests exercise yotation, /w/, affricates, whitespace, and fail-closed unknown IPA.
 
 ### Task ledger
@@ -1800,7 +1800,7 @@ Create the independent text-only Khmer IPA/Ukrainian adjudication set. Do not pr
 - Latest implementation branch: `feat/khmer-ukrainian-practical-adapter-final-2026-11-11`; current PR #156 remains open/draft and unmerged. Main remains unchanged at `2fe36aa1eb64cc47fb60ab1b37561f40d57202a7`.
 - The canonical Python adapter, browser adapter and target policy are unchanged at the verified implementation baseline; subsequent changes expanded tests and synchronized README, system/implementation/validation documentation and completion records.
 - Expanded adapter checks cover /h, ɦ, ɡ, g, x; explicit affricates; plain consonant sequences; /cʰ/ → ть'; /j/ yotation; whitespace and unsupported IPA. No audio was used or required.
-- Exact-head quality run [43095329118](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43095329118) and browser smoke [43095329245](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43095329245) are queued with no jobs started at this refresh. Do not report these final runs as passed.
+- Exact-head quality run [43095329118](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43095329118) and browser smoke [43095329245](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43095329245) are queued with no jobs started at this refresh. Do not report these final runs as passed.
 - The independent text-only Phnom Penh IPA/Ukrainian gold set remains BLOCKED by missing independently sourced and adjudicated text labels. This blocks empirical accuracy claims, not deterministic adapter implementation. Audio annotation is DEFERRED by scope.
 
 
@@ -1845,21 +1845,21 @@ The browser preview is separate from canonical output. The onset-only test fixtu
 
 ## Complete Unicode grapheme-accounting sweep — 2026-11-12
 
-- PR [#157](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/157) merged as `e9c9d997e6de1029fd0b8fef9e7b6a9cb0020a4f`.
+- PR [#157](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/157) merged as `e9c9d997e6de1029fd0b8fef9e7b6a9cb0020a4f`.
 - Added an exhaustive runtime sweep over every assigned Unicode letter and combining mark (general categories L/M) in Khmer U+1780–17FF and Khmer Symbols U+19E0–19FF. Each tested code point must survive segmentation and appear in the parser's grapheme trace with its exact U+ identifier.
 - The sweep exposed an early-return trace-loss defect for malformed U+17D2 COENG. The parser now retains the malformed coeng and all remaining code points as `invalid_sequence_component`; it does not invent a pronunciation.
 - Added a negative control for U+17F9, which remains explicitly unsupported rather than receiving synthetic IPA.
-- Exact PR-head verification: Quality [43184648039](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43184648039) SUCCESS; browser smoke [43184647978](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43184647978) SUCCESS. These runs cover the exact tested branch head `fcae948d8ae30bc0ad606ef4ae4071fffb68be08`.
+- Exact PR-head verification: Quality [43184648039](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43184648039) SUCCESS; browser smoke [43184647978](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43184647978) SUCCESS. These runs cover the exact tested branch head `fcae948d8ae30bc0ad606ef4ae4071fffb68be08`.
 - **Status:** structural/input accounting for the tested Unicode L/M set is DONE_VERIFIED. This is not 100% Khmer phonological coverage, 100% IPA coverage, or pronunciation accuracy. Vowel × series × length × coda × profile evidence and independent adjudicated gold remain PARTIAL/BLOCKED. Post-merge main workflows were still running at this documentation checkpoint; no post-merge result is claimed.
 
 
 ## Explicitly unmodelled Khmer letters and lossless trace tail — 2026-11-12
 
-- PR [#159](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/159) merged as `d1d184334c806cd21cf2eb875a9c5151ab9e61b3`.
+- PR [#159](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/159) merged as `d1d184334c806cd21cf2eb875a9c5151ab9e61b3`.
 - Added explicit `unmodeled_letter` inventory records, with no IPA, for U+17A3 KHMER INDEPENDENT VOWEL QAQ, U+17A4 QAA, U+179D SHA and U+179E SSO. They remain unsupported by the selected modern Khmer phonology profile until appropriate evidence exists.
 - Fixed a second parser trace-loss path: encountering an unknown or explicitly unmodelled code point now preserves the entire remaining source tail as trace components rather than returning after the first unknown code point.
 - Regression coverage includes all four unmodelled letters and a mixed sequence `កxយ`, ensuring later graphemes remain present after the unknown `x`.
-- Exact PR-head Quality [43186170402](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43186170402) SUCCESS and browser smoke [43186170525](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43186170525) SUCCESS on `b62b9beef65ccfd546c39b05578d0a9f80f48083`.
+- Exact PR-head Quality [43186170402](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43186170402) SUCCESS and browser smoke [43186170525](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43186170525) SUCCESS on `b62b9beef65ccfd546c39b05578d0a9f80f48083`.
 - **Status:** explicit inventory classification and lossless tail trace are DONE_VERIFIED. The four letters remain phonologically NOT_ESTABLISHED; no pronunciation has been fabricated. Complete positional Khmer IPA and independent gold remain PARTIAL/BLOCKED.
 
 
@@ -1870,7 +1870,7 @@ The browser preview is separate from canonical output. The onset-only test fixtu
 - Updated `data/khmer/romanization_ukrainian.csv`: all 22 PCGN consonant rows now have an explicit Ukrainian target, including `th → т'`, the contextual romanized outputs `b → б` / `p → п`, and the PCGN glottal marker `’ → ʼ`.
 - Updated `data/khmer/romanization_vowels_ukrainian.csv`: all 37 official PCGN vowel/rime rows now have a non-empty target rendering. Contextual alternatives remain visible as alternatives and carry `ANALYSIS_DEPENDENT`; no IPA or pronunciation value was inferred.
 - Expanded `tests/test_romanization_matrix.py` and `tests/test_romanization_vowel_matrix.py` to require complete target-column coverage and the project orthographic status/notes.
-- Updated `docs/romanization-to-ukrainian-matrix.md` with the target convention and a separate acceptance gate. `KHM-ROM-UA-TARGET-001` is DONE_VERIFIED: exact-head Quality [43221517618](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43221517618) and browser smoke [43221517788](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43221517788) both SUCCESS; push Quality [43221506380](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43221506380) SUCCESS. The final Python suite reported 194 passed + 62 subtests. Runtime adapter `KHM-ROM-UA-001` remains TODO, BGN/PCGN engine `KHM-ROM-ENGINE-001` remains PARTIAL, and contextual syllable resolution remains PARTIAL.
+- Updated `docs/romanization-to-ukrainian-matrix.md` with the target convention and a separate acceptance gate. `KHM-ROM-UA-TARGET-001` is DONE_VERIFIED: exact-head Quality [43221517618](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43221517618) and browser smoke [43221517788](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43221517788) both SUCCESS; push Quality [43221506380](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43221506380) SUCCESS. The final Python suite reported 194 passed + 62 subtests. Runtime adapter `KHM-ROM-UA-001` remains TODO, BGN/PCGN engine `KHM-ROM-ENGINE-001` remains PARTIAL, and contextual syllable resolution remains PARTIAL.
 - This is a letter-level rendering of Latin BGN/PCGN strings into Ukrainian, not phonetic transcription. The upstream `@gmana/km-translit` output remains a BGN/PCGN-derived ASCII simplifier and does not yet implement the full contextual standard. No IPA labels, source phonology, gold data, or pronunciation accuracy claims changed.
 - No local checkout/runtime was available through this connector session. Exact-head GitHub Actions Quality and browser smoke workflows passed on commit `91736b45c32ad5a812f71b97e7594a2f7a8da1bc`; Quality: 194 Python tests + 62 subtests, Node checks and build; browser smoke also passed. The latest follow-up commits are documentation-only.
 
@@ -1878,29 +1878,29 @@ The browser preview is separate from canonical output. The onset-only test fixtu
 ## Post-merge mainline verification — romanization target matrix — 2026-11-12
 
 - PR #161 merged into `main` as `6b0d0e75d794165e5eb935192fab0926e1efca39`.
-- Mainline Quality [43221967799](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43221967799), browser smoke [43221968144](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43221968144), and Pages deployment [43221967939](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43221967939) all SUCCESS on the merge commit.
-- Exact feature-head tests [43221517618](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43221517618) and browser smoke [43221517788](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43221517788) also passed on `91736b45c32ad5a812f71b97e7594a2f7a8da1bc`: 194 Python tests + 62 subtests, Node checks, build and Chromium smoke.
+- Mainline Quality [43221967799](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43221967799), browser smoke [43221968144](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43221968144), and Pages deployment [43221967939](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43221967939) all SUCCESS on the merge commit.
+- Exact feature-head tests [43221517618](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43221517618) and browser smoke [43221517788](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43221517788) also passed on `91736b45c32ad5a812f71b97e7594a2f7a8da1bc`: 194 Python tests + 62 subtests, Node checks, build and Chromium smoke.
 - `KHM-ROM-UA-TARGET-001` is DONE_VERIFIED. `KHM-ROM-UA-001` remains TODO (runtime Latin-to-Ukrainian adapter); `KHM-ROM-ENGINE-001` remains PARTIAL (the upstream ASCII romanizer is not fully conformant with contextual BGN/PCGN 1972). No IPA or pronunciation claim is implied.
 
 
 ## Khmer romanization → Ukrainian runtime adapter — 2026-11-12
 
-- Started from `main` `3930c8055bcbd6f6747336ad7dce09c9f695f31e`; implementation branch `feat/romanization-to-ukrainian-runtime-2026-11-12`; PR [#164](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/164).
+- Started from `main` `3930c8055bcbd6f6747336ad7dce09c9f695f31e`; implementation branch `feat/romanization-to-ukrainian-runtime-2026-11-12`; PR [#164](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/164).
 - Added `src/khmer-romanization-ukrainian.js` and wired it to the existing `khmerToLatin` output and the separate “За романізацією” panel. It maps the current Latin result to Ukrainian, preserves non-Khmer text and punctuation, and marks unknown Latin fragments `⟦…⟧`.
 - Browser regression: `សុខា → Sokha → Сок'а`; phonetic IPA output remains hidden in romanization mode. Matrix token coverage is tested for consonants and vowel forms.
 - **Evidence boundary:** npm package `@gmana/km-translit` documents that its ASCII BGN/PCGN-derived profile drops the standard diacritics and is not fully conformant. The adapter therefore reports `PROVISIONAL`; it cannot recover contextual PCGN vowel distinctions lost upstream. This is not a complete PCGN runtime.
-- Exact-head Quality [43226337969](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43226337969), browser [43226337956](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43226337956), and push Quality [43226325685](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43226325685) SUCCESS on `1fa869c524bac5effc98411b71e47e458ad584ae`.
+- Exact-head Quality [43226337969](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43226337969), browser [43226337956](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43226337956), and push Quality [43226325685](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43226325685) SUCCESS on `1fa869c524bac5effc98411b71e47e458ad584ae`.
 - `KHM-ROM-UA-001`: PARTIAL (runtime display adapter works for current ASCII profile; full diacritic/context coverage is blocked by upstream romanizer output loss). `KHM-ROM-UA-TARGET-001`: DONE_VERIFIED. `KHM-ROM-ENGINE-001`: PARTIAL. No IPA or pronunciation claim is made.
 
 
 
-Exact-head Quality [43226337969](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43226337969), browser [43226337956](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43226337956), and push Quality [43226325685](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43226325685) SUCCESS on code head `1fa869c524bac5effc98411b71e47e458ad584ae`. Quality: 194 Python tests + 62 subtests; web checks and production build passed; Chromium visible-results smoke passed.
+Exact-head Quality [43226337969](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43226337969), browser [43226337956](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43226337956), and push Quality [43226325685](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43226325685) SUCCESS on code head `1fa869c524bac5effc98411b71e47e458ad584ae`. Quality: 194 Python tests + 62 subtests; web checks and production build passed; Chromium visible-results smoke passed.
 
 
 ## Khmer romanization runtime — mainline post-merge verification — 2026-11-12
 
-- PR [#164](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/164) merged as `0ba6107a7e5cb09cca44021669a7401fc125eac4`.
-- Mainline Quality [43227360792](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43227360792), browser smoke [43227360789](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43227360789), and Pages deployment [43227360801](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43227360801) all SUCCESS.
+- PR [#164](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/164) merged as `0ba6107a7e5cb09cca44021669a7401fc125eac4`.
+- Mainline Quality [43227360792](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43227360792), browser smoke [43227360789](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43227360789), and Pages deployment [43227360801](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43227360801) all SUCCESS.
 - The merged implementation remains deliberately PARTIAL/PROVISIONAL: the upstream ASCII romanizer omits PCGN diacritics; this adapter cannot reconstruct lost contextual vowel distinctions. The IPA route remains separate.
 
 
@@ -1913,7 +1913,7 @@ The primary 1995/1997 system table is now located in the Ministry's 2023 provisi
 
 - Current `main`: `a86a59cf082d547563b45374ced9dfb45c5cd8db`.
 - Preserved merged sequence: target-matrix completion PR #161 (`6b0d0e75d794165e5eb935192fab0926e1efca39`); matrix synchronization PR #163 (`3930c8055bcbd6f6747336ad7dce09c9f695f31e`); provisional runtime PR #164 (`0ba6107a7e5cb09cca44021669a7401fc125eac4`); post-merge evidence PR #165 (current mainline checkpoint).
-- Current-head CI: Quality [43228414756](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43228414756), browser [43228414938](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43228414938), Pages [43228414646](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43228414646): all SUCCESS.
+- Current-head CI: Quality [43228414756](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43228414756), browser [43228414938](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43228414938), Pages [43228414646](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43228414646): all SUCCESS.
 - Current ledger: target matrix DONE_VERIFIED (22 consonant + 37 vowel/rime rows); runtime PARTIAL (independent adapter integrated, provisional); source romanizer PARTIAL (ASCII profile loses PCGN diacritics and contextual vowel distinctions); contextual whole-standard BGN/PCGN implementation remains open.
 - Open draft research PR #153 remains untouched. It is a separate G2P/provider integration, not a dependency of the romanization adapter.
 - No local checkout was available in this connector-only session; verification cited here is hosted GitHub Actions on exact current `main`. No local pytest/npm/Playwright execution is claimed.
@@ -1925,7 +1925,7 @@ The 2025 UNGEGN Asia South-East Division report (GEGN.2/2025/73/CRP.73, p. 3) co
 
 - Latest implementation mainline commit: `f0485892f5d4b16e5fbe0ded6f8e083d8b044f4b` (PR #167, test execution coverage; merged).
 - Corrected a real test-discovery gap: `tests/romanization-ukrainian.test.mjs` is now run by both `npm test` and `npm run check`. Added coverage for all 22 distinct PCGN consonant romanization tokens; the existing suite covers the 33 ASCII vowel candidates, unsupported units, passthrough and status behavior.
-- Exact-main Quality [43250158336](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43250158336) and browser smoke [43250158628](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43250158628) passed on the implementation commit. Pages deployment was checked separately in run [43250158415](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43250158415).
+- Exact-main Quality [43250158336](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43250158336) and browser smoke [43250158628](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43250158628) passed on the implementation commit. Pages deployment was checked separately in run [43250158415](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43250158415).
 - Remaining acceptance: source-matrix→runtime parity for every row, marks/numerals, real-package corpus tests, diacritic-preserving BGN/PCGN, and a separate evidence-gated decision on Cambodia's national 1997 system. Do not promote PROPOSED mappings or provisional output.
 
 
@@ -1940,9 +1940,9 @@ The 2025 UNGEGN Asia South-East Division report (GEGN.2/2025/73/CRP.73, p. 3) co
 
 ## Post-merge closeout — canonical Khmer romanization matrix/runtime parity — 2026-11-12
 
-- PR [#170](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/170) merged as `c5c26082abff87ce6224e00a68047620f9d9975f`.
-- Exact PR-head Quality workflow [43266798081](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43266798081) **SUCCESS**: gold-corpus structure validation, Python tests, Node web checks and Vite production build.
-- Exact PR-head browser smoke [43266797880](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43266797880) **SUCCESS**: deterministic web checks, production build and Chromium visible-results smoke.
+- PR [#170](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/170) merged as `c5c26082abff87ce6224e00a68047620f9d9975f`.
+- Exact PR-head Quality workflow [43266798081](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43266798081) **SUCCESS**: gold-corpus structure validation, Python tests, Node web checks and Vite production build.
+- Exact PR-head browser smoke [43266797880](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43266797880) **SUCCESS**: deterministic web checks, production build and Chromium visible-results smoke.
 - `KHM-ROM-TEST-MATRIX-PARITY-001`: **DONE_VERIFIED** for the bounded 22-row consonant CSV → runtime mapping contract. This does not close `KHM-ROM-ENGINE-001` or the contextual vowel/marks/numerals/real-package whole-message acceptance work.
 - Mainline Quality, browser smoke and Pages deployment were queued after merge at runs `43267004981`, `43267004560`, and `43267004404`; their final outcomes must be checked before claiming deployment success.
 - No local checkout or local test command was available in this connector-only run. All pass evidence above is from hosted GitHub Actions on the exact PR head.
@@ -1958,10 +1958,10 @@ The 2025 UNGEGN Asia South-East Division report (GEGN.2/2025/73/CRP.73, p. 3) co
 
 ## Post-merge closeout — real-package Khmer whole-message adapter regression — 2026-11-12
 
-- PR [#172](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/172) merged as `054bc8823ba1f109ee102eda5e966edade1c4886`.
+- PR [#172](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/172) merged as `054bc8823ba1f109ee102eda5e966edade1c4886`.
 - The actual `@gmana/km-translit` dependency is exercised through `renderKhmerRomanizationText` on a mixed whole message. Assertions cover native-or-Arabic numerals, Latin identifier and ASCII digits, comma, tab, CRLF, Khmer sentence-stop punctuation, and no Khmer-letter leakage.
-- Exact PR-head Quality [43267521108](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43267521108) and Chromium smoke [43267521498](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43267521498): **SUCCESS**.
-- Exact mainline Quality [43267655512](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43267655512), browser smoke [43267655359](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43267655359), and Pages deployment/deployed-site runtime smoke [43267655210](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43267655210): **SUCCESS** on the merged mainline commit.
+- Exact PR-head Quality [43267521108](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43267521108) and Chromium smoke [43267521498](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43267521498): **SUCCESS**.
+- Exact mainline Quality [43267655512](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43267655512), browser smoke [43267655359](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43267655359), and Pages deployment/deployed-site runtime smoke [43267655210](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43267655210): **SUCCESS** on the merged mainline commit.
 - `KHM-ROM-TEST-WHOLE-001`: **DONE_VERIFIED**. `KHM-ROM-TEST-001` remains PARTIAL because canonical marks/numerals runtime parity, full source-profile coverage, and diacritic/contextual tests are not yet complete.
 - `KHM-ROM-ENGINE-001` remains PARTIAL: upstream ASCII romanizer drops BGN/PCGN diacritics and contextual vowel distinctions. Ukrainian candidates remain project proposals; no linguistic accuracy or expert approval is claimed.
 - Mainline at this closeout: `054bc8823ba1f109ee102eda5e966edade1c4886`. No local checkout or local test execution is claimed; all verification above is from exact-head/mainline GitHub Actions.
@@ -1969,8 +1969,8 @@ The 2025 UNGEGN Asia South-East Division report (GEGN.2/2025/73/CRP.73, p. 3) co
 
 ## Khmer numeral crosswalk runtime fix — test-first — 2026-11-12
 
-- PR [#174](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/174) began with a data-driven test for all ten numeral rows in `data/khmer/romanization_marks_numerals.csv`.
-- RED evidence: Quality workflow [43268170106](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43268170106) failed on the intended assertion, row 0: actual native Khmer `០`, expected Arabic `0`; the other nine adapter tests passed.
+- PR [#174](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/174) began with a data-driven test for all ten numeral rows in `data/khmer/romanization_marks_numerals.csv`.
+- RED evidence: Quality workflow [43268170106](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43268170106) failed on the intended assertion, row 0: actual native Khmer `០`, expected Arabic `0`; the other nine adapter tests passed.
 - Fix: `renderLatinWord` now converts U+17E0–U+17E9 to ASCII digits 0–9 and counts them as mapped units. The actual-package mixed whole-message test now requires `2026`, not merely either native or Arabic digits.
 - Implementation commit: `3244bd847c70daffe6549feca845300faa3e61d7`; tightened integration-test commit: `0ba14111793cf16460dc34c25ecf138e0ffcb007`. Exact-head Quality/browser GREEN and post-merge mainline evidence are pending.
 - This closes the bounded numeral target crosswalk only; Khmer diacritical mark behavior remains context-dependent and PCGN upstream romanization remains ASCII/diacritic-lossy.
@@ -1978,11 +1978,11 @@ The 2025 UNGEGN Asia South-East Division report (GEGN.2/2025/73/CRP.73, p. 3) co
 
 ## Post-merge closeout — Khmer numeral crosswalk — 2026-11-12
 
-- PR [#174](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/174) merged as `ae890fdd436aed9c0fab077401e7612153ce2e6a`.
-- Test-first RED evidence: exact Quality run [43268170106](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43268170106) failed only the new canonical numeral assertion on row 0 (`'០' !== '0'`); all previous nine adapter tests passed.
+- PR [#174](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/174) merged as `ae890fdd436aed9c0fab077401e7612153ce2e6a`.
+- Test-first RED evidence: exact Quality run [43268170106](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43268170106) failed only the new canonical numeral assertion on row 0 (`'០' !== '0'`); all previous nine adapter tests passed.
 - Implementation: `renderLatinWord` maps U+17E0–U+17E9 to ASCII digits 0–9 and increments the mapped count. The actual-package whole-message regression now requires Arabic-digit output.
-- Exact PR-head Quality [43268412329](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43268412329) and Chromium smoke [43268412356](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43268412356): **SUCCESS**.
-- Exact mainline Quality [43268536002](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43268536002), browser smoke [43268536046](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43268536046), and Pages deployment/deployed-site runtime smoke [43268535985](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43268535985): **SUCCESS**.
+- Exact PR-head Quality [43268412329](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43268412329) and Chromium smoke [43268412356](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43268412356): **SUCCESS**.
+- Exact mainline Quality [43268536002](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43268536002), browser smoke [43268536046](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43268536046), and Pages deployment/deployed-site runtime smoke [43268535985](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43268535985): **SUCCESS**.
 - `KHM-ROM-NUMERALS-001`: **DONE_VERIFIED** for the ten numeral rows. `KHM-ROM-TEST-001` remains PARTIAL due unresolved diacritical marks, broader context-sensitive PCGN coverage and full real-package corpus acceptance.
 - `KHM-ROM-ENGINE-001` remains PARTIAL: the upstream ASCII romanizer drops BGN/PCGN diacritics and contextual vowel distinctions. Ukrainian candidates remain project proposals, not expert-adjudicated mappings.
 - Mainline at this closeout: `ae890fdd436aed9c0fab077401e7612153ce2e6a`. Hosted GitHub Actions evidence only; no local checkout or local test execution is claimed.
@@ -1990,9 +1990,9 @@ The 2025 UNGEGN Asia South-East Division report (GEGN.2/2025/73/CRP.73, p. 3) co
 
 ## Khmer vowel inventory crosswalk coverage — 2026-11-12
 
-- PR [#177](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/177) merged as `19a36f820625f53c6f50fbbe810bfbd074bb1ee7`.
+- PR [#177](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/177) merged as `19a36f820625f53c6f50fbbe810bfbd074bb1ee7`.
 - Added data-driven test across all **37** canonical PCGN vowel and vowel-coda rows in `data/khmer/romanization_vowels_ukrainian.csv`. Source diacritics are normalized to the ASCII output conventions of the current upstream package; every form must map to one of the row's existing Ukrainian candidates with zero unsupported units.
-- Exact PR-head Quality [43275618264](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43275618264): **SUCCESS** (194 Python tests + 62 subtests; 12 Node adapter tests). Exact PR-head Chromium smoke [43275618099](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43275618099): **SUCCESS**.
+- Exact PR-head Quality [43275618264](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43275618264): **SUCCESS** (194 Python tests + 62 subtests; 12 Node adapter tests). Exact PR-head Chromium smoke [43275618099](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43275618099): **SUCCESS**.
 - This is not a runtime change and not linguistic validation. The test does not adjudicate context-dependent alternatives, reconstruct lost diacritics, establish phonetic accuracy, or promote Ukrainian proposals to approved mappings.
 - PR #176's shortened-vowel sequence coverage is also merged as `d4ac59a78447ba84c84e72457d10277706168434`; its exact PR-head Quality [43275112413], browser smoke [43275112515], and post-merge mainline Quality [43275258617], browser smoke [43275258586], and Pages/deployed-site smoke [43275258614] all passed.
 - Post-merge mainline checks for #177 all passed on `19a36f820625f53c6f50fbbe810bfbd074bb1ee7`: Quality [43275764929] **SUCCESS**, browser [43275764932] **SUCCESS**, Pages deployment and deployed-site/runtime smoke [43275764931] **SUCCESS**.
@@ -2010,7 +2010,7 @@ The 2025 UNGEGN Asia South-East Division report (GEGN.2/2025/73/CRP.73, p. 3) co
 ### Branch and PR reconciliation
 
 - The pre-existing branch inventory contained 40 non-main historical feature, test, research, CI, release and documentation branches (41 refs including main); this pass added one active task branch (42 refs total at follow-up inspection). Comparisons against live `main` show that the historical branch tips are generally diverged, often with many commits behind main. A branch tip is not evidence that its unique patch is still required; several historical feature lines have already been integrated or superseded by later mainline commits.
-- At baseline inspection, the pre-existing open PR was draft [#153](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/153); this documentation pass subsequently opened [PR #179](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/179) for the documentation changes. PR #153 `research: benchmark Khmer G2P candidates and integrate evidence-gated hybrid`. Its head `bddb0186c9e62abd57827fa54233ebbfaa0540e2` is 34 commits ahead and 23 behind the inspected mainline in the branch comparison. It is intentionally not merged: it is a research draft, the optional benchmark workflow is manual-dispatch-only, corpus rights remain unresolved, and independent adjudicated IPA gold remains 0. Its diagnostic candidate outputs must not become production IPA authority.
+- At baseline inspection, the pre-existing open PR was draft [#153](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/153); this documentation pass subsequently opened [PR #179](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/179) for the documentation changes. PR #153 `research: benchmark Khmer G2P candidates and integrate evidence-gated hybrid`. Its head `bddb0186c9e62abd57827fa54233ebbfaa0540e2` is 34 commits ahead and 23 behind the inspected mainline in the branch comparison. It is intentionally not merged: it is a research draft, the optional benchmark workflow is manual-dispatch-only, corpus rights remain unresolved, and independent adjudicated IPA gold remains 0. Its diagnostic candidate outputs must not become production IPA authority.
 - Merged PRs #157–#178 already account for their corresponding completed branch work on main. The older model-consensus research PRs #150/#151 were closed unmerged and superseded by deterministic-engine PR #152; practical-adapter PRs #154/#155 were closed unmerged and superseded by merged PR #156. No blind multi-branch/octopus merge, force-push, branch deletion, PR closure or repository setting change was performed. This connector session exposes branch creation and ref updates but no branch-delete operation; historical branches remain untouched.
 
 ### Documentation changes on the task branch
@@ -2048,10 +2048,10 @@ The 2025 UNGEGN Asia South-East Division report (GEGN.2/2025/73/CRP.73, p. 3) co
 ### Verification and next gate
 
 - Repository API inspection, branch comparisons, source-file inspection and upstream README/snapshot checks were performed through the connected GitHub integration.
-- Exact code-bearing commit `41b88ecdc7545b4f5f60738bc528c6d56e55c5a6` was verified by push Quality workflow [43692108930](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692108930) **SUCCESS**, PR Quality workflow [43692138758](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692138758) **SUCCESS**, and Chromium browser smoke [43692138745](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692138745) **SUCCESS**. The Quality job completed gold-corpus structure validation, Python tests, Node web checks and Vite production build; the browser job completed deterministic web checks, production build, Chromium install and visible-results verification.
+- Exact code-bearing commit `41b88ecdc7545b4f5f60738bc528c6d56e55c5a6` was verified by push Quality workflow [43692108930](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43692108930) **SUCCESS**, PR Quality workflow [43692138758](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43692138758) **SUCCESS**, and Chromium browser smoke [43692138745](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43692138745) **SUCCESS**. The Quality job completed gold-corpus structure validation, Python tests, Node web checks and Vite production build; the browser job completed deterministic web checks, production build, Chromium install and visible-results verification.
 - The documentation index's 30 relative Markdown links were checked against the exact commit tree; no missing internal targets were found.
 - No local pytest, npm, Vite, Playwright or generator command was executed in this environment. Hosted CI is the verification evidence; do not describe it as local execution.
-- PR [#179](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/179) carries this documentation batch. Its exact final-head CI results are recorded in the terminal verification section below. No deployment or release was requested.
+- PR [#179](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/179) carries this documentation batch. Its exact final-head CI results are recorded in the terminal verification section below. No deployment or release was requested.
 
 
 ### License governance blocker — 2026-11-15
@@ -2062,14 +2062,14 @@ The current `pyproject.toml` declares `MIT`, while the inspected repository tree
 ### Final branch-head verification — 2026-11-15
 
 - Final documentation branch head after the license-governance note: `aa3dc61ab331ed0e79e1c4430ecd315254f0fb6e` (three commits ahead of baseline main, zero behind).
-- On this exact head, push Quality [43692325225](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692325225) and PR Quality [43692327962](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692327962) completed **SUCCESS**. The PR Chromium browser smoke [43692327929](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692327929) was still running when this record was prepared; do not mark browser verification complete until its final conclusion is checked.
+- On this exact head, push Quality [43692325225](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43692325225) and PR Quality [43692327962](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43692327962) completed **SUCCESS**. The PR Chromium browser smoke [43692327929](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43692327929) was still running when this record was prepared; do not mark browser verification complete until its final conclusion is checked.
 - The documentation-only final changes include the license metadata blocker; no license terms were chosen or added.
 
 
 ## Post-merge closeout — documentation information architecture — 2026-11-15
 
-- Documentation PR [#179](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/179) was squash-merged into `main` as `e84d530b0a4355d450ed1f7e2568a2c58ca4e9c4` at 2026-11-15T08:00:39Z.
-- The PR head was `db0e1b930d4566f6443b2b3a19fd811269e33adb`. Exact-head push Quality [43692418605](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692418605), PR Quality [43692421394](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692421394), and Chromium browser smoke [43692421391](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692421391) all completed **SUCCESS**.
+- Documentation PR [#179](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/179) was squash-merged into `main` as `e84d530b0a4355d450ed1f7e2568a2c58ca4e9c4` at 2026-11-15T08:00:39Z.
+- The PR head was `db0e1b930d4566f6443b2b3a19fd811269e33adb`. Exact-head push Quality [43692418605](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43692418605), PR Quality [43692421394](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43692421394), and Chromium browser smoke [43692421391](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43692421391) all completed **SUCCESS**.
 - The final docs index's 30 relative Markdown links resolved against the exact PR-head tree with zero missing internal targets.
 - Mainline workflows triggered by the merge commit: Quality [43692484702], Chromium browser smoke [43692484674], and Pages deployment [43692484691] were running at the time of this closeout. Check their final outcomes before asserting post-merge mainline/deployment verification.
 - The task branch has completed its work and PR #179 is closed/merged. Historical branches remain preserved; no branch deletion was available through the connected GitHub integration. PR #153 remains open as an evidence-limited research draft.
@@ -2079,9 +2079,9 @@ The current `pyproject.toml` declares `MIT`, while the inspected repository tree
 ## Final mainline verification — 2026-11-15
 
 - Main head at this verification: `8b6dd5a597a670e7c3ff7bc440b2a97b4762060e`.
-- Quality [43692567616](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692567616): **SUCCESS**.
-- Chromium browser smoke [43692567608](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692567608): **SUCCESS**.
-- GitHub Pages deployment and deployed-site/runtime smoke [43692567615](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43692567615): **SUCCESS**.
+- Quality [43692567616](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43692567616): **SUCCESS**.
+- Chromium browser smoke [43692567608](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43692567608): **SUCCESS**.
+- GitHub Pages deployment and deployed-site/runtime smoke [43692567615](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43692567615): **SUCCESS**.
 - These are hosted mainline checks; no local shell execution is claimed. No runtime or linguistic data changed in the closeout commits.
 
 
@@ -2154,8 +2154,8 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 
 - Starting main before this task: 2f0d9f362e5f82ebb4d3372eae8f8fb4cc2001ba.
 - Implementation branch: feat/typed-ipa-candidate-validation-2026-11-15.
-- PR [#182](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/182) merged successfully; final main merge commit: c69789b21bffb306497758a1181bef0d36459bd5.
-- Exact runtime/test head: a20f1d3f28cbe1a6a5f79cc7554afe4b47265a4a. Quality [43694149473](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43694149473) SUCCESS (206 tests, 62 subtests; corpus structure gate, web checks, build). Chromium [43694149458](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43694149458) SUCCESS (visible result check included).
+- PR [#182](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/182) merged successfully; final main merge commit: c69789b21bffb306497758a1181bef0d36459bd5.
+- Exact runtime/test head: a20f1d3f28cbe1a6a5f79cc7554afe4b47265a4a. Quality [43694149473](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43694149473) SUCCESS (206 tests, 62 subtests; corpus structure gate, web checks, build). Chromium [43694149458](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43694149458) SUCCESS (visible result check included).
 - The first CI attempt had 3 failures caused by unsupported U+02E5–U+02E9 IPA tone-bar symbols. Added those symbols explicitly; the final runtime/test head passed all checks. Two later commits only appended audit/handoff evidence. No CI run was exposed for the later docs-only PR head; no such run is claimed.
 - No external provider, corpus, or model was added. The deterministic engine and output contract remain unchanged. The new typed candidate API is available for future research adapters, but COMPLETE is only provider metadata and is not independent gold or permission to publish output.
 - PR #153 remains open/draft/BLOCKED pending API reconciliation, corpus rights, and train/evaluation split independence. Independent adjudicated Phnom Penh IPA gold remains 0; accuracy remains null.
@@ -2164,9 +2164,9 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 
 ## Final mainline checkpoint after PR #183 — 2026-11-15
 
-- Documentation closeout PR [#183](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/183) was squash-merged as df5891a7b9c9cfecde31f2795617b29a44d4b929.
-- Exact PR-head Quality [43694397227](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43694397227): **SUCCESS**. The job completed corpus structure validation, Python tests, Node web checks and production build.
-- Exact PR-head Chromium smoke [43694397191](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43694397191): **SUCCESS**, including visible-result verification.
+- Documentation closeout PR [#183](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/183) was squash-merged as df5891a7b9c9cfecde31f2795617b29a44d4b929.
+- Exact PR-head Quality [43694397227](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43694397227): **SUCCESS**. The job completed corpus structure validation, Python tests, Node web checks and production build.
+- Exact PR-head Chromium smoke [43694397191](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43694397191): **SUCCESS**, including visible-result verification.
 - The implementation PR #182 and documentation PR #183 are both merged. Current source implementation was tested on code head a20f1d3f28cbe1a6a5f79cc7554afe4b47265a4a; documentation closeout was tested on PR #183 head baa98c02342f68bcca132618e84c7c5da34a465d. No local shell run is claimed.
 - PR #153 remains the next major research blocker. Do not merge its external-provider integration until rights, train/evaluation split independence, API contract reconciliation and its benchmark run are resolved. Independent adjudicated IPA gold remains 0; accuracy remains null.
 - The latest main commit at this checkpoint is df5891a7b9c9cfecde31f2795617b29a44d4b929. This handoff update itself is a further documentation-only commit on main.
@@ -2186,8 +2186,8 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 ### Exact-head verification and final workflow corrections — 2026-11-15
 
 - Final code/test head: `750a69b75ee7fa846572f63125d675e4557d12cc`.
-- Quality [43695488162](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43695488162): **SUCCESS** — 214 Python tests and 64 subtests passed; independent IPA gold corpus structure validation, Node web checks and production build passed.
-- Chromium [43695488169](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43695488169): **SUCCESS** — deterministic web checks/build and visible-result Chromium verification; 4 browser tests passed.
+- Quality [43695488162](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43695488162): **SUCCESS** — 214 Python tests and 64 subtests passed; independent IPA gold corpus structure validation, Node web checks and production build passed.
+- Chromium [43695488169](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43695488169): **SUCCESS** — deterministic web checks/build and visible-result Chromium verification; 4 browser tests passed.
 - The benchmark harness now fixes the model identifier to the audited model card; only the immutable model revision can be selected. A custom corpus path no longer inherits the default MekongPhon source commit claim: source revision is recorded only for the known default path or when explicitly supplied. Regression tests cover both cases.
 - The optional workflow was reduced to `workflow_dispatch` only. A first draft also exported the upstream 100-row orthography/reference corpus as an Actions artifact; that job was removed because the dataset rights are unresolved. The retained job uploads model diagnostic outputs only, not source corpus rows. The workflow was not dispatched in this session.
 - No local shell/pytest, model inference, or fresh external benchmark was run. Hosted CI above verifies repository tests/build/browser behavior, not external model performance.
@@ -2196,9 +2196,9 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 
 ## Mainline closeout — MekongPhon diagnostic harness — 2026-11-15
 
-- PR [#184](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/184) was squash-merged as `66c43e1772a4c871e06e625e80ad43da2d123c85`, based on starting main `5e082024b7ae871b1bb95219ea80e5b87502b66e`.
-- Code/test head before merge: `1fa2db6dfe0a4802d6ccb12403a095393cfcd39a`. Exact-head Quality [43695611313](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43695611313) SUCCESS (214 Python tests + 64 subtests; corpus structure validation, web checks, production build); Chromium [43695611252](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43695611252) SUCCESS (4 browser tests, visible-result verification).
-- Post-merge main Quality [43695677574](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43695677574) SUCCESS (214 tests + 64 subtests); browser [43695677644](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43695677644) SUCCESS; GitHub Pages build/deploy [43695677607](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43695677607) SUCCESS.
+- PR [#184](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/184) was squash-merged as `66c43e1772a4c871e06e625e80ad43da2d123c85`, based on starting main `5e082024b7ae871b1bb95219ea80e5b87502b66e`.
+- Code/test head before merge: `1fa2db6dfe0a4802d6ccb12403a095393cfcd39a`. Exact-head Quality [43695611313](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43695611313) SUCCESS (214 Python tests + 64 subtests; corpus structure validation, web checks, production build); Chromium [43695611252](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43695611252) SUCCESS (4 browser tests, visible-result verification).
+- Post-merge main Quality [43695677574](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43695677574) SUCCESS (214 tests + 64 subtests); browser [43695677644](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43695677644) SUCCESS; GitHub Pages build/deploy [43695677607](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43695677607) SUCCESS.
 - The optional MekongPhon workflow is manual-dispatch only and was not dispatched. No model inference or new external benchmark was run. Its corpus-exporting job was removed; only model diagnostic outputs are uploaded. No source corpus rows or model weights are committed.
 - The benchmark harness is an isolated research diagnostic, not a production provider. The current deterministic engine and typed IPA candidate boundary are unchanged.
 - PR #153 remains open/draft/unmerged. Its provider wrapper still bypasses the typed candidate validator and is not ported. Corpus rights and checkpoint train/evaluation split independence remain unresolved. Independent adjudicated Phnom Penh IPA gold remains 0; empirical accuracy remains null.
@@ -2219,8 +2219,8 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 
 - Starting main: `d4c058b346d51179af85b3f8173af3ecc79b4adb`.
 - Implementation branch: `feat/typed-ipa-hybrid-bridge-2026-11-15`.
-- PR [#185](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/185) merged successfully; merge commit: `71a0962ef4977aacde29ef016a13e108044d72b7`.
-- Final code/test head: `1d93b823fd15f5fe57da527b2afb5cc86a4b8f0b`. Quality [43696684037](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43696684037) SUCCESS (222 tests + 64 subtests, corpus validation, web checks, production build). Chromium [43696684048](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43696684048) SUCCESS (visible-result check).
+- PR [#185](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/185) merged successfully; merge commit: `71a0962ef4977aacde29ef016a13e108044d72b7`.
+- Final code/test head: `1d93b823fd15f5fe57da527b2afb5cc86a4b8f0b`. Quality [43696684037](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43696684037) SUCCESS (222 tests + 64 subtests, corpus validation, web checks, production build). Chromium [43696684048](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43696684048) SUCCESS (visible-result check).
 - First PR-head CI caught two obsolete tests asserting the previous alias-only hybrid API. Updated the tests to assert the new wrapper preserves deterministic output and requires typed providers; the final exact head passed. Initial failed run 43696654577 is retained for transparency.
 - PR #184's diagnostic benchmark harness/workflow were reused, not duplicated. PR #153 remains open/draft/diverged; no blind merge. Its old branch still contains overlapping stale changes and is not a clean integration base.
 - Remaining blockers: MekongPhon corpus rights unresolved; exact model checkpoint train/evaluation split independence unverified; independent adjudicated Phnom Penh IPA gold 0 and accuracy null; no external model inference run in this task. Keep all external candidate results diagnostic and never promote them to published output.
@@ -2249,8 +2249,8 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 ## PR #153 selective reconciliation — final mainline closeout — 2026-11-15
 
 - Current `main` head after this work: `34f9dbfd94788d1d1b9b64646354157d4741dfed`.
-- PR #187 merged as `1ef8578143bd2a0e9d55a46c0ddef4d0006dc5c3` from exact head `f65b54d5b476f0808b07307ee620b534ec936f29`. Quality [43697879406](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43697879406) SUCCESS (222 tests + 64 subtests; corpus validation, web checks and production build); Chromium [43697879409](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43697879409) SUCCESS.
-- PR #188 merged as `34f9dbfd94788d1d1b9b64646354157d4741dfed` from exact head `a5d740a7d1f978b9192e3c8b4402e68f972f81a4`. Quality [43698031836](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43698031836) SUCCESS (222 tests + 70 subtests; corpus validation, web checks and production build); Chromium [43698031838](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43698031838) SUCCESS (4 browser tests). Duplicate Quality run [43698022071](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43698022071) also SUCCESS.
+- PR #187 merged as `1ef8578143bd2a0e9d55a46c0ddef4d0006dc5c3` from exact head `f65b54d5b476f0808b07307ee620b534ec936f29`. Quality [43697879406](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43697879406) SUCCESS (222 tests + 64 subtests; corpus validation, web checks and production build); Chromium [43697879409](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43697879409) SUCCESS.
+- PR #188 merged as `34f9dbfd94788d1d1b9b64646354157d4741dfed` from exact head `a5d740a7d1f978b9192e3c8b4402e68f972f81a4`. Quality [43698031836](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43698031836) SUCCESS (222 tests + 70 subtests; corpus validation, web checks and production build); Chromium [43698031838](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43698031838) SUCCESS (4 browser tests). Duplicate Quality run [43698022071](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43698022071) also SUCCESS.
 - PR #153 was closed unmerged as superseded after its remaining useful source-triage records were selectively reconciled. Closure comment: `6892169857`. Its source branch was left untouched. The old untyped provider runtime and duplicated benchmark workflow were not merged; current PR #184/#185 implementations remain authoritative.
 - Additional branch reconciliation: `docs/repository-information-architecture-2026-11-15` was compared with current main. Its documentation index, AGENTS.md, codebase map and methodology reference were identical; its README/architecture/audit snapshots were older than main. It was left untouched rather than merged or deleted.
 - No local shell/pytest or external model inference was performed. All stated engineering verification above is hosted GitHub Actions on exact PR heads.
@@ -2270,8 +2270,8 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 ## Phonotactic scope research closeout — 2026-11-15
 
 - PR #190 merged as `262d16fb755aff952fef42ecb69f8c8a8251df30` from exact head `df79de7d39471f706fb8350e09e557a18c86c097`.
-- Exact-head Quality [43698504896](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43698504896) SUCCESS: 223 Python tests + 70 subtests; IPA corpus structure validation, web checks and production build passed. Duplicate Quality [43698495803](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43698495803) also SUCCESS.
-- Exact-head Chromium [43698504898](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43698504898) SUCCESS: 4 browser tests.
+- Exact-head Quality [43698504896](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43698504896) SUCCESS: 223 Python tests + 70 subtests; IPA corpus structure validation, web checks and production build passed. Duplicate Quality [43698495803](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43698495803) also SUCCESS.
+- Exact-head Chromium [43698504898](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43698504898) SUCCESS: 4 browser tests.
 - The new parser regression verifies lossless trace of the Unicode coeng-chaining example while keeping `phonetic_representation.status = phoneticization_not_yet_established`. This verifies the boundary only; it does not validate a phonetic syllabifier.
 - Sources now separate Nacaskul's historical major/minor syllable restrictions, Unicode's orthographic coeng/chaining rules, Ding et al.'s secondary name-romanization description, and Mam et al.'s bounded 2025 PPK F0 results. The Sak-Humphry preview's coda contradiction is recorded but not adopted.
 - No new global coda/onset rejection rule, tone label, IPA label or /r/-rewrite was introduced. The current careful-citation profile remains unchanged.
@@ -2281,9 +2281,9 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 ## Direct BGN/PCGN romanization input closeout — 2026-11-15
 
 - PR #192 merged as `736b1bc30bc6ccea6eb1d9f3aacd0647c17b848f` from exact head `e790249dee908c46cad5b1846a81e84014d83338`.
-- Exact-head Quality [43699528446](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43699528446) SUCCESS: 223 tests + 70 subtests; data/corpus validation, web checks and production build passed.
-- Exact-head Chromium [43699528852](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43699528852) SUCCESS: 7 browser tests, including direct diacritic-preserving input, unknown-fragment bracketing and keeping phonetic diagnostics hidden while the romanization mode is active.
-- Earlier exact-head failures were retained: [43699140457](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43699140457) exposed a missing ASCII `ie` fallback; [43699450855](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43699450855) exposed a target-alternative grouping issue for shortened vowel forms. Both were corrected; final exact-head checks are green.
+- Exact-head Quality [43699528446](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43699528446) SUCCESS: 223 tests + 70 subtests; data/corpus validation, web checks and production build passed.
+- Exact-head Chromium [43699528852](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43699528852) SUCCESS: 7 browser tests, including direct diacritic-preserving input, unknown-fragment bracketing and keeping phonetic diagnostics hidden while the romanization mode is active.
+- Earlier exact-head failures were retained: [43699140457](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43699140457) exposed a missing ASCII `ie` fallback; [43699450855](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43699450855) exposed a target-alternative grouping issue for shortened vowel forms. Both were corrected; final exact-head checks are green.
 - Romanization mode now accepts either Khmer script (existing ASCII romanizer path) or a Latin-only BGN/PCGN 1972 input. Direct input maps the raw diacritic forms in all 37 vowel/rime rows; unknown Latin fragments remain in `⟦…⟧` with PARTIAL status.
 - This is orthographic input mapping, not IPA and not semantic translation. Ukrainian candidates remain PROVISIONAL. The direct path cannot reconstruct omitted diacritics or validate arbitrary non-BGN/PCGN romanization. Mixed Khmer+Latin input is not a dedicated mode.
 - The Khmer-script source path still uses `@gmana/km-translit` 0.1.2 and therefore loses PCGN diacritics. A complete contextual Khmer-script→BGN/PCGN generator remains PARTIAL.
@@ -2292,9 +2292,9 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 ## Mixed-script romanization guard closeout — 2026-11-15
 
 - PR #194 merged as `4e1b95f2a1680e7c7363a68b226b0b44778cac74` from exact head `5c09a03d3d45a16001f73781fe7eb7bf7d057826`.
-- Exact-head Quality [43709408446](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709408446) SUCCESS (223 tests + 70 subtests; deterministic web checks and production build passed).
-- Exact-head Chromium [43709408411](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709408411) SUCCESS (9 browser tests).
-- An earlier browser run [43709299480](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709299480) failed because the newly added UI assertions were attached to the Latin-only unknown-fragment test rather than the mixed-script test. The test placement was corrected; exact final-head browser verification passed.
+- Exact-head Quality [43709408446](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43709408446) SUCCESS (223 tests + 70 subtests; deterministic web checks and production build passed).
+- Exact-head Chromium [43709408411](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43709408411) SUCCESS (9 browser tests).
+- An earlier browser run [43709299480](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43709299480) failed because the newly added UI assertions were attached to the Latin-only unknown-fragment test rather than the mixed-script test. The test placement was corrected; exact final-head browser verification passed.
 - Direct BGN/PCGN input now brackets Khmer letters/marks in mixed or direct-renderer calls and returns PARTIAL rather than silently passing Khmer characters through. The UI explains the one-format-per-run boundary.
 - Khmer numerals still convert to Arabic digits and Khmer punctuation is preserved. UI mode detection now distinguishes Khmer letters/marks from numerals and punctuation.
 - Scope: no change to the Khmer-script romanizer, BGN/PCGN crosswalk values, Ukrainian target proposals, IPA pipeline or phonological rules.
@@ -2304,15 +2304,15 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 ## Documentation checkpoint — mixed-script guard final mainline — 2026-11-15
 
 - PR #195 merged as `0d1183553a4851eb0c21336f381be3d0f2d0efaf`; it records the implementation and verification from PR #194 in the canonical handoff, audit, completion register and README.
-- PR #195 exact-head Quality [43709585653](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709585653) SUCCESS (223 tests + 70 subtests); Chromium [43709585691](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709585691) SUCCESS (9 browser tests).
-- PR #194 implementation merge: `4e1b95f2a1680e7c7363a68b226b0b44778cac74`; exact-head Quality [43709408446](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709408446) and Chromium [43709408411](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709408411) passed.
+- PR #195 exact-head Quality [43709585653](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43709585653) SUCCESS (223 tests + 70 subtests); Chromium [43709585691](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43709585691) SUCCESS (9 browser tests).
+- PR #194 implementation merge: `4e1b95f2a1680e7c7363a68b226b0b44778cac74`; exact-head Quality [43709408446](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43709408446) and Chromium [43709408411](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43709408411) passed.
 - Current main at this checkpoint: `0d1183553a4851eb0c21336f381be3d0f2d0efaf`. No open PRs. GitHub's commit-workflow query returned no post-merge runs for the implementation merge; exact PR-head CI is the available evidence.
 
 ## Automated accessibility smoke closeout — 2026-11-15
 
 - PR #197 merged as `9452ac70ee16973ac5f0e8bd28201501539409de` from exact head `b0ca05c11d89b83798f4786a291827a20e99b8f9`.
-- Exact-head Quality [43709993984](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709993984) SUCCESS (223 tests + 70 subtests; web checks and production build passed).
-- Exact-head Chromium [43709994024](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43709994024) SUCCESS (11 browser tests).
+- Exact-head Quality [43709993984](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43709993984) SUCCESS (223 tests + 70 subtests; web checks and production build passed).
+- Exact-head Chromium [43709994024](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43709994024) SUCCESS (11 browser tests).
 - New browser assertions verify the input's accessible name, method switch group and button names, clear button name, Enter-key activation of the romanization method, and polite live status region.
 - This is automated DOM/keyboard smoke coverage only. Manual screen-reader, full keyboard traversal, contrast, zoom/reflow, mobile and assistive-technology review remains PARTIAL and is not claimed complete.
 
@@ -2320,7 +2320,7 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 ## Exact mainline verification and PR reconciliation — 2026-11-15
 
 - Verified default branch: `main`, head `14c87c275a3dcc599893da19b455b2e853abb630`; PR #198 is merged at this SHA. No open PRs were returned by GitHub at this checkpoint.
-- Unlike the earlier checkpoint, post-merge push workflows are now confirmed on this exact main SHA: Quality [43710193628](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43710193628), Chromium [43710193653](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43710193653), and Pages [43710193633](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43710193633) all SUCCESS. Chromium job completed deterministic web checks, production build and visible-results verification. These are hosted workflows; no local checkout or local test command was run.
+- Unlike the earlier checkpoint, post-merge push workflows are now confirmed on this exact main SHA: Quality [43710193628](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43710193628), Chromium [43710193653](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43710193653), and Pages [43710193633](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43710193633) all SUCCESS. Chromium job completed deterministic web checks, production build and visible-results verification. These are hosted workflows; no local checkout or local test command was run.
 - PR #153 is confirmed CLOSED, unmerged, and superseded. A fresh comparison against current main reports 34 commits ahead / 48 behind with divergent changes, including an old hybrid runtime and duplicated optional benchmark workflow. Its useful source-triage records were selectively preserved through PRs #187/#188; do not merge or revive its branch. The source branch was left untouched.
 - Open issue #104 remains the genuine human acquisition blocker: expert-approved IPA convention, two qualified annotators, independent adjudicator, curator, blind intake, 30 attested lexeme groups, rights review, double annotation and adjudication are still outstanding. No human annotations or gold rows were fabricated.
 - The existing release blockers remain: independent adjudicated IPA gold 0 and accuracy null; contextual phonology and Phnom Penh /r/-loss validation incomplete; Khmer-script BGN/PCGN output loses diacritics; Ukrainian romanization targets remain provisional; external corpus/model rights and train/eval independence unresolved; manual accessibility QA remains PARTIAL. Root `LICENSE` remains absent while `pyproject.toml` declares MIT; this is an owner decision, not silently changed.
@@ -2331,7 +2331,7 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 ## Current-main reconciliation — 2026-11-15 (89e5ba4)
 
 - **Verified current default branch:** `main` at `89e5ba49c7507f60b421119cbae4b63c240ac3c8`. The preceding checkpoint at `14c87c275a3dcc599893da19b455b2e853abb630` is historical, not current.
-- **Exact-current-SHA hosted CI:** Quality [43712699599](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43712699599) SUCCESS; Khmer browser smoke [43712699648](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43712699648) SUCCESS; Pages build/deploy [43712699614](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43712699614) SUCCESS. Quality completed IPA corpus structure validation, Python tests, web checks and production build; browser completed deterministic web checks, production build and Chromium visible-results verification. No local shell/test execution is claimed.
+- **Exact-current-SHA hosted CI:** Quality [43712699599](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43712699599) SUCCESS; Khmer browser smoke [43712699648](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43712699648) SUCCESS; Pages build/deploy [43712699614](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43712699614) SUCCESS. Quality completed IPA corpus structure validation, Python tests, web checks and production build; browser completed deterministic web checks, production build and Chromium visible-results verification. No local shell/test execution is claimed.
 - **PR state:** GitHub search returns no open PRs. PR #153 is CLOSED unmerged; comparing its head `bddb0186c9e62abd57827fa54233ebbfaa0540e2` with current main gives 34 commits ahead / 49 behind (diverged). Its stale runtime/workflow are not to be merged; selected research-source records were already preserved through #187/#188. PR #64 is also CLOSED unmerged; no resurrection is warranted without a new, independently identified UI defect.
 - **Task ledger:** mainline engineering CI = DONE_VERIFIED (engineering only); PR #153/#64 historical reconciliation = DONE_VERIFIED (review/closure only); independent Khmer IPA gold = BLOCKED (0 adjudicated rows; accuracy null); contextual phonology and PPK pitch = PARTIAL; Khmer-script BGN/PCGN generator = PARTIAL (ASCII upstream path loses diacritics); Ukrainian romanization proposals = PARTIAL/PROVISIONAL; source/model rights and training/evaluation independence = BLOCKED/PARTIAL as recorded; manual accessibility review = PARTIAL.
 - **Owner decisions:** root `LICENSE` remains absent while `pyproject.toml` declares MIT; do not add license text without owner confirmation. Main remains unprotected; do not change repository governance settings without authorization.
@@ -2343,8 +2343,8 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - PR #201 merged as `37a536592a8e462f00997890af63ad232d41a0ae` from exact head `42cb1ee70bc89daf6739af24e296a8e9dbb29a86`.
 - The Khmer-script → upstream Latin → Ukrainian path now detects Khmer-script letters/combining marks still present in the upstream romanizer output, brackets each residual character, increments `unsupported`, and returns `PARTIAL`. The direct BGN/PCGN Latin renderer uses the same guard. Khmer punctuation is preserved; numeral handling and romanization mapping rules are unchanged.
 - Regression tests cover a residual Khmer combining mark, a residual Khmer letter plus mark, direct Latin input with a Khmer mark, and preservation of Khmer punctuation.
-- Exact PR-head Quality [43720084983](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720084983) SUCCESS (Python tests, web checks, production build); Chromium [43720085021](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720085021) SUCCESS.
-- Exact post-merge main SHA `37a536592a8e462f00997890af63ad232d41a0ae`: Quality [43720186392](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720186392), Chromium [43720186338](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720186338), and Pages build/deploy [43720186436](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720186436) all SUCCESS.
+- Exact PR-head Quality [43720084983](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43720084983) SUCCESS (Python tests, web checks, production build); Chromium [43720085021](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43720085021) SUCCESS.
+- Exact post-merge main SHA `37a536592a8e462f00997890af63ad232d41a0ae`: Quality [43720186392](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43720186392), Chromium [43720186338](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43720186338), and Pages build/deploy [43720186436](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43720186436) all SUCCESS.
 - Acceptance boundary: this is a fail-closed output-integrity guard, not a contextual Khmer → BGN/PCGN romanizer. It does not restore omitted diacritics, establish series/shortening/coda resolution, or upgrade romanization conformance. KHM-ROM-ENGINE-001 and KHM-ROM-TEST-001 remain PARTIAL.
 - No local checkout/test execution is claimed. Repository remains a partial research prototype; IPA gold, language validation, legal and manual accessibility gates remain open.
 
@@ -2352,8 +2352,8 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 ## Final mainline checkpoint after romanizer guard — 2026-11-15
 
 - PR #201 implementation merged as `37a536592a8e462f00997890af63ad232d41a0ae`; PR #202 documentation closeout merged as `1cc833ad1097f6b1ee7c28eb3e7aefb99ad480fb`.
-- Verified current `main` at `1cc833ad1097f6b1ee7c28eb3e7aefb99ad480fb`. Post-merge workflows on this exact SHA all SUCCESS: Quality [43720449189](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720449189), Chromium [43720449188](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720449188), Pages build/deploy [43720449180](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720449180). Pages deploy smoke-tested the deployed site and runtime assets.
-- PR #202 exact-head Quality [43720352442](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720352442) and Chromium [43720352370](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43720352370) also SUCCESS. PR #201 exact-head Quality [43720084983] and Chromium [43720085021] passed; see preceding section.
+- Verified current `main` at `1cc833ad1097f6b1ee7c28eb3e7aefb99ad480fb`. Post-merge workflows on this exact SHA all SUCCESS: Quality [43720449189](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43720449189), Chromium [43720449188](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43720449188), Pages build/deploy [43720449180](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43720449180). Pages deploy smoke-tested the deployed site and runtime assets.
+- PR #202 exact-head Quality [43720352442](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43720352442) and Chromium [43720352370](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43720352370) also SUCCESS. PR #201 exact-head Quality [43720084983] and Chromium [43720085021] passed; see preceding section.
 - PR #201 closes only the residual-script output-integrity hole. Khmer-script → BGN/PCGN remains ASCII-derived and loses diacritics; contextual series/shortening/coda logic, matrix mark semantics and broad romanizer parity remain PARTIAL. Ukrainian targets remain project proposals.
 - Open PRs: none at the start of this final documentation checkpoint. Open issue #104 remains the external human acquisition blocker; no one was contacted or recruited and no gold IPA data was fabricated.
 - Root `LICENSE` remains absent while `pyproject.toml` declares MIT (owner decision). Main remains unprotected; no governance setting was changed.
@@ -2364,7 +2364,7 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 
 - PR #204 adds U+17D0 SAMYOK SANNYA (◌័) to PCGN diacritical-mark row 3 alongside U+17CB BANTOC (◌់). Official PCGN note 5 distinguishes both marks and describes both within shortened-vowel patterns.
 - The six PCGN rule categories remain six; the machine-readable inventory now explicitly covers seven Khmer source marks across those categories. No romanization or Ukrainian target was guessed or added.
-- Regression coverage was updated in both Python and Node test suites. An intermediate data-only commit correctly triggered a red Python assertion because the old exact-glyph test expected only ◌់; the assertion is being updated to the source-backed two-mark contract. Exact PR-head verification on code/docs SHA `b27b87081819307da5ffe27d55e3cf4521004730`: Quality [43721677822](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721677822), Chromium [43721677790](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721677790), and push Quality [43721673728](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721673728) all SUCCESS. Quality completed corpus validation, Python tests, web checks and production build; Chromium visible-results smoke passed.
+- Regression coverage was updated in both Python and Node test suites. An intermediate data-only commit correctly triggered a red Python assertion because the old exact-glyph test expected only ◌់; the assertion is being updated to the source-backed two-mark contract. Exact PR-head verification on code/docs SHA `b27b87081819307da5ffe27d55e3cf4521004730`: Quality [43721677822](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43721677822), Chromium [43721677790](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43721677790), and push Quality [43721673728](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43721673728) all SUCCESS. Quality completed corpus validation, Python tests, web checks and production build; Chromium visible-results smoke passed.
 - Scope remains inventory-only. Khmer-script → BGN/PCGN contextual generation, series/shortening/coda resolution and Ukrainian target review remain PARTIAL.
 
 
@@ -2373,9 +2373,9 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 - Starting main SHA for this batch: `4c6738940e58e152b9ab3f6d95f6c00006243ebc`.
 - PR #204, `fix: inventory both PCGN shortened-vowel marks`, merged by squash as `58735a94a8a8f76635f948c2d003d590f26fb0b2`. It adds U+17D0 SAMYOK SANNYA alongside U+17CB BANTOC in PCGN note 5 row 3; Python and Node regressions now assert both source marks. No romanization or Ukrainian target was guessed.
 - Final `main`: `58735a94a8a8f76635f948c2d003d590f26fb0b2`.
-- Exact-main Quality [43721873111](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721873111) SUCCESS: corpus structure validation; 224 Python tests + 70 subtests; web checks; production build.
-- Exact-main Chromium [43721873141](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721873141) SUCCESS: 11 browser tests.
-- Exact-main Pages [43721873125](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43721873125) SUCCESS: build, browser exercise, deploy and deployed-site/runtime smoke test.
+- Exact-main Quality [43721873111](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43721873111) SUCCESS: corpus structure validation; 224 Python tests + 70 subtests; web checks; production build.
+- Exact-main Chromium [43721873141](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43721873141) SUCCESS: 11 browser tests.
+- Exact-main Pages [43721873125](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43721873125) SUCCESS: build, browser exercise, deploy and deployed-site/runtime smoke test.
 - `KHM-ROM-MARKS-NUMERALS-001` is `DONE_VERIFIED` for bounded inventory only. `KHM-ROM-ENGINE-001` and `KHM-ROM-TEST-001` remain `PARTIAL`; upstream Khmer-script romanization is still ASCII-derived and lossy.
 - Open PRs: none. Issue #104 remains open and blocks independent adjudicated IPA gold (0 rows; accuracy null). Root `LICENSE` is still absent while `pyproject.toml` declares MIT (owner decision). Manual accessibility review remains PARTIAL; main protection is not changed.
 - No local checkout/tests were run. Repository remains a partial research prototype, not a linguistically validated production release.
@@ -2384,7 +2384,7 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 ## Current mainline reconciliation — 2026-11-15 (post-PR #204)
 
 - Current default branch verified at `6058768ca745fddf9306f66d2e325fbed512b6ec`; this is a documentation-only follow-up to PR #204's merge `58735a94a8a8f76635f948c2d003d590f26fb0b2`. No open PRs were returned; issue #104 remains the open human IPA-pilot blocker.
-- Exact-current-SHA hosted workflows all SUCCESS: Quality [43722162644](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43722162644), Chromium [43722162599](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43722162599), Pages [43722162627](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43722162627). These are hosted GitHub Actions results; no local checkout or local tests are claimed.
+- Exact-current-SHA hosted workflows all SUCCESS: Quality [43722162644](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43722162644), Chromium [43722162599](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43722162599), Pages [43722162627](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43722162627). These are hosted GitHub Actions results; no local checkout or local tests are claimed.
 - README now states the machine-readable inventory correctly: six PCGN diacritic-rule rows cover seven Khmer source marks; note 5 includes both U+17CB BANTOC and U+17D0 SAMYOK SANNYA; ten numeral rows are separate. This is an inventory clarification, not a new runtime rule.
 - PR #204 implementation and its Python/Node regressions remain merged and verified. Contextual Khmer-script → BGN/PCGN generation, diacritic recovery, expert review of Ukrainian target proposals, independent IPA gold (0 adjudicated rows; accuracy null), rights review, manual accessibility, and owner decision on absent root LICENSE vs MIT metadata remain unresolved.
 - Main remains unprotected. No repository settings, licensing, or release state changed. Readiness remains partial research prototype, not linguistically validated production.
@@ -2392,9 +2392,9 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 
 ## Exact mainline closeout — PR #206 — 2026-11-15
 
-- PR [#206](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/206) merged by squash as `ab5ade5f0984b32884df9fa5dac5607f927a2ea4`; current `main` verified at that exact SHA. No open PRs at this checkpoint.
-- PR-head checks on `58f2d5e4e3e4d2d6a87d03bc331675292636e373`: Quality [43723307784](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43723307784) and Chromium [43723307771](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43723307771) SUCCESS.
-- Exact post-merge main checks on `ab5ade5f0984b32884df9fa5dac5607f927a2ea4`: Quality [43728032467](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43728032467), Chromium [43728032424](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43728032424), Pages build/deploy [43728032407](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43728032407) all SUCCESS. Quality includes corpus-structure validation, Python tests, Node web checks and production build; Chromium visible-results smoke and Pages deployed-site build/deploy completed. No local checkout or local test execution is claimed.
+- PR [#206](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/206) merged by squash as `ab5ade5f0984b32884df9fa5dac5607f927a2ea4`; current `main` verified at that exact SHA. No open PRs at this checkpoint.
+- PR-head checks on `58f2d5e4e3e4d2d6a87d03bc331675292636e373`: Quality [43723307784](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43723307784) and Chromium [43723307771](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43723307771) SUCCESS.
+- Exact post-merge main checks on `ab5ade5f0984b32884df9fa5dac5607f927a2ea4`: Quality [43728032467](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43728032467), Chromium [43728032424](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43728032424), Pages build/deploy [43728032407](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43728032407) all SUCCESS. Quality includes corpus-structure validation, Python tests, Node web checks and production build; Chromium visible-results smoke and Pages deployed-site build/deploy completed. No local checkout or local test execution is claimed.
 - PR #206 corrects only README inventory wording: six PCGN diacritic-rule rows cover seven Khmer source marks (including U+17CB BANTOC and U+17D0 SAMYOK SANNYA under note 5), plus ten numeral rows. It adds no runtime rule, Ukrainian mapping, IPA label or pronunciation claim.
 - Preserved boundaries: `KHM-ROM-MARKS-NUMERALS-001` is DONE_VERIFIED for bounded inventory only; `KHM-ROM-ENGINE-001`, `KHM-ROM-UA-001` and `KHM-ROM-TEST-001` remain PARTIAL. The upstream Khmer-script romanizer remains ASCII-derived/lossy; contextual series/shortening/coda resolution and Ukrainian target expert review are not complete.
 - Issue #104 remains open: independent adjudicated IPA gold=0 and empirical accuracy=null. Its human gates (approved IPA convention, two qualified annotators, independent adjudicator, curator, blind intake, rights-cleared 30-lexeme pilot) cannot be completed by repository automation. External source rights, root LICENSE vs MIT metadata owner decision, manual accessibility review and unprotected main remain unresolved.
@@ -2421,9 +2421,9 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 
 ## Exact-main verification after BGN/PCGN ↔ UNGEGN rule diff — 2026-11-15
 
-- PR [#209](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/209) merged by squash as `266297fcc296388220ea48c975344f5aa14f097d`; exact `main` head verified at this SHA. No open PRs at this checkpoint.
-- PR-head checks on `4f53e5c2f6759d1b188ace3d4fd0d9a4c08e6c42`: Quality [43730475810](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43730475810) SUCCESS and Chromium [43730475809](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43730475809) SUCCESS. Push Quality [43730456889](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43730456889) SUCCESS.
-- Exact post-merge main checks on `266297fcc296388220ea48c975344f5aa14f097d`: Quality [43730567132](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43730567132), Chromium [43730567159](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43730567159), Pages build/deploy [43730567118](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43730567118) all SUCCESS. Hosted Quality completed corpus validation, Python tests, Node web checks and production build; browser smoke passed; Pages build, production-site Chromium exercise, deploy and deployed-site smoke passed.
+- PR [#209](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/209) merged by squash as `266297fcc296388220ea48c975344f5aa14f097d`; exact `main` head verified at this SHA. No open PRs at this checkpoint.
+- PR-head checks on `4f53e5c2f6759d1b188ace3d4fd0d9a4c08e6c42`: Quality [43730475810](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43730475810) SUCCESS and Chromium [43730475809](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43730475809) SUCCESS. Push Quality [43730456889](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43730456889) SUCCESS.
+- Exact post-merge main checks on `266297fcc296388220ea48c975344f5aa14f097d`: Quality [43730567132](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43730567132), Chromium [43730567159](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43730567159), Pages build/deploy [43730567118](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43730567118) all SUCCESS. Hosted Quality completed corpus validation, Python tests, Node web checks and production build; browser smoke passed; Pages build, production-site Chromium exercise, deploy and deployed-site smoke passed.
 - No local checkout or local test execution is claimed. No runtime code, dependency, corpus, IPA, Ukrainian target or generated artifact changed in PR #209.
 - The bounded profile diff is recorded in `docs/audits/current/BGN-PCGN-UNGEGN-RULE-DIFF-2026-11-15.md`. `KHM-ROM-PROFILE-DIFF-001` is DONE_VERIFIED only for textual comparison; `KHM-ROM-ENGINE-001` and `KHM-ROM-UA-001` remain PARTIAL. Issue #104 remains open; adjudicated IPA gold=0 and empirical accuracy=null.
 - Readiness remains partial research prototype, not linguistically validated or production-ready.
@@ -2441,9 +2441,9 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 
 ## Exact-main verification — PCGN note registry / PR #211 — 2026-11-15
 
-- PR [#211](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/211) merged by squash as `9383385fc3244ff600d0fab254c6488a83d92d7b`; exact current `main` verified at that SHA. No open PRs.
-- PR-head `1724dbcff908c34d1854079c9df9e5fe3117db61`: push Quality [43732930991](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43732930991), PR Quality [43732940452](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43732940452), and PR Chromium [43732940449](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43732940449) all SUCCESS.
-- Exact post-merge main `9383385fc3244ff600d0fab254c6488a83d92d7b`: Quality [43733051013](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43733051013), Chromium [43733051164](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43733051164), Pages build/deploy [43733051031](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43733051031) all SUCCESS. Quality ran IPA-corpus structure validation, Python tests, Node web checks and production build; Chromium visible-results smoke passed; Pages exercised the production site, configured/deployed Pages and completed its workflow.
+- PR [#211](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/211) merged by squash as `9383385fc3244ff600d0fab254c6488a83d92d7b`; exact current `main` verified at that SHA. No open PRs.
+- PR-head `1724dbcff908c34d1854079c9df9e5fe3117db61`: push Quality [43732930991](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43732930991), PR Quality [43732940452](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43732940452), and PR Chromium [43732940449](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43732940449) all SUCCESS.
+- Exact post-merge main `9383385fc3244ff600d0fab254c6488a83d92d7b`: Quality [43733051013](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43733051013), Chromium [43733051164](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43733051164), Pages build/deploy [43733051031](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43733051031) all SUCCESS. Quality ran IPA-corpus structure validation, Python tests, Node web checks and production build; Chromium visible-results smoke passed; Pages exercised the production site, configured/deployed Pages and completed its workflow.
 - No local checkout or local test execution is claimed. The change adds a source-located documentation registry and Python regression tests only; no runtime, dependency, IPA, Ukrainian target, gold row or generated pronunciation changed.
 - `KHM-ROM-PCGN-NOTES-001` is DONE_VERIFIED only for Notes 1–11 documentation and guardrail tests. `KHM-ROM-ENGINE-001` and `KHM-ROM-TEST-001` remain PARTIAL. Issue #104 remains open; adjudicated IPA gold=0 and accuracy=null. Root LICENSE/MIT metadata, source rights, manual accessibility and main protection remain unresolved.
 - Readiness remains a partial research prototype, not a linguistically validated production release.
@@ -2462,9 +2462,9 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 
 ## Exact-main verification — typed PCGN orthographic analysis / PR #213 — 2026-11-15
 
-- PR [#213](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/213) merged by squash as `18134929554420875b447b1c5128b3b879e3f608`; exact current `main` verified at this SHA. No open PRs.
-- PR-head `065e5368cd07f1ecb78f330aefd98d7ea75467cc`: push Quality [43734102361](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734102361), PR Quality [43734106341](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734106341), PR Chromium [43734106320](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734106320) all SUCCESS.
-- Exact post-merge main `18134929554420875b447b1c5128b3b879e3f608`: Quality [43734192447](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734192447), Chromium [43734192457](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734192457), Pages build/deploy [43734192455](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734192455) all SUCCESS. Quality ran independent IPA corpus structure validation, Python tests, Node web checks and production build; browser smoke verified visible results; Pages built and exercised the production site and uploaded/deployed the artifact.
+- PR [#213](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/213) merged by squash as `18134929554420875b447b1c5128b3b879e3f608`; exact current `main` verified at this SHA. No open PRs.
+- PR-head `065e5368cd07f1ecb78f330aefd98d7ea75467cc`: push Quality [43734102361](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43734102361), PR Quality [43734106341](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43734106341), PR Chromium [43734106320](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43734106320) all SUCCESS.
+- Exact post-merge main `18134929554420875b447b1c5128b3b879e3f608`: Quality [43734192447](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43734192447), Chromium [43734192457](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43734192457), Pages build/deploy [43734192455](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43734192455) all SUCCESS. Quality ran independent IPA corpus structure validation, Python tests, Node web checks and production build; browser smoke verified visible results; Pages built and exercised the production site and uploaded/deployed the artifact.
 - The Python test step passed on the final PR head after the final fail-closed correction for unmodelled Khmer letters. The schema JSON was parsed in the review session; the focused Python tests assert the contract's required fields and abstention constants. No local checkout or local test execution is claimed.
 - New runtime scope is strictly structural: raw/NFC text, code-point-preserving tokens, base/foot identity, orthographic register labels, shifter/vowel/shortening/ROBAT/AHSDA/TOANDAKHIAT marks, unresolved source material and provenance. The schema requires `NOT_PERFORMED` syllable segmentation, `UNRESOLVED` series/coda, `NOT_SELECTED` series source, and null romanization/IPA/Ukrainian. It does not feed or alter the IPA-first engine.
 - `KHM-ROM-PCGN-STRUCTURE-001` is DONE_VERIFIED for this bounded typed structure/abstention contract. `KHM-ROM-ENGINE-001`, `KHM-ROM-TEST-001` and `KHM-ROM-UA-001` remain PARTIAL: no contextual PCGN series/shortening/coda resolver, no independently reviewed expected-output fixtures, and no expert-adjudicated Ukrainian target set.
@@ -2483,9 +2483,9 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 
 ## Exact-main verification — PCGN Note 3 series resolver / PR #215 — 2026-11-15
 
-- PR [#215](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/215) merged by squash as `357ce7f2a5400ff1643e4f64337009dd18c4113d`; exact current `main` verified at this SHA. No open PRs.
-- PR-head `321a7d9ea03b47dae95bc2d7fd95f0c5a2745346`: push Quality [43734733096](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734733096), PR Quality [43734746708](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734746708), PR Chromium [43734746686](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734746686) all SUCCESS.
-- Exact post-merge main `357ce7f2a5400ff1643e4f64337009dd18c4113d`: Quality [43734828487](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734828487), Chromium [43734828491](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734828491), Pages build/deploy [43734828557](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43734828557) all SUCCESS. Pages includes a separate deploy job and deployed-site/runtime-asset smoke test.
+- PR [#215](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/215) merged by squash as `357ce7f2a5400ff1643e4f64337009dd18c4113d`; exact current `main` verified at this SHA. No open PRs.
+- PR-head `321a7d9ea03b47dae95bc2d7fd95f0c5a2745346`: push Quality [43734733096](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43734733096), PR Quality [43734746708](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43734746708), PR Chromium [43734746686](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43734746686) all SUCCESS.
+- Exact post-merge main `357ce7f2a5400ff1643e4f64337009dd18c4113d`: Quality [43734828487](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43734828487), Chromium [43734828491](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43734828491), Pages build/deploy [43734828557](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43734828557) all SUCCESS. Pages includes a separate deploy job and deployed-site/runtime-asset smoke test.
 - Python tests, web checks and production build passed on exact PR head and main. No local checkout or local test execution is claimed.
 - `KHM-ROM-PCGN-SERIES-001` is DONE_VERIFIED only for Note 3 series selection. `KHM-ROM-PCGN-SHIFTERS-001` now records bounded Note 2 support as PARTIAL. `KHM-ROM-ENGINE-001` remains PARTIAL: cluster shifters, complete vowel/rime selection, coda, Note 5 shortening, syllable segmentation and full PCGN output are not implemented.
 - The resolver preserves PCGN's exact weak-foot set (five nasals plus យ/រ/ល/វ, no ស), the ប+foot p-in-â exception, and the no-foot status of ឡ. It abstains on shifters and multiple feet/bases. No IPA or Ukrainian output changed.
@@ -2504,9 +2504,9 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 
 ## Exact-main verification — PCGN Note 2 shifter subset / PR #217 — 2026-11-15
 
-- PR [#217](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/217) merged by squash as `c738075c47c76730aa15e96acea588ad924c829c`; exact current `main` verified at this SHA. No open PRs.
-- PR-head `e1bd39fa43e80ae5cd60dc3af2dc850d7b206076`: push Quality [43735335039](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735335039), PR Quality [43735349944](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735349944), PR Chromium [43735349863](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735349863) all SUCCESS.
-- Exact post-merge main checks: Quality [43735441278](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735441278), Chromium [43735441245](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735441245), Pages build/deploy [43735441621](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735441621) all SUCCESS. Pages includes a separate deploy job and deployed-site/runtime-asset smoke test.
+- PR [#217](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/217) merged by squash as `c738075c47c76730aa15e96acea588ad924c829c`; exact current `main` verified at this SHA. No open PRs.
+- PR-head `e1bd39fa43e80ae5cd60dc3af2dc850d7b206076`: push Quality [43735335039](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43735335039), PR Quality [43735349944](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43735349944), PR Chromium [43735349863](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43735349863) all SUCCESS.
+- Exact post-merge main checks: Quality [43735441278](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43735441278), Chromium [43735441245](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43735441245), Pages build/deploy [43735441621](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43735441621) all SUCCESS. Pages includes a separate deploy job and deployed-site/runtime-asset smoke test.
 - The bounded Note 2 subset preserves shifter source positions, pre-/post-shifter series and typed effect. It supports one correctly placed mark after one base with no foot, plus BA+MUUSIKATOAN p-in-â. It abstains on shifter+foot clusters, multiple/misplaced/wrong-direction marks and BA+TRIISAP.
 - This is not complete Note 2 or full PCGN romanization. Vowel/rime selection, coda and syllable segmentation, Note 5 shortening, and PCGN Latin output remain PARTIAL. No IPA-first or Ukrainian target behavior changed.
 - Issue #104 remains open; adjudicated IPA gold=0 and accuracy=null. Root LICENSE absent vs MIT metadata and unprotected main remain owner/governance blockers. Research prototype only.
@@ -2514,14 +2514,14 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 
 ## Exact-main verification — PR #218 PCGN Note 2 documentation closeout — 2026-11-15
 
-- PR [#218](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/218) merged by squash as `9420326549d8a327774d0587b6fe19c4b17befcd`; exact current `main` verified at this SHA. No open PRs.
+- PR [#218](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/218) merged by squash as `9420326549d8a327774d0587b6fe19c4b17befcd`; exact current `main` verified at this SHA. No open PRs.
 - PR-head `eec944d2393fd78f810fe19c405e0ee5fdeacd99`: push Quality [43735564674], PR Quality [43735576766], PR Chromium [43735576217] all SUCCESS.
-- Exact post-merge main checks: Quality [43735662414](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735662414), Chromium [43735662288](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735662288), Pages build/deploy [43735662264](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43735662264) all SUCCESS, including deployed-site/runtime-asset smoke.
+- Exact post-merge main checks: Quality [43735662414](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43735662414), Chromium [43735662288](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43735662288), Pages build/deploy [43735662264](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43735662264) all SUCCESS, including deployed-site/runtime-asset smoke.
 
 
 ## Exact-main verification — PR #219 documentation closeout — 2026-11-15
 
-- PR [#219](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/219) merged by squash as `690b44174a8831ac9b08b44786d5ffde43f6d5aa`; exact current `main` verified at this SHA. No open PRs.
+- PR [#219](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/219) merged by squash as `690b44174a8831ac9b08b44786d5ffde43f6d5aa`; exact current `main` verified at this SHA. No open PRs.
 - PR-head `d0cf981a7219d0c9ccd615a11b3f62b08dfffe14`: push Quality [43735841295], PR Quality [43735855013], PR Chromium [43735855047] all SUCCESS.
 - Exact post-merge main checks: Quality [43735981736], Chromium [43735981714], Pages build/deploy [43735981744] all SUCCESS, including deployed-site/runtime-asset smoke.
 - This is documentation-only verification. The Note 2 shifter implementation remains PARTIAL; no linguistic status is upgraded by this PR.
@@ -2529,21 +2529,21 @@ The first hosted run for this change failed three tests because IPA tone bars U+
 
 ## Exact-main verification — PR #220 — 2026-11-15
 
-- PR [#220](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/220) merged as `8c4784235742cd83c35ce4a2b0bc7831a2b11bb2`; exact current `main` verified at this SHA. No open PRs.
+- PR [#220](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/220) merged as `8c4784235742cd83c35ce4a2b0bc7831a2b11bb2`; exact current `main` verified at this SHA. No open PRs.
 - PR-head push Quality [43736157032], PR Quality [43736168034], PR Chromium [43736167978] all SUCCESS.
 - Exact post-merge main Quality [43736256876], Chromium [43736256892], Pages [43736257006] all SUCCESS on this SHA, including deployed-site/runtime-asset smoke.
 
 
 ## Exact-main verification — PR #221 — 2026-11-15
 
-- PR [#221](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/221) merged as `0d9bb90b1451ce9a2452121e30c3864d4cd887f5`; exact current `main` verified at this SHA. No open PRs.
+- PR [#221](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/221) merged as `0d9bb90b1451ce9a2452121e30c3864d4cd887f5`; exact current `main` verified at this SHA. No open PRs.
 - PR-head push Quality [43736444673], PR Quality [43736456391], PR Chromium [43736456480] all SUCCESS.
 - Exact post-merge main Quality [43736548569], Chromium [43736548708], Pages [43736548595] all SUCCESS on this SHA, including deployed-site/runtime-asset smoke.
 
 
 ## Exact-main verification — PR #222 — 2026-11-15
 
-- PR [#222](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/222) merged as `95dd256b515c4a15e28cf80f21e3a53b0f0dfa11`; exact current `main` verified at this SHA. No open PRs.
+- PR [#222](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/222) merged as `95dd256b515c4a15e28cf80f21e3a53b0f0dfa11`; exact current `main` verified at this SHA. No open PRs.
 - PR-head push Quality [43736688182], PR Quality [43736708656], PR Chromium [43736708789] all SUCCESS.
 - Exact post-merge main Quality [43736800449], Chromium [43736800513], Pages [43736800469] all SUCCESS on this SHA, including deployed-site/runtime-asset smoke.
 
@@ -2569,7 +2569,7 @@ Status: `KHM-ROM-PCGN-SHIFTERS-001` remains `PARTIAL`; this closes only the boun
 
 ## Exact-main verification — PCGN Note 2 base-plus-foot shifters / PR #224 — 2026-11-15
 
-- PR [#224](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/224) merged by squash as `51a8cbe1bd313e98bd83f28a347c1ddebadf8845`; exact current `main` verified at this SHA. No open PRs.
+- PR [#224](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/224) merged by squash as `51a8cbe1bd313e98bd83f28a347c1ddebadf8845`; exact current `main` verified at this SHA. No open PRs.
 - PR-head `51a164e5092096267b78edbd87686c00017353af`: push Quality [43743592248], PR Quality [43743604940], PR Chromium [43743604985] all SUCCESS. Quality includes IPA-gold structure validation, the full Python suite, Node checks and production build.
 - Exact post-merge main: Quality [43743697905], Chromium [43743697809], Pages build/deploy [43743697813] all SUCCESS. Pages includes production Chromium exercise, deployment and deployed-site/runtime-asset smoke.
 - The resolver now handles one canonical base + one foot cluster: determine the unshifted series by Note 3, then apply Note 2 to the cluster. Canonical Unicode order is base + shifter + COENG + foot. Regression examples cover both series-source paths and both shift directions.
@@ -2600,14 +2600,14 @@ Status: `KHM-ROM-PCGN-VOWELS-001` remains `PARTIAL` (bounded normal dependent-vo
 
 ## Exact-main verification — PR #225 documentation closeout — 2026-11-15
 
-- PR [#225](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/225) merged as `7c8787efa89b7cba1138e808bad5d83ee021e010`; exact post-merge main checks: Quality [43743936544], Chromium [43743936534], Pages build/deploy [43743936575] all SUCCESS, including deployed-site/runtime-asset smoke.
+- PR [#225](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/225) merged as `7c8787efa89b7cba1138e808bad5d83ee021e010`; exact post-merge main checks: Quality [43743936544], Chromium [43743936534], Pages build/deploy [43743936575] all SUCCESS, including deployed-site/runtime-asset smoke.
 - PR-head push Quality [43743840052], PR Quality [43743854774] and PR Chromium [43743854739] all SUCCESS.
 - This was a documentation-only verification of PR #224; no linguistic status changed.
 
 
 ## Exact-main verification — PCGN normal dependent-vowel component / PR #226 — 2026-11-15
 
-- PR [#226](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/226) merged by squash as `8d02c48d7d3249f3b0cdedd87d59cb266ad19080`; exact current `main` verified at this SHA. No open PRs.
+- PR [#226](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/226) merged by squash as `8d02c48d7d3249f3b0cdedd87d59cb266ad19080`; exact current `main` verified at this SHA. No open PRs.
 - Final PR-head `9860e7be7536ec1d9f05211dd583b6c75deb4d68`: push Quality [43744359146], PR Quality [43744364426] and PR Chromium [43744364535] all SUCCESS. Python tests: 262 passed, 70 subtests passed. An earlier push run [43744245961] failed only because a schema assertion omitted the permitted `null` enum member; the assertion was corrected and the final exact-head runs passed.
 - Exact post-merge main: Quality [43744506093], Chromium [43744506092], Pages build/deploy [43744506121] all SUCCESS, including production Chromium exercise and deployed-site/runtime-asset smoke.
 - The new resolver maps only normal dependent-vowel table rows 2–9 and 13–15, conditioned on the resolved Note 2/3 series. It returns the vowel component only. Compound rows 10–12/16–17, independent vowels, shortening/Note 5, coda, special marks and unsupported structures abstain.
@@ -2638,7 +2638,7 @@ Status remains `KHM-ROM-PCGN-VOWELS-001 = PARTIAL`: independent vowels, inherent
 
 ## Exact-main verification — PCGN compound dependent-vowel patterns / PR #228 — 2026-11-15
 
-- PR [#228](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/228) merged as `025432dd61f39ec07e48b6ab86f07e5a9805eb0b`; exact current `main` verified at this SHA. No open PRs.
+- PR [#228](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/228) merged as `025432dd61f39ec07e48b6ab86f07e5a9805eb0b`; exact current `main` verified at this SHA. No open PRs.
 - PR-head `afe37e0c1394d8d4d16671308860af721963ab5e`: push Quality [43745154699], PR Quality [43745173699] and PR Chromium [43745173686] all SUCCESS; Python tests 262 passed, 70 subtests passed.
 - Exact post-merge main: Quality [43745317983], Chromium [43745317953], Pages build/deploy [43745317999] all SUCCESS, including production Chromium exercise and deployed-site/runtime-asset smoke.
 - The resolver now covers normal dependent-vowel rows 2–17, using source-ordered one- or two-sign patterns and the resolved Note 2/3 series. It returns only the vowel component; Note 5 shortening, coda, independent vowels and full syllable assembly remain unsupported.
@@ -2670,7 +2670,7 @@ Status: `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` remains `PARTIAL` (listed independ
 
 ## Exact-main verification — PCGN independent-vowel component / PR #230 — 2026-11-15
 
-- PR [#230](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/230) merged as `49c6b828e187600792df952202699bc1656eb98f`; exact current `main` verified at this SHA. No open PRs.
+- PR [#230](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/230) merged as `49c6b828e187600792df952202699bc1656eb98f`; exact current `main` verified at this SHA. No open PRs.
 - PR-head `e16054765dce8d9d9f73d8a02b9a2c07aab4b209`: push Quality [43745799434], PR Quality [43745819194] and PR Chromium [43745819155] all SUCCESS; Python tests 266 passed, 70 subtests passed.
 - Exact post-merge main: Quality [43745949050], Chromium [43745949072], Pages build/deploy [43745949013] all SUCCESS, including deployed-site/runtime-asset smoke.
 - Listed PCGN independent-vowel rows 3, 4 and 14–22 are mapped as orthographic components. Row 7 ឧ remains unresolved under Note 9 (`ŏ` / `ŭ`) until a lexical reference selects an alternative; unlisted/rare variants abstain.
@@ -2707,7 +2707,7 @@ Status: `KHM-ROM-PCGN-SHORTENING-001 = PARTIAL`. This is a shortened-vowel compo
 
 ## Exact-main verification — PCGN Note 5 shortened-vowel component / PR #233 — 2026-11-15
 
-- PR [#233](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/233) merged by squash as `cf57045bf6ddf0537e2a5c33a8b2468e8f3f6f2c`; exact `main` verified at this SHA. No open PRs.
+- PR [#233](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/233) merged by squash as `cf57045bf6ddf0537e2a5c33a8b2468e8f3f6f2c`; exact `main` verified at this SHA. No open PRs.
 - Final PR-head `9bcf7391ce08557ce2fa56e4cbb764568949f952`: push Quality [43751102348], PR Quality [43751107119], PR Chromium [43751107131] all SUCCESS. Quality reports 272 Python tests passed and 70 subtests passed; web checks and production build passed; Chromium visible-results smoke passed.
 - An earlier head `754f04d92009f342fb81f97ef9255c9ee7fb5fc1` failed two registry tests because they still required all PCGN notes to remain DOCUMENTED_ONLY. The tests were reconciled to permit Note 5's PARTIAL_COMPONENT_RESOLVER status while retaining the no-IPA/no-gold assertion; final exact-head checks passed.
 - Exact post-merge main: Quality [43751266786], Chromium [43751266785], Pages build/deploy [43751266784] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
@@ -2729,7 +2729,7 @@ Status: `KHM-ROM-PCGN-ROBAT-001 = PARTIAL`. The consonant romanization is caller
 
 ## Exact-main verification — PCGN Note 6 ROBAT component / PR #235 — 2026-11-15
 
-- PR [#235](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/235) merged by squash as `34ab63ff37023bddcaeaebb0a6ccd838f662c045`; exact `main` verified at this SHA. No open PRs.
+- PR [#235](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/235) merged by squash as `34ab63ff37023bddcaeaebb0a6ccd838f662c045`; exact `main` verified at this SHA. No open PRs.
 - Final PR-head `0d6f1a2b11ab1de94ad9be391c2dd4932142ff77`: push Quality [43751844908], PR Quality [43751851657], PR Chromium [43751851706] all SUCCESS. Quality reports 278 Python tests passed and 70 subtests passed; web checks and production build passed; Chromium visible-results smoke passed.
 - An earlier test run failed one registry assertion because the test searched for the exact phrase `not inferred` while the source text said `is inferred`; the registry wording was clarified to `caller-supplied, not inferred`, and final exact-head checks passed.
 - Exact post-merge main: Quality [43751965081], Chromium [43751965119], Pages build/deploy [43751965128] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
@@ -2755,7 +2755,7 @@ Status: `KHM-ROM-PCGN-AHSDA-001 = PARTIAL`. Syllable position and series are cal
 
 ## Exact-main verification — PCGN Note 7 AHSDA component / PR #237 — 2026-11-15
 
-- PR [#237](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/237) merged by squash as `890791a1d8236180c82a39b81bd28b7f772d614c`; exact `main` verified at this SHA. No open PRs.
+- PR [#237](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/237) merged by squash as `890791a1d8236180c82a39b81bd28b7f772d614c`; exact `main` verified at this SHA. No open PRs.
 - Final PR-head `2e3ee353124b1a9cacac64997ceb06720a78370c`: push Quality [43752539333], PR Quality [43752551657], PR Chromium [43752551605] all SUCCESS. Quality reports 284 Python tests passed and 70 subtests passed; web checks and production build passed; Chromium visible-results smoke passed.
 - Exact post-merge main: Quality [43752661403], Chromium [43752661392], Pages build/deploy [43752661369] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - `KHM-ROM-PCGN-AHSDA-001` remains PARTIAL: syllable position is caller-supplied; FINAL additionally requires explicit series. The resolver returns only the mark effect/vowel component, not a full syllable, IPA or Ukrainian output.
@@ -2778,7 +2778,7 @@ Status: `KHM-ROM-PCGN-TOANDAKHIAT-001 = PARTIAL`. Only consonant tokens with exp
 
 ## Exact-main verification — PCGN Note 8 TOANDAKHIAT component / PR #239 — 2026-11-15
 
-- PR [#239](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/239) merged by squash as `9c615293e3037cb0ccbd9db0820698741bbcd5cf`; exact `main` verified at this SHA. No open PRs.
+- PR [#239](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/239) merged by squash as `9c615293e3037cb0ccbd9db0820698741bbcd5cf`; exact `main` verified at this SHA. No open PRs.
 - Final PR-head `e52b2d5be98a521dfa3c6dc5af846c6c79d42dce`: push Quality [43753171641], PR Quality [43753185515], PR Chromium [43753185496] all SUCCESS. Quality reports 290 Python tests passed and 70 subtests passed; web checks and production build passed; Chromium visible-results smoke passed.
 - Exact post-merge main: Quality [43753327251], Chromium [43753327183], Pages build/deploy [43753327232] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - `KHM-ROM-PCGN-TOANDAKHIAT-001` remains PARTIAL: the caller must identify the exact silent consonant grapheme; the resolver returns omission only. No complete word romanization, IPA or Ukrainian output.
@@ -2799,7 +2799,7 @@ Status: `KHM-ROM-PCGN-GLOTTAL-001 = PARTIAL`. Word position and following-vowel 
 
 ## Exact-main verification — PR #241 / PCGN Note 4 — 2026-11-15
 
-- PR [#241](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/241) merged by squash as `c1eae2e79feb1e79bfddbe42338c73db73d657ff`; exact current `main` verified at this SHA. No open PRs.
+- PR [#241](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/241) merged by squash as `c1eae2e79feb1e79bfddbe42338c73db73d657ff`; exact current `main` verified at this SHA. No open PRs.
 - Final PR-head `710de884976269237975f4d642d5d83f5b1d9ef5`: push Quality [43755446552], PR Quality [43755529961], PR Chromium [43755530039] all SUCCESS. Python 296 passed, 70 subtests passed; web checks and production build passed; Chromium visible-results smoke passed.
 - Exact post-merge main: Quality [43755629744], Chromium [43755629808], Pages build/deploy [43755629885] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - Note 4 maps only standalone `អ` to the apostrophe component; word-initial and following-vowel-letter context are caller-supplied, and omission is offered only when both are true. `KHM-ROM-PCGN-GLOTTAL-001` remains PARTIAL. No complete syllable, IPA, Ukrainian output, gold record or accuracy claim was added.
@@ -2816,7 +2816,7 @@ Status: `KHM-ROM-PCGN-GLOTTAL-001 = PARTIAL`. Word position and following-vowel 
 
 ## Exact-main verification — PR #243 / PCGN BA+TRIISAP exception — 2026-11-15
 
-- PR [#243](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/243) merged by squash as `f03c214a262c9665bf154fbbf9196c26d945627b`; exact current `main` verified at this SHA. No open PRs.
+- PR [#243](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/243) merged by squash as `f03c214a262c9665bf154fbbf9196c26d945627b`; exact current `main` verified at this SHA. No open PRs.
 - Final PR-head `f2436ec9fadc007e077ac375a7dfdcc269411fae`: push Quality [43756120696], PR Quality [43756201009], PR Chromium [43756200975] all SUCCESS. Python 299 passed, 70 subtests passed; web checks and production build passed; Chromium visible-results smoke passed.
 - Exact post-merge main: Quality [43756294903], Chromium [43756294932], Pages build/deploy [43756295043] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - The Note 3 `ប`+TRIISAP exception now records ô as the pre-shifter base series and â as the selected series with the p-in-â exception. Notes 2 and 3 are correctly classified as partial component resolvers. `KHM-ROM-PCGN-SHIFTERS-001` remains PARTIAL; no vowel, complete romanization, IPA, Ukrainian output, gold record or accuracy claim was added.
@@ -2824,7 +2824,7 @@ Status: `KHM-ROM-PCGN-GLOTTAL-001 = PARTIAL`. Word position and following-vowel 
 
 ## Exact-main verification — PR #244 documentation checkpoint — 2026-11-15
 
-- PR [#244](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/244) merged as `7dac519ce6a25aa4ccb36c9feb9a588ca3e5f3fa`; exact-main Quality [43756575098], Chromium [43756575123] and Pages build/deploy [43756575113] all SUCCESS, including deployed-site/runtime-asset smoke.
+- PR [#244](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/244) merged as `7dac519ce6a25aa4ccb36c9feb9a588ca3e5f3fa`; exact-main Quality [43756575098], Chromium [43756575123] and Pages build/deploy [43756575113] all SUCCESS, including deployed-site/runtime-asset smoke.
 - PR-head Quality [43756457792], PR Chromium [43756457772] and push Quality [43756446431] all SUCCESS.
 - This closes the exact-main documentation checkpoint for PR #243; no linguistic status changed.
 
@@ -2844,7 +2844,7 @@ Status: `KHM-ROM-PCGN-UNICODE-001 = PARTIAL`. This is an inventory validator onl
 
 ## Exact-main verification — PR #245 / PCGN Note 10 character inventory — 2026-11-15
 
-- PR [#245](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/245) merged by squash as `f7c038dc479fa7a52c6ec3267e8e1e60313f6343`; exact current `main` verified at this SHA. No open PRs.
+- PR [#245](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/245) merged by squash as `f7c038dc479fa7a52c6ec3267e8e1e60313f6343`; exact current `main` verified at this SHA. No open PRs.
 - Final PR-head `107a0c250be3f7ca1868e27f165f876667a4cd9d`: push Quality [43757052464], PR Quality [43757137146], PR Chromium [43757137145] all SUCCESS. Python 306 passed, 70 subtests passed; web checks and production build passed; Chromium visible-results smoke passed.
 - Exact post-merge main: Quality [43757257747], Chromium [43757257757], Pages build/deploy [43757257745] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - `KHM-ROM-PCGN-UNICODE-001` remains PARTIAL: Note 10 letter-inventory validation only. No PCGN word/syllable romanization, IPA, Ukrainian output, gold record or accuracy claim was added.
@@ -2863,7 +2863,7 @@ Status: `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` remains PARTIAL. No lexical choice
 
 ## Exact-main verification — PR #247 / PCGN Note 9 alternatives — 2026-11-15
 
-- PR [#247](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/247) merged by squash as `1b6d6a04921915c4e62387daae70e57c19819cb6`; exact current `main` verified at this SHA. No open PRs.
+- PR [#247](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/247) merged by squash as `1b6d6a04921915c4e62387daae70e57c19819cb6`; exact current `main` verified at this SHA. No open PRs.
 - Final PR-head `20cb0f2704bef9eb6319fb0c3a38c74740d6fded`: push Quality [43757811370], PR Quality [43757897285], PR Chromium [43757897258] all SUCCESS. Python 308 passed, 70 subtests passed; web checks and production build passed; Chromium visible-results smoke passed.
 - Exact post-merge main: Quality [43758011762], Chromium [43758011768], Pages build/deploy [43758011784] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - Note 9 now exposes `("ŏ", "ŭ")` as options for `ឧ` while retaining UNRESOLVED status and no selected romanization. `KHM-ROM-PCGN-INDEPENDENT-VOWELS-001` remains PARTIAL; no lexical selection, IPA, Ukrainian output, gold record or accuracy claim was added.
@@ -2887,7 +2887,7 @@ Status: `KHM-ROM-PCGN-ANUSVARA-VISARGA-001 = PARTIAL`; `KHM-ROM-PCGN-VOWELS-001`
 
 ## Exact-main verification — PR #249 / PCGN anusvara-visarga table — 2026-11-15
 
-- PR [#249](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/249) merged by squash as `a50f815f993f8fa9b4ae59c5f0f89b8c7717ea6f`; exact current `main` verified at this SHA. No open PRs.
+- PR [#249](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/249) merged by squash as `a50f815f993f8fa9b4ae59c5f0f89b8c7717ea6f`; exact current `main` verified at this SHA. No open PRs.
 - PR-head push Quality [43760107833], PR Quality [43760141233] and PR Chromium [43760141132] all SUCCESS.
 - Exact post-merge main Quality [43760241393], Chromium [43760241451] and Pages build/deploy [43760241464] all SUCCESS, including deployed-site/runtime-asset smoke.
 - The implementation covers only PCGN table rows 1–8 for vowels with anusvara/visarga. Row 8 requires caller-identified final NGA; no IPA, Ukrainian output or accuracy claim.
@@ -2908,7 +2908,7 @@ Status: `KHM-ROM-PCGN-INHERENT-VOWEL-001 = PARTIAL`. This is an onset vowel comp
 
 ## Exact-main verification — PR #250 / PCGN inherent vowel row 1 — 2026-11-15
 
-- PR [#250](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/250) merged by squash as `62ce69bd17dc64fecfb73e81e22ca10bf97a25ff`; exact current `main` verified at this SHA. No open PRs.
+- PR [#250](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/250) merged by squash as `62ce69bd17dc64fecfb73e81e22ca10bf97a25ff`; exact current `main` verified at this SHA. No open PRs.
 - PR-head push Quality [43760551262], PR Quality [43760562169] and PR Chromium [43760562155] all SUCCESS.
 - Exact post-merge main Quality [43760662544], Chromium [43760662582] and Pages build/deploy [43760662587] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - The inherent-vowel resolver covers only PCGN table row 1 for an explicitly caller-identified NON_FINAL onset. FINAL consonant contexts abstain. No full syllable, IPA or Ukrainian output is generated.
@@ -2932,7 +2932,7 @@ Status: `KHM-ROM-PCGN-CONSONANTS-001 = PARTIAL`. This is an onset-cluster compon
 
 ## Exact-main verification — PR #251 documentation closeout — 2026-11-15
 
-- PR [#251](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/251) merged as `aab014705bdf90825b922ff69f1c2e7758e56246`; exact `main` verified at this SHA. No open PRs.
+- PR [#251](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/251) merged as `aab014705bdf90825b922ff69f1c2e7758e56246`; exact `main` verified at this SHA. No open PRs.
 - PR-head push Quality [43760857888], PR Quality [43760868532] and PR Chromium [43760868545] all SUCCESS.
 - Exact post-merge main Quality [43760984773], Chromium [43760984785] and Pages build/deploy [43760984838] all SUCCESS, including deployed-site/runtime-asset smoke.
 - PR #251 was documentation-only and did not promote any linguistic status.
@@ -2940,7 +2940,7 @@ Status: `KHM-ROM-PCGN-CONSONANTS-001 = PARTIAL`. This is an onset-cluster compon
 
 ## Exact-main verification — PR #252 / PCGN consonant table rows 1–21 — 2026-11-15
 
-- PR [#252](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/252) merged by squash as `16fbbde6238e03290507056388b539f54622d236`; exact current `main` verified at this SHA. No open PRs.
+- PR [#252](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/252) merged by squash as `16fbbde6238e03290507056388b539f54622d236`; exact current `main` verified at this SHA. No open PRs.
 - Final PR-head push Quality [43761467383], PR Quality [43761473221] and PR Chromium [43761473212] all SUCCESS.
 - Exact post-merge main Quality [43761598283], Chromium [43761598359] and Pages build/deploy [43761598332] all SUCCESS, including production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - An earlier pre-fix push Quality run [43761223088] failed because the new consonant-decision JSON schema contained malformed JSON. The schema was corrected, parsed successfully, and the final exact PR-head and main checks passed. The CSV row-12 default was also corrected to keep `b` separate from its Note 3 `p` exception.
@@ -2949,7 +2949,7 @@ Status: `KHM-ROM-PCGN-CONSONANTS-001 = PARTIAL`. This is an onset-cluster compon
 
 ## Exact-main verification — PR #253 / consonant-table verification record — 2026-11-15
 
-- PR [#253](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/253) merged as `df63d6bb94f19d0772c4051d8d27f117a2d6eaf2`; exact mainline CI passed.
+- PR [#253](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/253) merged as `df63d6bb94f19d0772c4051d8d27f117a2d6eaf2`; exact mainline CI passed.
 - PR-head push Quality [43761762695], PR Quality [43761775856] and PR Chromium [43761775796] all SUCCESS.
 - Exact post-merge main Quality [43761865853], Chromium [43761865900] and Pages build/deploy [43761865852] all SUCCESS, including deployed-site/runtime-asset smoke.
 - Documentation-only closeout; no linguistic status promotion.
@@ -2972,7 +2972,7 @@ Status: `KHM-ROM-PCGN-FINAL-CONSONANT-001 = PARTIAL`. No syllable segmentation, 
 
 ## PR #255 closeout — PCGN final-consonant context contract — 2026-11-16
 
-- PR [#255](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/255) merged by squash as `47679154526fa32c5edd9d62ca084de5af4759dd`; exact current `main` verified at this SHA. No open PRs.
+- PR [#255](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/255) merged by squash as `47679154526fa32c5edd9d62ca084de5af4759dd`; exact current `main` verified at this SHA. No open PRs.
 - PR-head `8a9056d4b4a9909ee1e46bee62a0d87ab6d06090`: push Quality [43825412435], PR Quality [43825430244] and Chromium [43825430217] all SUCCESS.
 - Exact post-merge main: Quality [43825536547], Chromium [43825536580], Pages build/deploy [43825536491] all SUCCESS. Pages included production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - The final-consonant resolver now raises `TypeError` unless both caller-supplied context flags are actual booleans; it no longer accepts `None`, numeric or string lookalikes as negative evidence. Regression coverage iterates every supported base character, excluding BA/ALIF which intentionally abstain under the generic rule.
@@ -2982,7 +2982,7 @@ Status: `KHM-ROM-PCGN-FINAL-CONSONANT-001 = PARTIAL`. No syllable segmentation, 
 
 ## Documentation closeout — PR #256 — 2026-11-16
 
-- PR [#256](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/256) merged by squash as `dee4881da4cfb01b6da0ff5e857af67cade14cb1`; exact current `main` verified at this SHA. No open PRs.
+- PR [#256](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/256) merged by squash as `dee4881da4cfb01b6da0ff5e857af67cade14cb1`; exact current `main` verified at this SHA. No open PRs.
 - PR-head `be23692a11c716e5022e11f6af092bf38b05157b`: push Quality [43825693046], PR Quality [43825710166] and Chromium [43825710160] all SUCCESS.
 - Exact post-merge main: Quality [43825806168], Chromium [43825806361] and Pages build/deploy [43825806234] all SUCCESS. Pages included production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - Exact-main Quality log: `pytest -q` — 331 passed, 70 subtests passed; `npm run check` and production build passed. The separate Chromium smoke and Pages deployment also passed.
@@ -3001,7 +3001,7 @@ Status: `KHM-ROM-PCGN-FINAL-CONSONANT-001 = PARTIAL`. No syllable segmentation, 
 
 ## PR #259 closeout — PCGN independent-vowel source register — 2026-11-16
 
-- PR [#259](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/259) merged by squash as `458026f080bca31edeec87c2009245213ab667c7`; exact current `main` verified at this SHA. No open PRs.
+- PR [#259](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/259) merged by squash as `458026f080bca31edeec87c2009245213ab667c7`; exact current `main` verified at this SHA. No open PRs.
 - PR-head `e9ced1775d4382a2a7be3bcbc01c5c51c0b34a2f`: push Quality [43826670914], PR Quality [43826697643], Chromium [43826697687] all SUCCESS.
 - Exact post-merge main: Quality [43826837012], Chromium [43826837160] and Pages build/deploy [43826837175] all SUCCESS. Pages included production-site Chromium exercise and deployed-site/runtime-asset smoke.
 - Exact-main Quality log: `pytest -q` — 332 passed, 70 subtests passed; `npm run check` and production build passed.
@@ -3012,12 +3012,12 @@ Status: `KHM-ROM-PCGN-FINAL-CONSONANT-001 = PARTIAL`. No syllable segmentation, 
 ## Current repository continuation checkpoint — 2026-11-16
 
 - Live `main` at inspection: `2e005a3e804e878deb66007d857d2d9361c8e4de` (PR #259 exact-main documentation closeout).
-- Open PRs: **0**. Exact-main Quality [43827176347](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43827176347), Chromium [43827176391](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43827176391), and Pages deployment [43827176423](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43827176423) all SUCCESS on that exact SHA.
+- Open PRs: **0**. Exact-main Quality [43827176347](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43827176347), Chromium [43827176391](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43827176391), and Pages deployment [43827176423](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43827176423) all SUCCESS on that exact SHA.
 - GitHub branch listing returns 125 refs across two pages: `main` plus 124 non-main historical/task refs. This count is a ref inventory, not a claim that 124 branches are independently mergeable or all contain unique work.
 - Sampled branch comparisons against live `main` show divergent historical snapshots, not clean integration candidates. Examples: `feat/pcgn-note2-shifter-resolution-2026-11-15` is 16 ahead/43 behind; `feat/khmer-ukrainian-practical-adapter-verified-2026-11-11` is 29 ahead/109 behind; `feat/typed-ipa-hybrid-bridge-2026-11-15` is 10 ahead/75 behind; `docs/repository-information-architecture-2026-11-15` is 4 ahead/86 behind; and the independent-vowel source-register branch is 12 ahead/3 behind after its work was integrated via PR #259. These tips must not be merged wholesale. The previous historical-branch audit records prior PR integration/supersession; the current sample confirms the same caution still applies.
 - No open PRs remain. The active continuation branch for this inventory update is `audit/current-branch-inventory-2026-11-16`; future work should branch from current `main` and use one active task branch at a time.
 - The connected GitHub operations available here do not expose branch deletion. No historical branch refs were deleted or force-updated; doing so is not required to keep the source-of-truth execution line on `main`.
-- Human research blocker remains unchanged: issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) is OPEN. IPA gold remains empty (0 independently adjudicated items), accuracy remains null. Expert-approved IPA convention, two qualified annotators, independent adjudicator, curator, blind intake, rights-cleared 30 lexeme groups and completed double annotation/adjudication require real human participation. Do not fabricate or automate these gates.
+- Human research blocker remains unchanged: issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/104) is OPEN. IPA gold remains empty (0 independently adjudicated items), accuracy remains null. Expert-approved IPA convention, two qualified annotators, independent adjudicator, curator, blind intake, rights-cleared 30 lexeme groups and completed double annotation/adjudication require real human participation. Do not fabricate or automate these gates.
 - Release characterization remains **research foundation + local web service / partial prototype**, not linguistically release-ready. Root `LICENSE` absence vs MIT metadata and unprotected `main` remain owner-level decisions; no settings were changed.
 
 
@@ -3026,11 +3026,11 @@ Status: `KHM-ROM-PCGN-FINAL-CONSONANT-001 = PARTIAL`. No syllable segmentation, 
 This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in this handoff.
 
 - Current default branch: `main` at `46a54d9ce86916af2d18a2322167798d43bce6c8` (PR #261 merged). Open PRs: 0.
-- Exact-main GitHub Actions: Quality [43841825031](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43841825031), Khmer browser smoke [43841825019](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43841825019), and Pages build/deploy [43841825034](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43841825034) all SUCCESS on this exact SHA. Quality reports 332 Python tests and 70 subtests; web checks and production build passed. Browser and deployed-site/runtime-asset smoke passed. These are hosted CI results; no local checkout or local test execution is claimed.
+- Exact-main GitHub Actions: Quality [43841825031](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43841825031), Khmer browser smoke [43841825019](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43841825019), and Pages build/deploy [43841825034](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43841825034) all SUCCESS on this exact SHA. Quality reports 332 Python tests and 70 subtests; web checks and production build passed. Browser and deployed-site/runtime-asset smoke passed. These are hosted CI results; no local checkout or local test execution is claimed.
 - The previous inventory found 125 branch refs (main + 124 non-main). Sampled divergent historical tips were not merged wholesale. The sole integration base remains current `main`; keep one active task branch/PR at a time. Branch deletion is not exposed by the connected GitHub operations, so historical refs remain untouched.
 - **Engineering ledger:** CI/site pipeline and existing bounded components are `DONE_VERIFIED` as engineering artifacts only; full PCGN word/syllable segmentation and assembly are `PARTIAL`; full source-orthography → IPA phonology and profile-conditioned vowel/coda coverage are `PARTIAL`; IPA → Ukrainian target policy is implemented but remains project-proposed, not a normative standard; independent expert-adjudicated IPA gold and empirical accuracy are `BLOCKED` (gold count 0; accuracy null); the complete historical branch audit remains `PARTIAL` (inventory and selected comparisons only).
 - **PCGN component boundary:** source-backed bounded resolvers exist for consonants, series/shifters, normal and special vowels, shortening, final consonants, ROBAT, AHSDA, TOANDAKHIAT, glottal onset and Note 10 character validation. They intentionally return component decisions and abstain where context is absent. They do not constitute a full PCGN syllable/word romanizer and must not be described as one.
-- **Human research gate:** issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains OPEN. Outstanding: expert-approved versioned IPA convention; two qualified independent Khmer annotators; a third independent adjudicator; separate curator; private blind intake; 30 rights-cleared, source-located lexeme groups; locked double annotations; evidence-based adjudication; provenance/rights/schema/blindness validation. No annotations, recruitment or adjudication are claimed.
+- **Human research gate:** issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/104) remains OPEN. Outstanding: expert-approved versioned IPA convention; two qualified independent Khmer annotators; a third independent adjudicator; separate curator; private blind intake; 30 rights-cleared, source-located lexeme groups; locked double annotations; evidence-based adjudication; provenance/rights/schema/blindness validation. No annotations, recruitment or adjudication are claimed.
 - **Owner decisions:** root `LICENSE` remains absent despite package/repository metadata indicating MIT; no license was selected. `main` protection remains an owner-level setting; no settings were changed. These are not silently resolved by CI.
 - **Next dependency order:** (1) obtain the human convention and recruitment/intake decisions in issue #104; (2) acquire and adjudicate the rights-cleared pilot without leaking held-out items; (3) only then report empirical agreement/accuracy and use gold to validate phonological rules; (4) independently complete the evidence-backed PCGN syllable assembler and its orthographic Ukrainian crosswalk, keeping it separate from IPA transcription; (5) reconcile license metadata and branch protection with the repository owner.
 - Readiness: research foundation + deployed engineering prototype; **not linguistically release-ready**. Green CI proves software/deployment checks, not Khmer phonological correctness.
@@ -3038,10 +3038,10 @@ This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in th
 
 ## Live-main refresh after PR #262 — 2026-11-16
 
-- Current `main`: `17657f91f650e4e5f2213bc3546eaefcb7c95202`. PR [#262](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/262) is merged; open PR count is 0.
-- Exact-main Quality [43847284065](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43847284065), Khmer browser smoke [43847284004](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43847284004), and Pages build/deploy [43847283928](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43847283928) all completed SUCCESS on this SHA. Quality steps for corpus structure validation, Python tests, web checks and site build passed; Chromium visible-result smoke and Pages deployment completed successfully. These are hosted CI checks, not local test executions.
+- Current `main`: `17657f91f650e4e5f2213bc3546eaefcb7c95202`. PR [#262](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/262) is merged; open PR count is 0.
+- Exact-main Quality [43847284065](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43847284065), Khmer browser smoke [43847284004](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43847284004), and Pages build/deploy [43847283928](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43847283928) all completed SUCCESS on this SHA. Quality steps for corpus structure validation, Python tests, web checks and site build passed; Chromium visible-result smoke and Pages deployment completed successfully. These are hosted CI checks, not local test executions.
 - Fresh GitHub branch listing: 127 refs total = `main` + 126 non-main refs. All 126 non-main tips had distinct SHAs in the listing. This is a ref inventory only; it is not a full ancestry/content audit and does not imply those tips should be merged. A systematic compare of all 126 refs was not completed in this run; branch-audit status remains PARTIAL. Historical refs are preserved.
-- Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains OPEN (last updated 2026-11-04). The convention sheet, two annotators, independent adjudicator, curator, blind intake and rights-cleared 30-item pilot remain unconfirmed. The corpus remains intentionally empty; accuracy remains unavailable. This is a human research dependency, not a CI defect.
+- Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/104) remains OPEN (last updated 2026-11-04). The convention sheet, two annotators, independent adjudicator, curator, blind intake and rights-cleared 30-item pilot remain unconfirmed. The corpus remains intentionally empty; accuracy remains unavailable. This is a human research dependency, not a CI defect.
 - This checkpoint supersedes earlier branch-count and main-SHA snapshots above. It does not change any linguistic acceptance status. Readiness remains research foundation + deployed engineering prototype, not linguistically release-ready.
 
 
@@ -3051,8 +3051,8 @@ This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in th
 - Added `assemble_pcgn_open_syllable` in `src/khmer_ua/pcgn.py`. It joins the existing bounded consonant-onset and dependent-vowel resolvers only when the caller supplies matching onset and complete open-syllable chunks. It verifies the token-prefix relationship and refuses coda-bearing, shortened, independent-vowel, special-mark, Alif, malformed and ambiguous inputs.
 - Added JSON Schema `schemas/pcgn-syllable-assembly.schema.json` and focused regression tests `tests/test_pcgn_syllable_assembly.py`. Updated the romanization matrix and linguistic completion register with the bounded scope and source citation.
 - Output is BGN/PCGN orthographic Latin only. IPA and Ukrainian remain null; the existing IPA-first engine was not changed. No word segmentation, coda rules, empirical claims, IPA labels or gold records were introduced.
-- Exact PR-head hosted verification on `fcc8bf68aff1634eb5a66955099419e98c98a47f`: Quality [43880147090](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43880147090) SUCCESS (338 Python tests + 70 subtests; JSON corpus validation, web checks and production build passed); Chromium [43880147081](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43880147081) SUCCESS; push Quality [43880136584](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43880136584) SUCCESS. The initial test expectations incorrectly assigned the PCGN series for `ថ្ម`; CI exposed this, the expected outputs were corrected against the existing Note 2–3 resolver, and the final exact-head runs passed.
-- PR [#264](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/264) squash-merged as `231b8f031ae130828018b18dbdf1c36c6ac47e6a`. The documentation closeout brought exact `main` to `5c17d9b1b0d1bbfc079b6d5811749488ca3daad1`. On that exact SHA, Quality [43880417655](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43880417655), Chromium [43880417532](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43880417532), and Pages build/deploy plus deployed-site/runtime smoke [43880417474](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43880417474) all SUCCESS. Exact-main Quality reports 338 Python tests + 70 subtests passed; web checks, production build and browser smoke passed. No local checkout or local test execution is claimed.
+- Exact PR-head hosted verification on `fcc8bf68aff1634eb5a66955099419e98c98a47f`: Quality [43880147090](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43880147090) SUCCESS (338 Python tests + 70 subtests; JSON corpus validation, web checks and production build passed); Chromium [43880147081](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43880147081) SUCCESS; push Quality [43880136584](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43880136584) SUCCESS. The initial test expectations incorrectly assigned the PCGN series for `ថ្ម`; CI exposed this, the expected outputs were corrected against the existing Note 2–3 resolver, and the final exact-head runs passed.
+- PR [#264](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/264) squash-merged as `231b8f031ae130828018b18dbdf1c36c6ac47e6a`. The documentation closeout brought exact `main` to `5c17d9b1b0d1bbfc079b6d5811749488ca3daad1`. On that exact SHA, Quality [43880417655](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43880417655), Chromium [43880417532](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43880417532), and Pages build/deploy plus deployed-site/runtime smoke [43880417474](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43880417474) all SUCCESS. Exact-main Quality reports 338 Python tests + 70 subtests passed; web checks, production build and browser smoke passed. No local checkout or local test execution is claimed.
 - `KHM-ROM-PCGN-OPEN-CV-001` is DONE_VERIFIED for the bounded explicit open-CV API. `KHM-ROM-ENGINE-001` remains PARTIAL because general syllable parsing, codas and whole-word PCGN output remain incomplete.
 
 
@@ -3062,7 +3062,7 @@ This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in th
 - Added `assemble_pcgn_shortened_closed_syllable` in `src/khmer_ua/pcgn.py`. It composes existing PCGN onset, Note 5 shortened-vowel and final-consonant resolvers for the three exact Note 5 patterns. Caller-supplied onset/full/coda chunks are cross-checked; caller-supplied coda class is checked against the final consonant's resolved PCGN Latin value before the vowel variant is accepted.
 - Added `schemas/pcgn-closed-syllable-assembly.schema.json` and focused tests `tests/test_pcgn_closed_syllable_assembly.py`; updated the matrix and completion register.
 - Output is orthographic BGN/PCGN Latin only; IPA and Ukrainian remain null. No automatic syllable/word segmentation, general coda support, phonetic mapping, gold labels or accuracy claims are added. The existing IPA-first engine is unchanged.
-- Exact PR-head verification on `027671a579b2b3e210a1c285f412516e6b3772f4`: Quality [43881403475](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43881403475) and Chromium [43881403279](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43881403279) SUCCESS; push Quality [43881383045](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43881383045) SUCCESS (342 Python tests + 70 subtests). PR [#265](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/265) merged as `664c210d957b0666e5ca85032fb49466018cbf78`. Exact-main Quality [43881564395](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43881564395), Chromium [43881564314](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43881564314), and Pages build/deploy [43881564668](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43881564668) all SUCCESS. No local checkout or local test execution is claimed.
+- Exact PR-head verification on `027671a579b2b3e210a1c285f412516e6b3772f4`: Quality [43881403475](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43881403475) and Chromium [43881403279](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43881403279) SUCCESS; push Quality [43881383045](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43881383045) SUCCESS (342 Python tests + 70 subtests). PR [#265](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/265) merged as `664c210d957b0666e5ca85032fb49466018cbf78`. Exact-main Quality [43881564395](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43881564395), Chromium [43881564314](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43881564314), and Pages build/deploy [43881564668](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43881564668) all SUCCESS. No local checkout or local test execution is claimed.
 - Acceptance is DONE_VERIFIED only for the exact three Note 5 patterns and a single supported final consonant; `KHM-ROM-ENGINE-001` remains PARTIAL.
 
 
@@ -3072,7 +3072,7 @@ This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in th
 - Added `assemble_pcgn_dependent_closed_syllable` in `src/khmer_ua/pcgn.py`. It composes existing series, onset, ordinary dependent-vowel and final-consonant resolvers for explicitly caller-segmented onset + vowel + coda chunks. The implementation verifies that onset and vowel chunks are exact token prefixes of the complete syllable and that the caller's coda is its final token.
 - Added `schemas/pcgn-dependent-closed-syllable-assembly.schema.json` and `tests/test_pcgn_dependent_closed_syllable_assembly.py`. The tests exercise all 17 normal dependent-vowel patterns in both â/ô series with a caller-supplied final coda, plus boundary and abstention cases.
 - Output remains orthographic BGN/PCGN Latin only; IPA and Ukrainian remain null. No word/syllable segmentation is inferred. Shortened/independent vowels and special marks abstain. The IPA-first engine is unchanged.
-- Exact PR-head verification on `6430c271abe1c69a1ed0e533de6cf95f88a98a4a`: Quality [43882269923](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43882269923) and Chromium [43882269991](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43882269991) SUCCESS; push Quality [43882139617](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43882139617) SUCCESS (347 Python tests + 70 subtests). PR [#266](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/266) merged as `84880d6c241bfc22e8e095a7cb90f2d32759ced1`. Exact-main documentation closeout SHA `8df4f5ca146f82d6f8c3892ae686f6f58f7bbaeb` passed Quality [43882558236](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43882558236), Chromium [43882558488](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43882558488), and Pages build/deploy plus deployed-site/runtime smoke [43882558294](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43882558294). Exact-main Quality reports 347 Python tests + 70 subtests passed; web checks, production build and Chromium smoke passed. No local checkout or local test execution is claimed. `KHM-ROM-ENGINE-001` remains PARTIAL.
+- Exact PR-head verification on `6430c271abe1c69a1ed0e533de6cf95f88a98a4a`: Quality [43882269923](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43882269923) and Chromium [43882269991](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43882269991) SUCCESS; push Quality [43882139617](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43882139617) SUCCESS (347 Python tests + 70 subtests). PR [#266](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/266) merged as `84880d6c241bfc22e8e095a7cb90f2d32759ced1`. Exact-main documentation closeout SHA `8df4f5ca146f82d6f8c3892ae686f6f58f7bbaeb` passed Quality [43882558236](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43882558236), Chromium [43882558488](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43882558488), and Pages build/deploy plus deployed-site/runtime smoke [43882558294](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43882558294). Exact-main Quality reports 347 Python tests + 70 subtests passed; web checks, production build and Chromium smoke passed. No local checkout or local test execution is claimed. `KHM-ROM-ENGINE-001` remains PARTIAL.
 
 
 ## Historical branch ancestry inventory closeout — 2026-11-16
@@ -3087,7 +3087,7 @@ This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in th
 
 - Final verified baseline before this closeout note: `main` `7a8c1b263ec1e8fa5a8a1395908c661ed5311d42`.
 - PR #264 (open-CV assembler), #265 (Note 5 shortened closed syllables), and #266 (normal dependent-vowel closed syllables) are merged. No open PRs.
-- Exact-main Quality [43884065012](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43884065012), Chromium [43884065118](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43884065118), and Pages build/deploy plus deployed-site/runtime smoke [43884065234](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43884065234) all SUCCESS on `7a8c1b263ec1e8fa5a8a1395908c661ed5311d42`. Quality: 347 Python tests + 70 subtests; web checks and production build passed. Browser smoke: 11/11 passed. Pages deployment and runtime asset smoke passed.
+- Exact-main Quality [43884065012](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43884065012), Chromium [43884065118](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43884065118), and Pages build/deploy plus deployed-site/runtime smoke [43884065234](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43884065234) all SUCCESS on `7a8c1b263ec1e8fa5a8a1395908c661ed5311d42`. Quality: 347 Python tests + 70 subtests; web checks and production build passed. Browser smoke: 11/11 passed. Pages deployment and runtime asset smoke passed.
 - Historical refs: 131 total (main + 130 non-main), 130/130 ancestry comparisons completed, 130 unique non-main tips, zero open PRs. Full content-level review remains PARTIAL; no historical branch was force-updated, deleted or merged wholesale.
 - Linguistic status remains partial prototype: full Khmer syllable/word segmentation and source→IPA phonology are incomplete. Issue #104 is still the hard human blocker: independent expert convention, two annotators, adjudicator, curator, blind intake and 30 rights-cleared lexeme groups. Gold remains 0; accuracy remains null.
 - Owner blockers remain: root `LICENSE` absent despite MIT metadata, and branch protection configuration. Neither was changed. No local checkout or local test execution is claimed; all verification above is hosted GitHub Actions evidence.
@@ -3189,13 +3189,13 @@ This checkpoint supersedes earlier main-SHA and branch-inventory snapshots in th
 
 ## GitHub Pages live-service deployment — 2026-11-16
 
-- Public service: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/
+- Public service: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/
 - Hosting decision: GitHub Pages only. No Vercel/Netlify or separate application server is used or authorized for this service.
 - Source commit deployed: `8feb14a3cf96fa2e1aafd00ea045d5fddb2e3c4a` (PR #278 squash merge).
-- Deployment workflow: `Deploy site to GitHub Pages`, run [43930778763](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43930778763), completed SUCCESS. Build, npm web checks, Vite production build, production Chromium exercise, Pages artifact upload and deployment all succeeded.
+- Deployment workflow: `Deploy site to GitHub Pages`, run [43930778763](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43930778763), completed SUCCESS. Build, npm web checks, Vite production build, production Chromium exercise, Pages artifact upload and deployment all succeeded.
 - Deployed-runtime smoke succeeded: fetched `/` and `/system.html`; verified the service input element and module script, system page title, and non-empty JS/CSS assets. Workflow resolved the canonical Pages URL above.
-- Mainline Quality run [43930778812](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43930778812) completed SUCCESS, including Python tests, web checks and production build.
-- The separate browser-smoke workflow [43930778773](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43930778773) was still running its Chromium installation at the time of this record; the Pages workflow itself independently completed its production Chromium exercise successfully.
+- Mainline Quality run [43930778812](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43930778812) completed SUCCESS, including Python tests, web checks and production build.
+- The separate browser-smoke workflow [43930778773](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43930778773) was still running its Chromium installation at the time of this record; the Pages workflow itself independently completed its production Chromium exercise successfully.
 - Hosting is live, but linguistic readiness is unchanged: this remains a research-grade, evidence-limited prototype. Deployment success is not linguistic validation or empirical accuracy.
 
 
@@ -3247,7 +3247,7 @@ The shared `khmer-phonetic-result/v1` payload is specified in `schemas/phonetic-
 
 ### Exact-main verification — Khmer subscript independent-vowel structure — 2026-11-16
 
-- PR [#282](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/282) merged by squash as `dd94f637674ad5ce599ee439584b88b6dba4db1e`; PR head `1988cfb3e7df99873b8c340d8c5676bf0d536231`; starting main `784d1a14f9464022b42104f5c41b6277464bdcc9`.
+- PR [#282](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/282) merged by squash as `dd94f637674ad5ce599ee439584b88b6dba4db1e`; PR head `1988cfb3e7df99873b8c340d8c5676bf0d536231`; starting main `784d1a14f9464022b42104f5c41b6277464bdcc9`.
 - Exact PR-head Quality [43946963677] and Chromium [43946963832] passed. Exact-main Quality [43947114555], Chromium [43947114448], and Pages build/deploy/deployed-runtime smoke [43947114535] all SUCCESS on the merge commit.
 - Exact-main Quality log: **393 Python tests passed, 70 subtests passed**; independent IPA gold corpus structure validation, Node/web checks and production build passed. Chromium smoke and production-site Chromium exercise passed. Pages deploy and deployed runtime asset smoke passed.
 - An initial Quality run failed only because the new test omitted `import pytest`; this was corrected in commit `1988cfb3e7df99873b8c340d8c5676bf0d536231` and all subsequent exact-head/exact-main checks passed. No failures are hidden or counted as successful.
@@ -3266,7 +3266,7 @@ The shared `khmer-phonetic-result/v1` payload is specified in `schemas/phonetic-
 
 ### Post-merge verification — Unicode 18 Khmer orthographic component scanner — 2026-11-16
 
-- PR [#283](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/283) merged by squash as `bdc15daf6f7c40a6c088e306343a421b9347e9c1`; exact PR head `06255d5140c27b0534395ee19c7087cca8fabd0c`; starting main `aa02c23094f4e9c796e236b46d9a359655d34735`.
+- PR [#283](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/283) merged by squash as `bdc15daf6f7c40a6c088e306343a421b9347e9c1`; exact PR head `06255d5140c27b0534395ee19c7087cca8fabd0c`; starting main `aa02c23094f4e9c796e236b46d9a359655d34735`.
 - Exact PR-head Quality [43953219338] and Chromium [43953219579] succeeded. Exact-main Quality [43953449784], Chromium [43953449807], and Pages deploy/runtime smoke [43953450103] all succeeded on the merge commit.
 - Exact-main Quality log: **402 Python tests passed, 70 subtests passed**; IPA corpus engineering validation, Node/web checks and production build passed. Chromium visible-results smoke passed. Pages production-site Chromium exercise, deploy action and deployed runtime-asset smoke passed.
 - `KHM-ORTHO-COMPONENT-SCAN-001 = DONE_VERIFIED` for the component scanner and Python/browser parity contract only. It does not close full BNF parsing, complete orthographic-syllable segmentation, lexical word segmentation, IPA coverage or Issue #104.
@@ -3334,8 +3334,8 @@ The source-reconciliation checkpoint above was superseded by implementation. Mai
 ### Pre-follow-up exact-head CI checkpoint — Google Khmer lexicon audit — 2026-11-16
 
 - PR #300 final head: `65bbc704a5bcf6906f5d57841a625e6f9a2b0f29` (six changed files: source registry, master handoff, linguistic completion register, IPA collection playbook, IPA corpus contract and repository audit).
-- Exact-head Quality run [43965487859](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43965487859) SUCCESS: `417 passed, 70 subtests passed`; independent IPA corpus structural validation, Node/web checks and production site build passed.
-- Exact-head Khmer browser smoke [43965487827](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43965487827) SUCCESS: deterministic web checks, production build, Chromium install and visible-result browser checks all passed. The prior 12/12 Playwright count remains recorded for pre-closeout head `8f79b5560a0ebdfc678f8583e053e9de8be691be`; the final run's job summary confirms successful Chromium checks but its log count was not separately extracted.
+- Exact-head Quality run [43965487859](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43965487859) SUCCESS: `417 passed, 70 subtests passed`; independent IPA corpus structural validation, Node/web checks and production site build passed.
+- Exact-head Khmer browser smoke [43965487827](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/43965487827) SUCCESS: deterministic web checks, production build, Chromium install and visible-result browser checks all passed. The prior 12/12 Playwright count remains recorded for pre-closeout head `8f79b5560a0ebdfc678f8583e053e9de8be691be`; the final run's job summary confirms successful Chromium checks but its log count was not separately extracted.
 - These are hosted PR-head checks only. No main merge, Pages deployment, local checkout or local test run is claimed. PR #300 remains OPEN and mergeable at the time of this checkpoint.
 - The final six-file diff is documentation/source-metadata only; no runtime, generated artifact, dataset payload, IPA labels, Ukrainian mapping or gold corpus rows changed. `KHMER-GOOGLE-TTS-001 = PARTIAL`; `KHM-GOLD-001 = BLOCKED`; independent adjudicated gold remains 0 and accuracy remains null.
 
@@ -3400,7 +3400,7 @@ PR #301, #303 and #304 were closed as superseded after PR #307 merged; their bra
  
 ## Final consolidated-source merge verification — 2026-11-17
 
-- PR [#307](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/307) merged by squash as `43bdeb27821c9308d9b29b693c2cdbbafb72fa7b` from exact head `bf80a8cd8a96dee2ffae5acf2c6f7d9b38317cd0`, based on `db02740d57705c08966c87a6b31a5c874c9edc86`.
+- PR [#307](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/307) merged by squash as `43bdeb27821c9308d9b29b693c2cdbbafb72fa7b` from exact head `bf80a8cd8a96dee2ffae5acf2c6f7d9b38317cd0`, based on `db02740d57705c08966c87a6b31a5c874c9edc86`.
 - Exact PR-head Quality [43970804968] SUCCESS: **417 Python tests + 70 subtests**, IPA corpus structural validation, Node/web checks and production build.
 - Exact PR-head Chromium [43970804939] SUCCESS: **12/12 Playwright tests**.
 - Exact-main Quality [43970986954] SUCCESS: **417 Python tests + 70 subtests**, corpus validation, Node/web checks and production build.
@@ -3422,14 +3422,14 @@ PR #301, #303 and #304 were closed as superseded after PR #307 merged; their bra
 
 ### PR #309 exact-head verification — 2026-11-17
 
-- PR [#309](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/309) head `74622599f6128f34b3ee2fcd19e346b018d399e2`, based on `44d80987dc7efd461cb4e10b0524dc5c2122a9aa`; 7 commits ahead, 0 behind.
-- Hosted Quality workflow [44034902245](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44034902245) SUCCESS on exact head. Steps verified: IPA corpus structure validator; **417 Python tests + 70 subtests**; Node web structural/runtime, Unicode 18 parser, romanization and Ukrainian adapter checks; Vite production build.
+- PR [#309](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/309) head `74622599f6128f34b3ee2fcd19e346b018d399e2`, based on `44d80987dc7efd461cb4e10b0524dc5c2122a9aa`; 7 commits ahead, 0 behind.
+- Hosted Quality workflow [44034902245](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44034902245) SUCCESS on exact head. Steps verified: IPA corpus structure validator; **417 Python tests + 70 subtests**; Node web structural/runtime, Unicode 18 parser, romanization and Ukrainian adapter checks; Vite production build.
 - This workflow has one Quality job. No Chromium/Playwright or Pages deployment workflow was triggered for this documentation/source-registry-only branch; do not claim browser or deployment verification for PR #309. No local tests were run.
 - No runtime, tests, generated files, audio payload, IPA labels, gold records or Ukrainian mappings changed. Main remains at its pre-PR base until merge; no merge performed in this continuation.
 
 ## Kirby cluster-audio candidate — merged mainline checkpoint — 2026-11-17
 
-- PR [#309](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/309) squash-merged as `417ddfe598fc70913d9597dc5fb0b4dc7863d515` on main; source branch retained (not deleted).
+- PR [#309](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/309) squash-merged as `417ddfe598fc70913d9597dc5fb0b4dc7863d515` on main; source branch retained (not deleted).
 - Exact PR-head `a4ab13947e4ff060bf66b2b8a5c14ac432ae195c`: Quality [44039162569] SUCCESS (417 Python tests + 70 subtests, corpus validator, Node/web checks, Vite production build); Chromium browser smoke [44039174297] SUCCESS (deterministic web checks, production build, visible-result Chromium exercise). No Pages deployment was triggered/claimed. No local tests.
 - Main at merge is `417ddfe598fc70913d9597dc5fb0b4dc7863d515`; post-merge Quality/build/browser checks were queued at the time of this note and must be checked before claiming mainline verification.
 - The source is only a supporting audio candidate. Archive has not been downloaded; listed MD5 is provider metadata, not a locally verified checksum. The 79-item manifest has not been enumerated. Slow-careful carrier-sentence reading requires expert approval before use for the project's careful-citation profile.
@@ -3459,16 +3459,16 @@ PR #301, #303 and #304 were closed as superseded after PR #307 merged; their bra
 
 ## PR #310 merge and final verification — 2026-11-17
 
-- PR [#310](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/310) merged by squash as `4d568f712b8ac055809bc01e53ea7d257b79a6a0`; branch `research/khmer-kirby-tonogenesis-audio-audit-2026-11-17` was retained. The merge enriches the existing `kirby2015-audio` and `kirby2015-supplementary` source records; duplicate records were detected during review and removed before merge (registry now 48 entries, 48 unique IDs; exactly one entry per DOI 10.7488/ds/321 and 10.7488/ds/319).
-- Final exact PR head: `a4e8f315f3de8d1742ed5018e27be164ed7bb7cb`. Quality [44054481444](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44054481444) SUCCESS: `python scripts/ipa_gold_corpus.py validate --language khmer` returned 0 records, 0 annotations, 0 adjudicated records and `NOT_READY_NO_ADJUDICATED_GOLD` (expected); `pytest -q`: 417 passed + 70 subtests; Node/web checks and Vite production build passed. Chromium [44054481411](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44054481411) SUCCESS: deterministic checks, production build and 12/12 Playwright tests passed.
-- Post-merge main commit `4d568f712b8ac055809bc01e53ea7d257b79a6a0`: Quality [44054711288](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44054711288) SUCCESS; Chromium [44054711282](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44054711282) SUCCESS (12 tests); existing automatic GitHub Pages workflow [44054711377](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44054711377) SUCCESS, including Pages deployment and HTTP smoke-tests for the root page, `system.html`, generated JS and CSS at https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/ . No Pages settings were changed and no release was published.
+- PR [#310](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/310) merged by squash as `4d568f712b8ac055809bc01e53ea7d257b79a6a0`; branch `research/khmer-kirby-tonogenesis-audio-audit-2026-11-17` was retained. The merge enriches the existing `kirby2015-audio` and `kirby2015-supplementary` source records; duplicate records were detected during review and removed before merge (registry now 48 entries, 48 unique IDs; exactly one entry per DOI 10.7488/ds/321 and 10.7488/ds/319).
+- Final exact PR head: `a4e8f315f3de8d1742ed5018e27be164ed7bb7cb`. Quality [44054481444](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44054481444) SUCCESS: `python scripts/ipa_gold_corpus.py validate --language khmer` returned 0 records, 0 annotations, 0 adjudicated records and `NOT_READY_NO_ADJUDICATED_GOLD` (expected); `pytest -q`: 417 passed + 70 subtests; Node/web checks and Vite production build passed. Chromium [44054481411](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44054481411) SUCCESS: deterministic checks, production build and 12/12 Playwright tests passed.
+- Post-merge main commit `4d568f712b8ac055809bc01e53ea7d257b79a6a0`: Quality [44054711288](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44054711288) SUCCESS; Chromium [44054711282](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44054711282) SUCCESS (12 tests); existing automatic GitHub Pages workflow [44054711377](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44054711377) SUCCESS, including Pages deployment and HTTP smoke-tests for the root page, `system.html`, generated JS and CSS at https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/ . No Pages settings were changed and no release was published.
 - One intermediate CI attempt failed a documentation-contract assertion because the updated source limitations omitted the literal phrase “not an IPA gold”; this was fixed in the source record. The final exact-head Quality and Chromium checks and post-merge mainline checks passed. No local tests were run.
 - Archive retrieval remains blocked in the execution container by DNS failure (`Temporary failure in name resolution`); no DataShare audio/CSV archive was downloaded and no provider MD5 was locally verified. No experts contacted. Issue #104 remains OPEN; IPA convention `DRAFT_NOT_APPROVED`; gold=0; empirical accuracy=null.
 
 ### Final mainline snapshot after handoff/audit consolidation — 2026-11-17
 
 - Main snapshot before this final handoff note: `b74ed1b03577139ef97ffb45f343398b30677f43`. It contains the merge verification, completion-register update and repository-audit update.
-- Exact snapshot Quality [44055115571] SUCCESS: corpus structural validation (`NOT_READY_NO_ADJUDICATED_GOLD`, 0 records/annotations as expected), 417 Python tests + 70 subtests, Node/web checks and Vite build. Chromium [44055115680] SUCCESS (12/12 tests). Existing GitHub Pages workflow [44055115671] SUCCESS, including production browser exercise, deploy and HTTP smoke tests for root, `system.html`, JS and CSS. Public Pages URL: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/ .
+- Exact snapshot Quality [44055115571] SUCCESS: corpus structural validation (`NOT_READY_NO_ADJUDICATED_GOLD`, 0 records/annotations as expected), 417 Python tests + 70 subtests, Node/web checks and Vite build. Chromium [44055115680] SUCCESS (12/12 tests). Existing GitHub Pages workflow [44055115671] SUCCESS, including production browser exercise, deploy and HTTP smoke tests for root, `system.html`, JS and CSS. Public Pages URL: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/ .
 - This note is the final handoff consolidation; no code/runtime/data changes. Issue #104 remains OPEN; PR #310 is merged; no open PRs; source branch retained. No local tests, no audio downloads, no expert contacts. The only substantive remaining blockers are archive/token-level evidence and qualified human linguistic approval/annotation.
 
 
@@ -3493,15 +3493,15 @@ PR #301, #303 and #304 were closed as superseded after PR #307 merged; their bra
 ## Final continuation checkpoint — Sok & Adams audit + IPA-kind contract — 2026-11-17
 
 - Starting main commit for this continuation: `da47cfc15713d9cf6afb2dcd48d84a50450c79b9`.
-- PR [#311](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/311) merged as `10016150244821c1727d06312825aa625f4e1d42`: Sok & Adams (2016) full-text source audit and source-registry record. PR-head Quality [44064387019] SUCCESS (417 Python tests + 70 subtests, corpus structural validation, Node/web checks, Vite build); Chromium [44064386990] SUCCESS (12/12). Exact-main Quality [44064764141], Chromium [44064764016] and Pages deployment/smoke [44064764164] all SUCCESS.
-- PR [#312](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/312) merged as `c426d1c3bacd6edb303b2b4977e5b34c09b81620`: additive `ipa_kind` field in Python and browser typed results. Linguistic units now say `UNRESOLVED` and punctuation `NOT_APPLICABLE`; no output IPA string or Ukrainian mapping changed. PR-head Quality [44065466424] SUCCESS (418 Python tests + 70 subtests, corpus structural validation, Node/web checks, Vite build); Chromium [44065466500] SUCCESS (12/12). Exact-main Quality [44065655690] SUCCESS (418 + 70); Chromium [44065655890] SUCCESS (12/12); existing Pages build, production Chromium, deploy and deployed-site/runtime-asset smoke [44065655951] SUCCESS.
+- PR [#311](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/311) merged as `10016150244821c1727d06312825aa625f4e1d42`: Sok & Adams (2016) full-text source audit and source-registry record. PR-head Quality [44064387019] SUCCESS (417 Python tests + 70 subtests, corpus structural validation, Node/web checks, Vite build); Chromium [44064386990] SUCCESS (12/12). Exact-main Quality [44064764141], Chromium [44064764016] and Pages deployment/smoke [44064764164] all SUCCESS.
+- PR [#312](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/312) merged as `c426d1c3bacd6edb303b2b4977e5b34c09b81620`: additive `ipa_kind` field in Python and browser typed results. Linguistic units now say `UNRESOLVED` and punctuation `NOT_APPLICABLE`; no output IPA string or Ukrainian mapping changed. PR-head Quality [44065466424] SUCCESS (418 Python tests + 70 subtests, corpus structural validation, Node/web checks, Vite build); Chromium [44065466500] SUCCESS (12/12). Exact-main Quality [44065655690] SUCCESS (418 + 70); Chromium [44065655890] SUCCESS (12/12); existing Pages build, production Chromium, deploy and deployed-site/runtime-asset smoke [44065655951] SUCCESS.
 - Source registry: 49 entries, 49 unique IDs; Sok & Adams source ID `sok-adams-2016-phonological`, rights UNKNOWN because no explicit open license was verified.
 - No local tests were run. All stated test/build/browser/deployment evidence is from the named GitHub Actions runs. No release was published and no Pages settings were changed.
 - The only CI warning observed was the existing non-blocking setuptools warning that `project.license` as a TOML table is deprecated. It was not changed in this scope.
 - PRs #311 and #312 are merged; no open PRs at this checkpoint. Both working branches are retained. Issue #104 remains OPEN.
 - IPA convention remains `DRAFT_NOT_APPROVED`; internal `ipa_kind` remains `UNRESOLVED` for linguistic units pending qualified approval. Independent adjudicated IPA gold remains 0; empirical accuracy remains null; corpus validator correctly reports `NOT_READY_NO_ADJUDICATED_GOLD`.
 - Remaining blockers: qualified Phnom Penh Khmer phonetician + independent reviewer for IPA convention; independent annotators/adjudicator and curator for gold; rights-cleared audio/token-level archive inspection and item locators; archive retrieval was not attempted again in this continuation. No Sok & Adams dictionary data or labels were imported.
-- Current public site: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/ .
+- Current public site: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/ .
 
 
 ## Full-text Phnom Penh phonetics evidence addendum — 2026-11-17
@@ -3515,8 +3515,8 @@ PR #301, #303 and #304 were closed as superseded after PR #307 merged; their bra
 
 ## Post-merge closeout — full-text Phnom Penh phonetics review — 2026-11-17
 
-- PR [#314](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/314) was squash-merged as `4760964618f05290560372b1ee60b4f7fba8ae72` from exact head `6cbc2e8e515a455611dc3b3c032197129b6b7b26`; base was `50899bd3a5fd16338039287775fcfb0b9b2568d3`, 0 commits behind and 6 commits ahead before merge.
-- Exact PR-head Quality [44076405229](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44076405229) SUCCESS: corpus structural validation reported 0 records / 0 adjudicated records and expected `NOT_READY_NO_ADJUDICATED_GOLD`; Python 418 passed + 70 subtests; Node/web checks and Vite production build passed. Chromium [44076405251](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44076405251) SUCCESS: 12/12 Playwright tests.
+- PR [#314](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/314) was squash-merged as `4760964618f05290560372b1ee60b4f7fba8ae72` from exact head `6cbc2e8e515a455611dc3b3c032197129b6b7b26`; base was `50899bd3a5fd16338039287775fcfb0b9b2568d3`, 0 commits behind and 6 commits ahead before merge.
+- Exact PR-head Quality [44076405229](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44076405229) SUCCESS: corpus structural validation reported 0 records / 0 adjudicated records and expected `NOT_READY_NO_ADJUDICATED_GOLD`; Python 418 passed + 70 subtests; Node/web checks and Vite production build passed. Chromium [44076405251](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44076405251) SUCCESS: 12/12 Playwright tests.
 - This was a documentation/source-audit-only change. No Pages deployment was required or claimed; no runtime, test code, generated artifact, source permission, IPA label, gold row or Ukrainian mapping changed. Local checkout/tests could not run because the execution container could not resolve github.com; hosted PR-head CI supplied the verification evidence.
 - The merged literature review records Chem (2020) and Mam et al. (2025) method/sample limitations and confirms neither provides a complete source-exact 30-item pilot list. Issue #104 remains OPEN; IPA convention remains `DRAFT_NOT_APPROVED`; `ipa_kind` remains `UNRESOLVED`; adjudicated gold=0; empirical accuracy=null.
 - Additional expert discovery was recorded in issue #104: Dr. Becky Butler (UNC) is a prospective specialist for Khmer phonetic structure, sesquisyllables and diphthongs, but her public record does not establish specific contemporary Phnom Penh careful-citation authority or availability. No one was contacted or recruited.
@@ -3542,10 +3542,10 @@ Verification caveat: the first CI passes exposed two stale assertions that expec
 
 ## Mixed-script and Khmer-numeral token boundaries — exact PR-head verification — 2026-11-17
 
-PR [#316](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/316) head after regression corrections: `5eb9d23bdadf175fcb40561ff1de26f6f784ad2e`, based on main `0a79df6918e7e4e291ca28f9e758ac0c14acc742` (25 commits ahead, 0 behind at verification).
+PR [#316](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/316) head after regression corrections: `5eb9d23bdadf175fcb40561ff1de26f6f784ad2e`, based on main `0a79df6918e7e4e291ca28f9e758ac0c14acc742` (25 commits ahead, 0 behind at verification).
 
-- Quality [44079138980](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44079138980) SUCCESS: corpus structural validator reports the expected `NOT_READY_NO_ADJUDICATED_GOLD`; Python 422 passed + 70 subtests; `npm run check` and Vite production build passed.
-- Chromium [44079138905](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44079138905) SUCCESS: 13/13 Playwright tests, including mixed Latin/Khmer/numeral source-order preservation.
+- Quality [44079138980](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44079138980) SUCCESS: corpus structural validator reports the expected `NOT_READY_NO_ADJUDICATED_GOLD`; Python 422 passed + 70 subtests; `npm run check` and Vite production build passed.
+- Chromium [44079138905](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44079138905) SUCCESS: 13/13 Playwright tests, including mixed Latin/Khmer/numeral source-order preservation.
 - The first browser run on the earlier head failed because one pre-existing assertion still expected `កx` to erase the valid Khmer neighbor. The assertion was corrected to the local-uncertainty contract; the added mixed-script browser regression then passed on the exact latest head.
 - Review also found that U+200C ZERO WIDTH NON-JOINER was classified as an unrelated “other” script and could split a Khmer unit. Both Python and browser script-bucket classifiers now treat ZWNJ as transparent inside the current run; parser and browser-runtime regressions pass.
 - Numeric-only input remains `NON_LINGUISTIC`, preserved without a guessed reading, with `ipa_kind=NOT_APPLICABLE`. Foreign-script text remains explicitly unsupported as its own unit. This does not add lexical word segmentation, number reading, translation, IPA, lexical data or gold rows.
@@ -3556,12 +3556,12 @@ Task ledger remains PARTIAL until post-merge mainline Quality, Chromium and Page
 
 ## PR #316 post-merge mainline verification — 2026-11-17
 
-PR [#316](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/316) merged by squash as `cca8612e98292ce2ee2f103e12bcce152d4b3416` from exact PR head `56f0dc922f0bf6cf63aabbf09abc1d9c25be7893`. Mainline was 0 commits behind the PR head before merge.
+PR [#316](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/316) merged by squash as `cca8612e98292ce2ee2f103e12bcce152d4b3416` from exact PR head `56f0dc922f0bf6cf63aabbf09abc1d9c25be7893`. Mainline was 0 commits behind the PR head before merge.
 
 Post-merge workflows on the exact main commit all succeeded:
-- Quality [44079454281](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44079454281) SUCCESS: 422 Python tests + 70 subtests; corpus validator returned expected `NOT_READY_NO_ADJUDICATED_GOLD`; Node/web checks and Vite production build passed.
-- Chromium [44079454289](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44079454289) SUCCESS: 13/13 Playwright tests.
-- Pages [44079454302](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44079454302) SUCCESS: production browser exercise, GitHub Pages deployment and deployed-site/runtime-asset smoke test all passed.
+- Quality [44079454281](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44079454281) SUCCESS: 422 Python tests + 70 subtests; corpus validator returned expected `NOT_READY_NO_ADJUDICATED_GOLD`; Node/web checks and Vite production build passed.
+- Chromium [44079454289](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44079454289) SUCCESS: 13/13 Playwright tests.
+- Pages [44079454302](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44079454302) SUCCESS: production browser exercise, GitHub Pages deployment and deployed-site/runtime-asset smoke test all passed.
 
 KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 is now DONE_VERIFIED for structural/output handling. The implementation preserves exact source order across Khmer, foreign-script and numeric runs; foreign text stays locally unsupported; numeric literals pass through as NON_LINGUISTIC with ipa_kind NOT_APPLICABLE; U+200C ZWNJ stays transparent inside Khmer runs. Python, Node/browser and deployed production checks passed.
 
@@ -3580,17 +3580,17 @@ This update changes no convention, runtime IPA, source dataset, rights status, g
 
 ## PR #319 expert shortlist revalidation — post-merge mainline verification — 2026-11-17
 
-PR [#319](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/319) merged by squash as `033e979c06c30aff5569750fae824f90484558ed` from exact head `5c66ee261dec27893e25e9f97e6875d54b58b62c`.
+PR [#319](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/319) merged by squash as `033e979c06c30aff5569750fae824f90484558ed` from exact head `5c66ee261dec27893e25e9f97e6875d54b58b62c`.
 
 Exact PR-head checks:
-- Quality [44081155872](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44081155872) SUCCESS: 422 Python tests + 70 subtests, expected corpus validator state `NOT_READY_NO_ADJUDICATED_GOLD`, Node/web checks and Vite build.
-- Chromium [44081155831](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44081155831) SUCCESS: 13/13 Playwright tests.
-- A duplicate push-triggered Quality run [44081116226](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44081116226) also completed SUCCESS with the same checks.
+- Quality [44081155872](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44081155872) SUCCESS: 422 Python tests + 70 subtests, expected corpus validator state `NOT_READY_NO_ADJUDICATED_GOLD`, Node/web checks and Vite build.
+- Chromium [44081155831](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44081155831) SUCCESS: 13/13 Playwright tests.
+- A duplicate push-triggered Quality run [44081116226](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44081116226) also completed SUCCESS with the same checks.
 
 Post-merge exact-main checks at `033e979c06c30aff5569750fae824f90484558ed`:
-- Quality [44081323278](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44081323278) SUCCESS: 422 Python tests + 70 subtests; expected no-adjudicated-gold validator state; Node/web checks and production Vite build.
-- Chromium [44081323386](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44081323386) SUCCESS: 13/13 Playwright tests.
-- Pages [44081323295](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44081323295) SUCCESS: production browser exercise, Pages deployment and deployed-site/runtime-asset smoke test.
+- Quality [44081323278](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44081323278) SUCCESS: 422 Python tests + 70 subtests; expected no-adjudicated-gold validator state; Node/web checks and production Vite build.
+- Chromium [44081323386](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44081323386) SUCCESS: 13/13 Playwright tests.
+- Pages [44081323295](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44081323295) SUCCESS: production browser exercise, Pages deployment and deployed-site/runtime-asset smoke test.
 
 The expert-shortlist revalidation is DONE_VERIFIED as a research/admin deliverable only: source-backed candidate roles and conflict/independence boundaries are recorded in the playbook and Issue #104. It does not constitute recruitment, consent, convention approval, annotator appointment or adjudication. No one was contacted. No pronunciation rules, IPA labels, external data, source permissions, corpus records, gold labels or accuracy values changed.
 
@@ -3601,12 +3601,12 @@ Final mainline checkpoint: `033e979c06c30aff5569750fae824f90484558ed`. PR #319 i
 
 ## Final closeout — PR #320 canonical handoff reconciliation — 2026-11-17
 
-PR [#320](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/320) merged by squash as `06d0fc1c38889ea6c02d78f7f3274c835f2744e2`. Exact PR-head Quality [44081681961](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44081681961) SUCCESS: 422 Python tests + 70 subtests, expected `NOT_READY_NO_ADJUDICATED_GOLD`, Node/web checks and Vite production build.
+PR [#320](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/320) merged by squash as `06d0fc1c38889ea6c02d78f7f3274c835f2744e2`. Exact PR-head Quality [44081681961](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44081681961) SUCCESS: 422 Python tests + 70 subtests, expected `NOT_READY_NO_ADJUDICATED_GOLD`, Node/web checks and Vite production build.
 
 Post-merge checks on the exact main commit `06d0fc1c38889ea6c02d78f7f3274c835f2744e2`:
-- Quality [44081774790](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44081774790) SUCCESS: 422 Python tests + 70 subtests, expected no-adjudicated-gold validator state, Node/web checks and Vite build.
-- Chromium [44081774743](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44081774743) SUCCESS: 13/13 Playwright tests.
-- Pages [44081774768](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44081774768) SUCCESS: production browser exercise, Pages deployment and deployed-site/runtime-asset smoke.
+- Quality [44081774790](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44081774790) SUCCESS: 422 Python tests + 70 subtests, expected no-adjudicated-gold validator state, Node/web checks and Vite build.
+- Chromium [44081774743](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44081774743) SUCCESS: 13/13 Playwright tests.
+- Pages [44081774768](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44081774768) SUCCESS: production browser exercise, Pages deployment and deployed-site/runtime-asset smoke.
 
 The final source-backed expert shortlist and role/conflict boundaries are documented; candidate-screening task is DONE_VERIFIED only as documentation. No expert outreach, consent, recruitment, convention approval or annotation occurred. Issue #104 remains OPEN; IPA convention DRAFT_NOT_APPROVED; 30-item pilot BLOCKED; adjudicated gold=0; empirical accuracy=null. No local tests were run. No release or Pages settings were changed.
 
@@ -3624,14 +3624,14 @@ Task ledger: KHM-MIXED-SCRIPT-NUMERAL-BOUNDARIES-001 remains DONE_VERIFIED. KHM-
 
 ## PR #322 exact-main verification and Pages deployment closeout — 2026-11-17
 
-PR [#322](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/322) is merged. The exact main commit is `1cb22c9dfb5ebec539c01544d9e4270b20293b2d`; it is the starting point for this documentation-only verification branch.
+PR [#322](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/322) is merged. The exact main commit is `1cb22c9dfb5ebec539c01544d9e4270b20293b2d`; it is the starting point for this documentation-only verification branch.
 
 All three workflows for that exact main SHA completed successfully:
-- Quality [44087269233](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44087269233): `pytest -q` — **422 passed, 70 subtests passed**; shared browser register-shifter contract, web checks and Vite production build passed; corpus validator's `NOT_READY_NO_ADJUDICATED_GOLD` is the expected research gate.
-- Chromium [44087269259](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44087269259): **13/13 Playwright tests passed**.
-- Pages [44087269174](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44087269174): production browser exercise, artifact upload, deployment and deployed-site/runtime-asset smoke test all passed. The deploy job's final smoke-test step is confirmed SUCCESS.
+- Quality [44087269233](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44087269233): `pytest -q` — **422 passed, 70 subtests passed**; shared browser register-shifter contract, web checks and Vite production build passed; corpus validator's `NOT_READY_NO_ADJUDICATED_GOLD` is the expected research gate.
+- Chromium [44087269259](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44087269259): **13/13 Playwright tests passed**.
+- Pages [44087269174](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44087269174): production browser exercise, artifact upload, deployment and deployed-site/runtime-asset smoke test all passed. The deploy job's final smoke-test step is confirmed SUCCESS.
 
-Current GitHub reconciliation at this checkpoint: `main` remains at the SHA above; no open pull requests; Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains open as the human IPA-pilot work item. The lexical segmentation evidence audit and `KHM-LEXICAL-WORD-SEGMENTATION-001 = BLOCKED` remain as recorded; no corpus, lexical segmenter, pronunciation rule, IPA label or gold row was added. No local checkout/tests or human accessibility QA are claimed. This closeout records hosted exact-main evidence only; it does not change linguistic release readiness.
+Current GitHub reconciliation at this checkpoint: `main` remains at the SHA above; no open pull requests; Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/104) remains open as the human IPA-pilot work item. The lexical segmentation evidence audit and `KHM-LEXICAL-WORD-SEGMENTATION-001 = BLOCKED` remain as recorded; no corpus, lexical segmenter, pronunciation rule, IPA label or gold row was added. No local checkout/tests or human accessibility QA are claimed. This closeout records hosted exact-main evidence only; it does not change linguistic release readiness.
 
 
 ## Sok & Adams rule-transfer audit continuation — 2026-11-17
@@ -3649,7 +3649,7 @@ Hosted exact-head CI and post-merge mainline checks are required for this docume
 
 ## PR #324 Sok & Adams rule-transfer audit — final verification — 2026-11-17
 
-PR [#324](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/324) was squash-merged as `3f3352e94e993ab54a79c952bf6c1e7f9d187ae6` from branch `research/sok-adams-rule-transfer-audit-2026-11-17`, based on `460a3df4476f9f4beba7649909be101ef5331336`. Its exact-head Quality [44105695150] passed (422 Python tests + 70 subtests; corpus validator returned the expected `NOT_READY_NO_ADJUDICATED_GOLD`; web checks and production build passed), and Chromium [44105694990] passed (13/13 Playwright tests). The duplicate exact-head Quality run [44105669690] also passed. Post-merge mainline Quality [44105872935], Chromium [44105872929] (13/13), and Pages [44105872984] all passed. Pages deployed the exact main SHA and the deployed-site/runtime-asset smoke test passed.
+PR [#324](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/324) was squash-merged as `3f3352e94e993ab54a79c952bf6c1e7f9d187ae6` from branch `research/sok-adams-rule-transfer-audit-2026-11-17`, based on `460a3df4476f9f4beba7649909be101ef5331336`. Its exact-head Quality [44105695150] passed (422 Python tests + 70 subtests; corpus validator returned the expected `NOT_READY_NO_ADJUDICATED_GOLD`; web checks and production build passed), and Chromium [44105694990] passed (13/13 Playwright tests). The duplicate exact-head Quality run [44105669690] also passed. Post-merge mainline Quality [44105872935], Chromium [44105872929] (13/13), and Pages [44105872984] all passed. Pages deployed the exact main SHA and the deployed-site/runtime-asset smoke test passed.
 
 The visual table audit is DONE_VERIFIED as source inspection only. `KHM-SOK-ADAMS-RULE-TRANSFER-001` remains BLOCKED pending qualified contemporary Phnom Penh careful-citation review and item-level positive/negative evidence. No phonological rule, IPA label, corpus row, Ukrainian mapping or generated artifact changed. Issue #104 remains OPEN; IPA convention remains `DRAFT_NOT_APPROVED`; adjudicated gold=0; empirical accuracy=null. No local tests or external expert outreach are claimed.
 
@@ -3665,7 +3665,7 @@ The fallback documentation and completion register were updated. Remaining gates
 
 ## PR #326 shared onset-fallback fixture — exact-main closeout — 2026-11-17
 
-PR [#326](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/326) was squash-merged as `c345860483b378c66434139b7923a47094875c5a` from `test/khmer-onset-fallback-cross-runtime-fixture-2026-11-17`, based on `0d6e81a58ce514d49d93115c21925441b6acb579`. Exact-head Quality [44111499227] passed: **423 Python tests + 70 subtests**, Node/web checks and production build. Exact-head Chromium [44111513471] passed **14/14 Playwright tests**. The final code-bearing head also passed Quality [44111468114] and Chromium [44111467933] (14/14); the final documentation head Quality [44111513165] passed.
+PR [#326](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/326) was squash-merged as `c345860483b378c66434139b7923a47094875c5a` from `test/khmer-onset-fallback-cross-runtime-fixture-2026-11-17`, based on `0d6e81a58ce514d49d93115c21925441b6acb579`. Exact-head Quality [44111499227] passed: **423 Python tests + 70 subtests**, Node/web checks and production build. Exact-head Chromium [44111513471] passed **14/14 Playwright tests**. The final code-bearing head also passed Quality [44111468114] and Chromium [44111467933] (14/14); the final documentation head Quality [44111513165] passed.
 
 Post-merge mainline Quality [44111679547] passed (**423 Python tests + 70 subtests**, Node/web checks and build). Pages [44111679525] passed, including production browser exercise, deploy and deployed-site/runtime smoke. Main is `c345860483b378c66434139b7923a47094875c5a`; open PR count is 0.
 
@@ -3694,7 +3694,7 @@ Hosted exact-head Quality/Chromium and post-merge mainline checks are required. 
 
 ## PR #329 positional onset evidence registry — exact-main closeout — 2026-11-17
 
-PR [#329](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/329) was squash-merged as `841bf283eecf13b2e2ccc7f83f02a8c7617c7cdc` from `data/khmer-onset-evidence-registry-2026-11-17`, based on `5afced05c22ffd359e8e9236fbb8a813403cd220`. Exact-head Quality [44118873208] passed (**427 Python tests + 70 subtests**, web checks and production build); exact-head Chromium [44118873039] passed. Final mainline Quality [44119105502] passed (**427 Python tests + 70 subtests**), Chromium [44119105743] passed, and Pages [44119105718] passed build, deploy and deployed-site/runtime smoke. Duplicate exact-head Quality runs [44118865314] and [44118854562] also passed.
+PR [#329](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/329) was squash-merged as `841bf283eecf13b2e2ccc7f83f02a8c7617c7cdc` from `data/khmer-onset-evidence-registry-2026-11-17`, based on `5afced05c22ffd359e8e9236fbb8a813403cd220`. Exact-head Quality [44118873208] passed (**427 Python tests + 70 subtests**, web checks and production build); exact-head Chromium [44118873039] passed. Final mainline Quality [44119105502] passed (**427 Python tests + 70 subtests**), Chromium [44119105743] passed, and Pages [44119105718] passed build, deploy and deployed-site/runtime smoke. Duplicate exact-head Quality runs [44118865314] and [44118854562] also passed.
 
 The first registry test run exposed an identifier expectation mismatch (`ONSET-1780` versus the test's `ONSET-U+1780`); the test and schema pattern were corrected, and the final exact head passed. Do not count the intermediate failed runs as final verification.
 
@@ -3706,24 +3706,24 @@ Final main: `841bf283eecf13b2e2ccc7f83f02a8c7617c7cdc`; open PRs=0; Issue #104 r
 
 ## PR #331 skip-navigation accessibility improvement — exact-main closeout — 2026-11-17
 
-PR [#331](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/331) was squash-merged as `f594b48615a799b13ae19ad4c2c6453512b8c24d` from `a11y/skip-navigation-2026-11-17`, based on `db8596c3dd697727b0075b4142698bbcac7193f2`.
+PR [#331](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/331) was squash-merged as `f594b48615a799b13ae19ad4c2c6453512b8c24d` from `a11y/skip-navigation-2026-11-17`, based on `db8596c3dd697727b0075b4142698bbcac7193f2`.
 
 Both `index.html` and `system.html` now expose a first-focusable Ukrainian skip link, visible on keyboard focus, targeting the main landmark with programmatic focus. `src/styles/main.css` styles the focus-visible link, and `tests/browser/site.spec.js` verifies Tab focus, visibility, Enter activation, URL fragment and main-target focus on both pages.
 
 Exact PR-head `0013c41583669503624b5c14cff7dc971f72a484`:
-- Quality [44143747834](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44143747834) SUCCESS: **427 Python tests + 70 subtests**, corpus validator's expected `NOT_READY_NO_ADJUDICATED_GOLD`, Node/web checks and Vite production build.
-- Chromium [44143747746](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44143747746) SUCCESS: **16/16 Playwright tests**.
+- Quality [44143747834](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44143747834) SUCCESS: **427 Python tests + 70 subtests**, corpus validator's expected `NOT_READY_NO_ADJUDICATED_GOLD`, Node/web checks and Vite production build.
+- Chromium [44143747746](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44143747746) SUCCESS: **16/16 Playwright tests**.
 
 Post-merge main `f594b48615a799b13ae19ad4c2c6453512b8c24d`:
-- Quality [44144068435](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44144068435) SUCCESS: **427 Python tests + 70 subtests**, web checks and production build.
-- Chromium [44144068416](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44144068416) SUCCESS: **16/16 Playwright tests**.
-- Pages [44144068336](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44144068336) SUCCESS: production browser exercise, deployment of the exact main SHA, and deployed HTML/JS/CSS smoke checks.
+- Quality [44144068435](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44144068435) SUCCESS: **427 Python tests + 70 subtests**, web checks and production build.
+- Chromium [44144068416](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44144068416) SUCCESS: **16/16 Playwright tests**.
+- Pages [44144068336](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44144068336) SUCCESS: production browser exercise, deployment of the exact main SHA, and deployed HTML/JS/CSS smoke checks.
 
 `KHM-UI-SKIP-NAV-001 = DONE_VERIFIED` for the bounded implementation and automated Chromium contract. `KHM-UI-001` remains PARTIAL: no manual screen-reader/assistive-technology review, full keyboard traversal, contrast audit, zoom/reflow or real mobile-device testing is claimed. No local tests were run. No linguistic rules, IPA labels, gold records, source rights or pronunciation outputs changed. Issue #104 remains OPEN; IPA convention `DRAFT_NOT_APPROVED`; adjudicated gold=0; empirical accuracy=null.
 
 ## WCAG AA text-contrast regression and palette correction — 2026-11-17
 
-PR [#333](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/333) was squash-merged as `126899c81810750cc1c8a77667340606c10eab20`, from `a11y/wcag-text-contrast-2026-11-17`.
+PR [#333](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/333) was squash-merged as `126899c81810750cc1c8a77667340606c10eab20`, from `a11y/wcag-text-contrast-2026-11-17`.
 
 A first browser measurement exposed concrete normal-text contrast failures on the public pages: service eyebrow red on the paper background was **4.24:1** (below 4.5:1), and methodology `.doc .muted` was **3.68:1**. The hint text color was also below threshold at approximately **4.37:1**. The test helper's initial numeric parser defect was corrected before the valid contrast findings were accepted.
 
@@ -3742,11 +3742,11 @@ Post-merge main `126899c81810750cc1c8a77667340606c10eab20`: Quality [44150006145
 
 ## Final mainline verification after PR #334 — 2026-11-17
 
-PR [#334](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/334) was merged as `a51135d2c65791ae2b433070b71c482a9f49aa40`, based on `126899c81810750cc1c8a77667340606c10eab20`; its documentation branch head was `05aecb1f136c160e03ba8b8ea7dcabee70c58611`. The final post-merge mainline workflows are now verified against the exact merge SHA:
+PR [#334](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/334) was merged as `a51135d2c65791ae2b433070b71c482a9f49aa40`, based on `126899c81810750cc1c8a77667340606c10eab20`; its documentation branch head was `05aecb1f136c160e03ba8b8ea7dcabee70c58611`. The final post-merge mainline workflows are now verified against the exact merge SHA:
 
-- Quality [44150735242](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44150735242) — SUCCESS: **427 Python tests + 70 subtests**, corpus validator reports the expected `NOT_READY_NO_ADJUDICATED_GOLD`, 24 Node/web tests, and Vite production build.
-- Chromium [44150735206](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44150735206) — SUCCESS: **18/18 Playwright tests**, including representative WCAG AA contrast and skip-navigation regressions.
-- GitHub Pages [44150735166](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44150735166) — SUCCESS: production browser exercise, artifact upload, deployment of exact SHA `a51135d2c65791ae2b433070b71c482a9f49aa40`, and deployed HTML/JavaScript/CSS smoke checks.
+- Quality [44150735242](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44150735242) — SUCCESS: **427 Python tests + 70 subtests**, corpus validator reports the expected `NOT_READY_NO_ADJUDICATED_GOLD`, 24 Node/web tests, and Vite production build.
+- Chromium [44150735206](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44150735206) — SUCCESS: **18/18 Playwright tests**, including representative WCAG AA contrast and skip-navigation regressions.
+- GitHub Pages [44150735166](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44150735166) — SUCCESS: production browser exercise, artifact upload, deployment of exact SHA `a51135d2c65791ae2b433070b71c482a9f49aa40`, and deployed HTML/JavaScript/CSS smoke checks.
 
 PR #334's exact-head Quality [44150526026] and Chromium [44150526069] also completed successfully on `05aecb1f136c160e03ba8b8ea7dcabee70c58611`; Chromium exercised 18/18 tests. The post-merge mainline evidence above is the release checkpoint. This session used GitHub-hosted repository/Actions evidence; no local checkout or local test execution is claimed.
 
@@ -3755,13 +3755,13 @@ No linguistic status changed: IPA convention remains `DRAFT_NOT_APPROVED`; indep
 
 ## PR #336 exact-main verification and lexical-audit correction closeout — 2026-11-17
 
-PR [#336](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/336) merged as `c4cd8b1a17463f306b7c6dffbaad0f80685e5aa1`; exact PR head was `f5abd6dd14909ff5b89be5b004f023570ba262a7`.
+PR [#336](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/336) merged as `c4cd8b1a17463f306b7c6dffbaad0f80685e5aa1`; exact PR head was `f5abd6dd14909ff5b89be5b004f023570ba262a7`.
 
-- Exact PR-head Quality [44170618296](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44170618296) SUCCESS: 427 Python tests + 70 subtests; corpus validator correctly reports `NOT_READY_NO_ADJUDICATED_GOLD`; `npm run check` and Vite production build passed.
-- Exact PR-head Chromium [44170618297](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44170618297) SUCCESS: 18/18 Playwright tests.
-- Post-merge mainline Quality [44170796321](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44170796321) SUCCESS: 427 Python tests + 70 subtests, expected no-adjudicated-gold validator state, `npm run check` and Vite build.
-- Post-merge mainline Chromium [44170796376](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44170796376) SUCCESS: 18/18 Playwright tests.
-- GitHub Pages [44170796347](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44170796347) SUCCESS: deployed exact main SHA `c4cd8b1a17463f306b7c6dffbaad0f80685e5aa1`; production root, `system.html`, JavaScript and CSS asset smoke checks passed.
+- Exact PR-head Quality [44170618296](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44170618296) SUCCESS: 427 Python tests + 70 subtests; corpus validator correctly reports `NOT_READY_NO_ADJUDICATED_GOLD`; `npm run check` and Vite production build passed.
+- Exact PR-head Chromium [44170618297](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44170618297) SUCCESS: 18/18 Playwright tests.
+- Post-merge mainline Quality [44170796321](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44170796321) SUCCESS: 427 Python tests + 70 subtests, expected no-adjudicated-gold validator state, `npm run check` and Vite build.
+- Post-merge mainline Chromium [44170796376](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44170796376) SUCCESS: 18/18 Playwright tests.
+- GitHub Pages [44170796347](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44170796347) SUCCESS: deployed exact main SHA `c4cd8b1a17463f306b7c6dffbaad0f80685e5aa1`; production root, `system.html`, JavaScript and CSS asset smoke checks passed.
 
 This was a documentation/source-interpretation correction only. No runtime segmentation, corpus, IPA, Ukrainian mapping or generated artifact changed. The NICT Khmer NOVA v0.2 guideline now accurately appears as a generally morpheme-level convention with explicit compound handling; it remains distinct from orthographic syllables and project phonetic units. Local clone/test execution was blocked because this environment could not resolve `github.com`; all reported verification is from exact-head and post-merge GitHub Actions.
 
@@ -3772,7 +3772,7 @@ Exact `main` at this check: `35a98711902ec70a5a718eb16c6d07c128f978b2`.
 
 - GitHub branch listing pages 1–3 returned **209 refs**: `main` + 208 non-main refs.
 - There are **208 unique tip SHAs** across the 209 refs; 207 non-main refs have unique tips, while `data/integrate-positional-onset-evidence-register-2026-11-17` points to the same SHA as `main` (no file diff).
-- Open pull requests: **0**. Open issues: **1**, Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) (human expert IPA gold pilot).
+- Open pull requests: **0**. Open issues: **1**, Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/104) (human expert IPA gold pilot).
 - Focused content checks in this continuation found the onset evidence registry already integrated through PR #329; PCGN independent-vowel CSV and its parity test are byte-identical to main; the direct BGN/PCGN feature branch is substantially stale and its current files do not justify wholesale porting. Existing parser/adapter research branches remain snapshots, not merge candidates.
 - No branch was deleted, force-updated or merged wholesale. One no-diff branch tip equal to main was preserved.
 
@@ -3802,12 +3802,12 @@ The 209-ref inventory from the preceding refresh remains current at this checkpo
 
 ## PR #338 exact-main verification — 2026-11-17
 
-PR [#338](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/338) merged as `f5c9c70661126b61a23d5435c8c4368215c36746`. Exact PR-head Quality [44173194420] and [44173216454] passed; Quality reports 427 Python tests + 70 subtests and the expected `NOT_READY_NO_ADJUDICATED_GOLD` validator state. Exact PR-head Chromium [44173216381] passed 18/18. Post-merge mainline Quality [44173400187], Chromium [44173400043] (18/18), and Pages [44173400219] all passed; Pages completed production browser exercise, artifact upload, deployment and deployed-site/runtime asset smoke. No runtime or linguistic behavior changed.
+PR [#338](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/338) merged as `f5c9c70661126b61a23d5435c8c4368215c36746`. Exact PR-head Quality [44173194420] and [44173216454] passed; Quality reports 427 Python tests + 70 subtests and the expected `NOT_READY_NO_ADJUDICATED_GOLD` validator state. Exact PR-head Chromium [44173216381] passed 18/18. Post-merge mainline Quality [44173400187], Chromium [44173400043] (18/18), and Pages [44173400219] all passed; Pages completed production browser exercise, artifact upload, deployment and deployed-site/runtime asset smoke. No runtime or linguistic behavior changed.
 ## Final branch inventory and PR #339 mainline closeout — 2026-11-17
 
 After the audit continuation branches were created, a fresh GitHub listing (pages 1–3) returned **212 refs**: `main` + 211 non-main refs, with **212 unique tip SHAs** and no duplicate tips. Open PRs: **0**. Open issues: **1** (Issue #104). This supersedes the 211-ref snapshot immediately preceding the final clean closeout branch; counts are timestamped snapshots.
 
-PR [#339](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/339) merged as `b5a878f33dae74d34754c547580c5a494307cdce`. Exact PR-head Quality [44173798008] and [44173819190] passed (427 Python tests + 70 subtests; expected `NOT_READY_NO_ADJUDICATED_GOLD`); Chromium [44173818953] passed 18/18. Post-merge mainline Quality [44173970460] passed (427 + 70); Chromium [44173970246] passed 18/18; Pages [44173970271] passed production browser exercise, artifact upload, deployment of exact SHA `b5a878f33dae74d34754c547580c5a494307cdce`, and deployed HTML/JS/CSS smoke checks.
+PR [#339](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/339) merged as `b5a878f33dae74d34754c547580c5a494307cdce`. Exact PR-head Quality [44173798008] and [44173819190] passed (427 Python tests + 70 subtests; expected `NOT_READY_NO_ADJUDICATED_GOLD`); Chromium [44173818953] passed 18/18. Post-merge mainline Quality [44173970460] passed (427 + 70); Chromium [44173970246] passed 18/18; Pages [44173970271] passed production browser exercise, artifact upload, deployment of exact SHA `b5a878f33dae74d34754c547580c5a494307cdce`, and deployed HTML/JS/CSS smoke checks.
 
 PR #340 was closed unmerged as superseded after GitHub reported a squash-merge conflict; its branch remains preserved. Its intended final inventory/verification note is re-applied here from a clean branch based on current main.
 
@@ -4030,7 +4030,7 @@ Representative content checks confirmed:
 
 A focused comparison of `feat/pcgn-anusvara-visarga-syllable-assembly-2026-11-16` against the then-current mainline found a genuinely distinct, bounded assembler that was not present in main. The historical branch was 3 commits ahead / 77 behind and changed only `src/khmer_ua/pcgn.py` and `tests/test_pcgn_anusvara_visarga_syllable_assembly.py`. Its test referred to `schemas/pcgn-anusvara-visarga-syllable-assembly.schema.json`, but that schema was absent from the historical branch.
 
-Rather than merging the stale branch snapshot, the feature was ported onto current main in PR [#351](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/351), merged as `5fc517df5708424dea7a67da36bded581e659145`.
+Rather than merging the stale branch snapshot, the feature was ported onto current main in PR [#351](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/351), merged as `5fc517df5708424dea7a67da36bded581e659145`.
 
 The port adds:
 - `PCGNAnusvaraVisargaSyllableAssembly` and `assemble_pcgn_anusvara_visarga_syllable`, composing the existing consonant, series and exact eight-row anusvara/visarga resolvers;
@@ -4040,9 +4040,9 @@ The port adds:
 Acceptance boundary is deliberately narrow: output is PCGN orthographic romanization only. `ipa` and `ukrainian` remain null; no segmentation is inferred and no phonetic or Ukrainian result is promoted.
 
 Verification:
-- PR-head Quality run [44256391593](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44256391593) SUCCESS; Python suite `431 passed, 70 subtests passed`, IPA gold engineering gate reports expected `NOT_READY_NO_ADJUDICATED_GOLD`, web checks and build passed.
-- PR-head Chromium run [44256391474](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44256391474) SUCCESS.
-- Post-merge mainline Quality [44256579643](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44256579643), Chromium [44256579618](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44256579618), and Pages build/deploy [44256579655](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44256579655) SUCCESS. Mainline Python suite also reports `431 passed, 70 subtests passed`; Pages artifact upload completed.
+- PR-head Quality run [44256391593](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44256391593) SUCCESS; Python suite `431 passed, 70 subtests passed`, IPA gold engineering gate reports expected `NOT_READY_NO_ADJUDICATED_GOLD`, web checks and build passed.
+- PR-head Chromium run [44256391474](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44256391474) SUCCESS.
+- Post-merge mainline Quality [44256579643](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44256579643), Chromium [44256579618](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44256579618), and Pages build/deploy [44256579655](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44256579655) SUCCESS. Mainline Python suite also reports `431 passed, 70 subtests passed`; Pages artifact upload completed.
 
 The historical source branch remains preserved. This is a recovered implementation, not a linguistic gold milestone; IPA convention approval, adjudicated IPA gold, word segmentation and release readiness remain unchanged.
 
@@ -4064,13 +4064,13 @@ This closes a focused module-declaration reconciliation of the 28-branch PCGN fe
 ### Exact mainline checkpoint before this continuation
 
 - Default branch: `main`; base commit: `52b7ae143c2edc0dc34ec87b5e356d4654ea5fb3`.
-- Mainline Quality [44257382312](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44257382312), Chromium [44257382268](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44257382268), and Pages deployment [44257382273](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44257382273) all completed SUCCESS on this exact SHA.
+- Mainline Quality [44257382312](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44257382312), Chromium [44257382268](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44257382268), and Pages deployment [44257382273](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44257382273) all completed SUCCESS on this exact SHA.
 - At the next complete branch-list snapshot (GitHub API pages 1–3), the repository had **224 refs, 224 unique tip SHAs**: main plus 223 non-main refs. Prefix counts: `a11y/*` 2, `audit/*` 15, `benchmark/*` 1, `ci/*` 1, `data/*` 4, `docs/*` 97, `feat/*` 50, `fix/*` 14, `release/*` 1, `research/*` 28, `test/*` 10. This is a timestamped inventory snapshot, not proof that every ref has undergone full content/ancestry review.
 - Open PRs at the checkpoint: 0; open issues: 1 (#104).
 
 ### KHMER-PHONEMIZER-WORKFLOW-001 — DONE_VERIFIED
 
-The historical `ci/khmer-g2p-smoke-2026-10-24` ref contained an optional raw-output smoke workflow. Its script and tests are already present on main, but its old workflow installed the package without a version pin and the historical workflow path has since been repurposed for the separate MekongPhon model diagnostic. Rather than overwrite that workflow or copy the stale configuration, PR [#353](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/353) adds `.github/workflows/optional-khmerphonemizer-smoke.yml` as a separate workflow.
+The historical `ci/khmer-g2p-smoke-2026-10-24` ref contained an optional raw-output smoke workflow. Its script and tests are already present on main, but its old workflow installed the package without a version pin and the historical workflow path has since been repurposed for the separate MekongPhon model diagnostic. Rather than overwrite that workflow or copy the stale configuration, PR [#353](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/353) adds `.github/workflows/optional-khmerphonemizer-smoke.yml` as a separate workflow.
 
 - Pins `khmerphonemizer==0.0.3`; uses Python 3.12 and the repository's current Actions v7 toolchain.
 - Runs on relevant pull requests, matching pushes to main, and manual dispatch.
@@ -4078,15 +4078,15 @@ The historical `ci/khmer-g2p-smoke-2026-10-24` ref contained an optional raw-out
 - The report remains a source-attested diagnostic: independent gold count stays 0 and accuracy stays null. No runtime, pronunciation rule, IPA label or corpus row changes.
 
 Exact PR-head `f73442afa0d37f6de17b4bb9fe779a91d6120ddb` verification:
-- Optional raw-output workflow [44259498574](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259498574) SUCCESS; artifact `khmer-phonemizer-raw-output` uploaded (artifact ID 14406708793; 1,972 bytes; SHA-256 digest `98a7cea015e4166020c321f78217772c73a634baf1557baa6aac0c38ec68335d`).
-- Quality [44259498582](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259498582) SUCCESS.
-- Chromium [44259498488](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259498488) SUCCESS.
-- The branch-push Quality run [44259475466](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259475466) also completed SUCCESS.
+- Optional raw-output workflow [44259498574](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44259498574) SUCCESS; artifact `khmer-phonemizer-raw-output` uploaded (artifact ID 14406708793; 1,972 bytes; SHA-256 digest `98a7cea015e4166020c321f78217772c73a634baf1557baa6aac0c38ec68335d`).
+- Quality [44259498582](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44259498582) SUCCESS.
+- Chromium [44259498488](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44259498488) SUCCESS.
+- The branch-push Quality run [44259475466](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44259475466) also completed SUCCESS.
 - No local checkout or local test execution was available in this connector-only session.
 
 ### Remaining branch-family dispositions from the refreshed inventory
 
-- The two `a11y/*` refs are already integrated by PRs [#331](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/331) and [#333](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/333), with their keyboard and contrast checks recorded above in the historical audit. No re-port is needed.
+- The two `a11y/*` refs are already integrated by PRs [#331](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/331) and [#333](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/333), with their keyboard and contrast checks recorded above in the historical audit. No re-port is needed.
 - The new 97th `docs/*` ref is the documentation branch for PR #352; the new 50th `feat/*` ref is the port branch for PR #351. Both are already merged and represented in the current mainline. This updates the earlier 96/49 family counts; it does not reopen those completed family passes.
 - The 15 `audit/*` refs were compared against current main. Their changed files are documentation-only (handoff, completion register and/or repository audit); `audit/complete-remaining-branch-families-2026-11-17` is behind-only with no unique commits. The merged PR series #341–#350 contains the corresponding successive audit closeouts. These audit branches remain preserved.
 - `benchmark/current-engine-2026-11-11` contains a distinct optional workflow that reads `neurlang/khmer/central/lexicon.tsv` alongside the pinned MekongPhon evaluation split. It was not ported: the branch workflow does not itself establish item-level rights/provenance for the Neurlang lexicon or independent adjudication, and its concordance output cannot be promoted to accuracy. Keep it deferred until those evidence and rights checks are completed.
@@ -4099,7 +4099,7 @@ The branch inventory is refreshed to 224 refs / 223 non-main refs, but a full pe
 
 ### Issue #104 — BLOCKED / human linguistic work
 
-Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains the sole open issue. The current `data/benchmark/gold.tsv` contains only its header; `annotations.jsonl`, `adjudications.jsonl`, `records.jsonl` and `splits.jsonl` are empty. The issue comments still do not record any expert contact or recruitment. A versioned IPA convention requires expert approval; two independent annotators, a separate adjudicator, a curator, a private blind intake channel, source-rights review and 30 adjudicated items remain outstanding. No accuracy score is available. This cannot be closed by generating synthetic labels or treating source-attested examples as gold.
+Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/104) remains the sole open issue. The current `data/benchmark/gold.tsv` contains only its header; `annotations.jsonl`, `adjudications.jsonl`, `records.jsonl` and `splits.jsonl` are empty. The issue comments still do not record any expert contact or recruitment. A versioned IPA convention requires expert approval; two independent annotators, a separate adjudicator, a curator, a private blind intake channel, source-rights review and 30 adjudicated items remain outstanding. No accuracy score is available. This cannot be closed by generating synthetic labels or treating source-attested examples as gold.
 
 **Overall state:** research-ready partial prototype, not linguistically release-ready.
 
@@ -4111,13 +4111,13 @@ The continuation branch for PR #353 adds one new preserved audit ref after the 2
 
 ## PR #353 post-merge mainline closeout — 2026-11-18
 
-PR [#353](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/353) is merged into `main` as implementation commit `d887a7f4866b7d19050a0a140db2d96a259ccdfc`.
+PR [#353](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/353) is merged into `main` as implementation commit `d887a7f4866b7d19050a0a140db2d96a259ccdfc`.
 
 All post-merge checks on that exact mainline SHA completed SUCCESS:
-- Quality [44259925491](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259925491).
-- Chromium browser smoke [44259925384](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259925384).
-- GitHub Pages build/deploy and deployed-site/runtime-asset smoke [44259925382](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259925382).
-- Pinned Khmer Phonemizer raw-output workflow [44259925379](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44259925379), SUCCESS; artifact ID 14407298530, 1,941 bytes, SHA-256 artifact digest `9ad7ec54b67307aa7a248f6ce897ef4f94913770c69bfbf8fc56e574c699c553`.
+- Quality [44259925491](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44259925491).
+- Chromium browser smoke [44259925384](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44259925384).
+- GitHub Pages build/deploy and deployed-site/runtime-asset smoke [44259925382](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44259925382).
+- Pinned Khmer Phonemizer raw-output workflow [44259925379](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44259925379), SUCCESS; artifact ID 14407298530, 1,941 bytes, SHA-256 artifact digest `9ad7ec54b67307aa7a248f6ce897ef4f94913770c69bfbf8fc56e574c699c553`.
 
 Final post-merge repository snapshot: 225 refs / 225 unique tip SHAs (main + 224 non-main), 0 open PRs, and 1 open issue (#104). Prefix counts: a11y 2, audit 16, benchmark 1, ci 1, data 4, docs 97, feat 50, fix 14, release 1, research 28, test 10. The active continuation and historical refs remain preserved.
 
@@ -4126,7 +4126,7 @@ This closes the optional workflow restoration and its post-merge verification. I
 
 ## Human IPA-gold recruitment gate revalidation — 2026-11-18
 
-- Rechecked Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104), its 33-comment history, the collection playbook, corpus contract and the Sok & Adams source audit. The latest recorded shortlist identifies Chem Vatho for primary target-profile convention review and James P. Kirby for a bounded independent phonetics challenge, subject to explicit conflict/collaboration checks. These remain leads only; no contact, acceptance or appointment is evidenced.
+- Rechecked Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/104), its 33-comment history, the collection playbook, corpus contract and the Sok & Adams source audit. The latest recorded shortlist identifies Chem Vatho for primary target-profile convention review and James P. Kirby for a bounded independent phonetics challenge, subject to explicit conflict/collaboration checks. These remain leads only; no contact, acceptance or appointment is evidenced.
 - Added a recruitment execution kit to the existing playbook: separate draft invitations for primary convention review, independent challenge review and annotator/adjudicator/curator recruitment; a private response/qualification register; conflict/independence checks; and an ordered start gate. These are drafts, not sent messages.
 - Reclassified stale playbook TODOs as evidence-backed BLOCKED gates: the documented Khmer Acoustic Model dictionary artifact is unavailable at the inspected path and its entry-count/license claims conflict; convention approval, qualified independent roles, rights-cleared items and private blind intake require external human evidence.
 - No IPA labels, source records, corpus rows, splits, benchmark scores, runtime rules or Ukrainian mappings were changed. `data/benchmark/gold.tsv` remains header-only; independent adjudicated gold=0; empirical accuracy=null.
@@ -4135,11 +4135,11 @@ This closes the optional workflow restoration and its post-merge verification. I
 
 ## PR #355 post-merge closeout — 2026-11-18
 
-PR [#355](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/355) merged into `main` as `083f9a64729ae7b01d63555090f10536db0ef242`.
+PR [#355](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/355) merged into `main` as `083f9a64729ae7b01d63555090f10536db0ef242`.
 
 Exact PR-head checks on `749f36633e448259b129a20a406f357ac10e5507` completed SUCCESS before merge:
-- Quality [44261845934](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44261845934): corpus-structure validation, Python tests, web checks and production build all passed.
-- Chromium browser smoke [44261845844](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44261845844): deterministic web checks, production build, Chromium installation and visible-results verification all passed.
+- Quality [44261845934](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44261845934): corpus-structure validation, Python tests, web checks and production build all passed.
+- Chromium browser smoke [44261845844](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44261845844): deterministic web checks, production build, Chromium installation and visible-results verification all passed.
 
 The merge commit is the latest repository commit as of this closeout. No post-merge workflow runs were created for the documentation-only merge; verification evidence is from the exact merged PR head. No local checkout or local tests were performed in this connector-only session.
 
@@ -4157,11 +4157,11 @@ PR #355 adds invitation drafts and a private response/qualification protocol onl
 
 ## PR #357 post-merge closeout — 2026-11-18
 
-PR [#357](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/357) merged into `main` as `14a0f59a29b58279ce19267f5207c6046fbfe15f`.
+PR [#357](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/357) merged into `main` as `14a0f59a29b58279ce19267f5207c6046fbfe15f`.
 
 Exact PR-head hosted checks on `c5c8849328b802fd560a120cfa52164c85344d4f` completed SUCCESS:
-- Quality [44265647506](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44265647506): independent IPA corpus structure validation, Python tests, web checks and production build.
-- Chromium browser smoke [44265647507](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44265647507): deterministic web checks, production build, Chromium installation and visible-results verification.
+- Quality [44265647506](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44265647506): independent IPA corpus structure validation, Python tests, web checks and production build.
+- Chromium browser smoke [44265647507](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44265647507): deterministic web checks, production build, Chromium installation and visible-results verification.
 
 No post-merge workflows were created for this documentation/research-only merge; the recorded checks ran on the exact merged PR head. No local checkout or local tests were performed in this connector-only session.
 
@@ -4179,13 +4179,13 @@ The source audit remains evidence-limited: upstream public tree lacks the full d
 
 ## PR #359 post-merge closeout — 2026-11-18
 
-PR [#359](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/359) merged into `main` as `d85081ba687b2003c195a5f7b4f0d78764fc9bc1`.
+PR [#359](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/359) merged into `main` as `d85081ba687b2003c195a5f7b4f0d78764fc9bc1`.
 
 Exact PR-head checks on `3709c1912d1dad5aa18b7aa97b02e0f761484f7a` completed SUCCESS:
-- Quality [44277171387](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277171387).
-- Chromium browser smoke [44277171272](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277171272); deterministic web checks, production build, Chromium installation and visible-results verification passed.
+- Quality [44277171387](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44277171387).
+- Chromium browser smoke [44277171272](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44277171272); deterministic web checks, production build, Chromium installation and visible-results verification passed.
 
-Post-merge mainline runs on `d85081ba687b2003c195a5f7b4f0d78764fc9bc1`: Quality [44277328871](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277328871) SUCCESS; Pages build/deploy [44277331001](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277331001) SUCCESS. Post-merge Chromium smoke [44277328915](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277328915) was still IN_PROGRESS at this closeout; do not count it as a pass until its run reports SUCCESS.
+Post-merge mainline runs on `d85081ba687b2003c195a5f7b4f0d78764fc9bc1`: Quality [44277328871](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44277328871) SUCCESS; Pages build/deploy [44277331001](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44277331001) SUCCESS. Post-merge Chromium smoke [44277328915](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44277328915) was still IN_PROGRESS at this closeout; do not count it as a pass until its run reports SUCCESS.
 
 No runtime, linguistic rules, corpus rows, IPA labels or benchmark values changed. The repository-wide historical branch audit remains PARTIAL, Issue #104 remains open, independent adjudicated IPA gold remains 0 and empirical accuracy remains null. No local checkout or local tests were performed in this connector-only session.
 
@@ -4241,7 +4241,7 @@ No runtime, linguistic rules, corpus rows, IPA labels or benchmark values change
 
 ## PR #359 post-merge verification correction — 2026-11-18
 
-The previously pending post-merge Chromium run [44277328915](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277328915) subsequently completed SUCCESS. For main `da8054b893bf664a030ab9562e363c983815d344`, all three post-merge workflows completed SUCCESS: Quality [44277815119](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277815119), Chromium [44277815233](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277815233), and Pages build/deploy [44277815127](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44277815127).
+The previously pending post-merge Chromium run [44277328915](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44277328915) subsequently completed SUCCESS. For main `da8054b893bf664a030ab9562e363c983815d344`, all three post-merge workflows completed SUCCESS: Quality [44277815119](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44277815119), Chromium [44277815233](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44277815233), and Pages build/deploy [44277815127](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44277815127).
 
 
 ## Audit branch-family reconciliation — 2026-11-18
@@ -4275,13 +4275,13 @@ The previously pending post-merge Chromium run [44277328915](https://github.com/
 
 ## PR #361 post-merge closeout — 2026-11-18
 
-PR [#361](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/361) merged as `3731a16cbb8553a6d3db9f7fc28708030a187d06`.
+PR [#361](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/361) merged as `3731a16cbb8553a6d3db9f7fc28708030a187d06`.
 
 Exact PR-head checks on `036fabab2606f2b4269088a50e1610bb3cf1f0dd` completed SUCCESS:
-- Quality [44282464851](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44282464851).
-- Chromium [44282464691](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44282464691).
+- Quality [44282464851](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44282464851).
+- Chromium [44282464691](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44282464691).
 
-Post-merge mainline Quality, Chromium and Pages runs were still in progress at this closeout: [44282675127](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44282675127), [44282675115](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44282675115), [44282675129](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44282675129). Update this status only after the runs complete.
+Post-merge mainline Quality, Chromium and Pages runs were still in progress at this closeout: [44282675127](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44282675127), [44282675115](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44282675115), [44282675129](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44282675129). Update this status only after the runs complete.
 
 
 ## Accessibility, CI, benchmark and recent documentation branch checks — 2026-11-18
@@ -4314,19 +4314,19 @@ Post-merge mainline Quality, Chromium and Pages runs were still in progress at t
 
 ## PR #362 post-merge closeout — 2026-11-18
 
-PR [#362](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/362) merged into `main` as `95f0a69f861294490845425b622832bea49df2ab`.
+PR [#362](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/362) merged into `main` as `95f0a69f861294490845425b622832bea49df2ab`.
 
-Exact PR-head checks on `08882bbe963429f2f9243ed3dd79b73e01c192f9` completed SUCCESS: Quality [44282811673](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44282811673) and Chromium [44282838244](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44282838244).
+Exact PR-head checks on `08882bbe963429f2f9243ed3dd79b73e01c192f9` completed SUCCESS: Quality [44282811673](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44282811673) and Chromium [44282838244](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44282838244).
 
-Post-merge mainline Quality [44283185333](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44283185333), Chromium [44283185381](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44283185381), and Pages [44283185385](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44283185385) were still IN_PROGRESS at this closeout; do not mark them successful until confirmed.
+Post-merge mainline Quality [44283185333](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44283185333), Chromium [44283185381](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44283185381), and Pages [44283185385](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44283185385) were still IN_PROGRESS at this closeout; do not mark them successful until confirmed.
 
 
 ## PR #362 and #363 closeout; live inventory refresh — 2026-11-18
 
-- PR [#362](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/362) merged as `95f0a69f861294490845425b622832bea49df2ab`. Its exact-head Quality [44282811673](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44282811673) and Chromium [44282838244](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44282838244) both SUCCESS. Post-merge mainline Quality [44283185333](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44283185333), Chromium [44283185381](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44283185381), and Pages [44283185385](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44283185385) subsequently all completed SUCCESS.
-- PR [#363](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/363) merged into `main` as `66009beed50a0ffbe4258c4ebf35344669ac3901`. Exact PR-head checks on `2dc45e04facc6cee18ac2fcb990eeb7a663dbbf2`: Quality [44283352910](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44283352910) SUCCESS, Quality [44283379087](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44283379087) SUCCESS, and Chromium [44283378923](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44283378923) SUCCESS.
+- PR [#362](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/362) merged as `95f0a69f861294490845425b622832bea49df2ab`. Its exact-head Quality [44282811673](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44282811673) and Chromium [44282838244](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44282838244) both SUCCESS. Post-merge mainline Quality [44283185333](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44283185333), Chromium [44283185381](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44283185381), and Pages [44283185385](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44283185385) subsequently all completed SUCCESS.
+- PR [#363](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/363) merged into `main` as `66009beed50a0ffbe4258c4ebf35344669ac3901`. Exact PR-head checks on `2dc45e04facc6cee18ac2fcb990eeb7a663dbbf2`: Quality [44283352910](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44283352910) SUCCESS, Quality [44283379087](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44283379087) SUCCESS, and Chromium [44283378923](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44283378923) SUCCESS.
 - Refreshed all three GitHub branch API pages at `main=66009beed50a0ffbe4258c4ebf35344669ac3901`: **235 refs / 235 unique tip SHAs** (main + 234 non-main), zero duplicate tips. Prefix counts: a11y 2, audit 20, benchmark 1, ci 1, data 4, docs 102, feat 50, fix 14, main 1, release 1, research 29, test 10. Open PRs: 0; Issue #104 remains open.
-- Post-merge mainline workflows for `66009beed50a0ffbe4258c4ebf35344669ac3901` were still IN_PROGRESS at this closeout: Quality [44283576661](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44283576661), Chromium [44283576328](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44283576328), Pages [44283576129](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44283576129). Do not count these as passes until completed.
+- Post-merge mainline workflows for `66009beed50a0ffbe4258c4ebf35344669ac3901` were still IN_PROGRESS at this closeout: Quality [44283576661](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44283576661), Chromium [44283576328](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44283576328), Pages [44283576129](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44283576129). Do not count these as passes until completed.
 
 No implementation, phonological rule, IPA label, source record, rights decision, benchmark score or gold row changed in PRs #362–#363. Historical refs remain preserved. `KHM-BRANCH-AUDIT-001` remains PARTIAL; independent adjudicated IPA gold remains 0, empirical accuracy remains null, and Issue #104 is the human-evidence blocker.
 
@@ -4348,23 +4348,23 @@ No implementation, phonological rule, IPA label, source record, rights decision,
 
 ## PR #365 source-registry metadata closeout — 2026-11-18
 
-PR [#365](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/365) merged into `main` as `cb4aa8c1e69d1a4fafcd40f59577bef4fd45f7a5`.
+PR [#365](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/365) merged into `main` as `cb4aa8c1e69d1a4fafcd40f59577bef4fd45f7a5`.
 
-Exact PR-head checks on `114e89e2e8a3ab6ea34f6de2c7899affcb4961a7` completed SUCCESS: Quality [44285305424](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44285305424) and [44285327561](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44285327561), Chromium [44285327565](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44285327565). Post-merge mainline runs on `cb4aa8c1e69d1a4fafcd40f59577bef4fd45f7a5` were still in progress at closeout: Quality [44285486097](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44285486097), Chromium [44285486019](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44285486019), Pages [44285486075](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44285486075).
+Exact PR-head checks on `114e89e2e8a3ab6ea34f6de2c7899affcb4961a7` completed SUCCESS: Quality [44285305424](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44285305424) and [44285327561](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44285327561), Chromium [44285327565](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44285327565). Post-merge mainline runs on `cb4aa8c1e69d1a4fafcd40f59577bef4fd45f7a5` were still in progress at closeout: Quality [44285486097](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44285486097), Chromium [44285486019](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44285486019), Pages [44285486075](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44285486075).
 
 Current live branch inventory at this closeout: **237 refs / 237 unique tip SHAs** (main + 236 non-main), zero duplicate tips. Prefix counts: a11y 2, audit 20, benchmark 1, ci 1, data 4, docs 103, feat 50, fix 15, main 1, release 1, research 29, test 10. Open PRs: 0. Issue #104 remains open. No runtime, IPA, Ukrainian output, gold labels or accuracy figures changed; the repository remains a research-ready partial prototype, not linguistically release-ready.
 
 
 ## PR #366 post-merge closeout — 2026-11-18
 
-PR [#366](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/366) merged into `main` as `9c11943aeb10746b006a9684df13fe71dc9f6794`.
+PR [#366](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/366) merged into `main` as `9c11943aeb10746b006a9684df13fe71dc9f6794`.
 
-Exact PR-head checks on `be079196a4008a8beaaf5339a649e336d673aab3` completed SUCCESS: Quality [44285636247](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44285636247) and [44285613505](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44285613505), Chromium [44285636264](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44285636264).
+Exact PR-head checks on `be079196a4008a8beaaf5339a649e336d673aab3` completed SUCCESS: Quality [44285636247](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44285636247) and [44285613505](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44285613505), Chromium [44285636264](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44285636264).
 
 Post-merge mainline checks on `9c11943aeb10746b006a9684df13fe71dc9f6794` all completed SUCCESS:
-- Quality [44286018948](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44286018948).
-- Chromium [44286018958](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44286018958).
-- Pages build, production Chromium exercise, artifact upload and deploy [44286018982](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44286018982).
+- Quality [44286018948](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44286018948).
+- Chromium [44286018958](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44286018958).
+- Pages build, production Chromium exercise, artifact upload and deploy [44286018982](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44286018982).
 
 Live branch inventory at this checkpoint: **238 refs / 238 unique tip SHAs** (main + 237 non-main), zero duplicate tips. Prefix counts: a11y 2, audit 20, benchmark 1, ci 1, data 4, docs 104, feat 50, fix 15, main 1, release 1, research 29, test 10. Open PRs: 0; Issue #104 remains open.
 
@@ -4373,11 +4373,11 @@ PRs #365–#366 change only source metadata, tests and audit documentation. No T
 
 ## PR #367 final closeout and live ref reconciliation — 2026-11-18
 
-PR [#367](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/367) merged into `main` as `ac1bb5dbdb1245e7045939c3a4f57de2deb59242`.
+PR [#367](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/367) merged into `main` as `ac1bb5dbdb1245e7045939c3a4f57de2deb59242`.
 
-Exact PR-head checks on `ca5083fdd3287acdb0c0422db99f3d21235703fc` completed SUCCESS: Quality [44286408991](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44286408991), Quality [44286432543](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44286432543), Chromium [44286432417](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44286432417).
+Exact PR-head checks on `ca5083fdd3287acdb0c0422db99f3d21235703fc` completed SUCCESS: Quality [44286408991](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44286408991), Quality [44286432543](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44286432543), Chromium [44286432417](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44286432417).
 
-Post-merge mainline checks on `ac1bb5dbdb1245e7045939c3a4f57de2deb59242`: Quality [44286626785](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44286626785) SUCCESS; Pages build/deploy [44286626801](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44286626801) SUCCESS. Chromium [44286626936](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44286626936) remained IN_PROGRESS at last check, with deterministic web checks and production build completed and the Chromium installation step still active. The exact merged PR-head Chromium check succeeded; do not mark the post-merge run as success until GitHub reports completion.
+Post-merge mainline checks on `ac1bb5dbdb1245e7045939c3a4f57de2deb59242`: Quality [44286626785](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44286626785) SUCCESS; Pages build/deploy [44286626801](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44286626801) SUCCESS. Chromium [44286626936](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44286626936) remained IN_PROGRESS at last check, with deterministic web checks and production build completed and the Chromium installation step still active. The exact merged PR-head Chromium check succeeded; do not mark the post-merge run as success until GitHub reports completion.
 
 Live inventory after creating this closeout branch: **240 refs / 239 unique tips** at the moment before its first commit; the only shared SHA was the expected `main` + new branch base `ac1bb5dbdb1245e7045939c3a4f57de2deb59242`. The closeout commit will give this branch its own tip. Prefix counts: a11y 2, audit 20, benchmark 1, ci 1, data 4, docs 106, feat 50, fix 15, main 1, release 1, research 29, test 10. All pre-existing non-main branch tips remain preserved. Open PRs before this closeout: 0; Issue #104 remains open.
 
@@ -4635,9 +4635,9 @@ Together with the prior 103-ref family compare and the three later closeout comp
 
 ## PR #378 final mainline closeout — 2026-11-18
 
-PR [#378](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/378) merged into `main` as `35b9379d53f18f45992da8f488982c6fdb3e0a16`.
+PR [#378](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/378) merged into `main` as `35b9379d53f18f45992da8f488982c6fdb3e0a16`.
 
-Exact PR-head checks on `2ffe18c983707bb1f009d5261fa5ee4714b2d0ed` completed SUCCESS: Quality [44298834063](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44298834063) and Chromium [44298834170](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44298834170). Post-merge mainline Quality [44299017800](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44299017800) and Chromium [44299017849](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44299017849) completed SUCCESS. Pages deployment [44299017965](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44299017965) was still PENDING at this closeout; do not mark it as passed until GitHub reports completion.
+Exact PR-head checks on `2ffe18c983707bb1f009d5261fa5ee4714b2d0ed` completed SUCCESS: Quality [44298834063](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44298834063) and Chromium [44298834170](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44298834170). Post-merge mainline Quality [44299017800](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44299017800) and Chromium [44299017849](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44299017849) completed SUCCESS. Pages deployment [44299017965](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44299017965) was still PENDING at this closeout; do not mark it as passed until GitHub reports completion.
 
 Live GitHub branch inventory immediately after PR #378 merge: **250 refs / 250 unique tip SHAs**. Prefix counts: a11y 2, audit 30, benchmark 1, ci 1, data 4, docs 106, feat 50, fix 15, main 1, release 1, research 29, test 10. Open PRs: 0. Open non-PR issue: #104 only.
 
@@ -4655,12 +4655,12 @@ No runtime, phonological rules, IPA labels, Ukrainian mappings, source data, cor
 
 ## PR #379 post-merge and live branch inventory closeout — 2026-11-18
 
-PR [#379](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/379) merged as `04de0609ec490b09e1e44ec948bbe6ded5f59d4a`. Its exact head was `c76d8e5f54115832cca3d392e5342486ec0f18b2`, based on `35b9379d53f18f45992da8f488982c6fdb3e0a16`; the three-commit branch changed only the canonical handoff, linguistic completion register and repository audit. The branch is retained as the 107th live `docs/*` ref.
+PR [#379](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/379) merged as `04de0609ec490b09e1e44ec948bbe6ded5f59d4a`. Its exact head was `c76d8e5f54115832cca3d392e5342486ec0f18b2`, based on `35b9379d53f18f45992da8f488982c6fdb3e0a16`; the three-commit branch changed only the canonical handoff, linguistic completion register and repository audit. The branch is retained as the 107th live `docs/*` ref.
 
 Post-merge workflows on exact `main` SHA `04de0609ec490b09e1e44ec948bbe6ded5f59d4a` are now all **SUCCESS**:
-- Quality checks: [44299543935](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44299543935).
-- Chromium browser smoke: [44299543875](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44299543875).
-- GitHub Pages build, deploy and deployed-site asset smoke: [44299543884](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44299543884). This resolves the earlier PR #378 checkpoint's pending Pages status; that earlier pending state is historical, not current.
+- Quality checks: [44299543935](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44299543935).
+- Chromium browser smoke: [44299543875](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44299543875).
+- GitHub Pages build, deploy and deployed-site asset smoke: [44299543884](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44299543884). This resolves the earlier PR #378 checkpoint's pending Pages status; that earlier pending state is historical, not current.
 
 Refreshed live branch inventory after PR #379: **251 refs / 251 unique tip SHAs**. Prefix counts: a11y 2, audit 30, benchmark 1, ci 1, data 4, docs 107, feat 50, fix 15, main 1, release 1, research 29, test 10. Open PRs: 0. Open non-PR issue: #104 only.
 
@@ -4687,16 +4687,16 @@ No runtime, phonological rule, IPA label, Ukrainian mapping, source data, corpus
 
 ## PR #380 merge and exact-main verification — 2026-11-18
 
-PR [#380](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/380) merged by squash as `c149f5eb792c6fbb16c1b52b198809c83b4b4bf6`. Its exact PR head was `463635f4e71cef47f780b77d236b5c273be1fe9d`; the three-file change updated only the canonical handoff, repository audit and linguistic completion register. No runtime or linguistic implementation changed.
+PR [#380](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/380) merged by squash as `c149f5eb792c6fbb16c1b52b198809c83b4b4bf6`. Its exact PR head was `463635f4e71cef47f780b77d236b5c273be1fe9d`; the three-file change updated only the canonical handoff, repository audit and linguistic completion register. No runtime or linguistic implementation changed.
 
 Exact PR-head verification:
-- Quality [44302844364](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44302844364) — SUCCESS; IPA corpus structure validation, Python test suite, Node web checks and Vite production build all completed successfully.
-- Chromium [44302844370](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44302844370) — SUCCESS; deterministic web checks, production build and production Chromium smoke completed successfully.
+- Quality [44302844364](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44302844364) — SUCCESS; IPA corpus structure validation, Python test suite, Node web checks and Vite production build all completed successfully.
+- Chromium [44302844370](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44302844370) — SUCCESS; deterministic web checks, production build and production Chromium smoke completed successfully.
 
 Post-merge verification on exact `main` SHA `c149f5eb792c6fbb16c1b52b198809c83b4b4bf6`:
-- Quality [44303007846](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44303007846) — SUCCESS.
-- Chromium [44303007883](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44303007883) — SUCCESS.
-- GitHub Pages [44303007825](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44303007825) — SUCCESS, including production build, browser exercise, Pages artifact upload/deploy and deployed-site runtime-asset smoke test.
+- Quality [44303007846](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44303007846) — SUCCESS.
+- Chromium [44303007883](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44303007883) — SUCCESS.
+- GitHub Pages [44303007825](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44303007825) — SUCCESS, including production build, browser exercise, Pages artifact upload/deploy and deployed-site runtime-asset smoke test.
 
 Live branch inventory immediately after PR #380 merge and before this follow-up documentation branch was created: **252 refs / 252 unique tip SHAs**. Prefix counts: a11y 2, audit 31, benchmark 1, ci 1, data 4, docs 107, feat 50, fix 15, main 1, release 1, research 29, test 10. At that snapshot there were **0 open PRs** and Issue #104 was the only open non-PR issue. The 107 documentation refs remain fully reconciled; the new follow-up branch is a separate documentation-only closeout and does not change the 107-ref historical cohort being recorded here.
 
@@ -4705,16 +4705,16 @@ No local checkout or local test execution is claimed. All test evidence above is
 
 ## PR #381 and post-merge verification — 2026-11-18
 
-PR [#381](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/381) merged by squash as `06250a7d2c7f0c90487fd519e173538f00d45314`. Exact PR head: `f1bfa4410effb4dfbc8ad0486015dc26e750abd1`. The change records PR #380's final exact-main checks and is documentation-only across the three canonical records.
+PR [#381](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/381) merged by squash as `06250a7d2c7f0c90487fd519e173538f00d45314`. Exact PR head: `f1bfa4410effb4dfbc8ad0486015dc26e750abd1`. The change records PR #380's final exact-main checks and is documentation-only across the three canonical records.
 
 PR-head CI:
-- Quality [44303308051](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44303308051) — SUCCESS: independent IPA gold corpus structural validation, Python tests, Node web checks and production build.
-- Chromium [44303307840](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44303307840) — SUCCESS: deterministic web checks, production build and visible-results Chromium smoke.
+- Quality [44303308051](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44303308051) — SUCCESS: independent IPA gold corpus structural validation, Python tests, Node web checks and production build.
+- Chromium [44303307840](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44303307840) — SUCCESS: deterministic web checks, production build and visible-results Chromium smoke.
 
 Post-merge CI on exact `main` SHA `06250a7d2c7f0c90487fd519e173538f00d45314`:
-- Quality [44303520032](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44303520032) — SUCCESS.
-- Chromium [44303520568](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44303520568) — SUCCESS.
-- GitHub Pages [44303520067](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44303520067) — SUCCESS, including production build, Chromium exercise, artifact upload/deployment and deployed-site smoke.
+- Quality [44303520032](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44303520032) — SUCCESS.
+- Chromium [44303520568](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44303520568) — SUCCESS.
+- GitHub Pages [44303520067](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44303520067) — SUCCESS, including production build, Chromium exercise, artifact upload/deployment and deployed-site smoke.
 
 Live branch inventory after PR #381 merge and before this addendum branch: **253 refs / 253 unique tip SHAs**. Prefix counts: a11y 2, audit 32, benchmark 1, ci 1, data 4, docs 107, feat 50, fix 15, main 1, release 1, research 29, test 10. Open PRs: 0. Open issue: #104 only. The 107-ref documentation ancestry cohort remains reconciled as previously recorded; this follow-up branch is an additional audit-family closeout.
 
@@ -4734,7 +4734,7 @@ No phonological rules, IPA correspondences, Ukrainian mappings, corpus entries, 
 
 ## Final session closeout after PR #382 — 2026-11-18
 
-PR [#382](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/382) merged by squash as **`f4ad2ddf37579273e5a5bf5f68503a9986e0c812`**. PR-head Quality [44304006397](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44304006397) and Chromium [44304006183](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44304006183) both SUCCESS. Exact-main post-merge Quality [44304178800](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44304178800), Chromium [44304178779](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44304178779) and Pages deployment plus deployed-site asset smoke [44304178824](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44304178824) all SUCCESS.
+PR [#382](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/382) merged by squash as **`f4ad2ddf37579273e5a5bf5f68503a9986e0c812`**. PR-head Quality [44304006397](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44304006397) and Chromium [44304006183](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44304006183) both SUCCESS. Exact-main post-merge Quality [44304178800](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44304178800), Chromium [44304178779](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44304178779) and Pages deployment plus deployed-site asset smoke [44304178824](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44304178824) all SUCCESS.
 
 Final verified main commit for this session: `f4ad2ddf37579273e5a5bf5f68503a9986e0c812`. Live branch snapshot after PR #382: **254 refs / 254 unique tip SHAs**, prefix counts: a11y 2, audit 33, benchmark 1, ci 1, data 4, docs 107, feat 50, fix 15, main 1, release 1, research 29, test 10. Open PRs: 0. Open issue: #104 only.
 
@@ -4748,10 +4748,10 @@ No runtime, phonological rules, IPA correspondences, Ukrainian mappings, source 
 ## IPA notation boundary regression and PR #384 closeout — 2026-11-18
 
 - A focused semantic review of the current typed IPA validator found that U+0361/U+035C tie bars were accepted without a following segment (for example `k͡`), and that a second-segment modifier could intervene (`k͡ːa`). The prior state also incorrectly discarded the first segment's availability after an ordinary combining diacritic, rejecting valid structural order such as `t̪͡s`.
-- PR [#384](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/384) fixes the notation-state boundary: a tie bar now requires an adjacent second segment letter; trailing, repeated, or interrupted tie bars are rejected; ordinary diacritics before the tie bar remain supported. Added regressions for `k͡`, `/k͡/`, `k͡ːa`, `k͡͡a`, and `t̪͡s`.
+- PR [#384](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/384) fixes the notation-state boundary: a tie bar now requires an adjacent second segment letter; trailing, repeated, or interrupted tie bars are rejected; ordinary diacritics before the tie bar remain supported. Added regressions for `k͡`, `/k͡/`, `k͡ːa`, `k͡͡a`, and `t̪͡s`.
 - PR #384 merged by squash as `70b381d41f00f89bb94c3694b1c6faa692bfe34d`, based on `411b616df5f69ab337ea15de498b4cf839bf258c`.
-- Exact PR-head CI: Quality [44315101232](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44315101232) — SUCCESS; Khmer browser smoke [44315101225](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44315101225) — SUCCESS.
-- Exact post-merge main CI on `70b381d41f00f89bb94c3694b1c6faa692bfe34d`: Quality [44315276642](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44315276642) — SUCCESS; Chromium [44315276566](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44315276566) — SUCCESS; Pages build/deploy and deployed-site runtime-asset smoke [44315276557](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44315276557) — SUCCESS.
+- Exact PR-head CI: Quality [44315101232](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44315101232) — SUCCESS; Khmer browser smoke [44315101225](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44315101225) — SUCCESS.
+- Exact post-merge main CI on `70b381d41f00f89bb94c3694b1c6faa692bfe34d`: Quality [44315276642](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44315276642) — SUCCESS; Chromium [44315276566](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44315276566) — SUCCESS; Pages build/deploy and deployed-site runtime-asset smoke [44315276557](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44315276557) — SUCCESS.
 - Additional semantic reviews: PR #287's Unicode 18 packed parse forest preserves both segmentation and local component-role derivations; PR #185's typed hybrid bridge keeps the deterministic rule engine as the only final IPA/Ukrainian authority and treats external candidates as diagnostics. Both were already integrated; no duplicate implementation was ported.
 - Task ledger: IPA tie-bar notation boundary — DONE_VERIFIED; PR #287 parse-role ambiguity review — DONE_VERIFIED; PR #185 typed-provider boundary review — DONE_VERIFIED. The validator remains a notation/metadata gate, not a pronunciation correctness validator.
 - No phonological rule, IPA gold label, Ukrainian mapping, corpus row, source dataset, benchmark score or external model result changed. Independent adjudicated gold remains 0 and empirical accuracy remains null. Issue #104, manual accessibility, root-license owner decision and complete historical semantic re-adjudication remain open/partial as previously recorded. No local checkout or local tests were run; all verification cited above is hosted GitHub Actions.
@@ -4760,16 +4760,16 @@ No runtime, phonological rules, IPA correspondences, Ukrainian mappings, source 
 
 ## PR #385 and exact-main verification — 2026-11-18
 
-PR [#385](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/385) merged by squash as `56796f4f0facb161f2d659bfe8b8d7e9b27d9262`. Exact PR head: `b6ae553598275cb33ab3cd7aadf5a13c32a5e4a6`; base: `70b381d41f00f89bb94c3694b1c6faa692bfe34d`. The PR updates only the canonical handoff, linguistic completion register and repository audit to record the PR #384 tie-bar correction and semantic spot-checks; no runtime or linguistic data changed.
+PR [#385](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/385) merged by squash as `56796f4f0facb161f2d659bfe8b8d7e9b27d9262`. Exact PR head: `b6ae553598275cb33ab3cd7aadf5a13c32a5e4a6`; base: `70b381d41f00f89bb94c3694b1c6faa692bfe34d`. The PR updates only the canonical handoff, linguistic completion register and repository audit to record the PR #384 tie-bar correction and semantic spot-checks; no runtime or linguistic data changed.
 
 Exact PR-head checks on `b6ae553598275cb33ab3cd7aadf5a13c32a5e4a6`:
-- Quality [44315782204](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44315782204) — SUCCESS.
-- Khmer browser smoke [44315782121](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44315782121) — SUCCESS.
+- Quality [44315782204](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44315782204) — SUCCESS.
+- Khmer browser smoke [44315782121](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44315782121) — SUCCESS.
 
 Exact post-merge mainline checks on `56796f4f0facb161f2d659bfe8b8d7e9b27d9262`:
-- Quality [44315928573](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44315928573) — SUCCESS.
-- Chromium [44315928755](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44315928755) — SUCCESS.
-- GitHub Pages build/deploy and deployed-site runtime-asset smoke [44315928027](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44315928027) — SUCCESS; both build and deploy jobs completed successfully.
+- Quality [44315928573](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44315928573) — SUCCESS.
+- Chromium [44315928755](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44315928755) — SUCCESS.
+- GitHub Pages build/deploy and deployed-site runtime-asset smoke [44315928027](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44315928027) — SUCCESS; both build and deploy jobs completed successfully.
 
 Live branch inventory after PR #385: **257 refs / 257 unique tip SHAs**. Prefix counts: a11y 2, audit 35, benchmark 1, ci 1, data 4, docs 107, feat 50, fix 16, main 1, release 1, research 29, test 10. Open PRs: 0. Open non-PR issue: #104 only.
 
@@ -4780,16 +4780,16 @@ No local checkout or local tests were run. All verification above is from GitHub
 
 ## PR #387 — expanded automated accessibility smoke and exact-main closeout — 2026-11-18
 
-PR [#387](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/387) merged by squash as `61975c0c899d8c4b390204f69c08ef776b1e1da5`, with exact PR head `cd689943bfa130bd2993ab6d42ac0c0e1cc20bb4` and base `c16de68db26ef19fbaa02065bed7a3663bc46bfa`. The single-file test change adds (1) keyboard focus-indicator and Space activation coverage for the example/clear controls after results appear, and (2) document/body horizontal-overflow checks at 320, 375 and 420 CSS pixels on both the service and methodology pages.
+PR [#387](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/387) merged by squash as `61975c0c899d8c4b390204f69c08ef776b1e1da5`, with exact PR head `cd689943bfa130bd2993ab6d42ac0c0e1cc20bb4` and base `c16de68db26ef19fbaa02065bed7a3663bc46bfa`. The single-file test change adds (1) keyboard focus-indicator and Space activation coverage for the example/clear controls after results appear, and (2) document/body horizontal-overflow checks at 320, 375 and 420 CSS pixels on both the service and methodology pages.
 
 Exact PR-head CI:
-- Quality [44336489907](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44336489907) — SUCCESS.
-- Khmer browser smoke [44336489862](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44336489862) — SUCCESS.
+- Quality [44336489907](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44336489907) — SUCCESS.
+- Khmer browser smoke [44336489862](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44336489862) — SUCCESS.
 
 Exact post-merge main CI on `61975c0c899d8c4b390204f69c08ef776b1e1da5`:
-- Quality [44336671094](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44336671094) — SUCCESS.
-- Khmer browser smoke [44336671217](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44336671217) — SUCCESS.
-- GitHub Pages build/deploy [44336671342](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44336671342) — SUCCESS; both build and deploy jobs completed successfully.
+- Quality [44336671094](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44336671094) — SUCCESS.
+- Khmer browser smoke [44336671217](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44336671217) — SUCCESS.
+- GitHub Pages build/deploy [44336671342](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44336671342) — SUCCESS; both build and deploy jobs completed successfully.
 
 The new browser tests improve automated keyboard and narrow-screen regression coverage only. They do not establish full keyboard traversal, screen-reader/assistive-technology compatibility, 200%/400% zoom/reflow, complete contrast coverage, or real-device/mobile behavior. Manual accessibility task `KHM-UI-001` therefore remains **PARTIAL**.
 
@@ -4802,16 +4802,16 @@ No production runtime, phonological rule, IPA label, Ukrainian mapping, corpus r
 
 ## PR #389 — accessibility landmark and accessible-name smoke — 2026-11-18
 
-PR [#389](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/389) merged by squash as `21092c099e37e47a0f23031c49dc90387ecb464d`, with exact PR head `e9f7cf81a74ec6bd3732036a299a4d379774b4be` and base `c079eb94cf06778db19c165f5786f8b3c30ee433`. The single-file test change checks both public pages for `lang="uk"`, exactly one main landmark, exactly one H1, non-empty accessible-name sources for every button/input/select/textarea and link, and an `alt` attribute on every image. It also asserts the service navigation landmark and labeled textbox remain discoverable by role/name.
+PR [#389](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/389) merged by squash as `21092c099e37e47a0f23031c49dc90387ecb464d`, with exact PR head `e9f7cf81a74ec6bd3732036a299a4d379774b4be` and base `c079eb94cf06778db19c165f5786f8b3c30ee433`. The single-file test change checks both public pages for `lang="uk"`, exactly one main landmark, exactly one H1, non-empty accessible-name sources for every button/input/select/textarea and link, and an `alt` attribute on every image. It also asserts the service navigation landmark and labeled textbox remain discoverable by role/name.
 
 Exact PR-head verification:
-- Quality [44339619652](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44339619652) — SUCCESS (full Python suite, IPA corpus engineering validator, web checks and production build).
-- Chromium [44339619558](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44339619558) — SUCCESS (full Playwright browser suite, including the new accessibility structural checks).
+- Quality [44339619652](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44339619652) — SUCCESS (full Python suite, IPA corpus engineering validator, web checks and production build).
+- Chromium [44339619558](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44339619558) — SUCCESS (full Playwright browser suite, including the new accessibility structural checks).
 
 Exact post-merge main verification on `21092c099e37e47a0f23031c49dc90387ecb464d`:
-- Quality [44339770085](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44339770085) — SUCCESS.
-- Chromium [44339769999](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44339769999) — SUCCESS.
-- GitHub Pages production build, Chromium exercise, deployment and deployed-site/runtime-asset smoke [44339769998](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44339769998) — SUCCESS; build and deploy jobs both completed successfully.
+- Quality [44339770085](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44339770085) — SUCCESS.
+- Chromium [44339769999](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44339769999) — SUCCESS.
+- GitHub Pages production build, Chromium exercise, deployment and deployed-site/runtime-asset smoke [44339769998](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44339769998) — SUCCESS; build and deploy jobs both completed successfully.
 
 Scope boundary: this is automated structural/accessibility-name smoke coverage, not a complete WCAG audit. It does not establish screen-reader compatibility, exhaustive keyboard traversal, 200%/400% zoom/reflow, all contrast contexts, touch target adequacy or real-device behavior. Manual accessibility task `KHM-UI-001` remains **PARTIAL**. No production runtime, phonological rule, IPA label, Ukrainian mapping, corpus row, source-rights status or benchmark score changed.
 
@@ -4824,16 +4824,16 @@ No local checkout or local test execution is claimed; verification is from exact
 
 ## PR #390 — canonical closeout for PR #389 — 2026-11-18
 
-PR [#390](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/390) merged by squash as a2bb1f6e40cd0e9c172fc75249cdc3154d854289, with PR head 8763b1410f9523352f21e08cd746e3c4b3648ba7 and base 21092c099e37e47a0f23031c49dc90387ecb464d. This documentation-only PR reconciles the canonical handoff, repository audit and linguistic completion register with the PR #389 accessibility structural-smoke work and its exact-main CI.
+PR [#390](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/390) merged by squash as a2bb1f6e40cd0e9c172fc75249cdc3154d854289, with PR head 8763b1410f9523352f21e08cd746e3c4b3648ba7 and base 21092c099e37e47a0f23031c49dc90387ecb464d. This documentation-only PR reconciles the canonical handoff, repository audit and linguistic completion register with the PR #389 accessibility structural-smoke work and its exact-main CI.
 
-Exact PR-head Quality [44340072047](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44340072047) — SUCCESS.
+Exact PR-head Quality [44340072047](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44340072047) — SUCCESS.
 
 Exact post-merge main verification on a2bb1f6e40cd0e9c172fc75249cdc3154d854289:
-- Quality [44340210799](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44340210799) — SUCCESS.
-- Chromium [44340210892](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44340210892) — SUCCESS.
-- GitHub Pages build/deploy and deployed-site/runtime-asset smoke [44340211059](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44340211059) — SUCCESS; build and deploy jobs both completed successfully.
+- Quality [44340210799](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44340210799) — SUCCESS.
+- Chromium [44340210892](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44340210892) — SUCCESS.
+- GitHub Pages build/deploy and deployed-site/runtime-asset smoke [44340211059](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44340211059) — SUCCESS; build and deploy jobs both completed successfully.
 
-The closeout PR itself changed only the three canonical documentation records. Its exact-head Quality [44340047100](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44340047100) — SUCCESS. No runtime, linguistic data or benchmark result changed.
+The closeout PR itself changed only the three canonical documentation records. Its exact-head Quality [44340047100](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44340047100) — SUCCESS. No runtime, linguistic data or benchmark result changed.
 
 Live branch inventory at the PR #390 mainline checkpoint: **262 refs / 262 unique tip SHAs**. Prefix counts: a11y 2, audit 37, benchmark 1, ci 1, data 4, docs 108, feat 50, fix 16, main 1, release 1, research 29, test 12. Open PRs: 0. Open non-PR issue: #104 only.
 
@@ -4844,9 +4844,9 @@ No local checkout or local tests are claimed. Repository remains a research-read
 
 ## PR #392 — accessibility-name whitespace parsing correction — 2026-11-18
 
-PR [#392](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/392) merged by squash as `9a5da179316c3a40ec159b11c0c936a2c1f9d551`; exact PR head `73c23741313d46533d9285dca6055cf6e34c2151`, base `a71983ebd1e5c3a290153e44b25aa13b969db8b2`. A review of the PR #389 structural accessibility smoke found that the two regex literals intended to split `aria-labelledby` ID references and collapse whitespace were double-escaped, matching a literal backslash-plus-s rather than whitespace. Both expressions now use `\s` as the JavaScript regex whitespace class. This makes multi-ID reference parsing and whitespace normalization behave as intended; it does not turn the helper into a full browser-computed accessible-name implementation.
+PR [#392](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/392) merged by squash as `9a5da179316c3a40ec159b11c0c936a2c1f9d551`; exact PR head `73c23741313d46533d9285dca6055cf6e34c2151`, base `a71983ebd1e5c3a290153e44b25aa13b969db8b2`. A review of the PR #389 structural accessibility smoke found that the two regex literals intended to split `aria-labelledby` ID references and collapse whitespace were double-escaped, matching a literal backslash-plus-s rather than whitespace. Both expressions now use `\s` as the JavaScript regex whitespace class. This makes multi-ID reference parsing and whitespace normalization behave as intended; it does not turn the helper into a full browser-computed accessible-name implementation.
 
-Exact PR-head Quality [44366919812](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44366919812) — SUCCESS: 432 Python tests + 70 subtests, corpus structural validator, Node/web checks and production build. Exact PR-head Chromium [44366919747](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44366919747) — SUCCESS: 21/21 Playwright tests.
+Exact PR-head Quality [44366919812](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44366919812) — SUCCESS: 432 Python tests + 70 subtests, corpus structural validator, Node/web checks and production build. Exact PR-head Chromium [44366919747](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44366919747) — SUCCESS: 21/21 Playwright tests.
 
 Exact post-merge main checks on `9a5da179316c3a40ec159b11c0c936a2c1f9d551`: Quality [44367112353] SUCCESS; Chromium [44367112434] SUCCESS; GitHub Pages build, production Chromium exercise, deployment and deployed-site/runtime-asset smoke [44367112407] SUCCESS (build and deploy jobs completed).
 
@@ -4857,14 +4857,14 @@ Live branch inventory after PR #392: 264 refs / 264 unique tip SHAs (a11y 2, aud
 
 ## PR #393 — canonical closeout for PR #392 — 2026-11-18
 
-PR [#393](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/393) merged by squash as `991d7a1901263743464a41403b3f3936ee33daf1`, with exact PR head `0bab97e4b9ca3b3503c61faf3375635581f80ad4` and base `9a5da179316c3a40ec159b11c0c936a2c1f9d551`. It updates the three existing canonical records in place to document PR #392's accessibility-smoke regex correction, its exact-head checks, exact-main checks, and the unchanged research gates. This is documentation-only; it changes no runtime code, phonological rule, IPA label, Ukrainian mapping, corpus row, source-rights decision, gold data or benchmark result.
+PR [#393](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/393) merged by squash as `991d7a1901263743464a41403b3f3936ee33daf1`, with exact PR head `0bab97e4b9ca3b3503c61faf3375635581f80ad4` and base `9a5da179316c3a40ec159b11c0c936a2c1f9d551`. It updates the three existing canonical records in place to document PR #392's accessibility-smoke regex correction, its exact-head checks, exact-main checks, and the unchanged research gates. This is documentation-only; it changes no runtime code, phonological rule, IPA label, Ukrainian mapping, corpus row, source-rights decision, gold data or benchmark result.
 
-Exact PR-head Quality [44367427914](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44367427914) — SUCCESS.
+Exact PR-head Quality [44367427914](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44367427914) — SUCCESS.
 
 Exact post-merge main verification on `991d7a1901263743464a41403b3f3936ee33daf1`:
-- Quality [44367546616](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44367546616) — SUCCESS: 432 Python tests + 70 subtests; corpus validator returned the expected `NOT_READY_NO_ADJUDICATED_GOLD`; browser contract checks and production build passed.
-- Chromium [44367546812](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44367546812) — SUCCESS: 21/21 Playwright tests.
-- GitHub Pages [44367546866](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44367546866) — SUCCESS: production build, Chromium exercise, deployment and published-site/runtime-asset smoke; build and deploy jobs both completed.
+- Quality [44367546616](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44367546616) — SUCCESS: 432 Python tests + 70 subtests; corpus validator returned the expected `NOT_READY_NO_ADJUDICATED_GOLD`; browser contract checks and production build passed.
+- Chromium [44367546812](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44367546812) — SUCCESS: 21/21 Playwright tests.
+- GitHub Pages [44367546866](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44367546866) — SUCCESS: production build, Chromium exercise, deployment and published-site/runtime-asset smoke; build and deploy jobs both completed.
 
 Live branch inventory after PR #393: **265 refs / 265 unique tip SHAs**. Prefix counts: a11y 2, audit 37, benchmark 1, ci 1, data 4, docs 110, feat 50, fix 16, main 1, release 1, research 29, test 13. Open PRs: 0; open non-PR issue: #104 only. All historical branches remain untouched; no branch was deleted or force-updated.
 
@@ -4875,12 +4875,12 @@ No local checkout or local tests are claimed; all verification above is from Git
 
 ## PR #394 — canonical closeout for PR #393 — 2026-11-18
 
-PR [#394](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/394) merged by squash as `855eac7e6dc39a854cc79055c385152a4a32fc49`, with exact PR head `ad1f0d92ff9e809299571e0a1d83f77f9fcf15bd` and base `991d7a1901263743464a41403b3f3936ee33daf1`. It reconciles the three canonical records with PR #393 and its exact-main verification; it changes documentation only.
+PR [#394](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/394) merged by squash as `855eac7e6dc39a854cc79055c385152a4a32fc49`, with exact PR head `ad1f0d92ff9e809299571e0a1d83f77f9fcf15bd` and base `991d7a1901263743464a41403b3f3936ee33daf1`. It reconciles the three canonical records with PR #393 and its exact-main verification; it changes documentation only.
 
 Exact PR-head Quality [443789... not retained in the run summary] is not claimed here. Exact post-merge mainline checks on `855eac7e6dc39a854cc79055c385152a4a32fc49`:
-- Quality [44379052920](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44379052920) — SUCCESS: 432 Python tests + 70 subtests; IPA corpus validator returned the expected `NOT_READY_NO_ADJUDICATED_GOLD`; Node/web checks and Vite production build passed.
-- Chromium [44379052839](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44379052839) — SUCCESS.
-- GitHub Pages [44379052866](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44379052866) — SUCCESS: production build, Chromium exercise, deployment and deployed-site/runtime-asset smoke.
+- Quality [44379052920](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44379052920) — SUCCESS: 432 Python tests + 70 subtests; IPA corpus validator returned the expected `NOT_READY_NO_ADJUDICATED_GOLD`; Node/web checks and Vite production build passed.
+- Chromium [44379052839](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44379052839) — SUCCESS.
+- GitHub Pages [44379052866](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44379052866) — SUCCESS: production build, Chromium exercise, deployment and deployed-site/runtime-asset smoke.
 
 Live inventory: 266 branch refs / 266 unique tip SHAs; 0 open PRs; Issue #104 is the only open non-PR issue. Historical branches were not deleted or rewritten. No runtime, phonological rule, IPA label, Ukrainian mapping, corpus row, source-rights decision, gold data or benchmark result changed.
 
@@ -4889,20 +4889,20 @@ Task ledger: PR #394 canonical closeout and exact-main CI — DONE_VERIFIED. Man
 
 ## PR #395 — canonical closeout for PR #394 — 2026-11-18
 
-PR [#395](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/395) merged by squash as `3e99140e80ba0a0c1654dcd6f367d651350117b5`, with exact PR head `7783454cab3378f324257a4bd704c3528d7629fe` and base `855eac7e6dc39a854cc79055c385152a4a32fc49`. It records PR #394's exact-main evidence in the three canonical documents; documentation only.
+PR [#395](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/395) merged by squash as `3e99140e80ba0a0c1654dcd6f367d651350117b5`, with exact PR head `7783454cab3378f324257a4bd704c3528d7629fe` and base `855eac7e6dc39a854cc79055c385152a4a32fc49`. It records PR #394's exact-main evidence in the three canonical documents; documentation only.
 
-PR-head Quality [44389557778](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44389557778), Chromium [44389557809](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44389557809), and push Quality [44389528287](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44389528287) — SUCCESS.
+PR-head Quality [44389557778](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44389557778), Chromium [44389557809](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44389557809), and push Quality [44389528287](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44389528287) — SUCCESS.
 
-Exact-main checks on `3e99140e80ba0a0c1654dcd6f367d651350117b5`: Quality [44393630260](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44393630260), Chromium [44393630430](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44393630430), and Pages [44393630332](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44393630332) — all SUCCESS. Pages includes production build, Chromium exercise, deployment and deployed-site/runtime-asset smoke.
+Exact-main checks on `3e99140e80ba0a0c1654dcd6f367d651350117b5`: Quality [44393630260](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44393630260), Chromium [44393630430](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44393630430), and Pages [44393630332](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44393630332) — all SUCCESS. Pages includes production build, Chromium exercise, deployment and deployed-site/runtime-asset smoke.
 
 No production code, linguistic evidence, rights decision, gold data or benchmark result changed. IPA convention remains DRAFT_NOT_APPROVED; independent gold = 0 and empirical accuracy = null. Issue #104 remains BLOCKED on convention approval, independent personnel, blind-intake dry run and 30 source-verified rights-cleared item groups. Root license remains BLOCKED pending owner decision. Manual accessibility and full historical semantic review remain PARTIAL; external benchmark integration remains DEFERRED. Repository remains research-ready partial prototype, not linguistically validated or release-ready.
 
 
 ## PR #397 — expose omitted PCGN shifter uncertainty — 2026-11-18
 
-PR [#397](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/397) merged by squash as `e888c190570acc19b8cf388d1b2a2a58767e6426`, based on `77ddff02fccdf1f2b90c5dcfa2cb92407d0a2850`. The bounded PCGN series resolver now adds the explicit warning `PCGN_NOTE_2_DIACRITICS_MAY_BE_OMITTED_CONSULT_REFERENCE_IF_SERIES_UNCERTAIN` when no shifter is encoded. It preserves the existing graphemic default and does not infer a missing mark or change romanization. Regression tests cover both â/ô defaults and the warning; the PCGN/UNGEGN audit records the source boundary.
+PR [#397](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/397) merged by squash as `e888c190570acc19b8cf388d1b2a2a58767e6426`, based on `77ddff02fccdf1f2b90c5dcfa2cb92407d0a2850`. The bounded PCGN series resolver now adds the explicit warning `PCGN_NOTE_2_DIACRITICS_MAY_BE_OMITTED_CONSULT_REFERENCE_IF_SERIES_UNCERTAIN` when no shifter is encoded. It preserves the existing graphemic default and does not infer a missing mark or change romanization. Regression tests cover both â/ô defaults and the warning; the PCGN/UNGEGN audit records the source boundary.
 
-PR-head Quality [44395612844](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44395612844), Chromium [44395612835](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44395612835), and push Quality [44395586583](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44395586583) — SUCCESS. Exact-main Quality [44395795606](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44395795606), Chromium [44395795589](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44395795589), and Pages/deployed-site smoke [44395795652](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44395795652) — SUCCESS.
+PR-head Quality [44395612844](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44395612844), Chromium [44395612835](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44395612835), and push Quality [44395586583](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44395586583) — SUCCESS. Exact-main Quality [44395795606](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44395795606), Chromium [44395795589](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44395795589), and Pages/deployed-site smoke [44395795652](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44395795652) — SUCCESS.
 
 Task ledger: explicit omitted-shifter warning and regression coverage — DONE_VERIFIED. Full PCGN syllable-boundary behavior and end-to-end contextual Khmer-script romanization remain TODO/PARTIAL pending source-backed ambiguity cases, complete row reconciliation and human review. No IPA, pronunciation or Ukrainian output was introduced. IPA convention remains DRAFT_NOT_APPROVED; adjudicated gold = 0 and empirical accuracy = null. Repository remains research-ready partial prototype, not linguistically release-ready.
 
@@ -4910,26 +4910,26 @@ Task ledger: explicit omitted-shifter warning and regression coverage — DONE_V
 
 ## PR #399 — correct PCGN shifter code points and BA exception — 2026-11-18
 
-PR [#399](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/399) merged by squash as `8bbdf54bac984165e86b747504ccf7a1e2735741`, based on `725c09a373d0eebb181e3cd3ee02d751e859a3a9`; final PR head `79bacbdef5cd37be94f05d01ea3223644d10d0fb`.
+PR [#399](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/399) merged by squash as `8bbdf54bac984165e86b747504ccf7a1e2735741`, based on `725c09a373d0eebb181e3cd3ee02d751e859a3a9`; final PR head `79bacbdef5cd37be94f05d01ea3223644d10d0fb`.
 
 The source registry had the two Khmer register-shifter names attached to the opposite glyphs. It now records TRIISAP as U+17CA (`◌៊`) and MUUSIKATOAN as U+17C9 (`◌៉`). The deeper runtime audit also found a related BA exception defect: the resolver incorrectly treated BA + TRIISAP as a p-in-â exception. PCGN Note 2 exempts BA from TRIISAP's normal â→ô shift; PCGN Note 3's p-in-â exception is BA + MUUSIKATOAN, or BA with a foot. The resolver now preserves BA + TRIISAP in the ô-series (consonant component `b`) and applies the p exception only to the source-supported MUUSIKATOAN/foot cases.
 
 Changed artifacts: `src/khmer_ua/pcgn.py`, `data/khmer/romanization_pcgn_notes.csv`, both PCGN series/consonant decision schemas, their regression tests, and `docs/audits/current/BGN-PCGN-UNGEGN-RULE-DIFF-2026-11-15.md`. The source correction is limited to the orthographic PCGN route; no IPA labels, Ukrainian adaptation, corpus records, source rights, or benchmark values changed.
 
 Verification:
-- PR-head Quality [44404900821](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44404900821) — SUCCESS; 435 Python tests + 70 subtests, corpus gate reports expected `NOT_READY_NO_ADJUDICATED_GOLD`, Node/web checks and production build pass.
-- PR-head Chromium [44404900673](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44404900673) — SUCCESS; 21/21 Playwright tests.
-- Push Quality [44404888463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44404888463) — SUCCESS.
-- Exact-main Quality [44405101264](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44405101264) — SUCCESS; 435 Python tests + 70 subtests and the same expected corpus-gate status.
-- Exact-main Chromium [44405101302](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44405101302) — SUCCESS; 21/21.
-- Exact-main Pages/deployed-site smoke [44405101273](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44405101273) — SUCCESS; production build, Chromium exercise, deployment and deployed runtime-asset smoke.
+- PR-head Quality [44404900821](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44404900821) — SUCCESS; 435 Python tests + 70 subtests, corpus gate reports expected `NOT_READY_NO_ADJUDICATED_GOLD`, Node/web checks and production build pass.
+- PR-head Chromium [44404900673](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44404900673) — SUCCESS; 21/21 Playwright tests.
+- Push Quality [44404888463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44404888463) — SUCCESS.
+- Exact-main Quality [44405101264](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44405101264) — SUCCESS; 435 Python tests + 70 subtests and the same expected corpus-gate status.
+- Exact-main Chromium [44405101302](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44405101302) — SUCCESS; 21/21.
+- Exact-main Pages/deployed-site smoke [44405101273](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44405101273) — SUCCESS; production build, Chromium exercise, deployment and deployed runtime-asset smoke.
 
 Task ledger: shifter-name/codepoint reconciliation and BA+TRIISAP exception correction — DONE_VERIFIED. Complete contextual Khmer-script → PCGN engine and syllable-boundary inference remain TODO/PARTIAL pending source-reviewed ambiguity cases, full table reconciliation and human review. IPA convention remains DRAFT_NOT_APPROVED; independent adjudicated gold = 0; empirical accuracy = null. Issue #104's blind pilot and root repository license remain BLOCKED on external personnel/rights and owner decision. Manual accessibility and historical semantic re-adjudication remain PARTIAL; external benchmark integration remains DEFERRED. No open PRs remain after #399. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
 
 
 ## PR #401 — cover the explicit PCGN BA + AA shifter cases — 2026-11-19
 
-PR [#401](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/401) merged by squash as `3bbf3f45afb83faf0335dd2f91f869b85f00c5d5`, based on `fc781fa86fa3acb654903560f743d1129428656b`; code/test PR head `0cf4e3a21bc121b4642afafa7f49e365713f7964`.
+PR [#401](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/401) merged by squash as `3bbf3f45afb83faf0335dd2f91f869b85f00c5d5`, based on `fc781fa86fa3acb654903560f743d1129428656b`; code/test PR head `0cf4e3a21bc121b4642afafa7f49e365713f7964`.
 
 Added two regression cases in `tests/test_pcgn_series_resolution.py`:
 - `ប៊ា`: Note 2's TRIISAP no-shift exception covers BA with AA (បា), not only bare BA.
@@ -4940,36 +4940,36 @@ This closes a test-coverage gap only; the resolver already branches on the BA ba
 Source: UK BGN/PCGN 1972 Agreement, Notes 2–3, especially Note 2's explicit exception for both BA and BA+AA: https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf
 
 Verification:
-- Push Quality [44407401573](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407401573) — SUCCESS; 437 Python tests + 70 subtests, expected `NOT_READY_NO_ADJUDICATED_GOLD`, Node/web checks and production build.
-- PR-head Quality [44407541894](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407541894) — SUCCESS; 437 tests + 70 subtests.
-- PR-head Chromium [44407541887](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407541887) — SUCCESS; 21/21.
-- Exact-main Quality [44407714461](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407714461) and [44407773406](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407773406) — SUCCESS; 437 tests + 70 subtests.
-- Exact-main Chromium [44407714501](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407714501) — SUCCESS; 21/21.
-- Exact-main Pages/deployed-site [44407714752](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44407714752) — SUCCESS.
+- Push Quality [44407401573](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44407401573) — SUCCESS; 437 Python tests + 70 subtests, expected `NOT_READY_NO_ADJUDICATED_GOLD`, Node/web checks and production build.
+- PR-head Quality [44407541894](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44407541894) — SUCCESS; 437 tests + 70 subtests.
+- PR-head Chromium [44407541887](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44407541887) — SUCCESS; 21/21.
+- Exact-main Quality [44407714461](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44407714461) and [44407773406](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44407773406) — SUCCESS; 437 tests + 70 subtests.
+- Exact-main Chromium [44407714501](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44407714501) — SUCCESS; 21/21.
+- Exact-main Pages/deployed-site [44407714752](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44407714752) — SUCCESS.
 
 Task ledger: BA+AA exception regression coverage — DONE_VERIFIED. Full contextual Khmer-script → PCGN engine and syllable-boundary inference remain TODO/PARTIAL pending complete source-row reconciliation and human-reviewed ambiguity cases. IPA convention remains DRAFT_NOT_APPROVED; independent adjudicated gold = 0; empirical accuracy = null. Issue #104 pilot and root license remain BLOCKED on external personnel/rights and owner decision. Manual accessibility and historical semantic review remain PARTIAL; external benchmark integration remains DEFERRED. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
 
 
 ## PR #402 — canonical closeout for PR #401 documentation — 2026-11-19
 
-PR [#402](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/402) merged by squash as `92011a62d150917dfc12193471b3fe994212e563` (base `3bbf3f45afb83faf0335dd2f91f869b85f00c5d5`; PR head `d18171b5fb3daa711d5bb699db4ec98d5cc2c26d`). It synchronizes this handoff, the repository audit and the linguistic completion register with PR #401's BA+AA regression coverage. Documentation only; no runtime, test, corpus, IPA, Ukrainian mapping, source-rights or benchmark data changed.
+PR [#402](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/402) merged by squash as `92011a62d150917dfc12193471b3fe994212e563` (base `3bbf3f45afb83faf0335dd2f91f869b85f00c5d5`; PR head `d18171b5fb3daa711d5bb699db4ec98d5cc2c26d`). It synchronizes this handoff, the repository audit and the linguistic completion register with PR #401's BA+AA regression coverage. Documentation only; no runtime, test, corpus, IPA, Ukrainian mapping, source-rights or benchmark data changed.
 
 Exact merged-main verification on `92011a62d150917dfc12193471b3fe994212e563`:
-- Quality [44478963929](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44478963929) — SUCCESS: 437 Python tests + 70 subtests; expected corpus status `NOT_READY_NO_ADJUDICATED_GOLD`; Node/web checks and production build passed.
-- Khmer browser smoke [44478963989](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44478963989) — SUCCESS: 21/21 Playwright tests.
-- GitHub Pages [44478963941](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44478963941) — SUCCESS: production build, Chromium exercise, deployment and deployed runtime-asset smoke.
+- Quality [44478963929](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44478963929) — SUCCESS: 437 Python tests + 70 subtests; expected corpus status `NOT_READY_NO_ADJUDICATED_GOLD`; Node/web checks and production build passed.
+- Khmer browser smoke [44478963989](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44478963989) — SUCCESS: 21/21 Playwright tests.
+- GitHub Pages [44478963941](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44478963941) — SUCCESS: production build, Chromium exercise, deployment and deployed runtime-asset smoke.
 
 No local checkout or local test execution is claimed; all checks above are hosted GitHub Actions on the exact merged main SHA. Task ledger remains: BA+AA exception regression coverage — DONE_VERIFIED; full contextual PCGN engine and syllable-boundary inference — TODO/PARTIAL; IPA convention DRAFT_NOT_APPROVED and independent gold = 0 (accuracy = null); Issue #104 pilot and root repository license — BLOCKED; manual accessibility and historical semantic review — PARTIAL; external benchmark integration — DEFERRED. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
 
 
 ## PR #405 — PCGN Note 3 BA+AA+foot regression — 2026-11-19
 
-PR [#405](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/405) adds a test-only extension for the exact Note 3 wording that names both ប and បា with a foot. The existing BA+foot resolver behavior was already implemented; the test now checks both `ប្ក` and `ប្កា`, and confirms the latter retains dependent vowel sign `ា` while resolving the BA-with-foot p-in-â exception. No runtime rule, source row, IPA/Ukrainian output, corpus label or benchmark changed.
+PR [#405](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/405) adds a test-only extension for the exact Note 3 wording that names both ប and បា with a foot. The existing BA+foot resolver behavior was already implemented; the test now checks both `ប្ក` and `ប្កា`, and confirms the latter retains dependent vowel sign `ា` while resolving the BA-with-foot p-in-â exception. No runtime rule, source row, IPA/Ukrainian output, corpus label or benchmark changed.
 
 Exact PR-head commit: `6b4ed2bbd0a575d39fe0865082f854511c32cb4a`.
-- Quality PR [44482081471](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482081471) — SUCCESS: 437 Python tests + 70 subtests; Node/web checks and production build passed.
-- Push Quality [44482061657](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482061657) — SUCCESS: same exact SHA and test counts.
-- Khmer browser smoke [44482081280](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482081280) — SUCCESS: 21/21 Playwright tests.
+- Quality PR [44482081471](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44482081471) — SUCCESS: 437 Python tests + 70 subtests; Node/web checks and production build passed.
+- Push Quality [44482061657](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44482061657) — SUCCESS: same exact SHA and test counts.
+- Khmer browser smoke [44482081280](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44482081280) — SUCCESS: 21/21 Playwright tests.
 
 Task ledger: PCGN Note 3 BA+AA+foot regression coverage — DONE_VERIFIED. Full contextual PCGN engine and syllable-boundary inference remain TODO/PARTIAL; IPA convention remains DRAFT_NOT_APPROVED, independently adjudicated IPA gold = 0 and empirical accuracy = null. Issue #104 pilot and root repository license remain BLOCKED; manual accessibility and historical semantic review remain PARTIAL; external benchmark integration remains DEFERRED. Repository remains a research-ready partial prototype, not linguistically validated or release-ready. Verification above is hosted GitHub Actions; no local checkout or local tests are claimed.
 
@@ -4978,32 +4978,32 @@ Task ledger: PCGN Note 3 BA+AA+foot regression coverage — DONE_VERIFIED. Full 
 
 ### PR #406 — source-matrix reconciliation
 
-PR [#406](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/406) merged as `14e82f0799bd16db61ff688716eee94084cc6a7a`. The PCGN consonant registry row for BA now distinguishes the Note 2 TRIISAP no-shift exception from Note 3's p-in-â exceptions for BA+MUUSIKATOAN or BA+foot. The update aligns the consonant matrix with `romanization_pcgn_notes.csv` and the bounded resolver; no runtime or corpus change.
+PR [#406](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/406) merged as `14e82f0799bd16db61ff688716eee94084cc6a7a`. The PCGN consonant registry row for BA now distinguishes the Note 2 TRIISAP no-shift exception from Note 3's p-in-â exceptions for BA+MUUSIKATOAN or BA+foot. The update aligns the consonant matrix with `romanization_pcgn_notes.csv` and the bounded resolver; no runtime or corpus change.
 
-- PR Quality [44482295867](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482295867) — SUCCESS; push Quality [44482287227](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482287227) — SUCCESS.
-- PR Chromium [44482295873](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482295873) — SUCCESS, 21/21.
-- Exact-main Quality [44482917557](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482917557), Chromium [44482852867](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482852867), and Pages [44482852902](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482852902) — SUCCESS; exact-main Chromium 21/21.
+- PR Quality [44482295867](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44482295867) — SUCCESS; push Quality [44482287227](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44482287227) — SUCCESS.
+- PR Chromium [44482295873](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44482295873) — SUCCESS, 21/21.
+- Exact-main Quality [44482917557](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44482917557), Chromium [44482852867](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44482852867), and Pages [44482852902](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44482852902) — SUCCESS; exact-main Chromium 21/21.
 
 ### PR #409 — Note 2/3 series-to-vowel integration test
 
-PR [#409](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/409) merged as `a595d2da733b522ff3b6203a75ffa658b8f602ed`. Added a test-only cross-layer check proving that the dependent-vowel resolver consumes the series decision: `ប៊ា` (BA+TRIISAP) stays in ô-series and maps AA to `éa`; `ប៉ា` (BA+MUUSIKATOAN) stays in â-series and maps AA to `a`. Both outputs remain PCGN romanization components only; the test explicitly asserts no IPA/Ukrainian output. No runtime behavior, source tables, corpus, or gold labels changed.
+PR [#409](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/409) merged as `a595d2da733b522ff3b6203a75ffa658b8f602ed`. Added a test-only cross-layer check proving that the dependent-vowel resolver consumes the series decision: `ប៊ា` (BA+TRIISAP) stays in ô-series and maps AA to `éa`; `ប៉ា` (BA+MUUSIKATOAN) stays in â-series and maps AA to `a`. Both outputs remain PCGN romanization components only; the test explicitly asserts no IPA/Ukrainian output. No runtime behavior, source tables, corpus, or gold labels changed.
 
-- PR Quality [44482940446](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482940446) and [44482954991](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482954991) — SUCCESS; 438 Python tests + 70 subtests.
-- PR Chromium [44482955087](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44482955087) — SUCCESS, 21/21.
-- Exact-main Quality [44483093339](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44483093339) — SUCCESS; 438 Python tests + 70 subtests.
-- Exact-main Pages [44483093325](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44483093325) — SUCCESS, including production deploy and deployed runtime-asset smoke. Exact-main Chromium [44483093385](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44483093385) was still running its Chromium-install step at the time of this update; PR-head Chromium is green on the identical source tree.
+- PR Quality [44482940446](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44482940446) and [44482954991](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44482954991) — SUCCESS; 438 Python tests + 70 subtests.
+- PR Chromium [44482955087](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44482955087) — SUCCESS, 21/21.
+- Exact-main Quality [44483093339](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44483093339) — SUCCESS; 438 Python tests + 70 subtests.
+- Exact-main Pages [44483093325](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44483093325) — SUCCESS, including production deploy and deployed runtime-asset smoke. Exact-main Chromium [44483093385](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44483093385) was still running its Chromium-install step at the time of this update; PR-head Chromium is green on the identical source tree.
 
 Task ledger: BA+AA+foot Note 3 test coverage, BA consonant source-row reconciliation, and BA+AA shifter-to-dependent-vowel integration coverage — DONE_VERIFIED. Full contextual Khmer-script → PCGN syllable segmentation/romanization remains TODO/PARTIAL. IPA convention remains DRAFT_NOT_APPROVED; independent adjudicated IPA gold = 0; empirical accuracy = null. Issue #104 pilot and root repository license remain BLOCKED; manual accessibility and historical semantic review remain PARTIAL; external benchmark integration remains DEFERRED. Repository remains a research-ready partial prototype, not linguistically validated or release-ready. Hosted GitHub Actions evidence only; no local checkout or local tests are claimed.
 
 
 ## PR #406 exact-main closeout — 2026-11-19
 
-PR [#406](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/406) merged as `14e82f0799bd16db61ff688716eee94084cc6a7a`. Its single source-registry correction clarifies that BA+TRIISAP remains in the ô-series under PCGN Note 2, while Note 3's p-in-â exception applies to BA+MUUSIKATOAN or BA+foot. This reconciles `romanization_pcgn_consonants.csv` with the existing notes registry; no runtime, corpus, IPA or Ukrainian output behavior changed.
+PR [#406](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/406) merged as `14e82f0799bd16db61ff688716eee94084cc6a7a`. Its single source-registry correction clarifies that BA+TRIISAP remains in the ô-series under PCGN Note 2, while Note 3's p-in-â exception applies to BA+MUUSIKATOAN or BA+foot. This reconciles `romanization_pcgn_consonants.csv` with the existing notes registry; no runtime, corpus, IPA or Ukrainian output behavior changed.
 
 The final main commit at verification was `0e6498db53d0a7792fb4810b2ddba9f8b001df92`. All three workflows on that exact SHA succeeded:
-- [Quality checks 44483598159](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44483598159) — SUCCESS: 438 Python tests and 70 subtests; IPA corpus structural check, Node/web checks and production build passed. Corpus gate correctly remains `NOT_READY_NO_ADJUDICATED_GOLD`.
-- [Khmer browser smoke 44483598168](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44483598168) — SUCCESS, Chromium visible-result checks passed (21/21).
-- [Pages/deployed runtime 44483598094](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44483598094) — SUCCESS: production build, Chromium exercise, Pages deployment and deployed runtime-asset smoke all passed.
+- [Quality checks 44483598159](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44483598159) — SUCCESS: 438 Python tests and 70 subtests; IPA corpus structural check, Node/web checks and production build passed. Corpus gate correctly remains `NOT_READY_NO_ADJUDICATED_GOLD`.
+- [Khmer browser smoke 44483598168](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44483598168) — SUCCESS, Chromium visible-result checks passed (21/21).
+- [Pages/deployed runtime 44483598094](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44483598094) — SUCCESS: production build, Chromium exercise, Pages deployment and deployed runtime-asset smoke all passed.
 
 This supersedes the earlier note that exact-main Chromium was still in progress: it subsequently completed successfully on the final main SHA above. Current task ledger: BA+AA+foot regression, BA source-matrix reconciliation, and BA+AA series-to-dependent-vowel integration — DONE_VERIFIED. Full contextual Khmer-script → PCGN syllable segmentation/romanization remains TODO/PARTIAL. IPA convention remains DRAFT_NOT_APPROVED; independent adjudicated IPA gold = 0 and empirical accuracy = null. Issue #104 pilot and root repository license remain BLOCKED; manual accessibility and historical semantic review remain PARTIAL; external benchmark integration remains DEFERRED. The repository remains a research-ready partial prototype, not linguistically validated or release-ready. Evidence is from hosted GitHub Actions; no local checkout or local tests are claimed.
 
@@ -5012,7 +5012,7 @@ This supersedes the earlier note that exact-main Chromium was still in progress:
 
 ### PR #414 — dependent-vowel source reconciliation
 
-PR [#414](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/414) merged as `21c14e05b40bd0b508358c201e1ff8b586ed78a9`. Direct visual comparison with the official UK PCGN 1972 vowel table corrected three dependent-vowel cells:
+PR [#414](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/414) merged as `21c14e05b40bd0b508358c201e1ff8b586ed78a9`. Direct visual comparison with the official UK PCGN 1972 vowel table corrected three dependent-vowel cells:
 
 - Row 3, `ិ`: â-series `ĕ`, ô-series `ĭ` (the prior resolver/test incorrectly used `ĕ` in both series).
 - Row 16, `េ+ា`: â-series `aô`, ô-series `oŭ`.
@@ -5022,13 +5022,13 @@ The new `data/khmer/romanization_pcgn_dependent_vowels.csv` registers all 16 nor
 
 ### PR #416 — Note 5 SAMYOK coda-class coverage
 
-PR [#416](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/416) merged as `a179384510377a1aa3ca6f142aca62750cbe7531`. Added structural fixtures for SAMYOK SANNYA (`័`) before each supported coda class (`k`, `ng`, `h`, `other`) in both series. They assert â-series `ă` for all classes and ô-series `eă` before `k/ng/h`, otherwise `oă`. These are table-pattern fixtures, not claims of attested lexical items. No runtime behavior changed in PR #416.
+PR [#416](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/416) merged as `a179384510377a1aa3ca6f142aca62750cbe7531`. Added structural fixtures for SAMYOK SANNYA (`័`) before each supported coda class (`k`, `ng`, `h`, `other`) in both series. They assert â-series `ă` for all classes and ô-series `eă` before `k/ng/h`, otherwise `oă`. These are table-pattern fixtures, not claims of attested lexical items. No runtime behavior changed in PR #416.
 
 ### Exact-main verification on `a179384510377a1aa3ca6f142aca62750cbe7531`
 
-- Quality [44485716034](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44485716034) — SUCCESS: 441 Python tests + 70 subtests; IPA corpus structural gate, Node/web checks and production build passed. Corpus status remains `NOT_READY_NO_ADJUDICATED_GOLD`.
-- Khmer browser smoke [44485716025](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44485716025) — SUCCESS, 21/21.
-- Pages [44485716116](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44485716116) — SUCCESS: build, deployment and deployed runtime-asset smoke passed.
+- Quality [44485716034](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44485716034) — SUCCESS: 441 Python tests + 70 subtests; IPA corpus structural gate, Node/web checks and production build passed. Corpus status remains `NOT_READY_NO_ADJUDICATED_GOLD`.
+- Khmer browser smoke [44485716025](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44485716025) — SUCCESS, 21/21.
+- Pages [44485716116](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44485716116) — SUCCESS: build, deployment and deployed runtime-asset smoke passed.
 
 Task ledger: dependent-vowel PCGN table rows 2–17 source transcription and runtime/CSV parity — DONE_VERIFIED; Note 5 SAMYOK coda-class branches — DONE_VERIFIED. Full semantic comparison with the external UNGEGN candidate remains PARTIAL (profile differences must not be flattened); full contextual PCGN segmentation/romanization remains TODO pending human-reviewed ambiguity and source-backed lexical fixtures. IPA convention remains DRAFT_NOT_APPROVED, independent adjudicated IPA gold = 0, accuracy = null. Issue #104 pilot and root repository license remain BLOCKED; manual accessibility/historical semantic review PARTIAL; external benchmark integration DEFERRED. Repository remains a research-ready partial prototype, not linguistically validated or release-ready.
 
@@ -5037,7 +5037,7 @@ PR reconciliation: earlier duplicate PR #413 was closed unmerged after its SAMYO
 
 ## PCGN ↔ UNGEGN candidate vowel-row reconciliation — 2026-11-19
 
-PR [#419](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/419) merged as `0090960bb1558cf98c5ebd424d1f883f33859c8c`. Added the machine-readable comparison `data/khmer/pcgn_ungegn_vowel_profile_comparison.csv` and structural test `tests/test_pcgn_ungegn_vowel_profile_comparison.py`. It compares 17 PCGN normal dependent/inherent rows, 12 independent-vowel entries, three shortened patterns, and eight anusvara/visarga rows against the pinned UNGEGN candidate source `pheasaKhmer/khmer-engine@31b72cd4665f69678fc835da2f501771e42f097a`.
+PR [#419](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/419) merged as `0090960bb1558cf98c5ebd424d1f883f33859c8c`. Added the machine-readable comparison `data/khmer/pcgn_ungegn_vowel_profile_comparison.csv` and structural test `tests/test_pcgn_ungegn_vowel_profile_comparison.py`. It compares 17 PCGN normal dependent/inherent rows, 12 independent-vowel entries, three shortened patterns, and eight anusvara/visarga rows against the pinned UNGEGN candidate source `pheasaKhmer/khmer-engine@31b72cd4665f69678fc835da2f501771e42f097a`.
 
 Findings are now evidence-registered:
 - All 17 normal dependent/inherent values and all eight anusvara/visarga rows match the pinned candidate values after the PCGN source corrections in PR #414.
@@ -5048,9 +5048,9 @@ Findings are now evidence-registered:
 This closes the comparison task only. It does **not** authorize importing the candidate's UNGEGN behavior into the PCGN runtime. The selected profile remains BGN/PCGN 1972; candidate syllabification heuristics and unsupported extensions remain unadopted.
 
 Exact-main verification on `0090960bb1558cf98c5ebd424d1f883f33859c8c`:
-- Quality [44486526230](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44486526230) — SUCCESS: 442 Python tests + 70 subtests; IPA corpus structural gate, Node/web checks and production build passed. Corpus remains `NOT_READY_NO_ADJUDICATED_GOLD`.
-- Pages [44486526214](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44486526214) — SUCCESS: production build, deployment and deployed runtime-asset smoke.
-- Khmer browser smoke [44486526348](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44486526348) was still running the Chromium installation step at documentation time; no browser result is claimed for this SHA here. PR #416's unchanged browser surface passed 21/21, and no runtime/UI files changed in PR #419.
+- Quality [44486526230](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44486526230) — SUCCESS: 442 Python tests + 70 subtests; IPA corpus structural gate, Node/web checks and production build passed. Corpus remains `NOT_READY_NO_ADJUDICATED_GOLD`.
+- Pages [44486526214](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44486526214) — SUCCESS: production build, deployment and deployed runtime-asset smoke.
+- Khmer browser smoke [44486526348](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44486526348) was still running the Chromium installation step at documentation time; no browser result is claimed for this SHA here. PR #416's unchanged browser surface passed 21/21, and no runtime/UI files changed in PR #419.
 
 Task ledger: PCGN dependent-vowel rows 2–17 source registry/runtime parity — DONE_VERIFIED; Note 5 SAMYOK coda classes — DONE_VERIFIED; complete PCGN vowel/nucleus row comparison against the pinned UNGEGN candidate — DONE_VERIFIED (comparison only). Full contextual Khmer-script → PCGN segmentation/romanization remains TODO/PARTIAL pending human-reviewed ambiguity cases and source-backed lexical fixtures. IPA convention remains DRAFT_NOT_APPROVED; independent adjudicated IPA gold = 0; accuracy = null. Issue #104 pilot and root repository license remain BLOCKED; manual accessibility/historical semantic review PARTIAL; external benchmark integration DEFERRED. Repository remains a research-ready partial prototype, not linguistically validated or release-ready. Verification is from hosted GitHub Actions; no local checkout or local test execution is claimed.
 
@@ -5061,24 +5061,24 @@ PR reconciliation: #413/#415 were closed unmerged as superseded by #416/#414; #4
 
 ### PR #421 — PCGN weak-foot delta for ស
 
-PR [#421](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/421) merged as `3088c1588fe6bdd8f15f169632154e0c044f9f4e`. It added a source-backed structural regression for `គ្ស`: under PCGN Note 3, `ស` is not in the weak-foot set, so the foot determines the â-series despite the ô-series base. The resolver already implemented this; no runtime change was needed. The fixture is structural, not an attested lexical item. PR-head Quality [44487165963](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44487165963) — SUCCESS (443 tests + 70 subtests); Chromium [44487166024](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44487166024) — SUCCESS (21/21).
+PR [#421](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/421) merged as `3088c1588fe6bdd8f15f169632154e0c044f9f4e`. It added a source-backed structural regression for `គ្ស`: under PCGN Note 3, `ស` is not in the weak-foot set, so the foot determines the â-series despite the ô-series base. The resolver already implemented this; no runtime change was needed. The fixture is structural, not an attested lexical item. PR-head Quality [44487165963](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44487165963) — SUCCESS (443 tests + 70 subtests); Chromium [44487166024](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44487166024) — SUCCESS (21/21).
 
 ### PR #422 — PCGN anusvara/visarga row 7 exact source pattern
 
-PR [#422](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/422) merged as `653ed8593d6cdb467eb036a35bb8f48cb4a24672`. Visual review of the official PCGN 1972 table row 7 (PDF p. 4) established the source sequence `េ + ា + ះ` (preposed E + AA + REAHMUK). The prior runtime/source CSV incorrectly used the candidate-shaped key `ោ + ះ` while preserving the same Latin values. Runtime, source registry, resolver/assembler tests and decision/assembly schemas now require the exact PCGN sequence; `កេាះ` / `គេាះ` resolve, while the distinct candidate-shaped `កោះ` abstains. The comparison registry marks row 7 as `VALUE_MATCH_KEY_SHAPE_DIFFERS`, not a full key match. PR-head Quality [44487517489](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44487517489) — SUCCESS (443 tests + 70 subtests); Chromium [44487517431](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44487517431) — SUCCESS (21/21). Exact-main Quality [44487673393](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44487673393), Chromium [44487673310](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44487673310) (21/21), and Pages/deployed runtime [44487673472](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44487673472) all succeeded on the merged state.
+PR [#422](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/422) merged as `653ed8593d6cdb467eb036a35bb8f48cb4a24672`. Visual review of the official PCGN 1972 table row 7 (PDF p. 4) established the source sequence `េ + ា + ះ` (preposed E + AA + REAHMUK). The prior runtime/source CSV incorrectly used the candidate-shaped key `ោ + ះ` while preserving the same Latin values. Runtime, source registry, resolver/assembler tests and decision/assembly schemas now require the exact PCGN sequence; `កេាះ` / `គេាះ` resolve, while the distinct candidate-shaped `កោះ` abstains. The comparison registry marks row 7 as `VALUE_MATCH_KEY_SHAPE_DIFFERS`, not a full key match. PR-head Quality [44487517489](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44487517489) — SUCCESS (443 tests + 70 subtests); Chromium [44487517431](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44487517431) — SUCCESS (21/21). Exact-main Quality [44487673393](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44487673393), Chromium [44487673310](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44487673310) (21/21), and Pages/deployed runtime [44487673472](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44487673472) all succeeded on the merged state.
 
 ### PR #424 — PCGN comparison/source-registry parity
 
-PR [#424](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/424) merged as `7d10b273377c8ebf15b731c372af04735d92f10d`. It adds tests cross-checking every dependent, inherent, independent and anusvara/visarga PCGN comparison cell against the project-owned source registries, including the corrected row 7 source sequence. The test explicitly includes inherent row 1 in the combined dependent/inherent section and all dependent rows 2–17. PR-head Quality [44487905158](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44487905158) — SUCCESS (444 tests + 70 subtests); Chromium [44487905013](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44487905013) — SUCCESS (21/21).
+PR [#424](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/424) merged as `7d10b273377c8ebf15b731c372af04735d92f10d`. It adds tests cross-checking every dependent, inherent, independent and anusvara/visarga PCGN comparison cell against the project-owned source registries, including the corrected row 7 source sequence. The test explicitly includes inherent row 1 in the combined dependent/inherent section and all dependent rows 2–17. PR-head Quality [44487905158](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44487905158) — SUCCESS (444 tests + 70 subtests); Chromium [44487905013](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44487905013) — SUCCESS (21/21).
 
 ### Exact-main verification and CI note
 
 The final code state at PR #424 was `7d10b273377c8ebf15b731c372af04735d92f10d`:
-- Quality [44488041871](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44488041871) — SUCCESS: 444 Python tests + 70 subtests; IPA corpus structural check, Node/web checks and production build passed. Corpus remains `NOT_READY_NO_ADJUDICATED_GOLD`.
-- Pages/deployed runtime [44488041861](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44488041861) — SUCCESS: production build, Chromium exercise, Pages deployment and deployed runtime-asset smoke passed.
-- Standalone exact-main Khmer browser smoke [44488041862](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44488041862) subsequently completed SUCCESS: 21/21 Chromium checks. The exact-main Pages workflow also exercised Chromium and deployed runtime assets successfully.
+- Quality [44488041871](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44488041871) — SUCCESS: 444 Python tests + 70 subtests; IPA corpus structural check, Node/web checks and production build passed. Corpus remains `NOT_READY_NO_ADJUDICATED_GOLD`.
+- Pages/deployed runtime [44488041861](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44488041861) — SUCCESS: production build, Chromium exercise, Pages deployment and deployed runtime-asset smoke passed.
+- Standalone exact-main Khmer browser smoke [44488041862](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44488041862) subsequently completed SUCCESS: 21/21 Chromium checks. The exact-main Pages workflow also exercised Chromium and deployed runtime assets successfully.
 
-Documentation-only PR #425 then merged as `369e0f3d0a7a83d38f28f1e81f4990fd74d9cf21`. On that exact SHA, Quality [44488517602](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44488517602) — SUCCESS (444 tests + 70 subtests); standalone Chromium [44488517391](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44488517391) — SUCCESS (21/21); Pages/deployed runtime [44488517747](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44488517747) — SUCCESS (production build, Chromium exercise, deployment and deployed asset smoke).
+Documentation-only PR #425 then merged as `369e0f3d0a7a83d38f28f1e81f4990fd74d9cf21`. On that exact SHA, Quality [44488517602](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44488517602) — SUCCESS (444 tests + 70 subtests); standalone Chromium [44488517391](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44488517391) — SUCCESS (21/21); Pages/deployed runtime [44488517747](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44488517747) — SUCCESS (production build, Chromium exercise, deployment and deployed asset smoke).
 
 ### PR reconciliation and task ledger
 
@@ -5089,12 +5089,12 @@ DONE_VERIFIED: PCGN Note 2/3 shifter and BA exceptions by exact code point; PCGN
 
 ## Exact PCGN row 7 comparison/source-registry parity closeout — 2026-11-19
 
-PR [#430](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/430) merged as `bdcf231d4516e718edc5b50a95a8ae5455a82c89`. The comparison parity test now preserves exact component-boundary equality for PCGN anusvara/visarga rows 1, 5, 6 and 7, where both registries encode the same explicit grouping. Rows 2, 3, 4 and 8 are compared by ordered concatenated code-point sequence because the two registries intentionally group combined Khmer signs differently (notably row 8: comparison `ាំ+ង` vs source components `ា+ំ+ង`). Row 7 additionally asserts the exact source registry and comparison sequence `េ+ា+ះ`, preserving the distinction from the candidate's separate key `ោះ`. This is data-contract parity; no runtime, IPA or Ukrainian behavior changed.
+PR [#430](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/430) merged as `bdcf231d4516e718edc5b50a95a8ae5455a82c89`. The comparison parity test now preserves exact component-boundary equality for PCGN anusvara/visarga rows 1, 5, 6 and 7, where both registries encode the same explicit grouping. Rows 2, 3, 4 and 8 are compared by ordered concatenated code-point sequence because the two registries intentionally group combined Khmer signs differently (notably row 8: comparison `ាំ+ង` vs source components `ា+ំ+ង`). Row 7 additionally asserts the exact source registry and comparison sequence `េ+ា+ះ`, preserving the distinction from the candidate's separate key `ោះ`. This is data-contract parity; no runtime, IPA or Ukrainian behavior changed.
 
 Exact-main verification on `bdcf231d4516e718edc5b50a95a8ae5455a82c89`:
-- Quality [44490203200](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44490203200) — SUCCESS: 444 Python tests + 70 subtests; Node/web checks and production build passed.
-- Khmer browser smoke [44490203310](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44490203310) — SUCCESS: 21/21 Chromium checks.
-- GitHub Pages workflow [44490203147](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44490203147) — SUCCESS: production build, Chromium exercise, Pages artifact upload (artifact 14513255193).
+- Quality [44490203200](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44490203200) — SUCCESS: 444 Python tests + 70 subtests; Node/web checks and production build passed.
+- Khmer browser smoke [44490203310](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44490203310) — SUCCESS: 21/21 Chromium checks.
+- GitHub Pages workflow [44490203147](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44490203147) — SUCCESS: production build, Chromium exercise, Pages artifact upload (artifact 14513255193).
 
 PR reconciliation: #429 was closed unmerged after its initial all-exact-separator assertion failed on the differing representation of combined signs; #430 superseded it with row-specific grouping semantics and merged. PR #431 was closed unmerged as redundant after #430 included the exact row 7 source-registry assertion. All three branches were left intact; none was deleted or force-updated. No open PRs remained at the time of this audit. The only open issue is #104, which still requires human expert approval of the IPA convention, two independent Khmer annotators, a separate adjudicator, a curator, private blind intake, 30 attested rights-cleared lexeme groups, independent annotations and adjudication. Gold remains 0; empirical accuracy remains null.
 
@@ -5150,7 +5150,7 @@ Task ledger: non-PCGN `fix/*` branch inventory and compare triage — PARTIAL; b
 
 ## Final mainline checkpoint — 2026-11-19
 
-PR #436 merged as `e254527e8083ed101c5312f83748a01c6552a58b`, recording the 14 non-PCGN `fix/*` branch triage. Its PR-head Quality run [44491769891](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44491769891) succeeded: 444 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build. On exact merged main `e254527e8083ed101c5312f83748a01c6552a58b), Khmer browser smoke [44491922331](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44491922331) succeeded and Pages workflow [44491922541](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44491922541) succeeded (production build and Pages artifact upload). The immediately preceding exact-main commit `f6bc81c22490975fea625d1159c29e4382b3a073` also passed Quality [44491199974], Chromium [44491200084] and Pages [44491200021]. No local checkout or local tests were used.
+PR #436 merged as `e254527e8083ed101c5312f83748a01c6552a58b`, recording the 14 non-PCGN `fix/*` branch triage. Its PR-head Quality run [44491769891](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44491769891) succeeded: 444 Python tests + 70 subtests, IPA corpus structural validation, Node/web checks and production build. On exact merged main `e254527e8083ed101c5312f83748a01c6552a58b), Khmer browser smoke [44491922331](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44491922331) succeeded and Pages workflow [44491922541](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44491922541) succeeded (production build and Pages artifact upload). The immediately preceding exact-main commit `f6bc81c22490975fea625d1159c29e4382b3a073` also passed Quality [44491199974], Chromium [44491200084] and Pages [44491200021]. No local checkout or local tests were used.
 
 PR reconciliation: #432, #434 and #436 are merged. #433 and #435 were closed unmerged as superseded by #434; #429 and #431 were closed unmerged as superseded/redundant after #430 merged. Their branches were retained; no branch was deleted or force-updated. At the post-merge check there were no open PRs; Issue #104 was the only open issue.
 
@@ -5175,7 +5175,7 @@ Base: exact `main` commit `f0cfa4202caf9724b4f961f298869e42b234c427`. This is a 
 - `fix/reconcile-unicode-tn61-source-metadata-2026-11-18`: source registry and provenance test are byte-identical to main. No port.
 - `fix/serve-coverage-report-on-pages-2026-10-21`: coverage generator, tests and both generated report copies are byte-identical to main. The public report is present on main. No port.
 
-The separate branch `test/port-unconverted-khmer-mark-romanizer-regressions-2026-11-19` is identical to main at this checkpoint; its Quality run [44493021147](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44493021147) succeeded. The relevant unconverted-mark regression tests are already in main; there is no uncommitted implementation on that branch to port.
+The separate branch `test/port-unconverted-khmer-mark-romanizer-regressions-2026-11-19` is identical to main at this checkpoint; its Quality run [44493021147](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44493021147) succeeded. The relevant unconverted-mark regression tests are already in main; there is no uncommitted implementation on that branch to port.
 
 ### Branch and PR safety
 
@@ -5240,11 +5240,11 @@ A targeted semantic review was made of representative documentation branches who
 These are targeted content dispositions, not a complete semantic or commit/PR-ancestry audit of all 134 `docs/*` refs. `KHM-BRANCH-AUDIT-001` therefore remains **PARTIAL**. No historical branch was deleted, force-updated, or merged wholesale; no unsupported IPA or linguistic evidence was added.
 
 Exact-main workflow recheck for `f5faae81078e2828bc069bddda1ec05b95de5ff1`:
-- Quality checks run [44501861035](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44501861035): **SUCCESS**.
-- Khmer browser smoke run [44501860981](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44501860981): **SUCCESS**.
-- GitHub Pages build/deploy and deployed-site/runtime smoke run [44501861093](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44501861093): **SUCCESS**.
+- Quality checks run [44501861035](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44501861035): **SUCCESS**.
+- Khmer browser smoke run [44501860981](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44501860981): **SUCCESS**.
+- GitHub Pages build/deploy and deployed-site/runtime smoke run [44501861093](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44501861093): **SUCCESS**.
 
-At this checkpoint there are **0 open pull requests** and Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains the sole open issue. Its human acceptance gates remain unmet: approved versioned IPA convention, qualified independent reviewers/annotators/adjudicator/curator, private blind intake, item-level rights-cleared 30-item pilot and adjudication. Gold remains 0 and empirical accuracy remains null. Repository classification remains research-ready partial prototype, not linguistically release-ready.
+At this checkpoint there are **0 open pull requests** and Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/104) remains the sole open issue. Its human acceptance gates remain unmet: approved versioned IPA convention, qualified independent reviewers/annotators/adjudicator/curator, private blind intake, item-level rights-cleared 30-item pilot and adjudication. Gold remains 0 and empirical accuracy remains null. Repository classification remains research-ready partial prototype, not linguistically release-ready.
 
 
 ## Further documentation-branch semantic spot checks — 2026-11-19
@@ -5267,25 +5267,25 @@ This extends semantic sampling but does **not** complete a line-by-line content 
 ## Exact-main CI confirmation after PR #439 — 2026-11-19
 
 Default branch `main` at `8c166792a180483bc849b122c6b310b4a83eb2c7` has all three required workflows completed successfully:
-- Quality checks [44513448213](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44513448213): **SUCCESS**.
-- Khmer browser smoke [44513448302](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44513448302): **SUCCESS**.
-- GitHub Pages build/deploy [44513448288](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44513448288): **SUCCESS**, including production Chromium exercise, Pages artifact upload/deployment and deployed-site checks.
+- Quality checks [44513448213](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44513448213): **SUCCESS**.
+- Khmer browser smoke [44513448302](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44513448302): **SUCCESS**.
+- GitHub Pages build/deploy [44513448288](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44513448288): **SUCCESS**, including production Chromium exercise, Pages artifact upload/deployment and deployed-site checks.
 
-The repository still has no open pull requests. Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains open and unchanged; the IPA convention, independent reviewers/annotators/adjudicator/curator, private blind intake, rights-cleared pilot and adjudication remain human blockers. Gold remains 0; empirical accuracy remains null. Current status is research-ready partial prototype, not linguistically release-ready.
+The repository still has no open pull requests. Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/104) remains open and unchanged; the IPA convention, independent reviewers/annotators/adjudicator/curator, private blind intake, rights-cleared pilot and adjudication remain human blockers. Gold remains 0; empirical accuracy remains null. Current status is research-ready partial prototype, not linguistically release-ready.
 
 
 ## Mainline checkpoint after PR #440 — 2026-11-19
 
-PR [#440](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/440) merged to `main` as `e3837e036584e3c243f098781d7b24f377090663`. The change extends documentation-branch semantic sampling; it does not close the historical branch audit.
+PR [#440](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/440) merged to `main` as `e3837e036584e3c243f098781d7b24f377090663`. The change extends documentation-branch semantic sampling; it does not close the historical branch audit.
 
 Live inventory at the preceding post-merge checkpoint: 314 refs, 314 unique branch names and 314 unique tip SHAs; no open pull requests. The prior targeted semantic review has not yet inspected every one of the 135 `docs/*` refs or fully reconciled each ref's commit/PR ancestry. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**. Historical refs are preserved; no branch deletion, force update or wholesale merge was performed.
 
 Exact-main GitHub Actions for `e3837e036584e3c243f098781d7b24f377090663`:
-- Quality checks [44519884661](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44519884661): **SUCCESS**.
-- GitHub Pages build/deploy [44519884653](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44519884653): **SUCCESS**.
-- Khmer browser smoke [44519884652](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44519884652): first attempt failed during `Install Chromium` (`npx playwright install --with-deps chromium`); checkout, dependency install, deterministic web checks and production build had succeeded. The failed browser job was explicitly re-run as attempt 2 (job retry requested successfully); at the time of this update, attempt 2 is **IN_PROGRESS**, so Chromium verification is not yet claimed.
+- Quality checks [44519884661](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44519884661): **SUCCESS**.
+- GitHub Pages build/deploy [44519884653](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44519884653): **SUCCESS**.
+- Khmer browser smoke [44519884652](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44519884652): first attempt failed during `Install Chromium` (`npx playwright install --with-deps chromium`); checkout, dependency install, deterministic web checks and production build had succeeded. The failed browser job was explicitly re-run as attempt 2 (job retry requested successfully); at the time of this update, attempt 2 is **IN_PROGRESS**, so Chromium verification is not yet claimed.
 
-Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains open. Its latest recorded state still has no approved versioned IPA convention, no confirmed independent annotators/adjudicator/curator or private blind intake, and no rights-cleared/adjudicated 30-item pilot. Independent adjudicated gold remains **0** and empirical accuracy remains **null**. Root repository licensing still requires the owner's decision; manual accessibility review remains partial. No new IPA, phonological labels, Ukrainian mappings, corpus rows or benchmark scores were introduced.
+Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/104) remains open. Its latest recorded state still has no approved versioned IPA convention, no confirmed independent annotators/adjudicator/curator or private blind intake, and no rights-cleared/adjudicated 30-item pilot. Independent adjudicated gold remains **0** and empirical accuracy remains **null**. Root repository licensing still requires the owner's decision; manual accessibility review remains partial. No new IPA, phonological labels, Ukrainian mappings, corpus rows or benchmark scores were introduced.
 
 The repository remains an engineering-verified, research-ready partial prototype, **not linguistically validated or release-ready**. No local checkout or local test execution is claimed; verification evidence above is from hosted GitHub Actions.
 
@@ -5305,19 +5305,19 @@ Fresh paginated live branch inventory: **315 refs, 315 unique branch names, 315 
 
 ## Mainline PR #441 closeout and additional documentation-branch dispositions — 2026-11-19
 
-PR [#441](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/441) merged by squash as `8c5b4ab223014bb2292a2e45e9b026a6e85757ed`. It synchronizes the canonical handoff, repository audit and linguistic completion register with PR #440's exact-main CI outcome and adds the accessibility documentation-branch spot checks. Its scope is documentation only.
+PR [#441](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/441) merged by squash as `8c5b4ab223014bb2292a2e45e9b026a6e85757ed`. It synchronizes the canonical handoff, repository audit and linguistic completion register with PR #440's exact-main CI outcome and adds the accessibility documentation-branch spot checks. Its scope is documentation only.
 
 Exact PR #441 head `76fc232792d9f8aac2daf0ba86f765470ae52db8`:
-- Quality [44537589136](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44537589136) — **SUCCESS**.
-- Khmer browser smoke [44537589184](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44537589184) — **SUCCESS**.
-- Additional Quality push run [44537557821](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44537557821) — **SUCCESS**.
+- Quality [44537589136](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44537589136) — **SUCCESS**.
+- Khmer browser smoke [44537589184](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44537589184) — **SUCCESS**.
+- Additional Quality push run [44537557821](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44537557821) — **SUCCESS**.
 
 The previously failed browser smoke for PR #440's main SHA `e3837e036584e3c243f098781d7b24f377090663` was retried as attempt 2 and then completed **SUCCESS**. Attempt 1 had failed only during Chromium installation; the browser test itself was not reached on that attempt.
 
 Exact current-main verification on `8c5b4ab223014bb2292a2e45e9b026a6e85757ed`:
-- Quality [44537942760](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44537942760) — **SUCCESS**.
-- GitHub Pages build/deploy [44537942921](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44537942921) — **SUCCESS**.
-- Khmer browser smoke [44537942949](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44537942949) — **SUCCESS**.
+- Quality [44537942760](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44537942760) — **SUCCESS**.
+- GitHub Pages build/deploy [44537942921](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44537942921) — **SUCCESS**.
+- Khmer browser smoke [44537942949](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44537942949) — **SUCCESS**.
 
 ### Further targeted documentation-ref checks
 
@@ -5336,7 +5336,7 @@ Latest paginated inventory remains **315 refs / 315 unique names / 315 unique ti
 
 ## PR #442 closeout and next historical documentation-ref sample — 2026-11-19
 
-PR [#442](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/442) merged by squash as `23c41163b5ea5b9cc1b835283b03c7dceddec7d6`. It records the PR #441 closeout, the successful retry of PR #440's Chromium installation attempt, exact-main CI on `8c5b4ab223014bb2292a2e45e9b026a6e85757ed`, and six additional targeted documentation-ref dispositions. Scope is documentation only.
+PR [#442](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/442) merged by squash as `23c41163b5ea5b9cc1b835283b03c7dceddec7d6`. It records the PR #441 closeout, the successful retry of PR #440's Chromium installation attempt, exact-main CI on `8c5b4ab223014bb2292a2e45e9b026a6e85757ed`, and six additional targeted documentation-ref dispositions. Scope is documentation only.
 
 Correction to the previous interim status: Chromium smoke on `e3837e036584e3c243f098781d7b24f377090663` did **not** remain failed. Retry attempt 2 succeeded; the original failure was limited to the Chromium installation step before browser tests began. On the subsequent exact-main SHA `8c5b4ab223014bb2292a2e45e9b026a6e85757ed`, Quality, Pages and Chromium all passed (runs 44537942760, 44537942921 and 44537942949 respectively).
 
@@ -5366,7 +5366,7 @@ All these dispositions are targeted, based on changed-path comparison and inspec
 
 ## PR #443 closeout and PCGN documentation-branch family spot checks — 2026-11-19
 
-PR [#443](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/443) merged by squash as `f9a3dd7fdc813fbf5de8c0e674256c9a6a43ac05`; exact PR head was `40ed62fcf20f48741b0052a9abcf6474caee6069`. All three PR-head checks passed: Quality, Chromium browser smoke, and the second Quality run. Exact-main checks on the merge SHA: Quality [44556021018](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44556021018) — SUCCESS; Pages build/deploy [44556021178](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44556021178) — SUCCESS; Chromium [44556020948](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44556020948) — IN_PROGRESS at last check. Do not claim exact-main browser verification until this run completes.
+PR [#443](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/443) merged by squash as `f9a3dd7fdc813fbf5de8c0e674256c9a6a43ac05`; exact PR head was `40ed62fcf20f48741b0052a9abcf6474caee6069`. All three PR-head checks passed: Quality, Chromium browser smoke, and the second Quality run. Exact-main checks on the merge SHA: Quality [44556021018](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44556021018) — SUCCESS; Pages build/deploy [44556021178](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44556021178) — SUCCESS; Chromium [44556020948](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44556020948) — IN_PROGRESS at last check. Do not claim exact-main browser verification until this run completes.
 
 A further targeted comparison against current `main` reviewed ten retained PCGN documentation refs:
 
@@ -5391,7 +5391,7 @@ The branch names above are 29 refs; the sweep used changed-path comparisons for 
 
 ## PR #444 closeout and post-merge documentation-ref sample — 2026-11-19
 
-PR [#444](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/444) merged by squash as `e78da940dbff2a07376f6ae9cb0b4cc4cd8b6603`; exact PR head `3d86b3d1779a971eb7f60b591ac08f42087c889a` passed both Quality checks and Chromium browser smoke. Exact-main Quality [44558019475](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44558019475) and Chromium [44558019636](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44558019636) passed; Pages build/deploy [44558019521](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44558019521) was still running at the time of this update.
+PR [#444](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/444) merged by squash as `e78da940dbff2a07376f6ae9cb0b4cc4cd8b6603`; exact PR head `3d86b3d1779a971eb7f60b591ac08f42087c889a` passed both Quality checks and Chromium browser smoke. Exact-main Quality [44558019475](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44558019475) and Chromium [44558019636](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44558019636) passed; Pages build/deploy [44558019521](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44558019521) was still running at the time of this update.
 
 A further ten historical refs were compared with current main: `docs/post-pr294-mainline-verification-2026-11-16`, `docs/post-pr300-mainline-handoff-2026-11-16`, `docs/post-pr314-mainline-closeout-2026-11-17`, `docs/post-pr316-mainline-closeout-2026-11-17`, `docs/post-pr319-expert-shortlist-closeout-2026-11-17`, `docs/post-pr353-mainline-closeout-2026-11-18`, `docs/pr322-mainline-verification-2026-11-17`, `docs/pr334-final-mainline-verification-2026-11-17`, `docs/pr336-exact-main-closeout-2026-11-17`, and `docs/pr355-post-merge-closeout-2026-11-18`. Every diff is limited to canonical documentation. The #294 branch additionally carries an older Unicode grammar audit snapshot; current main supersedes its parser commit/CI checkpoint and includes the later TN #61 v2 metadata/rights boundary. The #353 branch additionally carries an old benchmarking note claiming a 29,204-entry native-validated CC BY-SA dictionary; current pinned evidence records the 29,204/33,091 count and license-scope conflict, only a six-line public sample, and no full dictionary artifact. That old statement is not safe to re-import. The remaining branches are historical handoff/audit/register snapshots with no unique runtime or test changes.
 
@@ -5419,7 +5419,7 @@ Specific dispositions:
 
 All historical test refs are retained unchanged. These targeted comparisons establish no missing tests in this sample; they do not complete full commit/PR ancestry reconciliation of all branches. `KHM-BRANCH-AUDIT-001` remains **PARTIAL**.
 
-Correction to the earlier time-bounded status: Pages/deploy run [44558019521](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44558019521) subsequently completed **SUCCESS** on exact main SHA `e78da940dbff2a07376f6ae9cb0b4cc4cd8b6603`. Quality [44558019475] and Chromium [44558019636] on that same SHA were already confirmed **SUCCESS**.
+Correction to the earlier time-bounded status: Pages/deploy run [44558019521](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44558019521) subsequently completed **SUCCESS** on exact main SHA `e78da940dbff2a07376f6ae9cb0b4cc4cd8b6603`. Quality [44558019475] and Chromium [44558019636] on that same SHA were already confirmed **SUCCESS**.
 
 
 ### Early romanization/source-registry documentation refs — 2026-11-19
@@ -5466,7 +5466,7 @@ Fresh paginated GitHub inventory: **319 branch refs, 319 unique names, 319 uniqu
 
 ## PR #445 closeout and Unicode 18 parser handoff branch reconciliation — 2026-11-19
 
-PR [#445](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/445) merged as `3663ea20e58510a0a36b5c521627fcacf1c4951b`; exact PR head `b27844f3d02e2c38097da40aa3ab2a22aa55592a` passed both Quality checks and Chromium. All three exact-main workflows on merge SHA `3663ea20...` subsequently passed: Quality [44561793874](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44561793874), Pages/deploy [44561793851](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44561793851), and Chromium [44561793861](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44561793861).
+PR [#445](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/445) merged as `3663ea20e58510a0a36b5c521627fcacf1c4951b`; exact PR head `b27844f3d02e2c38097da40aa3ab2a22aa55592a` passed both Quality checks and Chromium. All three exact-main workflows on merge SHA `3663ea20...` subsequently passed: Quality [44561793874](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44561793874), Pages/deploy [44561793851](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44561793851), and Chromium [44561793861](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44561793861).
 
 Four retained parser handoff/state refs were compared: `docs/khmer-parser-final-handoff-2026-11-16`, `docs/khmer-parser-final-state-2026-11-16`, `docs/khmer-parser-final-state-v2-2026-11-16`, and `docs/khmer-unicode18-parser-final-handoff-2026-11-16`. The first three modify canonical docs only. The Unicode 18 handoff additionally changes `data/khmer/sources.json`, `tests/test_rule_registry_provenance.py`, references, parser/LOC audit notes and the romanization matrix.
 
@@ -5507,7 +5507,7 @@ Nine further audit refs were compared with current main: `audit/continue-pcgn-br
 
 ## Research-branch snapshot reconciliation and exact-main CI — 2026-11-19
 
-PR [#448](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/448) merged as `47b3be71478c5a6948a2c66c4761cce9310a5fcb`. Exact PR-head Quality and Chromium passed. All four checks on exact merged main also passed: Quality [44565926529](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44565926529), browser [44565926669](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44565926669), Pages/deploy [44565926377](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44565926377) (build + deploy).
+PR [#448](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/448) merged as `47b3be71478c5a6948a2c66c4761cce9310a5fcb`. Exact PR-head Quality and Chromium passed. All four checks on exact merged main also passed: Quality [44565926529](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44565926529), browser [44565926669](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44565926669), Pages/deploy [44565926377](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44565926377) (build + deploy).
 
 A targeted sample of the retained `research/*` family was reconciled:
 - Ten source-registry snapshots (#complete-external-G2P, Google lexicon, acoustic-model release, IPA convention v1/v2, Kirby cluster audio, Kirby tonogenesis, source-audit integration, LOC word division, MekongPhon release-rights) each had **zero branch-only source IDs** relative to the current 49-entry `data/khmer/sources.json`. Current main contains later source entries and canonical IDs; no source record needs porting.
@@ -5709,7 +5709,7 @@ The remaining release blockers are unchanged: no independently adjudicated IPA g
 
 ### CI dependency correction — 2026-11-20
 
-- First exact-PR-head Quality run [44721539422](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44721539422) failed during pytest collection: `ModuleNotFoundError: No module named 'jsonschema'`. The base CI installed only `-e . pytest`; the repository had no declared test extra.
+- First exact-PR-head Quality run [44721539422](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44721539422) failed during pytest collection: `ModuleNotFoundError: No module named 'jsonschema'`. The base CI installed only `-e . pytest`; the repository had no declared test extra.
 - Corrected the project contract: `pyproject.toml` now declares a test-only extra (`pytest>=8,<10`, `jsonschema>=4.20,<5`), and `.github/workflows/ci.yml` installs `-e ".[test]"`. README now documents the same command and confirms JSON Schema is not a runtime dependency.
 - This is a dependency declaration/CI correction, not a runtime dependency increase. The failed run remains recorded as FAILED; only a new exact-head run can verify the fix.
 
@@ -5720,18 +5720,18 @@ The remaining release blockers are unchanged: no independently adjudicated IPA g
 ### Exact-head verification closeout — 2026-11-20
 
 - Corrected test-only dependency declaration after the first Quality failure; no runtime dependency was added.
-- Exact head `45fc31321d3628aa5afb61892802a8f9f20b3eb1` passed Quality [44721843510](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44721843510): **446 Python tests + 70 subtests**, web checks and production build.
-- The same exact head passed Chromium browser smoke [44721843530](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44721843530), including visible-result verification.
+- Exact head `45fc31321d3628aa5afb61892802a8f9f20b3eb1` passed Quality [44721843510](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44721843510): **446 Python tests + 70 subtests**, web checks and production build.
+- The same exact head passed Chromium browser smoke [44721843530](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44721843530), including visible-result verification.
 - `KHMER-VOWEL-REGISTRY-SCHEMA-001` is now DONE_VERIFIED for data-integrity validation only. Full contextual vowel/rime coverage remains PARTIAL; gold remains 0 and accuracy null.
 - These results apply to `45fc313`. The documentation-only evidence synchronization that follows will create a new head and must receive its own CI before that later head is called green.
 
 
 ## Post-merge verification — PR #461 — 2026-11-20
 
-- PR [#461](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/461) was squash-merged to `main` as commit `0aa943f8490d5ed6043fbc74bd2f15aa7cf57c26`.
-- Exact-main Quality run [44723258396](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44723258396) completed SUCCESS: **446 Python tests + 70 subtests**, shared register-shifter contract, web checks and production build. The test-only `jsonschema` extra was installed successfully.
-- Exact-main browser smoke [44723258466](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44723258466) completed SUCCESS, including Chromium visible-result verification.
-- Exact-main Pages workflow [44723258463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44723258463) completed SUCCESS: build, Chromium production-site exercise, Pages artifact upload, deployment and deployed-site smoke test all succeeded. Published URL: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/.
+- PR [#461](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/461) was squash-merged to `main` as commit `0aa943f8490d5ed6043fbc74bd2f15aa7cf57c26`.
+- Exact-main Quality run [44723258396](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44723258396) completed SUCCESS: **446 Python tests + 70 subtests**, shared register-shifter contract, web checks and production build. The test-only `jsonschema` extra was installed successfully.
+- Exact-main browser smoke [44723258466](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44723258466) completed SUCCESS, including Chromium visible-result verification.
+- Exact-main Pages workflow [44723258463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44723258463) completed SUCCESS: build, Chromium production-site exercise, Pages artifact upload, deployment and deployed-site smoke test all succeeded. Published URL: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/.
 - `KHMER-VOWEL-REGISTRY-SCHEMA-001` is DONE_VERIFIED and merged. This closes a registry-integrity engineering task only. The complete contextual phonological vowel matrix remains PARTIAL; independent adjudicated IPA gold remains 0; empirical accuracy remains null.
 
 
@@ -5750,52 +5750,52 @@ A separate branch `feat/khmer-contextual-vowel-coverage-2026-11-20` extends the 
 ## Contextual Khmer vowel coverage PR #462 — merged 2026-11-20
 
 - PR #462 merged to `main` as `d4738096ae05cad4e338388bfb93fa05b8855e54`.
-- Exact PR head `c40315663855102ee419090148da351343af9441`: Quality [44733384646](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44733384646) SUCCESS (**447 Python tests + 70 subtests**, report freshness, web checks, Vite build); push Quality [44733376120](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44733376120) SUCCESS; Chromium smoke [44733384573](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44733384573) SUCCESS.
+- Exact PR head `c40315663855102ee419090148da351343af9441`: Quality [44733384646](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44733384646) SUCCESS (**447 Python tests + 70 subtests**, report freshness, web checks, Vite build); push Quality [44733376120](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44733376120) SUCCESS; Chromium smoke [44733384573](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44733384573) SUCCESS.
 - `scripts/coverage.py` now adds a case-level `contextual_vowel_evidence` view, preserving nine existing source-indexed cases, their source conventions and evidence states. The dashboard renders those observations as text.
 - The report explicitly leaves profile, phonological syllable type/coda, measured duration, stress/harmony and full cross-product coverage unresolved. It does not infer shortness from absent length marks or generate IPA. No gold rows or runtime phonology rules were added.
-- Current pilot blocker remains Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104): convention approval, qualified annotators/adjudicator/curator, private blind intake, item-level rights and 30 adjudicated lexeme groups.
-- Manual accessibility QA is tracked separately in Issue [#463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/463). Automated smoke is not manual accessibility sign-off.
-- Post-merge exact `main` head `a97381b6cd221ccb65cc7d4d118578c3f482eb54` is fully verified: Quality [44734185716](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734185716) SUCCESS (**447 Python tests + 70 subtests**, including report freshness and dashboard tests); browser [44734185807](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734185807) SUCCESS; Pages/deploy [44734185684](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734185684) SUCCESS, including deployed-site smoke.
+- Current pilot blocker remains Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/104): convention approval, qualified annotators/adjudicator/curator, private blind intake, item-level rights and 30 adjudicated lexeme groups.
+- Manual accessibility QA is tracked separately in Issue [#463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/463). Automated smoke is not manual accessibility sign-off.
+- Post-merge exact `main` head `a97381b6cd221ccb65cc7d4d118578c3f482eb54` is fully verified: Quality [44734185716](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44734185716) SUCCESS (**447 Python tests + 70 subtests**, including report freshness and dashboard tests); browser [44734185807](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44734185807) SUCCESS; Pages/deploy [44734185684](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44734185684) SUCCESS, including deployed-site smoke.
 
 
 ## Post-merge mainline verification — 2026-11-20
 
 Current exact `main` HEAD: `a97381b6cd221ccb65cc7d4d118578c3f482eb54`.
 
-- Quality [44734185716](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734185716): SUCCESS — 447 Python tests + 70 subtests; contextual report freshness, schema, web checks and production build.
-- Browser smoke [44734185807](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734185807): SUCCESS — deterministic web checks, Vite build, Chromium visible-results smoke.
-- Pages/deploy [44734185684](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734185684): SUCCESS — production build, Chromium, artifact upload, deployment and public-site/runtime-asset smoke.
+- Quality [44734185716](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44734185716): SUCCESS — 447 Python tests + 70 subtests; contextual report freshness, schema, web checks and production build.
+- Browser smoke [44734185807](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44734185807): SUCCESS — deterministic web checks, Vite build, Chromium visible-results smoke.
+- Pages/deploy [44734185684](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44734185684): SUCCESS — production build, Chromium, artifact upload, deployment and public-site/runtime-asset smoke.
 - PR #462 is merged; PR-head CI and exact post-merge main CI are both green.
 - Remaining research gate: independent adjudicated IPA gold remains 0, empirical accuracy unmeasured; Issue #104 still requires expert convention approval, qualified annotators/adjudicator/curator, private blind intake, item-level rights and 30 adjudicated lexeme groups. Manual accessibility QA is tracked in Issue #463.
 
 ## Exact latest mainline verification — 2026-11-20
 
 - Current verified default-branch HEAD at this checkpoint: `e5ea08e9bc0c9828b5da29cbd6ecb06d6e054ee0`.
-- Quality [44734864422](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734864422): SUCCESS.
-- Browser smoke [44734864454](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734864454): SUCCESS.
-- Pages/deploy [44734864513](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44734864513): SUCCESS, including deployment and deployed-site smoke.
+- Quality [44734864422](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44734864422): SUCCESS.
+- Browser smoke [44734864454](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44734864454): SUCCESS.
+- Pages/deploy [44734864513](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44734864513): SUCCESS, including deployment and deployed-site smoke.
 - This verifies the documentation/evidence synchronization on top of merged PR #462; it does not close the linguistic matrix or gold-data gates.
 - Independent adjudicated IPA gold remains 0 and empirical accuracy remains unmeasured. The full source-located contextual matrix still lacks profile, phonological coda/syllable classification, measured duration, stress/harmony and adjudicated lexical coverage. Issue #104 remains the human/source-rights pilot gate; Issue #463 remains manual accessibility QA.
 
 ## Exact current-main closeout after contextual evidence dashboard — 2026-11-20
 
 - Verified default-branch HEAD: 0e90dcaf7d76ac1c8ad43dc6496a506af044ecc1.
-- Quality [44736142441](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44736142441) SUCCESS: gold-corpus structural validation, Python tests, web checks and production build.
-- Browser smoke [44736142257](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44736142257) SUCCESS: deterministic web checks, Vite production build, Chromium installation and visible-results smoke.
-- Pages/deploy [44736142183](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44736142183) SUCCESS: production build, Chromium smoke, Pages artifact upload, deployment and public-site/runtime-asset smoke.
+- Quality [44736142441](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44736142441) SUCCESS: gold-corpus structural validation, Python tests, web checks and production build.
+- Browser smoke [44736142257](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44736142257) SUCCESS: deterministic web checks, Vite production build, Chromium installation and visible-results smoke.
+- Pages/deploy [44736142183](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44736142183) SUCCESS: production build, Chromium smoke, Pages artifact upload, deployment and public-site/runtime-asset smoke.
 - PR #462 contextual evidence dashboard and register changes are merged; there are no open PRs at this checkpoint.
 - The nine contextual vowel observations remain seven SOURCE_ATTESTED_NOT_GOLD and two CONFLICTING_SOURCE_ANALYSES. They expose existing source evidence only; they do not fill the full profile × series × vowel × phonological coda × syllable type × measured length × stress/harmony cross-product. No missing length, coda, IPA or tone values were inferred.
-- Independent adjudicated IPA gold remains 0; empirical accuracy remains unmeasured. Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104) remains BLOCKED on expert-approved convention, two independent annotators, separate adjudicator and curator, private blind intake, item-level source rights and 30 adjudicated lexeme groups.
-- Manual accessibility QA remains TODO under Issue [#463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/463); automated browser checks do not constitute human WCAG sign-off.
+- Independent adjudicated IPA gold remains 0; empirical accuracy remains unmeasured. Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/104) remains BLOCKED on expert-approved convention, two independent annotators, separate adjudicator and curator, private blind intake, item-level source rights and 30 adjudicated lexeme groups.
+- Manual accessibility QA remains TODO under Issue [#463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/463); automated browser checks do not constitute human WCAG sign-off.
 - This pre-merge branch-status note is superseded by the final merged-main closeout below.
 
 
 ## Final merged-main closeout — 2026-11-20 (supersedes the pre-merge checkpoint above)
 
-- Final default-branch commit: [5293cdcb93b5f4f617e8a9b04d97630a128c4510](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/commit/5293cdcb93b5f4f617e8a9b04d97630a128c4510); PR [#464](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/464) is merged. The earlier 0e90dc checkpoint and “branch is not main” instruction above are historical, superseded states.
-- Exact final-commit Quality [44752921914](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44752921914), Chromium [44752921989](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44752921989), and Pages/deploy [44752921857](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44752921857) all SUCCESS.
+- Final default-branch commit: [5293cdcb93b5f4f617e8a9b04d97630a128c4510](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/commit/5293cdcb93b5f4f617e8a9b04d97630a128c4510); PR [#464](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/464) is merged. The earlier 0e90dc checkpoint and “branch is not main” instruction above are historical, superseded states.
+- Exact final-commit Quality [44752921914](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44752921914), Chromium [44752921989](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44752921989), and Pages/deploy [44752921857](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44752921857) all SUCCESS.
 - The nine contextual vowel observations remain seven SOURCE_ATTESTED_NOT_GOLD and two CONFLICTING_SOURCE_ANALYSES. The full phonological cross-product remains PARTIAL; no missing coda, duration, stress/harmony, IPA or tone values were inferred.
-- Gold pilot BLOCKED under [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104); manual accessibility QA TODO under [#463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/463). Independent adjudicated gold=0; empirical accuracy unmeasured. No license was selected because that is an owner decision.
+- Gold pilot BLOCKED under [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/104); manual accessibility QA TODO under [#463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/463). Independent adjudicated gold=0; empirical accuracy unmeasured. No license was selected because that is an owner decision.
 - Result: engineering/build/deployment verified; linguistically a research prototype, not release-ready. Connector-hosted CI was verified; no local checkout or local test commands were available in this session.
 
 
@@ -5828,7 +5828,7 @@ KHMER-LICENSE-001 — DONE_VERIFIED for the repository-owned software/docs licen
 
 ## Post-merge CI verification — noncommercial license closeout — 2026-11-21
 
-The licensing closeout documentation PR #468 is merged as 493e135ad4787c737931dbad20ea564c528bfd7c. Exact-mainline CI on that SHA is fully green: Quality [44827023495](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44827023495), Chromium browser smoke [44827023488](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44827023488), and Pages build/deploy [44827023602](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44827023602) all SUCCESS. This supersedes the earlier timestamped note that exact-main workflows were still running. KHMER-LICENSE-001 remains DONE_VERIFIED; third-party and item-level data rights remain separately unresolved.
+The licensing closeout documentation PR #468 is merged as 493e135ad4787c737931dbad20ea564c528bfd7c. Exact-mainline CI on that SHA is fully green: Quality [44827023495](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44827023495), Chromium browser smoke [44827023488](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44827023488), and Pages build/deploy [44827023602](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44827023602) all SUCCESS. This supersedes the earlier timestamped note that exact-main workflows were still running. KHMER-LICENSE-001 remains DONE_VERIFIED; third-party and item-level data rights remain separately unresolved.
 
 
 ## Original research-data license — 2026-11-21
@@ -5840,44 +5840,44 @@ KHMER-RESEARCH-DATA-LICENSE-001 — implementation complete on this branch; pend
 
 ## Research-data license merged and exact-main CI — 2026-11-21
 
-PR #470 merged as `c57e76d11e940aa522f36cfaca205ad654a6425e`. Its PR-head Quality checks [44829570556](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44829570556) and browser smoke [44829570588](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44829570588) both passed. The exact post-merge main SHA `c57e76d11e940aa522f36cfaca205ad654a6425e` is fully green: Quality [44829718697](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44829718697), Chromium [44829718684](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44829718684), and Pages build/deploy [44829718661](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44829718661) all SUCCESS.
+PR #470 merged as `c57e76d11e940aa522f36cfaca205ad654a6425e`. Its PR-head Quality checks [44829570556](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44829570556) and browser smoke [44829570588](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44829570588) both passed. The exact post-merge main SHA `c57e76d11e940aa522f36cfaca205ad654a6425e` is fully green: Quality [44829718697](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44829718697), Chromium [44829718684](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44829718684), and Pages build/deploy [44829718661](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44829718661) all SUCCESS.
 
 KHMER-RESEARCH-DATA-LICENSE-001 — DONE_VERIFIED for repository-owned original research data license scope, benchmark registry distinction and third-party notice inventory. This does not clear external data rights or contributor ownership not evidenced per item. Gold remains empty; expert gold pilot and manual accessibility QA remain outstanding. The repository remains a research prototype, not linguistically release-ready.
 
 
 ## Scholarly citation metadata and final exact-main CI — 2026-11-21
 
-PR #472 merged as `cd54ed9c64fb9cb7132f33b589d7847a14226bde`, adding `CITATION.cff` aligned with package version 0.2.0 and a README citation note. PR-head Quality [44830502365](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44830502365) and browser smoke [44830502500](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44830502500) both passed. Exact post-merge main SHA `cd54ed9c64fb9cb7132f33b589d7847a14226bde` is fully green: Quality [44830768580](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44830768580), Chromium [44830768579](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44830768579), and Pages build/deploy [44830768577](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44830768577) all SUCCESS.
+PR #472 merged as `cd54ed9c64fb9cb7132f33b589d7847a14226bde`, adding `CITATION.cff` aligned with package version 0.2.0 and a README citation note. PR-head Quality [44830502365](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44830502365) and browser smoke [44830502500](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44830502500) both passed. Exact post-merge main SHA `cd54ed9c64fb9cb7132f33b589d7847a14226bde` is fully green: Quality [44830768580](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44830768580), Chromium [44830768579](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44830768579), and Pages build/deploy [44830768577](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44830768577) all SUCCESS.
 
 KHMER-CITATION-001 — DONE_VERIFIED. Citation metadata identifies the research prototype, version and noncommercial code license without inventing a DOI or publication. KHMER-RESEARCH-DATA-LICENSE-001 remains DONE_VERIFIED from PR #470. Third-party rights remain item-specific and unresolved where the source registry says so. Gold remains empty; expert gold pilot and manual accessibility QA remain outstanding. This is not linguistic release approval.
 
 
 ## Final exact-main CI after citation closeout — 2026-11-21
 
-The citation/handoff closeout PR #473 merged as `f41699a7ebadec9d85ec7cf7092f972212463f37`. The exact post-merge main SHA is fully green: Quality [44831432729](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44831432729), Chromium browser smoke [44831432822](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44831432822), and Pages build/deploy [44831432731](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44831432731) all SUCCESS. This supersedes the earlier exact-main checkpoint on `cd54ed9c64fb9cb7132f33b589d7847a14226bde`.
+The citation/handoff closeout PR #473 merged as `f41699a7ebadec9d85ec7cf7092f972212463f37`. The exact post-merge main SHA is fully green: Quality [44831432729](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44831432729), Chromium browser smoke [44831432822](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44831432822), and Pages build/deploy [44831432731](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44831432731) all SUCCESS. This supersedes the earlier exact-main checkpoint on `cd54ed9c64fb9cb7132f33b589d7847a14226bde`.
 
 The merged main now contains the scoped PolyForm Noncommercial code license, CC BY-NC documentation and original research-data grants, the third-party rights inventory, and CFF citation metadata. These repository-owned licensing and citation tasks are DONE_VERIFIED. Source-specific third-party rights, expert-adjudicated IPA gold and manual accessibility QA remain separate unresolved gates.
 
 
 ## Exact-main CI after final closeout merge — 2026-11-21
 
-PR #474 merged as `5537abb05795291bebc7e528a365a62b34dae18d`. Exact post-merge main CI is fully green: Quality [44831853817](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44831853817), Chromium [44831853698](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44831853698), and Pages build/deploy [44831853709](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44831853709) all SUCCESS. This supersedes the prior exact-main checkpoint on `f41699a7ebadec9d85ec7cf7092f972212463f37`.
+PR #474 merged as `5537abb05795291bebc7e528a365a62b34dae18d`. Exact post-merge main CI is fully green: Quality [44831853817](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44831853817), Chromium [44831853698](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44831853698), and Pages build/deploy [44831853709](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44831853709) all SUCCESS. This supersedes the prior exact-main checkpoint on `f41699a7ebadec9d85ec7cf7092f972212463f37`.
 
 
 ## Final mainline CI after all closeout documentation — 2026-11-21
 
-PR #475 merged as `96c2329d627056daececef1848a76cc977051d65`. Exact post-merge main CI is fully green: Quality [44832297432](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44832297432), Chromium [44832297291](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44832297291), and Pages build/deploy [44832297309](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44832297309) all SUCCESS. This supersedes the prior exact-main checkpoint on `5537abb05795291bebc7e528a365a62b34dae18d`.
+PR #475 merged as `96c2329d627056daececef1848a76cc977051d65`. Exact post-merge main CI is fully green: Quality [44832297432](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44832297432), Chromium [44832297291](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44832297291), and Pages build/deploy [44832297309](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44832297309) all SUCCESS. This supersedes the prior exact-main checkpoint on `5537abb05795291bebc7e528a365a62b34dae18d`.
 
 The final main contains PolyForm Noncommercial code licensing, CC BY-NC documentation and original research-data grants, the scoped third-party rights inventory, and CFF citation metadata. KHMER-RESEARCH-DATA-LICENSE-001 and KHMER-CITATION-001 remain DONE_VERIFIED. Third-party/source-specific rights, expert IPA gold and manual accessibility QA remain separate unresolved gates. No gold labels or runtime rules were added by these closeouts.
 
 
 ## Final mainline reconciliation — 2026-11-21 (supersedes earlier closeout checkpoints)
 
-- Verified default branch `main` at `0c0f8c911dece85c6e829886916a245540981c76` (PR #476 closeout). Exact-head GitHub Actions checks all completed successfully: Quality/build run [44832847634](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44832847634), Chromium/browser run [44832847820](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44832847820), and Pages build/deploy is included in run [44832847634](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44832847634). Exact-head check-runs `build`, `browser`, and `deploy` completed successfully. This verifies the latest mainline engineering/build/deployment state only.
+- Verified default branch `main` at `0c0f8c911dece85c6e829886916a245540981c76` (PR #476 closeout). Exact-head GitHub Actions checks all completed successfully: Quality/build run [44832847634](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44832847634), Chromium/browser run [44832847820](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44832847820), and Pages build/deploy is included in run [44832847634](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44832847634). Exact-head check-runs `build`, `browser`, and `deploy` completed successfully. This verifies the latest mainline engineering/build/deployment state only.
 - Repository-owned software, documentation, and original research-data licensing are DONE_VERIFIED: PolyForm Noncommercial 1.0.0 for original code; CC BY-NC 4.0 for original documentation and qualifying original project-authored research data. CFF citation metadata is present. Third-party and mixed-source rights remain item-specific; unknown/conflicting rights do not authorize redistribution, and NC-only material remains excluded from the commercial/product gold export gate.
 - Current open PR inventory: no open PRs were found. No branch was deleted or rewritten.
-- KHM-GOLD-PILOT-001 remains BLOCKED under Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/104): independent adjudicated gold=0 and empirical accuracy unmeasured; approved versioned Khmer IPA convention, two qualified independent annotators, separate adjudicator and curator, private blind intake, 30 attested lexeme groups, and per-item source-rights clearance remain outstanding. Candidate resources remain candidate-only until their exact artifacts and rights are verified. No gold labels or runtime rules were fabricated.
-- KHM-MANUAL-A11Y-001 remains TODO under Issue [#463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/issues/463): human keyboard, screen-reader/assistive-technology, 200%/400% zoom, reflow, contrast, touch-target and mobile evidence is still required. Automated browser checks are not a manual WCAG audit.
+- KHM-GOLD-PILOT-001 remains BLOCKED under Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/104): independent adjudicated gold=0 and empirical accuracy unmeasured; approved versioned Khmer IPA convention, two qualified independent annotators, separate adjudicator and curator, private blind intake, 30 attested lexeme groups, and per-item source-rights clearance remain outstanding. Candidate resources remain candidate-only until their exact artifacts and rights are verified. No gold labels or runtime rules were fabricated.
+- KHM-MANUAL-A11Y-001 remains TODO under Issue [#463](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/463): human keyboard, screen-reader/assistive-technology, 200%/400% zoom, reflow, contrast, touch-target and mobile evidence is still required. Automated browser checks are not a manual WCAG audit.
 - KHM-VOWEL-CONTEXT-MATRIX-002 remains PARTIAL: the canonical inventory contains nine source-indexed observations (seven SOURCE_ATTESTED_NOT_GOLD and two CONFLICTING_SOURCE_ANALYSES); full profile × series × vowel × phonological coda × syllable type × measured length × stress/harmony coverage and expert review are not established. Missing cells remain NOT_ESTABLISHED; no interpolation from orthographic structure is permitted.
 - Lexical segmentation and other source-specific evidence gates remain PARTIAL/BLOCKED as recorded in the source/evidence registers. Do not promote candidate-only external corpora or forced-alignment resources to independent IPA gold.
 - Local checkout and local test execution were unavailable through this GitHub connector session. The statements above rely on exact-commit GitHub Actions check-run metadata, repository files, issue/PR state and branch metadata; no local test command is claimed.
@@ -5904,69 +5904,69 @@ A deeper upstream inspection is recorded in docs/audits/current/KHMER-THIRD-PART
 
 PR #481 merged as `355409a47feb8987cc655ca62dbad41ce8ff043d`. It adds npm lockfile v3 with exact versions, registry tarball URLs, integrity hashes and declared package license metadata; switches Quality, Pages and browser-smoke workflows from floating `npm install` to `npm ci`; records the `@gmana/km-translit` 0.1.2 MIT package metadata and its romanization-only runtime role; updates local install instructions; and adds the operational beta release checklist.
 
-Exact PR-head checks on `0b844a9db0a98a9a75a068f34d2fd1cf279a7020`: Quality [44905815283](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44905815283) SUCCESS; Chromium/browser [44905815288](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44905815288) SUCCESS. Exact post-merge main checks on `355409a47feb8987cc655ca62dbad41ce8ff043d`: Quality [44905912782](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44905912782) SUCCESS; Pages build/deploy [44905912768](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44905912768) SUCCESS; Chromium/browser [44905912797](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44905912797) SUCCESS.
+Exact PR-head checks on `0b844a9db0a98a9a75a068f34d2fd1cf279a7020`: Quality [44905815283](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44905815283) SUCCESS; Chromium/browser [44905815288](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44905815288) SUCCESS. Exact post-merge main checks on `355409a47feb8987cc655ca62dbad41ce8ff043d`: Quality [44905912782](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44905912782) SUCCESS; Pages build/deploy [44905912768](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44905912768) SUCCESS; Chromium/browser [44905912797](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44905912797) SUCCESS.
 
 KHM-BETA-REPRODUCIBLE-DEPS-001 — DONE_VERIFIED. This is an engineering/reproducibility improvement only; it does not create IPA labels, gold data, linguistic accuracy, or new source rights. MekongPhon remains excluded. Expert gold and manual accessibility remain deferred/TODO respectively. No GitHub Release was published.
 
 
 ## Final Khmer beta closeout after checklist reconciliation — 2026-11-21
 
-PR #482 merged as `3ba0523a6e90bdba63a7c80693fbbdd2f0b3fdec`. The checklist's previous lockfile-pending statement is removed, the README links the operational beta checklist, and this handoff retains exact post-merge evidence. Exact-main workflows on `3ba0523a6e90bdba63a7c80693fbbdd2f0b3fdec`: Quality [44906297076](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44906297076) SUCCESS; Chromium/browser [44906297035](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44906297035) SUCCESS; Pages build/deploy [44906297037](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44906297037) SUCCESS.
+PR #482 merged as `3ba0523a6e90bdba63a7c80693fbbdd2f0b3fdec`. The checklist's previous lockfile-pending statement is removed, the README links the operational beta checklist, and this handoff retains exact post-merge evidence. Exact-main workflows on `3ba0523a6e90bdba63a7c80693fbbdd2f0b3fdec`: Quality [44906297076](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44906297076) SUCCESS; Chromium/browser [44906297035](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44906297035) SUCCESS; Pages build/deploy [44906297037](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44906297037) SUCCESS.
 
 Khmer engineering beta gates are DONE_VERIFIED: exact npm lockfile, `npm ci` in CI/Pages/browser workflows, Python and web checks, production Chromium smoke, Pages deployment and post-deploy HTML/JS/CSS smoke. Linguistic accuracy remains NOT_ASSESSED; gold=0; complete vowel/context and lexical segmentation matrices remain PARTIAL; manual accessibility QA remains TODO. MekongPhon and other unresolved-rights sources remain excluded. No GitHub Release was published.
 
 
 ## Final exact-main beta verification after PR #483 — 2026-11-21
 
-PR #483 merged as `a6347577052ddf70d69364ed7cc90e2ff584ed2a`. Exact-main checks on this SHA all completed successfully: Quality [44906655301](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44906655301) SUCCESS; Khmer browser smoke [44906655362](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44906655362) SUCCESS; Pages build/deploy [44906655377](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44906655377) SUCCESS.
+PR #483 merged as `a6347577052ddf70d69364ed7cc90e2ff584ed2a`. Exact-main checks on this SHA all completed successfully: Quality [44906655301](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44906655301) SUCCESS; Khmer browser smoke [44906655362](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44906655362) SUCCESS; Pages build/deploy [44906655377](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44906655377) SUCCESS.
 
 Engineering beta release gates are now verified on main, including reproducible npm installs, production browser smoke and deployed asset smoke. This does not close language-level PARTIAL items (vowel-context matrix, lexical segmentation, independent gold/accuracy) or manual accessibility TODO. No GitHub Release or public announcement was created.
 
 
 ## Final current-main verification — 2026-11-21
 
-Latest main SHA: `192d280890e7f95d67a0486227edd540bfabcb26`. All three exact-SHA post-merge workflows completed successfully: Quality [44906966908](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44906966908), Chromium/browser [44906967032](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44906967032), Pages build/deploy [44906966960](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44906966960). This supersedes the prior exact-main verification at `a6347577052ddf70d69364ed7cc90e2ff584ed2a`.
+Latest main SHA: `192d280890e7f95d67a0486227edd540bfabcb26`. All three exact-SHA post-merge workflows completed successfully: Quality [44906966908](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44906966908), Chromium/browser [44906967032](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44906967032), Pages build/deploy [44906966960](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44906966960). This supersedes the prior exact-main verification at `a6347577052ddf70d69364ed7cc90e2ff584ed2a`.
 
 
 ## Final beta mainline verification after PR #485 — 2026-11-21
 
-Latest main SHA: `3bd48fe41411a0378fb37b74a31b1768eb7bb4d8`. Exact post-merge Quality [44907271893](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44907271893), browser smoke [44907271876](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44907271876), and Pages build/deploy [44907271998](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44907271998) all SUCCESS. This supersedes the earlier exact-main checkpoint at `192d280890e7f95d67a0486227edd540bfabcb26`.
+Latest main SHA: `3bd48fe41411a0378fb37b74a31b1768eb7bb4d8`. Exact post-merge Quality [44907271893](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44907271893), browser smoke [44907271876](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44907271876), and Pages build/deploy [44907271998](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44907271998) all SUCCESS. This supersedes the earlier exact-main checkpoint at `192d280890e7f95d67a0486227edd540bfabcb26`.
 
 
 ## Final exact-main beta verification after PR #486 — 2026-11-21
 
-Latest main SHA: `c836bb80236d2b1d68f68bbda88cacdfe2cdac75`. Exact post-merge Quality [44907687986](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44907687986), browser smoke [44907687995](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44907687995), and Pages build/deploy [44907688074](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44907688074) all SUCCESS. This supersedes the prior exact-main verification at `3bd48fe41411a0378fb37b74a31b1768eb7bb4d8`.
+Latest main SHA: `c836bb80236d2b1d68f68bbda88cacdfe2cdac75`. Exact post-merge Quality [44907687986](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44907687986), browser smoke [44907687995](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44907687995), and Pages build/deploy [44907688074](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44907688074) all SUCCESS. This supersedes the prior exact-main verification at `3bd48fe41411a0378fb37b74a31b1768eb7bb4d8`.
 
 
 ## Final beta verification after PR #487 — 2026-11-21
 
-Latest main SHA: `2f4c0c1ca471b0ddd7444c17bb6d1a696fac9ec4`. Exact post-merge Quality [44908008375](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44908008375), browser smoke [44908008378](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44908008378), and Pages build/deploy [44908008449](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44908008449) all SUCCESS. This supersedes the previous exact-main verification at `c836bb80236d2b1d68f68bbda88cacdfe2cdac75`.
+Latest main SHA: `2f4c0c1ca471b0ddd7444c17bb6d1a696fac9ec4`. Exact post-merge Quality [44908008375](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44908008375), browser smoke [44908008378](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44908008378), and Pages build/deploy [44908008449](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44908008449) all SUCCESS. This supersedes the previous exact-main verification at `c836bb80236d2b1d68f68bbda88cacdfe2cdac75`.
 
 
 ## Final exact-main Khmer beta verification after PR #488 — 2026-11-21
 
-PR #488 merged as `866a5439f75d6f67e61a1781cbfccf8c77d9e9d7`. All three post-merge workflows passed on this exact main SHA: Quality [44908337364](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44908337364) SUCCESS; browser smoke [44908337384](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44908337384) SUCCESS; Pages build/deploy [44908338049](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44908338049) SUCCESS. This supersedes the prior exact-main checkpoint on `2f4c0c1ca471b0ddd7444c17bb6d1a696fac9ec4`.
+PR #488 merged as `866a5439f75d6f67e61a1781cbfccf8c77d9e9d7`. All three post-merge workflows passed on this exact main SHA: Quality [44908337364](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44908337364) SUCCESS; browser smoke [44908337384](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44908337384) SUCCESS; Pages build/deploy [44908338049](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44908338049) SUCCESS. This supersedes the prior exact-main checkpoint on `2f4c0c1ca471b0ddd7444c17bb6d1a696fac9ec4`.
 
 KHM-BETA-ENGINEERING-001 remains DONE_VERIFIED. The exact mainline build, browser, quality and deploy gates are green. Independent expert gold remains 0 and accuracy null (DEFERRED for beta); vowel/context and lexical segmentation remain PARTIAL/BLOCKED as documented; manual accessibility remains TODO; third-party sources with unresolved rights, including MekongPhon, remain excluded. No new IPA labels, gold rows, linguistic rules or GitHub Release were added.
 
 
 ## Final exact-main verification after PR #491 — 2026-11-21
 
-PR #491 merged as `112dd9a55f0dce1843ecd9ba6be272fa1335d586`, refreshing the visible beta status date and making the research-status notice explicitly distinguish engineering verification from pronunciation accuracy. Exact post-merge Quality [44908801606](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44908801606) SUCCESS; browser smoke [44908801669](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44908801669) SUCCESS; Pages build/deploy [44908801630](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44908801630) SUCCESS on this SHA.
+PR #491 merged as `112dd9a55f0dce1843ecd9ba6be272fa1335d586`, refreshing the visible beta status date and making the research-status notice explicitly distinguish engineering verification from pronunciation accuracy. Exact post-merge Quality [44908801606](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44908801606) SUCCESS; browser smoke [44908801669](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44908801669) SUCCESS; Pages build/deploy [44908801630](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44908801630) SUCCESS on this SHA.
 
 This is the latest verified public beta mainline. Engineering/deployment status DONE_VERIFIED; independent expert IPA gold remains 0 and accuracy null; phonological and lexical segmentation coverage remain PARTIAL; manual accessibility QA remains TODO; uncleared third-party sources remain excluded. No gold data or linguistic claims were added.
 
 
 ## Final exact-main beta verification after methodology-page PR #494 — 2026-11-21
 
-PR #494 merged as `877977a215b06eba2a79d19bf38283f39ffb8371`. It updates the methodology page with the public-beta status snapshot, the engineering-vs-linguistic validation distinction and direct beta policy/checklist links. All exact-main post-merge workflows passed: Quality [44909455274](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44909455274) SUCCESS; browser smoke [44909455237](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44909455237) SUCCESS; Pages build/deploy [44909455234](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44909455234) SUCCESS.
+PR #494 merged as `877977a215b06eba2a79d19bf38283f39ffb8371`. It updates the methodology page with the public-beta status snapshot, the engineering-vs-linguistic validation distinction and direct beta policy/checklist links. All exact-main post-merge workflows passed: Quality [44909455274](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44909455274) SUCCESS; browser smoke [44909455237](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44909455237) SUCCESS; Pages build/deploy [44909455234](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44909455234) SUCCESS.
 
 This is the latest verified Khmer public beta mainline. Engineering/deployment DONE_VERIFIED; expert gold=0 / accuracy=null; vowel/context and lexical segmentation PARTIAL; manual accessibility TODO; MekongPhon and other uncleared sources excluded. No IPA labels, gold rows or unsupported rules were added.
 
 
 ## Final Khmer public beta mainline closeout — 2026-11-21
 
-Latest main SHA: `32b16b328f0433e30df6f3b1c4c5f7daa8ae59b5`. PR #495 merged the final exact-main evidence record and the methodology-page beta disclosure. Post-merge Quality [44909748314](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44909748314) SUCCESS (447 Python tests + 70 subtests; web checks/build passed); browser smoke [44909748266](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44909748266) SUCCESS (21 Chromium tests); Pages build/deploy [44909748262](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44909748262) SUCCESS (production Chromium and deployed HTML/JS/CSS smoke).
+Latest main SHA: `32b16b328f0433e30df6f3b1c4c5f7daa8ae59b5`. PR #495 merged the final exact-main evidence record and the methodology-page beta disclosure. Post-merge Quality [44909748314](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44909748314) SUCCESS (447 Python tests + 70 subtests; web checks/build passed); browser smoke [44909748266](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44909748266) SUCCESS (21 Chromium tests); Pages build/deploy [44909748262](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44909748262) SUCCESS (production Chromium and deployed HTML/JS/CSS smoke).
 
 The README now links the beta checklist and policy; the landing page and methodology page show the 21 November beta status snapshot and distinguish engineering verification from linguistic validation. Engineering beta gate DONE_VERIFIED. Independent expert IPA gold remains 0 and accuracy null; vowel/context and lexical segmentation coverage remain PARTIAL/BLOCKED; manual accessibility remains TODO; MekongPhon and other uncleared third-party sources remain excluded. No IPA labels, gold rows, unsupported runtime rules or GitHub Release were added.
 
@@ -5999,7 +5999,7 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - **DONE_VERIFIED (main):** final runtime/evidence-gate commit `7c47d56b91d132a1ce1c26e8f46e23372a6f5cd2`, following merged PR #498 (exact registered source-locator gate) and PR #499 (Wiktionary historical-IPA and rights caveat correction).
 - **DONE_VERIFIED (Quality):** main run `44936590289` SUCCESS — 448 Python tests + 70 subtests, including independent IPA gold-corpus structure validation, source-locator tier tests, Node web checks and site build.
 - **DONE_VERIFIED (browser):** main Chromium run `44936590230` SUCCESS — 23 browser tests, including B-tier locator visibility and C-tier phrase/conflict cases.
-- **DONE_VERIFIED (deployment):** Pages run `44936590276` SUCCESS — production build, Chromium exercise, GitHub Pages deploy and deployed runtime asset smoke test all passed. Public beta: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/
+- **DONE_VERIFIED (deployment):** Pages run `44936590276` SUCCESS — production build, Chromium exercise, GitHub Pages deploy and deployed runtime asset smoke test all passed. Public beta: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/
 - **DONE_VERIFIED (diagnostic only):** optional Phonemizer run `44936590367` SUCCESS — 6/6 outputs, 0 failed outputs, 2 strict source-string matches and 6 limited-notation-normalized matches. Independent gold count is 0 and accuracy is null; do not describe these counts as accuracy.
 - **Current evidence boundary (after PR #501):** B applies to nine individually source-located units: `ក`, `គ`, `ខ្មែរ`, `ភាសា`, `ភ្នំពេញ`, `កម្ពុជា`, `ខ្ញុំ`, `ជាខ្មែរ`, and `ល្ងាច`. The last two have direct phrase/lexical-entry locators and complete IPA → Ukrainian adapter agreement. `ភាសាខ្មែរ` remains C (compositional phrase without phrase-level source); `ឆ` remains C (R12A internal register-list conflict). No A-tier units or independent gold rows exist.
 - **Remaining:** contextual vowel-series × coda coverage, lexical segmentation, independent Phnom Penh IPA convention/adjudication, and independent gold remain PARTIAL/DEFERRED. Accuracy is NOT_ASSESSED.
@@ -6011,7 +6011,7 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - **C boundary preserved:** `ភាសាខ្មែរ` remains C because it is only a project composition from separate word entries and has no phrase-level source locator. No rule or gold label was inferred from the new phrase.
 - **Rights:** exact source revisions/URLs and attribution were added to `data/khmer/sources.json` and `THIRD_PARTY_NOTICES.md`. The two entries are community-maintained lexical references; page-level CC BY-SA notices are retained with the Wikimedia terms caveat. No embedded media or extended text was copied.
 - **Exact-head verification:** Quality run `44938514023` SUCCESS — 449 Python tests + 70 subtests, Node web checks and build. Chromium run `44938514083` SUCCESS — 25 browser tests, including the direct phrase and cluster examples. Optional raw-output diagnostic run `44938514042` SUCCESS; it is not an accuracy measure.
-- **DONE_VERIFIED (main):** PR #501 merged as `6235e28ed736b1d8f0c2a046a46bd5d6bd4691a9`. Main Quality run `44938817058` SUCCESS — 449 Python tests + 70 subtests, Node web checks and build. Main Chromium run `44938816871` SUCCESS — 25 browser tests. Pages build/deploy run `44938816928` SUCCESS, including production Chromium exercise and Pages deployment; public beta: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/. Optional raw-output diagnostic `44938816954` SUCCESS, not an accuracy measure. Independent expert-approved Khmer IPA convention and independent gold remain unavailable; gold count 0, accuracy NOT_ASSESSED.
+- **DONE_VERIFIED (main):** PR #501 merged as `6235e28ed736b1d8f0c2a046a46bd5d6bd4691a9`. Main Quality run `44938817058` SUCCESS — 449 Python tests + 70 subtests, Node web checks and build. Main Chromium run `44938816871` SUCCESS — 25 browser tests. Pages build/deploy run `44938816928` SUCCESS, including production Chromium exercise and Pages deployment; public beta: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/. Optional raw-output diagnostic `44938816954` SUCCESS, not an accuracy measure. Independent expert-approved Khmer IPA convention and independent gold remain unavailable; gold count 0, accuracy NOT_ASSESSED.
 
 ## Permanent phrase-source locator — post-merge verification — 2026-11-21
 
@@ -6019,7 +6019,7 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - **Notation separation:** standard IPA `/ciə ˈkʰmae/` is retained as IPA; the source's orthographic/phonemic `jāk̥ʰmaer` and WT romanisation `ciə khmae` are stored separately. The direct phrase entry remains distinct from the compositional C-tier `ភាសាខ្មែរ`.
 - **DONE_VERIFIED (Quality):** main run `44939428627` SUCCESS — 449 Python tests + 70 subtests, Node web checks and build.
 - **DONE_VERIFIED (browser):** main Chromium run `44939428671` SUCCESS — 25 browser tests.
-- **DONE_VERIFIED (deployment):** Pages build/deploy run `44939428633` SUCCESS, including production Chromium exercise and deployed asset smoke. Public beta: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/
+- **DONE_VERIFIED (deployment):** Pages build/deploy run `44939428633` SUCCESS, including production Chromium exercise and deployed asset smoke. Public beta: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/
 - **Diagnostic only:** raw-output run `44939428592` SUCCESS; it does not measure phonetic accuracy. Independent gold remains empty and accuracy remains NOT_ASSESSED.
 
 ## Source-located Khmer lexical coverage expansion — 2026-11-21
@@ -6029,19 +6029,19 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - Python and browser IPA→Ukrainian adapters now explicitly omit only post-vocalic IPA `ː` when rendering practical Ukrainian spelling. The full IPA value remains unchanged in the IPA layer. Length after consonants remains unsupported and is not silently discarded. This target policy is tested in both runtimes.
 - These three records increase the per-unit source-attested tier-B inventory from 9 to 12; aggregate confidence is still the weakest linguistic unit, and independent gold remains 0 / accuracy NOT_ASSESSED.
 - External MekongPhon remains diagnostic-only: upstream repository snapshot has no root license, the seed lexicon has no item-level source locators, and the generated sentence IPA is dictionary-trie expansion over OPUS text, not independent sentence transcription. No rows or model artifacts were copied.
-- **DONE_VERIFIED (main post-merge):** PR #505 merged as `3ba032ed67b3d5d165005b49bf134f18e0605228`. Quality run [44942983400](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44942983400) SUCCESS — 451 Python tests + 70 subtests; browser run [44942983385](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44942983385) SUCCESS — 26 Playwright tests; Pages build/deploy run [44942983387](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44942983387) SUCCESS, including deployed index/system HTML and JS/CSS asset smoke; raw-output diagnostic [44942983415](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44942983415) SUCCESS. Public beta: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/.
+- **DONE_VERIFIED (main post-merge):** PR #505 merged as `3ba032ed67b3d5d165005b49bf134f18e0605228`. Quality run [44942983400](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44942983400) SUCCESS — 451 Python tests + 70 subtests; browser run [44942983385](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44942983385) SUCCESS — 26 Playwright tests; Pages build/deploy run [44942983387](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44942983387) SUCCESS, including deployed index/system HTML and JS/CSS asset smoke; raw-output diagnostic [44942983415](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/44942983415) SUCCESS. Public beta: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/.
 - The three new permanent-locator Wiktionary entries are integrated and browser-visible at tier B; IPA preserves vowel length, while the Ukrainian practical adapter explicitly omits post-vocalic `ː` without rewriting the IPA source.
 - Independent gold remains empty; empirical accuracy remains NOT_ASSESSED.
 
 
 ## Shared Strict / Soft / Super-soft output vocabulary — 2026-11-22
 
-- PR [#509](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/509) merged to main as `5d2b3e54f050df07eb9d07fdc135c1bd6486f532`.
+- PR [#509](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/509) merged to main as `5d2b3e54f050df07eb9d07fdc135c1bd6486f532`.
 - The browser's existing internal values `strict`, `balanced`, and `exploratory` are preserved; user-facing labels are now **Strict**, **Soft**, and **Super-soft**.
 - The semantics remain distinct: Strict = source-indexed supported proposals only; Soft = partial output with per-unit uncertainty; Super-soft = additional structural/onset research hints. These are disclosure/acceptance levels, not accuracy scores.
 - `???` remains the final Ukrainian placeholder for unresolved units. Candidate output does not overwrite the Strict result. No phonological rules, evidence rows, or target mappings were changed by this UI vocabulary update.
-- Exact main verification: Quality checks [45002252229](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/45002252229) SUCCESS; Khmer browser smoke [45002252063](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/45002252063) SUCCESS; Pages deployment [45002252084](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/45002252084) SUCCESS.
-- Published site: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/.
+- Exact main verification: Quality checks [45002252229](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45002252229) SUCCESS; Khmer browser smoke [45002252063](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45002252063) SUCCESS; Pages deployment [45002252084](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45002252084) SUCCESS.
+- Published site: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/.
 - Linguistic validation and independently adjudicated IPA gold remain separate release gates; this change makes no accuracy claim.
 
 
