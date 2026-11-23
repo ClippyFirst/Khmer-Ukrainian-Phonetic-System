@@ -1,3 +1,12 @@
+## Unresolved candidate visibility correction — 2026-11-23
+
+- **PARTIAL until exact-head CI and deployment:** PR [#522](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/522) corrects the aggregate Ukrainian output for unresolved Khmer runs. The engine already retained BGN/PCGN-derived orthographic candidates per unit, but the aggregate renderer emitted them without the required trailing uncertainty marker.
+- The revised aggregate renderer preserves the complete candidate and appends one `???` at the end of each contiguous unresolved candidate run. It does not replace the candidate with a bare marker.
+- The IPA field remains `NOT_ESTABLISHED` when no IPA evidence exists. Orthographic romanization is explicitly not promoted to IPA; the per-unit typed result retains `ORTHOGRAPHIC_ROMANIZATION_FALLBACK` provenance.
+- Regression assertion updated for the known example: `Кампучеапчеат'іптей???`. Exact-head CI and Pages deployment are pending; do not describe the live site as updated until deployment succeeds.
+
+---
+
 ## Final beta engineering release — 2026-11-23
 
 - **DONE_VERIFIED — browser execution:** PR [#520](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/520) was squash-merged into `main` as `9ca91136c037a83271517a80de65d3896739d9ec`. The merged implementation adds `src/khmer-engine-core.js`, `src/khmer-engine-client.js` and `src/khmer-engine.worker.js`; the UI and Worker share the same deterministic JavaScript core, and Worker failure falls back locally to that core.
