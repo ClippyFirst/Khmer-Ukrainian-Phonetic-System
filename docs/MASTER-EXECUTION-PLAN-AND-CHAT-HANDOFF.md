@@ -6132,3 +6132,12 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - Exact code head `e584d986a7d7fe9ac177709374c29bd4298e93f2`: Quality [45147094378](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147094378) passed 455 Python tests + 70 subtests, Node checks, 129-case structural parity, 36-fixture lexical parity, tokenizer benchmark and Vite build. Browser [45147094466](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147094466) passed 34/34, including local Worker, failed-asset fallback and stale-response race.
 - Same-head synthetic 8,000-code-point tokenizer stress: trie median 3.23 ms vs pre-trie 357.92 ms, 110.8× on the CI runner. Tokenizer-only synthetic measurement, not an end-to-end Khmer phonemizer benchmark.
 - **Task ledger:** lexical fixture IPA/UA/status parity = DONE_VERIFIED; full Python↔JS rule/result parity = PARTIAL; general lexical word segmentation/OOV remains TODO.
+
+
+## Final exact-head lexical parity checkpoint — 2026-11-23
+
+- Current branch tip before this note: `9a8ba02f65e0502555c0df8045e930ddcaca3a3d`.
+- Exact-head Quality [45147375553](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147375553): 455 Python tests + 70 subtests; Node checks; 129-case structural parity; 36-fixture lexical IPA/UA/status parity; tokenizer benchmark; Vite production build — PASS.
+- Exact-head Chromium [45147375800](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147375800): 34/34 passed.
+- Tokenizer stress on this run: 8,000 code points; trie median 6.19 ms vs pre-trie 473.60 ms, 76.5×. CI-host variance means this is comparative synthetic evidence only.
+- Full contextual phonology and complete result-schema parity remain PARTIAL; lexical word segmentation/OOV remains TODO; third-party model/corpus redistribution remains BLOCKED pending rights review.
