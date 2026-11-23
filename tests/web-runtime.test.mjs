@@ -30,7 +30,8 @@ assert.ok(result.units.filter((unit) => unit.status !== "PUNCTUATION").every((un
  
 const unresolvedWord = convert("កម្ពុជាប្រជាធិបតេយ្យ", "khmer-pph-careful-citation-v1");
 assert.equal(unresolvedWord.ipa, "⟦NOT_ESTABLISHED⟧", "the public IPA line must retain one abstention marker for the unresolved Khmer word/run");
-assert.equal(unresolvedWord.ua, "Кампучеапчеат'іптей", "the user-facing Ukrainian result must offer the best available per-unit orthographic candidate without requiring a mode switch");
+assert.equal(unresolvedWord.ua, "Кампучеапчеат'іптей???", "the user-facing result must preserve the orthographic candidate and append one uncertainty marker at the end of the unresolved run");
+assert.ok(unresolvedWord.ua.endsWith("???") && unresolvedWord.ua !== "???", "an unresolved result must retain its candidate before the uncertainty marker");
 assert.equal(unresolvedWord.units.filter((unit) => unit.status === "NOT_ESTABLISHED").length, 3, "per-unit phonetic status must retain all three unresolved orthographic units");
 assert.ok(unresolvedWord.units.every((unit) => unit.fallback_status === "PROVISIONAL" && unit.ua && unit.ua !== "⟦НЕВСТАНОВЛЕНО⟧"), "each unresolved but romanizable unit must expose a provisional Ukrainian candidate");
 assert.equal(unresolvedWord.phonetic_result.units.filter((unit) => unit.status === "NOT_ESTABLISHED").length, 3, "machine-readable IPA provenance must retain per-unit uncertainty");
