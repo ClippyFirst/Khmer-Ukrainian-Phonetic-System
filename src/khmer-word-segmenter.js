@@ -1,13 +1,13 @@
-import dataset from "../data/khmer/google-pronunciation-sample.json" with { type: "json" };
+import dataset from "../data/khmer/google-pronunciation-full-frequency.json" with { type: "json" };
 import consonants from "../data/khmer/consonants.json" with { type: "json" };
 
-export const WORD_SEGMENTER_ID = "google-khmer-pronunciation-frequency-viterbi-sample-v1";
+export const WORD_SEGMENTER_ID = "google-khmer-pronunciation-frequency-viterbi-full-v1";
 export const WORD_DICTIONARY_SIZE = dataset.entries.length;
 const COENG = "\u17D2";
 const consonantSet = new Set(consonants.map((item) => item.char));
-const MAX_CLUSTERS = 12;
+const MAX_CLUSTERS = 14;
 const MAX_CANDIDATE_CLUSTERS = 128;
-const entries = new Map(dataset.entries.map(({ word, count }) => [word, Number(count)]));
+const entries = new Map(dataset.entries.map(([word, count]) => [word, Number(count)]));
 const totalCount = [...entries.values()].reduce((sum, count) => sum + count, 0);
 const denominator = totalCount + entries.size + 1;
 const costs = new Map([...entries].map(([word, count]) => [

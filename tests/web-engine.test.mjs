@@ -1,7 +1,8 @@
 import { convert, tokenize } from "../src/khmer-engine-core.js";
 import fs from "node:fs";
 import { mapIpa } from "../src/ukrainian-practical.js";
-import { segmentKhmerWordsDetailed, segmentKhmerWordsCandidates, describeWordSegmentation } from "../src/khmer-word-segmenter.js";
+import { segmentKhmerWordsDetailed, segmentKhmerWordsCandidates, describeWordSegmentation, WORD_DICTIONARY_SIZE, WORD_SEGMENTER_ID, isKnownKhmerWord } from "../src/khmer-word-segmenter.js";
+import fullWordFrequency from "../data/khmer/google-pronunciation-full-frequency.json" with { type: "json" };
 
 const html = fs.readFileSync("index.html", "utf8");
 const systemHtml = fs.readFileSync("system.html", "utf8");
@@ -15,6 +16,25 @@ const fixtures = JSON.parse(fs.readFileSync("data/tests/web-fixtures.json", "utf
 const adversarial = JSON.parse(fs.readFileSync("data/tests/adversarial-cases.json", "utf8"));
 const wordSegmentationParity = JSON.parse(fs.readFileSync("data/tests/word-segmentation-parity.json", "utf8"));
 const vite = fs.readFileSync("vite.config.js", "utf8");
+
+if (WORD_DICTIONARY_SIZE !== 61980 || fullWordFrequency.entries.length !== 61980) {
+  throw new Error("full Khmer word-frequency dictionary must contain 61,980 entries");
+}
+if (WORD_SEGMENTER_ID !== "google-khmer-pronunciation-frequency-viterbi-full-v1") {
+  throw new Error("full Khmer word segmenter version is not exposed");
+}
+if (fullWordFrequency.metadata.phonemic_strings_included !== false
+    || fullWordFrequency.metadata.google_source_license !== "CC BY 4.0"
+    || fullWordFrequency.metadata.frequency_source_license !== "ODC-By 1.0") {
+  throw new Error("full word-frequency dataset provenance or IPA separation metadata is missing");
+}
+for (const [word] of fullWordFrequency.entries) {
+  if (!isKnownKhmerWord(word)) throw new Error("full dictionary word is not indexed: " + word);
+  const pieces = segmentKhmerWordsDetailed(word);
+  if (pieces.map((piece) => piece.text).join("") !== word) {
+    throw new Error("full dictionary segmentation is not lossless: " + word);
+  }
+}
 
 for (const x of ["Content-Security-Policy", "src/main.js", 'id="source"', 'id="results"']) {
   if (!html.includes(x)) throw new Error("index missing " + x);

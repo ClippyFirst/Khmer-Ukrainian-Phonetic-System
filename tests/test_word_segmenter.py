@@ -6,6 +6,7 @@ from khmer_ua.word_segmenter import (
     WORD_DICTIONARY_SIZE,
     WORD_SEGMENTER_ID,
     segment_words,
+    is_known_word,
     segment_words_candidates,
     describe_word_segmentation,
 )
@@ -13,13 +14,18 @@ from khmer_ua.word_segmenter import (
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_bundled_word_dictionary_is_attributed_and_sample_sized():
-    data = json.loads((ROOT / "data/khmer/google-pronunciation-sample.json").read_text(encoding="utf-8"))
-    assert WORD_DICTIONARY_SIZE == 3009
-    assert len(data["entries"]) == 3009
-    assert data["metadata"]["pronunciation_data_license"] == "CC BY 4.0"
-    assert data["metadata"]["frequency_data_license"] == "ODC-By 1.0"
-    assert WORD_SEGMENTER_ID == "google-khmer-pronunciation-frequency-viterbi-sample-v1"
+def test_full_word_dictionary_is_attributed_and_preserves_the_original_sample():
+    full = json.loads((ROOT / "data/khmer/google-pronunciation-full-frequency.json").read_text(encoding="utf-8"))
+    sample = json.loads((ROOT / "data/khmer/google-pronunciation-sample.json").read_text(encoding="utf-8"))
+    assert WORD_DICTIONARY_SIZE == 61980
+    assert len(full["entries"]) == 61980
+    assert full["metadata"]["google_source_license"] == "CC BY 4.0"
+    assert full["metadata"]["frequency_source_license"] == "ODC-By 1.0"
+    assert full["metadata"]["phonemic_strings_included"] is False
+    assert len(sample["entries"]) == 3009
+    full_counts = {word: count for word, count in full["entries"]}
+    assert all(full_counts.get(item["word"]) == item["count"] for item in sample["entries"])
+    assert WORD_SEGMENTER_ID == "google-khmer-pronunciation-frequency-viterbi-full-v1"
 
 
 def test_sentence_is_segmented_into_dictionary_known_words():
@@ -128,17 +134,12 @@ def test_candidate_diagnostics_are_explicitly_not_probabilities_or_accuracy():
 
 
 
-def test_every_bundled_dictionary_entry_remains_a_single_known_word():
-    data = json.loads((ROOT / "data/khmer/google-pronunciation-sample.json").read_text(encoding="utf-8"))
-    for entry in data["entries"]:
-        word = entry["word"]
+def test_every_full_dictionary_entry_is_indexed_and_segmentation_is_lossless():
+    data = json.loads((ROOT / "data/khmer/google-pronunciation-full-frequency.json").read_text(encoding="utf-8"))
+    for word, _count in data["entries"]:
+        assert is_known_word(word), word
         pieces = segment_words(word)
-        assert len(pieces) == 1, word
-        assert pieces[0].text == word and pieces[0].known, word
-        candidates = segment_words_candidates(word, 1)
-        assert candidates[0]["segments"] == [
-            {"text": word, "known": True, "status": "DICTIONARY_MATCH"}
-        ], word
+        assert "".join(piece.text for piece in pieces) == word, word
 
 
 def test_long_runs_skip_only_nbest_diagnostics_and_keep_the_input():

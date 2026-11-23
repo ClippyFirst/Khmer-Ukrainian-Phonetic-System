@@ -12,11 +12,9 @@
     {
       "input": "កម",
       "units": [
-        "ក",
-        " ",
-        "ម"
+        "កម"
       ],
-      "reason": "The frequency dictionary proposes two known units; the inserted boundary is a candidate, not gold."
+      "reason": "The full frequency dictionary recognizes កម as a single candidate; this is a model output, not independent segmentation gold."
     },
     {
       "input": "ខ្ញុំស្រឡាញ់ប្រទេសកម្ពុជា",

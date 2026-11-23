@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - research/khmer-full-google-lexicon-rebuild-2026-11-23
     paths:
       - data/khmer/google-pronunciation-full.tsv
       - .github/workflows/full-khmer-lexicon-build.yml
@@ -55,11 +54,13 @@ jobs:
           uv sync --locked --group data
           uv run --locked --group data python scripts/build_data.py --raw data/raw --out "${{ runner.temp }}/khmer-full-build" --workers 8
 
-      - name: Validate generated full dictionary
+      - name: Validate generated dictionary and emit compact frequency table
         env:
           OUTPUT_DIR: ${{ runner.temp }}/khmer-full-build
+          GITHUB_WORKSPACE: ${{ github.workspace }}
         run: |
           python - <<'PY'
+          import gzip
           import hashlib
           import json
           import os
@@ -68,18 +69,80 @@ jobs:
           output = Path(os.environ["OUTPUT_DIR"])
           lexicon = output / "lexicon.tsv"
           bigrams = output / "bigrams.tsv"
+          frequency = output / "segmentation-frequency.tsv"
+          runtime_json = output / "google-pronunciation-full-frequency.json"
 
-          def data_rows(path):
-              return sum(1 for line in path.read_text(encoding="utf-8").splitlines()
-                         if line.strip() and not line.startswith("#"))
+          full_counts = {}
+          for line in lexicon.read_text(encoding="utf-8").splitlines():
+              if not line.strip() or line.startswith("#"):
+                  continue
+              word, count, *_ = line.split("\t")
+              if word in full_counts:
+                  raise SystemExit(f"Duplicate normalized word: {word}")
+              value = int(count)
+              if value < 0:
+                  raise SystemExit(f"Negative frequency for {word}")
+              full_counts[word] = value
 
-          word_count = data_rows(lexicon)
-          bigram_count = data_rows(bigrams)
-          if word_count != 61980:
-              raise SystemExit(f"Expected 61,980 normalized words, got {word_count}")
+          if len(full_counts) != 61980:
+              raise SystemExit(f"Expected 61,980 normalized words, got {len(full_counts)}")
+
+          sample_path = Path(os.environ["GITHUB_WORKSPACE"]) / "data/khmer/google-pronunciation-sample.json"
+          sample = json.loads(sample_path.read_text(encoding="utf-8"))
+          sample_counts = {item["word"]: int(item["count"]) for item in sample["entries"]}
+          missing = sorted(set(sample_counts) - set(full_counts))
+          mismatched = sorted(
+              word for word, count in sample_counts.items()
+              if word in full_counts and full_counts[word] != count
+          )
+          if missing or mismatched:
+              raise SystemExit(
+                  f"Full dictionary does not preserve sample: missing={len(missing)}, "
+                  f"count_mismatches={len(mismatched)}; first_missing={missing[:5]}, "
+                  f"first_mismatched={mismatched[:5]}"
+              )
+
+          with frequency.open("w", encoding="utf-8", newline="\n") as handle:
+              handle.write("# Full Khmer segmentation word-frequency table.\n")
+              handle.write("# Words: Google Khmer pronunciation lexicon, CC BY 4.0.\n")
+              handle.write("# Counts: FineWeb-2 khm_Khmr test split, ODC-By 1.0.\n")
+              handle.write("# Builder: pheasaKhmer/khmer-engine@31b72cd4665f69678fc835da2f501771e42f097a.\n")
+              handle.write("# Only word and count fields are retained; phonemic strings are excluded.\n")
+              handle.write("# word\tcount\n")
+              for word, count in full_counts.items():
+                  handle.write(f"{word}\t{count}\n")
+
+          bigram_count = sum(
+              1 for line in bigrams.read_text(encoding="utf-8").splitlines()
+              if line.strip() and not line.startswith("#")
+          )
           if bigram_count < 1:
               raise SystemExit("No bigram rows were generated")
 
+          runtime_dataset = {
+              "metadata": {
+                  "dataset": "Google Khmer pronunciation lexicon — full normalized word-frequency dictionary",
+                  "google_source_revision": "a90601024f07ab7e96c911243324e0adeb16da96",
+                  "google_source_license": "CC BY 4.0",
+                  "frequency_source_revision": "af9c13333eb981300149d5ca60a8e9d659b276b9",
+                  "frequency_source_license": "ODC-By 1.0",
+                  "builder_repository": "https://github.com/pheasaKhmer/khmer-engine",
+                  "builder_revision": "31b72cd4665f69678fc835da2f501771e42f097a",
+                  "entry_count": len(full_counts),
+                  "fields": ["word", "count"],
+                  "phonemic_strings_included": False,
+              },
+              "entries": [[word, count] for word, count in full_counts.items()],
+          }
+          runtime_json.write_text(
+              json.dumps(runtime_dataset, ensure_ascii=False, separators=(",", ":")),
+              encoding="utf-8",
+          )
+          frequency_bytes = frequency.read_bytes()
+          runtime_bytes = runtime_json.read_bytes()
+          committed_runtime = Path(os.environ["GITHUB_WORKSPACE"]) / "data/khmer/google-pronunciation-full-frequency.json"
+          if committed_runtime.read_bytes() != runtime_bytes:
+              raise SystemExit("Committed runtime JSON differs from the pinned deterministic rebuild")
           summary = {
               "upstream_repository": "https://github.com/pheasaKhmer/khmer-engine",
               "upstream_revision": "31b72cd4665f69678fc835da2f501771e42f097a",
@@ -87,12 +150,21 @@ jobs:
               "google_source_expected_sha256": "b3f2e700d07d6c01a4c8cac5aa2f13b9a66885668ac482cc0c513f73c56495e5",
               "fineweb2_source_revision": "af9c13333eb981300149d5ca60a8e9d659b276b9",
               "fineweb2_expected_sha256": "26ae4e654770b07e24a4ef6b8ef3a01c84076a920f1922ac014364ab411b84f0",
-              "normalized_word_rows": word_count,
+              "normalized_word_rows": len(full_counts),
+              "sample_entries_preserved": len(sample_counts),
+              "sample_missing_entries": len(missing),
+              "sample_count_mismatches": len(mismatched),
               "bigram_rows": bigram_count,
               "lexicon_bytes": lexicon.stat().st_size,
               "bigrams_bytes": bigrams.stat().st_size,
+              "frequency_table_bytes": len(frequency_bytes),
+              "frequency_table_gzip_bytes": len(gzip.compress(frequency_bytes, compresslevel=9, mtime=0)),
               "lexicon_sha256": hashlib.sha256(lexicon.read_bytes()).hexdigest(),
               "bigrams_sha256": hashlib.sha256(bigrams.read_bytes()).hexdigest(),
+              "frequency_table_sha256": hashlib.sha256(frequency_bytes).hexdigest(),
+              "runtime_dataset_bytes": len(runtime_bytes),
+              "runtime_dataset_gzip_bytes": len(gzip.compress(runtime_bytes, compresslevel=9, mtime=0)),
+              "runtime_dataset_sha256": hashlib.sha256(runtime_bytes).hexdigest(),
               "status": "BUILD_VERIFIED"
           }
           (output / "build-summary.json").write_text(
