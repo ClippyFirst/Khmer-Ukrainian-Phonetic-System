@@ -118,3 +118,8 @@ Head `aace766c21476019952f1aa93f217396387de420`: Quality [45146465545](https://g
 Quality [45147094378](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147094378): 455 Python tests + 70 subtests, Node, 129 structural cases, 36 lexical fixtures, benchmark і Vite build — PASS. Chromium [45147094466](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147094466): 34/34 — PASS.
 
 Це не означає повної семантичної еквівалентності Python та JS або підтримки відкритого словника: перевіряються наявні спільні лексичні фікстури; загальна сегментація слів/OOV і повний result contract залишаються окремими задачами.
+
+
+## Фінальний exact-head checkpoint lexical parity — 2026-11-23
+
+Head `9a8ba02f65e0502555c0df8045e930ddcaca3a3d`: Quality [45147375553](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147375553) — 455 Python tests + 70 subtests, Node, 129 structural cases, 36 lexical IPA/UA cases, benchmark і Vite; Chromium [45147375800](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147375800) — 34/34. Токенізаторний stress-test цього запуску: 8 000 code points, 6,19 ms trie vs 473,60 ms pre-trie, 76,5×; синтетичне порівняння, не повний G2P.
