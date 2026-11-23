@@ -97,6 +97,16 @@ def _contains_khmer(text: str) -> bool:
     return any(0x1780 <= ord(character) <= 0x17FF for character in text)
 
 
+def _is_multicluster_fixture(word: str) -> bool:
+    clusters = 0
+    previous = ""
+    for character in word:
+        if 0x1780 <= ord(character) <= 0x17B3 and previous != "្":
+            clusters += 1
+        previous = character
+    return clusters >= 2
+
+
 def _tokenize_input(text: str) -> list[str]:
     """Prefer exact lexical fixtures, then segment Khmer runs with the provisional
     frequency-weighted dictionary/Viterbi candidate. Word boundaries are not gold;
@@ -109,14 +119,17 @@ def _tokenize_input(text: str) -> list[str]:
     chunk_bucket: str | None = None
 
     def flush_chunk() -> None:
+        nonlocal chunk_bucket
         if chunk:
             words = segment_words("".join(chunk))
             for index, word in enumerate(words):
-                if index:
+                if index or (
+                    chunk_bucket == "khmer"
+                    and units and units[-1] != " " and _contains_khmer(units[-1])
+                ):
                     units.append(" ")
                 units.append(word.text)
             chunk.clear()
-        nonlocal chunk_bucket
         chunk_bucket = None
 
     index = 0
@@ -133,7 +146,14 @@ def _tokenize_input(text: str) -> list[str]:
             (
                 key for key in fixture_keys
                 if remainder.startswith(key)
-                and _is_separator(characters[index + len(key)] if index + len(key) < len(characters) else None)
+                and _is_multicluster_fixture(key)
+                and (
+                    _is_separator(characters[index + len(key)] if index + len(key) < len(characters) else None)
+                    or (
+                        index + len(key) < len(characters)
+                        and characters[index + len(key)] in CONSONANTS
+                    )
+                )
             ),
             None,
         )

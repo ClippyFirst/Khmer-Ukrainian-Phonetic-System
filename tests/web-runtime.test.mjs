@@ -29,6 +29,11 @@ assert.equal(result.units.filter((unit) => unit.status !== "PUNCTUATION").length
 assert.ok(result.units.filter((unit) => unit.status !== "PUNCTUATION").every((unit) => unit.status === "PROPOSED"), "no linguistic unit in the 32-item regression block may remain unresolved");
  
 const unresolvedWord = convert("កម្ពុជាប្រជាធិបតេយ្យ", "khmer-pph-careful-citation-v1");
+assert.deepEqual(
+  tokenize("កម្ពុជាប្រជាធិបតេយ្យ"),
+  ["កម្ពុជា", " ", "ប្រជាធិបតេយ្យ"],
+  "known multi-cluster lexical fixtures must be recognized without requiring whitespace between Khmer words",
+);
 assert.equal(unresolvedWord.ipa, "/kampuciə prɑciətʰɨppaʔtaj/???", "the browser IPA result must preserve the archived Khmer Phonemizer candidate and mark it as unverified");
 assert.equal(unresolvedWord.ua, "кампутіє пратієт'иппатай???", "the browser IPA adapter must render the selected provisional IPA candidate and append one uncertainty marker");
 assert.ok(unresolvedWord.ipa.endsWith("???") && unresolvedWord.ipa !== "???", "an unresolved IPA result must retain its candidate before the uncertainty marker");
