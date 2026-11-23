@@ -109,3 +109,12 @@ Head `aace766c21476019952f1aa93f217396387de420`: Quality [45146465545](https://g
 Додано Python exporter і Node comparator, які порівнюють Python `RuleBasedKhmerEngine` та browser `convert()` для всіх 36 рядків `data/tests/web-fixtures.json`. Звіряються source alignment, IPA (знято лише браузерні обмежувальні слеші), українська адаптація, статус і lexical mapping agreement. Запис без IPA залишається withheld в обох рушіях.
 
 На head `e584d986a7d7fe9ac177709374c29bd4298e93f2`: Quality [45147094378](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147094378) — 455 Python tests + 70 subtests, 129 structural cases, 36 lexical fixtures, benchmark і Vite; Chromium [45147094466](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147094466) — 34/34.
+
+
+## Lexical IPA/UA parity with Python — 2026-11-23
+
+Додано окремий executable gate `npm run test:lexical-parity`: Python `RuleBasedKhmerEngine` експортує всі записи спільного лексичного набору, Node порівнює з JS-рушієм межі одиниць, IPA, українську адаптацію, статус і `lexical_mapping_agrees`. На exact head `e584d986a7d7fe9ac177709374c29bd4298e93f2` перевірено **36/36** фікстур.
+
+Quality [45147094378](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147094378): 455 Python tests + 70 subtests, Node, 129 structural cases, 36 lexical fixtures, benchmark і Vite build — PASS. Chromium [45147094466](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147094466): 34/34 — PASS.
+
+Це не означає повної семантичної еквівалентності Python та JS або підтримки відкритого словника: перевіряються наявні спільні лексичні фікстури; загальна сегментація слів/OOV і повний result contract залишаються окремими задачами.
