@@ -742,13 +742,22 @@
       "reported_filtered_word_count": 61980,
       "google_lexicon_sha256": "b3f2e700d07d6c01a4c8cac5aa2f13b9a66885668ac482cc0c513f73c56495e5",
       "fineweb2_test_split_sha256": "26ae4e654770b07e24a4ef6b8ef3a01c84076a920f1922ac014364ab411b84f0",
-      "build_status": "SOURCE_TSV_BUNDLED_BUILD_NOT_REPRODUCED",
-      "acceptance": "Retrieve and SHA-256-verify pinned FineWeb-2 Parquet; run pinned deterministic builder; inspect output size/startup; adapt only word/count fields; verify Python-JavaScript parity and segmentation regressions.",
+      "build_status": "BLOCKED_FINEWEB2_SOURCE_NOT_RETRIEVED",
+      "acceptance": "Retrieve byte-identical FineWeb-2 Parquet, verify SHA-256, execute deterministic builder, review output size/startup and port frequencies with Python/JavaScript parity.",
       "source_artifact_path": "data/khmer/google-pronunciation-full.tsv",
       "source_git_blob_sha": "d399efeca642b1185786b2982374488c525e37c4",
       "source_blob_identity_verified": true,
       "fineweb2_source_status": "NOT_RETRIEVED_OR_EXECUTED",
-      "runtime_status": "3,009-entry sample remains active"
+      "runtime_status": "3,009-entry sample remains active",
+      "google_source_snapshot": "data/khmer/google-pronunciation-full.tsv",
+      "google_source_revision": "a90601024f07ab7e96c911243324e0adeb16da96",
+      "google_source_sha256": "b3f2e700d07d6c01a4c8cac5aa2f13b9a66885668ac482cc0c513f73c56495e5",
+      "google_source_blob_sha": "d399efeca642b1185786b2982374488c525e37c4",
+      "google_source_checksum_verified": true,
+      "google_source_raw_rows": 69415,
+      "google_source_unique_raw_spellings": 69405,
+      "fineweb2_test_split_revision": "af9c13333eb981300149d5ca60a8e9d659b276b9",
+      "fineweb2_retrieval": "BLOCKED_RESPONSE_LIMIT_64_MIB"
     }
   }
 ]
