@@ -26,6 +26,18 @@ const SHIFTERS = new Set(["៉", "៊"]);
 const SHIFTER_ELIGIBILITY = Object.fromEntries(Object.entries(registers.shifter_eligibility).map(([key, values]) => [key === "muusikatoan" ? "៉" : "៊", new Set(values)]));
 const PUNCTUATION = /^\s|^\p{P}$/u;
 const PROFILES = new Set(["khmer-pph-careful-citation-v1"]);
+const FIXTURE_TRIE = (() => {
+  const root = { children: new Map(), value: null };
+  for (const key of Object.keys(fixtures)) {
+    let node = root;
+    for (const char of key) {
+      if (!node.children.has(char)) node.children.set(char, { children: new Map(), value: null });
+      node = node.children.get(char);
+    }
+    node.value = key;
+  }
+  return root;
+})();
 
 const normalize = (text) => text.normalize("NFC");
 const isKhmerConsonant = (char) => Object.hasOwn(CONSONANTS, char);
@@ -64,7 +76,6 @@ function tokenize(text) {
   let current = "";
   let currentBucket = null;
   const chars = [...normalize(text)];
-  const fixtureKeys = Object.keys(fixtures).sort((a, b) => [...b].length - [...a].length);
 
   const flush = () => {
     if (current) {
@@ -102,12 +113,15 @@ function tokenize(text) {
       continue;
     }
 
-    const remainder = chars.slice(index).join("");
-    const fixtureKey = chars[index - 1] === COENG ? undefined : fixtureKeys.find((key) => {
-      if (!remainder.startsWith(key)) return false;
-      const next = chars[index + [...key].length];
-      return next === undefined || isSeparator(next);
-    });
+    let fixtureKey;
+    if (chars[index - 1] !== COENG) {
+      let node = FIXTURE_TRIE;
+      for (let cursor = index; cursor < chars.length; cursor += 1) {
+        node = node.children.get(chars[cursor]);
+        if (!node) break;
+        if (node.value && isSeparator(chars[cursor + 1])) fixtureKey = node.value;
+      }
+    }
 
     if (fixtureKey) {
       flush();
