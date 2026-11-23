@@ -804,8 +804,9 @@
     "cases_mentioning_nikahit": 2,
     "cases_source_attested_not_gold": 12,
     "cases_with_coda": 7,
-    "cases_with_dependent_vowel": 14,
-    "cases_with_subscript": 1
+    "cases_with_dependent_vowel": 9,
+    "cases_with_subscript": 1,
+    "cases_without_dependent_vowel": 5
   },
   "dimensions_requiring_followup": [
     "inherent vowels × consonant series × lexical context",
