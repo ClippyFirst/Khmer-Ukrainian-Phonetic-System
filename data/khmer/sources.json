@@ -742,13 +742,19 @@
       "reported_filtered_word_count": 61980,
       "google_lexicon_sha256": "b3f2e700d07d6c01a4c8cac5aa2f13b9a66885668ac482cc0c513f73c56495e5",
       "fineweb2_test_split_sha256": "26ae4e654770b07e24a4ef6b8ef3a01c84076a920f1922ac014364ab411b84f0",
-      "build_status": "SOURCE_TSV_BUNDLED_BUILD_NOT_REPRODUCED",
+      "build_status": "BLOCKED_FINEWEB2_SOURCE_NOT_RETRIEVED",
       "acceptance": "Retrieve and SHA-256-verify pinned FineWeb-2 Parquet; run pinned deterministic builder; inspect output size/startup; adapt only word/count fields; verify Python-JavaScript parity and segmentation regressions.",
       "source_artifact_path": "data/khmer/google-pronunciation-full.tsv",
       "source_git_blob_sha": "d399efeca642b1185786b2982374488c525e37c4",
       "source_blob_identity_verified": true,
       "fineweb2_source_status": "NOT_RETRIEVED_OR_EXECUTED",
-      "runtime_status": "3,009-entry sample remains active"
+      "runtime_status": "3,009-entry sample remains active",
+      "google_source_snapshot": "data/khmer/google-khmer-lexicon-source.tsv",
+      "google_source_blob_sha": "d399efeca642b1185786b2982374488c525e37c4",
+      "google_source_checksum_verified": true,
+      "google_source_raw_rows": 69415,
+      "google_source_unique_raw_spellings": 69405,
+      "google_source_retrieval_status": "RESOLVED_CHECKSUM_VERIFIED"
     }
   }
 ]
