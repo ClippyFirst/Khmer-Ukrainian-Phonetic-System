@@ -2,7 +2,7 @@ import fixtures from "../data/tests/web-fixtures.json" with { type: "json" };
 import { khmerToLatin } from "@gmana/km-translit";
 import { renderKhmerRomanizationText, renderRomanizedText } from "./khmer-romanization-ukrainian.js";
 import { analyzeInWorker } from "./khmer-engine-client.js";
-import { convert, tokenize, parseSyllable, scanOrthographicComponents, mapIpa, getStatusNotice } from "./khmer-engine-core.js";
+import { convert, getStatusNotice } from "./khmer-engine-core.js";
 
 if (typeof document !== "undefined") {
   const $ = (id) => document.getElementById(id);
