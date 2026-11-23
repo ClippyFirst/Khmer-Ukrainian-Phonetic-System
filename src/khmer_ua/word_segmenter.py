@@ -49,6 +49,41 @@ def _cluster_starts(text: str) -> tuple[list[str], list[int]]:
     return chars, bounds
 
 
+def _is_bare_letter(word: str) -> bool:
+    chars, bounds = _cluster_starts(word)
+    if len(bounds) != 2:
+        return False
+    return not any(
+        0x17A3 <= ord(char) <= 0x17B3
+        or 0x17B6 <= ord(char) <= 0x17C5
+        or ord(char) in {0x17C7, 0x17C8}
+        for char in chars
+    )
+
+
+def _merge_unknown_and_bare_letters(pieces: list[tuple[str, bool]]) -> list[tuple[str, bool]]:
+    output: list[tuple[str, bool]] = []
+    group: list[tuple[str, bool]] = []
+
+    def flush() -> None:
+        if not group:
+            return
+        if any(not known for _, known in group):
+            output.append(("".join(value for value, _ in group), False))
+        else:
+            output.extend(group)
+        group.clear()
+
+    for value, known in pieces:
+        if not known or _is_bare_letter(value):
+            group.append((value, known))
+        else:
+            flush()
+            output.append((value, known))
+    flush()
+    return output
+
+
 for _word in _COUNTS:
     _chars, _bounds = _cluster_starts(_word)
     for _index in range(1, len(_bounds)):
@@ -94,15 +129,7 @@ def segment_words(text: str) -> list[WordSegment]:
         previous, known = edge
         reversed_segments.append(("".join(chars[bounds[previous]:bounds[cursor]]), known))
         cursor = previous
-    reversed_segments.reverse()
-
-    merged: list[tuple[str, bool]] = []
-    for value, known in reversed_segments:
-        if not known and merged and not merged[-1][1]:
-            previous, _ = merged[-1]
-            merged[-1] = (previous + value, False)
-        else:
-            merged.append((value, known))
+    merged = _merge_unknown_and_bare_letters(list(reversed(reversed_segments)))
     return [
         WordSegment(value, known, "DICTIONARY_MATCH" if known else "OOV_RUN")
         for value, known in merged
