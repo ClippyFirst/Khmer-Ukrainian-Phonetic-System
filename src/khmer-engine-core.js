@@ -8,6 +8,7 @@ import provisionalIpaCandidates from "../data/khmer/provisional-ipa-candidates.j
 import sources from "../data/khmer/sources.json" with { type: "json" };
 import { khmerToLatin } from "@gmana/km-translit";
 import { mapIpa } from "./ukrainian-practical.js";
+import { segmentKhmerWords, describeWordSegmentation } from "./khmer-word-segmenter.js";
 import { renderLatinWord } from "./khmer-romanization-ukrainian.js";
 
 const CONSONANTS = Object.fromEntries(consonants.map((item) => [item.char, item]));
@@ -80,7 +81,15 @@ function tokenize(text) {
 
   const flush = () => {
     if (current) {
-      units.push(current);
+      if (currentBucket === "khmer") {
+        const words = segmentKhmerWords(current);
+        words.forEach((word, index) => {
+          if (index > 0) units.push(" ");
+          units.push(word);
+        });
+      } else {
+        units.push(current);
+      }
       current = "";
     }
     currentBucket = null;
@@ -135,10 +144,6 @@ function tokenize(text) {
     if (current && currentBucket !== null && bucket !== currentBucket) flush();
     if (!current) currentBucket = bucket;
 
-    if (current && bucket === "khmer" && startsNewOrthographicSyllable(chars, index)) {
-      flush();
-      currentBucket = "khmer";
-    }
     current += char;
     index += 1;
   }
@@ -727,9 +732,10 @@ function convert(text, profile) {
     partial: !complete && (resolved.length > 0 || Boolean(selectedExternalCandidate)),
     status: displayStatus,
     confidence_tier: selectedExternalCandidate ? "C" : confidence,
-    note,
+    note: note + " Межі слів визначено словниковим Viterbi-кандидатом; непізнані фрагменти збережено як OOV, точність сегментації ще не виміряна.",
     profile,
     units: rendered,
+    word_segmentation: describeWordSegmentation(units, new Set(Object.keys(fixtures))),
     phonetic_result: {
       schema: "khmer-phonetic-result/v1",
       pipeline: ["source-orthography", "structural-analysis", "source-phonology", "ipa", "ukrainian-target-adaptation"],
