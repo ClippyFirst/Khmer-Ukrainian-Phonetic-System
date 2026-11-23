@@ -83,3 +83,12 @@ Python-рушій раніше міг вивести притаманну гол
 Паритетний набір розширено до дев'яти випадків, включно з окремим незалежним голосним. JS-парсер тепер повертає його як структурно встановлену базову одиницю без приголосного регістру та onset IPA — так само, як Python. Це не є встановленням вимови.
 
 На head `8a2d86a85436ddec149cd55a7d1909ac0b2c7cc0` пройшли Quality [45145337895](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145337895) / [45145346826](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145346826): 455 Python tests + 70 subtests, Node, 9-case parity, benchmark, Vite; Chromium [45145346888](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145346888): 34/34.
+
+
+## Розширення structural parity до інвентарю — 2026-11-23
+
+Спільний корпус розширено з дев'яти прикладів до 129 випадків на основі реальних даних репозиторію: 33 приголосні, 15 незалежних голосних, залежні/композитні голосні та модифікатори, усі підрядкові приголосні й незалежні голосні, усі допустимі комбінації шифтерів та негативні структурні випадки. Python exporter і JS comparator проходять на GitHub Actions.
+
+На head `a389530b5ffa8799b6194c939a00bce9309110e2`: Quality [45145785462](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145785462) — 455 Python tests + 70 subtests і 129-case parity; Chromium [45145796671](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145796671) — 34/34. Токенізаторний stress-test: 8 000 code points, 8,19 ms trie проти 490,16 ms pre-trie (59,9×); це не наскрізний G2P benchmark.
+
+Це підтверджує паритет структурних полів на широкому інвентарі, але не повний паритет контекстної фонології, lexical/OOV word segmentation чи повного per-unit output schema.
