@@ -374,7 +374,7 @@ function renderFixture(fixture, profile) {
     return {
       source: fixture.source,
       ipa: fixture.status === "NOT_ESTABLISHED" ? "⟦NOT_ESTABLISHED⟧" : "⟦EVIDENCE_LIMITED⟧",
-      ua: hasPartialOnset ? partialUkrainian : "⟦НЕВСТАНОВЛЕНО⟧",
+      ua: "⟦НЕВСТАНОВЛЕНО⟧",
       status: fixture.status,
       rule_trace: hasPartialOnset
         ? ["KHMER_LEXICAL_FIXTURE_WITHHELD", "PARTIAL_ONSET_IPA_ONLY"]
@@ -654,7 +654,7 @@ function convert(text, profile) {
     }
     if (item.partial_candidate_kind === "ONSET_ONLY") {
       flushUnresolved();
-      uaParts.push(item.ua);
+      uaParts.push(item.provisional_ukrainian);
       continue;
     }
     if (item.status === "PROPOSED") {
