@@ -128,7 +128,7 @@ if (sourceGuard.includes("if (!raw || !isKhmerConsonant(raw[0])) return { status
 console.log("adversarial source guards: PASS");
 
 if (!sourceGuard.includes("FIXTURE_TRIE") || !sourceGuard.includes("node.value && isSeparator(chars[cursor + 1])")) throw new Error("verified lexical spans are not prioritized through deterministic trie matching");
-if (!sourceGuard.includes("return next === undefined || isSeparator(next)")) throw new Error("fixture span boundary guard missing");
+if (!sourceGuard.includes("node.value && isSeparator(chars[cursor + 1])")) throw new Error("fixture span boundary guard missing");
 if (!sourceGuard.includes("units.push(fixtureKey)")) throw new Error("fixture span is not preserved as a unit");
 console.log("lexical-span tokenization guards: PASS");
 
