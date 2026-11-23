@@ -7,6 +7,7 @@ on:
       - ".github/workflows/pinned-rust-khmer-benchmark.yml"
       - "scripts/evaluate_khpos.py"
       - "scripts/evaluate_khpos_external_rust.py"
+      - "scripts/evaluate_khpos_external_rust_models.py"
       - "src/khmer_ua/**"
       - "data/khmer/google-pronunciation-full-frequency.json"
   push:
@@ -43,3 +44,5 @@ jobs:
         run: rustup toolchain install stable --profile minimal && rustup default stable
       - name: Build pinned Rust core and compare identical khPOS inputs
         run: python scripts/evaluate_khpos_external_rust.py --upstream .bench-upstream
+      - name: Train ephemeral non-commercial HMM/tagger models and evaluate on OPEN-TEST
+        run: python scripts/evaluate_khpos_external_rust_models.py --upstream .bench-upstream
