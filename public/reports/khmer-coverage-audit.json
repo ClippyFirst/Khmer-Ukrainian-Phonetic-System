@@ -732,9 +732,9 @@
           "wayland-guion2005"
         ],
         "locator": "Wayland & Guion 2005, Mon-Khmer Studies 35, pp. 55–82; DOI 10.15144/MKSJ-35.55.",
-        "profile_scope": "Two male Phnom Penh speakers; seven /CrV/ wordlist items as reported by Kirby (2014, §3.1). The accessible source does not establish a repetition count. This is preliminary evidence without matched /CV/ or /ChV/ controls.",
+        "profile_scope": "Two male Phnom Penh speakers. The accessible paper summary and Kirby (2014) citation establish the speaker count and acoustic dimensions, but not a verified wordlist size or repetition count.",
         "evidence_status": "BOUNDED_STYLE_SPECIFIC_ACOUSTIC_SAMPLE",
-        "implementation": "Treat as preliminary evidence for a colloquial /CrV/ pathway only. Do not generalize to all consonants, vowel classes or careful speech; prefer the larger matched acoustic/perceptual design in Kirby (2014) for context-level conclusions."
+        "implementation": "Treat as preliminary evidence for a colloquial /CrV/ pathway only. Do not generalize to all consonants, vowel classes or careful speech; do not infer missing sample counts or controls."
       },
       {
         "id": "PPH-CTX-008",
