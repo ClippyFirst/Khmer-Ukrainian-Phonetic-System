@@ -6281,3 +6281,31 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - **Disposition:** keep the candidate for a controlled adapter/fork experiment; do not add its package, dictionary, normalization pass, or outputs to the public engine yet. Do not let word segmentation determine IPA or Ukrainian pronunciation: it may only provide lexical-boundary candidates, with uncertainty preserved.
 - **Acceptance before integration:** (1) adapt KCC segmentation to the repository's Unicode 18 orthographic-unit contract, including `ផ្ឯម`, malformed COENG, ZWNJ/ZWSP, and subscript sequences; (2) add shared Python/JS fixtures for boundaries, OOV spans, whitespace, punctuation, Khmer digits and source offsets; (3) verify deterministic WASM execution inside the existing Worker and prove no external requests; (4) reproduce a segmentation benchmark on a rights-cleared, explicitly scoped evaluation set, reporting precision/recall/F1 and OOV separately; (5) retain per-span confidence/unknown status and never convert segmentation guesses into IPA; (6) verify pinned package/source hashes and ship all required MIT/Apache/SIL notices.
 - **Current ledger:** candidate source/license inspection = DONE_VERIFIED; stock KCC compatibility = BLOCKED pending adaptation; browser integration = TODO; independent segmentation accuracy for this project = NOT_ASSESSED; independent IPA gold and phonetic accuracy remain unchanged.
+
+## Continuation — Chaktomuk compound boundary regression (2026-11-23)
+
+**PR:** [#530 — Preserve Chaktomuk as a compound Khmer lexical span](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/530)  
+**Branch:** `fix/khmer-chaktomuk-compound-boundary-main-2026-11-23`  
+**Base:** `main` at `b73fb411ea777c81af0d9fbeed464b46366b737d`  
+**Latest implementation commit at this handoff update:** `b718308a9d5e39db5b79bc19032b62978ad5b9ab`
+
+### Task ledger
+
+- **DONE_VERIFIED — source-backed lexical-span registration:** Added `ចតុម្មុខ` as a whole lexical/proper-name fixture, with Khmer Wiktionary and Phkasla Partner / Chuon Nath references. These sources establish lexical identity and meaning, not a modern Phnom Penh IPA realization.
+- **DONE_VERIFIED — browser tokenizer preservation:** The existing fixture trie now recognizes this multi-cluster lexical span before generic frequency-Viterbi segmentation. The expected boundary for `ក្រុងចតុម្មុខ` is `ក្រុង` + `ចតុម្មុខ`; the fixture is not decomposed into `ច` + `តុ` + `ម្មុខ`.
+- **DONE_VERIFIED — evidence withholding:** The fixture remains `NOT_ESTABLISHED`, with `ipa: null` and `ua: null`. The browser abstention renderer preserves the explicit `⟦NOT_ESTABLISHED⟧` marker. No IPA or Ukrainian pronunciation is inferred from dictionary syllabification or etymology.
+- **DONE_VERIFIED — regression-test contract fixes:** Corrected a double-escaped Unicode regex in the browser test, allowed the explicit `NOT_ESTABLISHED` status in the Python fixture contract, and limited the source-locator assertion to the newly source-documented not-established record (older `EVIDENCE_LIMITED` fixtures do not all carry that field).
+- **PARTIAL — final browser smoke verification:** On commit `b718308a9d5e39db5b79bc19032b62978ad5b9ab`, Quality checks run [45195395949](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45195395949) passed: Python tests, web checks, structural/lexical/rule parity, both benchmarks and production build. Browser smoke run [45195396018](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45195396018) had completed deterministic checks and build but was still installing Chromium at the time of this handoff; do not mark browser smoke complete until its final result is checked.
+- **DEFERRED — full phrase IPA and Ukrainian output:** No suitable exact full-form pronunciation evidence has been verified. Keep the result unresolved rather than composing a guessed pronunciation from components.
+- **UNCHANGED TODO — general OOV word segmentation:** This one protected lexical span does not validate the 3,009-entry Viterbi segmenter or establish general segmentation accuracy. Preserve the separate OOV segmentation research gate and its licensing/Unicode-compatibility conditions.
+
+### Commands and verification evidence
+
+- GitHub Actions Quality checks run `45195395949`: PASS on the exact implementation commit above.
+- GitHub Actions browser smoke run `45195396018`: deterministic web checks PASS; Vite production build PASS; Chromium installation / visible-result test pending at handoff time.
+- Earlier PR-head checks exposed two test-contract defects. The Unicode regex returned an empty filtered list because of double escaping; the Python test first rejected the new status, then over-required `source_locator` for legacy evidence-limited records. Both were corrected and the latest Quality run passed.
+- No independent IPA adjudication, phonetic accuracy score, or general segmentation accuracy is claimed.
+
+### Next action
+
+Recheck run `45195396018`. If Chromium smoke passes, the Chaktomuk browser-boundary fix is ready for normal PR review/merge; if it fails, inspect its job log and fix only the evidenced failure. Do not merge while the required browser check is unresolved.

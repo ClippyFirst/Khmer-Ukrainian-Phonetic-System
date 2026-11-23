@@ -44,6 +44,13 @@ const clusterMapping = mapIpa(fixtures["ល្ងាច"].ipa.slice(1, -1), poli
 if (clusterMapping.value !== fixtures["ល្ងាច"].ua || clusterMapping.unsupported !== null) {
   throw new Error("Khmer cluster IPA does not agree with the Ukrainian adapter");
 }
+const chaktomukSegmentation = tokenize("ក្រុងចតុម្មុខ").filter((unit) => /[\u1780-\u17d3]/u.test(unit));
+if (JSON.stringify(chaktomukSegmentation) !== JSON.stringify(["ក្រុង", "ចតុម្មុខ"])) {
+  throw new Error("compound proper name ក្រុងចតុម្មុខ must preserve the lexical span ចតុម្មុខ: " + JSON.stringify(chaktomukSegmentation));
+}
+if (fixtures["ចតុម្មុខ"]?.status !== "NOT_ESTABLISHED" || fixtures["ចតុម្មុខ"]?.ipa !== null) {
+  throw new Error("Chaktomuk compound boundary must not invent an IPA pronunciation");
+}
 const contextualPalatalMapping = mapIpa("prɑciə", policy);
 if (contextualPalatalMapping.value !== "пратьіє" || contextualPalatalMapping.unsupported !== null) throw new Error("IPA /c+iə/ must use Ukrainian contextual spelling with explicit project soft-sign distinction");
 const directPhraseMapping = mapIpa(fixtures["ជាខ្មែរ"].ipa.slice(1, -1), policy);
