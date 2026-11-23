@@ -1,8 +1,15 @@
-from scripts.evaluate_khpos import (
-    prepare_sentence,
-    predicted_boundaries_from_units,
-    score_predictions,
-)
+import importlib.util
+from pathlib import Path
+
+_SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "evaluate_khpos.py"
+_SPEC = importlib.util.spec_from_file_location("evaluate_khpos", _SCRIPT)
+assert _SPEC and _SPEC.loader
+_BENCHMARK = importlib.util.module_from_spec(_SPEC)
+_SPEC.loader.exec_module(_BENCHMARK)
+
+prepare_sentence = _BENCHMARK.prepare_sentence
+predicted_boundaries_from_units = _BENCHMARK.predicted_boundaries_from_units
+score_predictions = _BENCHMARK.score_predictions
 
 
 def test_khpos_compound_markers_are_removed_without_splitting_the_gold_token():
