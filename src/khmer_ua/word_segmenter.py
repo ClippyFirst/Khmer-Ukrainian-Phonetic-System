@@ -158,3 +158,67 @@ def describe_word_segmentation(tokens: list[str], fixture_keys: set[str] | None 
         "tokens": word_tokens,
         "note": "Word boundaries are provisional dictionary-Viterbi candidates; no independent segmentation accuracy has been measured for this project.",
     }
+
+
+def segment_words_candidates(text: str, limit: int = 3) -> list[dict]:
+    """Return up to limit distinct Viterbi paths, ordered by model cost.
+
+    Costs are negative-log frequency scores, not probabilities or calibrated
+    confidence. This diagnostic API does not change the canonical best path.
+    """
+    if isinstance(limit, bool) or not isinstance(limit, int) or not 1 <= limit <= 10:
+        raise ValueError("limit must be an integer from 1 to 10")
+    if not text:
+        return []
+
+    chars, bounds = _cluster_starts(text)
+    count = len(bounds) - 1
+    paths: list[list[tuple[float, tuple[tuple[str, bool], ...]]]] = [
+        [] for _ in range(count + 1)
+    ]
+    paths[0] = [(0.0, ())]
+
+    def add_path(end: int, candidate: tuple[float, tuple[tuple[str, bool], ...]]) -> None:
+        signature = candidate[1]
+        if any(existing[1] == signature for existing in paths[end]):
+            return
+        paths[end].append(candidate)
+        paths[end].sort(key=lambda item: item[0])
+        del paths[end][limit:]
+
+    for start in range(count):
+        for path_cost, pieces in paths[start]:
+            unknown_piece = ''.join(chars[bounds[start]:bounds[start + 1]])
+            add_path(start + 1, (
+                path_cost + _UNKNOWN_COST,
+                pieces + ((unknown_piece, False),),
+            ))
+
+            for end in range(start + 1, min(start + _MAX_CLUSTERS, count) + 1):
+                word = ''.join(chars[bounds[start]:bounds[end]])
+                if word not in _PREFIXES:
+                    break
+                cost = _COSTS.get(word)
+                if cost is not None:
+                    add_path(end, (path_cost + cost, pieces + ((word, True),)))
+
+    candidates: list[dict] = []
+    seen: set[tuple[tuple[str, bool], ...]] = set()
+    for path_cost, pieces in paths[count]:
+        merged = _merge_unknown_and_bare_letters(list(pieces))
+        signature = tuple(merged)
+        if signature in seen:
+            continue
+        seen.add(signature)
+        candidates.append({
+            'cost': round(path_cost, 8),
+            'segments': [
+                {
+                    'text': value,
+                    'known': known,
+                    'status': 'DICTIONARY_MATCH' if known else 'OOV_RUN',
+                }
+                for value, known in merged
+            ],
+        })
+    return candidates[:limit]
