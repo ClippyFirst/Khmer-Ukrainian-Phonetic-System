@@ -30,9 +30,10 @@ Adopt a native-first browser architecture modelled on the Thai repository: JavaS
 | Shared tokenizer boundary parity cases | DONE_VERIFIED | Python and browser tests consume `data/tests/tokenizer-parity.json`; Unicode 18 subscript-vowel+coda regression passes in both runtimes |
 | 129-case Python↔JavaScript structural parity inventory | DONE_VERIFIED | CI compares token boundaries and core structural fields across all consonants, independent vowels, vowel signs, subscript inventory, eligible shifters and adversarial forms |
 | 36-fixture Python↔JavaScript lexical IPA/UA parity | DONE_VERIFIED | CI compares per-unit source, canonical IPA, Ukrainian adaptation, status and mapping agreement for every browser lexical fixture |
-| Full Python↔JavaScript structural/rule semantic parity | PARTIAL | The executable parity harness covers representative cases; broader structure/IPA cases and full result-contract parity remain outstanding |
+| Full Python↔JavaScript structural/rule semantic parity | PARTIAL | 129 structural inventory cases and 36 lexical fixtures now pass; full output contract, all contextual rules and open vocabulary remain outstanding |
+| Python↔JavaScript lexical fixture IPA/UA/status parity | DONE_VERIFIED | Exact-head CI compares all 36 shared lexicon fixtures, including mapping agreement |
 | Deterministic orthographic token boundaries and fixture matching | DONE_VERIFIED | Shared cross-runtime boundary fixtures and trie-based longest fixture matching; synthetic 8k stress benchmark 77.7× vs pre-trie implementation |
-| Native Khmer lexical word segmentation/OOV model | TODO | Evaluate and pin lexical tokenizer/model only after exact asset rights and phonological parity are established |
+| General lexical word segmentation/OOV model | TODO | Evaluate and pin lexical tokenizer/model only after exact asset rights and phonological parity are established |
 | Optional deterministic FST/WASM inference | DEFERRED | May be added if benchmark shows meaningful quality/speed improvement and asset rights are cleared |
 | Independent adjudicated IPA gold and accuracy estimate | DEFERRED for beta; BLOCKED for accuracy claims | No expert gold corpus currently available |
 | Third-party model/corpus redistribution | BLOCKED | Item-level data/model provenance and license scope remain unresolved |
@@ -152,3 +153,12 @@ The worker now imports `src/khmer-engine-core.js` directly; the DOM entry point 
 - Exact code head `e584d986a7d7fe9ac177709374c29bd4298e93f2`: Quality [45147094378](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147094378) passed 455 Python tests + 70 subtests, Node checks, 129-case structural parity, 36-fixture IPA/UA parity, tokenizer benchmark and Vite build. Chromium [45147094466](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147094466) passed 34/34.
 - Same-head 8,000-code-point tokenizer stress: trie median 3.23 ms, pre-trie 357.92 ms, 110.8×. Synthetic tokenizer-only comparison; no general G2P latency guarantee.
 - **Task ledger:** 129-case structural parity = DONE_VERIFIED; 36-fixture IPA/UA/status parity = DONE_VERIFIED; complete contextual phonology and full result-schema parity = PARTIAL; lexical word segmentation/OOV inference = TODO.
+
+
+## Lexical fixture parity extension — 2026-11-23
+
+- Added an executable Python↔JavaScript lexical parity gate: Python `RuleBasedKhmerEngine` exports every entry from the shared browser lexicon fixture set, and Node compares browser-engine per-unit source, IPA, Ukrainian adaptation, status and lexical-mapping agreement.
+- Coverage: **36/36 lexical fixtures** from `data/tests/web-fixtures.json`, including the negative multi-register-shifter entry and phrase-level examples. This is fixture parity, not proof of full Python/JS semantic equivalence or open-vocabulary G2P.
+- Exact code head `e584d986a7d7fe9ac177709374c29bd4298e93f2`: Quality [45147094378](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147094378) passed 455 Python tests + 70 subtests, Node checks, 129-case structural parity, 36-fixture lexical parity, tokenizer benchmark and Vite build. Browser [45147094466](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147094466) passed 34/34, including local Worker, failed-asset fallback and stale-response race.
+- Same-head synthetic 8,000-code-point tokenizer stress: trie median 3.23 ms vs pre-trie 357.92 ms, 110.8× on the CI runner. Tokenizer-only synthetic measurement, not an end-to-end Khmer phonemizer benchmark.
+- **Task ledger:** lexical fixture IPA/UA/status parity = DONE_VERIFIED; full Python↔JS rule/result parity = PARTIAL; general lexical word segmentation/OOV remains TODO.
