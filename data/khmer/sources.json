@@ -762,7 +762,11 @@
       "build_artifact_id": 14835479409,
       "build_status": "BUILD_VERIFIED",
       "runtime_status": "ACTIVE_FULL_DICTIONARY_PYTHON_JS",
-      "acceptance": "Run full Python and JavaScript regression suites, verify every full dictionary entry remains one known segment, check Python/JavaScript parity and browser startup/performance; segmentation accuracy still awaits an independent gold corpus."
+      "acceptance": "DONE_VERIFIED: 61,980 entries indexed in Python and JavaScript; all entries are losslessly segmentable; all 3,009 historical sample words/counts are preserved; Python/JavaScript candidate parity passes on 6 fixtures; Python and browser tests, structural/lexical/consonant parity, engine and tokenizer benchmarks, and Vite build pass. Browser Chromium smoke is pending the integration PR. Segmentation accuracy remains NOT_ASSESSED pending an independent adjudicated gold corpus.",
+      "max_word_orthographic_clusters": 14,
+      "nbest_diagnostic_max_clusters": 128,
+      "quality_workflow_run_id": 45212736652,
+      "quality_workflow_run_url": "https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45212736652"
     }
   }
 ]
