@@ -3736,3 +3736,16 @@ The khPOS train/test and ALT corpora are CC BY-NC-SA 4.0. The 12,000-row train s
 - Issue #463 remains open as a future audit record. Automated Chromium checks remain the available verification; no manual screen-reader or assistive-technology audit is claimed.
 - This is not an active implementation blocker for the current contextual-phonology work. Do not claim WCAG conformance. Reopen only if the project owner later requests and arranges the manual audit.
 
+
+
+### KHM-PHON-CONTEXT-EVIDENCE-001 — DONE_VERIFIED (nine source-indexed context dimensions)
+
+- Added nine machine-readable context findings to `data/khmer/vowel-context-register.json`, each with source IDs, exact locator, profile scope, evidence status and implementation boundary. The dimensions cover series/register × vowel sign, vowel harmony, stress/weak syllables, coda marks/place, open/closed syllable duration, profile-specific mergers, colloquial /r/-loss, PPK pitch and syllable structure, and orthographic-vs-phonetic parsing.
+- Added three evidence-source records (Chem 2020, Wayland & Guion 2005, Mam et al. 2025) with explicitly bounded roles; extended the JSON schema to validate context rows and status vocabulary.
+- Extended `scripts/coverage.py` and both generated coverage reports to expose the nine source-backed dimensions without generating IPA or changing the existing 32-cell dependent-vowel × series inventory.
+- Added tests for source resolution, unique context IDs, required locators/profile scope, generated-report parity and report exposure.
+- Exact-head Quality [45280037870](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45280037870): **477 passed + 70 subtests**, including schema, context-dimension and generated-report checks; web checks, parity gates, benchmarks and build — PASS.
+- Exact-head Chromium [45280037890](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45280037890): **39/39 — PASS**.
+- External khPOS benchmark [45280037997](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45280037997), pinned Rust comparison [45280037893](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45280037893), and optional Khmer Phonemizer diagnostic [45280037944](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45280037944) — PASS.
+- A preceding Quality run [45279862747](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45279862747) caught a literal escaped-newline syntax error in the generator call. Corrected it in commit `5ecd53fa26d84f910761803967558129a9346867`; all exact-head checks above pass on the corrected head.
+- This closes only the evidence-register/schema/report task. `KHM-PHON-CONTEXT-001` remains PARTIAL: the nine dimensions are not a complete lexical cross-product, and no new runtime vowel/coda/pitch rule or IPA label was promoted.
