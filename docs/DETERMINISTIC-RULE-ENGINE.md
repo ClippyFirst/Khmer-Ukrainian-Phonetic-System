@@ -46,3 +46,8 @@ The optional Python `HybridKhmerEngine` is a separate diagnostic wrapper. It run
 Перевірка точного коду head `9fd26941efb7e4936d921d700ee5215569449bda`: Quality [45136120659](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136120659) — 453 Python tests + 70 subtests, Node checks і Vite build успішні; Chromium [45136120671](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136120671) — 33/33, включно з реальним Worker та fallback при недоступному Worker asset.
 
 Паритет Python↔JavaScript, tokenizer/OOV model і незалежна IPA-ад'юдикація залишаються окремими критеріями. Жодних сторонніх ваг або корпусів не додано; права на їх розповсюдження залишаються непідтвердженими.
+
+
+## Перевірка гонки застарілих відповідей — 2026-11-23
+
+Chromium-тест штучно затримує першу відповідь Worker, після чого надсилає другий ввід. Пізня перша відповідь не перезаписує новіший результат завдяки `renderRevision`. На code head `c2dc56949ee519dfcdb13139e49002b92a3fa5bc` пройшли Quality [45136544361](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136544361) (453 Python tests + 70 subtests, Node, build) і Chromium [45136544247](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136544247) (34/34).
