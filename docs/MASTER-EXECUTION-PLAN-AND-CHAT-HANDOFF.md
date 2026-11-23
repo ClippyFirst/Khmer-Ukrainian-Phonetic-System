@@ -6341,5 +6341,5 @@ Recheck run `45195396018`. If Chromium smoke passes, the Chaktomuk browser-bound
 ### Branch and PR reconciliation
 
 - PR #531 is isolated from the existing open PR #519. PR #519 was inspected and left untouched: it concerns the romanization selector and optional external G2P providers, is divergent from current main, and does not implement these segmentation diagnostics.
-- PR #531 is mergeable with both required workflows green. Merge it with squash, then verify the merge SHA and main-branch state.
+- **DONE_VERIFIED — merged:** PR #531 was squash-merged into `main` at `3bb1b7ace67f9172d5d22d0afddd664a0b86535c`. The PR is closed/merged, and `main` compares identical to that merge SHA; the Python/JavaScript segmenter, browser UI and handoff files were verified on `main`.
 - The prior Chaktomuk fix remains merged in main at `5fc571f681ac2f2f3cfd15e7471a7fa95a7ed3d9`.
