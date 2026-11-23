@@ -1,6 +1,6 @@
 ## Current continuation state — refreshed 2026-11-23
 
-- **Current `main` head:** `06a5a6829bd33c118525188972965998dee178d1` (handoff/source-registry evidence refresh). The full dictionary implementation is in code commit `44ec7b11cf5a53301e400480b1f06c23ec9251eb` and is active in both Python and JavaScript.
+- **Verified code head:** `44ec7b11cf5a53301e400480b1f06c23ec9251eb` contains the full dictionary implementation. Subsequent documentation/evidence refreshes: handoff `97d3dec75d2a41525ec669c40fec285ac5c8ce9d`; source registry `cd335067f756f0526e3577b79ca7695a653533d7`. The final closeout commit is reported in the execution summary rather than self-referenced here.
 - **PR #531** merged as `3bb1b7ace67f9172d5d22d0afddd664a0b86535c`: ranked Khmer word-boundary candidates, bounded diagnostics and Python/JS parity.
 - **PR #532** closed after the complete pinned Google lexicon source was added to `main`; **PR #534** closed after byte-integrity and source-registry evidence was corrected; **PR #535** closed with the full frequency dictionary implementation now present on `main`. The current `main` code and CI, not the stale research branch, are authoritative.
 - **PR #519** remains unmerged and was not changed in this continuation. Its method-switch / optional hybrid-provider work is a separate divergent feature and must not be merged blindly.
