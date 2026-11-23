@@ -43,11 +43,29 @@ def map_segment(ipa: str, mode: str = "default") -> str:
 
 
 def map_sequence(segments, mode: str = "default") -> str:
-    """Map a complete IPA segment sequence, including contextual target rules."""
-    mapped, unsupported = map_ipa_string("".join(segments), mode=mode)
-    if unsupported is not None:
-        raise ValueError(f"unsupported IPA sequence: {unsupported}")
-    return mapped or ""
+    """Map already tokenized IPA segments, applying registered adjacent sequences."""
+    tokens = list(segments)
+    sequence_keys = tuple(sorted(
+        (key for key, value in POLICY.get("sequences", {}).items() if value.get(mode) is not None),
+        key=len,
+        reverse=True,
+    ))
+    output: list[str] = []
+    index = 0
+    while index < len(tokens):
+        matched = None
+        for sequence in sequence_keys:
+            width = len(sequence)
+            if index + width <= len(tokens) and "".join(tokens[index:index + width]) == sequence:
+                matched = sequence
+                break
+        if matched is not None:
+            output.append(POLICY["sequences"][matched][mode])
+            index += len(matched)
+        else:
+            output.append(map_segment(tokens[index], mode=mode))
+            index += 1
+    return "".join(output)
 
 
 def _map_syllable(syllable: str, mode: str) -> tuple[str | None, str | None]:
