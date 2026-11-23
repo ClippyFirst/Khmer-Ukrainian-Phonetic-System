@@ -6,7 +6,7 @@ Adopt a native-first browser architecture modelled on the Thai repository: JavaS
 
 ## Current-state reconciliation
 
-- The existing Khmer browser application already contains a deterministic JavaScript engine in `src/main.js`, including normalization, conservative segmentation, orthographic structure analysis, lexical fixtures, IPA-to-Ukrainian adaptation and evidence/status handling.
+- The existing Khmer browser application already contains a deterministic JavaScript engine in `src/khmer-engine-core.js`, including normalization, conservative segmentation, orthographic structure analysis, lexical fixtures, IPA-to-Ukrainian adaptation and evidence/status handling.
 - Python `RuleBasedKhmerEngine` is a separate implementation. The current JS UI engine and Python parser/rule engine are not yet proven behaviorally equivalent. A full Python→JS port/parity gate remains TODO.
 - The Thai repository provides the relevant architectural precedent: browser-native modules, worker isolation, deterministic data and explicit parity tests. Python is a reference/compatibility route rather than a required runtime dependency for supported browser inputs.
 - Existing Khmer external candidates and third-party model research remain separate. No external weights, FST, lexicon or corpus were added by this change; unresolved asset provenance/licensing is not waived.
@@ -15,7 +15,7 @@ Adopt a native-first browser architecture modelled on the Thai repository: JavaS
 
 - `src/khmer-engine.worker.js`: receives a structured local request and invokes the existing deterministic `convert()` engine.
 - `src/khmer-engine-client.js`: lazy worker client; falls back to the same local synchronous implementation if Worker startup or execution fails.
-- `src/main.js`: sends phonetic inference to the worker and discards stale responses using a render revision counter. Romanization remains a separate route.
+- `src/khmer-engine-core.js`: sends phonetic inference to the worker and discards stale responses using a render revision counter. Romanization remains a separate route.
 - `tests/khmer-worker-contract.test.mjs`: checks worker wiring, worker-safe import guard and absence of network APIs in the inference modules. Added to both `npm test` and `npm run check`.
 - `docs/DETERMINISTIC-RULE-ENGINE.md` and the master handoff record the new execution model and limits.
 
@@ -50,3 +50,8 @@ This is an incremental performance/UX improvement, not completion of the request
 - The worker bundle was 136.40 kB. This is a bundle-size observation, not a throughput benchmark.
 - The PR remains unmerged, so no GitHub Pages deployment or post-deploy smoke is claimed.
 - Worker integration is DONE_VERIFIED. Full Python↔JS semantic parity and OOV/tokenizer integration remain TODO; third-party asset rights remain BLOCKED; expert IPA gold is deferred for beta and remains a blocker to accuracy claims.
+
+
+### Engine/UI module separation — 2026-11-23
+
+The deterministic engine has been extracted into `src/khmer-engine-core.js`. The UI entry point `src/main.js` now imports only the functions it needs, while the Worker imports the core directly and no longer bundles the DOM-rendering entry point. Runtime, register-shifter and structural tests now import the core module; static source guards inspect both core and UI where appropriate. The core retains the existing deterministic rules and local romanization-derived fallback dependency; this is modularization, not a new phonology model.
