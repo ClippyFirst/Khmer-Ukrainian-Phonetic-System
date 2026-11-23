@@ -1,5 +1,14 @@
 # Browser-native Khmer inference and worker audit — 2026-11-23
 
+## Partial IPA candidate preservation — PR #557, 2026-11-23
+
+- The previous browser path returned only `⟦EVIDENCE_LIMITED⟧` for `ស៊៉ា`, because its null-IPA lexical fixture short-circuited the general onset-only preview. The fixture now preserves the independently identified initial consonant `/s/` as a partial candidate while leaving the rest unresolved.
+- Browser display on the PR head: IPA `/s/⟦EVIDENCE_LIMITED⟧`; Ukrainian `с???`. The canonical unit fields remain withheld and typed as unresolved; the partial IPA and source evidence are separate. The test explicitly rejects any inference of vowel, register realization, coda, tone or full pronunciation.
+- The Python `HybridKhmerEngine` now exposes a separate provisional provider candidate when canonical IPA is unresolved. A pinned Khmer Phonemizer adapter is opt-in only. Real provider smoke [45274302963](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45274302963) produced a candidate with `profile_match=UNVERIFIED`; this is not expert gold or measured accuracy.
+- **Deployment boundary unchanged:** the public Pages app is static and sets `connect-src 'none'`. It cannot execute Python providers. No live multi-provider inference was added to the browser; a backend or validated browser-native model requires a separate approved design.
+- Exact-head Quality and Chromium evidence: [45274009516](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45274009516), [45274009802](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45274009802). These checks validate engineering behavior only, not general Khmer pronunciation accuracy.
+
+
 ## Decision
 
 Adopt a native-first browser architecture modelled on the Thai repository: JavaScript owns the public pipeline and orchestration; computationally expensive deterministic inference may run in a local Web Worker or WASM module. No runtime server/API, remote inference, telemetry, or transmission of user-entered text is permitted. Static assets, if later introduced, must be pinned, rights-reviewed, integrity-checked and fetched independently of user input.
