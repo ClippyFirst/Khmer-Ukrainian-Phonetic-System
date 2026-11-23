@@ -6201,3 +6201,13 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - Same-head engine microbenchmark: JS 0.4903 ms/36 fixtures, Python 4.9692 ms/36, 10.13× observed ratio; workload-specific and not algorithm-only because result contracts differ.
 - Same-head tokenizer stress: 8,000 code points, trie median 4.89 ms vs pre-trie 478.02 ms, 97.7× synthetic tokenizer-only comparison.
 - **Task ledger:** 129-case structural + IPA withholding/status parity = DONE_VERIFIED; full result-schema parity and untested contexts remain PARTIAL; local no-external-request browser regression = DONE_VERIFIED; OOV word segmentation = TODO.
+
+
+## Exact final continuation tip — 2026-11-23
+
+- Final branch tip: `f2054dd3af325b49c5e7c87af7c90baecbf790f1`.
+- Exact-tip Quality [45150128816](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45150128816): PASS — 455 Python tests + 70 subtests, Node checks, 129 structural + IPA/status/withholding parity cases, 36 lexical IPA/UA fixtures, 46 consonant/register rule-output cases, engine benchmark, tokenizer benchmark and Vite build.
+- Exact-tip Chromium [45150129396](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45150129396): PASS — 35/35, including local Worker execution, failed-worker-asset fallback, stale-response race and no external HTTP(S) requests after Khmer text entry.
+- Exact-tip engine microbenchmark: JS 0.4859 ms per 36-fixture batch; Python 4.9776 ms; observed 10.24× ratio on GitHub Actions. This remains workload-specific and not a controlled algorithm-only comparison because result contracts are not fully identical.
+- Exact-tip tokenizer stress: 8,000 code points; trie median 6.23 ms vs pre-trie 466.28 ms (74.9×), synthetic tokenizer-only comparison.
+- Final status unchanged: Worker, privacy and tested parity subsets are DONE_VERIFIED; complete Python/JS result schema and contextual phonology PARTIAL; OOV lexical word segmentation TODO; third-party FST/model/corpus redistribution BLOCKED on item-level provenance/rights; expert IPA gold DEFERRED for beta and required for accuracy claims. Accuracy remains NOT_ASSESSED.
