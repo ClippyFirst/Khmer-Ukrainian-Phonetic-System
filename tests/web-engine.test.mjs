@@ -44,7 +44,7 @@ const clusterMapping = mapIpa(fixtures["ល្ងាច"].ipa.slice(1, -1), poli
 if (clusterMapping.value !== fixtures["ល្ងាច"].ua || clusterMapping.unsupported !== null) {
   throw new Error("Khmer cluster IPA does not agree with the Ukrainian adapter");
 }
-const chaktomukSegmentation = tokenize("ក្រុងចតុម្មុខ").filter((unit) => /[\\u1780-\\u17d3]/u.test(unit));
+const chaktomukSegmentation = tokenize("ក្រុងចតុម្មុខ").filter((unit) => /[\u1780-\u17d3]/u.test(unit));
 if (JSON.stringify(chaktomukSegmentation) !== JSON.stringify(["ក្រុង", "ចតុម្មុខ"])) {
   throw new Error("compound proper name ក្រុងចតុម្មុខ must preserve the lexical span ចតុម្មុខ: " + JSON.stringify(chaktomukSegmentation));
 }
