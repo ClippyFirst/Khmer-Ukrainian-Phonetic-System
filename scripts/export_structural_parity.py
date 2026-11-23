@@ -29,6 +29,11 @@ for source in FIXTURE["cases"]:
                 "vowel_signs": syllable.get("vowel_signs", []),
                 "independent_vowel": syllable.get("independent_vowel"),
                 "status": syllable.get("status"),
+                "inherent_vowel": syllable.get("inherent_vowel"),
+                "register_shifter": syllable.get("phonology", {}).get("register_shifter"),
+                "confidence": syllable.get("confidence", 0.0),
+                "sources": syllable.get("sources", []),
+                "graphemes": syllable.get("graphemes", []),
                 "onset_ipa": syllable.get("phonology", {}).get("onset_ipa"),
             },
         })
