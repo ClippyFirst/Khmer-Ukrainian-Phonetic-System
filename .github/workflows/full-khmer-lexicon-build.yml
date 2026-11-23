@@ -71,6 +71,7 @@ jobs:
           lexicon = output / "lexicon.tsv"
           bigrams = output / "bigrams.tsv"
           frequency = output / "segmentation-frequency.tsv"
+          runtime_json = output / "google-pronunciation-full-frequency.json"
 
           full_counts = {}
           for line in lexicon.read_text(encoding="utf-8").splitlines():
@@ -119,7 +120,27 @@ jobs:
           if bigram_count < 1:
               raise SystemExit("No bigram rows were generated")
 
+          runtime_dataset = {
+              "metadata": {
+                  "dataset": "Google Khmer pronunciation lexicon — full normalized word-frequency dictionary",
+                  "google_source_revision": "a90601024f07ab7e96c911243324e0adeb16da96",
+                  "google_source_license": "CC BY 4.0",
+                  "frequency_source_revision": "af9c13333eb981300149d5ca60a8e9d659b276b9",
+                  "frequency_source_license": "ODC-By 1.0",
+                  "builder_repository": "https://github.com/pheasaKhmer/khmer-engine",
+                  "builder_revision": "31b72cd4665f69678fc835da2f501771e42f097a",
+                  "entry_count": len(full_counts),
+                  "fields": ["word", "count"],
+                  "phonemic_strings_included": False,
+              },
+              "entries": [[word, count] for word, count in full_counts.items()],
+          }
+          runtime_json.write_text(
+              json.dumps(runtime_dataset, ensure_ascii=False, separators=(",", ":")) + "\\n",
+              encoding="utf-8",
+          )
           frequency_bytes = frequency.read_bytes()
+          runtime_bytes = runtime_json.read_bytes()
           summary = {
               "upstream_repository": "https://github.com/pheasaKhmer/khmer-engine",
               "upstream_revision": "31b72cd4665f69678fc835da2f501771e42f097a",
@@ -139,6 +160,9 @@ jobs:
               "lexicon_sha256": hashlib.sha256(lexicon.read_bytes()).hexdigest(),
               "bigrams_sha256": hashlib.sha256(bigrams.read_bytes()).hexdigest(),
               "frequency_table_sha256": hashlib.sha256(frequency_bytes).hexdigest(),
+              "runtime_dataset_bytes": len(runtime_bytes),
+              "runtime_dataset_gzip_bytes": len(gzip.compress(runtime_bytes, compresslevel=9, mtime=0)),
+              "runtime_dataset_sha256": hashlib.sha256(runtime_bytes).hexdigest(),
               "status": "BUILD_VERIFIED"
           }
           (output / "build-summary.json").write_text(
@@ -153,10 +177,10 @@ jobs:
         env:
           BRANCH_NAME: ${{ github.ref_name }}
         run: |
-          cp "$RUNNER_TEMP/khmer-full-build/segmentation-frequency.tsv" data/khmer/google-pronunciation-full-frequency.tsv
+          cp "$RUNNER_TEMP/khmer-full-build/google-pronunciation-full-frequency.json" data/khmer/google-pronunciation-full-frequency.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/khmer/google-pronunciation-full-frequency.tsv
+          git add data/khmer/google-pronunciation-full-frequency.json
           if ! git diff --cached --quiet; then
             git commit -m "data: add full Khmer segmentation frequency table"
             git push origin "HEAD:$BRANCH_NAME"
