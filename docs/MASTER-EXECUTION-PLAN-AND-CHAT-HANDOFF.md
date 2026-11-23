@@ -6387,3 +6387,58 @@ Recheck run `45195396018`. If Chromium smoke passes, the Chaktomuk browser-bound
 - PR [#535](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/535) is open. The Chromium browser-smoke workflow has not yet produced a run for this PR; require that check before merging. The latest Quality run is green, but this is not a linguistic accuracy validation.
 - **Segmentation accuracy — DEFERRED / NOT ASSESSED:** no independent manually segmented gold corpus or adjudicated boundary evaluation exists. The 61,980-entry frequency dictionary improves lexical coverage but does not establish boundary accuracy. Keep this limitation explicit.
 - **Next acceptance steps:** obtain a successful Chromium browser-smoke run for PR #535; inspect resulting bundle size and browser startup measurements; merge only when CI is green and the branch is current with main. Then verify the merge commit, Pages deployment and deployed-asset smoke. Keep independent gold segmentation corpus work as a separate research task.
+
+
+## Current-state reconciliation — full dictionary, khPOS word metrics, and PR reconciliation — 2026-11-23
+
+**This section supersedes earlier continuation notes that still classify the full Google/FineWeb dictionary or Pages deployment as blocked.** Those historical entries are retained as audit history; use this latest section for current status.
+
+### Current branch and merged changes
+
+- Starting main before this continuation: `94d51c0d6315b178ae66567c9ebb82d9a4c02eb1`.
+- **PR #537 merged:** [Add word-level F1 to the khPOS segmentation benchmark](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/537), squash commit `b85188428142cb8ce74b3b85de09e87be97d1bb7`.
+- PR #537 passed its dedicated khPOS benchmark, Quality and Chromium browser workflows on head `525012dd7f75824543221ba25f2be692e23aef4c`: runs [45224355067](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45224355067), [45224354973](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45224354973), [45224355101](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45224355101). A post-merge exact-main run was started for all four workflows; at the time of this note, runs [45234742797](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45234742797) (Quality), [45234742962](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45234742962) (Chromium), [45234742821](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45234742821) (khPOS) and [45234742860](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45234742860) (Pages deploy) were in progress. Do not record those post-merge checks as passed until their final conclusions are read.
+- **PR #538 closed as superseded:** its branch duplicated source files and an older build workflow; the full source, normalized runtime table, Python/JS integration and build gate were already on main. No PR #538 code was merged. Its redundant branch is left untouched.
+- A separate clean docs-only branch is used for this handoff/attribution reconciliation; no runtime code changes are introduced here.
+
+### Full Google/FineWeb segmentation dictionary — DONE_VERIFIED
+
+- Exact Google source: `data/khmer/google-pronunciation-full.tsv`, source SHA-256 `b3f2e700d07d6c01a4c8cac5aa2f13b9a66885668ac482cc0c513f73c56495e5`, CC BY 4.0.
+- FineWeb-2 test split: pinned revision `af9c13333eb981300149d5ca60a8e9d659b276b9`, SHA-256 `26ae4e654770b07e24a4ef6b8ef3a01c84076a920f1922ac014364ab411b84f0`, ODC-By 1.0. The pinned upstream builder checks both hashes.
+- Builder: `pheasaKhmer/khmer-engine@31b72cd4665f69678fc835da2f501771e42f097a`, MIT. Full build output: 61,980 unique normalized word/count rows and 209,330 bigram rows; all 3,009 historical sample entries/counts preserved with zero missing/mismatched values.
+- Runtime table: `data/khmer/google-pronunciation-full-frequency.json`, 1,794,821 bytes, deterministic gzip 322,154 bytes, SHA-256 `a5d901e2ddce5f2370bbaf2f502a264e07127f5e97c395859a983d5a4f16b362`. It contains only word/count pairs; source phonemic strings are excluded and never enter the IPA-to-Ukrainian adapter.
+- Exact-main build verification: [run 45215110513](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45215110513) regenerated the pinned data and compared the runtime JSON byte-for-byte. This is complete; do not revert to the 3,009-entry sample as the active dictionary.
+
+### khPOS OPEN-TEST — expanded benchmark, with strict metric separation
+
+The pinned corpus remains fetched on demand, checksum-verified and deleted; it is CC BY-NC-SA 4.0 and must not be bundled, redistributed, or uploaded as a CI artifact. The new evaluator reports three different measures:
+
+| Metric | Precision | Recall | F1 | Interpretation |
+|---|---:|---:|---:|---|
+| All-token exact spans | 77.75% | 83.52% | **80.53%** | Includes punctuation and non-Khmer tokens; closest to the full 10,778-token word inventory |
+| Khmer-only exact spans | 76.68% | 82.80% | **79.62%** | Exact Khmer word-token matches only |
+| Khmer-only boundaries | 87.75% | 95.64% | **91.53%** | Boundary positions only; not word-level F1 |
+
+- Exact source counts: all-token gold 10,778 / predicted 11,578 / TP 9,002 / FP 2,576 / FN 1,776; Khmer-only gold 10,068 / predicted 10,871 / TP 8,336 / FP 2,535 / FN 1,732; boundary gold 8,752 / predicted 9,538 / TP 8,370 / FP 1,168 / FN 382.
+- Python and JavaScript agree **per sentence**, verified by signature `fd345cc72b5fea63854bec556cd0df4bbcd83fd2f3149d6ec50b271c09b5d4f5`; this is stronger than aggregate parity.
+- Wen et al. (2024), [UnifiedCut](https://doi.org/10.3390/app142311435), report word-level F1 97.1% for KhPOS and 98.5% for UnifiedCut on the same named open-test split. The all-token result is only a contextual comparison: preprocessing, annotation-marker treatment and evaluator version may differ. Never compare the 91.53% boundary F1 directly with published word-level F1.
+- These results expose a substantial gap to the published word-level baselines. They do **not** establish target-profile accuracy: khPOS variety and tokenization conventions differ from contemporary Phnom Penh careful-citation Khmer, and FineWeb-2 overlap has not been ruled out. Keep target-profile segmentation accuracy **NOT ASSESSED**.
+- Updated durable evidence: `data/khmer/KHPOS_BENCHMARK_ATTRIBUTION.md` and `data/khmer/sources.json`.
+
+### Performance and release observations
+
+- On exact main `94d51c0`, Quality passed **471 Python tests + 70 subtests**, npm/web checks, all parity checks, engine/tokenizer benchmarks and Vite build; Chromium passed **36/36**; khPOS benchmark passed; Pages deployment and deployed-asset smoke passed.
+- That build's service JS asset was 1,953.79 kB raw / 379.69 kB gzip; the browser tokenizer stress median was 9.25 ms. These are CI microbenchmarks, not universal-device guarantees. Startup measurement and any duplicate-bundle optimization remain deferred until a deployed cold-start measurement justifies the change.
+- The public Pages workflow has completed a successful deploy and deployed-asset smoke on `94d51c0`; the post-`b851884` deployment run is separately tracked above.
+
+### Remaining genuine blockers / human-dependent acceptance
+
+- **BLOCKED — target-profile IPA gold pilot:** requires a Khmer phonetics expert, an approved versioned IPA convention sheet, independent transcription and adjudication. Do not invent IPA or label model outputs gold. The open research task is the expert recruitment / blind pilot.
+- **BLOCKED — manual accessibility review:** automated Chromium/contrast/keyboard tests pass, but human screen-reader, keyboard-only, zoom/reflow and visual review remain required.
+- **DEFERRED — target-profile segmentation accuracy:** needs a rights-cleared, independently adjudicated corpus matched to the contemporary Phnom Penh careful-citation profile. The khPOS OPEN-TEST benchmark is external evidence, not project gold.
+- **DEFERRED — bigram model integration:** 209,330 bigram rows exist in the build artifact but are not used by runtime. Add them only with a justified model change, deterministic Python/JS parity and measured accuracy/performance improvement.
+- **OPEN PR #519:** left untouched. It concerns the IPA/romanization UI switch and optional external G2P providers; static GitHub Pages cannot invoke an external Python inference provider without a separately designed backend. Reconcile it independently rather than merging blindly.
+
+### Current classification
+
+The repository is a **research beta / partial prototype with a verified full segmentation dictionary and an externally measured, still-provisional word-boundary baseline**. It is not release-ready as a complete Khmer→IPA→Ukrainian transcription system: complete orthography-to-IPA coverage, target-profile expert gold, independent segmentation gold and manual accessibility review remain outstanding.
