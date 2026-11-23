@@ -35,8 +35,13 @@ The optional Python `HybridKhmerEngine` is a separate diagnostic wrapper. It run
 
 ## Браузерне виконання без блокування інтерфейсу — 2026-11-23
 
-Детермінований IPA-first рушій тепер запускається в окремому Web Worker через `src/khmer-engine-client.js` та `src/khmer-engine.worker.js`. Worker імпортує той самий локальний `convert()` із `src/main.js`, тому не створює другої реалізації правил і не змінює семантику IPA/українського результату. Мережевих запитів для обчислення немає; текст передається лише між головним потоком і Worker у межах вкладки.
+Детермінований IPA-first рушій тепер запускається в окремому Web Worker через `src/khmer-engine-client.js` та `src/khmer-engine.worker.js`. Worker імпортує той самий локальний `convert()` із `src/khmer-engine-core.js`, тому не створює другої реалізації правил і не змінює семантику IPA/українського результату. Мережевих запитів для обчислення немає; текст передається лише між головним потоком і Worker у межах вкладки.
 
 Клієнт використовує локальний синхронний `convert()` як fail-safe, якщо Worker недоступний або повернув помилку. Номер ревізії рендерингу відкидає застарілі відповіді при швидкому наборі тексту. Романізаційний шлях лишається окремим і не підміняє IPA-first фонетичний рушій.
 
 Це оптимізація чуйності інтерфейсу, а не нова фонологічна модель і не доказ точності. Паритет Python↔JavaScript, ширше покриття та незалежна експертна IPA-ад'юдикація залишаються окремими критеріями.
+
+
+### Engine/UI module separation — 2026-11-23
+
+The deterministic engine has been extracted into `src/khmer-engine-core.js`. The UI entry point `src/main.js` now imports only the functions it needs, while the Worker imports the core directly and no longer bundles the DOM-rendering entry point. Runtime, register-shifter and structural tests now import the core module; static source guards inspect both core and UI where appropriate. The core retains the existing deterministic rules and local romanization-derived fallback dependency; this is modularization, not a new phonology model.
