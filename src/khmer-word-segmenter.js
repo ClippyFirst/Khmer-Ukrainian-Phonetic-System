@@ -1,8 +1,10 @@
 import dataset from "../data/khmer/google-pronunciation-sample.json" with { type: "json" };
+import consonants from "../data/khmer/consonants.json" with { type: "json" };
 
 export const WORD_SEGMENTER_ID = "google-khmer-pronunciation-frequency-viterbi-sample-v1";
 export const WORD_DICTIONARY_SIZE = dataset.entries.length;
 const COENG = "\u17D2";
+const consonantSet = new Set(consonants.map((item) => item.char));
 const MAX_CLUSTERS = 12;
 const entries = new Map(dataset.entries.map(({ word, count }) => [word, Number(count)]));
 const totalCount = [...entries.values()].reduce((sum, count) => sum + count, 0);
@@ -147,28 +149,52 @@ export function describeWordSegmentation(units, fixtureKeys = new Set(), sourceT
     }
   }
   if (pendingRun) sourceRuns.push(pendingRun);
+  const fixtureKeysSorted = [...fixtureKeys].sort((a, b) => [...b].length - [...a].length);
   const candidateRuns = sourceRuns.map((run) => {
-    const protectedFixtures = [...fixtureKeys].filter((key) => {
-      if (!run.includes(key)) return false;
-      const { chars, bounds } = clusterStarts(key);
-      return bounds.length - 1 >= 2;
-    }).sort();
-    if (protectedFixtures.length) {
-      return {
-        source: run,
-        status: "LEXICAL_FIXTURE_PROTECTED",
-        protected_fixtures: protectedFixtures,
-        candidates: [],
-      };
+    const chunks = [];
+    let pending = '';
+    let index = 0;
+    while (index < [...run].length) {
+      const chars = [...run];
+      const fixture = fixtureKeysSorted.find((key) => {
+        const keyChars = [...key];
+        if (chars.slice(index, index + keyChars.length).join('') !== key) return false;
+        const { bounds } = clusterStarts(key);
+        if (bounds.length - 1 < 2) return false;
+        const next = chars[index + keyChars.length];
+        return next === undefined || consonantSet.has(next);
+      });
+      if (!fixture) {
+        pending += chars[index];
+        index += 1;
+        continue;
+      }
+      if (pending) {
+        chunks.push({
+          source: pending,
+          method: 'DICTIONARY_VITERBI_NBEST',
+          candidates: segmentKhmerWordsCandidates(pending, 3).map((candidate, rank) => ({ rank: rank + 1, ...candidate })),
+        });
+        pending = '';
+      }
+      chunks.push({
+        source: fixture,
+        method: 'LEXICAL_FIXTURE_PROTECTED',
+        candidates: [{ rank: 1, cost: 0, segments: [{ text: fixture, known: true, status: 'LEXICAL_FIXTURE' }] }],
+      });
+      index += [...fixture].length;
+    }
+    if (pending) {
+      chunks.push({
+        source: pending,
+        method: 'DICTIONARY_VITERBI_NBEST',
+        candidates: segmentKhmerWordsCandidates(pending, 3).map((candidate, rank) => ({ rank: rank + 1, ...candidate })),
+      });
     }
     return {
       source: run,
-      status: "CANDIDATES_AVAILABLE",
-      protected_fixtures: [],
-      candidates: segmentKhmerWordsCandidates(run, 3).map((candidate, index) => ({
-        rank: index + 1,
-        ...candidate,
-      })),
+      status: chunks.some((item) => item.method === 'DICTIONARY_VITERBI_NBEST') ? 'CANDIDATES_AVAILABLE' : 'LEXICAL_FIXTURES_ONLY',
+      chunks,
     };
   });
 
