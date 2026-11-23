@@ -330,12 +330,6 @@ def main() -> None:
             python_all_token_predictions,
             python_khmer_word_predictions,
         )
-
-        python_signature = prediction_signature(
-            python_boundary_predictions,
-            python_all_token_predictions,
-            python_khmer_word_predictions,
-        )
         javascript_signature = javascript_result.get("prediction_signature")
         if javascript_signature != python_signature:
             raise RuntimeError(
@@ -392,7 +386,8 @@ def main() -> None:
             "raw_token_count": raw_token_count,
             "python": python_metrics,
             "javascript": javascript_metrics,
-            "python_javascript_parity": "PASS",
+            "python_javascript_parity": "PASS_EXACT_PER_SENTENCE",
+            "prediction_signature_sha256": python_signature,
             "limitations": [
                 "The external paper's word-level khPOS scores use the same named open test split, but its exact preprocessing and marker treatment may differ; comparisons are contextual, not a strict reproduction.",
                 "This is not an adjudicated gold set for the project's Phnom Penh careful-citation profile.",
