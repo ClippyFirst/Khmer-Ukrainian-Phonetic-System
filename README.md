@@ -18,7 +18,7 @@ The shared Ukrainian target conventions are maintained in the canonical [foreign
 
 ## Live service — GitHub Pages only
 
-**[Open the Khmer → Ukrainian web service](https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/)**
+**[Open the Khmer → Ukrainian web service](https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/)**
 
 **[Public beta release checklist](docs/BETA-RELEASE-CHECKLIST.md)** · [Beta release policy](docs/BETA-RELEASE-POLICY.md)
 
@@ -43,6 +43,8 @@ The browser service is:
 - Unicode-safe for Khmer and Ukrainian;
 - explicit about `PROPOSED`, `EVIDENCE_LIMITED` and `NOT_ESTABLISHED` states;
 - backed by the repository's research policy rather than duplicated UI-only correspondence tables.
+
+The browser phonetic path now runs in a local Web Worker. The UI and Worker share `src/khmer-engine-core.js`; if the Worker cannot start, the same deterministic JavaScript core runs locally as a fallback. Entered text is not sent to a server. CI checks Python↔JavaScript parity on 129 structural cases, 36 lexical fixtures and 46 consonant/rule cases; these subsets do not establish full result-schema parity or linguistic accuracy.
 
 ## Scope
 
@@ -273,7 +275,7 @@ Python entry point: `from khmer_ua import RuleBasedKhmerEngine`.
 
 ## Live service
 
-GitHub Pages: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System-/
+GitHub Pages: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/
 
 The published phonetic path uses the deterministic local rule engine; the separate romanization mode is not used as a pronunciation fallback.
 
