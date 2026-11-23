@@ -30,7 +30,7 @@ Adopt a native-first browser architecture modelled on the Thai repository: JavaS
 | Shared tokenizer boundary parity cases | DONE_VERIFIED | Python and browser tests consume `data/tests/tokenizer-parity.json`; Unicode 18 subscript-vowel+coda regression passes in both runtimes |
 | 129-case Python↔JavaScript structural parity inventory | DONE_VERIFIED | CI compares token boundaries and core structural fields across all consonants, independent vowels, vowel signs, subscript inventory, eligible shifters and adversarial forms |
 | 36-fixture Python↔JavaScript lexical IPA/UA parity | DONE_VERIFIED | CI compares per-unit source, canonical IPA, Ukrainian adaptation, status and mapping agreement for every browser lexical fixture |
-| Full Python↔JavaScript structural/rule semantic parity | PARTIAL | 129 structural inventory cases and 36 lexical fixtures now pass; full output contract, all contextual rules and open vocabulary remain outstanding |
+| Full Python↔JavaScript structural/rule semantic parity | PARTIAL | 129 structural inventory cases and 36 lexical fixtures pass; full output contract, all contextual rules and open vocabulary remain outstanding |
 | Python↔JavaScript lexical fixture IPA/UA/status parity | DONE_VERIFIED | Exact-head CI compares all 36 shared lexicon fixtures, including mapping agreement |
 | Deterministic orthographic token boundaries and fixture matching | DONE_VERIFIED | Shared cross-runtime boundary fixtures and trie-based longest fixture matching; synthetic 8k stress benchmark 77.7× vs pre-trie implementation |
 | General lexical word segmentation/OOV model | TODO | Evaluate and pin lexical tokenizer/model only after exact asset rights and phonological parity are established |
@@ -171,3 +171,12 @@ The worker now imports `src/khmer-engine-core.js` directly; the DOM entry point 
 - Exact-head Chromium [45147375800](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147375800): 34/34 passed.
 - Tokenizer stress on this run: 8,000 code points; trie median 6.19 ms vs pre-trie 473.60 ms, 76.5×. CI-host variance means this is comparative synthetic evidence only.
 - Full contextual phonology and complete result-schema parity remain PARTIAL; lexical word segmentation/OOV remains TODO; third-party model/corpus redistribution remains BLOCKED pending rights review.
+
+
+## Cross-runtime engine throughput benchmark — 2026-11-23
+
+- Added `npm run bench:engine`, which warms both runtimes and measures 25 batches of the same 36 lexical fixtures through JS `convert()` and Python `RuleBasedKhmerEngine.analyze()`. It is a non-gating CI microbenchmark, not a device-specific latency guarantee.
+- Exact code head `bcd3421a63711812f2e9ea3533e9215796c8db59`: Quality [45147739766](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147739766) passed 455 Python tests + 70 subtests, Node checks, 129 structural parity cases, 36 lexical fixture parity cases, engine and tokenizer benchmarks, and Vite build. Browser [45147739801](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147739801) passed 34/34.
+- Same-run fixture-batch medians: JS 0.4274 ms (84,229 fixture analyses/s), Python 4.3880 ms (8,204/s), observed JS/Python ratio 10.27×. Interpret as measured implementation latency on this CI runner only: Python constructs a richer research result/structure contract and JS output contract is not yet fully identical, so this is not a controlled algorithm-only speedup or a promise for other devices.
+- Tokenizer stress benchmark on the same head: 8,000 code points, trie 4.66 ms vs pre-trie 415.96 ms, 89.3×. Synthetic tokenizer-only comparison.
+- **Task ledger:** comparable same-corpus runtime benchmark = DONE_VERIFIED; fair apples-to-apples full-output benchmark = PARTIAL pending full result-contract parity; end-to-end browser latency on representative mobile devices = TODO.
