@@ -237,7 +237,7 @@ if (sentenceSegments.map((item) => item.text).join("|") !== "ខ្ញុំ|ស
 const sentenceResult = convert("ខ្ញុំស្រឡាញ់ប្រទេសកម្ពុជា", "khmer-pph-careful-citation-v1");
 if (sentenceResult.word_segmentation?.known_words !== 4
     || sentenceResult.word_segmentation?.oov_runs !== 0
-    || !sentenceResult.note.includes("точність сегментації ще не виміряна")) {
+    || !sentenceResult.note.includes("точність не виміряна")) {
   throw new Error("browser result must expose provisional word-segmentation provenance and limits");
 }
 
