@@ -13,13 +13,13 @@ from khmer_ua.word_segmenter import (
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_bundled_word_dictionary_is_attributed_and_sample_sized():
-    data = json.loads((ROOT / "data/khmer/google-pronunciation-sample.json").read_text(encoding="utf-8"))
-    assert WORD_DICTIONARY_SIZE == 3009
-    assert len(data["entries"]) == 3009
-    assert data["metadata"]["pronunciation_data_license"] == "CC BY 4.0"
-    assert data["metadata"]["frequency_data_license"] == "ODC-By 1.0"
-    assert WORD_SEGMENTER_ID == "google-khmer-pronunciation-frequency-viterbi-sample-v1"
+def test_bundled_word_dictionary_is_attributed_and_full_sized():
+    data = json.loads((ROOT / "data/khmer/google-khmer-word-frequencies.json").read_text(encoding="utf-8"))
+    assert WORD_DICTIONARY_SIZE == 61980
+    assert len(data["entries"]) == 61980
+    assert data["google_lexicon_license"] == "CC BY 4.0"
+    assert data["frequency_data_license"] == "ODC-By 1.0"
+    assert WORD_SEGMENTER_ID == "google-khmer-fineweb2-frequency-viterbi-full-v1"
 
 
 def test_sentence_is_segmented_into_dictionary_known_words():
@@ -129,7 +129,7 @@ def test_candidate_diagnostics_are_explicitly_not_probabilities_or_accuracy():
 
 
 def test_every_bundled_dictionary_entry_remains_a_single_known_word():
-    data = json.loads((ROOT / "data/khmer/google-pronunciation-sample.json").read_text(encoding="utf-8"))
+    data = json.loads((ROOT / "data/khmer/google-khmer-word-frequencies.json").read_text(encoding="utf-8"))
     for entry in data["entries"]:
         word = entry["word"]
         pieces = segment_words(word)
