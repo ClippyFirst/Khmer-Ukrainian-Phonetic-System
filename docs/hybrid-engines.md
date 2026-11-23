@@ -2,7 +2,7 @@
 
 ## Contract
 
-`HybridKhmerEngine` always obtains the published `ipa` and `ukrainian` values from `RuleBasedKhmerEngine`. Explicitly injected external providers may add diagnostic candidates, but cannot vote, override, or otherwise alter those values.
+`HybridKhmerEngine` always obtains the canonical `ipa` and `ukrainian` values from `RuleBasedKhmerEngine`. Explicitly injected external providers are validated and retained individually. When canonical IPA is unresolved, the API additionally exposes a separate `provisional_candidate`: the first configured provider whose IPA maps completely through the Ukrainian adapter, or the first valid IPA candidate if none maps. This candidate is explicitly `PROVISIONAL`, carries provider provenance and uncertainty, and never overwrites canonical fields. Provider order is triage only; there is no majority vote, synthetic consensus, accuracy ranking, or automatic promotion.
 
 Every provider must return a structured mapping containing:
 - `ipa`: the raw IPA string;
@@ -30,12 +30,13 @@ engine = HybridKhmerEngine({
     }
 })
 result = engine.analyze("ខ្មែរ")
-# result["ipa"] and result["ukrainian"] still come from RuleBasedKhmerEngine.
+# result["ipa"] and result["ukrainian"] remain canonical rule-engine fields.
+# result["provisional_candidate"] is a separate candidate when canonical IPA is unresolved.
 ```
 
 ## Optional adapters and limitations
 
-`make_mekongphon_backend` lazily loads the pinned external model only when explicitly injected and called. `make_command_backend` wraps a caller-supplied pinned CLI command. Neither adapter is enabled by default; optional dependencies are not installed by the core package.
+`make_mekongphon_backend` lazily loads the pinned external model only when explicitly injected and called. `make_command_backend` wraps a caller-supplied pinned CLI command. Neither adapter is enabled by default; optional dependencies are not installed by the core package. When a caller injects a provider, a mappable result can be surfaced through `provisional_candidate` without changing canonical fields.
 
 Provider priority (MekongPhon 10, Khmer Phonemizer 20, Epitran 30, unknown 50, Goruut 90) is diagnostic ordering only, not a quality score. Provider execution is opt-in and may invoke external code; callers are responsible for pinning, sandboxing and reviewing the command/dependency and its rights.
 
