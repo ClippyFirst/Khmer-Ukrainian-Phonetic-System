@@ -67,3 +67,10 @@ The worker now imports `src/khmer-engine-core.js` directly; the DOM entry point 
 - Exact code head: `c2dc56949ee519dfcdb13139e49002b92a3fa5bc`.
 - Quality [45136544361](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136544361): 453 Python tests + 70 subtests; Node checks, worker contract and Vite build all passed.
 - Chromium [45136544247](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136544247): 34/34 passed; worker execution, worker asset failure fallback and delayed stale-response race all passed.
+
+
+## Final branch/PR reconciliation
+
+- The code implementation is on `feat/khmer-native-worker-engine-20261123`; branch tip `994d9dd07adb8f66c5662540f51105cb4f3c0295` passed Quality [45136761275](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136761275) and Chromium [45136761235](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136761235): 453 Python tests + 70 subtests and 34 Chromium tests, including Worker/fallback/stale-response cases.
+- PR #520 is open and unmerged; therefore no Pages deployment is claimed.
+- PR #519 was inspected and left untouched: it adds optional Python hybrid diagnostics, modifies overlapping UI/docs/test files, and is not the browser-native model port. Sequence/reconcile the overlapping files before merging either PR; do not merge blindly.
