@@ -212,7 +212,9 @@ def build_report(signs, consonants, registers, evidence):
     total = len(cells)
     status_counts = Counter(cell["status"] for cell in cells.values())
     conflict_cases = [case for case in cases if case.get("status") == "CONFLICTING_SOURCE_ANALYSES"]
-    contextual_evidence = build_contextual_vowel_evidence(\n        cases, evidence.get("sources", {}), evidence.get("context_dimensions", [])\n    )
+    contextual_evidence = build_contextual_vowel_evidence(
+        cases, evidence.get("sources", {}), evidence.get("context_dimensions", [])
+    )
     return {
         "schema_version": "1.0.0",
         "generated_by": "scripts/coverage.py",
