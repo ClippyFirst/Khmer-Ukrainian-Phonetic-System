@@ -17,7 +17,15 @@
     },
     "chem2020": {
       "url": "https://doi.org/10.61945/cjbar.2020.2.2.3",
-      "role": "Acoustic study of a small Phnom Penh speaker sample; supports contextual dimensions, not individual rows unless directly studied"
+      "role": "Small Phnom Penh acoustic vowel study; four selected speakers and 61 lexical items, useful for bounded open/closed and vowel inventory observations, not a complete cross-product."
+    },
+    "mam2025": {
+      "url": "https://doi.org/10.21437/TAI.2025-29",
+      "role": "Peer-reviewed conference proceedings acoustic F0 study comparing five Phnom Penh Khmer speakers' PPK and SK productions; prosody evidence only, not vowel-formant or phonation evidence."
+    },
+    "wayland-guion2005": {
+      "url": "https://doi.org/10.15144/MKSJ-35.55",
+      "role": "Acoustic comparison of careful and colloquial Phnom Penh Khmer for a bounded set of obstruent+/r/ words; two-speaker evidence, not a universal /r/ rule."
     }
   },
   "cases": [
@@ -293,5 +301,125 @@
       ]
     }
   ],
-  "coverage_policy": "Rows with ukrainian_adaptation=null are deliberate: the repository has a proposed segment adapter, but these word-level outputs have not been adjudicated and must not be presented as confident lexical transcriptions."
+  "coverage_policy": "Rows with ukrainian_adaptation=null are deliberate: the repository has a proposed segment adapter, but these word-level outputs have not been adjudicated and must not be presented as confident lexical transcriptions.",
+  "context_dimensions": [
+    {
+      "id": "PPH-CTX-001",
+      "dimension": "consonant_series_and_register",
+      "environment": "base consonant class × inherent/dependent vowel sign; register shifters may change class",
+      "finding": "R12A explicitly illustrates ក /kɑː/ vs គ /kɔː/, កី /kəj/ vs គី /kiː/, and កា /kaː/ vs គា /kiə/.",
+      "source_ids": [
+        "r12a-orthography"
+      ],
+      "locator": "Khmer Orthography Notes, §§Consonant registers and Inherent vowels, lines 235–266; examples table lines 237–243.",
+      "profile_scope": "Modern Khmer orthographic pronunciation reference; not a balanced contemporary Phnom Penh acoustic experiment.",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "implementation": "Use as four source-attested open-syllable examples only. Do not extrapolate to every sign, coda, or profile."
+    },
+    {
+      "id": "PPH-CTX-002",
+      "dimension": "cross_syllable_vowel_harmony",
+      "environment": "two-syllable words where the second syllable begins with a sonorant",
+      "finding": "The second syllable may take the first syllable's vowel class when its onset is one of ង ញ ណ ន ម យ ឡ ល រ វ; explicit exceptions are noted.",
+      "source_ids": [
+        "r12a-orthography"
+      ],
+      "locator": "Khmer Orthography Notes, §Vowel harmony, lines 247–257.",
+      "profile_scope": "Descriptive modern Khmer synthesis; no complete contemporary Phnom Penh lexical list or exception inventory.",
+      "evidence_status": "SOURCE_REPORTED_WITH_EXCEPTIONS",
+      "implementation": "Keep as a lexical/contextual dependency. Never overwrite the second base consonant's underlying orthographic class globally."
+    },
+    {
+      "id": "PPH-CTX-003",
+      "dimension": "stress_and_weak_syllables",
+      "environment": "stressed vs unstressed vowels; first syllable of many bisyllabic words",
+      "finding": "R12A maps several vowel phones with following glottal closure in stressed syllables but not unstressed; many bisyllabic words have an unstressed first syllable realized as schwa in colloquial speech, while compounds may differ.",
+      "source_ids": [
+        "r12a-orthography"
+      ],
+      "locator": "Khmer Orthography Notes, §Phonetic syllables lines 201–209; vowel mapping legend lines 491–496 and entries lines 503–615.",
+      "profile_scope": "General modern Khmer description with explicit colloquial qualification; not a controlled Phnom Penh stress experiment.",
+      "evidence_status": "SOURCE_REPORTED_NOT_EXPERIMENTALLY_VERIFIED",
+      "implementation": "Stress and word structure must be explicit inputs or remain unresolved. Do not inject glottal stops or schwa solely from spelling."
+    },
+    {
+      "id": "PPH-CTX-004",
+      "dimension": "coda_marks_and_coda_place",
+      "environment": "U+17C6 NIKAHIT, U+17C7 REAHMUK, U+17CB BANTOC, and series-2 U+17D0 before different final places",
+      "finding": "NIKAHIT and REAHMUK represent /-m/ and /-h/ and also affect the nucleus; BANTOC shortens the preceding vowel. For ɔ-class forms with U+17D0, the cited rhymes distinguish velar finals (/eə̆/) from non-velar finals (/oə̆/).",
+      "source_ids": [
+        "r12a-orthography"
+      ],
+      "locator": "Khmer Orthography Notes, §§Nikahit and reahmuk lines 325–347; vowel mapping entries lines 753–826; coda tables around lines 1240–1265.",
+      "profile_scope": "Specialist descriptive mapping; exact contemporary Phnom Penh token distributions and full coda inventory are not acoustically cross-tabulated.",
+      "evidence_status": "SOURCE_REPORTED_CONTEXT_DEPENDENT",
+      "implementation": "Model the coda and nucleus jointly. Do not treat ំ/ះ as independent vowels or reduce every ់ form by a fixed universal duration."
+    },
+    {
+      "id": "PPH-CTX-005",
+      "dimension": "open_closed_syllable_and_vowel_duration",
+      "environment": "open vs closed syllable; coda present",
+      "finding": "Chem reports closed syllables are usually shorter and that final consonants can modify nucleus quality and length; short diphthongs are reported in closed contexts with /-h, -k, -ʔ/.",
+      "source_ids": [
+        "chem2020"
+      ],
+      "locator": "Chem 2020, pp. 108–112 (PDF pp. 13–17), especially pp. 109, 111–112.",
+      "profile_scope": "Phnom Penh acoustic sample: 21 speakers screened, four selected speakers (two female), 61 lexical items, three formal-reading repetitions.",
+      "evidence_status": "BOUNDED_ACOUSTIC_SAMPLE",
+      "implementation": "Use as a coda/syllable-context risk flag, not a complete coda-conditioned IPA rule. The paper reports inconsistent duration units/values and does not supply a full vowel × coda × series table."
+    },
+    {
+      "id": "PPH-CTX-006",
+      "dimension": "profile_specific_vowel_mergers",
+      "environment": "Phnom Penh vs Standard Khmer lexical diphthong contrasts",
+      "finding": "Chem reports /tiɜ/ vs /tiət/ as distinct in Standard Khmer but merged in the studied Phnom Penh variety; likewise /eː/ vs /ɛe/ is reported merged as /eː/ in Phnom Penh.",
+      "source_ids": [
+        "chem2020"
+      ],
+      "locator": "Chem 2020, pp. 98–100 and 114–115 (PDF pp. 3–5 and 20–21).",
+      "profile_scope": "Four-speaker Phnom Penh sample; article explicitly states Standard Khmer is not a sharply defined variety and notes regional/speaker variation.",
+      "evidence_status": "BOUNDED_PROFILE_SPECIFIC_REPORT",
+      "implementation": "Keep as profile-specific lexical contrasts. Do not implement a global phoneme merger from two examples."
+    },
+    {
+      "id": "PPH-CTX-007",
+      "dimension": "colloquial_r_loss_and_vowel_cues",
+      "environment": "underlying obstruent+/r/ onset in careful-reading vs colloquial Phnom Penh speech",
+      "finding": "Wayland and Guion report colloquial /r/ loss with increased onset aspiration, F0 changes and vowel changes in their sampled items; careful forms provide a separate comparison.",
+      "source_ids": [
+        "wayland-guion2005"
+      ],
+      "locator": "Wayland & Guion 2005, Mon-Khmer Studies 35, pp. 55–82; DOI 10.15144/MKSJ-35.55.",
+      "profile_scope": "Two male Phnom Penh speakers, 20 obstruent+/r/ items, three repetitions in each speech style.",
+      "evidence_status": "BOUNDED_STYLE_SPECIFIC_ACOUSTIC_SAMPLE",
+      "implementation": "Do not delete written/underlying /r/ globally. A colloquial profile requires a conditioned lexical pathway and separate onset/F0/vowel cues."
+    },
+    {
+      "id": "PPH-CTX-008",
+      "dimension": "pitch_and_syllable_structure",
+      "environment": "Phnom Penh vs Standard Khmer; r>h clusters and voiced-onset disyllables",
+      "finding": "Mam et al. report a lower F0 group in PPK for r>h onsets and voiced-onset disyllabic words; five speakers and 50 words were analyzed, with three repetitions and F0 measured on the stressed rime. The authors interpret the categorical separation as possible phonologized high/low pitch.",
+      "source_ids": [
+        "mam2025"
+      ],
+      "locator": "Mam, Pittayaporn & Maspong 2025, TAI pp. 138–143; §§2–4, DOI 10.21437/TAI.2025-29.",
+      "profile_scope": "Five native speakers aged 20–25 from greater Phnom Penh; PPK and SK elicitation. F0 only; no vowel formants, voice quality, or perception test.",
+      "evidence_status": "RECENT_BOUNDED_PROSODIC_EVIDENCE",
+      "implementation": "Keep pitch as a separate profile/prosody layer. Do not encode a general lexical tone or derive tone marks from graphemes; the paper itself calls for perception evidence."
+    },
+    {
+      "id": "PPH-CTX-009",
+      "dimension": "orthographic_vs_phonetic_syllable_and_coda_parse",
+      "environment": "coeng chains, unmarked vowel absence, consonant stacking and orthographic syllable boundaries",
+      "finding": "Khmer orthographic units do not always coincide with phonetic syllables; coengs can encode onset clusters or syllable chaining, and absence of a vowel may be unmarked. A consonant sequence may have competing syllabifications without lexical context.",
+      "source_ids": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "locator": "Unicode L2/22-290, §§Orthographic Syllable Structure and Coengs, pp. 9–10; R12A §§Phonetic syllables and Unmarked vowel absence, lines 201–215 and 1095–1115.",
+      "profile_scope": "Orthographic/structural evidence, not acoustic resolution of individual ambiguous words.",
+      "evidence_status": "ORTHOGRAPHIC_STRUCTURE_ESTABLISHED_PHONETIC_PARSE_CONTEXTUAL",
+      "implementation": "Resolve structure before vowel rules. If lexical segmentation/coda role is ambiguous, keep IPA unresolved rather than guessing."
+    }
+  ]
 }
