@@ -789,5 +789,43 @@
       "service_bundle_gzip_bytes": 378230,
       "duplicate_dictionary_bundle_optimization": "DEFERRED_PENDING_REAL_DEPLOYED_STARTUP_MEASUREMENT"
     }
+  },
+  {
+    "id": "khpos-open-test-2017",
+    "type": "external_manually_segmented_word_boundary_benchmark",
+    "title": "khPOS Khmer POS Corpus — OPEN-TEST.word",
+    "year": 2017,
+    "url": "https://github.com/ye-kyaw-thu/khPOS/tree/0211405c145b0a340ad558569bd06c946b2296b4/corpus-draft-ver-1.0/data",
+    "repository_url": "https://github.com/ye-kyaw-thu/khPOS",
+    "repository_revision": "0211405c145b0a340ad558569bd06c946b2296b4",
+    "path": "corpus-draft-ver-1.0/data/OPEN-TEST.word",
+    "git_blob_sha": "34cf93f298c06723419212f0f0777f3783537069",
+    "sentences": 1000,
+    "raw_token_count": 10778,
+    "license": "CC BY-NC-SA 4.0",
+    "status": "EXTERNAL_BENCHMARK_EVALUATED_NOT_TARGET_PROFILE_GOLD",
+    "scope": "The public OPEN-TEST.word split contains 1,000 manually word-segmented sentences from the khPOS POS-tagged corpus. The companion OPEN-TEST and OPEN-TEST.tag files have the same 1,000-line structure and matching per-line token counts. The benchmark reconstructs source orthography by removing the annotation joiners ~, _ and ^ while preserving each marked item as one gold token; it scores only boundaries between adjacent Khmer word tokens.",
+    "provenance": "Ye Kyaw Thu, Vichet Chea and Yoshinori Sagisaka (2017), 'Comparison of Six POS Tagging Methods on 12K Sentences Khmer Language POS Tagged Corpus', ONA 2017, Phnom Penh. The khPOS README acknowledges manual POS tagging by Sorn Kea and Leng Greyhuy.",
+    "limitations": "CC BY-NC-SA 4.0: use only for non-commercial evaluation with attribution and share-alike obligations; do not bundle, redistribute, or upload the corpus as a workflow artifact. The corpus combines news, economics, politics, student lists and voter lists; its target variety and tokenization policy are not specified as the project's contemporary Phnom Penh careful-citation profile. The benchmark is not target-profile gold. Possible overlap between khPOS source texts and FineWeb-2 frequency-training text has not been ruled out. Do not interpret its score as universal Khmer segmentation accuracy or as pronunciation/IPA accuracy.",
+    "benchmark_result": {
+      "workflow_run_id": 45220729721,
+      "workflow_run_url": "https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45220729721",
+      "sentences": 1000,
+      "raw_tokens": 10778,
+      "khmer_gold_word_tokens": 10068,
+      "sentences_with_gold_boundaries": 999,
+      "exact_sentence_matches": 487,
+      "gold_boundaries": 8752,
+      "predicted_boundaries": 9538,
+      "true_positive_boundaries": 8370,
+      "false_positive_boundaries": 1168,
+      "false_negative_boundaries": 382,
+      "boundary_precision": 0.8775424617320193,
+      "boundary_recall": 0.9563528336380256,
+      "boundary_f1": 0.9152542372881356,
+      "python_javascript_parity": "PASS_EXACT_AGGREGATE_COUNTS",
+      "target_profile_accuracy": "NOT_ASSESSED",
+      "limitations": "External manual annotation convention only; khPOS variety and compound token policy are not the project's target profile. FineWeb-2 overlap is unknown. No general Khmer segmentation accuracy or pronunciation accuracy claim."
+    }
   }
 ]
