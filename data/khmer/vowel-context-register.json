@@ -25,7 +25,7 @@
     },
     "wayland-guion2005": {
       "url": "https://doi.org/10.15144/MKSJ-35.55",
-      "role": "Preliminary acoustic investigation of colloquial versus reading Phnom Penh /CrV/ forms in two male speakers; later Kirby (2014) reports that its seven-item wordlist contained only /CrV/ items, with no matched /CV/ or /ChV/ control set. Do not infer an unverified repetition count."
+      "role": "Preliminary acoustic investigation of colloquial /r/-loss in two male Phnom Penh speakers; later Kirby (2014) reports effects on f0, VOT/aspiration and vowel quality. The accessible source does not establish the wordlist size, repetition count or a matched control design; do not infer these."
     },
     "kirby2014": {
       "url": "https://doi.org/10.1016/j.wocn.2014.02.001",
@@ -525,14 +525,14 @@
       "id": "PPH-CTX-007",
       "dimension": "colloquial_r_loss_and_vowel_cues",
       "environment": "underlying obstruent+/r/ onset in careful-reading vs colloquial Phnom Penh speech",
-      "finding": "Wayland and Guion's preliminary acoustic study of colloquial /r/-loss reports increased post-release aspiration, pitch differences and vowel-quality changes in two male Phnom Penh speakers. Kirby (2014) notes that their seven-item wordlist contained only /CrV/ items, so it did not include matched /CV/ or /ChV/ control categories.",
+      "finding": "Wayland and Guion's preliminary acoustic study reports differences in post-release aspiration/VOT, f0 and vowel quality between reading and colloquial Phnom Penh /CrV/ forms in two male speakers. The accessible account does not establish the wordlist size, repetition count or matched /CV/ and /ChV/ control design.",
       "source_ids": [
         "wayland-guion2005"
       ],
       "locator": "Wayland & Guion 2005, Mon-Khmer Studies 35, pp. 55–82; DOI 10.15144/MKSJ-35.55.",
-      "profile_scope": "Two male Phnom Penh speakers; seven /CrV/ wordlist items as reported by Kirby (2014, §3.1). The accessible source does not establish a repetition count. This is preliminary evidence without matched /CV/ or /ChV/ controls.",
+      "profile_scope": "Two male Phnom Penh speakers. The accessible paper summary and Kirby (2014) citation establish the speaker count and acoustic dimensions, but not a verified wordlist size or repetition count.",
       "evidence_status": "BOUNDED_STYLE_SPECIFIC_ACOUSTIC_SAMPLE",
-      "implementation": "Treat as preliminary evidence for a colloquial /CrV/ pathway only. Do not generalize to all consonants, vowel classes or careful speech; prefer the larger matched acoustic/perceptual design in Kirby (2014) for context-level conclusions."
+      "implementation": "Treat as preliminary evidence for a colloquial /CrV/ pathway only. Do not generalize to all consonants, vowel classes or careful speech; do not infer missing sample counts or controls."
     },
     {
       "id": "PPH-CTX-008",
