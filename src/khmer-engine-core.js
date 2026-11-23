@@ -388,6 +388,8 @@ function renderFixture(fixture, profile) {
       evidence: fixture.evidence ?? [],
       source_locator: fixture.source_locator ?? null,
       ...(hasPartialOnset ? {
+        analysis,
+        phonology_evidence: CONSONANTS[analysis.base]?.evidence ?? [],
         provisional_ipa: onsetIpa,
         provisional_ukrainian: partialUkrainian,
         partial_ipa: onsetIpa,
@@ -685,7 +687,7 @@ function convert(text, profile) {
         : item.status === "PROPOSED" ? "IPA_DERIVED" : "UNRESOLVED",
     profile,
     provenance: {
-      phonology: item.evidence ?? [],
+      phonology: item.phonology_evidence ?? item.evidence ?? [],
       structure: item.analysis ? ["unicode17-ch16"] : [],
       target_policy: item.mapping_check
         ? ["data/ukrainian/practical-policy.json"]
@@ -742,7 +744,9 @@ function convert(text, profile) {
     + unresolved.length + " потребують окремого встановлення або перевірки (" + notEstablished
     + " не встановлено, " + evidenceLimited + " з обмеженою доказовістю, " + invalid
     + " некоректних/непідтримуваних); " + linguistic.filter((item) => item.fallback_status === "PROVISIONAL").length
-    + " мають попередній орфографічний український кандидат. Невизначеність IPA збережено."
+    + " мають попередній орфографічний український кандидат; "
+    + rendered.filter((item) => item.partial_candidate_kind === "ONSET_ONLY").length
+    + " мають окрему IPA-підказку лише для початкового приголосного. Невизначеність IPA збережено."
     + (unresolvedNames.length ? " Невстановлені/проблемні одиниці: " + unresolvedNames.join(" · ") + "." : "");
   const note = selectedExternalCandidate
     ? resultNote + " Додатково показано зовнішній IPA-кандидат від " + selectedExternalCandidate.provider
