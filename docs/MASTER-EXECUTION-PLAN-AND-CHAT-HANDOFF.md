@@ -6675,3 +6675,44 @@ This supersedes the earlier `DEFERRED` status for *conducting* a local tagger ex
 
 - This repair closes only the missing source locator/evidence fields for these four representative fixtures. It does not close the wider contextual-vowel matrix, independent IPA gold, manual accessibility review, or linguistic accuracy gates.
 - PR #557 remains open and unmerged. No merge or deployment was performed.
+
+
+## Contextual phonology evidence expansion — 2026-11-24
+
+### Scope decisions
+
+- At the user's direction, independent IPA gold corpus work (issue #104) and manual accessibility audit (issue #463) are **DEFERRED / outside the current implementation scope**. Their issues remain open as future research/audit records; neither is treated as an active blocker for the contextual-phonology work. No expert gold or WCAG-conformance claim is made.
+- The active focus is KHM-PHON-CONTEXT-001: make the third workstream (contextual vowel/phonology matrix) more source-backed, explicit, testable and useful for later implementation.
+
+### Research sources examined
+
+- Richard Ishida, *Khmer Orthography Notes*, updated 2026-04-27: consonant class examples, vowel harmony, stress/glottal-closure notes, coda marks, coda-conditioned rhymes, and orthographic/phonetic syllable ambiguity. Exact locators are recorded in the matrix and data register. Public source: https://r12a.github.io/scripts/khmr/km.html.
+- Chem Vatho (2020), *The Standard Khmer vowel system: An acoustic study*, pp. 93–121, DOI 10.61945/cjbar.2020.2.2.3. Full-text PDF: https://www.cjbar.rupp.edu.kh/index.php/cjbar/article/download/36/32. The study screened 21 speakers, then selected four Phnom Penh speakers (two female) and measured 61 lexical items in formal reading with three repetitions (pp. 104–105). It reports closed-syllable shortening/coda effects and short diphthongs in /-h, -k, -ʔ/ contexts (pp. 108–112), and bounded PP-vs-SK vowel mergers (pp. 114–115). Its sample limitations, lexical gaps, stress artifacts and inconsistent duration reporting are preserved.
+- Mam, Pittayaporn & Maspong (2025), *Phonologization of Pitch in Phnom Penh and Standard Khmer for Cluster and Disyllabic Words*, TAI 2025, pp. 139–143, DOI 10.21437/TAI.2025-29. Full text: https://www.isca-archive.org/tai_2025/mam25_tai.pdf. Five speakers, 50 words, three repetitions; F0 on the stressed rime. PPK's lower F0 group includes r>h onsets and voiced-onset disyllables. This is prosodic evidence, not vowel-formant or voice-quality evidence.
+- Wayland & Guion (2005), *Sound changes following the loss of /r/ in Khmer*, Mon-Khmer Studies 35, pp. 55–82, DOI 10.15144/MKSJ-35.55. Two male Phnom Penh speakers, 20 obstruent+/r/ items and three repetitions in each careful/colloquial style. Keep /r/-loss and its vowel/F0/aspiration cues style-conditioned.
+- Unicode L2/22-290, *Khmer Encoding Structure* (2022), §§Orthographic Syllable Structure and Coengs, pp. 9–10: orthographic structure is not a phonetic syllabification oracle.
+
+### Implementation/evidence changes
+
+- Extended data/khmer/vowel-context-register.json with nine source-indexed context_dimensions: consonant series/register × vowel sign; cross-syllable vowel harmony; stress and weak syllables; coda marks and coda place; open/closed syllable and duration; profile-specific vowel mergers; colloquial /r/-loss and vowel cues; PPK pitch and syllable structure; orthographic vs phonetic syllable/coda parsing.
+- Added registered source metadata for mam2025, wayland-guion2005 and bounded chem2020 evidence role.
+- Extended schemas/khmer-vowel-context-register.schema.json to validate the context-dimension record structure and controlled evidence-status vocabulary.
+- Added test_context_dimensions_have_resolvable_sources_and_explicit_boundaries in tests/test_khmer_vowel_context_schema.py. It checks unique IDs, resolvable source IDs and required context/locator/profile/implementation fields.
+- Expanded docs/audits/current/KHMER-VOWEL-SERIES-CODA-EVIDENCE-MATRIX-2026-11-01.md with a nine-row contextual evidence matrix, source-quality limits and ranked implementation/research actions.
+- No new runtime IPA/vowel/coda/tone rule, lexical IPA, Ukrainian output or gold label was added. Runtime behavior remains conservative until a context has exact lexical evidence and profile qualification.
+
+### Task ledger
+
+| Task | Status | Acceptance / boundary |
+|---|---|---|
+| KHM-IPA-GOLD-001 | DEFERRED | User says expert gold work is not feasible/in scope now; accuracy remains NOT_ASSESSED, no fabricated labels |
+| KHM-ACCESSIBILITY-MANUAL-001 | DEFERRED | User says manual audit is not feasible/in scope now; no WCAG conformance claim |
+| KHM-PHON-CONTEXT-001 evidence matrix | PARTIAL, expanded | Nine context dimensions source-indexed and schema/test-covered; full lexical cross-product and general runtime rules remain incomplete |
+| Context-dimension schema and source-reference test | Implementation present; exact-head CI pending | Must pass Quality workflow on the resulting branch head |
+| Runtime contextual vowel/coda implementation | TODO / evidence-limited | Needs exact lexical cases, positive/negative fixtures, profile qualification and Python/browser parity before promotion |
+
+### Verification boundary
+
+- No local tests are claimed. The exact-head GitHub Actions Quality workflow must validate the new schema and test. Existing prior CI evidence for the branch does not validate these latest changes.
+- New Undermind deep literature search is running in workspace 4f071406-bdb4-4fd1-b93f-71b9d5ec661d, search path /analysis/Phnom Penh Khmer contextual vowel conditioning evidence matrix 2026. Review its final result before treating the literature sweep as complete.
+- PR #557 remains open and unmerged. No Pages deployment or release was performed.
