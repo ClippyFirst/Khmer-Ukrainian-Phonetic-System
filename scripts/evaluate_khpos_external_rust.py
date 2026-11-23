@@ -144,7 +144,15 @@ def score_rust(binary: Path, strategy: str, dictionary: Path, frequency: Path,
     boundaries, all_spans, khmer_spans = [], [], []
     for sentence, line in zip(sentences, lines, strict=True):
         tokens = line.split("\t") if line else []
-        b, a, k = predicted_spans_from_units([{"source": t} for t in tokens], sentence)
+        # The shared evaluator records a boundary when it sees an explicit
+        # single-space unit. Rust returns token arrays, so reconstruct those
+        # separators here; offsets do not advance across the separator.
+        units = []
+        for index, token in enumerate(tokens):
+            if index:
+                units.append({"source": " "})
+            units.append({"source": token})
+        b, a, k = predicted_spans_from_units(units, sentence)
         boundaries.append(b); all_spans.append(a); khmer_spans.append(k)
     return {
         "strategy": strategy,
