@@ -3,6 +3,7 @@ name: Full Khmer lexicon rebuild
 on:
   push:
     branches:
+      - main
       - research/khmer-full-google-lexicon-rebuild-2026-11-23
     paths:
       - data/khmer/google-pronunciation-full.tsv
