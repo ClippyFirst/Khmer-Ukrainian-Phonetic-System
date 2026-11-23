@@ -6479,3 +6479,35 @@ Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issu
 - **Revised experiment gate:** do not benchmark registry artifacts as if they were v0.3. A valid research comparison must build the same pinned Rust commit for the tested interface(s), feed the exact same pinned khPOS OPEN-TEST inputs, use the project's 61,980 word/count rows only as caller-supplied frequencies (not as a substituted pronunciation lexicon), and report (a) exact word-span P/R/F1, (b) KCC integrity and byte/source preservation, (c) OOV-run behavior, (d) normalization changes with source offsets or explicit exclusions, (e) per-sentence Python/JS parity, and (f) build/bundle/runtime cost. Report MinWordsDp and UnigramDp separately. Do not mix tagger scores or upstream's embedded 59,526-word dictionary into the same comparison.
 - **Status:** PARTIAL — upstream code and license boundary inspected; BLOCKED — same-commit Python/WASM package parity is not available from the published registries; TODO — controlled pinned-source benchmark. No dependency, dictionary, model, or production segmentation behavior was changed.
 - Sources: upstream pinned source [f38eae5924d4e41a46fd2204cf6951cdb0dc8908](https://github.com/Alujack/khmer-tokenizer/tree/f38eae5924d4e41a46fd2204cf6951cdb0dc8908), [PyPI release metadata](https://pypi.org/project/khmer-tokenizer/), [npm package metadata](https://www.npmjs.com/package/kh-tokenizer).
+
+
+## Controlled pinned-source Rust tokenizer benchmark — 2026-11-23
+
+**Status: DONE_VERIFIED (research comparison); NO PRODUCTION ADOPTION.** PR [#544](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/544) merged at `1748ddb76100d8a7ac5df1ac23a3f22ab270163e`. The reproducible harness is `scripts/evaluate_khpos_external_rust.py`; workflow `.github/workflows/pinned-rust-khmer-benchmark.yml` builds the external core from source and runs the comparison. Successful pinned-source benchmark: [run 45252218687](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45252218687). On the same PR head, Quality [run 45252218662](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45252218662) and Chromium [run 45252218659](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45252218659) also passed.
+
+### Reproducibility and controls
+
+- Upstream Rust source pinned to `Alujack/khmer-tokenizer@f38eae5924d4e41a46fd2204cf6951cdb0dc8908`, core version `0.3.0`; compiled from source in GitHub Actions with Cargo offline after checkout.
+- Corpus: khPOS `OPEN-TEST.word`, revision `0211405c145b0a340ad558569bd06c946b2296b4`, Git blob SHA-1 `34cf93f298c06723419212f0f0777f3783537069`; 1,000 sentences / 10,778 gold tokens. The CC BY-NC-SA 4.0 corpus was downloaded to a temporary directory, checksum-verified, and removed. No corpus, model, or benchmark input was committed or uploaded as an artifact.
+- Both Rust strategies received exactly the same 61,980 word/count rows from `google-pronunciation-full-frequency.json`, SHA-256 `a5d901e2ddce5f2370bbaf2f502a264e07127f5e97c395859a983d5a4f16b362`. Google spellings and FineWeb-2 counts are used only as dictionary/frequency data; phonemic strings are excluded. The upstream embedded dictionary and trained tagger were not used.
+- Corpus scoring disabled upstream orthographic normalization so token spans remain directly comparable to the unchanged source offsets. KCC boundary integrity, OOV-run grouping, and three known normalization fixture families (including idempotence and byte-length preservation) passed in the Rust harness. This does not claim that every one of upstream's four normalization rules was independently fixture-tested by this harness.
+- The evaluator reports all-token exact spans, Khmer-only exact spans, and Khmer-only boundaries separately. Python/JavaScript parity for the project's existing engine remains covered by the pre-existing khPOS workflow; this comparison does not claim a Rust WASM/Python cross-runtime parity result.
+
+### Measured results
+
+| Engine / strategy | All-token span F1 | Khmer-only span F1 | Khmer boundary F1 | One-run elapsed |
+|---|---:|---:|---:|---:|
+| Project Viterbi (current) | **80.53%** | **79.62%** | **91.53%** | 3.7236 s |
+| Upstream `MinWordsDp` + project dictionary | 79.26% | 78.16% | 90.35% | 0.1888 s |
+| Upstream `UnigramDp` + project frequencies | 79.82% | 78.76% | 90.70% | 0.2154 s |
+
+These are controlled measurements on this corpus, this dictionary, and this evaluator—not universal Khmer accuracy or target-profile gold. The elapsed values are single-run GitHub-hosted runner observations, not repeated medians or device-wide performance guarantees. The upstream README's published figures (0.751 for its default and 0.791 for UnigramDp + HMM) are not head-to-head comparable because their bundled dictionary/model and normalization setup differ.
+
+**Decision:** neither external dictionary strategy improves any of the three reported F1 measures over the current project Viterbi. The Rust implementations were substantially faster in this single CI run, but speed alone does not justify replacing a more accurate current baseline. Do not integrate the Rust dependency or change production segmentation on this evidence. The benchmark is retained as a reproducible research gate for future dictionary/algorithm changes.
+
+### Remaining status
+
+- **DONE_VERIFIED** — pinned Rust source build; same-input comparison of MinWordsDp and UnigramDp with the exact project dictionary/frequencies; exact-span and boundary metrics; KCC/OOV/normalization fixture checks; CI workflow.
+- **BLOCKED** — published PyPI/npm artifacts do not establish matching v0.3.0 Python/WASM bindings. Building same-commit Python and WASM bindings and verifying identical fixture behavior remains a separate acceptance gate before any cross-runtime integration.
+- **DEFERRED** — trained HMM/tagger comparison. Training data and resulting models carry CC BY-NC-SA restrictions; no trained model was bundled or used. Revisit only with an explicit non-commercial research-only scope or a rights-cleared independently sourced training corpus, and keep any restricted model out of redistributable production artifacts.
+- **NO CHANGE** — production engine, 61,980-entry runtime dictionary, Ukrainian IPA adapter, and static GitHub Pages architecture.
