@@ -81,6 +81,22 @@ def _is_separator(character: str | None) -> bool:
     return character is None or character.isspace() or unicodedata.category(character).startswith("P")
 
 
+def _script_bucket(character: str) -> str:
+    category = unicodedata.category(character)
+    if category.startswith("N"):
+        return "number"
+    codepoint = ord(character)
+    if 0x1780 <= codepoint <= 0x17FF:
+        return "khmer"
+    if category.startswith("L"):
+        return "foreign"
+    return "other"
+
+
+def _contains_khmer(text: str) -> bool:
+    return any(0x1780 <= ord(character) <= 0x17FF for character in text)
+
+
 def _tokenize_input(text: str) -> list[str]:
     """Prefer exact lexical fixtures, then segment Khmer runs with the provisional
     frequency-weighted dictionary/Viterbi candidate. Word boundaries are not gold;
@@ -90,6 +106,7 @@ def _tokenize_input(text: str) -> list[str]:
     fixture_keys = sorted(_LEXICON, key=len, reverse=True)
     units: list[str] = []
     chunk: list[str] = []
+    chunk_bucket: str | None = None
 
     def flush_chunk() -> None:
         if chunk:
@@ -99,6 +116,8 @@ def _tokenize_input(text: str) -> list[str]:
                     units.append(" ")
                 units.append(word.text)
             chunk.clear()
+        nonlocal chunk_bucket
+        chunk_bucket = None
 
     index = 0
     while index < len(characters):
@@ -120,10 +139,17 @@ def _tokenize_input(text: str) -> list[str]:
         )
         if fixture is not None:
             flush_chunk()
+            if units and _contains_khmer(units[-1]) and _contains_khmer(fixture):
+                units.append(" ")
             units.append(fixture)
             index += len(fixture)
             continue
 
+        bucket = _script_bucket(character)
+        if chunk and chunk_bucket is not None and bucket != chunk_bucket:
+            flush_chunk()
+        if not chunk:
+            chunk_bucket = bucket
         chunk.append(character)
         index += 1
 
