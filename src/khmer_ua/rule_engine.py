@@ -122,7 +122,10 @@ def _tokenize_input(text: str) -> list[str]:
         if chunk:
             words = segment_words("".join(chunk))
             for index, word in enumerate(words):
-                if index or (units and units[-1] != " " and _contains_khmer(units[-1])):
+                if index or (
+                    chunk_bucket == "khmer"
+                    and units and units[-1] != " " and _contains_khmer(units[-1])
+                ):
                     units.append(" ")
                 units.append(word.text)
             chunk.clear()
