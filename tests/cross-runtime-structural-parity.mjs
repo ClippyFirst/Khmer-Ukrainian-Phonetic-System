@@ -24,6 +24,17 @@ for (const row of reference.cases) {
       vowel_signs: actual.vowelSigns ?? [],
       independent_vowel: actual.independent_vowel ?? null,
       status: actual.status,
+      inherent_vowel: actual.inherent_vowel ?? null,
+      register_shifter: actual.register_rule ?? null,
+      confidence: actual.status === "ESTABLISHED_STRUCTURE" ? 0.9 : actual.status === "EVIDENCE_LIMITED" ? 0.6 : 0,
+      sources: actual.status === "INVALID_OR_UNSUPPORTED" && !actual.base
+        ? []
+        : ["unicode17-ch16", ...(actual.subscript_independent_vowels?.length ? ["unicode18-ch16"] : [])],
+      graphemes: (actual.graphemes ?? []).map((grapheme) => ({
+        text: grapheme.text,
+        kind: grapheme.kind,
+        codepoints: [...grapheme.text].map((char) => "U+" + char.codePointAt(0).toString(16).toUpperCase().padStart(4, "0")),
+      })),
       onset_ipa: actual.onset_ipa ?? null,
     };
     assert.deepEqual(normalized, expected.syllable, "structural parity mismatch: " + expected.source);
