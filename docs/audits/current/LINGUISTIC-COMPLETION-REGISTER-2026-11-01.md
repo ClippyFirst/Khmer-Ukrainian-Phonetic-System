@@ -3726,13 +3726,13 @@ The khPOS train/test and ALT corpora are CC BY-NC-SA 4.0. The 12,000-row train s
 - Exact source: https://r12a.github.io/scripts/khmr/km.html (updated 2026-04-27; accessed 2026-11-24).
 - Acceptance for this bounded provenance task: registered source ID, exact source section/rows and fixture-level locator — satisfied. Broader lexical-fixture provenance and contextual-vowel coverage remain separate tasks.
 
-### KHM-IPA-GOLD-001 — BLOCKED
+### KHM-IPA-GOLD-001 — DEFERRED (outside current implementation scope by user direction)
 
-- Issue #104 remains open. No independent expert-adjudicated gold exists; `data/benchmark/gold.tsv` remains header-only and accuracy is NOT_ASSESSED.
-- Acceptance: approved versioned IPA convention; two independent qualified annotators; third independent adjudicator; non-annotating curator; private blind intake; 30 rights-cleared source-located lexeme groups; two locked annotations and evidence-based adjudication.
+- Issue #104 remains open as a future research record. No independent expert-adjudicated gold exists; `data/benchmark/gold.tsv` remains header-only and empirical accuracy is NOT_ASSESSED.
+- This is not an active implementation blocker for the current public-beta engineering work. Do not fabricate expert labels or claim measured accuracy. Reopen only if the project owner later commissions an expert-annotated evaluation.
 
-### KHM-ACCESSIBILITY-MANUAL-001 — TODO
+### KHM-ACCESSIBILITY-MANUAL-001 — DEFERRED (outside current implementation scope by user direction)
 
-- Issue #463 remains open. Automated Chromium checks do not replace manual keyboard-only, screen-reader, zoom/reflow, contrast, touch-target and mobile review.
-- Acceptance: record browser/OS/device/assistive technology, reproducible findings, fixes and retests; no WCAG conformance claim without completed evidence.
+- Issue #463 remains open as a future audit record. Automated Chromium checks remain the available verification; no manual screen-reader or assistive-technology audit is claimed.
+- This is not an active implementation blocker for the current contextual-phonology work. Do not claim WCAG conformance. Reopen only if the project owner later requests and arranges the manual audit.
 
