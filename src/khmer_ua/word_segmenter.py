@@ -7,7 +7,6 @@ from __future__ import annotations
 
 import json
 import math
-import re
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -152,7 +151,18 @@ def describe_word_segmentation(
         )
         word_tokens.append({"text": token, "status": status})
     candidate_runs = []
-    for run in re.findall(r"[\\u1780-\\u17d3\\u17dd\\u200c\\u200d]+", source_text):
+    runs: list[str] = []
+    pending: list[str] = []
+    for character in source_text:
+        codepoint = ord(character)
+        if 0x1780 <= codepoint <= 0x17D3 or codepoint in {0x17DD, 0x200C, 0x200D}:
+            pending.append(character)
+        elif pending:
+            runs.append("".join(pending))
+            pending.clear()
+    if pending:
+        runs.append("".join(pending))
+    for run in runs:
         protected = sorted(
             key for key in fixture_keys
             if key in run and sum(
