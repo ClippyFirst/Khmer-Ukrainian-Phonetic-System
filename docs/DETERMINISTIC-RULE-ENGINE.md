@@ -153,3 +153,12 @@ Same-head fixture microbenchmark: JS 0,4675 ms/36, Python 4,2747 ms/36, 9,14× �
 На head `ceb249214f318f26fd35a49983fc77c9138acc61` Quality [45148897582](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45148897582): 455 Python tests + 70 subtests, 129 structural cases з повним grapheme trace/provenance, 36 lexical IPA/UA cases, 46 consonant/register rule-output cases, обидва benchmarks і Vite build — PASS. Chromium [45148897606](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45148897606) — 34/34.
 
 Engine microbenchmark на 36 фікстурах: JS 0,4675 ms/batch, Python 4,2747 ms/batch, 9,14× на CI runner. Python повертає багатший research contract, тому це workload-specific результат. Tokenizer stress: 8 000 code points, 3,38 ms trie vs 298,75 ms pre-trie, 88,5×; синтетичний tokenizer-only тест.
+
+
+## IPA withholding parity та локальна приватність — 2026-11-23
+
+129-case structural gate тепер також порівнює Python і JS щодо статусу та наявності/значення канонічної IPA для кожного inventory input; для PROPOSED додатково звіряється українська адаптація. Це виявляє як структурні помилки, так і помилкове встановлення IPA.
+
+Додано Chromium regression `typing Khmer text causes no external network requests`: після завантаження сторінки ввід Khmer не має породжувати зовнішніх HTTP(S) запитів. На code head `f0f806d8f9075a92cf8faa0d0d0876e9a90b6203` пройшло 35/35 browser tests [45149575280](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45149575280).
+
+Quality [45149642609](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45149642609) на head `338a3c0b2f941c264a3fb5f442e9b9d7156b9ee2`: 455 Python tests + 70 subtests, 129 structural/IPA, 36 lexical, 46 consonant/rule output cases, engine/tokenizer benchmarks, Vite — PASS. Engine benchmark: JS 0,4903 ms/36, Python 4,9692 ms/36, 10,13× на CI; це не чисте порівняння алгоритмів через різницю повноти результатів. Tokenizer: 3,38 ms vs 298,75 ms pre-trie, 97,7× у synthetic stress.
