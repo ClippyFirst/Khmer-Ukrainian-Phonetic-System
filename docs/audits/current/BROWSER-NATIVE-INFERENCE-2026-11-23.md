@@ -242,3 +242,9 @@ The worker now imports `src/khmer-engine-core.js` directly; the DOM entry point 
 - Exact-tip engine microbenchmark: JS 0.4859 ms per 36-fixture batch; Python 4.9776 ms; observed 10.24× ratio on GitHub Actions. This remains workload-specific and not a controlled algorithm-only comparison because result contracts are not fully identical.
 - Exact-tip tokenizer stress: 8,000 code points; trie median 6.23 ms vs pre-trie 466.28 ms (74.9×), synthetic tokenizer-only comparison.
 - Final status unchanged: Worker, privacy and tested parity subsets are DONE_VERIFIED; complete Python/JS result schema and contextual phonology PARTIAL; OOV lexical word segmentation TODO; third-party FST/model/corpus redistribution BLOCKED on item-level provenance/rights; expert IPA gold DEFERRED for beta and required for accuracy claims. Accuracy remains NOT_ASSESSED.
+
+
+## Output-route audit — 2026-11-23
+
+A live-browser audit found that the primary method selector was inside the collapsed research drawer and that `src/main.js` could place a BGN/PCGN-derived Ukrainian spelling into the IPA-first result when the IPA engine abstained. The core also aggregated per-unit orthographic fallback into `canonical_ua`, despite its `ORTHOGRAPHIC_ROMANIZATION_FALLBACK` type. PR #554 separates the aggregate and the user-selectable output routes; fallback remains inspectable in unit diagnostics and is displayed in the primary result only in explicit romanization mode. The two regressions were first added as failing tests, then passed in the implementation Chromium run (39/39). Exact-head rerun and Pages deployment are pending. No phonological coverage was added by this UI/contract correction.
+
