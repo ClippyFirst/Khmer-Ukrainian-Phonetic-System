@@ -867,5 +867,41 @@
         "comparison": "CONTEXTUAL_NOT_STRICT_REPRODUCTION"
       }
     }
+  },
+  {
+    "id": "wiktionary:krong",
+    "type": "community_lexical_reference",
+    "title": "Wiktionary Khmer entry: ក្រុង",
+    "url": "https://en.wiktionary.org/wiki/ក្រុង",
+    "scope": "Pronunciation section, standard IPA /kroŋ/ for ក្រុង; used as one lexical component in the explicitly compositional phrase candidate. Community-maintained lexical reference; not independent Phnom Penh profile adjudication.",
+    "status": "SECONDARY_LEXICAL_REFERENCE",
+    "license": "Wiktionary entry text is community-maintained; retain exact source link and attribution and check applicable Wikimedia Terms of Use. No audio/media copied."
+  },
+  {
+    "id": "wiktionary:chatumuk",
+    "type": "community_lexical_reference",
+    "title": "Wiktionary Khmer entry: ចតុមុខ (orthographic variant)",
+    "url": "https://en.wiktionary.org/wiki/ចតុមុខ",
+    "scope": "Pronunciation section, standard IPA /caʔ.tom.muk/ for spelling variant ចតុមុខ. Used only as pronunciation evidence alongside Khmer Wiktionary's Chuon Nath-based syllabification and lexical definition for exact spelling ចតុម្មុខ; spelling relation is documented in the fixture note. Community-maintained lexical reference; not independent Phnom Penh profile adjudication.",
+    "status": "SECONDARY_LEXICAL_REFERENCE",
+    "license": "Wiktionary entry text is community-maintained; retain exact source link and attribution and check applicable Wikimedia Terms of Use. No audio/media copied."
+  },
+  {
+    "id": "km-wiktionary-chatumukh",
+    "type": "community_lexical_reference",
+    "title": "Khmer Wiktionary entry: ចតុម្មុខ",
+    "url": "https://km.wiktionary.org/wiki/ចតុម្មុខ",
+    "scope": "Chuon Nath-derived syllabification ចៈ-តុម-មុក, definition as four-faced, and explicit proper-name examples including ក្រុងចតុម្មុខ. Supports the exact spelling, lexical identity, and syllable structure; does not itself provide IPA.",
+    "status": "SECONDARY_LEXICAL_REFERENCE",
+    "license": "Community-maintained lexical reference; retain source link and attribution and check applicable Wikimedia Terms of Use. No audio/media copied."
+  },
+  {
+    "id": "phkasla-partner-chatumukh",
+    "type": "secondary_lexical_reference",
+    "title": "Phkasla Partner: ពន្យល់ពាក្យខ្មែរ ចតុម្មុខ",
+    "url": "https://phkaslapartner.com/learn/khmerwords-2781/",
+    "scope": "Secondary quotation of the Chuon Nath dictionary reading ចៈ-តុម-មុក and explanation of the name; corroborates the Khmer Wiktionary syllabification.",
+    "status": "SECONDARY_LEXICAL_REFERENCE",
+    "license": "Source text is quoted for research attribution only; no media or substantial prose copied."
   }
 ]

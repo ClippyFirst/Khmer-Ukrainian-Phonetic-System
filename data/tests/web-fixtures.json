@@ -378,16 +378,28 @@
     "orthographic_phonemic_transcription": "ʼk̥srmūl",
     "wt_romanisation": "ʼaksɑɑ muul"
   },
+  "ក្រុង": {
+    "source": "ក្រុង",
+    "ipa": "/kroŋ/",
+    "ua": "кронг",
+    "status": "PROPOSED",
+    "note": "Стандартну IPA /kroŋ/ для окремого лексичного компонента ក្រុង засвідчує Wiktionary. Українська форма — проєктна адаптація IPA; це не незалежна ад'юдикація профілю Пномпеня.",
+    "evidence": [
+      "wiktionary:krong"
+    ],
+    "source_locator": "Wiktionary, ក្រុង, Pronunciation > standard IPA /kroŋ/: https://en.wiktionary.org/wiki/ក្រុង (accessed 2026-11-23)."
+  },
   "ចតុម្មុខ": {
     "source": "ចតុម្មុខ",
-    "ipa": null,
-    "ua": null,
-    "status": "NOT_ESTABLISHED",
-    "note": "Складена лексична одиниця та власна назва; її не можна розділяти на ច + តុ + ម្មុខ. Вимову в активному профілі Пномпеня окремо не встановлено; зберігаємо цілісність написання без вигадування IPA.",
+    "ipa": "/caʔ.tom.muk/",
+    "ua": "тьатоммук",
+    "status": "PROPOSED",
+    "note": "Проєктна IPA-пропозиція для точного написання ចតុម្មុខ: Khmer Wiktionary та Phkasla/цитований словник Чуон Нат засвідчують складоподіл ចៈ-តុម-មុក і власну назву; англомовний Wiktionary наводить стандартну IPA /caʔ.tom.muk/ для орфографічного варіанта ចតុមុខ. Відповідність вимови між двома орфографічними варіантами є прозорою лексичною гіпотезою, а не незалежно ад'юдикованим записом профілю Пномпеня. Українська форма — проєктна адаптація IPA.",
     "evidence": [
+      "wiktionary:chatumuk",
       "km-wiktionary-chatumukh",
       "phkasla-partner-chatumukh"
     ],
-    "source_locator": "Khmer Wiktionary, ចតុម្មុខ: gives syllabification ចៈ-តុម-មុក and defines the compound as four-faced; examples include ក្រុងចតុម្មុខ. https://km.wiktionary.org/wiki/ចតុម្មុខ (accessed 2026-11-23). Cross-check: Phkasla Partner, “ពន្យល់ពាក្យខ្មែរ ចតុម្មុខ”, quotes the Chuon Nath dictionary: https://phkaslapartner.com/learn/khmerwords-2781/ (accessed 2026-11-23)."
+    "source_locator": "Khmer Wiktionary, ចតុម្មុខ, syllabification ចៈ-តុម-មុក and proper-name examples: https://km.wiktionary.org/wiki/ចតុម្មុខ (accessed 2026-11-23); Phkasla Partner quoting Chuon Nath: https://phkaslapartner.com/learn/khmerwords-2781/ (accessed 2026-11-23); English Wiktionary, spelling variant ចតុមុខ, standard IPA /caʔ.tom.muk/: https://en.wiktionary.org/wiki/ចតុមុខ (accessed 2026-11-23)."
   }
 }
