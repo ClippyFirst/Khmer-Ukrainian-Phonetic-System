@@ -205,7 +205,12 @@ assert.match(
 const greetingSentence = "សួស្តី! ខ្ញុំឈ្មោះ សុភា។ ខ្ញុំមកពីប្រទេសកម្ពុជា ហើយខ្ញុំចូលចិត្តរៀនភាសាថ្មីៗ និងអានសៀវភៅ។";
 const greetingResult = convert(greetingSentence, "khmer-pph-careful-citation-v1");
 assert.equal(greetingResult.source, greetingSentence.normalize("NFC"));
-assert.equal(greetingResult.units.map((unit) => unit.source).join(""), greetingSentence.normalize("NFC"));
+assert.equal(
+  greetingResult.units.map((unit) => unit.source).join("").replace(/\\s/gu, ""),
+  greetingSentence.normalize("NFC").replace(/\\s/gu, ""),
+  "candidate word boundaries may add spaces, but no source characters may be lost",
+);
+assert.ok(greetingResult.word_segmentation.tokens.length > 0);
 assert.ok(greetingResult.units.length > 0);
 assert.equal(greetingResult.complete, false);
 assert.ok(!greetingResult.ipa.includes("⟦ВИМОВУ НЕ ВСТАНОВЛЕНО ДЛЯ ЧАСТИНИ ВВОДУ⟧"));
