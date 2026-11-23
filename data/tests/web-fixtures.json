@@ -377,5 +377,17 @@
     "source_locator": "Wiktionary, Khmer entry អក្សរមូល, Pronunciation > standard IPA /ʔak.ˈsɑː muːl/, permanent revision oldid=63698235: https://en.wiktionary.org/w/index.php?title=អក្សរមូល&oldid=63698235",
     "orthographic_phonemic_transcription": "ʼk̥srmūl",
     "wt_romanisation": "ʼaksɑɑ muul"
+  },
+  "ចតុម្មុខ": {
+    "source": "ចតុម្មុខ",
+    "ipa": null,
+    "ua": null,
+    "status": "NOT_ESTABLISHED",
+    "note": "Складена лексична одиниця та власна назва; її не можна розділяти на ច + តុ + ម្មុខ. Вимову в активному профілі Пномпеня окремо не встановлено; зберігаємо цілісність написання без вигадування IPA.",
+    "evidence": [
+      "km-wiktionary-chatumukh",
+      "phkasla-partner-chatumukh"
+    ],
+    "source_locator": "Khmer Wiktionary, ចតុម្មុខ: gives syllabification ចៈ-តុម-មុក and defines the compound as four-faced; examples include ក្រុងចតុម្មុខ. https://km.wiktionary.org/wiki/ចតុម្មុខ (accessed 2026-11-23). Cross-check: Phkasla Partner, “ពន្យល់ពាក្យខ្មែរ ចតុម្មុខ”, quotes the Chuon Nath dictionary: https://phkaslapartner.com/learn/khmerwords-2781/ (accessed 2026-11-23)."
   }
 }
