@@ -27,8 +27,10 @@ Adopt a native-first browser architecture modelled on the Thai repository: JavaS
 | Keep all user text local in the inference path | DONE_VERIFIED | Worker/client use local messaging only; static contract test rejects network APIs in these modules. A separate manual network-panel audit remains optional follow-up |
 | Prevent stale render overwrite during rapid input | DONE_VERIFIED | Chromium race test deliberately delays the first Worker response and confirms it cannot overwrite the second input |
 | Worker failure fallback | DONE_VERIFIED | Chromium test aborts the Worker asset request and confirms the same local engine returns the result |
-| Full Python↔JavaScript structural/rule parity | TODO | Port missing Python semantics and establish shared fixtures with exact per-unit parity |
-| Native Khmer lexical segmentation/OOV model | TODO | Evaluate and pin tokenizer/model only after exact asset rights and parity are established |
+| Shared tokenizer boundary parity cases | DONE_VERIFIED | Python and browser tests consume `data/tests/tokenizer-parity.json`; Unicode 18 subscript-vowel+coda regression passes in both runtimes |
+| Full Python↔JavaScript structural/rule semantic parity | TODO | Port remaining Python semantics and expand exact per-unit parity beyond tokenizer boundaries |
+| Deterministic orthographic token boundaries and fixture matching | DONE_VERIFIED | Shared cross-runtime boundary fixtures and trie-based longest fixture matching; synthetic 8k stress benchmark 77.7× vs pre-trie implementation |
+| Native Khmer lexical word segmentation/OOV model | TODO | Evaluate and pin lexical tokenizer/model only after exact asset rights and phonological parity are established |
 | Optional deterministic FST/WASM inference | DEFERRED | May be added if benchmark shows meaningful quality/speed improvement and asset rights are cleared |
 | Independent adjudicated IPA gold and accuracy estimate | DEFERRED for beta; BLOCKED for accuracy claims | No expert gold corpus currently available |
 | Third-party model/corpus redistribution | BLOCKED | Item-level data/model provenance and license scope remain unresolved |
@@ -74,3 +76,14 @@ The worker now imports `src/khmer-engine-core.js` directly; the DOM entry point 
 - The code implementation is on `feat/khmer-native-worker-engine-20261123`; branch tip `994d9dd07adb8f66c5662540f51105cb4f3c0295` passed Quality [45136761275](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136761275) and Chromium [45136761235](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136761235): 453 Python tests + 70 subtests and 34 Chromium tests, including Worker/fallback/stale-response cases.
 - PR #520 is open and unmerged; therefore no Pages deployment is claimed.
 - PR #519 was inspected and left untouched: it adds optional Python hybrid diagnostics, modifies overlapping UI/docs/test files, and is not the browser-native model port. Sequence/reconcile the overlapping files before merging either PR; do not merge blindly.
+
+
+## Cross-runtime tokenizer parity and trie benchmark — 2026-11-23
+
+- Corrected the browser boundary detector to mirror Python `_starts_new_orthographic_syllable()`: a consonant following a subscript independent-vowel sequence (Unicode 18 §16 example `ផ្ឯម`) remains in the same orthographic unit.
+- Added shared data `data/tests/tokenizer-parity.json`; Python `tests/test_parser.py` and browser `tests/web-engine.test.mjs` consume the same expected cases for Unicode 18 subscript-vowel+coda, explicit consonant boundaries, Khmer/Latin isolation, numerals, punctuation/whitespace and ZWSP. Added a 4,096-code-point losslessness regression.
+- Replaced repeated `chars.slice(index).join("")` + sorted fixture-key scans with a prebuilt deterministic trie. The trie records the longest lexical fixture whose next code point is a separator; fixture matching remains boundary-aware and does not cross COENG.
+- Added `benchmarks/browser-tokenizer.mjs`, `npm run bench:tokenizer`, and a CI benchmark step. On GitHub Actions Node 24, an 8,000-code-point repeated Khmer-consonant stress input produced identical output in both implementations: pre-trie median 352.89 ms; trie median 4.54 ms; observed 77.7× speedup (about 1.76 million code points/s). This is a synthetic tokenizer stress benchmark, not a real-world end-to-end G2P or IPA inference speed claim.
+- Exact code head: `abed3d7a4d0b3c3a9e94fa48a4e50b2819194d85`. Quality [45143908134](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45143908134): 454 Python tests + 70 subtests; Node checks, benchmark and Vite build passed. Chromium [45143908115](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45143908115): 34/34 passed.
+- **Task ledger:** shared tokenizer boundary cases = DONE_VERIFIED; trie-based fixture lookup = DONE_VERIFIED; synthetic tokenizer benchmark = DONE_VERIFIED; full Python↔JS structural/phonological semantic parity = TODO; lexical word segmentation/OOV inference = TODO; external model/data redistribution rights = BLOCKED.
+- Earlier commits `c1f70ef` and `72c09e5` exposed stale source guards that still expected the pre-trie implementation. The guards were updated to assert trie behavior; these intermediate failures are not current-head failures. The exact final head above is green.
