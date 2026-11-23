@@ -6087,3 +6087,11 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - Exact head `8a2d86a85436ddec149cd55a7d1909ac0b2c7cc0`: Quality [45145337895](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145337895) and [45145346826](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145346826) passed: 455 Python tests + 70 subtests, Node checks, 9-case Python↔JS structural parity, tokenizer benchmark and Vite build. Chromium [45145346888](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145346888): 34/34 passed.
 - Tokenizer stress benchmark on this head: 8,000 code points; 6.26 ms trie median vs 466.00 ms pre-trie median, 74.4× in this synthetic test. This remains a tokenizer-only comparison, not a full phonology/G2P benchmark.
 - Current parity scope is still deliberately bounded: nine representative cases, not complete Unicode inventory or full end-to-end Python/JS result equality.
+
+
+## Structural parity inventory expansion — 2026-11-23
+
+- Expanded the shared Python↔JavaScript structural corpus from 9 hand-picked inputs to **129 cases** generated from the repository's actual Khmer data inventory: all 33 consonants, all 15 independent vowels, dependent/composite/vowel-modifier signs attached to a base, every subscript consonant, every subscript independent vowel, and all eligible muusikatoan/triisap combinations, plus malformed/adversarial cases.
+- Exact code head `a389530b5ffa8799b6194c939a00bce9309110e2`: Quality [45145785462](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145785462) passed 455 Python tests + 70 subtests, Node checks, 129-case structural parity, tokenizer benchmark and Vite build. Chromium [45145796671](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145796671) passed 34/34.
+- Same-head synthetic tokenizer stress: 8,000 code points; trie median 8.19 ms, pre-trie median 490.16 ms, 59.9×. The absolute timing varies with CI host load; the repeated-run comparison is not a general end-to-end G2P performance guarantee.
+- **Task ledger:** inventory-derived 129-case structural parity = DONE_VERIFIED; complete phonological rules and end-to-end Python/JS result parity = PARTIAL; tokenizer lexical/OOV word segmentation = TODO.
