@@ -436,6 +436,23 @@ test("Khmer phonetic inference executes in a local Web Worker", async ({ page })
   await expect.poll(() => workerUrls.some((url) => url.includes("khmer-engine.worker"))).toBe(true);
 });
 
+test("typing Khmer text causes no external network requests", async ({ page }) => {
+  let observe = false;
+  const externalRequests = [];
+  page.on("request", (request) => {
+    if (!observe) return;
+    const url = new URL(request.url());
+    if (url.protocol === "http:" || url.protocol === "https:") {
+      if (!["localhost", "127.0.0.1", "::1"].includes(url.hostname)) externalRequests.push(url.href);
+    }
+  });
+  await page.goto("/");
+  observe = true;
+  await page.locator("#source").fill("ខ្មែរ ភាសាខ្មែរ");
+  await expect(page.locator("#ua-result")).toContainText("к'мае");
+  expect(externalRequests).toEqual([]);
+});
+
 test("phonetic inference falls back locally when the worker asset is unavailable", async ({ page }) => {
   await page.route(/khmer-engine\.worker/u, (route) => route.abort());
   await page.goto("/");
