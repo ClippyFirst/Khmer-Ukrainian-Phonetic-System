@@ -11,7 +11,8 @@
     "test:browser": "playwright test",
     "bench:tokenizer": "node benchmarks/browser-tokenizer.mjs",
     "test:parity": "node tests/cross-runtime-structural-parity.mjs",
-    "test:lexical-parity": "node tests/cross-runtime-lexical-parity.mjs"
+    "test:lexical-parity": "node tests/cross-runtime-lexical-parity.mjs",
+    "bench:engine": "node benchmarks/browser-engine.mjs"
   },
   "engines": {
     "node": ">=20"
