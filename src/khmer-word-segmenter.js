@@ -6,6 +6,7 @@ export const WORD_DICTIONARY_SIZE = dataset.entries.length;
 const COENG = "\u17D2";
 const consonantSet = new Set(consonants.map((item) => item.char));
 const MAX_CLUSTERS = 12;
+const MAX_CANDIDATE_CLUSTERS = 128;
 const entries = new Map(dataset.entries.map(({ word, count }) => [word, Number(count)]));
 const totalCount = [...entries.values()].reduce((sum, count) => sum + count, 0);
 const denominator = totalCount + entries.size + 1;
@@ -170,11 +171,14 @@ export function describeWordSegmentation(units, fixtureKeys = new Set(), sourceT
         continue;
       }
       if (pending) {
-        chunks.push({
-          source: pending,
-          method: 'DICTIONARY_VITERBI_NBEST',
-          candidates: segmentKhmerWordsCandidates(pending, 3).map((candidate, rank) => ({ rank: rank + 1, ...candidate })),
-        });
+        const pendingClusters = clusterStarts(pending).bounds.length - 1;
+        chunks.push(pendingClusters > MAX_CANDIDATE_CLUSTERS
+          ? { source: pending, method: 'DIAGNOSTICS_SKIPPED_LENGTH_LIMIT', candidates: [] }
+          : {
+              source: pending,
+              method: 'DICTIONARY_VITERBI_NBEST',
+              candidates: segmentKhmerWordsCandidates(pending, 3).map((candidate, rank) => ({ rank: rank + 1, ...candidate })),
+            });
         pending = '';
       }
       chunks.push({
@@ -185,15 +189,18 @@ export function describeWordSegmentation(units, fixtureKeys = new Set(), sourceT
       index += [...fixture].length;
     }
     if (pending) {
-      chunks.push({
-        source: pending,
-        method: 'DICTIONARY_VITERBI_NBEST',
-        candidates: segmentKhmerWordsCandidates(pending, 3).map((candidate, rank) => ({ rank: rank + 1, ...candidate })),
-      });
+      const pendingClusters = clusterStarts(pending).bounds.length - 1;
+      chunks.push(pendingClusters > MAX_CANDIDATE_CLUSTERS
+        ? { source: pending, method: 'DIAGNOSTICS_SKIPPED_LENGTH_LIMIT', candidates: [] }
+        : {
+            source: pending,
+            method: 'DICTIONARY_VITERBI_NBEST',
+            candidates: segmentKhmerWordsCandidates(pending, 3).map((candidate, rank) => ({ rank: rank + 1, ...candidate })),
+          });
     }
     return {
       source: run,
-      status: chunks.some((item) => item.method === 'DICTIONARY_VITERBI_NBEST') ? 'CANDIDATES_AVAILABLE' : 'LEXICAL_FIXTURES_ONLY',
+      status: chunks.some((item) => item.method === 'DICTIONARY_VITERBI_NBEST') ? 'CANDIDATES_AVAILABLE' : chunks.some((item) => item.method === 'DIAGNOSTICS_SKIPPED_LENGTH_LIMIT') ? 'DIAGNOSTICS_LIMITED' : 'LEXICAL_FIXTURES_ONLY',
       chunks,
     };
   });
@@ -207,6 +214,7 @@ export function describeWordSegmentation(units, fixtureKeys = new Set(), sourceT
     accuracy: null,
     tokens,
     candidate_limit: 3,
+    candidate_max_clusters: MAX_CANDIDATE_CLUSTERS,
     candidate_runs: candidateRuns,
     score_note: "Candidate costs are uncalibrated negative-log frequency scores, not probabilities or confidence values.",
     note: "Word boundaries are provisional dictionary-Viterbi candidates; no independent segmentation accuracy has been measured for this project.",
@@ -221,6 +229,7 @@ export function segmentKhmerWordsCandidates(text, limit = 3) {
   if (!text) return [];
   const { chars, bounds } = clusterStarts(text);
   const count = bounds.length - 1;
+  if (count > MAX_CANDIDATE_CLUSTERS) return [];
   const paths = Array.from({ length: count + 1 }, () => []);
   paths[0] = [{ cost: 0, pieces: [] }];
 
