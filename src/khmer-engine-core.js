@@ -7,7 +7,7 @@ import fixtures from "../data/tests/web-fixtures.json" with { type: "json" };
 import sources from "../data/khmer/sources.json" with { type: "json" };
 import { khmerToLatin } from "@gmana/km-translit";
 import { mapIpa } from "./ukrainian-practical.js";
-import { renderKhmerRomanizationText, renderLatinWord, renderRomanizedText } from "./khmer-romanization-ukrainian.js";
+import { renderLatinWord } from "./khmer-romanization-ukrainian.js";
 
 const CONSONANTS = Object.fromEntries(consonants.map((item) => [item.char, item]));
 const PRONUNCIATION_SOURCE_STATUSES = new Set(["PRIMARY_PHONETIC_SOURCE", "SPECIALIST_REFERENCE", "SECONDARY_LEXICAL_REFERENCE"]);
