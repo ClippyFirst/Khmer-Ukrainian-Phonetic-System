@@ -77,7 +77,7 @@ if (chaktomukWord.ipa !== "/caʔ.tom.muk/" || chaktomukWord.ua !== "тьатом
   throw new Error("Chaktomuk lexical IPA must pass through the Ukrainian IPA adapter with provenance");
 }
 const chaktomukPhrase = convert("ក្រុងចតុម្មុខ", "khmer-pph-careful-citation-v1");
-if (chaktomukPhrase.ipa !== "/kroŋ caʔ.tom.muk/" || chaktomukPhrase.ua !== "кронг тьатоммук"
+if (chaktomukPhrase.ipa !== "/kroŋ/ /caʔ.tom.muk/" || chaktomukPhrase.ua !== "кронг тьатоммук"
     || chaktomukPhrase.status !== "PROPOSED" || chaktomukPhrase.confidence_tier !== "B") {
   throw new Error("Krong Chaktomuk phrase must retain both lexical units through the IPA-first adapter");
 }
