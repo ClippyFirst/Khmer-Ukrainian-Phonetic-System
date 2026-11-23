@@ -1,6 +1,9 @@
+import sys
+from types import ModuleType
+
 import pytest
 
-from khmer_ua import HybridKhmerEngine, RuleBasedKhmerEngine, create_hybrid_engine
+from khmer_ua import HybridKhmerEngine, RuleBasedKhmerEngine, create_hybrid_engine, make_khmerphonemizer_backend
 
 
 def typed(ipa, *, status="PARTIAL", uncertainty=("not independently adjudicated",), kind="PHONETIC_BROAD"):
@@ -112,6 +115,36 @@ def test_factory_exports_typed_hybrid():
     engine = create_hybrid_engine({"provider": lambda _: typed("kʰmae")})
     assert isinstance(engine, HybridKhmerEngine)
     assert len(engine.analyze("ខ្មែរ")["external_candidates"]) == 1
+
+
+def test_khmerphonemizer_backend_is_lazy_explicit_and_returns_provisional_candidate(monkeypatch):
+    calls = []
+    module = ModuleType("khmerphonemizer")
+
+    def phonemize(text):
+        calls.append(text)
+        return ["ខ្មែរ"], [["k", "ʰ", "m", "a", "e"]]
+
+    module.phonemize = phonemize
+    monkeypatch.setitem(sys.modules, "khmerphonemizer", module)
+
+    backend = make_khmerphonemizer_backend()
+    assert calls == [], "optional provider imports and inference must remain lazy"
+    raw = backend("ខ្មែរ")
+    assert calls == ["ខ្មែរ"]
+    assert raw["ipa"] == "kʰmae"
+    assert raw["status"] == "PARTIAL"
+    assert raw["kind"] == "PHONETIC_BROAD"
+    assert raw["profile_match"] == "UNVERIFIED"
+    assert raw["provenance"]["license"] == "MIT"
+
+    result = create_hybrid_engine(include_khmerphonemizer=True).analyze("ក្ក")
+    candidate = result["provisional_candidate"]
+    assert candidate["provider"] == "khmer-phonemizer"
+    assert candidate["ipa"] == "kʰmae"
+    assert candidate["ukrainian"] == "к'мае"
+    assert candidate["status"] == "PROVISIONAL"
+    assert candidate["profile_match"] == "UNVERIFIED"
 
 
 def test_rule_engine_keeps_foreign_script_and_numerals_out_of_adjacent_khmer_units():
