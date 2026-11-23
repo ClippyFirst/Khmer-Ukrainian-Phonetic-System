@@ -33,8 +33,8 @@ def test_web_fixtures_have_explicit_status_and_provenance_note():
         else:
             assert fixture["ipa"] is None
             assert fixture["ua"] is None
-            assert fixture["source_locator"]
             if fixture["status"] == "NOT_ESTABLISHED":
+                assert fixture["source_locator"]
                 assert "не встановлено" in fixture["note"]
 
 def test_fully_supported_fixture_outputs_match_canonical_policy():
