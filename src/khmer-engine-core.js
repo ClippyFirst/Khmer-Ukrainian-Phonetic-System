@@ -373,8 +373,7 @@ function renderFixture(fixture, profile) {
     const partialUkrainian = hasPartialOnset ? onsetMapping.value + "???" : null;
     return {
       source: fixture.source,
-      ipa: hasPartialOnset ? "/" + onsetIpa + "/⟦EVIDENCE_LIMITED⟧"
-        : fixture.status === "NOT_ESTABLISHED" ? "⟦NOT_ESTABLISHED⟧" : "⟦EVIDENCE_LIMITED⟧",
+      ipa: fixture.status === "NOT_ESTABLISHED" ? "⟦NOT_ESTABLISHED⟧" : "⟦EVIDENCE_LIMITED⟧",
       ua: hasPartialOnset ? partialUkrainian : "⟦НЕВСТАНОВЛЕНО⟧",
       status: fixture.status,
       rule_trace: hasPartialOnset
@@ -628,7 +627,9 @@ function convert(text, profile) {
   // detailed per-unit records below retain every status, but the public IPA
   // line must not repeat the same abstention token for each unresolved
   // orthographic unit in one uninterrupted Khmer word/run.
-  const rawIpa = rendered.map((item) => item.ipa).join("");
+  const rawIpa = rendered.map((item) => item.partial_candidate_kind === "ONSET_ONLY"
+    ? "/" + item.partial_ipa + "/⟦EVIDENCE_LIMITED⟧"
+    : item.ipa).join("");
   const ipa = rawIpa.replace(/(⟦NOT_ESTABLISHED⟧){2,}/gu, "⟦NOT_ESTABLISHED⟧");
   // Lao-style final abstention: retain supported neighbours, but use a clear
   // three-question-mark placeholder for any unresolved linguistic unit.
