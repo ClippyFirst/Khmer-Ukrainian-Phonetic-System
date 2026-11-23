@@ -237,6 +237,15 @@ function parseSyllable(raw) {
     if (first === COENG || SHIFTERS.has(first)) {
       return { status: "INVALID_OR_UNSUPPORTED", raw, unknown: [], unknown_codepoints: [], reason: "Khmer combining structure cannot begin a standalone orthographic unit.", orthographic_structure };
     }
+    if (INDEPENDENT_VOWELS.has(first)) {
+      return {
+        status: "ESTABLISHED_STRUCTURE", raw, base: null, register: null,
+        subscripts: [], subscript_independent_vowels: [], additionalConsonants: [],
+        vowelSigns: [], independent_vowel: first, unknown: [],
+        graphemes: [{ text: first, kind: "independent_vowel" }],
+        onset_ipa: null, orthographic_structure,
+      };
+    }
     if (SIGN_BY_CHAR[first]) return { status: "NOT_ESTABLISHED", raw, unknown: [], unknown_codepoints: [], reason: "Відомий знак без базового приголосного; його вимову окремо не встановлено.", orthographic_structure };
     return { status: "INVALID_OR_UNSUPPORTED", raw, unknown: chars, unknown_codepoints: unknownCodepoints(chars), reason: "Немає підтримуваного кмерського базового приголосного або відомого знака: " + unknownCodepoints(chars).join(", ") + ".", orthographic_structure };
   }
