@@ -1,9 +1,12 @@
-## Unresolved candidate visibility correction — 2026-11-23
+## Archived provisional IPA candidates surfaced in browser — 2026-11-23
 
-- **PARTIAL until exact-head CI and deployment:** PR [#522](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/522) corrects the aggregate Ukrainian output for unresolved Khmer runs. The engine already retained BGN/PCGN-derived orthographic candidates per unit, but the aggregate renderer emitted them without the required trailing uncertainty marker.
-- The revised aggregate renderer preserves the complete candidate and appends one `???` at the end of each contiguous unresolved candidate run. It does not replace the candidate with a bare marker.
-- The IPA field remains `NOT_ESTABLISHED` when no IPA evidence exists. Orthographic romanization is explicitly not promoted to IPA; the per-unit typed result retains `ORTHOGRAPHIC_ROMANIZATION_FALLBACK` provenance.
-- Regression assertion updated for the known example: `Кампучеапчеат'іптей???`. Exact-head CI and Pages deployment are pending; do not describe the live site as updated until deployment succeeds.
+- **PARTIAL until exact-head CI and Pages deployment:** PR [#522](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/522) now carries the prior multi-provider output into the browser IPA result for the exact input `កម្ពុជាប្រជាធិបតេយ្យ`.
+- Source is the previously completed Quality workflow run [45080727416](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45080727416), artifact [14777495017](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45080727416/artifacts/14777495017), with its digest and provider metadata preserved in `data/khmer/provisional-ipa-candidates.json`.
+- The browser's displayed candidate is `/kampuciə prɑciətʰɨppaʔtaj/???` → `кампутьіє пратьієт'иппатай???`. The browser re-runs the canonical IPA→Ukrainian mapping and checks it against the recorded artifact mapping before display.
+- The second raw candidate, MekongPhon `kampucieprɑcietʰiʔpaʔtay`, remains visible with its unresolved Ukrainian mapping at `y`. Epitran's raw output and validation failure are retained as a rejected provider result, not presented as IPA.
+- All external outputs remain `PROVISIONAL`/`PARTIAL`, `PHONETIC_BROAD`, and `profile_match=UNVERIFIED`. The selected provider order is not an accuracy ranking or vote. The internal deterministic result remains separately available as `canonical_ipa`, `canonical_ua`, and typed per-unit records.
+- The BGN/PCGN-derived orthographic fallback remains a separate candidate route; where shown, it also retains its own `???` marker. No external provider is called live by GitHub Pages.
+- Regression tests now assert the exact IPA and Ukrainian candidate outputs, the second provider's mapping failure, and Epitran's rejected output. Exact-head CI and Pages deployment are pending.
 
 ---
 
