@@ -6,8 +6,8 @@ Adopt a native-first browser architecture modelled on the Thai repository: JavaS
 
 ## Current-state reconciliation
 
-- The existing Khmer browser application already contains a deterministic JavaScript engine in `src/khmer-engine-core.js`, including normalization, conservative segmentation, orthographic structure analysis, lexical fixtures, IPA-to-Ukrainian adaptation and evidence/status handling.
-- Python `RuleBasedKhmerEngine` is a separate implementation. The current JS UI engine and Python parser/rule engine are not yet proven behaviorally equivalent. A full Python→JS port/parity gate remains TODO.
+- The Khmer browser application now has a deterministic JavaScript engine in `src/khmer-engine-core.js`, isolated in a local Web Worker with same-engine fallback. It includes normalization, conservative orthographic segmentation, structural parsing, lexical fixture mapping and IPA-to-Ukrainian adaptation.
+- Python `RuleBasedKhmerEngine` remains a separate reference implementation. Cross-runtime parity is now executable and verified for 129 structural inventory cases and 36 lexical IPA/UA fixtures, but full result-schema and contextual-rule equivalence is still PARTIAL; open-vocabulary lexical word segmentation/OOV inference remains TODO.
 - The Thai repository provides the relevant architectural precedent: browser-native modules, worker isolation, deterministic data and explicit parity tests. Python is a reference/compatibility route rather than a required runtime dependency for supported browser inputs.
 - Existing Khmer external candidates and third-party model research remain separate. No external weights, FST, lexicon or corpus were added by this change; unresolved asset provenance/licensing is not waived.
 
