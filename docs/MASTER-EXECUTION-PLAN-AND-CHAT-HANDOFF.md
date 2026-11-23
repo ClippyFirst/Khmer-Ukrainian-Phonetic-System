@@ -6034,3 +6034,10 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - No local test/build run is claimed. GitHub Actions supplied the verification. The PR remains unmerged, so no Pages deployment or post-deploy smoke is claimed.
 - **Remaining engineering gap:** full Python↔JavaScript semantic parity is not yet established; tokenizer/OOV model integration remains TODO. No third-party FST/model weights or unverified corpus assets were imported. Third-party asset redistribution remains BLOCKED pending item-level provenance/rights. Independent IPA gold remains DEFERRED for beta and blocks accuracy claims.
 - **Task ledger:** Worker offload + isolated core + failure fallback = DONE_VERIFIED; full Python↔JS parity = TODO; native tokenizer/OOV model = TODO; third-party asset rights = BLOCKED; independent IPA gold = DEFERRED for beta / BLOCKED for accuracy claims.
+
+
+### Stale-response race verification — 2026-11-23
+
+- Added a Chromium regression that deliberately delays the first Worker message while sending a second input. The first response arrives late and is discarded; the newest Ukrainian output remains visible.
+- Exact code head `c2dc56949ee519dfcdb13139e49002b92a3fa5bc` passed Quality [45136544361](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136544361) and Chromium [45136544247](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136544247): 453 Python tests + 70 subtests; Node checks/build; 34 Chromium tests.
+- Worker integration, local failure fallback and stale-response guard are DONE_VERIFIED. Full Python↔JavaScript parity, tokenizer/OOV integration and measured throughput remain TODO. No Pages deployment is claimed while PR #520 remains open.
