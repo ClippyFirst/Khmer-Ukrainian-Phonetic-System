@@ -378,6 +378,17 @@
     "orthographic_phonemic_transcription": "ʼk̥srmūl",
     "wt_romanisation": "ʼaksɑɑ muul"
   },
+  "ក្រុង": {
+    "source": "ក្រុង",
+    "ipa": "/kroŋ/",
+    "ua": "кронг",
+    "status": "PROPOSED",
+    "note": "Стандартну IPA /kroŋ/ для окремого лексичного компонента ក្រុង засвідчує Wiktionary. Українська форма — проєктна адаптація IPA; це не незалежна ад'юдикація профілю Пномпеня.",
+    "evidence": [
+      "wiktionary:krong"
+    ],
+    "source_locator": "Wiktionary, ក្រុង, Pronunciation > standard IPA /kroŋ/: https://en.wiktionary.org/wiki/ក្រុង (accessed 2026-11-23)."
+  },
   "ចតុម្មុខ": {
     "source": "ចតុម្មុខ",
     "ipa": "/caʔ.tom.muk/",
@@ -390,18 +401,5 @@
       "phkasla-partner-chatumukh"
     ],
     "source_locator": "Khmer Wiktionary, ចតុម្មុខ, syllabification ចៈ-តុម-មុក and proper-name examples: https://km.wiktionary.org/wiki/ចតុម្មុខ (accessed 2026-11-23); Phkasla Partner quoting Chuon Nath: https://phkaslapartner.com/learn/khmerwords-2781/ (accessed 2026-11-23); English Wiktionary, spelling variant ចតុមុខ, standard IPA /caʔ.tom.muk/: https://en.wiktionary.org/wiki/ចតុមុខ (accessed 2026-11-23)."
-  },
-  "ក្រុងចតុម្មុខ": {
-    "source": "ក្រុងចតុម្មុខ",
-    "ipa": "/kroŋ caʔ.tom.muk/",
-    "ua": "кронг тьатоммук",
-    "status": "PROPOSED",
-    "note": "Композиційна пропозиція з двох лексичних компонентів: ក្រុង /kroŋ/ та ចតុម្មុខ /caʔ.tom.muk/. Джерела засвідчують окремі лексичні вимови та те, що Кронг Чатумук є власною назвою Пномпеня; прямого phrase-level IPA для всієї фрази не знайдено. Тому результат позначено PROPOSED, а не експертно встановленим. Українська форма отримана виключно через IPA → українську політику.",
-    "evidence": [
-      "wiktionary:krong",
-      "wiktionary:chatumuk",
-      "km-wiktionary-chatumukh"
-    ],
-    "source_locator": "Wiktionary, ក្រុង, standard IPA /kroŋ/: https://en.wiktionary.org/wiki/ក្រុង (accessed 2026-11-23); Wiktionary, ចតុមុខ, standard IPA /caʔ.tom.muk/: https://en.wiktionary.org/wiki/ចតុមុខ (accessed 2026-11-23); Khmer Wiktionary, ចតុម្មុខ, gives the proper-name example ក្រុងចតុម្មុខ and syllabification ចៈ-តុម-មុក: https://km.wiktionary.org/wiki/ចតុម្មុខ (accessed 2026-11-23)."
   }
 }
