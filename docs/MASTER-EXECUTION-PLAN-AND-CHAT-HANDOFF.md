@@ -6511,3 +6511,42 @@ These are controlled measurements on this corpus, this dictionary, and this eval
 - **BLOCKED** — published PyPI/npm artifacts do not establish matching v0.3.0 Python/WASM bindings. Building same-commit Python and WASM bindings and verifying identical fixture behavior remains a separate acceptance gate before any cross-runtime integration.
 - **DEFERRED** — trained HMM/tagger comparison. Training data and resulting models carry CC BY-NC-SA restrictions; no trained model was bundled or used. Revisit only with an explicit non-commercial research-only scope or a rights-cleared independently sourced training corpus, and keep any restricted model out of redistributable production artifacts.
 - **NO CHANGE** — production engine, 61,980-entry runtime dictionary, Ukrainian IPA adapter, and static GitHub Pages architecture.
+
+
+## Ephemeral HMM/tagger experiment and independent ALT validation — 2026-11-23
+
+**Status: DONE_VERIFIED (research experiment); NO PRODUCTION ADOPTION.** The local-only model experiment was added in PR [#546](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/546), merged at `43635c3979460196fde0da0e82a9985d1fbaa42a`. The independent cross-corpus validation was added in PR [#547](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/547), merged at `454ed1afa15b79dab718aaba2dc80794e0efc87a`. The final pinned-source workflow passed in [run 45253514986](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45253514986); Quality [run 45253515015](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45253515015) and Chromium [run 45253514987](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45253514987) passed on the same PR head.
+
+### Data and training controls
+
+- Upstream Rust source remains pinned to `Alujack/khmer-tokenizer@f38eae5924d4e41a46fd2204cf6951cdb0dc8908`, core version `0.3.0`.
+- khPOS train split: revision `0211405c145b0a340ad558569bd06c946b2296b4`, `corpus-draft-ver-1.0/data/before-replace/train6.word`, Git blob SHA-1 `3467e80897f192c4bbdb4b88fed488aaa16a830a`, 12,000 source sentences.
+- khPOS OPEN-TEST: same revision, Git blob SHA-1 `34cf93f298c06723419212f0f0777f3783537069`, 1,000 sentences / 10,778 gold tokens.
+- Independent test: Khmer ALT, Zenodo record [3937914](https://zenodo.org/records/3937914), archive MD5 `20d39d8fa1b874b11ec374139fbe5654`, member `km-nova/data_km.km-tok.nova`. The upstream article-ID-modulo-10 test split yielded 1,931 sentences / 69,831 gold tokens from 20,106 source lines.
+- Both corpora are CC BY-NC-SA 4.0. Training rows with exact NFC-normalized input matches against either test set were excluded: 12 rows removed, 11,988 training examples retained. Phrase-level overlap was not measured; the two corpora may still share lexical material or editorial conventions.
+- HMM counts and a five-epoch averaged-perceptron tagger were trained in memory only (3.4950 seconds in this run; 89,613 tagger features). No corpus, model file, or model artifact was committed, persisted, or uploaded. This is a non-commercial research-only experiment, not permission to distribute a trained model.
+- Corpus scoring disabled upstream normalization to preserve exact source offsets. Every emitted token boundary was checked against KCC boundaries. Both test corpora and the training corpus were downloaded to a temporary directory and removed at job completion.
+
+### F1 results
+
+Each cell is F1. “All” is all-token exact spans; “Khmer” is Khmer-only exact word spans; “Boundary” is Khmer-only inter-word boundaries.
+
+| Strategy | khPOS all | khPOS Khmer | khPOS boundary | ALT all | ALT Khmer | ALT boundary |
+|---|---:|---:|---:|---:|---:|---:|
+| Project Viterbi (current) | 80.53% | 79.62% | 91.53% | **71.51%** | **70.15%** | **88.52%** |
+| Rust MinWordsDp | 79.26% | 78.16% | 90.35% | 70.39% | 69.11% | 87.83% |
+| Rust UnigramDp | 79.82% | 78.76% | 90.70% | 70.75% | 69.50% | 88.07% |
+| MinWordsDp + HMM fallback | 79.26% | 78.16% | 90.35% | 70.38% | 69.10% | 87.83% |
+| UnigramDp + HMM fallback | 79.82% | 78.76% | 90.70% | 70.74% | 69.50% | 88.07% |
+| MinWordsDp + tagger fallback | 79.27% | 78.18% | 90.36% | 70.38% | 69.10% | 87.83% |
+| UnigramDp + tagger fallback | 79.83% | 78.78% | 90.71% | 70.74% | 69.49% | 88.07% |
+| Full Tagger | **95.08%** | **95.07%** | **97.86%** | 65.35% | 63.59% | 85.70% |
+
+### Decision and interpretation
+
+- The full tagger's very high khPOS in-domain score does **not** generalize to ALT: Khmer-only F1 falls from 95.07% to 63.59%, while the current Viterbi baseline scores 70.15% on ALT. The full tagger is 6.56 percentage points below the current engine on ALT Khmer-only spans and 2.82 points below on boundaries.
+- HMM fallback did not change the measured predictions. Tagger fallback changed them only marginally. The dictionary-only Rust strategies also remained below the current Viterbi baseline on both corpora.
+- The result supports a strong domain/annotation-convention dependence for the trained tagger, not a general-purpose Khmer tokenizer. The ALT test split is a distinct corpus, but exact-input filtering does not establish complete independence of lexical content or annotation conventions.
+- **Do not integrate or bundle the trained tagger, HMM, or Rust dependency in production.** Keep the experiment as a reproducible research gate. Any future model candidate requires further dialect/corpus coverage, rights review, and cross-corpus evidence; an in-domain score alone is not an acceptance criterion.
+
+This supersedes the earlier `DEFERRED` status for *conducting* a local tagger experiment: that research experiment is now `DONE_VERIFIED`. Model distribution and production adoption remain `DEFERRED` / `NO ADOPTION`.
