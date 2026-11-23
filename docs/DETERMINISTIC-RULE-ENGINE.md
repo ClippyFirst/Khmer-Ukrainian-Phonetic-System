@@ -76,3 +76,10 @@ Python-рушій раніше міг вивести притаманну гол
 Перший differential run знайшов розбіжність у malformed COENG: JS позначав послідовність некоректною, але втрачав уже розпізнаний базовий приголосний. Тепер структурний trace зберігає його та malformed tail, як Python. Набір із восьми випадків проходить на head `c0df000e179d6da16c05c78960ede774966bdcf7`: Quality [45145033315](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145033315), Chromium [45145043709](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145043709) — 34/34.
 
 Повний семантичний паритет ще не заявляється: це початковий executable slice, який треба розширити незалежними голосними, складними кластерами, повними unit records і кінцевими IPA/UA результатами.
+
+
+## Незалежні голосні в structural parity — 2026-11-23
+
+Паритетний набір розширено до дев'яти випадків, включно з окремим незалежним голосним. JS-парсер тепер повертає його як структурно встановлену базову одиницю без приголосного регістру та onset IPA — так само, як Python. Це не є встановленням вимови.
+
+На head `8a2d86a85436ddec149cd55a7d1909ac0b2c7cc0` пройшли Quality [45145337895](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145337895) / [45145346826](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145346826): 455 Python tests + 70 subtests, Node, 9-case parity, benchmark, Vite; Chromium [45145346888](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145346888): 34/34.
