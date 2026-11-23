@@ -34,6 +34,39 @@ def test_provider_candidate_uses_typed_ipa_boundary_and_preserves_raw_string():
     assert result["ipa"] == RuleBasedKhmerEngine().analyze("ខ្មែរ")["ipa"]
 
 
+def test_unresolved_canonical_exposes_first_mappable_provider_candidate_without_overwriting_it():
+    canonical = RuleBasedKhmerEngine().analyze("ក្ក")
+    result = HybridKhmerEngine({
+        "mekongphon": lambda _: typed("kampucieprɑcietʰiʔpaʔtay"),
+        "khmer-phonemizer": lambda _: typed("kʰmae"),
+    }).analyze("ក្ក")
+
+    assert result["ipa"] == canonical["ipa"]
+    assert result["ukrainian"] == canonical["ukrainian"]
+    assert result["external_candidates"][0]["ukrainian_candidate"] is None
+    assert result["external_candidates"][0]["ukrainian_mapping_failure"] == "y"
+    assert result["external_candidates"][1]["ukrainian_candidate"] == "к'мае"
+    candidate = result["provisional_candidate"]
+    assert candidate["provider"] == "khmer-phonemizer"
+    assert candidate["ipa"] == "kʰmae"
+    assert candidate["ukrainian"] == "к'мае"
+    assert candidate["status"] == "PROVISIONAL"
+    assert candidate["profile_match"] == "UNVERIFIED"
+    assert candidate["uncertainty"]
+
+
+def test_unmappable_provider_still_exposes_ipa_with_explicit_mapping_failure():
+    result = HybridKhmerEngine({
+        "mekongphon": lambda _: typed("kampucieprɑcietʰiʔpaʔtay")
+    }).analyze("ក្ក")
+
+    candidate = result["provisional_candidate"]
+    assert candidate["ipa"] == "kampucieprɑcietʰiʔpaʔtay"
+    assert candidate["ukrainian"] is None
+    assert candidate["ukrainian_mapping_failure"] == "y"
+    assert candidate["status"] == "PROVISIONAL"
+
+
 def test_bare_string_provider_output_is_rejected():
     result = HybridKhmerEngine({"untyped": lambda _: "kʰmae"}).analyze("ខ្មែរ")
     assert result["external_candidates"] == []
