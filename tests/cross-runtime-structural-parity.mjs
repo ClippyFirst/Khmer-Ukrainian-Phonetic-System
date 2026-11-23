@@ -13,6 +13,18 @@ const reference = JSON.parse(python.stdout);
 assert.equal(reference.schema, "khmer-structural-parity-reference/v1");
 for (const row of reference.cases) {
   assert.deepEqual(tokenize(row.input), row.tokens, "token boundary mismatch: " + row.input);
+  const engineResult = convert(row.input, "khmer-pph-careful-citation-v1");
+  assert.ok(engineResult, "browser engine returned no result: " + row.input);
+  assert.equal(engineResult.units.length, 1, "engine unit count mismatch: " + row.input);
+  const engineUnit = engineResult.units[0];
+  const actualIpa = typeof engineUnit.ipa === "string" && /^\/.*\/$/su.test(engineUnit.ipa)
+    ? engineUnit.ipa.slice(1, -1)
+    : typeof engineUnit.ipa === "string" && /^⟦/u.test(engineUnit.ipa) ? null : engineUnit.ipa;
+  assert.equal(engineUnit.status, row.engine_unit.status, "rule-engine status mismatch: " + row.input);
+  assert.equal(actualIpa, row.engine_unit.ipa, "IPA established/withheld parity mismatch: " + row.input);
+  if (row.engine_unit.status === "PROPOSED") {
+    assert.equal(engineUnit.ua, row.engine_unit.ukrainian, "proposed UA adaptation mismatch: " + row.input);
+  }
   for (const expected of row.units) {
     const actual = parseSyllable(expected.source);
     if (expected.syllable === null) continue;
