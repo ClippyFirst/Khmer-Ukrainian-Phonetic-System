@@ -12,12 +12,14 @@ function getWorker() {
     if (data.error) resolve({ error: data.error, message: data.message });
     else resolve({ result: data.result });
   });
-  worker.addEventListener("error", () => {
+  const failWorker = () => {
     worker?.terminate();
     worker = undefined;
     for (const resolve of pending.values()) resolve({ error: "WORKER_UNAVAILABLE" });
     pending.clear();
-  });
+  };
+  worker.addEventListener("error", failWorker);
+  worker.addEventListener("messageerror", failWorker);
   return worker;
 }
 
@@ -37,7 +39,13 @@ export function analyzeInWorker(text, profile, fallback) {
           catch { resolve(null); }
         }
       });
-      activeWorker.postMessage({ id, text, profile });
+      try {
+        activeWorker.postMessage({ id, text, profile });
+      } catch {
+        pending.delete(id);
+        try { resolve(fallback(text, profile)); }
+        catch { resolve(null); }
+      }
     });
   } catch {
     return Promise.resolve().then(() => fallback(text, profile)).catch(() => null);
