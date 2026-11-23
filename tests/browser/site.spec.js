@@ -309,32 +309,39 @@ test("romanization method can be activated by keyboard and status is announced",
 
 
 
-test("unresolved Khmer phrase offers per-unit Ukrainian candidates while keeping IPA unresolved", async ({ page }) => {
+test("unresolved Khmer phrase displays archived external IPA candidates with trailing uncertainty marker", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("កម្ពុជាប្រជាធិបតេយ្យ");
-  await expect(page.locator("#ipa-result")).toHaveText("⟦NOT_ESTABLISHED⟧");
-  await expect(page.locator("#ua-result")).toHaveText("Кампучеапчеат'іптей");
-  await expect(page.locator("#ua-result")).not.toContainText("???");
-  await expect(page.locator("#status")).toContainText("PROVISIONAL CANDIDATE");
+  await expect(page.locator("#ipa-result")).toHaveText("/kampuciə prɑciətʰɨppaʔtaj/???");
+  await expect(page.locator("#ua-result")).toHaveText("кампутьіє пратьієт'иппатай???");
+  await expect(page.locator("#status")).toContainText("EXTERNAL IPA CANDIDATE");
+  await expect(page.locator("#status")).toContainText("PROFILE MATCH UNVERIFIED");
+  await expect(page.locator("#unit-details")).toContainText("Зовнішні IPA-кандидати");
+  await expect(page.locator("#unit-details")).toContainText("khmer-phonemizer");
+  await expect(page.locator("#unit-details")).toContainText("mekongphon");
+  await expect(page.locator("#unit-details")).toContainText("profile match UNVERIFIED");
+  await expect(page.locator("#unit-details")).toContainText("Відхилені виходи провайдерів");
+  await expect(page.locator("#unit-details")).toContainText("Epitran");
   await expect(page.locator("#unit-details")).toContainText("Попередня українська форма:");
   await expect(page.locator("#unit-details")).toContainText("BGN/PCGN, не IPA");
 });
 
-test("best-effort Ukrainian candidates are automatic at every detail level", async ({ page }) => {
+test("archived provisional IPA candidate remains visible at every detail level", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("កម្ពុជាប្រជាធិបតេយ្យ");
   for (const level of ["strict", "balanced", "exploratory"]) {
     await page.locator("#output-level").selectOption(level);
-    await expect(page.locator("#ua-result")).toHaveText("Кампучеапчеат'іптей");
-    await expect(page.locator("#ipa-result")).toHaveText("⟦NOT_ESTABLISHED⟧");
+    await expect(page.locator("#ua-result")).toHaveText("кампутьіє пратьієт'иппатай???");
+    await expect(page.locator("#ipa-result")).toHaveText("/kampuciə prɑciətʰɨppaʔtaj/???");
   }
 });
 
-test("unresolved Khmer cluster offers a romanization candidate instead of only an onset hint", async ({ page }) => {
+test("unresolved Khmer cluster preserves its orthographic candidate with a trailing uncertainty marker", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("ក្ក");
   await expect(page.locator("#ipa-result")).toHaveText("⟦NOT_ESTABLISHED⟧");
-  await expect(page.locator("#ua-result")).not.toContainText("???");
+  await expect(page.locator("#ua-result")).toContainText("???");
+  await expect(page.locator("#ua-result")).not.toHaveText("???");
   await expect(page.locator("#status")).toContainText("PROVISIONAL CANDIDATE");
   await expect(page.locator("#unit-details")).toContainText("Попередня українська форма:");
   await expect(page.locator(".unit-detail")).toHaveAttribute("data-fallback-rule-id", "KHMER-BGN-PCGN-ORTHOGRAPHIC-FALLBACK-V1");
