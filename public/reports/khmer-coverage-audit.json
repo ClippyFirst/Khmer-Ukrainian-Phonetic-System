@@ -17,7 +17,9 @@
       "series": "first",
       "status": "SOURCE_ATTESTED_NOT_GOLD",
       "case_ids": [
-        "KHV-005"
+        "KHV-005",
+        "KHV-012",
+        "KHV-013"
       ],
       "ipa_values": [
         "/kaː/"
@@ -31,7 +33,9 @@
       "series": "second",
       "status": "SOURCE_ATTESTED_NOT_GOLD",
       "case_ids": [
-        "KHV-006"
+        "KHV-006",
+        "KHV-010",
+        "KHV-011"
       ],
       "ipa_values": [
         "/kiə/"
