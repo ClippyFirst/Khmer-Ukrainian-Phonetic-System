@@ -6309,3 +6309,34 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 ### Next action
 
 Recheck run `45195396018`. If Chromium smoke passes, the Chaktomuk browser-boundary fix is ready for normal PR review/merge; if it fails, inspect its job log and fix only the evidenced failure. Do not merge while the required browser check is unresolved.
+
+## Continuation — ranked Khmer word-boundary diagnostics (2026-11-23)
+
+**PR:** [#531 — Expose ranked Khmer word-boundary candidates](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/531)  
+**Branch:** `feat/khmer-segmentation-candidate-audit-2026-11-23`  
+**Base commit:** `5fc571f681ac2f2f3cfd15e7471a7fa95a7ed3d9` (post-PR #530 main)  
+**Implementation head at this handoff edit:** see PR #531 head.
+
+### Task ledger
+
+- **DONE_VERIFIED — source and license audit:** Rechecked the bundled 3,009-entry Google/FineWeb sample attribution. The upstream project documents a full 61,980-word Google lexicon under CC BY 4.0 and FineWeb-derived counts under ODC-By 1.0, but the full lexicon file could not be retrieved through the available GitHub file interface in this run (the fetch returned an empty body). No unverifiable or partial data was imported. A separate 39,110-entry NCKL-derived pronunciation dataset was reviewed but not imported: its dataset card says research-only and instructs users to check NCKL terms; redistribution permission and provenance are not yet established.
+- **DONE_VERIFIED — deterministic n-best implementation:** Python and JavaScript now expose up to three distinct Viterbi paths per unprotected chunk. The existing single-best segmentation remains the canonical conversion path. Candidate costs are explicitly documented as negative-log frequency scores, not probabilities, confidence or accuracy.
+- **DONE_VERIFIED — protected lexical spans:** Candidate diagnostics split around registered multi-cluster lexical fixtures and preserve each fixture as a fixed span. Shared segmentation fixtures now cover the adjacent lexical/OOV case `កម្ពុជាប្រជាធិបតេយ្យ` and the Chaktomuk compound `ក្រុងចតុម្មុខ`.
+- **DONE_VERIFIED — Python consonant boundary correction:** The Python tokenizer previously compared a following Khmer character against a list of consonant records instead of a set of consonant characters. The comparison now uses the explicit character set, matching the browser's adjacent-fixture behavior.
+- **DONE_VERIFIED — bounded diagnostics:** N-best enumeration is limited to 128 orthographic clusters per chunk. Longer chunks keep the unchanged canonical tokenizer path and report `DIAGNOSTICS_SKIPPED_LENGTH_LIMIT`; this prevents diagnostic path enumeration from becoming an unbounded cost on long input.
+- **DONE_VERIFIED — user-facing inspection:** The research drawer now shows up to three candidate paths, marks OOV pieces, labels protected fixtures, and describes the model cost without presenting it as confidence. The README and dataset attribution note document these semantics and limits.
+- **PARTIAL — automated verification:** Python tests, browser checks, cross-runtime candidate parity, benchmarks and production build are required on PR #531. Do not mark this batch complete until the current PR-head Quality checks and Chromium smoke are confirmed successful.
+- **BLOCKED — full dictionary expansion:** The pinned full Google lexicon source is identified and its CC BY 4.0 provenance is documented upstream, but the repository connector returned a zero-length body for the full TSV. Acceptance requires obtaining the complete pinned source, verifying its SHA-256 against the upstream build manifest, normalizing it deterministically, and measuring size/startup/performance before deciding whether to bundle it or generate an optional expanded dictionary.
+- **BLOCKED — NCKL-derived dictionary reuse:** The 39,110-entry pronunciation-respelling dataset has source-card restrictions and extraction/adjudication caveats. Acceptance requires a clear redistribution permission decision, primary NCKL terms, and review of disputed or machine-judged rows; it must not be silently mixed into the Google frequency dictionary.
+- **DEFERRED — segmentation accuracy:** There is still no independent segmentation gold corpus. Synthetic dictionary invariants and Python/JavaScript parity validate software behavior only, not linguistic segmentation accuracy.
+
+### Verification and reconciliation
+
+- PR #531 is based on the latest main after PR #530; its changes are isolated to segmentation diagnostics, tests, UI details, README and attribution notes.
+- Open PR #519 was inspected. It concerns the romanization switch and optional external G2P providers, with overlapping README/documentation but no equivalent segmentation implementation. It remains open and untouched because its branch is divergent; do not merge it blindly as part of this segmentation task.
+- Quality and browser checks for PR #531 were not yet visible in the connector at the time of this handoff edit. Recheck the PR head and GitHub Actions before merge.
+- The prior Chaktomuk fix remains merged in main at `5fc571f681ac2f2f3cfd15e7471a7fa95a7ed3d9`.
+
+### Next action
+
+Verify PR #531 on its actual latest head. Fix only failures demonstrated by CI. If all checks pass, merge with squash and record the merge SHA plus post-merge verification. Do not claim segmentation accuracy or include unlicensed/uncleared datasets.
