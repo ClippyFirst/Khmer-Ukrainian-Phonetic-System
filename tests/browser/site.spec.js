@@ -50,10 +50,11 @@ test("primary method switch is visible beside the main result without opening re
 test("phonetic mode never substitutes an orthographic romanization fallback for unresolved IPA", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("ស៊៉ា");
-  await expect(page.locator("#ipa-result")).toHaveText("⟦EVIDENCE_LIMITED⟧");
-  await expect(page.locator("#ua-result")).toHaveText("???");
+  await expect(page.locator("#ipa-result")).toHaveText("/s/⟦EVIDENCE_LIMITED⟧");
+  await expect(page.locator("#ua-result")).toHaveText("с???");
   await expect(page.locator("#status")).toContainText("EVIDENCE LIMITED");
-  await expect(page.locator("#status")).not.toContainText("PROVISIONAL CANDIDATE");
+  await expect(page.locator("#unit-details")).toContainText("Попередня підказка: s → с??? [PROVISIONAL]");
+  await expect(page.locator("#status")).not.toContainText("EXTERNAL IPA CANDIDATE");
 });
 
 test("research tools are collapsed by default and can be opened on demand", async ({ page }) => {
