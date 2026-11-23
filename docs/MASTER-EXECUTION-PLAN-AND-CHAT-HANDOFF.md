@@ -6114,3 +6114,12 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - Chromium [45146465516](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45146465516): 34/34 passed. The worker bundle in this build is 124.63 kB.
 - Same-head synthetic tokenizer stress benchmark: 8,000 code points; trie median 3.07 ms vs pre-trie 298.09 ms, 97.0×, about 2.60 million code points/s. This benchmark measures fixture lookup/orthographic tokenization only, not end-to-end G2P.
 - The PR remains open for review; no merge, Pages deployment or release is claimed.
+
+
+## Lexical IPA/UA parity across the full browser fixture set — 2026-11-23
+
+- Added `scripts/export_lexical_parity.py`, `tests/cross-runtime-lexical-parity.mjs`, `npm run test:lexical-parity`, and a CI step comparing Python `RuleBasedKhmerEngine` with browser `convert()` for every row in `data/tests/web-fixtures.json`.
+- All **36 lexical fixtures** now match across runtimes for source-unit alignment, canonical IPA (normalized only for the browser's slash display), Ukrainian adaptation, status and lexical-mapping agreement. A fixture without an IPA remains withheld in both paths; no value is synthesized.
+- Exact code head `e584d986a7d7fe9ac177709374c29bd4298e93f2`: Quality [45147094378](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147094378) passed 455 Python tests + 70 subtests, Node checks, 129-case structural parity, 36-fixture IPA/UA parity, tokenizer benchmark and Vite build. Chromium [45147094466](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147094466) passed 34/34.
+- Same-head 8,000-code-point tokenizer stress: trie median 3.23 ms, pre-trie 357.92 ms, 110.8×. Synthetic tokenizer-only comparison; no general G2P latency guarantee.
+- **Task ledger:** 129-case structural parity = DONE_VERIFIED; 36-fixture IPA/UA/status parity = DONE_VERIFIED; complete contextual phonology and full result-schema parity = PARTIAL; lexical word segmentation/OOV inference = TODO.
