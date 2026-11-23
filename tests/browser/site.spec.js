@@ -3,7 +3,9 @@ import { test, expect } from "@playwright/test";
 test.beforeEach(async ({ page }, testInfo) => {
   if ([
     "research tools are collapsed by default and can be opened on demand",
-    "IPA and Latin romanization remain visible outside the collapsed analysis drawer"
+    "IPA and Latin romanization remain visible outside the collapsed analysis drawer",
+    "primary method switch is visible beside the main result without opening research details",
+    "phonetic mode never substitutes an orthographic romanization fallback for unresolved IPA"
   ].includes(testInfo.title)) return;
   await page.addInitScript(() => {
     document.addEventListener("DOMContentLoaded", () => {
@@ -24,6 +26,32 @@ test("Latin BGN/PCGN input renders a provisional Ukrainian form in the primary r
   await expect(page.locator("#status")).toContainText("BGN/PCGN LATIN INPUT");
   await expect(page.locator("#ua-result")).toHaveText(/\?\?\?$/u);
   await expect(page.locator("#ipa-result")).toContainText("IPA не застосовується");
+});
+
+test("primary method switch is visible beside the main result without opening research details", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("Kâmpŭchéa");
+  const drawer = page.locator("#research-details");
+  await expect(drawer).not.toHaveAttribute("open", "");
+  const group = page.getByRole("group", { name: "Метод українського запису" });
+  await expect(group).toBeVisible();
+  await expect(group.getByRole("button", { name: "За IPA" })).toBeVisible();
+  await expect(group.getByRole("button", { name: "З романізації" })).toBeVisible();
+  await expect(page.locator("#ua-result-title")).toHaveText("Українська за вимовою (IPA)");
+  await group.getByRole("button", { name: "З романізації" }).click();
+  await expect(page.locator("#ua-result-title")).toHaveText("Українська з романізації");
+  await expect(page.locator("#ua-result")).toHaveText("Кампучеа");
+  await group.getByRole("button", { name: "За IPA" }).click();
+  await expect(page.locator("#ua-result-title")).toHaveText("Українська за вимовою (IPA)");
+});
+
+test("phonetic mode never substitutes an orthographic romanization fallback for unresolved IPA", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("ស៊៉ា");
+  await expect(page.locator("#ipa-result")).toHaveText("⟦EVIDENCE_LIMITED⟧");
+  await expect(page.locator("#ua-result")).toHaveText("???");
+  await expect(page.locator("#status")).toContainText("EVIDENCE LIMITED");
+  await expect(page.locator("#status")).not.toContainText("PROVISIONAL CANDIDATE");
 });
 
 test("research tools are collapsed by default and can be opened on demand", async ({ page }) => {
