@@ -123,3 +123,13 @@ The worker now imports `src/khmer-engine-core.js` directly; the DOM entry point 
 - Exact code head `a389530b5ffa8799b6194c939a00bce9309110e2`: Quality [45145785462](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145785462) passed 455 Python tests + 70 subtests, Node checks, 129-case structural parity, tokenizer benchmark and Vite build. Chromium [45145796671](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145796671) passed 34/34.
 - Same-head synthetic tokenizer stress: 8,000 code points; trie median 8.19 ms, pre-trie median 490.16 ms, 59.9×. The absolute timing varies with CI host load; the repeated-run comparison is not a general end-to-end G2P performance guarantee.
 - **Task ledger:** inventory-derived 129-case structural parity = DONE_VERIFIED; complete phonological rules and end-to-end Python/JS result parity = PARTIAL; tokenizer lexical/OOV word segmentation = TODO.
+
+
+## Final continuation checkpoint — 2026-11-23
+
+- Current branch tip after canonical documentation updates: `f79126ae78ebcd4d5e70324c0c43736f622885b7`.
+- Exact-tip Quality [45146037172](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45146037172) passed: 455 Python tests + 70 subtests, all Node checks, 129-case Python↔JS structural parity, tokenizer benchmark and Vite production build.
+- The last code-bearing head is `a389530b5ffa8799b6194c939a00bce9309110e2`; its Chromium run [45145796671](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145796671) passed 34/34. Subsequent commits to `f79126a` were documentation-only. A newer doc-head browser workflow was still running at checkpoint and is not counted as passed.
+- Exact-tip tokenizer stress benchmark: 8,000 code points; trie median 2.69 ms, pre-trie median 242.72 ms, 90.3× on GitHub Actions Node 24. Synthetic tokenizer-only benchmark; not end-to-end G2P.
+- PR [#520](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/520) remains open and mergeable. PR #519 remains untouched and open due overlapping UI/docs/test files; reconcile before merging either. No merge, Pages deployment, or release was performed.
+- **Task ledger:** Worker execution/fallback/race = DONE_VERIFIED; tokenizer parity cases = DONE_VERIFIED; 129-case structural parity = DONE_VERIFIED; trie optimization and benchmark = DONE_VERIFIED; full contextual phonology and end-to-end result parity = PARTIAL; lexical/OOV word segmentation = TODO; external assets rights = BLOCKED; expert IPA gold = DEFERRED for beta / BLOCKED for accuracy claims.
