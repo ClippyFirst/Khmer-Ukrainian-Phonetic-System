@@ -7,22 +7,28 @@ on:
       - ".github/workflows/khpos-segmentation-benchmark.yml"
       - "scripts/evaluate_khpos.py"
       - "scripts/evaluate_khpos_js.mjs"
-      - "src/khmer_ua/word_segmenter.py"
-      - "src/khmer_ua/rule_engine.py"
-      - "src/khmer-word-segmenter.js"
+      - "tests/test_khpos_benchmark.py"
+      - "src/khmer_ua/**"
       - "src/khmer-engine-core.js"
+      - "src/khmer-word-segmenter.js"
+      - "data/khmer/consonants.json"
       - "data/khmer/google-pronunciation-full-frequency.json"
+      - "data/khmer/signs.json"
+      - "data/tests/web-fixtures.json"
   push:
     branches: [main]
     paths:
       - ".github/workflows/khpos-segmentation-benchmark.yml"
       - "scripts/evaluate_khpos.py"
       - "scripts/evaluate_khpos_js.mjs"
-      - "src/khmer_ua/word_segmenter.py"
-      - "src/khmer_ua/rule_engine.py"
-      - "src/khmer-word-segmenter.js"
+      - "tests/test_khpos_benchmark.py"
+      - "src/khmer_ua/**"
       - "src/khmer-engine-core.js"
+      - "src/khmer-word-segmenter.js"
+      - "data/khmer/consonants.json"
       - "data/khmer/google-pronunciation-full-frequency.json"
+      - "data/khmer/signs.json"
+      - "data/tests/web-fixtures.json"
   workflow_dispatch:
 
 permissions:
