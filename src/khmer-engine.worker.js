@@ -1,4 +1,4 @@
-import { convert } from "./main.js";
+import { convert } from "./khmer-engine-core.js";
 
 self.addEventListener("message", (event) => {
   const { id, text, profile } = event.data ?? {};
