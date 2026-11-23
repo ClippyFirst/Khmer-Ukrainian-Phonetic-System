@@ -5,11 +5,17 @@ import json
 from pathlib import Path
 
 from khmer_ua.parser import analyze as analyze_structure, segment_syllables
+from khmer_ua.rule_engine import RuleBasedKhmerEngine
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = json.loads((ROOT / "data/tests/structural-parity.json").read_text(encoding="utf-8"))
 rows = []
+engine = RuleBasedKhmerEngine()
 for source in FIXTURE["cases"]:
+    engine_result = engine.analyze(source)
+    if len(engine_result.get("units", [])) != 1:
+        raise RuntimeError(f"expected one rule-engine unit for {source!r}")
+    engine_unit = engine_result["units"][0]
     tokens = segment_syllables(source)
     units = []
     for token in tokens:
@@ -37,5 +43,13 @@ for source in FIXTURE["cases"]:
                 "onset_ipa": syllable.get("phonology", {}).get("onset_ipa"),
             },
         })
-    rows.append({"input": source, "tokens": tokens, "units": units})
+    rows.append({
+        "input": source, "tokens": tokens, "units": units,
+        "engine_unit": {
+            "source": engine_unit["source"],
+            "ipa": engine_unit.get("ipa"),
+            "ukrainian": engine_unit.get("ukrainian"),
+            "status": engine_unit["status"],
+        },
+    })
 print(json.dumps({"schema": "khmer-structural-parity-reference/v1", "cases": rows}, ensure_ascii=False))
