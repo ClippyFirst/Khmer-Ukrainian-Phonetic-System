@@ -131,6 +131,45 @@ class HybridKhmerEngine:
         return result
 
 
+def make_khmerphonemizer_backend() -> Provider:
+    """Lazy adapter for the pinned, MIT-licensed Khmer Phonemizer package.
+
+    The provider output is retained as an unadjudicated broad-phonetic
+    candidate. It is never treated as profile-matched or canonical IPA.
+    """
+    def predict(text: str) -> dict[str, Any]:
+        try:
+            from khmerphonemizer import phonemize
+        except ImportError as exc:
+            raise RuntimeError(
+                "Install the optional phonemizer extra: pip install .[phonemizer]"
+            ) from exc
+        tokens, phone_lists = phonemize(text)
+        if not tokens or not phone_lists or len(tokens) != len(phone_lists):
+            raise ValueError("Khmer Phonemizer returned no aligned token/phone output")
+        ipa = " ".join("".join(str(phone) for phone in phones) for phones in phone_lists)
+        return {
+            "ipa": ipa,
+            "profile": DEFAULT_PROFILE,
+            "kind": "PHONETIC_BROAD",
+            "status": "PARTIAL",
+            "profile_match": "UNVERIFIED",
+            "uncertainty": [
+                "External G2P candidate; not independently adjudicated.",
+                "Dialect, style and segmental conventions have not been demonstrated equivalent to the project's Phnom Penh careful-citation profile.",
+                "Token-level output does not establish lexical stress, tone or narrow phonetic detail.",
+            ],
+            "provenance": {
+                "engine": "khmerphonemizer",
+                "package_version": "0.0.3",
+                "license": "MIT",
+                "tokens": list(tokens),
+                "inference_parameters": "package phonemize() defaults",
+            },
+        }
+    return predict
+
+
 def make_mekongphon_backend(
     model_id: str = "byumatrixlab/khmer-ipa",
     revision: str = "20e069d384b240da76320e1569958568c12a54bc",
@@ -206,14 +245,23 @@ def make_command_backend(command: list[str], *, engine_id: str, revision: str) -
     return run
 
 
-def create_hybrid_engine(providers: dict[str, Provider] | None = None) -> HybridKhmerEngine:
-    return HybridKhmerEngine(providers=providers)
+def create_hybrid_engine(
+    providers: dict[str, Provider] | None = None,
+    *,
+    include_khmerphonemizer: bool = False,
+) -> HybridKhmerEngine:
+    """Create a hybrid engine; external providers are always explicit opt-in."""
+    selected = dict(providers or {})
+    if include_khmerphonemizer:
+        selected.setdefault("khmer-phonemizer", make_khmerphonemizer_backend())
+    return HybridKhmerEngine(providers=selected)
 
 
 __all__ = [
     "HybridKhmerEngine",
     "RuleBasedKhmerEngine",
     "create_hybrid_engine",
+    "make_khmerphonemizer_backend",
     "make_mekongphon_backend",
     "make_command_backend",
 ]
