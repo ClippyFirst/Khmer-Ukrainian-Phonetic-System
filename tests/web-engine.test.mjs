@@ -100,7 +100,8 @@ if (!systemHtml.includes("правопис 2026 §122")) throw new Error("Ukrain
 if (fixtures["ខ្មែរ"].ua !== "к\u0027мае") throw new Error("lexical /kʰmae/ fixture contradicts canonical /kʰ/ policy");
 if (!js.includes("fixture.ua") || !js.includes("mapping_check")) throw new Error("lexical practical-form handling missing");
 if (!js.includes("rendered.map") || !js.includes("renderUnknownUnit")) throw new Error("per-unit rendering is missing");
-if (!js.includes("Невизначеність IPA збережено; доступні кандидати показано без вимоги перемикати режими.")) throw new Error("automatic best-effort mixed-input guard missing");
+if (!js.includes("Невизначеність IPA збережено.")) throw new Error("canonical IPA uncertainty must remain explicit when provisional candidates are shown");
+if (!js.includes("data/khmer/provisional-ipa-candidates.json")) throw new Error("archived external IPA candidate dataset is not wired into the browser core");
 if (!js.includes("УВАГА: лексична українська форма не збігається")) throw new Error("lexical override contradiction guard missing");
 if (!js.includes('mapped.value ?? "⟦НЕВСТАНОВЛЕНО⟧"')) throw new Error("canonical mapping fallback missing");
 const forbiddenTerms = ["\u043a\u0445\u043c\u0435\u0440", "\u041a\u0445\u043c\u0435\u0440"];
