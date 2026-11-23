@@ -7,6 +7,7 @@ from khmer_ua.word_segmenter import (
     WORD_SEGMENTER_ID,
     segment_words,
     segment_words_candidates,
+    describe_word_segmentation,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -124,3 +125,28 @@ def test_candidate_diagnostics_are_explicitly_not_probabilities_or_accuracy():
     assert "not probabilities" in diagnostics["score_note"]
     assert diagnostics["accuracy"] is None
     assert diagnostics["candidate_runs"][0]["chunks"][0]["method"] == "DICTIONARY_VITERBI_NBEST"
+
+
+
+def test_every_bundled_dictionary_entry_remains_a_single_known_word():
+    data = json.loads((ROOT / "data/khmer/google-pronunciation-sample.json").read_text(encoding="utf-8"))
+    for entry in data["entries"]:
+        word = entry["word"]
+        pieces = segment_words(word)
+        assert len(pieces) == 1, word
+        assert pieces[0].text == word and pieces[0].known, word
+        candidates = segment_words_candidates(word, 1)
+        assert candidates[0]["segments"] == [
+            {"text": word, "known": True, "status": "DICTIONARY_MATCH"}
+        ], word
+
+
+def test_long_runs_skip_only_nbest_diagnostics_and_keep_the_input():
+    source = "ម" * 129
+    assert segment_words_candidates(source, 3) == []
+    diagnostics = describe_word_segmentation([], set(), source)
+    chunk = diagnostics["candidate_runs"][0]["chunks"][0]
+    assert chunk["source"] == source
+    assert chunk["method"] == "DIAGNOSTICS_SKIPPED_LENGTH_LIMIT"
+    assert chunk["candidates"] == []
+    assert diagnostics["candidate_runs"][0]["status"] == "DIAGNOSTICS_LIMITED"
