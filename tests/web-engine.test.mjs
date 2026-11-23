@@ -12,6 +12,7 @@ const adapterSource = fs.readFileSync("src/ukrainian-practical.js", "utf8");
 const policy = JSON.parse(fs.readFileSync("data/ukrainian/practical-policy.json", "utf8"));
 const fixtures = JSON.parse(fs.readFileSync("data/tests/web-fixtures.json", "utf8"));
 const adversarial = JSON.parse(fs.readFileSync("data/tests/adversarial-cases.json", "utf8"));
+const tokenizerParity = JSON.parse(fs.readFileSync("data/tests/tokenizer-parity.json", "utf8"));
 const vite = fs.readFileSync("vite.config.js", "utf8");
 
 for (const x of ["Content-Security-Policy", "src/main.js", 'id="source"', 'id="results"']) {
@@ -209,8 +210,11 @@ for (const x of ['<nav class="site-nav" aria-label="Основна навіга�
 
 if (!js.includes("function confidenceTier(item)") || !js.includes("доказовий рівень") || !js.includes("unit.confidence_tier")) throw new Error("evidence confidence tiers are not surfaced in the browser");
 
-// Cross-runtime boundary parity: Unicode 18 §16's subscript independent-vowel
-// sequence remains attached to its following coda consonant.
-if (JSON.stringify(tokenize("ផ្ឯម")) !== JSON.stringify(["ផ្ឯម"])) {
-  throw new Error("browser tokenizer split a Unicode 18 subscript independent-vowel + coda sequence");
+// Shared expected boundaries are consumed by both Python and browser tests.
+for (const item of tokenizerParity.cases) {
+  const actual = tokenize(item.input);
+  if (JSON.stringify(actual) !== JSON.stringify(item.units)) {
+    throw new Error("browser/Python tokenizer parity mismatch for " + JSON.stringify(item.input)
+      + ": expected " + JSON.stringify(item.units) + ", got " + JSON.stringify(actual));
+  }
 }
