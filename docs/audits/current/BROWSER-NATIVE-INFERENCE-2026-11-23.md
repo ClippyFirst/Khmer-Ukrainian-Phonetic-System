@@ -24,11 +24,11 @@ Adopt a native-first browser architecture modelled on the Thai repository: JavaS
 | Task | Status | Evidence / acceptance |
 |---|---|---|
 | Offload existing deterministic browser inference from UI thread | DONE_VERIFIED | Exact-head CI and Chromium confirm the local Worker path runs |
-| Keep all user text local in the inference path | DONE_VERIFIED | Worker/client use local messaging only; static contract test rejects network APIs in these modules. A separate manual network-panel audit remains optional follow-up |
+| Keep all user text local in the inference path | DONE_VERIFIED | Worker/client use local messaging only; static contract test rejects network APIs and Chromium asserts no external HTTP(S) requests during inference |
 | Prevent stale render overwrite during rapid input | DONE_VERIFIED | Chromium race test deliberately delays the first Worker response and confirms it cannot overwrite the second input |
 | Worker failure fallback | DONE_VERIFIED | Chromium test aborts the Worker asset request and confirms the same local engine returns the result |
 | Shared tokenizer boundary parity cases | DONE_VERIFIED | Python and browser tests consume `data/tests/tokenizer-parity.json`; Unicode 18 subscript-vowel+coda regression passes in both runtimes |
-| 129-case Python↔JavaScript structural parity inventory | DONE_VERIFIED | CI compares token boundaries and core structural fields across all consonants, independent vowels, vowel signs, subscript inventory, eligible shifters and adversarial forms |
+| 129-case Python↔JavaScript structural + IPA/status parity inventory | DONE_VERIFIED | CI compares token boundaries, full grapheme/provenance structure, engine status, IPA establishment/withholding and proposed UA adaptation across inventory inputs |
 | 36-fixture Python↔JavaScript lexical IPA/UA parity | DONE_VERIFIED | CI compares per-unit source, canonical IPA, Ukrainian adaptation, status and mapping agreement for every browser lexical fixture |
 | Full Python↔JavaScript structural/rule semantic parity | PARTIAL | 129 expanded structural cases, 36 lexical fixtures and 46 consonant/register rule-output cases pass; vowel/subscript/contextual rules, full output schema and open vocabulary remain outstanding |
 | Python↔JavaScript consonant/register rule-output parity | DONE_VERIFIED | Exact-head CI compares normalized IPA, UA, status, trace, confidence and evidence for 46 inputs |
@@ -222,3 +222,13 @@ The worker now imports `src/khmer-engine-core.js` directly; the DOM entry point 
 - Browser privacy run [45149575280](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45149575280): 35/35 passed, including the no-external-network-request assertion.
 - Exact-head engine microbenchmark: JS 0.4903 ms per 36-fixture batch, Python 4.9692 ms, 10.13× on this CI runner. The research engine returns richer structure metadata; this is not a controlled algorithm-only comparison. Tokenizer stress: 8,000 code points, 3.38 ms trie vs 298.75 ms pre-trie, 97.7× synthetic comparison.
 - **Task ledger:** inventory-wide structural + IPA withholding parity = DONE_VERIFIED; 36 lexical fixture and 46 consonant/register output parity = DONE_VERIFIED; browser local-only privacy regression = DONE_VERIFIED; full contextual phonology/result schema = PARTIAL; OOV word segmentation = TODO; external model/data rights = BLOCKED.
+
+
+## IPA establishment/withholding parity and local-network regression — 2026-11-23
+
+- Extended the 129-case structural parity gate to run the full Python rule engine and browser `convert()` for each inventory case. It now compares unit count, status, normalized IPA (including whether IPA is withheld), and Ukrainian output whenever Python marks the unit PROPOSED. This prevents a structurally valid but unsupported vowel/subscript form from silently acquiring a browser-only IPA guess.
+- Added a Chromium regression that types Khmer after initial page load and asserts there are no external HTTP(S) requests during inference. This supplements the static no-network worker/client contract test.
+- Exact code head `338a3c0b2f941c264a3fb5f442e9b9d7156b9ee2`: Quality [45149642609](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45149642609) passed 455 Python tests + 70 subtests, 129 structural+IPA/status cases, 36 lexical fixtures, 46 consonant/register outputs, engine benchmark, tokenizer benchmark and Vite build. The same-head browser run was still running at checkpoint; previous code head `f0f806d8f9075a92cf8faa0d0d0876e9a90b6203` passed 35/35, including the new no-external-request test.
+- Same-head engine microbenchmark: JS 0.4903 ms/36 fixtures, Python 4.9692 ms/36, 10.13× observed ratio; workload-specific and not algorithm-only because result contracts differ.
+- Same-head tokenizer stress: 8,000 code points, trie median 4.89 ms vs pre-trie 478.02 ms, 97.7× synthetic tokenizer-only comparison.
+- **Task ledger:** 129-case structural + IPA withholding/status parity = DONE_VERIFIED; full result-schema parity and untested contexts remain PARTIAL; local no-external-request browser regression = DONE_VERIFIED; OOV word segmentation = TODO.
