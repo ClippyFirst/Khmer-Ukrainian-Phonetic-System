@@ -102,3 +102,27 @@ def test_contextual_vowel_evidence_exposes_missing_dimensions_without_inference(
     conflicting = [row for row in observations if row["evidence_status"] == "CONFLICTING_SOURCE_ANALYSES"]
     assert conflicting
     assert all(row["source_transcription"] is None for row in conflicting)
+
+
+def test_coverage_report_exposes_source_backed_context_dimensions():
+    report = json.loads(REPORT.read_text(encoding="utf-8"))
+    registry = json.loads(
+        (ROOT / "data" / "khmer" / "vowel-context-register.json").read_text(encoding="utf-8")
+    )
+    contextual = report["contextual_vowel_evidence"]
+    dimensions = contextual["source_backed_context_dimensions"]
+    expected = registry["context_dimensions"]
+
+    assert contextual["context_dimension_count"] == len(expected)
+    assert [item["id"] for item in dimensions] == sorted(item["id"] for item in expected)
+    assert contextual["context_dimension_evidence_status_counts"] == {
+        status: sum(1 for item in expected if item["evidence_status"] == status)
+        for status in sorted({item["evidence_status"] for item in expected})
+    }
+    source_ids = set(registry["sources"])
+    for item in dimensions:
+        assert set(item["source_ids"]) <= source_ids
+        assert item["locator"]
+        assert item["profile_scope"]
+        assert item["implementation"]
+    assert contextual["cross_product_assessment"]["status"] == "NOT_ESTABLISHED"
