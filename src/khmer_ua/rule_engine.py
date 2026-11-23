@@ -467,7 +467,7 @@ class RuleBasedKhmerEngine:
             "reason": " ".join(reasons),
             "evidence": evidence,
             "units": rendered,
-            "word_segmentation": describe_word_segmentation(tokens, set(_LEXICON)),
+            "word_segmentation": describe_word_segmentation(tokens, set(_LEXICON), normalized),
             "phonetic_result": phonetic_result,
             "structure": structure.phonological_representation,
             "complete": complete,
