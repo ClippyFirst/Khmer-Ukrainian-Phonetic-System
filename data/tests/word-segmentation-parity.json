@@ -12,11 +12,9 @@
     {
       "input": "កម",
       "units": [
-        "ក",
-        " ",
-        "ម"
+        "កម"
       ],
-      "reason": "The frequency dictionary proposes two known units; the inserted boundary is a candidate, not gold."
+      "reason": "The full frequency dictionary contains this entire spelling as a lexical entry; exact dictionary matches are preserved as atomic candidates. Boundary accuracy remains unmeasured."
     },
     {
       "input": "ខ្ញុំស្រឡាញ់ប្រទេសកម្ពុជា",
