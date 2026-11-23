@@ -6032,3 +6032,13 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - **Remaining engineering gap:** this change moves the existing JS engine off the UI thread; it does not yet establish full Python↔JavaScript behavioral parity or port the Python structural parser/rule engine in full. Existing Python and JS implementations remain distinct. No third-party FST/model weights or unverified corpus assets were imported.
 - **Acceptance:** exact-head Quality workflow passes including all Node tests; Vite production build passes; Chromium smoke verifies phonetic output updates while typing, no stale result overwrite, and romanization remains independent; worker failure falls back locally; Pages deployment and deployed smoke pass. Then add cross-runtime fixtures and a separately reviewed parity gate.
 - **Task ledger:** worker offload = PARTIAL pending CI/browser evidence; full JS/Python parity = TODO; independent expert IPA gold = DEFERRED for beta / BLOCKED for accuracy claims; third-party model asset licensing = BLOCKED pending item-level provenance and rights evidence.
+
+
+### Exact-head verification addendum — 2026-11-23
+
+- **DONE_VERIFIED — local Web Worker integration:** exact code head `a8a00e1660b6b0fdba1c93475c766d8480f62bcd` passed Quality run [45135417588](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45135417588) and Chromium browser run [45135417537](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45135417537).
+- Quality: Python `453 passed, 70 subtests passed`; all Node web checks passed, including `Khmer Web Worker contract: PASS`; Vite production build passed.
+- Chromium: `33 passed`; the new tests confirmed actual local Worker execution and local synchronous fallback when the worker asset is unavailable.
+- Worker bundle was emitted as `khmer-engine.worker-CUQHOf-q.js` (~136.40 kB) on the exact-head browser run.
+- This verifies browser worker execution and existing suite compatibility, not an independent throughput benchmark or Python↔JavaScript linguistic parity. No Pages deployment occurred because the PR remains unmerged.
+- **DONE_VERIFIED:** worker integration, local fallback, stale-response guard code, and exact-head CI/browser checks. **TODO:** full cross-runtime semantic parity and broader tokenizer/OOV model integration. **BLOCKED:** third-party corpus/model redistribution pending item-level rights; expert IPA gold remains deferred for beta and blocks accuracy claims.
