@@ -88,5 +88,9 @@
       "default": "ті",
       "note": "/c/ is approximated by Ukrainian palatalized /tʲ/; before Ukrainian і, palatality is carried by і, so a separate ь would be redundant. This is a practical spelling rule, not a claim of phonetic identity."
     }
+,    "ciə": {
+      "default": "тіє",
+      "note": "The full /ciə/ sequence is rendered as a Ukrainian orthographic unit: /c/ is approximated by т, і marks its palatalization, and /ə/ in this sequence is adapted with є. This is a project target convention, not a claim of phonetic identity."
+    }
   }
 }
