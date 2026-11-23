@@ -43,3 +43,23 @@ def test_contextual_vowel_evidence_references_are_resolvable_and_not_gold():
             assert case["ipa"] is None, case["id"]
             assert case["ukrainian_adaptation"] is None, case["id"]
             assert case["ukrainian_status"] == "NOT_ESTABLISHED", case["id"]
+
+
+def test_context_dimensions_have_resolvable_sources_and_explicit_boundaries():
+    register = load_json(REGISTER)
+    source_ids = set(register["sources"])
+    dimensions = register["context_dimensions"]
+    dimension_ids = [item["id"] for item in dimensions]
+
+    assert len(dimensions) >= 1
+    assert len(dimension_ids) == len(set(dimension_ids))
+    for item in dimensions:
+        assert item["source_ids"], item["id"]
+        assert set(item["source_ids"]) <= source_ids, item["id"]
+        assert item["environment"], item["id"]
+        assert item["locator"], item["id"]
+        assert item["profile_scope"], item["id"]
+        assert item["implementation"], item["id"]
+        # Context findings are not lexical gold or permission to infer a
+        # deterministic output from an incomplete cross-product.
+        assert "do not" in item["implementation"].lower() or "keep " in item["implementation"].lower(), item["id"]
