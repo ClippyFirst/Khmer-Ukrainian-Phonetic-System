@@ -35,7 +35,9 @@ def test_unknown_kcc_run_is_not_split_around_a_bare_letter_name():
 
 
 def test_python_tokenizer_matches_shared_browser_parity_cases():
-    cases = json.loads((ROOT / "data/tests/tokenizer-parity.json").read_text(encoding="utf-8"))["cases"]
+    parity = json.loads((ROOT / "data/tests/tokenizer-parity.json").read_text(encoding="utf-8"))
+    assert parity["schema"] == "khmer-tokenizer-parity/v2"
+    cases = parity["cases"]
     engine = RuleBasedKhmerEngine()
     for case in cases:
         result = engine.analyze(case["input"])
