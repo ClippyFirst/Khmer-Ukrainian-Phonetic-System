@@ -204,3 +204,14 @@ def test_zwnj_does_not_split_a_khmer_orthographic_unit():
 
     source = "ប\u200C៊"
     assert segment_syllables(source) == [source]
+
+
+def test_python_tokenizer_matches_shared_browser_boundary_fixtures():
+    import json
+    from pathlib import Path
+    from khmer_ua.parser import segment_syllables
+
+    fixture = json.loads(Path("data/tests/tokenizer-parity.json").read_text(encoding="utf-8"))
+    assert fixture["schema"] == "khmer-tokenizer-parity/v1"
+    for case in fixture["cases"]:
+        assert segment_syllables(case["input"]) == case["units"], case["reason"]

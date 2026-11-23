@@ -425,3 +425,59 @@ test("service and methodology pages expose coherent document landmarks and named
   await expect(page.getByRole("main")).toBeVisible();
   await expect(page.getByRole("textbox", { name: "Введіть кмерський текст або латинську романізацію BGN/PCGN 1972" })).toBeVisible();
 });
+
+
+test("Khmer phonetic inference executes in a local Web Worker", async ({ page }) => {
+  const workerUrls = [];
+  page.on("worker", (worker) => workerUrls.push(worker.url()));
+  await page.goto("/");
+  await page.locator("#source").fill("ខ្មែរ");
+  await expect(page.locator("#ua-result")).toContainText("к'мае");
+  await expect.poll(() => workerUrls.some((url) => url.includes("khmer-engine.worker"))).toBe(true);
+});
+
+test("typing Khmer text causes no external network requests", async ({ page }) => {
+  let observe = false;
+  const externalRequests = [];
+  page.on("request", (request) => {
+    if (!observe) return;
+    const url = new URL(request.url());
+    if (url.protocol === "http:" || url.protocol === "https:") {
+      if (!["localhost", "127.0.0.1", "::1"].includes(url.hostname)) externalRequests.push(url.href);
+    }
+  });
+  await page.goto("/");
+  observe = true;
+  await page.locator("#source").fill("ខ្មែរ ភាសាខ្មែរ");
+  await expect(page.locator("#ua-result")).toContainText("к'мае");
+  expect(externalRequests).toEqual([]);
+});
+
+test("phonetic inference falls back locally when the worker asset is unavailable", async ({ page }) => {
+  await page.route(/khmer-engine\.worker/u, (route) => route.abort());
+  await page.goto("/");
+  await page.locator("#source").fill("ខ្មែរ");
+  await expect(page.locator("#ua-result")).toContainText("к'мае");
+});
+
+
+test("late worker response cannot overwrite the newest input result", async ({ page }) => {
+  await page.addInitScript(() => {
+    const nativeAddEventListener = Worker.prototype.addEventListener;
+    Worker.prototype.addEventListener = function (type, listener, options) {
+      if (type === "message") {
+        return nativeAddEventListener.call(this, type, (event) => {
+          if (event.data?.id === 1) setTimeout(() => listener.call(this, event), 250);
+          else listener.call(this, event);
+        }, options);
+      }
+      return nativeAddEventListener.call(this, type, listener, options);
+    };
+  });
+  await page.goto("/");
+  await page.locator("#source").fill("ខ្មែរ");
+  await page.locator("#source").fill("ភាសាខ្មែរ");
+  await expect(page.locator("#ua-result")).toContainText("п'ієса к'мае");
+  await page.waitForTimeout(300);
+  await expect(page.locator("#ua-result")).toContainText("п'ієса к'мае");
+});

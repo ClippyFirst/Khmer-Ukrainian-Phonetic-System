@@ -1,9 +1,10 @@
+import { convert, tokenize } from "../src/khmer-engine-core.js";
 import fs from "node:fs";
 import { mapIpa } from "../src/ukrainian-practical.js";
 
 const html = fs.readFileSync("index.html", "utf8");
 const systemHtml = fs.readFileSync("system.html", "utf8");
-const js = fs.readFileSync("src/main.js", "utf8");
+const js = fs.readFileSync("src/main.js", "utf8") + "\n" + fs.readFileSync("src/khmer-engine-core.js", "utf8");
 const outputLevelStart = html.indexOf('<select id="output-level"');
 const outputLevelEnd = html.indexOf("</select>", outputLevelStart);
 const outputLevelSelector = outputLevelStart >= 0 && outputLevelEnd >= 0 ? html.slice(outputLevelStart, outputLevelEnd + 9) : "";
@@ -11,6 +12,7 @@ const adapterSource = fs.readFileSync("src/ukrainian-practical.js", "utf8");
 const policy = JSON.parse(fs.readFileSync("data/ukrainian/practical-policy.json", "utf8"));
 const fixtures = JSON.parse(fs.readFileSync("data/tests/web-fixtures.json", "utf8"));
 const adversarial = JSON.parse(fs.readFileSync("data/tests/adversarial-cases.json", "utf8"));
+const tokenizerParity = JSON.parse(fs.readFileSync("data/tests/tokenizer-parity.json", "utf8"));
 const vite = fs.readFileSync("vite.config.js", "utf8");
 
 for (const x of ["Content-Security-Policy", "src/main.js", 'id="source"', 'id="results"']) {
@@ -113,7 +115,7 @@ if (systemHtml.includes("<td>/c, cʰ/</td><td>ч</td>") || systemHtml.includes("
 console.log("web-engine structural tests: PASS");
 
 
-const sourceGuard = fs.readFileSync("src/main.js", "utf8");
+const sourceGuard = fs.readFileSync("src/main.js", "utf8") + "\n" + fs.readFileSync("src/khmer-engine-core.js", "utf8");
 if (/const\s+shifter\s*=\s*shifters\[0\]/u.test(sourceGuard)) throw new Error("register-shifter resolver uses an undefined shifters variable");
 if (!sourceGuard.includes("const shifter = structural[positions[0]]")) throw new Error("register-shifter resolver is not reading the structurally detected shifter");
 if (!sourceGuard.includes('fallback_status: "PROVISIONAL"')) throw new Error("provisional Khmer onset fallback is missing");
@@ -125,8 +127,8 @@ if (!sourceGuard.includes("Khmer combining structure cannot begin a standalone o
 if (sourceGuard.includes("if (!raw || !isKhmerConsonant(raw[0])) return { status: \"NOT_ESTABLISHED\", raw };")) throw new Error("malformed-leading-unit guard is too permissive");
 console.log("adversarial source guards: PASS");
 
-if (!sourceGuard.includes("fixtureKeys = Object.keys(fixtures).sort")) throw new Error("verified lexical spans are not prioritized during tokenization");
-if (!sourceGuard.includes("return next === undefined || isSeparator(next)")) throw new Error("fixture span boundary guard missing");
+if (!sourceGuard.includes("FIXTURE_TRIE") || !sourceGuard.includes("node.value && isSeparator(chars[cursor + 1])")) throw new Error("verified lexical spans are not prioritized through deterministic trie matching");
+if (!sourceGuard.includes("node.value && isSeparator(chars[cursor + 1])")) throw new Error("fixture span boundary guard missing");
 if (!sourceGuard.includes("units.push(fixtureKey)")) throw new Error("fixture span is not preserved as a unit");
 console.log("lexical-span tokenization guards: PASS");
 
@@ -207,3 +209,25 @@ for (const x of ['<nav class="site-nav" aria-label="Основна навіга�
 
 
 if (!js.includes("function confidenceTier(item)") || !js.includes("доказовий рівень") || !js.includes("unit.confidence_tier")) throw new Error("evidence confidence tiers are not surfaced in the browser");
+
+// Shared expected boundaries are consumed by both Python and browser tests.
+for (const item of tokenizerParity.cases) {
+  const actual = tokenize(item.input);
+  if (JSON.stringify(actual) !== JSON.stringify(item.units)) {
+    throw new Error("browser/Python tokenizer parity mismatch for " + JSON.stringify(item.input)
+      + ": expected " + JSON.stringify(item.units) + ", got " + JSON.stringify(actual));
+  }
+}
+
+const longKhmerRun = "ម".repeat(4096);
+const longRunUnits = tokenize(longKhmerRun);
+if (longRunUnits.length !== 4096 || longRunUnits.join("") !== longKhmerRun) {
+  throw new Error("browser tokenizer must preserve long Khmer runs without losing or merging orthographic boundaries");
+}
+
+const unicode18SubscriptVowel = convert("ផ្ឯម", "khmer-pph-careful-citation-v1");
+if (unicode18SubscriptVowel.units.length !== 1
+    || unicode18SubscriptVowel.units[0].status !== "NOT_ESTABLISHED"
+    || unicode18SubscriptVowel.units[0].ipa !== "⟦NOT_ESTABLISHED⟧") {
+  throw new Error("subscript independent-vowel sequence must not receive an inherent-vowel IPA guess");
+}
