@@ -73,6 +73,15 @@ const scriptBucket = (char) => {
   return "other";
 };
 
+function isMultiClusterFixture(word) {
+  const chars = [...word];
+  let clusters = 0;
+  for (let index = 0; index < chars.length; index += 1) {
+    if (isKhmerConsonant(chars[index]) && chars[index - 1] !== COENG) clusters += 1;
+  }
+  return clusters >= 2;
+}
+
 function tokenize(text) {
   const units = [];
   let current = "";
@@ -84,7 +93,7 @@ function tokenize(text) {
       if (currentBucket === "khmer") {
         const words = segmentKhmerWords(current);
         words.forEach((word, index) => {
-          if (index > 0) units.push(" ");
+          if (index > 0 || (index === 0 && units.length && scriptBucket([...units.at(-1)].at(-1)) === "khmer")) units.push(" ");
           units.push(word);
         });
       } else {
@@ -129,7 +138,7 @@ function tokenize(text) {
       for (let cursor = index; cursor < chars.length; cursor += 1) {
         node = node.children.get(chars[cursor]);
         if (!node) break;
-        if (node.value && isSeparator(chars[cursor + 1])) fixtureKey = node.value;
+        if (node.value && isMultiClusterFixture(node.value)) fixtureKey = node.value;
       }
     }
 
