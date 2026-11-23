@@ -184,7 +184,7 @@ assert.equal(convert("   ", "khmer-pph-careful-citation-v1"), null);
 
 const externalNotice = getStatusNotice(unresolvedWord);
 assert.match(externalNotice, /profile_match=UNVERIFIED/u);
-assert.match(externalNotice, /Khmer Phonemizer/u);
+assert.match(externalNotice, /khmer-phonemizer/u);
 const proposedNotice = getStatusNotice(convert("ក", "khmer-pph-careful-citation-v1"));
 assert.match(proposedNotice, /PROPOSED/u);
 assert.match(proposedNotice, /дослідницькими пропозиціями/u);
