@@ -589,29 +589,49 @@ function convert(text, profile) {
   // three-question-mark placeholder for any unresolved linguistic unit.
   // Detailed per-unit diagnostics and provisional hints remain separate.
   let hasStartedOutputRun = false;
-  const ua = rendered.map((item) => {
+  const uaParts = [];
+  let pendingFallback = "";
+  const flushFallback = () => {
+    if (!pendingFallback) return;
+    // Keep the best available orthographic candidate visible, but mark the
+    // complete unresolved run once at its end. Do not replace the candidate
+    // with a bare placeholder or misrepresent BGN/PCGN as IPA.
+    uaParts.push(pendingFallback + "???");
+    pendingFallback = "";
+    hasStartedOutputRun = true;
+  };
+  for (const item of rendered) {
     if (item.status === "PUNCTUATION") {
+      flushFallback();
+      uaParts.push(item.ua);
       hasStartedOutputRun = false;
-      return item.ua;
+      continue;
     }
-    if (item.status === "NON_LINGUISTIC") return item.ua;
+    if (item.status === "NON_LINGUISTIC") {
+      flushFallback();
+      uaParts.push(item.ua);
+      continue;
+    }
     if (item.status === "PROPOSED") {
+      flushFallback();
+      uaParts.push(item.ua);
       hasStartedOutputRun = true;
-      return item.ua;
+      continue;
     }
     if (item.fallback_status === "PROVISIONAL" && item.fallback_ukrainian) {
-      // The upstream romanizer is called per orthographic unit here, so it
-      // may title-case each call. Preserve sentence-level casing: only the
-      // first unit in a contiguous run starts uppercase.
-      const candidate = hasStartedOutputRun
+      // The romanizer runs per orthographic unit and may title-case each
+      // result. Preserve sentence-level casing across the unresolved run.
+      pendingFallback += hasStartedOutputRun
         ? item.fallback_ukrainian.toLocaleLowerCase("uk")
         : item.fallback_ukrainian;
-      hasStartedOutputRun = true;
-      return candidate;
+      continue;
     }
+    flushFallback();
+    uaParts.push("???");
     hasStartedOutputRun = true;
-    return "???";
-  }).join("");
+  }
+  flushFallback();
+  const ua = uaParts.join("");
   const complete = linguistic.length > 0 && linguistic.every((item) =>
     item.status === "PROPOSED" && !/⟦/.test(item.ipa) && !/⟦/.test(item.ua)
   );
