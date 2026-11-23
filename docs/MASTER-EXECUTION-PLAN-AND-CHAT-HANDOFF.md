@@ -6657,3 +6657,21 @@ This supersedes the earlier `DEFERRED` status for *conducting* a local tagger ex
 - Independently re-entered `ក្រុងចតុម្មុខ` in the live public service after deployment and observed the exact IPA, Ukrainian output, and PROPOSED status above.
 - Deployment workflow run: [45259540612](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45259540612).
 - Main remains a public beta. Independent expert IPA gold is still 0 and corpus-wide empirical pronunciation accuracy remains NOT_ASSESSED; this targeted regression does not change that readiness boundary.
+
+
+## Follow-on evidence repair — 2026-11-24
+
+### KHM-FIXTURE-PROVENANCE-001 — DONE_VERIFIED (bounded four-fixture scope; CI pending)
+
+- Rechecked the four representative vowel fixtures `កី`, `គី`, `កា`, and `គា` against the already registered specialist source `r12a-orthography`.
+- Richard Ishida's Khmer Orthography Notes, §Consonant registers, lines 237–243, explicitly gives the four source forms /kəj/, /kiː/, /kaː/ and /kiə/ for the U+1780/U+1782 × U+17B8/U+17B6 contrast.
+- Added `evidence: ["r12a-orthography"]` and the exact section/table locator to each fixture in `data/tests/web-fixtures.json`. The four IPA and Ukrainian values were not altered.
+- Updated the canonical linguistic completion register in place. The four fixtures remain `PROPOSED`, not expert gold; the source's representative open-syllable examples do not establish a full contextual rule, closed-syllable behavior, or independent Phnom Penh-profile adjudication.
+- Source: https://r12a.github.io/scripts/khmr/km.html (updated 2026-04-27; accessed 2026-11-24).
+- Implementation commits: fixture data `2a05f0c125d5153b14e61a2f9aa06cff27985134`; completion-register update `9bd66d2124a34e129e2b56807688404cab19981d`.
+- **Verification still required:** exact-head Quality and browser workflows must pass before this continuation is considered fully DONE_VERIFIED. No local test execution is claimed.
+
+### Current boundary
+
+- This repair closes only the missing source locator/evidence fields for these four representative fixtures. It does not close the wider contextual-vowel matrix, independent IPA gold, manual accessibility review, or linguistic accuracy gates.
+- PR #557 remains open and unmerged. No merge or deployment was performed.
