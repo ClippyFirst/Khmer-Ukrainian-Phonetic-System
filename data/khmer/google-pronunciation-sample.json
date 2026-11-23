@@ -5,14 +5,20 @@
     "upstream_project_url": "https://github.com/pheasaKhmer/khmer-engine",
     "upstream_data_path": "src/khmer_engine/data/sample/lexicon.tsv",
     "google_source_url": "https://github.com/google/language-resources/tree/master/km",
-    "google_source_revision": "a906010",
+    "google_source_revision": "a90601024f07ab7e96c911243324e0adeb16da96",
     "pronunciation_data_copyright": "Copyright 2018 Google Inc.",
     "pronunciation_data_license": "CC BY 4.0",
     "frequency_source_url": "https://huggingface.co/datasets/HuggingFaceFW/fineweb-2",
     "frequency_source_split": "khm_Khmr test split",
     "frequency_data_license": "ODC-By 1.0",
     "upstream_sample_note": "3,000 most frequent words plus entries needed by upstream tests; source file includes normalized Khmer spellings, counts and source phonemic transcriptions.",
-    "phonemic_notation_note": "The phonemic strings are not assumed to be project IPA. They are retained as a separate source representation and are not fed directly to the Ukrainian IPA adapter."
+    "phonemic_notation_note": "The phonemic strings are not assumed to be project IPA. They are retained as a separate source representation and are not fed directly to the Ukrainian IPA adapter.",
+    "google_source_sha256": "b3f2e700d07d6c01a4c8cac5aa2f13b9a66885668ac482cc0c513f73c56495e5",
+    "frequency_source_revision": "af9c13333eb981300149d5ca60a8e9d659b276b9",
+    "frequency_source_sha256": "26ae4e654770b07e24a4ef6b8ef3a01c84076a920f1922ac014364ab411b84f0",
+    "upstream_revision": "31b72cd4665f69678fc835da2f501771e42f097a",
+    "upstream_sample_blob_sha": "1bc4f28d6666fa6812b738385447e9c7fc5330f9",
+    "segmentation_use": "Frequency-weighted dictionary word-boundary candidates only; phonemic strings are not converted to project IPA and do not supply canonical pronunciation."
   },
   "entries": [
     {
