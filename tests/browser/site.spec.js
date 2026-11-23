@@ -344,10 +344,19 @@ test("unresolved Khmer cluster preserves its orthographic candidate with a trail
   await expect(page.locator("#ua-result")).not.toHaveText("???");
   await expect(page.locator("#status")).toContainText("PROVISIONAL CANDIDATE");
   await expect(page.locator("#unit-details")).toContainText("Попередня українська форма:");
-  await expect(page.locator(".unit-detail")).toHaveAttribute("data-fallback-rule-id", "KHMER-BGN-PCGN-ORTHOGRAPHIC-FALLBACK-V1");
-  await expect(page.locator(".unit-detail")).toHaveAttribute("data-fallback-position", "whole-unit");
+  await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-rule-id", "KHMER-BGN-PCGN-ORTHOGRAPHIC-FALLBACK-V1");
+  await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-position", "whole-unit");
 });
 
+
+test("research drawer shows ranked word-boundary candidates without confidence claims", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("កម");
+  await expect(page.locator("#unit-details")).toContainText("Кандидатні межі слів");
+  await expect(page.locator("#unit-details")).toContainText("Варіант 1");
+  await expect(page.locator("#unit-details")).toContainText("вартість моделі");
+  await expect(page.locator("#unit-details")).toContainText("not probabilities");
+});
 
 test("service page keeps visible controls usable by keyboard after results appear", async ({ page }) => {
   await page.goto("/");

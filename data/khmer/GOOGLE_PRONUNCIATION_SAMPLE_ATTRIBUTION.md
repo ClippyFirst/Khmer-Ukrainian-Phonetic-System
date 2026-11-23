@@ -13,7 +13,7 @@ This project bundles the **3,009-entry sample** at `data/khmer/google-pronunciat
 
 Only the word spellings and frequency counts are used by the current segmenter. The phonemic strings are retained as source data for future research but are **not treated as IPA**, are not passed to the IPA-to-Ukrainian adapter, and do not determine the canonical pronunciation result.
 
-The segmenter uses frequency-weighted dictionary matching over Khmer cluster boundaries. Unknown clusters are retained as OOV runs. The output is a **provisional word-boundary candidate**, not a verified linguistic segmentation.
+The segmenter uses frequency-weighted dictionary matching over Khmer cluster boundaries. Unknown clusters are retained as OOV runs. The canonical output is the lowest-cost **provisional word-boundary candidate**, not a verified linguistic segmentation. Python and JavaScript now also expose up to three distinct n-best paths per unprotected chunk for inspection; registered multi-cluster lexical fixtures are treated as protected spans. Candidate costs are negative-log frequency scores and are not probabilities, confidence values or accuracy estimates. Diagnostic enumeration is capped at 128 orthographic clusters per chunk; longer chunks retain the existing canonical segmentation but omit n-best alternatives.
 
 ## Limitations
 

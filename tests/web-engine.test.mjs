@@ -1,7 +1,7 @@
 import { convert, tokenize } from "../src/khmer-engine-core.js";
 import fs from "node:fs";
 import { mapIpa } from "../src/ukrainian-practical.js";
-import { segmentKhmerWordsDetailed } from "../src/khmer-word-segmenter.js";
+import { segmentKhmerWordsDetailed, segmentKhmerWordsCandidates, describeWordSegmentation } from "../src/khmer-word-segmenter.js";
 
 const html = fs.readFileSync("index.html", "utf8");
 const systemHtml = fs.readFileSync("system.html", "utf8");
@@ -220,6 +220,7 @@ for (const x of ['<nav class="site-nav" aria-label="Основна навіга�
 
 
 if (!js.includes("function confidenceTier(item)") || !js.includes("доказовий рівень") || !js.includes("unit.confidence_tier")) throw new Error("evidence confidence tiers are not surfaced in the browser");
+if (!js.includes("Кандидатні межі слів") || !js.includes("candidate_runs") || !js.includes("вартість моделі")) throw new Error("ranked word-boundary alternatives are not surfaced in the research drawer");
 
 // Shared expected boundaries are consumed by both Python and browser tests.
 for (const item of wordSegmentationParity.cases) {
@@ -246,6 +247,31 @@ if (sentenceResult.word_segmentation?.known_words !== 4
     || sentenceResult.word_segmentation?.oov_runs !== 0
     || !sentenceResult.note.includes("точність не виміряна")) {
   throw new Error("browser result must expose provisional word-segmentation provenance and limits");
+}
+
+const candidatePaths = segmentKhmerWordsCandidates("កម", 3);
+if (!candidatePaths.length || candidatePaths.length > 3
+    || candidatePaths.some((item, index) => index > 0 && item.cost < candidatePaths[index - 1].cost)
+    || candidatePaths.some((item) => item.segments.map((segment) => segment.text).join("") !== "កម")) {
+  throw new Error("ranked segmentation candidates must be ordered and lossless");
+}
+const candidateResult = convert("កម", "khmer-pph-careful-citation-v1");
+if (candidateResult.word_segmentation.candidate_runs[0]?.chunks[0]?.method !== "DICTIONARY_VITERBI_NBEST"
+    || candidateResult.word_segmentation.candidate_runs[0].chunks[0].candidates[0].segments.map((item) => item.text).join("")
+      !== "កម"
+    || !candidateResult.word_segmentation.score_note.includes("not probabilities")) {
+  throw new Error("browser result must expose non-probabilistic n-best segmentation diagnostics");
+}
+const longCandidateRun = "ម".repeat(129);
+if (segmentKhmerWordsCandidates(longCandidateRun, 3).length !== 0
+    || describeWordSegmentation([], new Set(), longCandidateRun).candidate_runs[0]?.chunks[0]?.method
+      !== "DIAGNOSTICS_SKIPPED_LENGTH_LIMIT") {
+  throw new Error("n-best diagnostics must be bounded without changing long-run tokenization");
+}
+const chaktomukCandidates = convert("ក្រុងចតុម្មុខ", "khmer-pph-careful-citation-v1")
+  .word_segmentation.candidate_runs[0]?.chunks ?? [];
+if (!chaktomukCandidates.some((item) => item.source === "ចតុម្មុខ" && item.method === "LEXICAL_FIXTURE_PROTECTED")) {
+  throw new Error("candidate diagnostics must preserve the protected Chaktomuk lexical span");
 }
 
 const unicode18SubscriptVowel = convert("ផ្ឯម", "khmer-pph-careful-citation-v1");

@@ -6309,3 +6309,37 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 ### Next action
 
 Recheck run `45195396018`. If Chromium smoke passes, the Chaktomuk browser-boundary fix is ready for normal PR review/merge; if it fails, inspect its job log and fix only the evidenced failure. Do not merge while the required browser check is unresolved.
+
+
+## Continuation — ranked Khmer word-boundary diagnostics (2026-11-23)
+
+**PR:** [#531 — Expose ranked Khmer word-boundary candidates](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/531)  
+**Branch:** `feat/khmer-segmentation-candidate-audit-2026-11-23`  
+**Base commit:** `5fc571f681ac2f2f3cfd15e7471a7fa95a7ed3d9`  
+**Code/test head with all checks green:** `2f733fadae339c094393ecbab5e8aa93c8d5a355`
+
+### Task ledger
+
+- **DONE_VERIFIED — deterministic n-best implementation:** Python and JavaScript expose up to three distinct Viterbi paths per unprotected chunk. The existing single-best path remains canonical. Candidate costs are negative-log frequency scores, not probabilities, confidence or accuracy.
+- **DONE_VERIFIED — protected lexical spans and parity:** Registered multi-cluster fixtures are fixed spans in the diagnostics. Shared parity fixtures include the adjacent OOV/lexical case `កម្ពុជាប្រជាធិបតេយ្យ` and `ក្រុងចតុម្មុខ`. Fixed a Python bug that compared a following consonant to a list of consonant records rather than a set of consonant characters.
+- **DONE_VERIFIED — bounded diagnostic cost:** N-best enumeration is capped at 128 orthographic clusters per chunk. Longer chunks keep the unchanged canonical segmentation and report `DIAGNOSTICS_SKIPPED_LENGTH_LIMIT`.
+- **DONE_VERIFIED — user-facing diagnostics:** The research drawer displays up to three paths, OOV markers, protected fixture chunks and model costs. It explicitly says costs are not probabilities or confidence. README and attribution documentation were updated.
+- **DONE_VERIFIED — regression and cross-runtime tests:** Python tests check all 3,009 dictionary entries remain whole in the best path, candidate losslessness, distinct ranking, protected spans and long-run bounds. Browser tests verify the candidate details are visible and accessible. Python↔JavaScript candidate parity passes on all 6 shared segmentation fixtures.
+- **DONE_VERIFIED — full CI:** Quality checks run [#6748](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45200137412) passed on `2f733fadae339c094393ecbab5e8aa93c8d5a355`: **468 Python tests and 70 subtests**, web checks, structural/lexical/rule parity, n-best segmentation parity, deterministic-engine benchmark, browser-tokenizer benchmark and Vite production build.
+- **DONE_VERIFIED — Chromium browser smoke:** Run [#1598](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45200137428) passed on the same SHA: **36 browser tests passed**, including the new visible candidate-path test and the final long-run/protected-span UI adjustments.
+- **DONE_VERIFIED — CI workflow separation:** The Python↔JavaScript n-best parity test runs in the Python-enabled Quality workflow, not the browser-only npm check. This preserves the browser workflow's no-Python runtime boundary.
+- **BLOCKED — full dictionary expansion:** The upstream full 61,980-word Google lexicon is documented as CC BY 4.0, with FineWeb-derived counts under ODC-By 1.0, but the full TSV could not be retrieved through the available GitHub file interface (zero-length response). Acceptance requires obtaining the pinned full source, verifying its SHA-256, deterministic normalization, and size/startup/performance review before any bundling decision.
+- **BLOCKED — NCKL-derived dictionary reuse:** The 39,110-entry NCKL-derived pronunciation dataset has research-only terms and unresolved redistribution/provenance review. Do not import until primary NCKL terms and redistribution permission are clear and disputed/judged rows are reviewed.
+- **DEFERRED — segmentation accuracy:** No independent segmentation gold corpus exists. Dictionary-preservation invariants, synthetic fixtures and runtime parity validate software behavior, not linguistic accuracy.
+
+### CI failure diagnosis and corrections
+
+- Initial browser smoke run [#1592](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45199014272) failed because the Python parity exporter was accidentally included in `npm run check`, which is also used by the browser-only workflow without Python. Moved that test to a dedicated step in the Python-enabled Quality workflow.
+- The next browser run [#1595](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45199516726) reached Chromium but an existing Playwright locator `.unit-detail` became ambiguous after candidate cards were added. Scoped the fallback assertions to `.unit-detail[data-fallback-rule-id]` and added a browser assertion for the new candidate UI.
+- Both workflows then passed on the same final code/test SHA listed above.
+
+### Branch and PR reconciliation
+
+- PR #531 is isolated from the existing open PR #519. PR #519 was inspected and left untouched: it concerns the romanization selector and optional external G2P providers, is divergent from current main, and does not implement these segmentation diagnostics.
+- PR #531 is mergeable with both required workflows green. Merge it with squash, then verify the merge SHA and main-branch state.
+- The prior Chaktomuk fix remains merged in main at `5fc571f681ac2f2f3cfd15e7471a7fa95a7ed3d9`.

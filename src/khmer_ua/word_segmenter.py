@@ -10,15 +10,19 @@ import math
 from dataclasses import dataclass
 from pathlib import Path
 
+from .data import CONSONANTS
+
 ROOT = Path(__file__).resolve().parents[2]
 _DATA_PATH = ROOT / "data" / "khmer" / "google-pronunciation-sample.json"
 with _DATA_PATH.open(encoding="utf-8") as _handle:
     _DATASET = json.load(_handle)
+_CONSONANT_CHARS = {item["char"] for item in CONSONANTS}
 
 WORD_SEGMENTER_ID = "google-khmer-pronunciation-frequency-viterbi-sample-v1"
 WORD_DICTIONARY_SIZE = len(_DATASET["entries"])
 _COENG = "\u17d2"
 _MAX_CLUSTERS = 12
+_MAX_CANDIDATE_CLUSTERS = 128
 _COUNTS = {item["word"]: int(item["count"]) for item in _DATASET["entries"]}
 _TOTAL = sum(_COUNTS.values())
 _DENOMINATOR = _TOTAL + len(_COUNTS) + 1
@@ -136,7 +140,9 @@ def segment_words(text: str) -> list[WordSegment]:
     ]
 
 
-def describe_word_segmentation(tokens: list[str], fixture_keys: set[str] | None = None) -> dict:
+def describe_word_segmentation(
+    tokens: list[str], fixture_keys: set[str] | None = None, source_text: str = ""
+) -> dict:
     fixture_keys = fixture_keys or set()
     word_tokens = []
     for token in tokens:
@@ -148,6 +154,91 @@ def describe_word_segmentation(tokens: list[str], fixture_keys: set[str] | None 
             else "OOV_RUN"
         )
         word_tokens.append({"text": token, "status": status})
+    runs: list[str] = []
+    pending_run: list[str] = []
+    for character in source_text:
+        codepoint = ord(character)
+        if 0x1780 <= codepoint <= 0x17D3 or codepoint in {0x17DD, 0x200C, 0x200D}:
+            pending_run.append(character)
+        elif pending_run:
+            runs.append("".join(pending_run))
+            pending_run.clear()
+    if pending_run:
+        runs.append("".join(pending_run))
+
+    candidate_runs = []
+    fixture_keys_sorted = sorted(fixture_keys, key=len, reverse=True)
+    for run in runs:
+        chunks: list[dict] = []
+        pending = ''
+        index = 0
+        while index < len(run):
+            fixture = next((
+                key for key in fixture_keys_sorted
+                if run.startswith(key, index)
+                and sum(
+                    1 for position, char in enumerate(key)
+                    if _is_base(char) and (position == 0 or key[position - 1] != _COENG)
+                ) >= 2
+                and (index + len(key) == len(run) or run[index + len(key)] in _CONSONANT_CHARS)
+            ), None)
+            if fixture is None:
+                pending += run[index]
+                index += 1
+                continue
+            if pending:
+                _, pending_bounds = _cluster_starts(pending)
+                if len(pending_bounds) - 1 > _MAX_CANDIDATE_CLUSTERS:
+                    chunks.append({
+                        'source': pending,
+                        'method': 'DIAGNOSTICS_SKIPPED_LENGTH_LIMIT',
+                        'candidates': [],
+                    })
+                else:
+                    candidates = segment_words_candidates(pending, 3)
+                    chunks.append({
+                        'source': pending,
+                        'method': 'DICTIONARY_VITERBI_NBEST',
+                        'candidates': [
+                            {'rank': rank, **candidate}
+                            for rank, candidate in enumerate(candidates, 1)
+                        ],
+                    })
+                pending = ''
+            chunks.append({
+                'source': fixture,
+                'method': 'LEXICAL_FIXTURE_PROTECTED',
+                'candidates': [{
+                    'rank': 1,
+                    'cost': 0.0,
+                    'segments': [{'text': fixture, 'known': True, 'status': 'LEXICAL_FIXTURE'}],
+                }],
+            })
+            index += len(fixture)
+        if pending:
+            _, pending_bounds = _cluster_starts(pending)
+            if len(pending_bounds) - 1 > _MAX_CANDIDATE_CLUSTERS:
+                chunks.append({
+                    'source': pending,
+                    'method': 'DIAGNOSTICS_SKIPPED_LENGTH_LIMIT',
+                    'candidates': [],
+                })
+            else:
+                candidates = segment_words_candidates(pending, 3)
+                chunks.append({
+                    'source': pending,
+                    'method': 'DICTIONARY_VITERBI_NBEST',
+                    'candidates': [
+                        {'rank': rank, **candidate}
+                        for rank, candidate in enumerate(candidates, 1)
+                    ],
+                })
+        candidate_runs.append({
+            'source': run,
+            'status': 'CANDIDATES_AVAILABLE' if any(item['method'] == 'DICTIONARY_VITERBI_NBEST' for item in chunks) else 'DIAGNOSTICS_LIMITED' if any(item['method'] == 'DIAGNOSTICS_SKIPPED_LENGTH_LIMIT' for item in chunks) else 'LEXICAL_FIXTURES_ONLY',
+            'chunks': chunks,
+        })
+
     return {
         "method": "DICTIONARY_VITERBI_CANDIDATE",
         "engine": WORD_SEGMENTER_ID,
@@ -156,5 +247,75 @@ def describe_word_segmentation(tokens: list[str], fixture_keys: set[str] | None 
         "oov_runs": sum(item["status"] == "OOV_RUN" for item in word_tokens),
         "accuracy": None,
         "tokens": word_tokens,
+        "candidate_limit": 3,
+        "candidate_max_clusters": _MAX_CANDIDATE_CLUSTERS,
+        "candidate_runs": candidate_runs,
+        "score_note": "Candidate costs are uncalibrated negative-log frequency scores, not probabilities or confidence values.",
         "note": "Word boundaries are provisional dictionary-Viterbi candidates; no independent segmentation accuracy has been measured for this project.",
     }
+
+
+def segment_words_candidates(text: str, limit: int = 3) -> list[dict]:
+    """Return up to limit distinct Viterbi paths, ordered by model cost.
+
+    Costs are negative-log frequency scores, not probabilities or calibrated
+    confidence. This diagnostic API does not change the canonical best path.
+    """
+    if isinstance(limit, bool) or not isinstance(limit, int) or not 1 <= limit <= 10:
+        raise ValueError("limit must be an integer from 1 to 10")
+    if not text:
+        return []
+
+    chars, bounds = _cluster_starts(text)
+    count = len(bounds) - 1
+    if count > _MAX_CANDIDATE_CLUSTERS:
+        return []
+    paths: list[list[tuple[float, tuple[tuple[str, bool], ...]]]] = [
+        [] for _ in range(count + 1)
+    ]
+    paths[0] = [(0.0, ())]
+
+    def add_path(end: int, candidate: tuple[float, tuple[tuple[str, bool], ...]]) -> None:
+        signature = candidate[1]
+        if any(existing[1] == signature for existing in paths[end]):
+            return
+        paths[end].append(candidate)
+        paths[end].sort(key=lambda item: item[0])
+        del paths[end][limit:]
+
+    for start in range(count):
+        for path_cost, pieces in paths[start]:
+            unknown_piece = ''.join(chars[bounds[start]:bounds[start + 1]])
+            add_path(start + 1, (
+                path_cost + _UNKNOWN_COST,
+                pieces + ((unknown_piece, False),),
+            ))
+
+            for end in range(start + 1, min(start + _MAX_CLUSTERS, count) + 1):
+                word = ''.join(chars[bounds[start]:bounds[end]])
+                if word not in _PREFIXES:
+                    break
+                cost = _COSTS.get(word)
+                if cost is not None:
+                    add_path(end, (path_cost + cost, pieces + ((word, True),)))
+
+    candidates: list[dict] = []
+    seen: set[tuple[tuple[str, bool], ...]] = set()
+    for path_cost, pieces in paths[count]:
+        merged = _merge_unknown_and_bare_letters(list(pieces))
+        signature = tuple(merged)
+        if signature in seen:
+            continue
+        seen.add(signature)
+        candidates.append({
+            'cost': round(path_cost, 8),
+            'segments': [
+                {
+                    'text': value,
+                    'known': known,
+                    'status': 'DICTIONARY_MATCH' if known else 'OOV_RUN',
+                }
+                for value, known in merged
+            ],
+        })
+    return candidates[:limit]
