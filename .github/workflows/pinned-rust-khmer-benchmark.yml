@@ -1,0 +1,45 @@
+name: Pinned upstream Rust Khmer segmentation comparison
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/pinned-rust-khmer-benchmark.yml"
+      - "scripts/evaluate_khpos.py"
+      - "scripts/evaluate_khpos_external_rust.py"
+      - "src/khmer_ua/**"
+      - "data/khmer/google-pronunciation-full-frequency.json"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/pinned-rust-khmer-benchmark.yml"
+      - "scripts/evaluate_khpos.py"
+      - "scripts/evaluate_khpos_external_rust.py"
+      - "src/khmer_ua/**"
+      - "data/khmer/google-pronunciation-full-frequency.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pinned-rust-comparison:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check out audited upstream Rust source
+        uses: actions/checkout@v7
+        with:
+          repository: Alujack/khmer-tokenizer
+          ref: f38eae5924d4e41a46fd2204cf6951cdb0dc8908
+          path: .bench-upstream
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install project evaluator
+        run: python -m pip install --upgrade pip && python -m pip install -e ".[test]"
+      - name: Install stable Rust toolchain
+        run: rustup toolchain install stable --profile minimal && rustup default stable
+      - name: Build pinned Rust core and compare identical khPOS inputs
+        run: python scripts/evaluate_khpos_external_rust.py --upstream .bench-upstream
