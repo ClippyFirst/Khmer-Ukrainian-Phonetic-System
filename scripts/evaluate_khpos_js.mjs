@@ -1,10 +1,12 @@
 import fs from "node:fs";
+import { createHash } from "node:crypto";
 import { tokenize } from "../src/khmer-engine-core.js";
 
 const corpusPath = process.argv[2];
 if (!corpusPath) throw new Error("usage: node evaluate_khpos_js.mjs OPEN-TEST.word");
 
 const MARKERS = /[~_^]/gu;
+const codePointLength = (value) => [...value].length;
 const isKhmerWordToken = (token) => {
   if (!token) return false;
   const chars = [...token];
@@ -32,7 +34,7 @@ function prepareSentence(line) {
   for (let index = 0; index < tokens.length; index += 1) {
     const token = tokens[index];
     const start = offset;
-    offset += token.length;
+    offset += codePointLength(token);
     goldTokenSpans.add(`${start}:${offset}`);
     if (flags[index]) {
       khmerWordTokens += 1;
@@ -46,7 +48,8 @@ function prepareSentence(line) {
     }
   }
   const eligibleBoundaries = new Set();
-  for (let position = 1; position < source.length; position += 1) {
+  const sourceCodePoints = [...source];
+  for (let position = 1; position < sourceCodePoints.length; position += 1) {
     if (eligibleCharacters.has(position - 1) && eligibleCharacters.has(position)) {
       eligibleBoundaries.add(position);
     }
@@ -172,7 +175,7 @@ for (const sentence of sentences) {
       continue;
     }
     const start = offset;
-    offset += unit.length;
+    offset += codePointLength(unit);
     reconstructed.push(unit);
     if (unit.length) {
       allTokenSpans.add(`${start}:${offset}`);
@@ -187,8 +190,22 @@ for (const sentence of sentences) {
   khmerWordPredictions.push(khmerWordSpans);
 }
 
+const predictionRows = sentences.map((_, index) => [
+  [...boundaryPredictions[index]].sort((a, b) => a - b),
+  [...allTokenPredictions[index]]
+    .map((span) => span.split(":").map(Number))
+    .sort((a, b) => a[0] - b[0] || a[1] - b[1]),
+  [...khmerWordPredictions[index]]
+    .map((span) => span.split(":").map(Number))
+    .sort((a, b) => a[0] - b[0] || a[1] - b[1]),
+]);
+const predictionSignature = createHash("sha256")
+  .update(JSON.stringify(predictionRows), "utf8")
+  .digest("hex");
+
 console.log(JSON.stringify({
   runtime: "javascript",
   corpus_sentences: lines.length,
+  prediction_signature: predictionSignature,
   metrics: score(sentences, boundaryPredictions, allTokenPredictions, khmerWordPredictions),
 }, null, 2));
