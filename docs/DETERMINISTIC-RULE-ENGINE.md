@@ -97,3 +97,8 @@ Python-рушій раніше міг вивести притаманну гол
 ## Підсумковий checkpoint — 2026-11-23
 
 Поточний branch tip після оновлення документації: `f79126ae78ebcd4d5e70324c0c43736f622885b7`. Exact-tip Quality [45146037172](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45146037172): 455 Python tests + 70 subtests, Node, 129-case Python↔JS structural parity, tokenizer benchmark і Vite build — PASS. Останній code-bearing head `a389530b5ffa8799b6194c939a00bce9309110e2` пройшов Chromium [45145796671](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145796671), 34/34; після нього були лише документаційні коміти. Benchmark на exact docs head: 8 000 code points, 2,69 ms trie vs 242,72 ms pre-trie, 90,3×; synthetic tokenizer-only stress, не повний G2P.
+
+
+## Останній exact-head CI — 2026-11-23
+
+Head `aace766c21476019952f1aa93f217396387de420`: Quality [45146465545](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45146465545) — 455 Python tests + 70 subtests, Node, 129-case Python↔JS structural parity, tokenizer benchmark і Vite build; Chromium [45146465516](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45146465516) — 34/34. Trie benchmark: 8 000 code points, 3,07 ms vs 298,09 ms pre-trie, 97,0×; лише синтетичний tokenizer stress.
