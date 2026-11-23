@@ -325,6 +325,11 @@ def main() -> None:
         )
         javascript_result = json.loads(node.stdout)
         javascript_metrics = javascript_result["metrics"]
+        python_signature = prediction_signature(
+            python_boundary_predictions,
+            python_all_token_predictions,
+            python_khmer_word_predictions,
+        )
 
         parity_paths = (
             ("all_token_word_level", "gold"),
