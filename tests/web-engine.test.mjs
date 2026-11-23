@@ -68,8 +68,18 @@ const chaktomukSegmentation = tokenize("ក្រុងចតុម្មុខ"
 if (JSON.stringify(chaktomukSegmentation) !== JSON.stringify(["ក្រុង", "ចតុម្មុខ"])) {
   throw new Error("compound proper name ក្រុងចតុម្មុខ must preserve the lexical span ចតុម្មុខ: " + JSON.stringify(chaktomukSegmentation));
 }
-if (fixtures["ចតុម្មុខ"]?.status !== "NOT_ESTABLISHED" || fixtures["ចតុម្មុខ"]?.ipa !== null) {
-  throw new Error("Chaktomuk compound boundary must not invent an IPA pronunciation");
+if (fixtures["ចតុម្មុខ"]?.ipa !== "/caʔ.tom.muk/" || fixtures["ចតុម្មុខ"]?.status !== "PROPOSED") {
+  throw new Error("Chaktomuk spelling-variant IPA proposal must retain its explicit evidence-limited status");
+}
+const chaktomukWord = convert("ចតុម្មុខ", "khmer-pph-careful-citation-v1");
+if (chaktomukWord.ipa !== "/caʔ.tom.muk/" || chaktomukWord.ua !== "тьатоммук"
+    || chaktomukWord.status !== "PROPOSED" || chaktomukWord.confidence_tier !== "B") {
+  throw new Error("Chaktomuk lexical IPA must pass through the Ukrainian IPA adapter with provenance");
+}
+const chaktomukPhrase = convert("ក្រុងចតុម្មុខ", "khmer-pph-careful-citation-v1");
+if (chaktomukPhrase.ipa !== "/kroŋ caʔ.tom.muk/" || chaktomukPhrase.ua !== "кронг тьатоммук"
+    || chaktomukPhrase.status !== "PROPOSED" || chaktomukPhrase.confidence_tier !== "B") {
+  throw new Error("Krong Chaktomuk phrase must retain both lexical units through the IPA-first adapter");
 }
 const contextualPalatalMapping = mapIpa("prɑciə", policy);
 if (contextualPalatalMapping.value !== "пратьіє" || contextualPalatalMapping.unsupported !== null) throw new Error("IPA /c+iə/ must use Ukrainian contextual spelling with explicit project soft-sign distinction");
