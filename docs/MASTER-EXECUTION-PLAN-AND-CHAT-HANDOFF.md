@@ -1,12 +1,13 @@
 ## Archived provisional IPA candidates surfaced in browser — 2026-11-23
 
-- **PARTIAL until exact-head CI and Pages deployment:** PR [#522](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/522) now carries the prior multi-provider output into the browser IPA result for the exact input `កម្ពុជាប្រជាធិបតេយ្យ`.
-- Source is the previously completed Quality workflow run [45080727416](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45080727416), artifact [14777495017](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45080727416/artifacts/14777495017), with its digest and provider metadata preserved in `data/khmer/provisional-ipa-candidates.json`.
-- The browser's displayed candidate is `/kampuciə prɑciətʰɨppaʔtaj/???` → `кампутьіє пратьієт'иппатай???`. The browser re-runs the canonical IPA→Ukrainian mapping and checks it against the recorded artifact mapping before display.
-- The second raw candidate, MekongPhon `kampucieprɑcietʰiʔpaʔtay`, remains visible with its unresolved Ukrainian mapping at `y`. Epitran's raw output and validation failure are retained as a rejected provider result, not presented as IPA.
-- All external outputs remain `PROVISIONAL`/`PARTIAL`, `PHONETIC_BROAD`, and `profile_match=UNVERIFIED`. The selected provider order is not an accuracy ranking or vote. The internal deterministic result remains separately available as `canonical_ipa`, `canonical_ua`, and typed per-unit records.
-- The BGN/PCGN-derived orthographic fallback remains a separate candidate route; where shown, it also retains its own `???` marker. No external provider is called live by GitHub Pages.
-- Regression tests now assert the exact IPA and Ukrainian candidate outputs, the second provider's mapping failure, and Epitran's rejected output. Exact-head CI and Pages deployment are pending.
+- **DONE_VERIFIED — implementation merged:** PR [#522](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/522) was squash-merged to `main` as `557e4dd8e4b4703e9bf80102696dc1cc73408814`.
+- **DONE_VERIFIED — exact-head Quality:** run [45172833596](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45172833596) passed Python tests, web checks, structural/lexical/rule parity, engine and tokenizer benchmarks, and production build.
+- **DONE_VERIFIED — exact-head Chromium smoke:** run [45173168093](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45173168093) passed 35/35 browser tests, including the updated provisional candidate display, method isolation, Worker execution, no external requests, and fallback behavior.
+- The prior multi-provider output is preserved from Quality run [45080727416](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45080727416), artifact [14777495017](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45080727416/artifacts/14777495017), with digest and provider metadata in `data/khmer/provisional-ipa-candidates.json`.
+- For exact input `កម្ពុជាប្រជាធិបតេយ្យ`, the browser displays `/kampuciə prɑciətʰɨppaʔtaj/???` → `кампутьіє пратьієт'иппатай???`. The browser reruns the canonical IPA→Ukrainian mapping and checks it against the recorded artifact mapping before display.
+- MekongPhon `kampucieprɑcietʰiʔpaʔtay` remains visible with its unresolved Ukrainian mapping at `y`. Epitran's raw output and validation failure remain visible as a rejected provider result, not IPA.
+- All external outputs remain `PROVISIONAL`/`PARTIAL`, `PHONETIC_BROAD`, and `profile_match=UNVERIFIED`. Provider order is not an accuracy ranking or vote. The internal deterministic result remains separately available as `canonical_ipa`, `canonical_ua`, and typed per-unit records. No live external provider is called by GitHub Pages.
+- **BLOCKED — live Pages verification:** code is merged, but this session could not verify the post-merge deployment or live rendered output. Do not claim the public site has updated until the Pages deployment and live smoke check succeed.
 
 ---
 
