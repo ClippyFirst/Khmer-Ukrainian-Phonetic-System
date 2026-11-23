@@ -21,6 +21,7 @@ WORD_SEGMENTER_ID = "google-khmer-pronunciation-frequency-viterbi-sample-v1"
 WORD_DICTIONARY_SIZE = len(_DATASET["entries"])
 _COENG = "\u17d2"
 _MAX_CLUSTERS = 12
+_MAX_CANDIDATE_CLUSTERS = 128
 _COUNTS = {item["word"]: int(item["count"]) for item in _DATASET["entries"]}
 _TOTAL = sum(_COUNTS.values())
 _DENOMINATOR = _TOTAL + len(_COUNTS) + 1
@@ -185,15 +186,23 @@ def describe_word_segmentation(
                 index += 1
                 continue
             if pending:
-                candidates = segment_words_candidates(pending, 3)
-                chunks.append({
-                    'source': pending,
-                    'method': 'DICTIONARY_VITERBI_NBEST',
-                    'candidates': [
-                        {'rank': rank, **candidate}
-                        for rank, candidate in enumerate(candidates, 1)
-                    ],
-                })
+                _, pending_bounds = _cluster_starts(pending)
+                if len(pending_bounds) - 1 > _MAX_CANDIDATE_CLUSTERS:
+                    chunks.append({
+                        'source': pending,
+                        'method': 'DIAGNOSTICS_SKIPPED_LENGTH_LIMIT',
+                        'candidates': [],
+                    })
+                else:
+                    candidates = segment_words_candidates(pending, 3)
+                    chunks.append({
+                        'source': pending,
+                        'method': 'DICTIONARY_VITERBI_NBEST',
+                        'candidates': [
+                            {'rank': rank, **candidate}
+                            for rank, candidate in enumerate(candidates, 1)
+                        ],
+                    })
                 pending = ''
             chunks.append({
                 'source': fixture,
@@ -206,18 +215,26 @@ def describe_word_segmentation(
             })
             index += len(fixture)
         if pending:
-            candidates = segment_words_candidates(pending, 3)
-            chunks.append({
-                'source': pending,
-                'method': 'DICTIONARY_VITERBI_NBEST',
-                'candidates': [
-                    {'rank': rank, **candidate}
-                    for rank, candidate in enumerate(candidates, 1)
-                ],
-            })
+            _, pending_bounds = _cluster_starts(pending)
+            if len(pending_bounds) - 1 > _MAX_CANDIDATE_CLUSTERS:
+                chunks.append({
+                    'source': pending,
+                    'method': 'DIAGNOSTICS_SKIPPED_LENGTH_LIMIT',
+                    'candidates': [],
+                })
+            else:
+                candidates = segment_words_candidates(pending, 3)
+                chunks.append({
+                    'source': pending,
+                    'method': 'DICTIONARY_VITERBI_NBEST',
+                    'candidates': [
+                        {'rank': rank, **candidate}
+                        for rank, candidate in enumerate(candidates, 1)
+                    ],
+                })
         candidate_runs.append({
             'source': run,
-            'status': 'CANDIDATES_AVAILABLE' if any(item['method'] == 'DICTIONARY_VITERBI_NBEST' for item in chunks) else 'LEXICAL_FIXTURES_ONLY',
+            'status': 'CANDIDATES_AVAILABLE' if any(item['method'] == 'DICTIONARY_VITERBI_NBEST' for item in chunks) else 'DIAGNOSTICS_LIMITED' if any(item['method'] == 'DIAGNOSTICS_SKIPPED_LENGTH_LIMIT' for item in chunks) else 'LEXICAL_FIXTURES_ONLY',
             'chunks': chunks,
         })
 
@@ -230,6 +247,7 @@ def describe_word_segmentation(
         "accuracy": None,
         "tokens": word_tokens,
         "candidate_limit": 3,
+        "candidate_max_clusters": _MAX_CANDIDATE_CLUSTERS,
         "candidate_runs": candidate_runs,
         "score_note": "Candidate costs are uncalibrated negative-log frequency scores, not probabilities or confidence values.",
         "note": "Word boundaries are provisional dictionary-Viterbi candidates; no independent segmentation accuracy has been measured for this project.",
@@ -249,7 +267,9 @@ def segment_words_candidates(text: str, limit: int = 3) -> list[dict]:
 
     chars, bounds = _cluster_starts(text)
     count = len(bounds) - 1
-    paths: list[list[tuple[float, tuple[tuple[str, bool], ...]]]] = [
+    if count > _MAX_CANDIDATE_CLUSTERS:
+        return []
+    paths: list[list[tuple[float, tuple[tuple[str, bool], ...]]]] =
         [] for _ in range(count + 1)
     ]
     paths[0] = [(0.0, ())]
