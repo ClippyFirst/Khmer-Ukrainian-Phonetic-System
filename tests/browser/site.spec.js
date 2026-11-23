@@ -188,6 +188,15 @@ test("long-vowel lexical IPA is preserved while the Ukrainian adapter omits quan
   }
 });
 
+test("Krong Chaktomuk proper name renders the source-backed IPA proposal", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("ក្រុងចតុម្មុខ");
+  await expect(page.locator("#ipa-result")).toHaveText("/kroŋ caʔ.tom.muk/");
+  await expect(page.locator("#ua-result")).toHaveText("кронг тьатоммук");
+  await expect(page.locator("#status")).toHaveText("PROPOSED · доказовий рівень B");
+  await expect(page.locator(".unit-source-locator")).toContainText("caʔ.tom.muk");
+});
+
 test("unsupported grapheme is marked locally", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("កx");
