@@ -206,8 +206,8 @@ const greetingSentence = "សួស្តី! ខ្ញុំឈ្មោះ ស
 const greetingResult = convert(greetingSentence, "khmer-pph-careful-citation-v1");
 assert.equal(greetingResult.source, greetingSentence.normalize("NFC"));
 assert.equal(
-  greetingResult.units.map((unit) => unit.source).join("").replace(/\\s/gu, ""),
-  greetingSentence.normalize("NFC").replace(/\\s/gu, ""),
+  greetingResult.units.map((unit) => unit.source).join("").replace(/\s/gu, ""),
+  greetingSentence.normalize("NFC").replace(/\s/gu, ""),
   "candidate word boundaries may add spaces, but no source characters may be lost",
 );
 assert.ok(greetingResult.word_segmentation.tokens.length > 0);
