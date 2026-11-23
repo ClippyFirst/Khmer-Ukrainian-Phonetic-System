@@ -40,3 +40,13 @@ No local test/build/browser command was executed in this session because the loc
 ## Release assessment
 
 This is an incremental performance/UX improvement, not completion of the requested engine port. The repository remains a research/beta prototype; linguistic accuracy remains NOT_ASSESSED. The change is not release-ready until CI/build/browser checks pass. Full Python↔JavaScript parity and evidence-backed phonology remain separate acceptance gates.
+
+
+## Exact-head verification addendum
+
+- Code head `a8a00e1660b6b0fdba1c93475c766d8480f62bcd` passed Quality [45135417588](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45135417588) and Chromium [45135417537](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45135417537).
+- Quality: Python 453 passed + 70 subtests; all Node web checks and Vite production build passed.
+- Chromium: 33/33 passed, including actual worker execution and worker-asset failure fallback.
+- The worker bundle was 136.40 kB. This is a bundle-size observation, not a throughput benchmark.
+- The PR remains unmerged, so no GitHub Pages deployment or post-deploy smoke is claimed.
+- Worker integration is DONE_VERIFIED. Full Python↔JS semantic parity and OOV/tokenizer integration remain TODO; third-party asset rights remain BLOCKED; expert IPA gold is deferred for beta and remains a blocker to accuracy claims.
