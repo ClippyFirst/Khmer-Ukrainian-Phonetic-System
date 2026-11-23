@@ -39,6 +39,24 @@
         "ទេ"
       ],
       "reason": "Common continuous phrase split by the local frequency dictionary."
+    },
+    {
+      "input": "កម្ពុជាប្រជាធិបតេយ្យ",
+      "units": [
+        "កម្ពុជា",
+        " ",
+        "ប្រជាធិបតេយ្យ"
+      ],
+      "reason": "A registered multi-cluster lexical fixture must remain protected before an adjacent consonant; the following OOV run remains intact."
+    },
+    {
+      "input": "ក្រុងចតុម្មុខ",
+      "units": [
+        "ក្រុង",
+        " ",
+        "ចតុម្មុខ"
+      ],
+      "reason": "The source-backed Chaktomuk lexical fixture must remain whole when attached to a preceding Khmer word; no pronunciation gold is implied."
     }
   ]
 }
