@@ -45,6 +45,16 @@ def test_python_tokenizer_matches_shared_browser_parity_cases():
         assert actual == case["units"], case["input"]
 
 
+def test_concatenated_lexical_fixture_and_unknown_word_keep_word_boundary():
+    result = RuleBasedKhmerEngine().analyze("កម្ពុជាប្រជាធិបតេយ្យ")
+    assert [unit["source"] for unit in result["units"]] == [
+        "កម្ពុជា", " ", "ប្រជាធិបតេយ្យ"
+    ]
+    unresolved = [unit for unit in result["units"] if unit["status"] == "NOT_ESTABLISHED"]
+    assert len(unresolved) == 1
+    assert unresolved[0]["source"] == "ប្រជាធិបតេយ្យ"
+
+
 def test_engine_exposes_provisional_word_segmentation_without_claiming_pronunciation_gold():
     result = RuleBasedKhmerEngine().analyze("ខ្ញុំស្រឡាញ់ប្រទេសកម្ពុជា")
     assert [unit["source"] for unit in result["units"]] == [
