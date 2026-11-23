@@ -437,7 +437,7 @@ test("Khmer phonetic inference executes in a local Web Worker", async ({ page })
 });
 
 test("phonetic inference falls back locally when the worker asset is unavailable", async ({ page }) => {
-  await page.route(/khmer-engine\\.worker/u, (route) => route.abort());
+  await page.route(/khmer-engine\.worker/u, (route) => route.abort());
   await page.goto("/");
   await page.locator("#source").fill("ខ្មែរ");
   await expect(page.locator("#ua-result")).toContainText("к'мае");
