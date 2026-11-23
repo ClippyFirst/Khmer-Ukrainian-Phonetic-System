@@ -1,0 +1,57 @@
+{
+  "schema": "khmer-tokenizer-parity/v1",
+  "cases": [
+    {
+      "input": "ផ្ឯម",
+      "units": [
+        "ផ្ឯម"
+      ],
+      "reason": "Unicode 18 subscript independent vowel followed by coda"
+    },
+    {
+      "input": "កម",
+      "units": [
+        "ក",
+        "ម"
+      ],
+      "reason": "Conservative explicit consonant boundary"
+    },
+    {
+      "input": "កx",
+      "units": [
+        "ក",
+        "x"
+      ],
+      "reason": "Khmer and Latin runs remain isolated"
+    },
+    {
+      "input": "ក123x",
+      "units": [
+        "ក",
+        "123",
+        "x"
+      ],
+      "reason": "Numerals are non-linguistic standalone runs"
+    },
+    {
+      "input": "ក, ម!",
+      "units": [
+        "ក",
+        ",",
+        " ",
+        "ម",
+        "!"
+      ],
+      "reason": "Punctuation and whitespace are preserved"
+    },
+    {
+      "input": "ក​ម",
+      "units": [
+        "ក",
+        "​",
+        "ម"
+      ],
+      "reason": "Zero-width space is an explicit boundary"
+    }
+  ]
+}
