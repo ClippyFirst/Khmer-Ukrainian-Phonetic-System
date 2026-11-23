@@ -119,6 +119,7 @@ def _tokenize_input(text: str) -> list[str]:
     chunk_bucket: str | None = None
 
     def flush_chunk() -> None:
+        nonlocal chunk_bucket
         if chunk:
             words = segment_words("".join(chunk))
             for index, word in enumerate(words):
@@ -129,7 +130,6 @@ def _tokenize_input(text: str) -> list[str]:
                     units.append(" ")
                 units.append(word.text)
             chunk.clear()
-        nonlocal chunk_bucket
         chunk_bucket = None
 
     index = 0
