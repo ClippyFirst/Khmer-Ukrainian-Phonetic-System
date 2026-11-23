@@ -36,11 +36,11 @@ The sole active runtime profile: contemporary Phnom Penh-oriented careful citati
 
 ### Context-sensitive IPA sequences
 
-The adapter applies target-orthography sequences before individual segment mappings. In particular, /c/ is approximated as Ukrainian /tʲ/ (normally written ть), but before /i/ the Ukrainian letter і already marks the preceding dental consonant as soft. Therefore /ciə/ is rendered **тіє**, not *тьіє*. This is a Ukrainian spelling adaptation, not a claim that Khmer /c/ and Ukrainian /tʲ/ are phonetically identical. The 2026 Ukrainian Orthography §27.1.3 states that ь is not written after a consonant when the following letter denotes a soft or semi-soft consonant. See the [official 2026 Ukrainian Orthography](https://mon.gov.ua/static-objects/mon/sites/1/zagalna%20serednya/Pravopys.2019/ukrayinskii-pravopis-oficiine-vidannia-2026.pdf).
+The adapter applies target-orthography sequences before individual segment mappings. In particular, /c/ is approximated as Ukrainian /tʲ/ (normally written ть), but before /i/ the Ukrainian letter і already marks the preceding dental consonant as soft. Therefore the full /ciə/ sequence is rendered **тіє**, not *тьіє*. The complete /ciə/ rule is stored as a longest-match target sequence, so the final /ə/ is adapted in context rather than as a separate default /ə/ → е. This is a Ukrainian spelling adaptation, not a claim that Khmer /c/ and Ukrainian /tʲ/ are phonetically identical. The 2026 Ukrainian Orthography §27.1.3 states that ь is not written after a consonant when the following letter denotes a soft or semi-soft consonant. See the [official 2026 Ukrainian Orthography](https://mon.gov.ua/static-objects/mon/sites/1/zagalna%20serednya/Pravopys.2019/ukrayinskii-pravopis-oficiine-vidannia-2026.pdf).
 
 | IPA | Ukrainian practical form | Notes |
 |---|---|---|
-| /ciə/ | тіє | Contextual sequence mapping; /iə/ remains visible as іє |
+| /ci/ | ті | The sequence maps the palatal stop plus /i/ without a redundant soft sign |\n| /ciə/ | тіє | Full-sequence target spelling; final /ə/ uses є in this context |
 | /cɑ/ | тьа | The standalone /c/ target remains ть before а |
 
 ## Affricates and fricatives
