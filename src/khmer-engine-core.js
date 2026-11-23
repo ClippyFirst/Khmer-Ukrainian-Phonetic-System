@@ -364,7 +364,7 @@ function renderFixture(fixture, profile) {
   if (!fixture.ipa) {
     return {
       source: fixture.source,
-      ipa: "⟦EVIDENCE_LIMITED⟧",
+      ipa: fixture.status === "NOT_ESTABLISHED" ? "⟦NOT_ESTABLISHED⟧" : "⟦EVIDENCE_LIMITED⟧",
       ua: "⟦НЕВСТАНОВЛЕНО⟧",
       status: fixture.status,
       rule_trace: ["KHMER_LEXICAL_FIXTURE_WITHHELD"],
