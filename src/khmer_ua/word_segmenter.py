@@ -269,7 +269,7 @@ def segment_words_candidates(text: str, limit: int = 3) -> list[dict]:
     count = len(bounds) - 1
     if count > _MAX_CANDIDATE_CLUSTERS:
         return []
-    paths: list[list[tuple[float, tuple[tuple[str, bool], ...]]]] =
+    paths: list[list[tuple[float, tuple[tuple[str, bool], ...]]]] = [
         [] for _ in range(count + 1)
     ]
     paths[0] = [(0.0, ())]
