@@ -259,7 +259,15 @@ function parseSyllable(raw) {
     if (char === COENG) {
       const sub = chars[index + 1];
       if (!sub || (!isKhmerConsonant(sub) && !INDEPENDENT_VOWELS.has(sub))) {
-        return { status: "INVALID_OR_UNSUPPORTED", raw, unknown: sub ? [COENG, sub] : [COENG], unknown_codepoints: unknownCodepoints(sub ? [COENG, sub] : [COENG]), reason: "Malformed coeng sequence: " + unknownCodepoints(sub ? [COENG, sub] : [COENG]).join(", ") + ".", orthographic_structure };
+        return {
+          status: "INVALID_OR_UNSUPPORTED", raw, base,
+          subscripts, subscript_independent_vowels: subscriptIndependentVowels,
+          additionalConsonants, vowelSigns, unknown: sub ? [COENG, sub] : [COENG],
+          unknown_codepoints: unknownCodepoints(sub ? [COENG, sub] : [COENG]),
+          graphemes: [...graphemes, ...chars.slice(index).map((text) => ({ text, kind: "invalid_sequence_component" }))],
+          reason: "Malformed coeng sequence: " + unknownCodepoints(sub ? [COENG, sub] : [COENG]).join(", ") + ".",
+          orthographic_structure,
+        };
       }
       if (isKhmerConsonant(sub)) {
         subscripts.push(sub);
