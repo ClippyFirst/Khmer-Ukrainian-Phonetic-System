@@ -155,8 +155,8 @@ export function describeWordSegmentation(units, fixtureKeys = new Set(), sourceT
     const chunks = [];
     let pending = '';
     let index = 0;
-    while (index < [...run].length) {
-      const chars = [...run];
+    const chars = [...run];
+    while (index < chars.length) {
       const fixture = fixtureKeysSorted.find((key) => {
         const keyChars = [...key];
         if (chars.slice(index, index + keyChars.length).join('') !== key) return false;
