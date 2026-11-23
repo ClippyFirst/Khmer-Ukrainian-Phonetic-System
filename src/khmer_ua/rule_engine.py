@@ -25,6 +25,7 @@ with _FIXTURE_PATH.open(encoding="utf-8") as _handle:
 _SOURCE_REGISTRY_PATH = ROOT / "data" / "khmer" / "sources.json"
 with _SOURCE_REGISTRY_PATH.open(encoding="utf-8") as _handle:
     _SOURCE_REGISTRY = json.load(_handle)
+_CONSONANT_CHARS = {item["char"] for item in CONSONANTS}
 _PRONUNCIATION_SOURCE_STATUSES = {
     "PRIMARY_PHONETIC_SOURCE", "SPECIALIST_REFERENCE", "SECONDARY_LEXICAL_REFERENCE",
 }
@@ -151,7 +152,7 @@ def _tokenize_input(text: str) -> list[str]:
                     _is_separator(characters[index + len(key)] if index + len(key) < len(characters) else None)
                     or (
                         index + len(key) < len(characters)
-                        and characters[index + len(key)] in CONSONANTS
+                        and characters[index + len(key)] in _CONSONANT_CHARS
                     )
                 )
             ),
