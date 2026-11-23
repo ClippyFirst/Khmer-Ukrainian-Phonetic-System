@@ -32,7 +32,7 @@ def _nonempty_items(value):
     return [item for item in values if item is not None and str(item).strip()]
 
 
-def build_contextual_vowel_evidence(cases, sources):
+def build_contextual_vowel_evidence(cases, sources, context_dimensions=None):
     """Expose exact case-level context while refusing to infer missing phonology.
 
     This is an evidence inventory, not a Cartesian prediction matrix. In particular,
@@ -105,6 +105,22 @@ def build_contextual_vowel_evidence(cases, sources):
             "stress_and_harmony": "NOT_CAPTURED_IN_CURRENT_CASE_ROWS",
             "phonemic_vs_phonetic_level": "SOURCE_TRANSCRIPTION_CONVENTION_RETAINED; no normalization or merging",
         },
+        "source_backed_context_dimensions": [
+            {
+                "id": item["id"],
+                "dimension": item["dimension"],
+                "source_ids": item["source_ids"],
+                "locator": item["locator"],
+                "profile_scope": item["profile_scope"],
+                "evidence_status": item["evidence_status"],
+                "implementation": item["implementation"],
+            }
+            for item in sorted(context_dimensions or [], key=lambda row: row["id"])
+        ],
+        "context_dimension_count": len(context_dimensions or []),
+        "context_dimension_evidence_status_counts": dict(sorted(Counter(
+            item["evidence_status"] for item in (context_dimensions or [])
+        ).items())),
         "cross_product_assessment": {
             "status": "NOT_ESTABLISHED",
             "required_dimensions": [
@@ -196,7 +212,7 @@ def build_report(signs, consonants, registers, evidence):
     total = len(cells)
     status_counts = Counter(cell["status"] for cell in cells.values())
     conflict_cases = [case for case in cases if case.get("status") == "CONFLICTING_SOURCE_ANALYSES"]
-    contextual_evidence = build_contextual_vowel_evidence(cases, evidence.get("sources", {}))
+    contextual_evidence = build_contextual_vowel_evidence(\n        cases, evidence.get("sources", {}), evidence.get("context_dimensions", [])\n    )
     return {
         "schema_version": "1.0.0",
         "generated_by": "scripts/coverage.py",
