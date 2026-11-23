@@ -8,6 +8,7 @@ import sources from "../data/khmer/sources.json" with { type: "json" };
 import { khmerToLatin } from "@gmana/km-translit";
 import { mapIpa } from "./ukrainian-practical.js";
 import { renderKhmerRomanizationText, renderLatinWord, renderRomanizedText } from "./khmer-romanization-ukrainian.js";
+import { analyzeInWorker } from "./khmer-engine-client.js";
 
 const CONSONANTS = Object.fromEntries(consonants.map((item) => [item.char, item]));
 const PRONUNCIATION_SOURCE_STATUSES = new Set(["PRIMARY_PHONETIC_SOURCE", "SPECIALIST_REFERENCE", "SECONDARY_LEXICAL_REFERENCE"]);
@@ -650,6 +651,7 @@ if (typeof document !== "undefined") {
   const outputLevelNote = $("output-level-note");
   let outputLevelMode = outputLevel?.value || "balanced";
   let activeMode = "phonetic";
+  let renderRevision = 0;
 
   function setOutputMode(mode) {
     activeMode = mode;
@@ -666,9 +668,13 @@ if (typeof document !== "undefined") {
     render();
   }
 
-  function render() {
-    $("count").textContent = `${[...source.value].length} символів`;
-    const data = convert(source.value, $("profile").value);
+  async function render() {
+    const revision = ++renderRevision;
+    const inputText = source.value;
+    const profile = $("profile").value;
+    $("count").textContent = `${[...inputText].length} символів`;
+    const data = await analyzeInWorker(inputText, profile, convert);
+    if (revision !== renderRevision) return;
     if (!data) {
       results.hidden = true;
       issue.hidden = true;
