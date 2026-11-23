@@ -765,8 +765,13 @@
       "acceptance": "DONE_VERIFIED: 61,980 entries indexed in Python and JavaScript; all entries are losslessly segmentable; all 3,009 historical sample words/counts are preserved; Python/JavaScript candidate parity passes on 6 fixtures; Python and browser tests, structural/lexical/consonant parity, engine and tokenizer benchmarks, and Vite build pass. Browser Chromium smoke is pending the integration PR. Segmentation accuracy remains NOT_ASSESSED pending an independent adjudicated gold corpus.",
       "max_word_orthographic_clusters": 14,
       "nbest_diagnostic_max_clusters": 128,
-      "quality_workflow_run_id": 45212736652,
-      "quality_workflow_run_url": "https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45212736652"
+      "quality_workflow_run_id": 45213196387,
+      "quality_workflow_run_url": "https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45212736652",
+      "quality_workflow_url": "https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45213196387",
+      "quality_commit": "d8be67b0c665d7c5ac0fcb6578f7e4ea265278d9",
+      "quality_result": "PASS_468_PYTEST_70_SUBTESTS_NODE_PARITY_BENCHMARK_AND_VITE_BUILD",
+      "python_javascript_candidate_parity": "PASS_6_FIXTURES",
+      "segmentation_accuracy": "NOT_ASSESSED_NO_ADJUDICATED_GOLD_CORPUS"
     }
   }
 ]
