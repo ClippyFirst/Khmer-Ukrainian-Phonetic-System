@@ -123,3 +123,10 @@ Quality [45147094378](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-Sy
 ## Фінальний exact-head checkpoint lexical parity — 2026-11-23
 
 Head `9a8ba02f65e0502555c0df8045e930ddcaca3a3d`: Quality [45147375553](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147375553) — 455 Python tests + 70 subtests, Node, 129 structural cases, 36 lexical IPA/UA cases, benchmark і Vite; Chromium [45147375800](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147375800) — 34/34. Токенізаторний stress-test цього запуску: 8 000 code points, 6,19 ms trie vs 473,60 ms pre-trie, 76,5×; синтетичне порівняння, не повний G2P.
+
+
+## Бенчмарк Python↔JavaScript рушіїв — 2026-11-23
+
+Додано `npm run bench:engine`: прогріває обидва середовища, 25 разів вимірює пакет із тих самих 36 лексичних фікстур через JS `convert()` і Python `RuleBasedKhmerEngine.analyze()`. На exact code head `bcd3421a63711812f2e9ea3533e9215796c8db59` отримано JS 0,4274 ms/36 (84 229/s) і Python 4,3880 ms/36 (8 204/s), співвідношення 10,27× на CI runner. Це мікробенчмарк конкретного набору; Python повертає багатший research result/structure контракт, а контракти JS/Python ще не повністю однакові, тому цифру не слід трактувати як чисте прискорення алгоритму або гарантію на пристроях користувачів.
+
+Quality [45147739766](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147739766): 455 Python tests + 70 subtests, Node, 129 structural parity, 36 lexical parity, два benchmarks, Vite build — PASS. Chromium [45147739801](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147739801): 34/34 — PASS.
