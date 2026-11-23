@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[2]
 _DATA_PATH = ROOT / "data" / "khmer" / "google-pronunciation-sample.json"
 with _DATA_PATH.open(encoding="utf-8") as _handle:
     _DATASET = json.load(_handle)
+_CONSONANT_CHARS = {item["char"] for item in CONSONANTS}
 
 WORD_SEGMENTER_ID = "google-khmer-pronunciation-frequency-viterbi-sample-v1"
 WORD_DICTIONARY_SIZE = len(_DATASET["entries"])
@@ -179,7 +180,7 @@ def describe_word_segmentation(
                     1 for position, char in enumerate(key)
                     if _is_base(char) and (position == 0 or key[position - 1] != _COENG)
                 ) >= 2
-                and (index + len(key) == len(run) or run[index + len(key)] in CONSONANTS)
+                and (index + len(key) == len(run) or run[index + len(key)] in _CONSONANT_CHARS)
             ), None)
             if fixture is None:
                 pending += run[index]
