@@ -6442,3 +6442,8 @@ The pinned corpus remains fetched on demand, checksum-verified and deleted; it i
 ### Current classification
 
 The repository is a **research beta / partial prototype with a verified full segmentation dictionary and an externally measured, still-provisional word-boundary baseline**. It is not release-ready as a complete Khmer→IPA→Ukrainian transcription system: complete orthography-to-IPA coverage, target-profile expert gold, independent segmentation gold and manual accessibility review remain outstanding.
+
+
+### Expert recruitment research update — 2026-11-23
+
+Issue [#104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/104#issuecomment-7109794132) now records three prospective experts and an institutional referral route: Prof. James P. Kirby (LMU Munich; Phnom Penh Khmer acoustic/perceptual phonetics; prospective convention reviewer), Nielson Sophann Hul (University of Washington; Khmer phonetics/implosives/voice quality; potential annotator/reviewer), Dr Vatho Chem (Central Khmer phonetics and Phnom Penh vowel study; potential reviewer/annotator with explicit Khmer Acoustic Model conflict disclosure), and the Royal University of Phnom Penh Department of Linguistics as a referral channel. These are leads only; **no outreach has been sent and no roles are accepted**. Two independent annotators, a third adjudicator and a separate curator remain mandatory. Target-profile competence, availability, independence, rights and blind-intake arrangements are still blockers.
