@@ -721,7 +721,7 @@ function convert(text, profile) {
   const confidence = linguistic.length
     ? linguistic.map((item) => item.confidence_tier).sort((a, b) => ({A:0,B:1,C:2,D:3}[b] - {A:0,B:1,C:2,D:3}[a]))[0]
     : "D";
-  const wordSegmentation = describeWordSegmentation(units, new Set(Object.keys(fixtures)));
+  const wordSegmentation = describeWordSegmentation(units, new Set(Object.keys(fixtures)), normalized);
   const segmentationNote = wordSegmentation.tokens.length
     ? " Сегментація слів: " + wordSegmentation.known_words + " словникових збігів, "
       + wordSegmentation.oov_runs + " невідомих фрагментів; межі є кандидатними, точність не виміряна."
