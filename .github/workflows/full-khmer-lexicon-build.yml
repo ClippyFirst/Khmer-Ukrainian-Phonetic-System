@@ -4,14 +4,13 @@ on:
   push:
     branches:
       - main
-      - feat/khmer-full-frequency-dictionary-2026-11-23
     paths:
       - data/khmer/google-pronunciation-full.tsv
       - .github/workflows/full-khmer-lexicon-build.yml
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build-full-lexicon:
@@ -141,6 +140,9 @@ jobs:
           )
           frequency_bytes = frequency.read_bytes()
           runtime_bytes = runtime_json.read_bytes()
+          committed_runtime = Path(os.environ["GITHUB_WORKSPACE"]) / "data/khmer/google-pronunciation-full-frequency.json"
+          if committed_runtime.read_bytes() != runtime_bytes:
+              raise SystemExit("Committed runtime JSON differs from the pinned deterministic rebuild")
           summary = {
               "upstream_repository": "https://github.com/pheasaKhmer/khmer-engine",
               "upstream_revision": "31b72cd4665f69678fc835da2f501771e42f097a",
@@ -171,20 +173,6 @@ jobs:
           )
           print(json.dumps(summary, ensure_ascii=False, indent=2))
           PY
-
-      - name: Commit compact frequency table to the feature branch
-        if: github.ref_name != 'main'
-        env:
-          BRANCH_NAME: ${{ github.ref_name }}
-        run: |
-          cp "$RUNNER_TEMP/khmer-full-build/google-pronunciation-full-frequency.json" data/khmer/google-pronunciation-full-frequency.json
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/khmer/google-pronunciation-full-frequency.json
-          if ! git diff --cached --quiet; then
-            git commit -m "data: add full Khmer segmentation frequency table"
-            git push origin "HEAD:$BRANCH_NAME"
-          fi
 
       - name: Upload reproducible full lexicon artifact
         uses: actions/upload-artifact@v4
