@@ -6316,7 +6316,7 @@ Recheck run `45195396018`. If Chromium smoke passes, the Chaktomuk browser-bound
 **PR:** [#531 — Expose ranked Khmer word-boundary candidates](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/531)  
 **Branch:** `feat/khmer-segmentation-candidate-audit-2026-11-23`  
 **Base commit:** `5fc571f681ac2f2f3cfd15e7471a7fa95a7ed3d9`  
-**Code/test head with all checks green:** `a133be330310fbaacbefbe1489bd64746059073d`
+**Code/test head with all checks green:** `2f733fadae339c094393ecbab5e8aa93c8d5a355`
 
 ### Task ledger
 
@@ -6325,8 +6325,8 @@ Recheck run `45195396018`. If Chromium smoke passes, the Chaktomuk browser-bound
 - **DONE_VERIFIED — bounded diagnostic cost:** N-best enumeration is capped at 128 orthographic clusters per chunk. Longer chunks keep the unchanged canonical segmentation and report `DIAGNOSTICS_SKIPPED_LENGTH_LIMIT`.
 - **DONE_VERIFIED — user-facing diagnostics:** The research drawer displays up to three paths, OOV markers, protected fixture chunks and model costs. It explicitly says costs are not probabilities or confidence. README and attribution documentation were updated.
 - **DONE_VERIFIED — regression and cross-runtime tests:** Python tests check all 3,009 dictionary entries remain whole in the best path, candidate losslessness, distinct ranking, protected spans and long-run bounds. Browser tests verify the candidate details are visible and accessible. Python↔JavaScript candidate parity passes on all 6 shared segmentation fixtures.
-- **DONE_VERIFIED — full CI:** Quality checks run [#6743](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45199777622) passed on `a133be330310fbaacbefbe1489bd64746059073d`: **468 Python tests and 70 subtests**, web checks, structural/lexical/rule parity, n-best segmentation parity, deterministic-engine benchmark, browser-tokenizer benchmark and Vite production build.
-- **DONE_VERIFIED — Chromium browser smoke:** Run [#1596](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45199777685) passed on the same SHA: **36 browser tests passed**, including the new visible candidate-path test.
+- **DONE_VERIFIED — full CI:** Quality checks run [#6748](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45200137412) passed on `2f733fadae339c094393ecbab5e8aa93c8d5a355`: **468 Python tests and 70 subtests**, web checks, structural/lexical/rule parity, n-best segmentation parity, deterministic-engine benchmark, browser-tokenizer benchmark and Vite production build.
+- **DONE_VERIFIED — Chromium browser smoke:** Run [#1598](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45200137428) passed on the same SHA: **36 browser tests passed**, including the new visible candidate-path test and the final long-run/protected-span UI adjustments.
 - **DONE_VERIFIED — CI workflow separation:** The Python↔JavaScript n-best parity test runs in the Python-enabled Quality workflow, not the browser-only npm check. This preserves the browser workflow's no-Python runtime boundary.
 - **BLOCKED — full dictionary expansion:** The upstream full 61,980-word Google lexicon is documented as CC BY 4.0, with FineWeb-derived counts under ODC-By 1.0, but the full TSV could not be retrieved through the available GitHub file interface (zero-length response). Acceptance requires obtaining the pinned full source, verifying its SHA-256, deterministic normalization, and size/startup/performance review before any bundling decision.
 - **BLOCKED — NCKL-derived dictionary reuse:** The 39,110-entry NCKL-derived pronunciation dataset has research-only terms and unresolved redistribution/provenance review. Do not import until primary NCKL terms and redistribution permission are clear and disputed/judged rows are reviewed.
