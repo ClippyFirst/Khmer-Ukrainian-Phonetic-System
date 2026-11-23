@@ -135,6 +135,9 @@ function tokenize(text) {
 
     if (fixtureKey) {
       flush();
+      const previous = units.at(-1);
+      if (previous && scriptBucket([...previous].at(-1)) === "khmer"
+          && scriptBucket([...fixtureKey][0]) === "khmer") units.push(" ");
       units.push(fixtureKey);
       index += [...fixtureKey].length;
       continue;
