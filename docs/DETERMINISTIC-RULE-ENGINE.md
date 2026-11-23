@@ -162,3 +162,12 @@ Engine microbenchmark на 36 фікстурах: JS 0,4675 ms/batch, Python 4,2
 Додано Chromium regression `typing Khmer text causes no external network requests`: після завантаження сторінки ввід Khmer не має породжувати зовнішніх HTTP(S) запитів. На code head `f0f806d8f9075a92cf8faa0d0d0876e9a90b6203` пройшло 35/35 browser tests [45149575280](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45149575280).
 
 Quality [45149642609](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45149642609) на head `338a3c0b2f941c264a3fb5f442e9b9d7156b9ee2`: 455 Python tests + 70 subtests, 129 structural/IPA, 36 lexical, 46 consonant/rule output cases, engine/tokenizer benchmarks, Vite — PASS. Engine benchmark: JS 0,4903 ms/36, Python 4,9692 ms/36, 10,13× на CI; це не чисте порівняння алгоритмів через різницю повноти результатів. Tokenizer: 3,38 ms vs 298,75 ms pre-trie, 97,7× у synthetic stress.
+
+
+## IPA/status parity across the structural inventory and local-only regression — 2026-11-23
+
+129-case structural parity тепер також викликає Python `RuleBasedKhmerEngine` і JS `convert()` для кожного випадку та порівнює кількість одиниць, статус, нормалізовану IPA (зокрема факт withholding) і український результат для PROPOSED. Це захищає від browser-only вгадування IPA для структурно відомих, але фонологічно не встановлених форм.
+
+Додано Chromium-тест: після завантаження сторінки введення кмерського тексту не породжує жодного зовнішнього HTTP(S) запиту. Це доповнює статичний тест заборони мережевих API у Worker/client.
+
+Quality на head `338a3c0b2f941c264a3fb5f442e9b9d7156b9ee2`: [45149642609](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45149642609) — 455 Python tests + 70 subtests, 129 structural+IPA/status, 36 lexical, 46 rule-output, benchmarks і Vite — PASS. Browser на попередньому code head [45149575280](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45149575280): 35/35, включно з no-external-request test; точний head browser workflow ще виконувався на момент запису.
