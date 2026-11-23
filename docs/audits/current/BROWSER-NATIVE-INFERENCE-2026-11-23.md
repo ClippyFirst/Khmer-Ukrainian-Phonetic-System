@@ -133,3 +133,12 @@ The worker now imports `src/khmer-engine-core.js` directly; the DOM entry point 
 - Exact-tip tokenizer stress benchmark: 8,000 code points; trie median 2.69 ms, pre-trie median 242.72 ms, 90.3× on GitHub Actions Node 24. Synthetic tokenizer-only benchmark; not end-to-end G2P.
 - PR [#520](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/520) remains open and mergeable. PR #519 remains untouched and open due overlapping UI/docs/test files; reconcile before merging either. No merge, Pages deployment, or release was performed.
 - **Task ledger:** Worker execution/fallback/race = DONE_VERIFIED; tokenizer parity cases = DONE_VERIFIED; 129-case structural parity = DONE_VERIFIED; trie optimization and benchmark = DONE_VERIFIED; full contextual phonology and end-to-end result parity = PARTIAL; lexical/OOV word segmentation = TODO; external assets rights = BLOCKED; expert IPA gold = DEFERRED for beta / BLOCKED for accuracy claims.
+
+
+## Latest exact-head confirmation — 2026-11-23
+
+- Latest branch tip at this checkpoint: `aace766c21476019952f1aa93f217396387de420`.
+- Quality [45146465545](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45146465545): 455 Python tests + 70 subtests, Node checks, 129-case Python↔JS structural parity, tokenizer benchmark and Vite build passed.
+- Chromium [45146465516](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45146465516): 34/34 passed. The worker bundle in this build is 124.63 kB.
+- Same-head synthetic tokenizer stress benchmark: 8,000 code points; trie median 3.07 ms vs pre-trie 298.09 ms, 97.0×, about 2.60 million code points/s. This benchmark measures fixture lookup/orthographic tokenization only, not end-to-end G2P.
+- The PR remains open for review; no merge, Pages deployment or release is claimed.
