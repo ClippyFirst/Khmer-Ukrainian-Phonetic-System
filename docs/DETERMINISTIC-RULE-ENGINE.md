@@ -130,3 +130,10 @@ Head `9a8ba02f65e0502555c0df8045e930ddcaca3a3d`: Quality [45147375553](https://g
 Додано `npm run bench:engine`: прогріває обидва середовища, 25 разів вимірює пакет із тих самих 36 лексичних фікстур через JS `convert()` і Python `RuleBasedKhmerEngine.analyze()`. На exact code head `bcd3421a63711812f2e9ea3533e9215796c8db59` отримано JS 0,4274 ms/36 (84 229/s) і Python 4,3880 ms/36 (8 204/s), співвідношення 10,27× на CI runner. Це мікробенчмарк конкретного набору; Python повертає багатший research result/structure контракт, а контракти JS/Python ще не повністю однакові, тому цифру не слід трактувати як чисте прискорення алгоритму або гарантію на пристроях користувачів.
 
 Quality [45147739766](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147739766): 455 Python tests + 70 subtests, Node, 129 structural parity, 36 lexical parity, два benchmarks, Vite build — PASS. Chromium [45147739801](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147739801): 34/34 — PASS.
+
+
+## Розширений структурний і фонологічний паритет — 2026-11-23
+
+Structural parity тепер звіряє не лише базові поля, а й повний список grapheme trace (text/kind/codepoints), inherent-vowel series, register-shifter rule, confidence та Unicode source provenance для 129 inventory cases. Додатковий gate `npm run test:rule-parity` порівнює Python та JS виходи для 46 окремих приголосних і допустимих register-shifter форм: нормалізовану IPA, українську адаптацію, статус, rule trace, confidence tier та evidence.
+
+На head `997a1c58dd9326d12374d9e79a73f6be5323d07d` Quality [45148673344](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45148673344): 455 Python tests + 70 subtests, 129 structural, 36 lexical і 46 rule-output parity — PASS; engine/tokenizer benchmarks та Vite build — PASS. Browser [45148673356](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45148673356) ще очікував завершення на момент запису.
