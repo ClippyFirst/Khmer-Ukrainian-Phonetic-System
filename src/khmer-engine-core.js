@@ -37,6 +37,10 @@ function isSeparator(char) {
 function startsNewOrthographicSyllable(chars, index) {
   if (!isKhmerConsonant(chars[index]) || index === 0) return false;
   if (chars[index - 1] === COENG) return false;
+  // Unicode 18 §16 documents a subscript independent-vowel sequence followed
+  // by a coda consonant as one orthographic unit (e.g. ផ្ឯម). Mirror the
+  // Python parser's explicit exception rather than splitting after the vowel.
+  if (index >= 2 && chars[index - 2] === COENG && INDEPENDENT_VOWELS.has(chars[index - 1])) return false;
   if (chars[index + 1] === COENG) return false;
   const previousKind = SIGN_BY_CHAR[chars[index - 1]]?.kind;
   if (["dependent_vowel", "composite_vowel", "vowel_modifier", "sign"].includes(previousKind)) {
