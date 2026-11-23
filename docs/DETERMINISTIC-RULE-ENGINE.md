@@ -171,3 +171,10 @@ Quality [45149642609](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-Sy
 Додано Chromium-тест: після завантаження сторінки введення кмерського тексту не породжує жодного зовнішнього HTTP(S) запиту. Це доповнює статичний тест заборони мережевих API у Worker/client.
 
 Quality на head `338a3c0b2f941c264a3fb5f442e9b9d7156b9ee2`: [45149642609](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45149642609) — 455 Python tests + 70 subtests, 129 structural+IPA/status, 36 lexical, 46 rule-output, benchmarks і Vite — PASS. Browser на попередньому code head [45149575280](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45149575280): 35/35, включно з no-external-request test; точний head browser workflow ще виконувався на момент запису.
+
+
+## Exact final continuation tip — 2026-11-23
+
+Branch tip `f2054dd3af325b49c5e7c87af7c90baecbf790f1`. Quality [45150128816](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45150128816): 455 Python tests + 70 subtests, Node, 129 structural+IPA/status/withholding cases, 36 lexical fixtures, 46 consonant/register rule-output cases, benchmarks and Vite — PASS. Chromium [45150129396](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45150129396): 35/35 — PASS, including local-only network regression.
+
+Engine fixture microbenchmark: JS 0,4859 ms/36, Python 4,9776 ms/36, observed 10,24× on CI; not a controlled algorithm-only comparison. Tokenizer stress: 8 000 code points, trie 6,23 ms vs 466,28 ms pre-trie (74,9×), synthetic tokenizer-only result.
