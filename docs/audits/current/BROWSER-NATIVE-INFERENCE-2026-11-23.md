@@ -28,7 +28,8 @@ Adopt a native-first browser architecture modelled on the Thai repository: JavaS
 | Prevent stale render overwrite during rapid input | DONE_VERIFIED | Chromium race test deliberately delays the first Worker response and confirms it cannot overwrite the second input |
 | Worker failure fallback | DONE_VERIFIED | Chromium test aborts the Worker asset request and confirms the same local engine returns the result |
 | Shared tokenizer boundary parity cases | DONE_VERIFIED | Python and browser tests consume `data/tests/tokenizer-parity.json`; Unicode 18 subscript-vowel+coda regression passes in both runtimes |
-| Full Python↔JavaScript structural/rule semantic parity | PARTIAL | Shared tokenizer cases and subscript-independent-vowel abstention now match; broad per-unit structure/IPA parity remains outstanding |
+| Eight-case Python↔JavaScript structural parity harness | DONE_VERIFIED | CI compares token boundaries and core structural fields for eight representative inputs; exact-head run passed |
+| Full Python↔JavaScript structural/rule semantic parity | PARTIAL | The executable parity harness covers representative cases; broader structure/IPA cases and full result-contract parity remain outstanding |
 | Deterministic orthographic token boundaries and fixture matching | DONE_VERIFIED | Shared cross-runtime boundary fixtures and trie-based longest fixture matching; synthetic 8k stress benchmark 77.7× vs pre-trie implementation |
 | Native Khmer lexical word segmentation/OOV model | TODO | Evaluate and pin lexical tokenizer/model only after exact asset rights and phonological parity are established |
 | Optional deterministic FST/WASM inference | DEFERRED | May be added if benchmark shows meaningful quality/speed improvement and asset rights are cleared |
@@ -96,3 +97,13 @@ The worker now imports `src/khmer-engine-core.js` directly; the DOM entry point 
 - Exact code head `224ad5e6530596912a69b334fe98ea7329330f96` passed Quality [45144332414](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45144332414): 455 Python tests + 70 subtests, Node checks, tokenizer benchmark and Vite build. Chromium [45144332627](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45144332627): 34/34 passed.
 - On the same exact head, the 8,000-code-point tokenizer stress benchmark measured 2.96 ms median for trie vs 223.12 ms for the pre-trie reference (75.3×); about 2.70 million code points/s. Synthetic stress input only; not a full G2P benchmark.
 - Full Python↔JavaScript structural/phonological parity remains PARTIAL: this specific gate is now aligned, but broad shared per-unit structural and IPA fixtures remain outstanding.
+
+
+## Executable Python↔JavaScript structural parity harness — 2026-11-23
+
+- Added shared inputs `data/tests/structural-parity.json`, Python reference exporter `scripts/export_structural_parity.py`, Node comparator `tests/cross-runtime-structural-parity.mjs`, `npm run test:parity`, and a required CI step after Python dependencies and Node setup.
+- The harness compares token boundaries plus base consonant, register, subscript consonants, subscript independent vowels, dependent vowel signs, independent-vowel field, structural status and onset IPA across eight representative inputs: bare consonant, both register shifters, subscript cluster, dependent vowel, Unicode 18 subscript-independent-vowel+coda, multiple shifters and malformed COENG.
+- The first differential run exposed a real JS trace bug: malformed COENG returned INVALID but discarded the already recognized base consonant. The browser parser now preserves that base and the malformed tail in its structural trace, matching Python's fail-closed behavior.
+- Exact head `c0df000e179d6da16c05c78960ede774966bdcf7`: Quality [45145033315](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145033315) passed 455 Python tests + 70 subtests, Node checks, the new 8-case cross-runtime parity test, tokenizer benchmark and Vite build. Chromium [45145043709](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145043709) passed 34/34.
+- Same-head tokenizer stress benchmark: 8,000 code points; trie median 6.52 ms, pre-trie median 459.43 ms, 70.4×; about 1.23 million code points/s. CI-host variance is visible across runs; use this as a synthetic comparative stress result, not a universal speed guarantee.
+- **Task ledger:** eight-case cross-runtime structural parity = DONE_VERIFIED; malformed-COENG trace preservation = DONE_VERIFIED; complete Python↔JS structural/phonological parity = PARTIAL; broader fixture coverage and all independent-vowel structural forms remain TODO.
