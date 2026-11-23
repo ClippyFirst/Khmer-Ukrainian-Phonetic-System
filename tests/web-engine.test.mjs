@@ -220,6 +220,7 @@ for (const x of ['<nav class="site-nav" aria-label="Основна навіга�
 
 
 if (!js.includes("function confidenceTier(item)") || !js.includes("доказовий рівень") || !js.includes("unit.confidence_tier")) throw new Error("evidence confidence tiers are not surfaced in the browser");
+if (!js.includes("Кандидатні межі слів") || !js.includes("candidate_runs") || !js.includes("вартість моделі")) throw new Error("ranked word-boundary alternatives are not surfaced in the research drawer");
 
 // Shared expected boundaries are consumed by both Python and browser tests.
 for (const item of wordSegmentationParity.cases) {
