@@ -16,6 +16,7 @@ on:
       - ".github/workflows/pinned-rust-khmer-benchmark.yml"
       - "scripts/evaluate_khpos.py"
       - "scripts/evaluate_khpos_external_rust.py"
+      - "scripts/evaluate_khpos_external_rust_models.py"
       - "src/khmer_ua/**"
       - "data/khmer/google-pronunciation-full-frequency.json"
   workflow_dispatch:
