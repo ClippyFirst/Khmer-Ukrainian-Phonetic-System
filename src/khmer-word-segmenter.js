@@ -80,6 +80,7 @@ export function isKnownKhmerWord(word) {
 
 export function segmentKhmerWordsDetailed(text) {
   if (!text) return [];
+  if (entries.has(text)) return [{ text, known: true, status: "DICTIONARY_MATCH", source: WORD_SEGMENTER_ID }];
   const { chars, bounds } = clusterStarts(text);
   const count = bounds.length - 1;
   const best = Array(count + 1).fill(Number.POSITIVE_INFINITY);
@@ -227,6 +228,10 @@ export function segmentKhmerWordsCandidates(text, limit = 3) {
     throw new RangeError("limit must be an integer from 1 to 10");
   }
   if (!text) return [];
+  if (entries.has(text)) return [{
+    cost: Number(costs.get(text).toFixed(8)),
+    segments: [{ text, known: true, status: "DICTIONARY_MATCH" }],
+  }];
   const { chars, bounds } = clusterStarts(text);
   const count = bounds.length - 1;
   if (count > MAX_CANDIDATE_CLUSTERS) return [];
