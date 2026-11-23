@@ -206,9 +206,12 @@ def test_zwnj_does_not_split_a_khmer_orthographic_unit():
     assert segment_syllables(source) == [source]
 
 
-def test_unicode18_subscript_independent_vowel_keeps_following_coda_in_same_unit():
+def test_python_tokenizer_matches_shared_browser_boundary_fixtures():
+    import json
+    from pathlib import Path
     from khmer_ua.parser import segment_syllables
 
-    # Unicode 18 §16 example: a consonant after a subscript independent vowel
-    # is not an automatic orthographic syllable boundary.
-    assert segment_syllables("ផ្ឯម") == ["ផ្ឯម"]
+    fixture = json.loads(Path("data/tests/tokenizer-parity.json").read_text(encoding="utf-8"))
+    assert fixture["schema"] == "khmer-tokenizer-parity/v1"
+    for case in fixture["cases"]:
+        assert segment_syllables(case["input"]) == case["units"], case["reason"]
