@@ -66,3 +66,39 @@ This audit does not assert that the ALT or khPOS corpus is suitable for commerci
 ## Operational continuation — 2026-11-21
 
 The private blind-intake and discrepancy-review procedure is documented in docs/research/KHMER-PRIVATE-BLIND-INTAKE-RUNBOOK-2026-11-21.md. This does not authorize use of public GitHub for blind submissions and does not imply that a private workspace exists. The 30-item IPA pilot and any separate lexical-boundary pilot require independent annotators, adjudication, item-level rights review and privacy clearance. ALT/NOVA and khPOS remain candidate research resources only; their annotation conventions are not interchangeable with phonological syllables or a universal lexical-word standard. khPOS student/election/voter-list provenance remains a stop condition until reviewed.
+
+
+## Controlled external tokenizer and cross-corpus experiment — 2026-11-23
+
+This section supersedes only the earlier statement that no corpus had been used for training. The corpus was later fetched temporarily in a non-commercial research workflow; it was not committed, redistributed, or retained as an artifact.
+
+- Upstream implementation: `Alujack/khmer-tokenizer@f38eae5924d4e41a46fd2204cf6951cdb0dc8908`, Rust core v0.3.0, built from source in CI.
+- khPOS train split: 12,000 rows, Git blob SHA-1 `3467e80897f192c4bbdb4b88fed488aaa16a830a`; khPOS OPEN-TEST: 1,000 sentences / 10,778 tokens, Git blob SHA-1 `34cf93f298c06723419212f0f0777f3783537069`.
+- ALT/NOVA: Zenodo record 3937914, archive MD5 `20d39d8fa1b874b11ec374139fbe5654`; upstream article-ID-modulo-10 test split: 1,931 sentences / 69,831 tokens. The test split is a morpheme-oriented word-tokenization convention and must not be equated with phonological syllabification or this project's intended UI boundary convention.
+- Both corpora are CC BY-NC-SA 4.0. The workflow used temporary files only. Exact NFC-normalized input overlaps with either test set were removed from training (12 rows; 11,988 retained). Phrase-level overlap and shared editorial conventions were not measured.
+- The project word/count dictionary (61,980 rows) was used for the MinWordsDp/UnigramDp comparisons. HMM counts and a five-epoch averaged-perceptron tagger were trained in memory; no model or corpus artifact was saved or uploaded.
+
+### Results and interpretation
+
+| Strategy | khPOS Khmer-word F1 | khPOS boundary F1 | ALT Khmer-word F1 | ALT boundary F1 |
+|---|---:|---:|---:|---:|
+| Current project Viterbi | 79.62% | 91.53% | **70.15%** | **88.52%** |
+| Rust MinWordsDp | 78.16% | 90.35% | 69.11% | 87.83% |
+| Rust UnigramDp | 78.76% | 90.70% | 69.50% | 88.07% |
+| MinWordsDp + HMM | 78.16% | 90.35% | 69.10% | 87.83% |
+| UnigramDp + HMM | 78.76% | 90.70% | 69.50% | 88.07% |
+| MinWordsDp + tagger fallback | 78.18% | 90.36% | 69.10% | 87.83% |
+| UnigramDp + tagger fallback | 78.78% | 90.71% | 69.49% | 88.07% |
+| Full Tagger | **95.07%** | **97.86%** | 63.59% | 85.70% |
+
+The full Tagger's in-domain khPOS result is not transferable: it loses 6.56 percentage points against the current project engine on ALT Khmer-only word F1 and 2.82 points on ALT boundary F1. The HMM and tagger fallback configurations provide no material improvement over dictionary segmentation. The current project Viterbi remains the strongest measured baseline on both corpora. The full Tagger's high khPOS score is consistent with domain/annotation-convention dependence and is not evidence of target-profile accuracy.
+
+### Updated task ledger
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-LEXICAL-WORD-SEGMENTATION-001 | BLOCKED | Human convention approval and independent lexical-boundary pilot still absent; corpus experiments above are external benchmark diagnostics only. | Approve a project-specific tokenization convention; complete rights/privacy review; obtain independent double annotation/adjudication and held-out evaluation before any project runtime segmentation feature. |
+| KHM-LEXICAL-WORD-SEGMENTATION-002 | DONE_VERIFIED (research benchmark only) | Pinned Rust source, exact corpus/dictionary checksums, KCC integrity, OOV/normalization fixtures, khPOS and ALT metrics; PRs #544, #546, #547 merged; workflow [45253514986](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45253514986) SUCCESS. | Reproducible algorithm comparison only. Does not approve ALT/NOVA or khPOS labels as the project's gold or UI segmentation convention. |
+| KHM-LEXICAL-WORD-SEGMENTATION-003 | NO ADOPTION / DEFERRED | External Rust dictionary algorithms and khPOS-trained tagger do not outperform current Viterbi on ALT; the tagger is licensed from CC BY-NC-SA training data and cross-corpus performance is poor. | Do not ship the Rust dependency or trained model. Reconsider only with rights-cleared, target-relevant data and independently adjudicated cross-corpus evidence. |
+
+**No phonetic or IPA claim changed.** The segmentation benchmark is orthogonal to source-to-IPA-to-Ukrainian transcription. Independent expert-adjudicated IPA gold remains 0 and empirical pronunciation accuracy remains NOT_ASSESSED.
