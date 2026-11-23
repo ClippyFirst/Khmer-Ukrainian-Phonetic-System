@@ -8,6 +8,8 @@ from __future__ import annotations
 import json
 import math
 from dataclasses import dataclass
+
+from .data import CONSONANTS
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -151,42 +153,60 @@ def describe_word_segmentation(
         )
         word_tokens.append({"text": token, "status": status})
     candidate_runs = []
-    runs: list[str] = []
-    pending: list[str] = []
-    for character in source_text:
-        codepoint = ord(character)
-        if 0x1780 <= codepoint <= 0x17D3 or codepoint in {0x17DD, 0x200C, 0x200D}:
-            pending.append(character)
-        elif pending:
-            runs.append("".join(pending))
-            pending.clear()
-    if pending:
-        runs.append("".join(pending))
+    fixture_keys_sorted = sorted(fixture_keys, key=len, reverse=True)
     for run in runs:
-        protected = sorted(
-            key for key in fixture_keys
-            if key in run and sum(
-                1 for index, char in enumerate(key)
-                if _is_base(char) and (index == 0 or key[index - 1] != _COENG)
-            ) >= 2
-        )
-        if protected:
-            candidate_runs.append({
-                "source": run,
-                "status": "LEXICAL_FIXTURE_PROTECTED",
-                "protected_fixtures": protected,
-                "candidates": [],
+        chunks: list[dict] = []
+        pending = ''
+        index = 0
+        while index < len(run):
+            fixture = next((
+                key for key in fixture_keys_sorted
+                if run.startswith(key, index)
+                and sum(
+                    1 for position, char in enumerate(key)
+                    if _is_base(char) and (position == 0 or key[position - 1] != _COENG)
+                ) >= 2
+                and (index + len(key) == len(run) or run[index + len(key)] in CONSONANTS)
+            ), None)
+            if fixture is None:
+                pending += run[index]
+                index += 1
+                continue
+            if pending:
+                candidates = segment_words_candidates(pending, 3)
+                chunks.append({
+                    'source': pending,
+                    'method': 'DICTIONARY_VITERBI_NBEST',
+                    'candidates': [
+                        {'rank': rank, **candidate}
+                        for rank, candidate in enumerate(candidates, 1)
+                    ],
+                })
+                pending = ''
+            chunks.append({
+                'source': fixture,
+                'method': 'LEXICAL_FIXTURE_PROTECTED',
+                'candidates': [{
+                    'rank': 1,
+                    'cost': 0.0,
+                    'segments': [{'text': fixture, 'known': True, 'status': 'LEXICAL_FIXTURE'}],
+                }],
             })
-            continue
-        candidates = segment_words_candidates(run, 3)
+            index += len(fixture)
+        if pending:
+            candidates = segment_words_candidates(pending, 3)
+            chunks.append({
+                'source': pending,
+                'method': 'DICTIONARY_VITERBI_NBEST',
+                'candidates': [
+                    {'rank': rank, **candidate}
+                    for rank, candidate in enumerate(candidates, 1)
+                ],
+            })
         candidate_runs.append({
-            "source": run,
-            "status": "CANDIDATES_AVAILABLE",
-            "protected_fixtures": [],
-            "candidates": [
-                {"rank": index + 1, **candidate}
-                for index, candidate in enumerate(candidates)
-            ],
+            'source': run,
+            'status': 'CANDIDATES_AVAILABLE' if any(item['method'] == 'DICTIONARY_VITERBI_NBEST' for item in chunks) else 'LEXICAL_FIXTURES_ONLY',
+            'chunks': chunks,
         })
 
     return {
