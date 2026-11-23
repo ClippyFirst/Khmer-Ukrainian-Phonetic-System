@@ -82,10 +82,9 @@ def _is_separator(character: str | None) -> bool:
 
 
 def _tokenize_input(text: str) -> list[str]:
-    """Prefer exact lexical fixtures, then use the structural parser per chunk.
-
-    This is a conservative adapter boundary, not a claim of full Khmer word
-    segmentation. Spaces and punctuation are retained as independent units.
+    """Prefer exact lexical fixtures, then segment Khmer runs with the provisional
+    frequency-weighted dictionary/Viterbi candidate. Word boundaries are not gold;
+    unknown runs, spaces and punctuation are retained.
     """
     characters = list(text)
     fixture_keys = sorted(_LEXICON, key=len, reverse=True)
