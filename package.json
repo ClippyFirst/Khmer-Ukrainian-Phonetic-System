@@ -9,7 +9,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test:browser": "playwright test",
-    "bench:tokenizer": "node benchmarks/browser-tokenizer.mjs"
+    "bench:tokenizer": "node benchmarks/browser-tokenizer.mjs",
+    "test:parity": "node tests/cross-runtime-structural-parity.mjs"
   },
   "engines": {
     "node": ">=20"
