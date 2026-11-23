@@ -23,16 +23,19 @@ def test_canonical_ukrainian_policy_is_complete():
 def test_web_fixtures_have_explicit_status_and_provenance_note():
     fixtures = json.loads((ROOT / "data/tests/web-fixtures.json").read_text(encoding="utf-8"))
     assert fixtures
-    allowed_statuses = {"PROPOSED", "EVIDENCE_LIMITED"}
+    allowed_statuses = {"PROPOSED", "EVIDENCE_LIMITED", "NOT_ESTABLISHED"}
     for fixture in fixtures.values():
         assert fixture["status"] in allowed_statuses
-        assert "проєкт" in fixture["note"] or "проєктна" in fixture["note"]
         if fixture["status"] == "PROPOSED":
+            assert "проєкт" in fixture["note"] or "проєктна" in fixture["note"]
             assert fixture["ipa"].startswith("/")
             assert fixture["ua"]
         else:
             assert fixture["ipa"] is None
             assert fixture["ua"] is None
+            assert fixture["source_locator"]
+            if fixture["status"] == "NOT_ESTABLISHED":
+                assert "не встановлено" in fixture["note"]
 
 def test_fully_supported_fixture_outputs_match_canonical_policy():
     policy = json.loads((ROOT / "data/ukrainian/practical-policy.json").read_text(encoding="utf-8"))
