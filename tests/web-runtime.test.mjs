@@ -42,11 +42,15 @@ assert.equal(unresolvedWord.external_candidates.find((candidate) => candidate.pr
 assert.equal(unresolvedWord.backend_failures[0].provider, "epitran", "rejected provider output must remain visible as a failure, not be promoted to IPA");
 assert.ok(unresolvedWord.canonical_ipa.includes("NOT_ESTABLISHED"), "the internal deterministic result must remain separately preserved");
 assert.ok(unresolvedWord.canonical_ua.endsWith("???"), "the orthographic fallback remains available separately from the external IPA candidate");
-assert.equal(unresolvedWord.units.filter((unit) => unit.status === "NOT_ESTABLISHED").length, 3, "per-unit phonetic status must retain all three unresolved orthographic units");
-assert.ok(unresolvedWord.units.every((unit) => unit.fallback_status === "PROVISIONAL" && unit.ua && unit.ua !== "⟦НЕВСТАНОВЛЕНО⟧"), "each unresolved but romanizable unit must expose a provisional Ukrainian candidate");
-assert.equal(unresolvedWord.phonetic_result.units.filter((unit) => unit.status === "NOT_ESTABLISHED").length, 3, "machine-readable IPA provenance must retain per-unit uncertainty");
-assert.ok(unresolvedWord.phonetic_result.units.every((unit) => unit.ukrainian_kind === "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"), "machine-readable output must distinguish orthographic fallback from IPA-derived Ukrainian");
-assert.ok(unresolvedWord.phonetic_result.units.every((unit) => unit.ipa === "⟦NOT_ESTABLISHED⟧"), "a Ukrainian fallback must never manufacture IPA");
+const unresolvedUnits = unresolvedWord.units.filter((unit) => unit.status === "NOT_ESTABLISHED");
+assert.equal(unresolvedUnits.length, 1, "word segmentation must preserve the unresolved second lexical word as one unit");
+assert.equal(unresolvedUnits[0].source, "ប្រជាធិបតេយ្យ");
+assert.equal(unresolvedUnits[0].fallback_status, "PROVISIONAL");
+assert.ok(unresolvedUnits[0].ua && unresolvedUnits[0].ua !== "⟦НЕВСТАНОВЛЕНО⟧", "the unresolved word must retain its provisional orthographic Ukrainian candidate");
+const unresolvedTypedUnits = unresolvedWord.phonetic_result.units.filter((unit) => unit.status === "NOT_ESTABLISHED");
+assert.equal(unresolvedTypedUnits.length, 1, "machine-readable IPA provenance must retain word-level uncertainty");
+assert.equal(unresolvedTypedUnits[0].ukrainian_kind, "ORTHOGRAPHIC_ROMANIZATION_FALLBACK", "the target must remain explicitly orthographic when IPA is absent");
+assert.equal(unresolvedTypedUnits[0].ipa, "⟦NOT_ESTABLISHED⟧", "a Ukrainian fallback must never manufacture IPA");
 
 
 const bySource = Object.fromEntries(result.units.map((unit) => [unit.source, unit]));
