@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { parseSyllable, tokenize } from "../src/khmer-engine-core.js";
+import { convert, parseSyllable, tokenize } from "../src/khmer-engine-core.js";
 
 const python = spawnSync("python", ["scripts/export_structural_parity.py"], {
   encoding: "utf8",
