@@ -4,6 +4,7 @@ import signs from "../data/khmer/signs.json" with { type: "json" };
 import vowels from "../data/khmer/vowels.json" with { type: "json" };
 import practicalPolicy from "../data/ukrainian/practical-policy.json" with { type: "json" };
 import fixtures from "../data/tests/web-fixtures.json" with { type: "json" };
+import provisionalIpaCandidates from "../data/khmer/provisional-ipa-candidates.json" with { type: "json" };
 import sources from "../data/khmer/sources.json" with { type: "json" };
 import { khmerToLatin } from "@gmana/km-translit";
 import { mapIpa } from "./ukrainian-practical.js";
@@ -538,6 +539,10 @@ function confidenceTier(item) {
 
 function getStatusNotice(data) {
   if (!data) return "";
+  if (data.selected_external_candidate) {
+    return "Показано зовнішній IPA-кандидат від " + data.selected_external_candidate.provider
+      + ". Це неперевірений широкофонетичний результат: відповідність профілю UNVERIFIED, незалежної ад'юдикації немає. ??? наприкінці IPA та українського зіставлення позначає весь результат як PROVISIONAL; інші виходи провайдерів збережено в деталях.";
+  }
   if (data.status === "PROVISIONAL") {
     return "Показано лише низькодостовірні IPA-підказки відомих початкових приголосних. Знак ? позначає невстановлену частину; голосні, фіналі й тон не вгадуються.";
   }
@@ -660,20 +665,69 @@ function convert(text, profile) {
       : [{ status: item.status, note: item.note ?? "", unresolved_graphemes: item.analysis?.graphemes?.slice(1).map((g) => g.text) ?? item.analysis?.unknown ?? [] }],
   }));
 
+  const canonicalStatus = combineStatus(linguistic);
+  const providerEntry = provisionalIpaCandidates.entries[normalized] ?? null;
+  const externalCandidates = (providerEntry?.candidates ?? []).map((candidate) => {
+    const mapping = candidate.profile === profile
+      ? mapIpa(candidate.ipa, practicalPolicy)
+      : { value: null, unsupported: "PROFILE_MISMATCH" };
+    const mappedUkrainian = mapping.value !== null ? mapping.value : null;
+    return {
+      ...candidate,
+      mapped_ukrainian: mappedUkrainian,
+      mapping_failure: mapping.unsupported,
+      mapping_agrees: candidate.ukrainian_candidate === null
+        ? mappedUkrainian === null
+        : mappedUkrainian === candidate.ukrainian_candidate,
+      selected: false,
+    };
+  });
+  const selectedExternalCandidate = externalCandidates.find((candidate) =>
+    candidate.provider === providerEntry?.selected_provider
+    && candidate.status === "PROVISIONAL"
+    && candidate.profile_match === "UNVERIFIED"
+    && candidate.mapped_ukrainian !== null
+    && candidate.mapping_agrees
+  ) ?? null;
+  if (selectedExternalCandidate) selectedExternalCandidate.selected = true;
+  const canonicalIpa = ipa;
+  const canonicalUa = ua;
+  const displayIpa = selectedExternalCandidate
+    ? "/" + selectedExternalCandidate.ipa + "/???"
+    : canonicalIpa;
+  const displayUa = selectedExternalCandidate
+    ? selectedExternalCandidate.mapped_ukrainian + "???"
+    : canonicalUa;
+  const displayStatus = selectedExternalCandidate ? "PROVISIONAL" : canonicalStatus;
+  const confidence = linguistic.length
+    ? linguistic.map((item) => item.confidence_tier).sort((a, b) => ({A:0,B:1,C:2,D:3}[b] - {A:0,B:1,C:2,D:3}[a]))[0]
+    : "D";
+  const resultNote = "Локальний аналіз: " + resolved.length + " одиниць мають зафіксовану IPA та проєктну українську форму; "
+    + unresolved.length + " потребують окремого встановлення або перевірки (" + notEstablished
+    + " не встановлено, " + evidenceLimited + " з обмеженою доказовістю, " + invalid
+    + " некоректних/непідтримуваних); " + linguistic.filter((item) => item.fallback_status === "PROVISIONAL").length
+    + " мають попередній орфографічний український кандидат. Невизначеність IPA збережено."
+    + (unresolvedNames.length ? " Невстановлені/проблемні одиниці: " + unresolvedNames.join(" · ") + "." : "");
+  const note = selectedExternalCandidate
+    ? resultNote + " Додатково показано зовнішній IPA-кандидат від " + selectedExternalCandidate.provider
+      + "; profile_match=UNVERIFIED, статус PROVISIONAL. Знак ??? наприкінці позначає неперевіреність; деталі та інші провайдери наведено нижче."
+    : resultNote;
+
   return {
     source: normalized,
-    ipa,
-    ua,
+    ipa: displayIpa,
+    ua: displayUa,
+    canonical_ipa: canonicalIpa,
+    canonical_ua: canonicalUa,
+    canonical_status: canonicalStatus,
+    external_candidates: externalCandidates,
+    backend_failures: providerEntry?.backend_failures ?? [],
+    selected_external_candidate: selectedExternalCandidate,
     complete,
-    partial: !complete && resolved.length > 0,
-    status: combineStatus(linguistic),
-    confidence_tier: linguistic.length ? linguistic.map((item) => item.confidence_tier).sort((a, b) => ({A:0,B:1,C:2,D:3}[b] - {A:0,B:1,C:2,D:3}[a]))[0] : "D",
-    note: "Локальний аналіз: " + resolved.length + " одиниць мають зафіксовану IPA та проєктну українську форму; "
-      + unresolved.length + " потребують окремого встановлення або перевірки (" + notEstablished
-      + " не встановлено, " + evidenceLimited + " з обмеженою доказовістю, " + invalid
-      + " некоректних/непідтримуваних); " + linguistic.filter((item) => item.fallback_status === "PROVISIONAL").length
-      + " мають попередній орфографічний український кандидат. Невизначеність IPA збережено; доступні кандидати показано без вимоги перемикати режими."
-      + (unresolvedNames.length ? " Невстановлені/проблемні одиниці: " + unresolvedNames.join(" · ") + "." : ""),
+    partial: !complete && (resolved.length > 0 || Boolean(selectedExternalCandidate)),
+    status: displayStatus,
+    confidence_tier: selectedExternalCandidate ? "C" : confidence,
+    note,
     profile,
     units: rendered,
     phonetic_result: {
