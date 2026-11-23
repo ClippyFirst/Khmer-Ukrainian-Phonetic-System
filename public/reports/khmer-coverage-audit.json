@@ -646,7 +646,7 @@
         "locator": "Mam, Pittayaporn & Maspong 2025, TAI pp. 138–143; §§2–4, DOI 10.21437/TAI.2025-29.",
         "profile_scope": "Five native speakers aged 20–25 from greater Phnom Penh; PPK and SK elicitation. F0 only; no vowel formants, voice quality, or perception test.",
         "evidence_status": "RECENT_BOUNDED_PROSODIC_EVIDENCE",
-        "implementation": "Keep pitch as a separate profile/prosody layer. Do not encode a general lexical tone or derive tone marks from graphemes; the paper itself calls for perception evidence."
+        "implementation": "Keep pitch as a separate profile/prosody layer. Do not encode a general lexical tone or derive tone marks from graphemes. The stressed disyllabic r>h examples use a single [r] onset; the authors explicitly request more cluster-onset words to test this context, and no perception test is reported."
       },
       {
         "id": "PPH-CTX-009",
