@@ -8,9 +8,9 @@ from __future__ import annotations
 import json
 import math
 from dataclasses import dataclass
+from pathlib import Path
 
 from .data import CONSONANTS
-from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 _DATA_PATH = ROOT / "data" / "khmer" / "google-pronunciation-sample.json"
@@ -152,6 +152,18 @@ def describe_word_segmentation(
             else "OOV_RUN"
         )
         word_tokens.append({"text": token, "status": status})
+    runs: list[str] = []
+    pending_run: list[str] = []
+    for character in source_text:
+        codepoint = ord(character)
+        if 0x1780 <= codepoint <= 0x17D3 or codepoint in {0x17DD, 0x200C, 0x200D}:
+            pending_run.append(character)
+        elif pending_run:
+            runs.append("".join(pending_run))
+            pending_run.clear()
+    if pending_run:
+        runs.append("".join(pending_run))
+
     candidate_runs = []
     fixture_keys_sorted = sorted(fixture_keys, key=len, reverse=True)
     for run in runs:
