@@ -425,3 +425,20 @@ test("service and methodology pages expose coherent document landmarks and named
   await expect(page.getByRole("main")).toBeVisible();
   await expect(page.getByRole("textbox", { name: "Введіть кмерський текст або латинську романізацію BGN/PCGN 1972" })).toBeVisible();
 });
+
+
+test("Khmer phonetic inference executes in a local Web Worker", async ({ page }) => {
+  const workerUrls = [];
+  page.on("worker", (worker) => workerUrls.push(worker.url()));
+  await page.goto("/");
+  await page.locator("#source").fill("ខ្មែរ");
+  await expect(page.locator("#ua-result")).toContainText("к'мае");
+  await expect.poll(() => workerUrls.some((url) => url.includes("khmer-engine.worker"))).toBe(true);
+});
+
+test("phonetic inference falls back locally when the worker asset is unavailable", async ({ page }) => {
+  await page.route(/khmer-engine\\.worker/u, (route) => route.abort());
+  await page.goto("/");
+  await page.locator("#source").fill("ខ្មែរ");
+  await expect(page.locator("#ua-result")).toContainText("к'мае");
+});
