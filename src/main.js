@@ -119,7 +119,7 @@ if (typeof document !== "undefined") {
     $("status").textContent = romanizationOnlyInput
       ? "BGN/PCGN LATIN INPUT · PROVISIONAL · ??? наприкінці слова означає невстановлену точність · доказовий рівень C"
       : useRomanizationFallback || hasUnitFallback
-        ? "PROVISIONAL CANDIDATE · орфографічна романізація, не IPA-вимова · доказовий рівень C"
+        ? "PROVISIONAL CANDIDATE · орфографічна романізація, не IPA-вимова · ??? наприкінці неперевіреного результату · доказовий рівень C"
         : data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
     const levelGuidance = {
       strict: "Обережний рівень: показано лише наявні джерельно індексовані пропозиції; непідтверджені IPA/українські форми не реконструюються. PROPOSED не є експертним gold.",
