@@ -192,3 +192,11 @@ def test_source_traceable_proposed_ipa_requires_registered_exact_locator():
 
     unsupported = engine.analyze("☃")
     assert unsupported["confidence_tier"] == "D"
+
+
+def test_subscript_independent_vowel_sequence_does_not_receive_inherent_vowel_guess():
+    result = RuleBasedKhmerEngine().analyze("ផ្ឯម")
+    assert result["units"][0]["source"] == "ផ្ឯម"
+    assert result["units"][0]["status"] == "NOT_ESTABLISHED"
+    assert result["units"][0]["ipa"] is None
+    assert result["units"][0].get("provisional_ipa") is not None
