@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import math
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -136,7 +137,9 @@ def segment_words(text: str) -> list[WordSegment]:
     ]
 
 
-def describe_word_segmentation(tokens: list[str], fixture_keys: set[str] | None = None) -> dict:
+def describe_word_segmentation(
+    tokens: list[str], fixture_keys: set[str] | None = None, source_text: str = ""
+) -> dict:
     fixture_keys = fixture_keys or set()
     word_tokens = []
     for token in tokens:
@@ -148,6 +151,34 @@ def describe_word_segmentation(tokens: list[str], fixture_keys: set[str] | None 
             else "OOV_RUN"
         )
         word_tokens.append({"text": token, "status": status})
+    candidate_runs = []
+    for run in re.findall(r"[\\u1780-\\u17d3\\u17dd\\u200c\\u200d]+", source_text):
+        protected = sorted(
+            key for key in fixture_keys
+            if key in run and sum(
+                1 for index, char in enumerate(key)
+                if _is_base(char) and (index == 0 or key[index - 1] != _COENG)
+            ) >= 2
+        )
+        if protected:
+            candidate_runs.append({
+                "source": run,
+                "status": "LEXICAL_FIXTURE_PROTECTED",
+                "protected_fixtures": protected,
+                "candidates": [],
+            })
+            continue
+        candidates = segment_words_candidates(run, 3)
+        candidate_runs.append({
+            "source": run,
+            "status": "CANDIDATES_AVAILABLE",
+            "protected_fixtures": [],
+            "candidates": [
+                {"rank": index + 1, **candidate}
+                for index, candidate in enumerate(candidates)
+            ],
+        })
+
     return {
         "method": "DICTIONARY_VITERBI_CANDIDATE",
         "engine": WORD_SEGMENTER_ID,
@@ -156,6 +187,9 @@ def describe_word_segmentation(tokens: list[str], fixture_keys: set[str] | None 
         "oov_runs": sum(item["status"] == "OOV_RUN" for item in word_tokens),
         "accuracy": None,
         "tokens": word_tokens,
+        "candidate_limit": 3,
+        "candidate_runs": candidate_runs,
+        "score_note": "Candidate costs are uncalibrated negative-log frequency scores, not probabilities or confidence values.",
         "note": "Word boundaries are provisional dictionary-Viterbi candidates; no independent segmentation accuracy has been measured for this project.",
     }
 
