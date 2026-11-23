@@ -716,8 +716,7 @@
     "scope": "Pronunciation section, standard IPA /ʔak.ˈsɑː muːl/ for អក្សរមូល; permanent revision oldid=63698235. The page separately displays orthographic/phonemic ʼk̥srmūl and WT romanisation ʼaksɑɑ muul; preserve them as distinct fields, not alternative IPA. Community-maintained lexical reference; not independent Phnom Penh profile adjudication.",
     "status": "SECONDARY_LEXICAL_REFERENCE",
     "license": "Page footer identifies Creative Commons Attribution-ShareAlike (version not stated on the page); Wiktionary:Copyrights states CC BY-SA 4.0/GFDL but labels itself draft/unofficial. Preserve exact revision and attribution; check applicable Wikimedia Terms of Use. No audio/media copied."
-  }
-,
+  },
   {
     "id": "google-khmer-pronunciation-sample-2026",
     "type": "licensed_word_segmentation_dictionary",
@@ -734,6 +733,17 @@
     "frequency_data_source_revision": "af9c13333eb981300149d5ca60a8e9d659b276b9",
     "frequency_data_sha256": "26ae4e654770b07e24a4ef6b8ef3a01c84076a920f1922ac014364ab411b84f0",
     "upstream_code_license": "MIT",
-    "limitations": "Only the 3,009-entry sample is bundled. Candidate boundaries have not been evaluated against an independent manually segmented Khmer corpus. OOV runs are preserved; known-word matches are not proof that a particular segmentation is correct. Pronunciation strings remain in the upstream phonemic notation, not project IPA."
+    "limitations": "Only the 3,009-entry sample is bundled. Candidate boundaries have not been evaluated against an independent manually segmented Khmer corpus. OOV runs are preserved; known-word matches are not proof that a particular segmentation is correct. Pronunciation strings remain in the upstream phonemic notation, not project IPA.",
+    "full_lexicon_build": {
+      "upstream_repository": "https://github.com/pheasaKhmer/khmer-engine",
+      "upstream_revision": "31b72cd4665f69678fc835da2f501771e42f097a",
+      "builder_path": "scripts/build_data.py",
+      "upstream_code_license": "MIT",
+      "reported_filtered_word_count": 61980,
+      "google_lexicon_sha256": "b3f2e700d07d6c01a4c8cac5aa2f13b9a66885668ac482cc0c513f73c56495e5",
+      "fineweb2_test_split_sha256": "26ae4e654770b07e24a4ef6b8ef3a01c84076a920f1922ac014364ab411b84f0",
+      "build_status": "NOT_REPRODUCED_LOCALLY",
+      "acceptance": "Byte-preserving retrieval, both checksum checks, deterministic rebuild, output/runtime review and Python-JavaScript parity are still required."
+    }
   }
 ]
