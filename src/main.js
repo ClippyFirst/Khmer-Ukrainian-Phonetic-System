@@ -182,6 +182,46 @@ if (typeof document !== "undefined") {
       }
       unitDetails.append(card);
     });
+    const segmentation = data.word_segmentation;
+    if (segmentation?.candidate_runs?.length) {
+      const segmentationHeading = document.createElement("h3");
+      segmentationHeading.textContent = "Кандидатні межі слів · альтернативні шляхи";
+      unitDetails.append(segmentationHeading);
+      const segmentationNote = document.createElement("p");
+      segmentationNote.className = "unit-note";
+      segmentationNote.textContent = segmentation.score_note
+        + " Вартість нижча — шлях краще відповідає частотній моделі; це не ймовірність і не оцінка мовної правильності.";
+      unitDetails.append(segmentationNote);
+      segmentation.candidate_runs.forEach((run) => {
+        const runCard = document.createElement("article");
+        runCard.className = "unit-detail";
+        const runTitle = document.createElement("strong");
+        runTitle.className = "unit-source";
+        runTitle.lang = "km";
+        runTitle.textContent = run.source;
+        runCard.append(runTitle);
+        run.chunks.forEach((chunk) => {
+          const chunkTitle = document.createElement("p");
+          chunkTitle.className = "unit-note";
+          chunkTitle.lang = "km";
+          chunkTitle.textContent = chunk.method === "LEXICAL_FIXTURE_PROTECTED"
+            ? "Захищена лексична одиниця: " + chunk.source
+            : "Фрагмент для словникового пошуку: " + chunk.source;
+          runCard.append(chunkTitle);
+          chunk.candidates.forEach((candidate) => {
+            const candidateLine = document.createElement("p");
+            candidateLine.className = "unit-values";
+            const rendered = candidate.segments.map((segment) =>
+              segment.text + (segment.status === "OOV_RUN" ? " [OOV]" : "")
+            ).join(" | ");
+            candidateLine.textContent = "Варіант " + candidate.rank + ": " + rendered
+              + " · вартість моделі " + candidate.cost.toFixed(4);
+            runCard.append(candidateLine);
+          });
+        });
+        unitDetails.append(runCard);
+      });
+    }
     if (data.external_candidates?.length) {
       const providerHeading = document.createElement("h3");
       providerHeading.textContent = "Зовнішні IPA-кандидати · не перевірені";
