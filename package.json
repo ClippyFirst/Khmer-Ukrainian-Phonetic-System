@@ -12,7 +12,8 @@
     "bench:tokenizer": "node benchmarks/browser-tokenizer.mjs",
     "test:parity": "node tests/cross-runtime-structural-parity.mjs",
     "test:lexical-parity": "node tests/cross-runtime-lexical-parity.mjs",
-    "bench:engine": "node benchmarks/browser-engine.mjs"
+    "bench:engine": "node benchmarks/browser-engine.mjs",
+    "test:rule-parity": "node tests/cross-runtime-rule-output-parity.mjs"
   },
   "engines": {
     "node": ">=20"
