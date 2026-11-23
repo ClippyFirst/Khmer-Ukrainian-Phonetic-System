@@ -6376,3 +6376,11 @@ The earlier note in this handoff that the browser retrieval path was not byte-pr
 - **Tests actually run:** `PYTHONPATH=src python -m pytest tests/test_word_segmenter.py -q` → 12 passed. Exhaustive Python and JS direct-module checks → all 61,980 entries preserved as atomic dictionary matches and candidate paths. `PYTHONPATH=src python -m pytest -q` from a directory named `Khmer-Ukrainian-Phonetic-System` → 468 passed, 70 subtests passed. A first full-suite attempt from directory `repo` produced one unrelated path-derived language fixture failure; rerunning from the canonical repository basename passed.
 - **Not run / blocker:** npm is absent in the remote execution image, so package install, cross-runtime engine tests, Vite build, browser smoke, full npm CI and bundle/startup performance checks were not run. The upstream builder itself was inspected but not independently executed; the normalized artifact was obtained from the project branch and checked for 61,980 unique entries and positive counts. Do not claim independent deterministic builder reproduction.
 - **Still open:** run standard repository CI with npm/Node dependencies; check generated/static artifact drift and browser bundle/startup cost; independently rerun the pinned upstream builder in clean CI and compare generated JSON byte-for-byte; build an independently adjudicated Khmer segmentation gold corpus and report accuracy. Overall status remains research beta/partial prototype, not a validated segmenter.
+
+
+### PR handoff — #541
+
+- Draft PR: https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/541
+- Head: `77fd587abff29c5e87989a8f829b22cc48b68a8f`; base snapshot when opened: `93a9d359e8eddd1b556efa675ff65704f455bf7c`.
+- PR opened as draft because Node/npm, browser and release checks are incomplete. GitHub currently reports `mergeable=false`; branch comparison showed it is 12 commits behind `main`. Do not merge. Rebase/merge current main into this research branch, resolve any conflicts, rerun the complete CI and only then mark ready.
+- CI workflow runs for this head commit were not returned by the available commit-run reader; no CI pass is claimed. The full-data build workflow has been added but its Actions execution has not yet been observed.
