@@ -1,4 +1,4 @@
-import { scanOrthographicComponents } from "./main.js";
+import { scanOrthographicComponents } from "./khmer-engine-core.js";
 
 export const KHMER_ORTHOGRAPHIC_GRAMMAR_PROFILE =
   "unicode-18.0.0-ch16.4-plus-ch16.4.1-shifter-control";
