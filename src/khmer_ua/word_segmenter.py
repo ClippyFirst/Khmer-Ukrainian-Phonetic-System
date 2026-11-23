@@ -101,6 +101,8 @@ def is_known_word(word: str) -> bool:
 def segment_words(text: str) -> list[WordSegment]:
     if not text:
         return []
+    if text in _COUNTS:
+        return [WordSegment(text, True, "DICTIONARY_MATCH")]
     chars, bounds = _cluster_starts(text)
     count = len(bounds) - 1
     best = [math.inf] * (count + 1)
@@ -265,6 +267,11 @@ def segment_words_candidates(text: str, limit: int = 3) -> list[dict]:
         raise ValueError("limit must be an integer from 1 to 10")
     if not text:
         return []
+    if text in _COUNTS:
+        return [{
+            "cost": round(_COSTS[text], 8),
+            "segments": [{"text": text, "known": True, "status": "DICTIONARY_MATCH"}],
+        }]
 
     chars, bounds = _cluster_starts(text)
     count = len(bounds) - 1
