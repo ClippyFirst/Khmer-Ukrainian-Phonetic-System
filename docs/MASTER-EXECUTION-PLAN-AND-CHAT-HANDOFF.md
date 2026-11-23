@@ -1,3 +1,13 @@
+## Contextual Ukrainian IPA spelling repair — 2026-11-23
+
+- **PARTIAL — implementation submitted on branch `fix/contextual-ipa-ukrainian-adaptation-2026-11-23`:** the canonical target policy now has a longest-match contextual sequence layer. It addresses the concrete `/ciə/` → `тьіє` defect by rendering `тіє`: Ukrainian `і` already marks the preceding dental consonant as soft, so a separate `ь` is redundant under the 2026 Ukrainian Orthography §27.1.3. The palatal stop `/c/` remains `ть` before other vowels (e.g. `/cɑ/` → `тьа`).
+- Python and browser adapters are changed together; regression cases cover `ciə`, `prɑciə`, segment-sequence mapping, the lexical fixture `ជាខ្មែរ`, and the archived external candidate display. The external provider IPA itself is unchanged; only the Ukrainian target rendering is recalculated.
+- **BLOCKED / TODO — full-text engine:** current `tokenize()` does not perform lexical word segmentation. Khmer words are not generally separated by spaces; orthographic syllable boundaries are not equivalent to word boundaries or phonological syllables. W3C Khmer Script Resources (20 March 2026 draft) explicitly notes the absence of ordinary inter-word spaces and the algorithmic difficulty of word-boundary detection. A dictionary/Viterbi segmenter is a candidate dependency, but it must be evaluated against this repository's KCC/subscript cases, OOV names and actual licensing before integration.
+- **PARTIAL — Ukrainian target adaptation:** this fixes one demonstrable orthographic-context error, not the full adaptation system. The broader target inventory, consonant clusters, palatalization, diphthongs, stress and word-level spelling still need sourced rules and a reviewed lexical corpus. Do not mark the system linguistically complete or promote this proposal to gold.
+- Exact-head CI, Python tests, browser tests and production build are pending for this branch; no test is claimed as passed in this handoff.
+
+---
+
 ## Archived provisional IPA candidates surfaced in browser — 2026-11-23
 
 - **DONE_VERIFIED — implementation merged:** PR [#522](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/522) was squash-merged to `main` as `557e4dd8e4b4703e9bf80102696dc1cc73408814`.
