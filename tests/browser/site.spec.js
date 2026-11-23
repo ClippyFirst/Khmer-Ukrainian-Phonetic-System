@@ -148,7 +148,7 @@ test("directly source-attested Khmer phrase is tier B and differs from compositi
   await page.goto("/");
   await page.locator("#source").fill("ជាខ្មែរ");
   await expect(page.locator("#ipa-result")).toHaveText("/ciə ˈkʰmae/");
-  await expect(page.locator("#ua-result")).toHaveText("тьіє к'мае");
+  await expect(page.locator("#ua-result")).toHaveText("тіє к'мае");
   await expect(page.locator("#status")).toHaveText("PROPOSED · доказовий рівень B");
   await expect(page.locator(".unit-source-locator")).toContainText("Wiktionary");
   await expect(page.locator(".unit-source-locator")).toContainText("oldid=68806374");
@@ -313,7 +313,7 @@ test("unresolved Khmer phrase displays archived external IPA candidates with tra
   await page.goto("/");
   await page.locator("#source").fill("កម្ពុជាប្រជាធិបតេយ្យ");
   await expect(page.locator("#ipa-result")).toHaveText("/kampuciə prɑciətʰɨppaʔtaj/???");
-  await expect(page.locator("#ua-result")).toHaveText("кампутьіє пратьієт'иппатай???");
+  await expect(page.locator("#ua-result")).toHaveText("кампутіє пратієт'иппатай???");
   await expect(page.locator("#status")).toContainText("EXTERNAL IPA CANDIDATE");
   await expect(page.locator("#status")).toContainText("PROFILE MATCH UNVERIFIED");
   await expect(page.locator("#unit-details")).toContainText("Зовнішні IPA-кандидати");
@@ -331,7 +331,7 @@ test("archived provisional IPA candidate remains visible at every detail level",
   await page.locator("#source").fill("កម្ពុជាប្រជាធិបតេយ្យ");
   for (const level of ["strict", "balanced", "exploratory"]) {
     await page.locator("#output-level").selectOption(level);
-    await expect(page.locator("#ua-result")).toHaveText("кампутьіє пратьієт'иппатай???");
+    await expect(page.locator("#ua-result")).toHaveText("кампутіє пратієт'иппатай???");
     await expect(page.locator("#ipa-result")).toHaveText("/kampuciə prɑciətʰɨppaʔtaj/???");
   }
 });

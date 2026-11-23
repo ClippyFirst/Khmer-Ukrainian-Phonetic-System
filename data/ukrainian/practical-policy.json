@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-11.3",
+  "version": "2026-11-23.1",
   "status": "PROPOSED",
   "scope": "Project-specific Ukrainian practical target policy; not an official Ukrainian standard.",
   "evidence_note": "Khmer phonetic values are sourced separately from Ukrainian target choices. The Ukrainian layer follows the 2026 state standard where applicable: /h/ → г, /w/ → в, /x/ → х. /ɡ/ → ґ is an explicit contrast-preserving project choice; the 2026 standard generally adapts foreign [g] with г, while permitting ґ as an imitation choice in personal names. Syllable-initial /j/ plus a vowel uses Ukrainian yotated spelling where the correspondence is transparent.",
@@ -82,5 +82,15 @@
     "ei": {"default": "ей"},
     "əu": {"default": "еу"},
     "aeː": {"default": "ае"}
+  },
+  "sequences": {
+    "ci": {
+      "default": "ті",
+      "note": "/c/ is approximated by Ukrainian palatalized /tʲ/; before Ukrainian і, palatality is carried by і, so a separate ь would be redundant. This is a practical spelling rule, not a claim of phonetic identity."
+    },
+    "ciə": {
+      "default": "тіє",
+      "note": "The full /ciə/ sequence is rendered as a Ukrainian orthographic unit: /c/ is approximated by т, і marks its palatalization, and /ə/ in this sequence is adapted with є. This is a project target convention, not a claim of phonetic identity."
+    }
   }
 }

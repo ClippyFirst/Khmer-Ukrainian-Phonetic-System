@@ -43,27 +43,68 @@ def map_segment(ipa: str, mode: str = "default") -> str:
 
 
 def map_sequence(segments, mode: str = "default") -> str:
-    """Map an already tokenized IPA segment sequence without retokenizing it."""
-    return "".join(map_segment(segment, mode=mode) for segment in segments)
+    """Map already tokenized IPA segments, applying registered adjacent sequences."""
+    tokens = list(segments)
+    sequence_keys = tuple(sorted(
+        (key for key, value in POLICY.get("sequences", {}).items() if value.get(mode) is not None),
+        key=len,
+        reverse=True,
+    ))
+    output: list[str] = []
+    index = 0
+    while index < len(tokens):
+        matched = None
+        for sequence in sequence_keys:
+            width = len(sequence)
+            if index + width <= len(tokens) and "".join(tokens[index:index + width]) == sequence:
+                matched = sequence
+                break
+        if matched is not None:
+            output.append(POLICY["sequences"][matched][mode])
+            index += len(matched)
+        else:
+            output.append(map_segment(tokens[index], mode=mode))
+            index += 1
+    return "".join(output)
 
 
 def _map_syllable(syllable: str, mode: str) -> tuple[str | None, str | None]:
     rest = syllable
-    tokens: list[str] = []
+    sequence_keys = tuple(sorted(
+        (key for key, value in POLICY.get("sequences", {}).items() if value.get(mode) is not None),
+        key=len,
+        reverse=True,
+    ))
+    tokens: list[tuple[str, str]] = []
     while rest:
+        sequence = next((key for key in sequence_keys if rest.startswith(key)), None)
+        if sequence is not None:
+            tokens.append(("sequence", sequence))
+            rest = rest[len(sequence):]
+            continue
         segment = next((key for key in _SEGMENT_KEYS if rest.startswith(key)), None)
         if segment is None:
             return None, rest
-        tokens.append(segment)
+        tokens.append(("segment", segment))
         rest = rest[len(segment):]
 
     output: list[str] = []
     index = 0
-    if mode == "default" and len(tokens) > 1 and tokens[0] == "j" and tokens[1] in _JOTATED_VOWELS:
-        output.append(_JOTATED_VOWELS[tokens[1]])
+    if (
+        mode == "default"
+        and len(tokens) > 1
+        and tokens[0] == ("segment", "j")
+        and tokens[1][0] == "segment"
+        and tokens[1][1] in _JOTATED_VOWELS
+    ):
+        output.append(_JOTATED_VOWELS[tokens[1][1]])
         index = 2
     while index < len(tokens):
-        output.append(map_segment(tokens[index], mode=mode))
+        kind, value = tokens[index]
+        if kind == "sequence":
+            output.append(POLICY["sequences"][value][mode])
+        else:
+            output.append(map_segment(value, mode=mode))
         index += 1
     return "".join(output), None
 

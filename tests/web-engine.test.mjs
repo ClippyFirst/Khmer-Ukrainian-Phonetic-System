@@ -33,7 +33,7 @@ if (js.includes("const CONSONANTS = {") || js.includes("const UA = {") || js.inc
 if (!vite.includes("index.html") || !vite.includes("system.html")) throw new Error("Vite config does not build both public pages");
 if (Object.keys(policy.segments).length < 40) throw new Error("Ukrainian policy unexpectedly incomplete");
 if (Object.keys(fixtures).length < 16) throw new Error("web fixtures unexpectedly incomplete");
-if (!fixtures["ជាខ្មែរ"] || fixtures["ជាខ្មែរ"].ipa !== "/ciə ˈkʰmae/" || fixtures["ជាខ្មែរ"].ua !== "тьіє к'мае") {
+if (!fixtures["ជាខ្មែរ"] || fixtures["ជាខ្មែរ"].ipa !== "/ciə ˈkʰmae/" || fixtures["ជាខ្មែរ"].ua !== "тіє к'мае") {
   throw new Error("direct source-attested Khmer phrase fixture missing or inconsistent");
 }
 if (!fixtures["ល្ងាច"] || fixtures["ល្ងាច"].ipa !== "/lŋiəc/" || fixtures["ល្ងាច"].ua !== "лнгієть") {
@@ -43,6 +43,8 @@ const clusterMapping = mapIpa(fixtures["ល្ងាច"].ipa.slice(1, -1), poli
 if (clusterMapping.value !== fixtures["ល្ងាច"].ua || clusterMapping.unsupported !== null) {
   throw new Error("Khmer cluster IPA does not agree with the Ukrainian adapter");
 }
+const contextualPalatalMapping = mapIpa("prɑciə", policy);
+if (contextualPalatalMapping.value !== "пратіє" || contextualPalatalMapping.unsupported !== null) throw new Error("IPA /c+iə/ must use Ukrainian contextual spelling without redundant ь");
 const directPhraseMapping = mapIpa(fixtures["ជាខ្មែរ"].ipa.slice(1, -1), policy);
 if (directPhraseMapping.value !== fixtures["ជាខ្មែរ"].ua || directPhraseMapping.unsupported !== null) {
   throw new Error("direct Khmer phrase IPA does not agree with the Ukrainian adapter");

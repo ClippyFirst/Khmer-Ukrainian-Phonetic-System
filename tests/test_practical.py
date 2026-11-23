@@ -66,6 +66,14 @@ def test_ipa_string_adapter_uses_longest_match_and_keeps_syllable_spaces():
     assert map_ipa_string("kʰaː t͡sa d͡ʒa") == ("к'а ца джа", None)
     assert map_ipa_string("ha ɡa xa") == ("га ґа ха", None)
 
+def test_palatal_stop_before_ukrainian_i_uses_orthographic_softness_once():
+    assert map_ipa_string("ca") == ("тьа", None)
+    assert map_ipa_string("ciə") == ("тіє", None)
+    assert map_ipa_string("prɑciə") == ("пратіє", None)
+    assert map_sequence(["c", "i"]) == "ті"
+    assert map_sequence(["c", "i", "ə"]) == "тіє"
+    assert map_sequence(["j", "a"]) == "йа"
+
 
 def test_vowel_length_is_preserved_in_ipa_but_not_encoded_in_ukrainian_practical_spelling():
     assert map_ipa_string("/ʔak.ˈsɑː kʰmae/") == ("акса к'мае", None)
