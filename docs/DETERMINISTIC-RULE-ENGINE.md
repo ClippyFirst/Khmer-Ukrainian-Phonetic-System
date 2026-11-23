@@ -60,3 +60,10 @@ Chromium-тест штучно затримує першу відповідь Wo
 Пошук лексичних fixture переведено на trie: найдовший fixture приймається лише тоді, коли за ним іде межа, і пошук не починається після COENG. Це прибирає повторне створення всього залишку рядка на кожній позиції.
 
 Відтворюваний benchmark: `npm run bench:tokenizer`. GitHub Actions / Node 24, 8 000 повторених кмерських приголосних: pre-trie median 352,89 ms; trie median 4,54 ms; 77,7× у цьому синтетичному stress-тесті. Це не вимірювання повного G2P, IPA чи реального текстового навантаження. Результат на точному head `abed3d7a4d0b3c3a9e94fa48a4e50b2819194d85`: Quality [45143908134](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45143908134), Chromium [45143908115](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45143908115) — 34/34.
+
+
+## Паритет притаманної голосної після підрядкового незалежного голосного — 2026-11-23
+
+Python-рушій раніше міг вивести притаманну голосну серії для одиниці з `subscript_independent_vowels`, хоча браузерний рушій коректно утримував IPA через неповну структуру. Умова Python тепер явно забороняє такий висновок. Регресії в обох середовищах для `ផ្ឯម` підтверджують: одна орфографічна одиниця, канонічну IPA не встановлено, притаманна голосна не вгадується.
+
+На code head `224ad5e6530596912a69b334fe98ea7329330f96` Quality [45144332414](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45144332414) — 455 Python tests + 70 subtests; Chromium [45144332627](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45144332627) — 34/34. Trie benchmark: 8 000 code points, 2,96 ms vs 223,12 ms pre-trie, 75,3×; це синтетичний токенізаторний stress-test.
