@@ -6661,7 +6661,7 @@ This supersedes the earlier `DEFERRED` status for *conducting* a local tagger ex
 
 ## Follow-on evidence repair — 2026-11-24
 
-### KHM-FIXTURE-PROVENANCE-001 — DONE_VERIFIED (bounded four-fixture scope; CI pending)
+### KHM-FIXTURE-PROVENANCE-001 — PARTIAL (bounded four-fixture scope; CI pending)
 
 - Rechecked the four representative vowel fixtures `កី`, `គី`, `កា`, and `គា` against the already registered specialist source `r12a-orthography`.
 - Richard Ishida's Khmer Orthography Notes, §Consonant registers, lines 237–243, explicitly gives the four source forms /kəj/, /kiː/, /kaː/ and /kiə/ for the U+1780/U+1782 × U+17B8/U+17B6 contrast.
@@ -6669,7 +6669,7 @@ This supersedes the earlier `DEFERRED` status for *conducting* a local tagger ex
 - Updated the canonical linguistic completion register in place. The four fixtures remain `PROPOSED`, not expert gold; the source's representative open-syllable examples do not establish a full contextual rule, closed-syllable behavior, or independent Phnom Penh-profile adjudication.
 - Source: https://r12a.github.io/scripts/khmr/km.html (updated 2026-04-27; accessed 2026-11-24).
 - Implementation commits: fixture data `2a05f0c125d5153b14e61a2f9aa06cff27985134`; completion-register update `9bd66d2124a34e129e2b56807688404cab19981d`.
-- **Verification still required:** exact-head Quality and browser workflows must pass before this continuation is considered fully DONE_VERIFIED. No local test execution is claimed.
+- **Verification:** the first exact-head Quality run exposed one stale test assertion that still expected `កី` to be unreferenced/C after the new locator was added. The failure was `1 failed, 474 passed, 70 subtests passed`; the test was corrected to assert B-tier provenance for all four newly sourced fixtures while retaining `PROPOSED` status and exact-locator checks. Test-fix commit: `d121220807e7f7820b551741555c543f380fb957`. Exact-head rerun is pending; no local test execution is claimed.
 
 ### Current boundary
 
