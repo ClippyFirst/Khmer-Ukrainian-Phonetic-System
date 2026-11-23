@@ -15,7 +15,7 @@ Adopt a native-first browser architecture modelled on the Thai repository: JavaS
 
 - `src/khmer-engine.worker.js`: receives a structured local request and invokes the existing deterministic `convert()` engine.
 - `src/khmer-engine-client.js`: lazy worker client; falls back to the same local synchronous implementation if Worker startup or execution fails.
-- `src/khmer-engine-core.js`: sends phonetic inference to the worker and discards stale responses using a render revision counter. Romanization remains a separate route.
+- `src/main.js`: sends phonetic inference to the worker and discards stale responses using a render revision counter. Romanization remains a separate route.
 - `tests/khmer-worker-contract.test.mjs`: checks worker wiring, worker-safe import guard and absence of network APIs in the inference modules. Added to both `npm test` and `npm run check`.
 - `docs/DETERMINISTIC-RULE-ENGINE.md` and the master handoff record the new execution model and limits.
 
@@ -55,3 +55,8 @@ This is an incremental performance/UX improvement, not completion of the request
 ### Engine/UI module separation — 2026-11-23
 
 The deterministic engine has been extracted into `src/khmer-engine-core.js`. The UI entry point `src/main.js` now imports only the functions it needs, while the Worker imports the core directly and no longer bundles the DOM-rendering entry point. Runtime, register-shifter and structural tests now import the core module; static source guards inspect both core and UI where appropriate. The core retains the existing deterministic rules and local romanization-derived fallback dependency; this is modularization, not a new phonology model.
+
+
+## Isolated core and final verification
+
+The worker now imports `src/khmer-engine-core.js` directly; the DOM entry point `src/main.js` imports the core for UI rendering. This avoids bundling the UI entry point into the Worker. Exact code head `9fd26941efb7e4936d921d700ee5215569449bda` passed Quality [45136120659](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136120659) and Chromium [45136120671](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136120671): 453 Python tests + 70 subtests, Node checks, Vite build, and 33 Chromium tests including Worker execution and failure fallback. Worker bundle reduced from 136.40 kB to 124.02 kB; this is not a throughput benchmark. The PR is unmerged; no Pages deployment is claimed.
