@@ -29,6 +29,41 @@ function clusterStarts(text) {
   return { chars, bounds };
 }
 
+function isBareLetter(word) {
+  const { chars, bounds } = clusterStarts(word);
+  if (bounds.length !== 2) return false;
+  return !chars.some((char) => {
+    const cp = char.codePointAt(0);
+    return (cp >= 0x17A3 && cp <= 0x17B3)
+      || (cp >= 0x17B6 && cp <= 0x17C5)
+      || cp === 0x17C7 || cp === 0x17C8;
+  });
+}
+
+function mergeUnknownAndBareLetters(pieces) {
+  const output = [];
+  let group = [];
+  const flush = () => {
+    if (!group.length) return;
+    if (group.some((item) => !item.known)) {
+      output.push({ text: group.map((item) => item.text).join(""), known: false });
+    } else {
+      output.push(...group);
+    }
+    group = [];
+  };
+  for (const item of pieces) {
+    if (!item.known || isBareLetter(item.text)) {
+      group.push(item);
+    } else {
+      flush();
+      output.push(item);
+    }
+  }
+  flush();
+  return output;
+}
+
 for (const word of entries.keys()) {
   const { chars, bounds } = clusterStarts(word);
   for (let index = 1; index < bounds.length; index += 1) {
@@ -78,16 +113,7 @@ export function segmentKhmerWordsDetailed(text) {
     });
     cursor = edge.previous;
   }
-  reversed.reverse();
-
-  const merged = [];
-  for (const item of reversed) {
-    if (!item.known && merged.length && !merged.at(-1).known) {
-      merged.at(-1).text += item.text;
-    } else {
-      merged.push({ ...item });
-    }
-  }
+  const merged = mergeUnknownAndBareLetters(reversed.reverse());
   return merged.map((item) => ({
     ...item,
     status: item.known ? "DICTIONARY_MATCH" : "OOV_RUN",
