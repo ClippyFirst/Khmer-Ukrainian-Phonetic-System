@@ -145,3 +145,62 @@ export function describeWordSegmentation(units, fixtureKeys = new Set()) {
     note: "Word boundaries are provisional dictionary-Viterbi candidates; no independent segmentation accuracy has been measured for this project.",
   };
 }
+
+
+export function segmentKhmerWordsCandidates(text, limit = 3) {
+  if (!Number.isInteger(limit) || limit < 1 || limit > 10) {
+    throw new RangeError("limit must be an integer from 1 to 10");
+  }
+  if (!text) return [];
+  const { chars, bounds } = clusterStarts(text);
+  const count = bounds.length - 1;
+  const paths = Array.from({ length: count + 1 }, () => []);
+  paths[0] = [{ cost: 0, pieces: [] }];
+
+  const addPath = (end, candidate) => {
+    const signature = JSON.stringify(candidate.pieces);
+    if (paths[end].some((item) => JSON.stringify(item.pieces) === signature)) return;
+    paths[end].push(candidate);
+    paths[end].sort((a, b) => a.cost - b.cost);
+    if (paths[end].length > limit) paths[end].length = limit;
+  };
+
+  for (let start = 0; start < count; start += 1) {
+    for (const path of paths[start]) {
+      const unknownPiece = chars.slice(bounds[start], bounds[start + 1]).join('');
+      addPath(start + 1, {
+        cost: path.cost + unknownCost,
+        pieces: [...path.pieces, { text: unknownPiece, known: false }],
+      });
+
+      for (let end = start + 1; end <= Math.min(start + MAX_CLUSTERS, count); end += 1) {
+        const word = chars.slice(bounds[start], bounds[end]).join('');
+        if (!prefixes.has(word)) break;
+        const cost = costs.get(word);
+        if (cost !== undefined) {
+          addPath(end, {
+            cost: path.cost + cost,
+            pieces: [...path.pieces, { text: word, known: true }],
+          });
+        }
+      }
+    }
+  }
+
+  const candidates = [];
+  const seen = new Set();
+  for (const path of paths[count]) {
+    const merged = mergeUnknownAndBareLetters(path.pieces);
+    const signature = JSON.stringify(merged);
+    if (seen.has(signature)) continue;
+    seen.add(signature);
+    candidates.push({
+      cost: Number(path.cost.toFixed(8)),
+      segments: merged.map((item) => ({
+        ...item,
+        status: item.known ? 'DICTIONARY_MATCH' : 'OOV_RUN',
+      })),
+    });
+  }
+  return candidates.slice(0, limit);
+}
