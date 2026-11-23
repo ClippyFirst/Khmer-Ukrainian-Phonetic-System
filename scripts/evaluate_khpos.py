@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Evaluate Khmer word-boundary segmentation against the khPOS OPEN-TEST set.
+"""Evaluate Khmer segmentation against the khPOS OPEN-TEST set.
 
 The corpus is downloaded on demand, checksum-verified, and deleted after the run.
 It is licensed CC BY-NC-SA 4.0 and is intentionally not bundled or uploaded.
@@ -36,11 +36,13 @@ class BenchmarkSentence:
     source: str
     gold_boundaries: frozenset[int]
     eligible_boundaries: frozenset[int]
+    gold_token_spans: frozenset[tuple[int, int]]
+    gold_khmer_word_spans: frozenset[tuple[int, int]]
     khmer_word_tokens: int
 
 
 def git_blob_sha(data: bytes) -> str:
-    header = f"blob {len(data)}\0".encode("ascii")
+    header = f"blob {len(data)}\\0".encode("ascii")
     return hashlib.sha1(header + data).hexdigest()
 
 
@@ -65,12 +67,16 @@ def prepare_sentence(line: str) -> tuple[BenchmarkSentence, int]:
     offset = 0
     gold_boundaries: set[int] = set()
     eligible_characters: set[int] = set()
+    gold_token_spans: set[tuple[int, int]] = set()
+    gold_khmer_word_spans: set[tuple[int, int]] = set()
     khmer_word_tokens = 0
     for index, token in enumerate(tokens):
         start = offset
         offset += len(token)
+        gold_token_spans.add((start, offset))
         if word_flags[index]:
             khmer_word_tokens += 1
+            gold_khmer_word_spans.add((start, offset))
             eligible_characters.update(range(start, offset))
         if index + 1 < len(tokens) and word_flags[index] and word_flags[index + 1]:
             gold_boundaries.add(offset)
@@ -85,49 +91,59 @@ def prepare_sentence(line: str) -> tuple[BenchmarkSentence, int]:
             source=source,
             gold_boundaries=frozenset(gold_boundaries),
             eligible_boundaries=frozenset(eligible_boundaries),
+            gold_token_spans=frozenset(gold_token_spans),
+            gold_khmer_word_spans=frozenset(gold_khmer_word_spans),
             khmer_word_tokens=khmer_word_tokens,
         ),
         len(raw_tokens),
     )
 
 
-def predicted_boundaries_from_units(
+def predicted_spans_from_units(
     units: Iterable[dict], sentence: BenchmarkSentence
-) -> frozenset[int]:
+) -> tuple[frozenset[int], frozenset[tuple[int, int]], frozenset[tuple[int, int]]]:
     offset = 0
-    predicted: set[int] = set()
+    predicted_boundaries: set[int] = set()
+    predicted_token_spans: set[tuple[int, int]] = set()
+    predicted_khmer_word_spans: set[tuple[int, int]] = set()
     reconstructed: list[str] = []
     for unit in units:
         value = unit["source"]
         if value == " ":
             if offset in sentence.eligible_boundaries:
-                predicted.add(offset)
-        else:
-            reconstructed.append(value)
-            offset += len(value)
+                predicted_boundaries.add(offset)
+            continue
+
+        start = offset
+        offset += len(value)
+        reconstructed.append(value)
+        if value:
+            predicted_token_spans.add((start, offset))
+            if is_khmer_word_token(value):
+                predicted_khmer_word_spans.add((start, offset))
+
     if "".join(reconstructed) != sentence.source:
         raise AssertionError("engine units did not losslessly reconstruct the benchmark input")
-    return frozenset(predicted)
+    return (
+        frozenset(predicted_boundaries),
+        frozenset(predicted_token_spans),
+        frozenset(predicted_khmer_word_spans),
+    )
 
 
-def score_predictions(
+def _span_metrics(
     sentences: list[BenchmarkSentence],
-    predictions: list[frozenset[int]],
+    predictions: list[frozenset[tuple[int, int]]],
+    gold_attribute: str,
 ) -> dict:
-    if len(sentences) != len(predictions):
-        raise ValueError("sentence and prediction counts differ")
     gold_total = predicted_total = true_positive = 0
-    exact_with_gold = sentences_with_gold = 0
-    khmer_tokens = 0
+    exact_sentences = 0
     for sentence, predicted in zip(sentences, predictions, strict=True):
-        gold = sentence.gold_boundaries
-        predicted_total += len(predicted)
+        gold = getattr(sentence, gold_attribute)
         gold_total += len(gold)
+        predicted_total += len(predicted)
         true_positive += len(gold & predicted)
-        khmer_tokens += sentence.khmer_word_tokens
-        if gold:
-            sentences_with_gold += 1
-            exact_with_gold += gold == predicted
+        exact_sentences += gold == predicted
 
     false_positive = predicted_total - true_positive
     false_negative = gold_total - true_positive
@@ -139,21 +155,83 @@ def score_predictions(
         else 0.0
     )
     return {
+        "gold": gold_total,
+        "predicted": predicted_total,
+        "true_positive": true_positive,
+        "false_positive": false_positive,
+        "false_negative": false_negative,
+        "precision": precision,
+        "recall": recall,
+        "f1": f1,
+        "exact_sentence_matches": exact_sentences,
+    }
+
+
+def score_predictions(
+    sentences: list[BenchmarkSentence],
+    boundary_predictions: list[frozenset[int]],
+    all_token_predictions: list[frozenset[tuple[int, int]]],
+    khmer_word_predictions: list[frozenset[tuple[int, int]]],
+) -> dict:
+    if not (
+        len(sentences)
+        == len(boundary_predictions)
+        == len(all_token_predictions)
+        == len(khmer_word_predictions)
+    ):
+        raise ValueError("sentence and prediction counts differ")
+
+    boundary_gold = boundary_predicted = boundary_true_positive = 0
+    exact_boundary_sentences = sentences_with_gold_boundaries = 0
+    for sentence, predicted in zip(sentences, boundary_predictions, strict=True):
+        gold = sentence.gold_boundaries
+        boundary_gold += len(gold)
+        boundary_predicted += len(predicted)
+        boundary_true_positive += len(gold & predicted)
+        if gold:
+            sentences_with_gold_boundaries += 1
+            exact_boundary_sentences += gold == predicted
+
+    boundary_fp = boundary_predicted - boundary_true_positive
+    boundary_fn = boundary_gold - boundary_true_positive
+    boundary_precision = (
+        boundary_true_positive / boundary_predicted if boundary_predicted else 0.0
+    )
+    boundary_recall = (
+        boundary_true_positive / boundary_gold if boundary_gold else 0.0
+    )
+    boundary_f1 = (
+        2 * boundary_precision * boundary_recall / (boundary_precision + boundary_recall)
+        if boundary_precision + boundary_recall
+        else 0.0
+    )
+
+    return {
         "sentences": len(sentences),
-        "sentences_with_gold_boundaries": sentences_with_gold,
-        "exact_sentence_matches_with_gold_boundaries": exact_with_gold,
-        "exact_sentence_match_rate": (
-            exact_with_gold / sentences_with_gold if sentences_with_gold else 0.0
+        "sentences_with_gold_boundaries": sentences_with_gold_boundaries,
+        "khmer_gold_word_tokens": sum(s.khmer_word_tokens for s in sentences),
+        "all_token_word_level": _span_metrics(
+            sentences, all_token_predictions, "gold_token_spans"
         ),
-        "khmer_gold_word_tokens": khmer_tokens,
-        "gold_boundaries": gold_total,
-        "predicted_boundaries": predicted_total,
-        "true_positive_boundaries": true_positive,
-        "false_positive_boundaries": false_positive,
-        "false_negative_boundaries": false_negative,
-        "boundary_precision": precision,
-        "boundary_recall": recall,
-        "boundary_f1": f1,
+        "khmer_word_level": _span_metrics(
+            sentences, khmer_word_predictions, "gold_khmer_word_spans"
+        ),
+        "khmer_boundary_level": {
+            "gold": boundary_gold,
+            "predicted": boundary_predicted,
+            "true_positive": boundary_true_positive,
+            "false_positive": boundary_fp,
+            "false_negative": boundary_fn,
+            "precision": boundary_precision,
+            "recall": boundary_recall,
+            "f1": boundary_f1,
+            "exact_sentence_matches_with_gold_boundaries": exact_boundary_sentences,
+            "exact_sentence_match_rate": (
+                exact_boundary_sentences / sentences_with_gold_boundaries
+                if sentences_with_gold_boundaries
+                else 0.0
+            ),
+        },
     }
 
 
@@ -197,13 +275,24 @@ def main() -> None:
             )
 
         engine = RuleBasedKhmerEngine()
-        python_predictions = [
-            predicted_boundaries_from_units(
-                engine.analyze(sentence.source)["units"], sentence
+        python_boundary_predictions = []
+        python_all_token_predictions = []
+        python_khmer_word_predictions = []
+        for sentence in sentences:
+            units = engine.analyze(sentence.source)["units"]
+            boundaries, all_tokens, khmer_words = predicted_spans_from_units(
+                units, sentence
             )
-            for sentence in sentences
-        ]
-        python_metrics = score_predictions(sentences, python_predictions)
+            python_boundary_predictions.append(boundaries)
+            python_all_token_predictions.append(all_tokens)
+            python_khmer_word_predictions.append(khmer_words)
+
+        python_metrics = score_predictions(
+            sentences,
+            python_boundary_predictions,
+            python_all_token_predictions,
+            python_khmer_word_predictions,
+        )
 
         node_script = Path(__file__).with_name("evaluate_khpos_js.mjs")
         node = subprocess.run(
@@ -215,28 +304,36 @@ def main() -> None:
         javascript_result = json.loads(node.stdout)
         javascript_metrics = javascript_result["metrics"]
 
-        parity_fields = (
-            "sentences",
-            "sentences_with_gold_boundaries",
-            "exact_sentence_matches_with_gold_boundaries",
-            "khmer_gold_word_tokens",
-            "gold_boundaries",
-            "predicted_boundaries",
-            "true_positive_boundaries",
-            "false_positive_boundaries",
-            "false_negative_boundaries",
+        parity_paths = (
+            ("all_token_word_level", "gold"),
+            ("all_token_word_level", "predicted"),
+            ("all_token_word_level", "true_positive"),
+            ("all_token_word_level", "false_positive"),
+            ("all_token_word_level", "false_negative"),
+            ("all_token_word_level", "exact_sentence_matches"),
+            ("khmer_word_level", "gold"),
+            ("khmer_word_level", "predicted"),
+            ("khmer_word_level", "true_positive"),
+            ("khmer_word_level", "false_positive"),
+            ("khmer_word_level", "false_negative"),
+            ("khmer_word_level", "exact_sentence_matches"),
+            ("khmer_boundary_level", "gold"),
+            ("khmer_boundary_level", "predicted"),
+            ("khmer_boundary_level", "true_positive"),
+            ("khmer_boundary_level", "false_positive"),
+            ("khmer_boundary_level", "false_negative"),
+            ("khmer_boundary_level", "exact_sentence_matches_with_gold_boundaries"),
         )
-        differences = {
-            key: {
-                "python": python_metrics[key],
-                "javascript": javascript_metrics[key],
-            }
-            for key in parity_fields
-            if python_metrics[key] != javascript_metrics[key]
-        }
+        differences = {}
+        for section, field in parity_paths:
+            if python_metrics[section][field] != javascript_metrics[section][field]:
+                differences[f"{section}.{field}"] = {
+                    "python": python_metrics[section][field],
+                    "javascript": javascript_metrics[section][field],
+                }
         if differences:
             raise RuntimeError(
-                "Python/JavaScript khPOS boundary benchmark parity failed: "
+                "Python/JavaScript khPOS benchmark parity failed: "
                 + json.dumps(differences, ensure_ascii=False)
             )
 
@@ -250,7 +347,8 @@ def main() -> None:
             "use_policy": "on-demand non-commercial evaluation only; corpus is not bundled or uploaded",
             "surface_reconstruction": (
                 "NFC; remove internal notation markers ~, _ and ^ while keeping each marked "
-                "item as one gold token; score boundaries only between adjacent Khmer word tokens"
+                "item as one gold token; all-token word F1 includes punctuation and non-Khmer "
+                "tokens; Khmer-only word and boundary metrics exclude them"
             ),
             "corpus_bytes": len(raw),
             "raw_token_count": raw_token_count,
@@ -258,7 +356,8 @@ def main() -> None:
             "javascript": javascript_metrics,
             "python_javascript_parity": "PASS",
             "limitations": [
-                "This is an external manually segmented benchmark, not an adjudicated gold set for the project's Phnom Penh careful-citation profile.",
+                "The external paper's word-level khPOS scores use the same named open test split, but its exact preprocessing and marker treatment may differ; comparisons are contextual, not a strict reproduction.",
+                "This is not an adjudicated gold set for the project's Phnom Penh careful-citation profile.",
                 "The corpus mixes news, economics, politics, student/voter lists and other material; its target variety and tokenization policy are not identical to this project contract.",
                 "Overlap between khPOS source texts and FineWeb-2 frequency-training text has not been ruled out.",
                 "Do not interpret this score as general Khmer segmentation accuracy or as IPA/pronunciation accuracy.",
