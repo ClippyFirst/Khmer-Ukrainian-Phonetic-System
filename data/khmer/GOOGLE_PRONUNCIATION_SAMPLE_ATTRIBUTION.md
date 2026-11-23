@@ -46,3 +46,17 @@ The FineWeb-2 Parquet bytes and the complete upstream build have not yet been ex
 The complete pinned Google source file is now stored unchanged at `data/khmer/google-pronunciation-full.tsv`. It retains Google's original copyright and CC BY 4.0 header. The source was retrieved from the pinned raw URL and added to this repository; the repository's resulting Git blob SHA is `d399efeca642b1185786b2982374488c525e37c4`, matching the source blob SHA returned by GitHub for the pinned upstream file. The Markdown-rendered preview was not used as data; the raw response was used, preserving the TSV tabs.
 
 This closes the source-file acquisition portion only. The full normalized 61,980-word frequency dictionary and bigram table are **not yet built**. The FineWeb-2 Parquet source still needs byte-preserving retrieval and its SHA-256 check, then the pinned upstream builder must run in a network-enabled Python environment. The runtime continues to use the 3,009-entry sample until the generated full dictionary is validated and ported with Python/JavaScript parity. The Google phonemic strings remain upstream phonemic notation, not project IPA.
+
+
+## Full 61,980-entry dictionary activation — 2026-11-23
+
+
+## Full 61,980-entry dictionary activation — 2026-11-23
+
+The pinned FineWeb-2 Parquet source was retrieved byte-for-byte from the Hugging Face resolve URL at revision `af9c13333eb981300149d5ca60a8e9d659b276b9`. Its SHA-256 was verified as `26ae4e654770b07e24a4ef6b8ef3a01c84076a920f1922ac014364ab411b84f0`. The Google TSV SHA-256 was also reverified as `b3f2e700d07d6c01a4c8cac5aa2f13b9a66885668ac482cc0c513f73c56495e5`.
+
+A 61,980-entry unique frequency dictionary is now committed at `data/khmer/google-khmer-word-frequencies.json` (2,724,446 bytes). Its metadata identifies both source revisions, checksums and licenses. The full dictionary is now the active word-frequency source in both `src/khmer_ua/word_segmenter.py` and `src/khmer-word-segmenter.js`; the 3,009-entry sample remains preserved as an attributed historical/sample artifact. Both runtimes preserve every exact dictionary entry as one atomic known-word candidate. This is an explicit dictionary-match invariant, not a claim of contextual segmentation accuracy.
+
+**Verification:** Python segmentation tests pass (12/12). A separate exhaustive check confirmed all 61,980 entries remain atomic known words and candidate paths in both Python and JavaScript. The complete Python suite passes (468 tests + 70 subtests). The first full-suite attempt had one fixture failure solely because the temporary checkout directory was named `repo`, while that test infers language from the repository directory name; rerunning from `Khmer-Ukrainian-Phonetic-System` passed. Node/npm integration tests, browser smoke, production build, compressed bundle/startup measurements and GitHub CI have not yet run in this remote environment (Node exists but npm is absent).
+
+**Method limitation:** the exact pinned upstream builder has been inspected and its two raw inputs are checksum-verified, but the upstream builder itself has not been independently executed here. The committed normalized frequency artifact was retrieved from the project branch and structurally verified (61,980 unique positive-count entries). Do not overstate this as a locally reproduced upstream build. No independent adjudicated segmentation gold corpus exists; accuracy remains NOT ASSESSED. Google phonemic strings are still not project IPA and are not passed to the IPA-to-Ukrainian adapter.
