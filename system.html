@@ -36,14 +36,14 @@
 </section>
 
 <section>
-  <span class="docno">02A</span><div><h2>Детермінований правиловий рушій</h2><p>Фонетичний режим працює за фіксованими правилами та лексичними записами з репозиторію. Немає голосування моделей, мережевих запитів або випадкового вибору. Той самий ввід за тієї самої версії правил дає той самий результат. Це гарантує відтворюваність, але не робить кожну запропоновану вимову безпомилковою: непідтверджені кластери й голосні повертаються як невстановлені.</p><p>Після отримання IPA рушій викликає один whole-string longest-match адаптер map_ipa_string(): африкати розпізнаються до окремих приголосних, а невідомий сегмент блокує повний практичний результат.</p><p><a href="https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/blob/main/docs/DETERMINISTIC-RULE-ENGINE.md">Контракт правилового рушія та Python API ↗</a></p></div>
+  <span class="docno">02A</span><div><h2>Детермінований правиловий рушій</h2><p>Фонетичний режим працює за фіксованими правилами та лексичними записами з репозиторію. Немає голосування моделей, мережевих запитів або випадкового вибору. Той самий ввід за тієї самої версії правил дає той самий результат. Це гарантує відтворюваність, але не робить кожну запропоновану вимову безпомилковою: непідтверджені кластери й голосні повертаються як невстановлені.</p><p>Після отримання IPA рушій викликає один whole-string longest-match адаптер map_ipa_string(): африкати розпізнаються до окремих приголосних, а невідомий сегмент блокує повний практичний результат.</p><p>У браузері детермінований JavaScript core виконується в локальному Web Worker, щоб не блокувати інтерфейс. Worker і синхронний fallback використовують один і той самий core; введений користувачем текст не надсилається на сервер. Це інженерна властивість виконання, а не доказ повноти фонетичного охоплення.</p><p><a href="https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/blob/main/docs/DETERMINISTIC-RULE-ENGINE.md">Контракт правилового рушія та Python API ↗</a></p></div>
 </section>
 
 <section>
   <span class="docno">02B</span><div><h2>Окремий маршрут BGN/PCGN-романізація → українська</h2>
   <p>Романізаційний режим не є IPA-fallback. Він приймає або кмерське письмо (через наявний BGN/PCGN-derived ASCII-романізатор), або вже готовий латинський запис BGN/PCGN 1972 із діакритиками. Для прямого латинського вводу адаптер зіставляє форми з 37-рядковою матрицею голосних і рим без повторної романізації; невідомі латинські фрагменти залишає в ⟦…⟧.</p>
   <p>Кмерський шлях усе ще втрачає частину PCGN-діакритиків у зовнішньому ASCII-пакеті, тому ці контекстні відмінності не відновлюються. Прямий шлях не відновлює пропущених діакритиків і припускає, що латинський ввід уже відповідає BGN/PCGN. Українські відповідники мають статус PROVISIONAL і не є IPA або офіційним українським стандартом. Вводьте один формат за раз.</p>
-  <p><a href="https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/blob/main/docs/romanization-to-ukrainian-matrix.md">Матриця романізація → українська ↗</a></p></div>
+  <p><a href="https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/blob/main/docs/romanization-to-ukrainian-matrix.md">Матриця романізація → українська ↗</a></p></div>
 </section>
 
 <section>
@@ -180,7 +180,7 @@
   <div class="callout"><b>Перевірка поточної версії</b><span>Профільний вибір і його межі задокументовані в поточному handoff. Автоматичні перевірки підтверджують інженерні контракти, але не емпіричну точність вимови.</span></div>
   <div class="callout"><b>Публічна бета · інженерний статус 21.11.2026</b><span>Поточна main-гілка пройшла Quality, браузерні перевірки та Pages deployment. Це підтверджує роботу збірки, а не правильність вимови: незалежний IPA gold corpus містить 0 ад’юдикованих записів, емпірична точність не вимірюється. <a href="./docs/BETA-RELEASE-CHECKLIST.md">Чекліст бети</a> · <a href="./docs/BETA-RELEASE-POLICY.md">політика бети</a>.</span></div>
   <p><strong>Що ще досліджується:</strong> повна комбінаційна матриця голосних (знак × серія × довгота × кода × склад), контекстні фонетичні реалізації, джерельна ад'юдикація лексичних IPA-форм і незалежний gold corpus. Незалежний експертно-ад'юдикований gold наразі містить 0 записів; точність у відсотках не заявляється.</p>
-  <p><a href="https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/blob/main/docs/limitations.md" target="_blank" rel="noreferrer">Обмеження й невстановлені питання ↗</a> · <a href="https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/107" target="_blank" rel="noreferrer">Перевірка змін у PR #107 ↗</a>
+  <p><a href="https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/blob/main/docs/limitations.md" target="_blank" rel="noreferrer">Обмеження й невстановлені питання ↗</a> · <a href="https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/107" target="_blank" rel="noreferrer">Перевірка змін у PR #107 ↗</a>
   </div>
 </section>
 
@@ -201,11 +201,11 @@
 <section>
   <span class="docno">12</span><div><h2>Репозиторій і версія</h2>
   <p>Ця сторінка пояснює поточний стан веб-сервісу. Джерелом істини для правил залишаються machine-readable дані та Python research engine у репозиторії.</p>
-  <a class="repo-link" href="https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-" target="_blank" rel="noreferrer">ClippyFirst / Khmer-Ukrainian-Phonetic-System- ↗</a></div>
+  <a class="repo-link" href="https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System" target="_blank" rel="noreferrer">ClippyFirst / Khmer-Ukrainian-Phonetic-System ↗</a></div>
 </section>
 </div>
 
-<footer><div><strong>ខ្មែរ / УКРАЇНСЬКА</strong><span>Research-grade practical transcription · 2026</span></div><div><a href="./index.html">Сервіс</a> · <a href="https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-" target="_blank" rel="noreferrer">GitHub</a></div></footer>
+<footer><div><strong>ខ្មែរ / УКРАЇНСЬКА</strong><span>Research-grade practical transcription · 2026</span></div><div><a href="./index.html">Сервіс</a> · <a href="https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System" target="_blank" rel="noreferrer">GitHub</a></div></footer>
 <script type="module" src="./src/coverage.js"></script>
 </main>
 </body>
