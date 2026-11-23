@@ -218,3 +218,9 @@ for (const item of tokenizerParity.cases) {
       + ": expected " + JSON.stringify(item.units) + ", got " + JSON.stringify(actual));
   }
 }
+
+const longKhmerRun = "ម".repeat(4096);
+const longRunUnits = tokenize(longKhmerRun);
+if (longRunUnits.length !== 4096 || longRunUnits.join("") !== longKhmerRun) {
+  throw new Error("browser tokenizer must preserve long Khmer runs without losing or merging orthographic boundaries");
+}
