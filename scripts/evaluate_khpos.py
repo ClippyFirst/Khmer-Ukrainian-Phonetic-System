@@ -331,6 +331,17 @@ def main() -> None:
             python_khmer_word_predictions,
         )
 
+        python_signature = prediction_signature(
+            python_boundary_predictions,
+            python_all_token_predictions,
+            python_khmer_word_predictions,
+        )
+        javascript_signature = javascript_result.get("prediction_signature")
+        if javascript_signature != python_signature:
+            raise RuntimeError(
+                "Python/JavaScript per-sentence segmentation output differs: "
+                + python_signature + " vs " + str(javascript_signature)
+            )
         parity_paths = (
             ("all_token_word_level", "gold"),
             ("all_token_word_level", "predicted"),
