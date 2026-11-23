@@ -1,3 +1,4 @@
+import { tokenize } from "../src/khmer-engine-core.js";
 import fs from "node:fs";
 import { mapIpa } from "../src/ukrainian-practical.js";
 
@@ -207,3 +208,9 @@ for (const x of ['<nav class="site-nav" aria-label="Основна навіга�
 
 
 if (!js.includes("function confidenceTier(item)") || !js.includes("доказовий рівень") || !js.includes("unit.confidence_tier")) throw new Error("evidence confidence tiers are not surfaced in the browser");
+
+// Cross-runtime boundary parity: Unicode 18 §16's subscript independent-vowel
+// sequence remains attached to its following coda consonant.
+if (JSON.stringify(tokenize("ផ្ឯម")) !== JSON.stringify(["ផ្ឯម"])) {
+  throw new Error("browser tokenizer split a Unicode 18 subscript independent-vowel + coda sequence");
+}
