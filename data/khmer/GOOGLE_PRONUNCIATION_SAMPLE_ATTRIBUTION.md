@@ -22,3 +22,25 @@ The segmenter uses frequency-weighted dictionary matching over Khmer cluster bou
 - A dictionary match does not prove the boundary is correct in a particular context.
 - The FineWeb-2 frequencies are web-text frequency counts, not pronunciation evidence or a dialect/profile signal.
 - Do not promote dictionary phonemic strings to project IPA or lexical gold without a separately documented conversion and adjudication process.
+
+
+## Full Google Khmer lexicon rebuild route — 2026-11-23
+
+A reproducible upstream route for the full dictionary has now been located and source-reviewed:
+
+- Upstream builder: [pheasaKhmer/khmer-engine](https://github.com/pheasaKhmer/khmer-engine), pinned repository revision `31b72cd4665f69678fc835da2f501771e42f097a` (MIT code).
+- Builder: `scripts/build_data.py`; the exact pinned source is available in the upstream repository. It downloads the Google lexicon and FineWeb-2 test split, checks both against SHA-256 before processing, normalizes spellings with `pheasa`, filters to Khmer runs containing a consonant or independent vowel, then iteratively segments FineWeb text for unigram/bigram counts.
+- Google source: `km/data/lexicon.tsv` at `a90601024f07ab7e96c911243324e0adeb16da96`; SHA-256 `b3f2e700d07d6c01a4c8cac5aa2f13b9a66885668ac482cc0c513f73c56495e5`; CC BY 4.0. Upstream README reports 62,179 Khmer-script entries before its normalization/filtering.
+- Frequency source: FineWeb-2 `khm_Khmr/test/000_00000.parquet` at `af9c13333eb981300149d5ca60a8e9d659b276b9`; SHA-256 `26ae4e654770b07e24a4ef6b8ef3a01c84076a920f1922ac014364ab411b84f0`; ODC-By 1.0. The upstream builder uses the test split for counts only and does not ship its source text; its README notes Common Crawl terms for the underlying web documents.
+- Upstream reports a resulting 61,980-word lexicon after normalization/filtering and a separate bigram table. These are upstream-reported build results, not independently reproduced by this project.
+
+**Retrieval experiment:** GitHub's file-content API returned a zero-length body for the large Google TSV. A live raw-source fetch through the available browser retrieval path returned HTTP 200 and the full text payload, but the retrieval layer converted tabs to spaces and escaped Markdown characters. That representation is not byte-preserving, so it cannot be used to verify the published SHA-256 or committed as the source artifact. The FineWeb Parquet bytes and the complete upstream build have likewise not been executed in this environment (outbound network/DNS is unavailable to the repository container).
+
+**Status:** the prior “source unavailable” blocker is narrowed: the exact source URLs, upstream builder, pinned revisions, checksums and per-artifact licenses are known. Full-dictionary integration remains **BLOCKED pending byte-preserving retrieval and execution** of both pinned sources, exact checksum verification, deterministic rebuild, artifact-size/startup review, and Python/JavaScript parity plus segmentation regression checks. Do not use the transformed browser text as data, infer missing counts, or relabel Google phonemic strings as IPA.
+
+
+## Full upstream source now bundled
+
+The complete pinned Google source file is now stored unchanged at `data/khmer/google-pronunciation-full.tsv`. It retains Google's original copyright and CC BY 4.0 header. The source was retrieved from the pinned raw URL and added to this repository; the repository's resulting Git blob SHA is `d399efeca642b1185786b2982374488c525e37c4`, matching the source blob SHA returned by GitHub for the pinned upstream file. The Markdown-rendered preview was not used as data; the raw response was used, preserving the TSV tabs.
+
+This closes the source-file acquisition portion only. The full normalized 61,980-word frequency dictionary and bigram table are **not yet built**. The FineWeb-2 Parquet source still needs byte-preserving retrieval and its SHA-256 check, then the pinned upstream builder must run in a network-enabled Python environment. The runtime continues to use the 3,009-entry sample until the generated full dictionary is validated and ported with Python/JavaScript parity. The Google phonemic strings remain upstream phonemic notation, not project IPA.
