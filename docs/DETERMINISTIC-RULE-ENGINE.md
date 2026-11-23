@@ -102,3 +102,10 @@ Python-рушій раніше міг вивести притаманну гол
 ## Останній exact-head CI — 2026-11-23
 
 Head `aace766c21476019952f1aa93f217396387de420`: Quality [45146465545](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45146465545) — 455 Python tests + 70 subtests, Node, 129-case Python↔JS structural parity, tokenizer benchmark і Vite build; Chromium [45146465516](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45146465516) — 34/34. Trie benchmark: 8 000 code points, 3,07 ms vs 298,09 ms pre-trie, 97,0×; лише синтетичний tokenizer stress.
+
+
+## Паритет IPA та української адаптації для всіх lexical fixtures — 2026-11-23
+
+Додано Python exporter і Node comparator, які порівнюють Python `RuleBasedKhmerEngine` та browser `convert()` для всіх 36 рядків `data/tests/web-fixtures.json`. Звіряються source alignment, IPA (знято лише браузерні обмежувальні слеші), українська адаптація, статус і lexical mapping agreement. Запис без IPA залишається withheld в обох рушіях.
+
+На head `e584d986a7d7fe9ac177709374c29bd4298e93f2`: Quality [45147094378](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147094378) — 455 Python tests + 70 subtests, 129 structural cases, 36 lexical fixtures, benchmark і Vite; Chromium [45147094466](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147094466) — 34/34.
