@@ -1,7 +1,7 @@
-import dataset from "../data/khmer/google-pronunciation-sample.json" with { type: "json" };
+import dataset from "../data/khmer/google-khmer-word-frequencies.json" with { type: "json" };
 import consonants from "../data/khmer/consonants.json" with { type: "json" };
 
-export const WORD_SEGMENTER_ID = "google-khmer-pronunciation-frequency-viterbi-sample-v1";
+export const WORD_SEGMENTER_ID = "google-khmer-fineweb2-frequency-viterbi-full-v1";
 export const WORD_DICTIONARY_SIZE = dataset.entries.length;
 const COENG = "\u17D2";
 const consonantSet = new Set(consonants.map((item) => item.char));
