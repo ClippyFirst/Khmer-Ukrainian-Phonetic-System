@@ -146,3 +146,10 @@ Branch tip `ceb249214f318f26fd35a49983fc77c9138acc61`. Quality [45148897582](htt
 Same-head fixture microbenchmark: JS 0,4675 ms/36, Python 4,2747 ms/36, 9,14× на CI runner; контракти виходу ще не повністю однакові, тому це не чисте алгоритмічне порівняння. Tokenizer stress: 8 000 code points, trie 6,82 ms проти 416,37 ms pre-trie (61,1×), синтетичний tokenizer-only вимір.
 
 Інженерна частина Worker/parity готова до review; повний проєкт лишається beta/research prototype, не release-validated за мовною точністю. OOV segmentation, повний rule/result parity та expert gold залишаються відкритими; accuracy = NOT_ASSESSED.
+
+
+## Завершена перевірка rule-output parity — 2026-11-23
+
+На head `ceb249214f318f26fd35a49983fc77c9138acc61` Quality [45148897582](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45148897582): 455 Python tests + 70 subtests, 129 structural cases з повним grapheme trace/provenance, 36 lexical IPA/UA cases, 46 consonant/register rule-output cases, обидва benchmarks і Vite build — PASS. Chromium [45148897606](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45148897606) — 34/34.
+
+Engine microbenchmark на 36 фікстурах: JS 0,4675 ms/batch, Python 4,2747 ms/batch, 9,14× на CI runner. Python повертає багатший research contract, тому це workload-specific результат. Tokenizer stress: 8 000 code points, 3,38 ms trie vs 298,75 ms pre-trie, 88,5×; синтетичний tokenizer-only тест.
