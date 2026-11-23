@@ -10,6 +10,9 @@ const JOTATED_VOWELS = {
 export function mapIpa(ipa, practicalPolicy) {
   const segments = Object.keys(practicalPolicy.segments)
     .sort((a, b) => b.length - a.length);
+  const sequences = Object.keys(practicalPolicy.sequences ?? {})
+    .filter((key) => practicalPolicy.sequences[key]?.default !== undefined)
+    .sort((a, b) => b.length - a.length);
   let rest = ipa.replace(/[ˈˌ]/gu, "");
   // Ukrainian practical spelling does not encode Khmer vowel quantity.
   // Keep length in the IPA fixture; omit only a post-vocalic ː in this adapter.
@@ -26,6 +29,13 @@ export function mapIpa(ipa, practicalPolicy) {
     if (rest[0] === "." || rest[0] === "·") {
       rest = rest.slice(1);
       syllableStart = true;
+      continue;
+    }
+    const sequence = sequences.find((candidate) => rest.startsWith(candidate));
+    if (sequence) {
+      value += practicalPolicy.sequences[sequence].default;
+      rest = rest.slice(sequence.length);
+      syllableStart = false;
       continue;
     }
     const segment = segments.find((candidate) => rest.startsWith(candidate));
