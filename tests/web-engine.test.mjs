@@ -1,4 +1,4 @@
-import { tokenize } from "../src/khmer-engine-core.js";
+import { convert, tokenize } from "../src/khmer-engine-core.js";
 import fs from "node:fs";
 import { mapIpa } from "../src/ukrainian-practical.js";
 
@@ -223,4 +223,11 @@ const longKhmerRun = "ម".repeat(4096);
 const longRunUnits = tokenize(longKhmerRun);
 if (longRunUnits.length !== 4096 || longRunUnits.join("") !== longKhmerRun) {
   throw new Error("browser tokenizer must preserve long Khmer runs without losing or merging orthographic boundaries");
+}
+
+const unicode18SubscriptVowel = convert("ផ្ឯម", "khmer-pph-careful-citation-v1");
+if (unicode18SubscriptVowel.units.length !== 1
+    || unicode18SubscriptVowel.units[0].status !== "NOT_ESTABLISHED"
+    || unicode18SubscriptVowel.units[0].ipa !== "⟦NOT_ESTABLISHED⟧") {
+  throw new Error("subscript independent-vowel sequence must not receive an inherent-vowel IPA guess");
 }
