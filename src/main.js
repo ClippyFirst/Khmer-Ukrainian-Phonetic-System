@@ -96,13 +96,13 @@ if (typeof document !== "undefined") {
     $("ipa-result").textContent = romanizationOnlyInput
       ? "— · IPA не застосовується до готової романізації"
       : data.ipa;
-    const moveMarkerToWordEnd = (value) => String(value || "").split(/(\\s+)/u)
+    const moveMarkerToWordEnd = (value) => String(value || "").split(/(\s+)/u)
       .map((part) => {
-        if (/^\\s+$/u.test(part) || !part || !part.includes("???")) return part;
+        if (/^\s+$/u.test(part) || !part || !part.includes("???")) return part;
         const candidate = part.split("???").join("");
         if (!candidate) return "???";
         const chars = Array.from(candidate);
-        const firstNumber = chars.findIndex((char) => /\\p{N}/u.test(char));
+        const firstNumber = chars.findIndex((char) => /\p{N}/u.test(char));
         return firstNumber < 0
           ? candidate + "???"
           : chars.slice(0, firstNumber).join("") + "???" + chars.slice(firstNumber).join("");
