@@ -498,7 +498,7 @@ Authoritative readiness checkpoint — 2026-10-24 12:38 UTC
 ## Browser/Python IPA profile parity correction — 2026-10-24
 
 ### Finding
-The Python profile adapter in `src/khmer_ua/ipa.py` correctly restricts the Phnom Penh colloquial /r/-loss approximation to an explicit word/syllable boundary (`^|[ .ˈˌ]`). The browser adapter in `src/khmer-engine-core.js` instead rewrote every matching `CrV` substring, including an unsegmented medial match. That violated the documented conservative boundary rule and made Python/browser behavior diverge.
+The Python profile adapter in `src/khmer_ua/ipa.py` correctly restricts the Phnom Penh colloquial /r/-loss approximation to an explicit word/syllable boundary (`^|[ .ˈˌ]`). The browser adapter in `src/main.js` instead rewrote every matching `CrV` substring, including an unsegmented medial match. That violated the documented conservative boundary rule and made Python/browser behavior diverge.
 
 ### Change prepared
 - Updated the browser regex to require the same explicit boundary as the Python implementation and preserve the captured boundary and onset.
@@ -1454,7 +1454,7 @@ Independent expert-adjudicated gold remains 0; accuracy remains null. The source
 ## Post-hotfix integration checkpoint — 2026-11-03
 
 - PR [#108](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/108) merged by squash as `e9894e5726f5f6aa2510d7d3beed69b2d03fb666`.
-- The merged change removes exactly one invalid DOM dereference from `src/khmer-engine-core.js`; `index.html` intentionally has no `#source-result` element. A post-merge source inspection confirms the render path no longer writes to that absent element.
+- The merged change removes exactly one invalid DOM dereference from `src/main.js`; `index.html` intentionally has no `#source-result` element. A post-merge source inspection confirms the render path no longer writes to that absent element.
 - Exact `main` push workflows all completed successfully: Quality checks [41641496598](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41641496598), Chromium browser smoke [41641496582](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41641496582), and GitHub Pages build/deploy plus deployed-site smoke [41641496680](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41641496680). The Pages run's build, Chromium production-preview test, deploy and deployed runtime-asset smoke steps all succeeded.
 - The PR's exact pre-merge head `e8ef5ea727758c3339d016fb2636c1108e1549f4` also passed Quality [41536753767](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41536753767) and browser [41536753931](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/41536753931); all steps in both job summaries succeeded.
 - The browser regression covers visible IPA/Ukrainian output for `ក`, withholding mixed unsupported input, and clear/reset. This is UI behavior only; no phonology rule, IPA label, or gold row was introduced.
@@ -3844,7 +3844,7 @@ Five final feature branches were dispositioned against main `af28e35f5522dd64ceb
 
 | Branch | Compare to main | Content evidence and disposition |
 |---|---:|---|
-| `feat/github-pages-hybrid-candidate-shell-2026-11-15` | 5 ahead / 115 behind | Contains a unique 8,305-byte browser-side `src/hybrid-engine.js` absent from main. Its old `src/khmer-engine-core.js` imports that module, but the branch does not contain a dedicated test for it and its UI entrypoint is substantially behind current main. Main already has the Python typed-IPA hybrid diagnostic adapter. Preserve this as a candidate; do not port without a current-entrypoint browser contract proving that provider output remains diagnostic-only and cannot replace deterministic published output. |
+| `feat/github-pages-hybrid-candidate-shell-2026-11-15` | 5 ahead / 115 behind | Contains a unique 8,305-byte browser-side `src/hybrid-engine.js` absent from main. Its old `src/main.js` imports that module, but the branch does not contain a dedicated test for it and its UI entrypoint is substantially behind current main. Main already has the Python typed-IPA hybrid diagnostic adapter. Preserve this as a candidate; do not port without a current-entrypoint browser contract proving that provider output remains diagnostic-only and cannot replace deterministic published output. |
 | `feat/pcgn-consonant-components-2026-11-15` | 17 ahead / 118 behind | Its consonant-decision schema is byte-identical to main (SHA `d5ca11b4f16e006fd84ef3f2f4c921531b016890`); main's shared PCGN implementation is later. Already integrated; no port. |
 | `feat/pcgn-note2-shifter-resolution-2026-11-15` | 16 ahead / 154 behind | Its orthographic-analysis and series-decision schemas and series-resolution tests are earlier than main (2,788 vs 2,913 bytes; 1,345 vs 1,402 bytes; 4,787 vs 7,401 bytes). Main has the evolved shared implementation and regression coverage. No port. |
 | `feat/pcgn-robat-closed-syllable-assembly-2026-11-16` | 11 ahead / 82 behind | Its Robat closed-syllable assembly schema is byte-identical to main (SHA `e87cafb871849dccadfa181668dfb537d41f7e3e`). Already integrated; no port. |
@@ -6014,7 +6014,7 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 ## Automatic best-effort Ukrainian output — 2026-11-23
 
 - User clarified that selecting Strict/Soft/Super-soft is not an acceptable prerequisite for seeing an approximate candidate. The expected default is: established IPA-derived forms render normally; unresolved but romanizable units automatically receive a provisional Ukrainian candidate; genuinely unrenderable/malformed units retain a local `???`.
-- Implemented in `src/khmer-engine-core.js`: each unresolved Khmer orthographic unit is independently passed through the existing BGN/PCGN-derived romanizer and Ukrainian orthographic adapter. The candidate is displayed in the primary output and unit diagnostics, with explicit `PROVISIONAL` provenance. This does not fabricate IPA; the unit's IPA and phonetic status remain `NOT_ESTABLISHED`.
+- Implemented in `src/main.js`: each unresolved Khmer orthographic unit is independently passed through the existing BGN/PCGN-derived romanizer and Ukrainian orthographic adapter. The candidate is displayed in the primary output and unit diagnostics, with explicit `PROVISIONAL` provenance. This does not fabricate IPA; the unit's IPA and phonetic status remain `NOT_ESTABLISHED`.
 - Removed the detail-level gate from the remaining whole-input fallback. The best-effort candidate is now automatic at Strict, Balanced and Exploratory detail levels.
 - Extended `schemas/phonetic-result.schema.json` with `ukrainian_kind=ORTHOGRAPHIC_ROMANIZATION_FALLBACK`, keeping it distinct from `IPA_DERIVED` and `UNRESOLVED`.
 - Added runtime and browser regression coverage for the reported phrase, all three detail levels, and an unresolved Khmer cluster.
@@ -6025,25 +6025,12 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 
 ## Browser-native inference responsiveness — 2026-11-23
 
-- **PARTIAL — implementation committed on dedicated branch** `feat/khmer-native-worker-engine-20261123`, based on `fe870f1b6d138d39bc271362cdda4165c1e3517e`.
-- Added `src/khmer-engine.worker.js` and `src/khmer-engine-client.js`. The worker imports the existing deterministic `convert()` engine from the isolated `src/khmer-engine-core.js` module; it does not fork linguistic rules or introduce a remote inference service. UI rendering now awaits worker results, uses a monotonically increasing render revision to discard stale responses, and falls back to the same local synchronous engine if Worker execution fails.
-- Added `tests/khmer-worker-contract.test.mjs` to the `test` and `check` scripts. It checks the local worker protocol, worker-safe module guard, and absence of network APIs in the inference path.
-- **Verification not yet established:** this environment could write through the GitHub connector but could not clone/run the repository locally because outbound DNS/network access to GitHub was unavailable. No Node tests, Vite build, Playwright browser run, or Pages deployment is claimed. Exact-head GitHub Actions must verify the PR before merge.
-- **Remaining engineering gap:** this change moves the existing JS engine off the UI thread; it does not yet establish full Python↔JavaScript behavioral parity or port the Python structural parser/rule engine in full. Existing Python and JS implementations remain distinct. No third-party FST/model weights or unverified corpus assets were imported.
-- **Acceptance:** exact-head Quality workflow passes including all Node tests; Vite production build passes; Chromium smoke verifies phonetic output updates while typing, no stale result overwrite, and romanization remains independent; worker failure falls back locally; Pages deployment and deployed smoke pass. Then add cross-runtime fixtures and a separately reviewed parity gate.
-- **Task ledger:** worker offload = PARTIAL pending CI/browser evidence; full JS/Python parity = TODO; independent expert IPA gold = DEFERRED for beta / BLOCKED for accuracy claims; third-party model asset licensing = BLOCKED pending item-level provenance and rights evidence.
-
-
-### Exact-head verification addendum — 2026-11-23
-
-- **DONE_VERIFIED — local Web Worker integration:** exact code head `a8a00e1660b6b0fdba1c93475c766d8480f62bcd` passed Quality run [45135417588](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45135417588) and Chromium browser run [45135417537](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45135417537).
-- Quality: Python `453 passed, 70 subtests passed`; all Node web checks passed, including `Khmer Web Worker contract: PASS`; Vite production build passed.
-- Chromium: `33 passed`; the new tests confirmed actual local Worker execution and local synchronous fallback when the worker asset is unavailable.
-- Worker bundle was emitted as `khmer-engine.worker-CUQHOf-q.js` (~136.40 kB) on the exact-head browser run.
-- This verifies browser worker execution and existing suite compatibility, not an independent throughput benchmark or Python↔JavaScript linguistic parity. No Pages deployment occurred because the PR remains unmerged.
-- **DONE_VERIFIED:** worker integration, local fallback, stale-response guard code, and exact-head CI/browser checks. **TODO:** full cross-runtime semantic parity and broader tokenizer/OOV model integration. **BLOCKED:** third-party corpus/model redistribution pending item-level rights; expert IPA gold remains deferred for beta and blocks accuracy claims.
-
-
-### Engine/UI module separation — 2026-11-23
-
-The deterministic engine has been extracted into `src/khmer-engine-core.js`. The UI entry point `src/main.js` now imports only the functions it needs, while the Worker imports the core directly and no longer bundles the DOM-rendering entry point. Runtime, register-shifter and structural tests now import the core module; static source guards inspect both core and UI where appropriate. The core retains the existing deterministic rules and local romanization-derived fallback dependency; this is modularization, not a new phonology model.
+- **DONE_VERIFIED — implementation and exact-head checks:** branch `feat/khmer-native-worker-engine-20261123`; started from `fe870f1b6d138d39bc271362cdda4165c1e3517e`.
+- Added `src/khmer-engine.worker.js` and `src/khmer-engine-client.js`. The worker imports the deterministic `convert()` engine from isolated `src/khmer-engine-core.js`; it does not fork linguistic rules or introduce a remote inference service. UI rendering awaits worker results, uses a monotonically increasing render revision to discard stale responses, and falls back to the same local synchronous engine if Worker execution fails.
+- Extracted the existing deterministic engine from the DOM entry point into `src/khmer-engine-core.js`. The public UI remains in `src/main.js`; the Worker no longer bundles the DOM-rendering entry point. Runtime, register-shifter, orthographic parser and structural tests import the core; source guards inspect the core and UI as appropriate.
+- Added `tests/khmer-worker-contract.test.mjs` to both `npm test` and `npm run check`, plus Chromium tests for actual Worker execution and local fallback when the Worker asset is unavailable.
+- **Exact code head:** `9fd26941efb7e4936d921d700ee5215569449bda`. Quality run [45136120659](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136120659) and Chromium run [45136120671](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136120671) passed.
+- Quality: Python `453 passed, 70 subtests passed`; all Node web checks passed; Vite production build passed. Chromium: `33 passed`, including actual local Worker execution and Worker-asset failure fallback. The isolated Worker bundle was `124.02 kB` (down from `136.40 kB` before separating the UI module); this is a bundle-size reduction, not a throughput benchmark.
+- No local test/build run is claimed. GitHub Actions supplied the verification. The PR remains unmerged, so no Pages deployment or post-deploy smoke is claimed.
+- **Remaining engineering gap:** full Python↔JavaScript semantic parity is not yet established; tokenizer/OOV model integration remains TODO. No third-party FST/model weights or unverified corpus assets were imported. Third-party asset redistribution remains BLOCKED pending item-level provenance/rights. Independent IPA gold remains DEFERRED for beta and blocks accuracy claims.
+- **Task ledger:** Worker offload + isolated core + failure fallback = DONE_VERIFIED; full Python↔JS parity = TODO; native tokenizer/OOV model = TODO; third-party asset rights = BLOCKED; independent IPA gold = DEFERRED for beta / BLOCKED for accuracy claims.
