@@ -71,7 +71,7 @@ def test_palatal_stop_before_ukrainian_i_uses_orthographic_softness_once():
     assert map_ipa_string("ciə") == ("тьіє", None)
     assert map_ipa_string("prɑciə") == ("пратьіє", None)
     assert map_sequence(["c", "i"]) == "ті"
-    assert map_sequence(["c", "i", "ə"]) == "тіє"
+    assert map_sequence(["c", "i", "ə"]) == "тьіє"
     assert map_sequence(["j", "a"]) == "йа"
 
 
