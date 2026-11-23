@@ -6695,7 +6695,7 @@ This supersedes the earlier `DEFERRED` status for *conducting* a local tagger ex
 
 ### Implementation/evidence changes
 
-- Extended data/khmer/vowel-context-register.json with ten source-indexed context_dimensions and 14 lexical/context case records: consonant series/register × vowel sign; cross-syllable vowel harmony; stress and weak syllables; coda marks and coda place; open/closed syllable and duration; profile-specific vowel mergers; colloquial /r/-loss and vowel cues; PPK pitch and syllable structure; orthographic vs phonetic syllable/coda parsing.
+- Extended data/khmer/vowel-context-register.json with ten source-indexed context_dimensions and 14 lexical/context case records (five new coda/diacritic cases KHV-010–014): consonant series/register × vowel sign; cross-syllable vowel harmony; stress and weak syllables; coda marks and coda place; open/closed syllable and duration; profile-specific vowel mergers; colloquial /r/-loss and vowel cues; PPK pitch and syllable structure; orthographic vs phonetic syllable/coda parsing.
 - Added five source-located coda/diacritic cases KHV-010–014: ពាម/ពាំ, ខាត/ខាត់ and ជ័រ. These record NIKAHIT, BANTOC and U+17D0 + final រ contexts while keeping IPA and Ukrainian output null because the cited source passages do not give complete word-level IPA. Added tests that enforce this unresolved state.
 - Added registered source metadata for mam2025, wayland-guion2005, kirby2014 and bounded chem2020 evidence role; corrected the Wayland & Guion sample scope using Kirby's explicit review of that preliminary study.
 - Extended schemas/khmer-vowel-context-register.schema.json to validate the context-dimension record structure and controlled evidence-status vocabulary.
@@ -6715,7 +6715,7 @@ This supersedes the earlier `DEFERRED` status for *conducting* a local tagger ex
 
 ### Verification boundary
 
-- No local tests are claimed. New KHV-010–014 case rows, their unresolved-output regression test, and updated report observations are committed; exact-head Quality, Chromium, external khPOS, pinned Rust and optional Khmer Phonemizer checks are pending.
+- No local tests are claimed. Final evidence head `86694c00e23b142d2403c0b4dac8dc1caaec8650`: Quality [45283166781](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45283166781) — 478 passed + 70 subtests; Chromium [45283166402](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45283166402) — 39/39; external khPOS [45283166339](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45283166339), pinned Rust [45283166313](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45283166313), optional Khmer Phonemizer [45283166308](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45283166308) — all PASS.
 - A previous exact-head Quality run caught a literal escaped-newline syntax error in `scripts/coverage.py`; it was corrected in `5ecd53f`, and all checks above passed on that corrected head.
 - Undermind deep literature search completed. Workspace: https://app.undermind.ai/projects/4f071406-bdb4-4fd1-b93f-71b9d5ec661d?path=/analysis/Phnom%20Penh%20Khmer%20contextual%20vowel%20conditioning%20evidence%20matrix%202026. Its abstract-level summary is supplemented by full-text reading of Chem (2020), Mam et al. (2025) and Sak (1968), and direct public-source inspection of Ishida and Unicode.
 - PR #557 remains open and unmerged. No Pages deployment or release was performed.
