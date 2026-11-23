@@ -442,3 +442,25 @@ test("phonetic inference falls back locally when the worker asset is unavailable
   await page.locator("#source").fill("ខ្មែរ");
   await expect(page.locator("#ua-result")).toContainText("к'мае");
 });
+
+
+test("late worker response cannot overwrite the newest input result", async ({ page }) => {
+  await page.addInitScript(() => {
+    const nativeAddEventListener = Worker.prototype.addEventListener;
+    Worker.prototype.addEventListener = function (type, listener, options) {
+      if (type === "message") {
+        return nativeAddEventListener.call(this, type, (event) => {
+          if (event.data?.id === 1) setTimeout(() => listener.call(this, event), 250);
+          else listener.call(this, event);
+        }, options);
+      }
+      return nativeAddEventListener.call(this, type, listener, options);
+    };
+  });
+  await page.goto("/");
+  await page.locator("#source").fill("ខ្មែរ");
+  await page.locator("#source").fill("ភាសាខ្មែរ");
+  await expect(page.locator("#ua-result")).toContainText("п'ієса к'мае");
+  await page.waitForTimeout(300);
+  await expect(page.locator("#ua-result")).toContainText("п'ієса к'мае");
+});
