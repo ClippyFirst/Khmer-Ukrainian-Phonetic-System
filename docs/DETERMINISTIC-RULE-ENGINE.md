@@ -92,3 +92,8 @@ Python-рушій раніше міг вивести притаманну гол
 На head `a389530b5ffa8799b6194c939a00bce9309110e2`: Quality [45145785462](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145785462) — 455 Python tests + 70 subtests і 129-case parity; Chromium [45145796671](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145796671) — 34/34. Токенізаторний stress-test: 8 000 code points, 8,19 ms trie проти 490,16 ms pre-trie (59,9×); це не наскрізний G2P benchmark.
 
 Це підтверджує паритет структурних полів на широкому інвентарі, але не повний паритет контекстної фонології, lexical/OOV word segmentation чи повного per-unit output schema.
+
+
+## Підсумковий checkpoint — 2026-11-23
+
+Поточний branch tip після оновлення документації: `f79126ae78ebcd4d5e70324c0c43736f622885b7`. Exact-tip Quality [45146037172](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45146037172): 455 Python tests + 70 subtests, Node, 129-case Python↔JS structural parity, tokenizer benchmark і Vite build — PASS. Останній code-bearing head `a389530b5ffa8799b6194c939a00bce9309110e2` пройшов Chromium [45145796671](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145796671), 34/34; після нього були лише документаційні коміти. Benchmark на exact docs head: 8 000 code points, 2,69 ms trie vs 242,72 ms pre-trie, 90,3×; synthetic tokenizer-only stress, не повний G2P.
