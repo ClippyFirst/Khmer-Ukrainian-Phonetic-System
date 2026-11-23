@@ -14,7 +14,7 @@
         {
           "provider": "khmer-phonemizer",
           "ipa": "kampuciə prɑciətʰɨppaʔtaj",
-          "ukrainian_candidate": "кампутіє пратієт'иппатай",
+          "ukrainian_candidate": "кампутьіє пратьієт'иппатай",
           "status": "PROVISIONAL",
           "profile": "khmer-pph-careful-citation-v1",
           "profile_match": "UNVERIFIED",

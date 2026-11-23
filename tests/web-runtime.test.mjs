@@ -35,7 +35,7 @@ assert.deepEqual(
   "known multi-cluster lexical fixtures must be recognized without requiring whitespace between Khmer words",
 );
 assert.equal(unresolvedWord.ipa, "/kampuciə prɑciətʰɨppaʔtaj/???", "the browser IPA result must preserve the archived Khmer Phonemizer candidate and mark it as unverified");
-assert.equal(unresolvedWord.ua, "кампутіє пратієт'иппатай???", "the browser IPA adapter must render the selected provisional IPA candidate and append one uncertainty marker");
+assert.equal(unresolvedWord.ua, "кампутьіє пратьієт'иппатай???", "the browser IPA adapter must render the selected provisional IPA candidate and append one uncertainty marker");
 assert.ok(unresolvedWord.ipa.endsWith("???") && unresolvedWord.ipa !== "???", "an unresolved IPA result must retain its candidate before the uncertainty marker");
 assert.ok(unresolvedWord.ua.endsWith("???") && unresolvedWord.ua !== "???", "an unresolved Ukrainian result must retain its candidate before the uncertainty marker");
 assert.equal(unresolvedWord.status, "PROVISIONAL");
@@ -221,7 +221,7 @@ assert.equal(greetingResult.complete, false);
 assert.ok(!greetingResult.ipa.includes("⟦ВИМОВУ НЕ ВСТАНОВЛЕНО ДЛЯ ЧАСТИНИ ВВОДУ⟧"));
 assert.ok(!greetingResult.ua.includes("⟦ТРАНСКРИПЦІЮ НЕ ВСТАНОВЛЕНО ДЛЯ ЧАСТИНИ ВВОДУ⟧"));
 assert.ok(greetingResult.ipa.includes("/kam.pu.ciə/"), "known lexical IPA must survive an unresolved neighboring unit");
-assert.ok(greetingResult.ua.includes("кампутіє"), "known IPA-derived Ukrainian output must survive an unresolved neighboring unit");
+assert.ok(greetingResult.ua.includes("кампутьіє"), "known IPA-derived Ukrainian output must survive an unresolved neighboring unit");
 assert.ok(greetingResult.ipa.includes("⟦NOT_ESTABLISHED⟧"), "unresolved units must remain explicitly marked in place");
 console.log("full Khmer sentence integrity: PASS");
 

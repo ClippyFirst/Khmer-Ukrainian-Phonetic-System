@@ -179,7 +179,7 @@ def test_source_traceable_proposed_ipa_requires_registered_exact_locator():
     assert sourced_phrase["units"][0]["source_locator"]
     assert sourced_phrase["units"][0]["lexical_mapping_agrees"] is True
     assert sourced_phrase["ipa"] == "ciə ˈkʰmae"
-    assert sourced_phrase["ukrainian"] == "тіє к\'мае"
+    assert sourced_phrase["ukrainian"] == "тьіє к\'мае"
 
     cluster_word = engine.analyze("ល្ងាច")
     assert cluster_word["confidence_tier"] == "B"
