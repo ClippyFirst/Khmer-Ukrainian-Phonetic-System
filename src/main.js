@@ -118,9 +118,11 @@ if (typeof document !== "undefined") {
     const hasUnitFallback = data.units.some((unit) => unit.fallback_status === "PROVISIONAL");
     $("status").textContent = romanizationOnlyInput
       ? "BGN/PCGN LATIN INPUT · PROVISIONAL · ??? наприкінці слова означає невстановлену точність · доказовий рівень C"
-      : useRomanizationFallback || hasUnitFallback
-        ? "PROVISIONAL CANDIDATE · орфографічна романізація, не IPA-вимова · ??? наприкінці неперевіреного результату · доказовий рівень C"
-        : data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
+      : data.selected_external_candidate
+        ? "EXTERNAL IPA CANDIDATE · " + data.selected_external_candidate.provider + " · PROFILE MATCH UNVERIFIED · ??? наприкінці неперевіреного результату · доказовий рівень C"
+        : useRomanizationFallback || hasUnitFallback
+          ? "PROVISIONAL CANDIDATE · орфографічна романізація, не IPA-вимова · ??? наприкінці неперевіреного результату · доказовий рівень C"
+          : data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
     const levelGuidance = {
       strict: "Обережний рівень: показано лише наявні джерельно індексовані пропозиції; непідтверджені IPA/українські форми не реконструюються. PROPOSED не є експертним gold.",
       balanced: "Збалансований рівень: показує основний частковий результат, статус кожної одиниці та причини невизначеності. Невстановлені фрагменти зберігаються на своїх позиціях.",
@@ -180,7 +182,48 @@ if (typeof document !== "undefined") {
       }
       unitDetails.append(card);
     });
-    unitDetails.hidden = activeMode !== "phonetic" || outputLevelMode === "strict" || data.units.every((unit) => unit.status === "PUNCTUATION");
+    if (data.external_candidates?.length) {
+      const providerHeading = document.createElement("h3");
+      providerHeading.textContent = "Зовнішні IPA-кандидати · не перевірені";
+      unitDetails.append(providerHeading);
+      data.external_candidates.forEach((candidate) => {
+        const card = document.createElement("article");
+        card.className = "unit-detail";
+        const heading = document.createElement("div");
+        heading.className = "unit-detail-heading";
+        const provider = document.createElement("strong");
+        provider.textContent = candidate.provider + (candidate.selected ? " · вибраний для попереднього показу" : "");
+        const status = document.createElement("span");
+        status.className = "unit-status";
+        status.textContent = candidate.status + " · profile match " + candidate.profile_match;
+        heading.append(provider, status);
+        const values = document.createElement("p");
+        values.className = "unit-values";
+        values.textContent = "IPA: /" + candidate.ipa + "/???"
+          + (candidate.mapped_ukrainian
+            ? " · Українське зіставлення: " + candidate.mapped_ukrainian + "???"
+            : " · Українське зіставлення: не отримано" + (candidate.mapping_failure ? " · непідтриманий фрагмент: " + candidate.mapping_failure : ""));
+        const provenance = document.createElement("p");
+        provenance.className = "unit-note";
+        provenance.textContent = "Походження: " + JSON.stringify(candidate.provenance)
+          + " · Невизначеність: " + (candidate.uncertainty || []).join(" ");
+        card.append(heading, values, provenance);
+        unitDetails.append(card);
+      });
+    }
+    if (data.backend_failures?.length) {
+      const failureHeading = document.createElement("h3");
+      failureHeading.textContent = "Відхилені виходи провайдерів";
+      unitDetails.append(failureHeading);
+      data.backend_failures.forEach((failure) => {
+        const item = document.createElement("p");
+        item.className = "unit-note";
+        item.textContent = failure.provider + ": " + failure.reason
+          + (failure.raw_output ? " · raw output: " + failure.raw_output : "");
+        unitDetails.append(item);
+      });
+    }
+    unitDetails.hidden = activeMode !== "phonetic" || outputLevelMode === "strict" || (data.units.every((unit) => unit.status === "PUNCTUATION") && !data.external_candidates?.length);
     const notice = getStatusNotice(data);
     issue.hidden = activeMode !== "phonetic" || !notice;
     if (!issue.hidden) {
