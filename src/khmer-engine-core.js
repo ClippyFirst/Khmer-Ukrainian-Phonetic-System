@@ -612,49 +612,34 @@ function convert(text, profile) {
   // Lao-style final abstention: retain supported neighbours, but use a clear
   // three-question-mark placeholder for any unresolved linguistic unit.
   // Detailed per-unit diagnostics and provisional hints remain separate.
-  let hasStartedOutputRun = false;
   const uaParts = [];
-  let pendingFallback = "";
-  const flushFallback = () => {
-    if (!pendingFallback) return;
-    // Keep the best available orthographic candidate visible, but mark the
-    // complete unresolved run once at its end. Do not replace the candidate
-    // with a bare placeholder or misrepresent BGN/PCGN as IPA.
-    uaParts.push(pendingFallback + "???");
-    pendingFallback = "";
-    hasStartedOutputRun = true;
+  let pendingUnresolved = false;
+  const flushUnresolved = () => {
+    if (!pendingUnresolved) return;
+    uaParts.push("???");
+    pendingUnresolved = false;
   };
   for (const item of rendered) {
     if (item.status === "PUNCTUATION") {
-      flushFallback();
+      flushUnresolved();
       uaParts.push(item.ua);
-      hasStartedOutputRun = false;
       continue;
     }
     if (item.status === "NON_LINGUISTIC") {
-      flushFallback();
+      flushUnresolved();
       uaParts.push(item.ua);
       continue;
     }
     if (item.status === "PROPOSED") {
-      flushFallback();
+      flushUnresolved();
       uaParts.push(item.ua);
-      hasStartedOutputRun = true;
       continue;
     }
-    if (item.fallback_status === "PROVISIONAL" && item.fallback_ukrainian) {
-      // The romanizer runs per orthographic unit and may title-case each
-      // result. Preserve sentence-level casing across the unresolved run.
-      pendingFallback += hasStartedOutputRun
-        ? item.fallback_ukrainian.toLocaleLowerCase("uk")
-        : item.fallback_ukrainian;
-      continue;
-    }
-    flushFallback();
-    uaParts.push("???");
-    hasStartedOutputRun = true;
+    // A BGN/PCGN-derived fallback is retained on the unit and in the typed
+    // diagnostics, but is never folded into the IPA-derived result field.
+    pendingUnresolved = true;
   }
-  flushFallback();
+  flushUnresolved();
   const ua = uaParts.join("");
   const complete = linguistic.length > 0 && linguistic.every((item) =>
     item.status === "PROPOSED" && !/⟦/.test(item.ipa) && !/⟦/.test(item.ua)

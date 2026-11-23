@@ -3685,3 +3685,35 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 The khPOS train/test and ALT corpora are CC BY-NC-SA 4.0. The 12,000-row train split was checksum-pinned; 12 exact NFC-normalized sentence overlaps with either test set were excluded (11,988 training examples retained). HMM and five-epoch tagger models were trained in memory only; no corpus/model artifacts were committed or uploaded. Phrase-level overlap was not measured. The ALT archive is Zenodo record 3937914, MD5 `20d39d8fa1b874b11ec374139fbe5654`; the khPOS source revision is `0211405c145b0a340ad558569bd06c946b2296b4`.
 
 **Phonetic boundary unchanged:** this word-segmentation research does not establish IPA, phonological syllables, Ukrainian adaptation, or pronunciation accuracy. Independent expert-adjudicated IPA gold remains 0; empirical accuracy remains NOT_ASSESSED. Human IPA pilot issue #104 and manual accessibility review issue #463 remain open.
+
+
+## Full repository audit — 2026-11-23
+
+### KHM-IPA-ROUTE-SEPARATION-001 — DONE_VERIFIED (PR-head; main publication pending)
+
+- The public browser previously placed the method selector inside the collapsed research drawer. More seriously, `src/main.js` substituted a whole-input BGN/PCGN-derived Ukrainian romanization into the primary phonetic result when IPA had no candidate. The live regression `ស៊៉ា` returned IPA `EVIDENCE_LIMITED` but Ukrainian `Са` without the promised unresolved marker.
+- The engine also aggregated per-unit `ORTHOGRAPHIC_ROMANIZATION_FALLBACK` values into `canonical_ua`, despite typing those units as non-IPA fallback. This violated the separation contract and made the browser aggregate differ from Python's abstention semantics.
+- PR #554 moves the method selector beside the primary result, makes the primary phonetic aggregate contain only IPA-derived units (unresolved runs remain `???`), retains orthographic candidates in typed unit diagnostics, and displays the separate romanization route only after explicit selection.
+- Test-first evidence: PR test-only head failed exactly the two new regressions (37 existing Chromium tests passed); implementation head Quality [45266160521](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45266160521) passed 472 Python tests + 70 subtests, web checks, 129 structural, 38 lexical, 46 rule-output and 6 segmentation parity cases, benchmarks and build. Chromium [45265957968](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45265957968) passed 39/39 before a parity-only assertion was added; exact-head browser rerun and Pages verification remain pending.
+- No new phonological rules, IPA labels, gold records, data imports or external providers were added. Main merge/deployment are separate completion gates.
+
+### KHM-PHON-CONTEXT-001 — PARTIAL
+
+- Runtime coverage is exact lexical lookup plus a narrow deterministic inherent-vowel path. The full dependent-vowel × consonant-series × coda × syllable-context matrix is not wired into a general rule generator. The 61,980-entry word/count dictionary is segmentation data, not pronunciation data. Unsupported structures are generally withheld; this is preferable to invented IPA, but it does not meet a broad automatic Khmer-to-IPA coverage expectation.
+- Acceptance: source-located and context-qualified rules for each promoted vowel/subscript/coda environment; exact positive/negative fixtures; Python/browser parity; independent specialist review; no blanket grapheme-to-Ukrainian shortcut.
+
+### KHM-FIXTURE-PROVENANCE-001 — PARTIAL
+
+- The runtime fixture file contains 38 entries, 37 with IPA. Four `PROPOSED` entries (`កី`, `គី`, `កា`, `គា`) have empty evidence arrays and no source locator. They currently carry only a representative-contrast note and must not be treated as source-verified tier B or gold.
+- Acceptance: add exact registered pronunciation-capable source IDs and source locators for the precise orthographic/profile environment, or withhold the IPA/UA values until such evidence is established. Do not invent citations.
+
+### KHM-IPA-GOLD-001 — BLOCKED
+
+- Issue #104 remains open. No independent expert-adjudicated gold exists; `data/benchmark/gold.tsv` remains header-only and accuracy is NOT_ASSESSED.
+- Acceptance: approved versioned IPA convention; two independent qualified annotators; third independent adjudicator; non-annotating curator; private blind intake; 30 rights-cleared source-located lexeme groups; two locked annotations and evidence-based adjudication.
+
+### KHM-ACCESSIBILITY-MANUAL-001 — TODO
+
+- Issue #463 remains open. Automated Chromium checks do not replace manual keyboard-only, screen-reader, zoom/reflow, contrast, touch-target and mobile review.
+- Acceptance: record browser/OS/device/assistive technology, reproducible findings, fixes and retests; no WCAG conformance claim without completed evidence.
+

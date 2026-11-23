@@ -242,6 +242,19 @@ if (coverageCells.some((cell) => !["SOURCE_ATTESTED_NOT_GOLD", "CONFLICTING_SOUR
 if (!coverageHtml.includes("./reports/khmer-coverage-audit.json")) {
   throw new Error("full machine-readable coverage report is not linked from the site");
 }
+const orthographicFallback = convert("ក្ក", "khmer-pph-careful-citation-v1");
+if (orthographicFallback.ipa !== "⟦NOT_ESTABLISHED⟧"
+    || orthographicFallback.ua !== "???"
+    || orthographicFallback.canonical_ua !== "???") {
+  throw new Error("orthographic romanization fallback must not enter the IPA-derived aggregate result");
+}
+if (orthographicFallback.units[0]?.fallback_status !== "PROVISIONAL"
+    || !orthographicFallback.units[0]?.fallback_ukrainian
+    || orthographicFallback.phonetic_result.units[0]?.ukrainian_kind !== "ORTHOGRAPHIC_ROMANIZATION_FALLBACK") {
+  throw new Error("orthographic fallback must remain available as a separately typed unit diagnostic");
+}
+console.log("IPA/romanization output separation: PASS");
+
 console.log("evidence coverage dashboard integration: PASS");
 
 for (const x of ['<nav class="site-nav" aria-label="Основна навігація">','href="./index.html" aria-current="page"','href="./system.html"']) {

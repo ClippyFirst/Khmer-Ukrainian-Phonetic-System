@@ -3,7 +3,9 @@ import { test, expect } from "@playwright/test";
 test.beforeEach(async ({ page }, testInfo) => {
   if ([
     "research tools are collapsed by default and can be opened on demand",
-    "IPA and Latin romanization remain visible outside the collapsed analysis drawer"
+    "IPA and Latin romanization remain visible outside the collapsed analysis drawer",
+    "primary method switch is visible beside the main result without opening research details",
+    "phonetic mode never substitutes an orthographic romanization fallback for unresolved IPA"
   ].includes(testInfo.title)) return;
   await page.addInitScript(() => {
     document.addEventListener("DOMContentLoaded", () => {
@@ -20,10 +22,38 @@ test.beforeEach(async ({ page }, testInfo) => {
 test("Latin BGN/PCGN input renders a provisional Ukrainian form in the primary result", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("Kampucheapcheathiptey");
-  await expect(page.locator("#ua-result")).toContainText("Кампучеапчеат'іптей???");
-  await expect(page.locator("#status")).toContainText("BGN/PCGN LATIN INPUT");
-  await expect(page.locator("#ua-result")).toHaveText(/\?\?\?$/u);
+  await page.locator("#mode-romanization").click();
+  await expect(page.locator("#ua-result-title")).toHaveText("Українська з романізації");
+  await expect(page.locator("#ua-result")).toHaveText("Кампучеапчеат'іптей");
+  await expect(page.locator("#status")).toContainText("РОМАНІЗАЦІЯ");
+  await expect(page.locator("#ua-result")).not.toContainText("???");
   await expect(page.locator("#ipa-result")).toContainText("IPA не застосовується");
+});
+
+test("primary method switch is visible beside the main result without opening research details", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("Kâmpŭchéa");
+  const drawer = page.locator("#research-details");
+  await expect(drawer).not.toHaveAttribute("open", "");
+  const group = page.getByRole("group", { name: "Метод українського запису" });
+  await expect(group).toBeVisible();
+  await expect(group.getByRole("button", { name: "За IPA" })).toBeVisible();
+  await expect(group.getByRole("button", { name: "З романізації" })).toBeVisible();
+  await expect(page.locator("#ua-result-title")).toHaveText("Українська за вимовою (IPA)");
+  await group.getByRole("button", { name: "З романізації" }).click();
+  await expect(page.locator("#ua-result-title")).toHaveText("Українська з романізації");
+  await expect(page.locator("#ua-result")).toHaveText("Кампучеа");
+  await group.getByRole("button", { name: "За IPA" }).click();
+  await expect(page.locator("#ua-result-title")).toHaveText("Українська за вимовою (IPA)");
+});
+
+test("phonetic mode never substitutes an orthographic romanization fallback for unresolved IPA", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("ស៊៉ា");
+  await expect(page.locator("#ipa-result")).toHaveText("⟦EVIDENCE_LIMITED⟧");
+  await expect(page.locator("#ua-result")).toHaveText("???");
+  await expect(page.locator("#status")).toContainText("EVIDENCE LIMITED");
+  await expect(page.locator("#status")).not.toContainText("PROVISIONAL CANDIDATE");
 });
 
 test("research tools are collapsed by default and can be opened on demand", async ({ page }) => {
@@ -239,6 +269,7 @@ test("romanization mode renders a separate provisional Ukrainian form", async ({
   await expect(page.locator("#romanization-result")).toHaveText("Sokha");
   await expect(page.locator("#ua-romanization-result")).toHaveText("Сок'а");
   await expect(page.locator("#ua-romanization-status")).toContainText("PROVISIONAL");
+  await expect(page.locator("#ua-result")).toHaveText("Сок'а");
   await expect(page.locator("#ipa-result")).toBeVisible();
 });
 
@@ -250,6 +281,7 @@ test("pre-romanized BGN/PCGN input maps directly to Ukrainian with diacritics", 
   await expect(page.locator("#romanization-result")).toHaveText("Kâmpŭchéa");
   await expect(page.locator("#ua-romanization-result")).toHaveText("Кампучеа");
   await expect(page.locator("#ua-romanization-status")).toContainText("PROVISIONAL");
+  await expect(page.locator("#ua-result")).toHaveText("Кампучеа");
   await expect(page.locator("#romanization-title")).toHaveText("Вхідна романізація · BGN/PCGN 1972");
   await expect(page.locator("#ipa-result")).toBeVisible();
 });
@@ -300,15 +332,15 @@ test("primary input and method controls expose accessible names", async ({ page 
   await expect(page.getByRole("textbox", { name: "Введіть кмерський текст або латинську романізацію BGN/PCGN 1972" })).toBeVisible();
   await page.locator("#source").fill("ក");
   const methodGroup = page.getByRole("group", { name: "Метод українського запису" });
-  await expect(methodGroup.getByRole("button", { name: "Фонетичний" })).toBeVisible();
-  await expect(methodGroup.getByRole("button", { name: "За романізацією" })).toBeVisible();
+  await expect(methodGroup.getByRole("button", { name: "За IPA" })).toBeVisible();
+  await expect(methodGroup.getByRole("button", { name: "З романізації" })).toBeVisible();
   await expect(page.getByRole("button", { name: "Очистити" })).toBeVisible();
 });
 
 test("romanization method can be activated by keyboard and status is announced", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("Kâmpŭchéa");
-  const romanizationButton = page.getByRole("button", { name: "За романізацією" });
+  const romanizationButton = page.getByRole("button", { name: "З романізації" });
   await romanizationButton.focus();
   await page.keyboard.press("Enter");
   await expect(romanizationButton).toHaveAttribute("aria-pressed", "true");
@@ -345,16 +377,18 @@ test("archived provisional IPA candidate remains visible at every detail level",
   }
 });
 
-test("unresolved Khmer cluster preserves its orthographic candidate with a trailing uncertainty marker", async ({ page }) => {
+test("unresolved Khmer cluster keeps romanization fallback out of the IPA route", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("ក្ក");
   await expect(page.locator("#ipa-result")).toHaveText("⟦NOT_ESTABLISHED⟧");
-  await expect(page.locator("#ua-result")).toContainText("???");
-  await expect(page.locator("#ua-result")).not.toHaveText("???");
-  await expect(page.locator("#status")).toContainText("PROVISIONAL CANDIDATE");
+  await expect(page.locator("#ua-result")).toHaveText("???");
+  await expect(page.locator("#status")).toContainText("NOT ESTABLISHED");
   await expect(page.locator("#unit-details")).toContainText("Попередня українська форма:");
   await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-rule-id", "KHMER-BGN-PCGN-ORTHOGRAPHIC-FALLBACK-V1");
   await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-position", "whole-unit");
+  await page.locator("#mode-romanization").click();
+  await expect(page.locator("#ua-result")).not.toContainText("???");
+  await expect(page.locator("#status")).toContainText("РОМАНІЗАЦІЯ");
 });
 
 
