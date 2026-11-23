@@ -31,3 +31,12 @@ print(result["ipa"], result["ukrainian"], result["status"])
 ## Research-only typed external candidates
 
 The optional Python `HybridKhmerEngine` is a separate diagnostic wrapper. It runs `RuleBasedKhmerEngine` first and preserves its final IPA/Ukrainian result. Explicitly injected providers must return structured metadata and pass through `validate_ipa_candidate`; bare strings are rejected. Candidate priority is display/execution ordering only. No provider is enabled by default and no candidate is promoted. See [hybrid API contract](hybrid-engines.md).
+
+
+## Браузерне виконання без блокування інтерфейсу — 2026-11-23
+
+Детермінований IPA-first рушій тепер запускається в окремому Web Worker через `src/khmer-engine-client.js` та `src/khmer-engine.worker.js`. Worker імпортує той самий локальний `convert()` із `src/main.js`, тому не створює другої реалізації правил і не змінює семантику IPA/українського результату. Мережевих запитів для обчислення немає; текст передається лише між головним потоком і Worker у межах вкладки.
+
+Клієнт використовує локальний синхронний `convert()` як fail-safe, якщо Worker недоступний або повернув помилку. Номер ревізії рендерингу відкидає застарілі відповіді при швидкому наборі тексту. Романізаційний шлях лишається окремим і не підміняє IPA-first фонетичний рушій.
+
+Це оптимізація чуйності інтерфейсу, а не нова фонологічна модель і не доказ точності. Паритет Python↔JavaScript, ширше покриття та незалежна експертна IPA-ад'юдикація залишаються окремими критеріями.
