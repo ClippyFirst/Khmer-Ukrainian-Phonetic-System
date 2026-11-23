@@ -1,7 +1,7 @@
 import { convert, tokenize } from "../src/khmer-engine-core.js";
 import fs from "node:fs";
 import { mapIpa } from "../src/ukrainian-practical.js";
-import { segmentKhmerWordsDetailed, segmentKhmerWordsCandidates } from "../src/khmer-word-segmenter.js";
+import { segmentKhmerWordsDetailed, segmentKhmerWordsCandidates, describeWordSegmentation } from "../src/khmer-word-segmenter.js";
 
 const html = fs.readFileSync("index.html", "utf8");
 const systemHtml = fs.readFileSync("system.html", "utf8");
@@ -260,6 +260,12 @@ if (candidateResult.word_segmentation.candidate_runs[0]?.chunks[0]?.method !== "
       !== "កម"
     || !candidateResult.word_segmentation.score_note.includes("not probabilities")) {
   throw new Error("browser result must expose non-probabilistic n-best segmentation diagnostics");
+}
+const longCandidateRun = "ម".repeat(129);
+if (segmentKhmerWordsCandidates(longCandidateRun, 3).length !== 0
+    || describeWordSegmentation([], new Set(), longCandidateRun).candidate_runs[0]?.chunks[0]?.method
+      !== "DIAGNOSTICS_SKIPPED_LENGTH_LIMIT") {
+  throw new Error("n-best diagnostics must be bounded without changing long-run tokenization");
 }
 const chaktomukCandidates = convert("ក្រុងចតុម្មុខ", "khmer-pph-careful-citation-v1")
   .word_segmentation.candidate_runs[0]?.chunks ?? [];
