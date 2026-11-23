@@ -1,0 +1,72 @@
+{
+  "schema": "khmer-provisional-ipa-candidates/v1",
+  "source_artifact": {
+    "workflow_run_id": 45080727416,
+    "artifact_id": 14777495017,
+    "created_at": "2026-11-22T23:00:30Z",
+    "sha256": "b9f2ba7aceab2a84fa39156d132d7177e5603403f4cf436d7d98ae4e49f3495"
+  },
+  "entries": {
+    "កម្ពុជាប្រជាធិបតេយ្យ": {
+      "selected_provider": "khmer-phonemizer",
+      "selection_policy": "FIRST_MAPPABLE_OR_FIRST_VALID_CONFIGURED_PROVIDER; provider order is diagnostic triage, not accuracy or voting",
+      "candidates": [
+        {
+          "provider": "khmer-phonemizer",
+          "ipa": "kampuciə prɑciətʰɨppaʔtaj",
+          "ukrainian_candidate": "кампутьіє пратьієт'иппатай",
+          "status": "PROVISIONAL",
+          "profile": "khmer-pph-careful-citation-v1",
+          "profile_match": "UNVERIFIED",
+          "kind": "PHONETIC_BROAD",
+          "uncertainty": [
+            "External G2P candidate; not independently adjudicated.",
+            "Dialect, style and segmental conventions have not been demonstrated equivalent to the project's Phnom Penh careful-citation profile.",
+            "Token-level output does not establish lexical stress, tone or narrow phonetic detail.",
+            "Candidate selected by configured provider order, not by measured accuracy or majority vote."
+          ],
+          "provenance": {
+            "engine": "khmerphonemizer",
+            "package_version": "0.0.3",
+            "license": "MIT",
+            "tokens": [
+              "កម្ពុជា",
+              "ប្រជាធិបតេយ្យ"
+            ],
+            "inference_parameters": "package phonemize() defaults; public word-level wrapper does not accept beam overrides"
+          }
+        },
+        {
+          "provider": "mekongphon",
+          "ipa": "kampucieprɑcietʰiʔpaʔtay",
+          "ukrainian_candidate": null,
+          "ukrainian_mapping_failure": "y",
+          "status": "PARTIAL",
+          "profile": "khmer-pph-careful-citation-v1",
+          "profile_match": "UNVERIFIED",
+          "kind": "PHONETIC_BROAD",
+          "uncertainty": [
+            "External model output has not been independently adjudicated for this profile.",
+            "Training/evaluation split independence is NOT_ESTABLISHED.",
+            "Tone coverage is not evaluated by the pron_no_tones model output."
+          ],
+          "provenance": {
+            "engine": "byumatrixlab/khmer-ipa",
+            "revision": "20e069d384b240da76320e1569958568c12a54bc",
+            "device": "cpu",
+            "num_beams": 4,
+            "training_split_independence": "NOT_ESTABLISHED",
+            "tone_coverage": "NOT_EVALUATED_BY_pron_no_tones"
+          }
+        }
+      ],
+      "backend_failures": [
+        {
+          "provider": "epitran",
+          "reason": "unsupported non-IPA combining mark U+17BB at IPA offset 7",
+          "raw_output": "kɑːmpɔːុcɔːាɓrɔːcɔːាtʰɔːិɓɑːtɑːេjjɔː"
+        }
+      ]
+    }
+  }
+}
