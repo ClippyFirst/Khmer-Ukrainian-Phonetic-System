@@ -51,6 +51,9 @@ jobs:
       - name: Run Python and JavaScript consonant rule output parity tests
         run: npm run test:rule-parity
 
+      - name: Run Python and JavaScript consonant rule output parity tests
+        run: npm run test:rule-parity
+
       - name: Benchmark deterministic Python and JavaScript engines
         run: npm run bench:engine
 
