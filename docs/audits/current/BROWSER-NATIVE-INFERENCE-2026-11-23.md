@@ -202,3 +202,13 @@ The worker now imports `src/khmer-engine-core.js` directly; the DOM entry point 
 - Exact-tip tokenizer stress: 8,000 code points; trie 6.82 ms vs pre-trie 416.37 ms (61.1×) on that CI run. Synthetic tokenizer-only measurement; timing varies across CI hosts.
 - PR #520 remains open and mergeable for review. PR #519 remains open and untouched because it overlaps `src/main.js`, UI tests and canonical docs while representing a distinct Python hybrid-candidate feature. Neither PR was merged; no Pages deployment was run.
 - **Readiness:** browser-worker engineering and the tested JS subset are review-ready; the overall repository remains a beta/research prototype, not linguistically release-validated. Accuracy remains NOT_ASSESSED; OOV lexical segmentation, full rule/result parity and expert gold remain outstanding.
+
+
+## Final verified rule-output parity checkpoint — 2026-11-23
+
+- Current branch tip before this note: `ceb249214f318f26fd35a49983fc77c9138acc61`.
+- Exact-head Quality [45148897582](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45148897582) passed 455 Python tests + 70 subtests, Node checks, expanded 129-case structural parity (including full grapheme trace/provenance), 36-fixture lexical IPA/UA parity, 46-case consonant/register rule-output parity, both benchmarks and Vite build.
+- Exact-head Chromium [45148897606](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45148897606) passed 34/34.
+- Same-run engine microbenchmark: JS 0.4675 ms per 36-fixture batch vs Python 4.2747 ms, observed 9.14× ratio on the GitHub Actions runner. The Python research engine returns a richer structure/result contract; this is workload-specific, not a controlled algorithm-only or device guarantee.
+- Same-run tokenizer stress: 8,000 code points, trie 3.38 ms vs pre-trie 298.75 ms, 88.5×. Synthetic tokenizer-only comparison.
+- **Task ledger:** 129-case structural parity, 36-fixture IPA/UA parity, 46-case consonant/register rule-output parity, Worker fallback/race and both CI benchmarks = DONE_VERIFIED; complete contextual phonology and full output-schema parity = PARTIAL; lexical OOV segmentation = TODO; external model/data rights = BLOCKED.
