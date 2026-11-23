@@ -13,7 +13,8 @@ from typing import Any
 
 from .data import CONSONANTS
 from .normalize import normalize_khmer
-from .parser import analyze as analyze_structure, segment_syllables
+from .parser import analyze as analyze_structure
+from .word_segmenter import describe_word_segmentation, segment_words
 from .phonetic_result import PhoneticResult, PhoneticUnitResult, PhoneticUncertainty
 from .practical import map_ipa_string
 
@@ -93,7 +94,11 @@ def _tokenize_input(text: str) -> list[str]:
 
     def flush_chunk() -> None:
         if chunk:
-            units.extend(segment_syllables("".join(chunk)))
+            words = segment_words("".join(chunk))
+            for index, word in enumerate(words):
+                if index:
+                    units.append(" ")
+                units.append(word.text)
             chunk.clear()
 
     index = 0
@@ -417,6 +422,7 @@ class RuleBasedKhmerEngine:
             "reason": " ".join(reasons),
             "evidence": evidence,
             "units": rendered,
+            "word_segmentation": describe_word_segmentation(tokens, set(_LEXICON)),
             "phonetic_result": phonetic_result,
             "structure": structure.phonological_representation,
             "complete": complete,
