@@ -59,3 +59,20 @@ The exact pinned benchmark completed successfully in [GitHub Actions run 4522072
 | Exact sentence segmentations | 487 / 999 (48.75%) |
 
 This is a useful external agreement measurement, not target-profile segmentation accuracy. Precision is lower than recall, so the current system tends to introduce too many boundaries relative to this corpus. The score must not be generalized beyond this dataset's annotation convention, and possible overlap with FineWeb-2 source texts remains unknown. The project's target-profile segmentation accuracy stays `NOT ASSESSED`.
+
+
+## Extended word-level evaluation — 2026-11-23
+
+The evaluator now reports exact token-span precision/recall/F1 in addition to the original Khmer-only boundary metric. A token is correct only when both its start and end match one gold token span.
+
+- **All-token word-level:** includes punctuation and non-Khmer tokens, matching the complete 10,778-token inventory: 10,778 gold, 11,578 predicted, 9,002 true positives, 2,576 false positives, 1,776 false negatives; precision 77.75%, recall 83.52%, F1 **80.53%**; exact sentence matches 486/1,000.
+- **Khmer-only word-level:** excludes punctuation and non-Khmer tokens: 10,068 gold, 10,871 predicted, 8,336 true positives, 2,535 false positives, 1,732 false negatives; precision 76.68%, recall 82.80%, F1 **79.62%**; exact sentence matches 487/1,000.
+- **Khmer-only boundary-level (the original metric):** 8,752 gold boundaries, 9,538 predicted, 8,370 true positives, 1,168 false positives, 382 false negatives; precision 87.75%, recall 95.64%, F1 **91.53%**; exact sentence matches 487/999 sentences with at least one gold boundary.
+
+The Python and JavaScript evaluators now match **exactly for every sentence**, not just aggregate totals. The per-sentence prediction signature is SHA-256 `fd345cc72b5fea63854bec556cd0df4bbcd83fd2f3149d6ec50b271c09b5d4f5`. Verification: [PR run 45224355067](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45224355067); merged-main rerun is tracked separately in the canonical handoff.
+
+### Published comparison and limits
+
+Wen et al. (2024), [*UnifiedCut: A Simple and Efficient Neural Model for Thai, Burmese and Khmer Word Segmentation*](https://doi.org/10.3390/app142311435), report on the khPOS open test set word-level P/R/F1 of 96.9/97.3/97.1% for KhPOS and 98.3/98.7/98.5% for UnifiedCut. The paper defines word-level precision and recall by exact correctly segmented words and uses the PyThaiNLP benchmark module. Our all-token metric is the closest available comparison because it includes the full 10,778-token inventory, but it is **contextual rather than a strict reproduction**: the exact handling of annotation markers, punctuation, normalization and evaluator versions may differ. The Khmer-only 79.62% metric is a separate project diagnostic, not the paper's reported all-token score. Do not compare the 91.53% boundary F1 to the paper's word-level F1.
+
+The large gap is a useful warning that this deterministic dictionary segmenter is still a provisional baseline, not a substitute for a contextual statistical model or expert review. None of these scores measures pronunciation, IPA correctness, or segmentation accuracy for the project's contemporary Phnom Penh careful-citation profile. That target-profile accuracy remains **NOT ASSESSED**.
