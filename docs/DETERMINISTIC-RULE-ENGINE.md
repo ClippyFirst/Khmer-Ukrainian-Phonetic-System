@@ -51,3 +51,12 @@ The optional Python `HybridKhmerEngine` is a separate diagnostic wrapper. It run
 ## Перевірка гонки застарілих відповідей — 2026-11-23
 
 Chromium-тест штучно затримує першу відповідь Worker, після чого надсилає другий ввід. Пізня перша відповідь не перезаписує новіший результат завдяки `renderRevision`. На code head `c2dc56949ee519dfcdb13139e49002b92a3fa5bc` пройшли Quality [45136544361](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136544361) (453 Python tests + 70 subtests, Node, build) і Chromium [45136544247](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136544247) (34/34).
+
+
+## Токенізатор: паритет і швидкодія — 2026-11-23
+
+Браузерний токенізатор синхронізовано з Python щодо Unicode 18 §16: приголосний після підрядкового незалежного голосного (приклад `ផ្ឯម`) не створює автоматичної межі. Спільні очікувані межі зберігаються в `data/tests/tokenizer-parity.json` і перевіряються тестами обох середовищ. Також перевіряються змішані Khmer/Latin, числа, пунктуація, пробіли та ZWSP.
+
+Пошук лексичних fixture переведено на trie: найдовший fixture приймається лише тоді, коли за ним іде межа, і пошук не починається після COENG. Це прибирає повторне створення всього залишку рядка на кожній позиції.
+
+Відтворюваний benchmark: `npm run bench:tokenizer`. GitHub Actions / Node 24, 8 000 повторених кмерських приголосних: pre-trie median 352,89 ms; trie median 4,54 ms; 77,7× у цьому синтетичному stress-тесті. Це не вимірювання повного G2P, IPA чи реального текстового навантаження. Результат на точному head `abed3d7a4d0b3c3a9e94fa48a4e50b2819194d85`: Quality [45143908134](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45143908134), Chromium [45143908115](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45143908115) — 34/34.
