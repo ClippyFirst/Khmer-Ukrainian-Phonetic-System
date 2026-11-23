@@ -194,7 +194,7 @@ test("Krong Chaktomuk proper name renders the source-backed IPA proposal", async
   await expect(page.locator("#ipa-result")).toHaveText("/kroŋ/ /caʔ.tom.muk/");
   await expect(page.locator("#ua-result")).toHaveText("кронг тьатоммук");
   await expect(page.locator("#status")).toHaveText("PROPOSED · доказовий рівень B");
-  await expect(page.locator(".unit-source-locator")).toContainText("caʔ.tom.muk");
+  await expect(page.locator(".unit-source-locator").nth(1)).toContainText("caʔ.tom.muk");
 });
 
 test("unsupported grapheme is marked locally", async ({ page }) => {
