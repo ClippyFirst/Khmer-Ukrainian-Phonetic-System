@@ -6160,3 +6160,14 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - Same-head engine microbenchmark: JS 0.4304 ms/36 fixtures, Python 3.1987 ms/36, observed 7.43× JS/Python ratio on the CI runner. Output-contract differences remain, so treat as workload-specific only.
 - Tokenizer stress: 8,000 code points, trie 2.83 ms vs pre-trie 348.64 ms, 123.3× synthetic tokenizer-only comparison.
 - **Task ledger:** 46-case deterministic consonant/register output parity = DONE_VERIFIED; all vowel/subscript/contextual phonology and full output-schema parity = PARTIAL; OOV lexical segmentation remains TODO.
+
+
+## Final exact-tip verification — 2026-11-23
+
+- Final branch tip after parity, benchmark and audit/handoff updates: `ceb249214f318f26fd35a49983fc77c9138acc61`.
+- Exact-tip Quality [45148897582](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45148897582) passed: 455 Python tests + 70 subtests, Node checks, 129 expanded structural parity cases, 36 lexical IPA/UA fixtures, 46 consonant/register rule-output cases, both benchmarks and Vite production build.
+- Exact-tip Chromium [45148897606](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45148897606) passed 34/34, including Worker execution, worker-asset failure fallback and stale-response race.
+- Exact-tip 36-fixture benchmark: JS median 0.4675 ms/batch; Python 4.2747 ms/batch; observed 9.14× ratio on CI. This is workload-specific, not an apples-to-apples algorithm claim because output contracts still differ.
+- Exact-tip tokenizer stress: 8,000 code points; trie 6.82 ms vs pre-trie 416.37 ms (61.1×) on that CI run. Synthetic tokenizer-only measurement; timing varies across CI hosts.
+- PR #520 remains open and mergeable for review. PR #519 remains open and untouched because it overlaps `src/main.js`, UI tests and canonical docs while representing a distinct Python hybrid-candidate feature. Neither PR was merged; no Pages deployment was run.
+- **Readiness:** browser-worker engineering and the tested JS subset are review-ready; the overall repository remains a beta/research prototype, not linguistically release-validated. Accuracy remains NOT_ASSESSED; OOV lexical segmentation, full rule/result parity and expert gold remain outstanding.
