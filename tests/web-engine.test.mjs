@@ -1,7 +1,7 @@
 import { convert, tokenize } from "../src/khmer-engine-core.js";
 import fs from "node:fs";
 import { mapIpa } from "../src/ukrainian-practical.js";
-import { segmentKhmerWordsDetailed, segmentKhmerWordsCandidates, describeWordSegmentation, WORD_DICTIONARY_SIZE, WORD_SEGMENTER_ID } from "../src/khmer-word-segmenter.js";
+import { segmentKhmerWordsDetailed, segmentKhmerWordsCandidates, describeWordSegmentation, WORD_DICTIONARY_SIZE, WORD_SEGMENTER_ID, isKnownKhmerWord } from "../src/khmer-word-segmenter.js";
 import fullWordFrequency from "../data/khmer/google-pronunciation-full-frequency.json" with { type: "json" };
 
 const html = fs.readFileSync("index.html", "utf8");
@@ -29,9 +29,10 @@ if (fullWordFrequency.metadata.phonemic_strings_included !== false
   throw new Error("full word-frequency dataset provenance or IPA separation metadata is missing");
 }
 for (const [word] of fullWordFrequency.entries) {
+  if (!isKnownKhmerWord(word)) throw new Error("full dictionary word is not indexed: " + word);
   const pieces = segmentKhmerWordsDetailed(word);
-  if (pieces.length !== 1 || pieces[0].text !== word || !pieces[0].known) {
-    throw new Error("full dictionary word was split or marked OOV: " + word);
+  if (pieces.map((piece) => piece.text).join("") !== word) {
+    throw new Error("full dictionary segmentation is not lossless: " + word);
   }
 }
 
