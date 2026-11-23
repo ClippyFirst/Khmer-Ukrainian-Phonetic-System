@@ -792,7 +792,7 @@
   },
   {
     "id": "khpos-open-test-2017",
-    "type": "external_manually_segmented_word_boundary_benchmark",
+    "type": "external_manually_segmented_word_boundary_and_token_span_benchmark",
     "title": "khPOS Khmer POS Corpus — OPEN-TEST.word",
     "year": 2017,
     "url": "https://github.com/ye-kyaw-thu/khPOS/tree/0211405c145b0a340ad558569bd06c946b2296b4/corpus-draft-ver-1.0/data",
@@ -804,9 +804,9 @@
     "raw_token_count": 10778,
     "license": "CC BY-NC-SA 4.0",
     "status": "EXTERNAL_BENCHMARK_EVALUATED_NOT_TARGET_PROFILE_GOLD",
-    "scope": "The public OPEN-TEST.word split contains 1,000 manually word-segmented sentences from the khPOS POS-tagged corpus. The companion OPEN-TEST and OPEN-TEST.tag files have the same 1,000-line structure and matching per-line token counts. The benchmark reconstructs source orthography by removing the annotation joiners ~, _ and ^ while preserving each marked item as one gold token; it scores only boundaries between adjacent Khmer word tokens.",
+    "scope": "The public OPEN-TEST.word split contains 1,000 manually segmented sentences. The evaluator reports all-token exact spans (including punctuation/non-Khmer), Khmer-only exact word spans, and Khmer-only boundaries; it reconstructs orthography by removing annotation joiners ~, _ and ^ while preserving each marked item as one gold token.",
     "provenance": "Ye Kyaw Thu, Vichet Chea and Yoshinori Sagisaka (2017), 'Comparison of Six POS Tagging Methods on 12K Sentences Khmer Language POS Tagged Corpus', ONA 2017, Phnom Penh. The khPOS README acknowledges manual POS tagging by Sorn Kea and Leng Greyhuy.",
-    "limitations": "CC BY-NC-SA 4.0: use only for non-commercial evaluation with attribution and share-alike obligations; do not bundle, redistribute, or upload the corpus as a workflow artifact. The corpus combines news, economics, politics, student lists and voter lists; its target variety and tokenization policy are not specified as the project's contemporary Phnom Penh careful-citation profile. The benchmark is not target-profile gold. Possible overlap between khPOS source texts and FineWeb-2 frequency-training text has not been ruled out. Do not interpret its score as universal Khmer segmentation accuracy or as pronunciation/IPA accuracy.",
+    "limitations": "CC BY-NC-SA 4.0: use only for non-commercial evaluation with attribution and share-alike obligations; do not bundle, redistribute, or upload the corpus as a workflow artifact. The corpus combines news, economics, politics, student lists and voter lists; its target variety and tokenization policy are not specified as the project's contemporary Phnom Penh careful-citation profile. The benchmark is not target-profile gold. Possible overlap between khPOS source texts and FineWeb-2 frequency-training text has not been ruled out. Do not interpret its score as universal Khmer segmentation accuracy or as pronunciation/IPA accuracy. The exact-span evaluator now reports all-token word F1 (80.53%) and Khmer-only word F1 (79.62%) in addition to boundary F1 (91.53%). Wen et al. (2024) report 97.1% KhPOS and 98.5% UnifiedCut word-level F1 on the same named open test split; preprocessing and annotation-marker handling may differ, so this is contextual, not a strict head-to-head comparison. Do not compare boundary F1 with word-level F1.",
     "benchmark_result": {
       "workflow_run_id": 45220729721,
       "workflow_run_url": "https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45220729721",
@@ -823,9 +823,49 @@
       "boundary_precision": 0.8775424617320193,
       "boundary_recall": 0.9563528336380256,
       "boundary_f1": 0.9152542372881356,
-      "python_javascript_parity": "PASS_EXACT_AGGREGATE_COUNTS",
+      "python_javascript_parity": "PASS_EXACT_PER_SENTENCE",
       "target_profile_accuracy": "NOT_ASSESSED",
-      "limitations": "External manual annotation convention only; khPOS variety and compound token policy are not the project's target profile. FineWeb-2 overlap is unknown. No general Khmer segmentation accuracy or pronunciation accuracy claim."
+      "limitations": "External manual annotation convention only; khPOS variety and compound token policy are not the project's target profile. FineWeb-2 overlap is unknown. No general Khmer segmentation accuracy or pronunciation accuracy claim.",
+      "all_token_word_level": {
+        "gold": 10778,
+        "predicted": 11578,
+        "true_positive": 9002,
+        "false_positive": 2576,
+        "false_negative": 1776,
+        "precision": 0.777509068923821,
+        "recall": 0.8352198923733531,
+        "f1": 0.8053319019502594,
+        "exact_sentence_matches": 486
+      },
+      "khmer_word_level": {
+        "gold": 10068,
+        "predicted": 10871,
+        "true_positive": 8336,
+        "false_positive": 2535,
+        "false_negative": 1732,
+        "precision": 0.766810780976911,
+        "recall": 0.8279698053237982,
+        "f1": 0.796217584411863,
+        "exact_sentence_matches": 487
+      },
+      "prediction_signature_sha256": "fd345cc72b5fea63854bec556cd0df4bbcd83fd2f3149d6ec50b271c09b5d4f5",
+      "evaluator_workflow_run_id": 45224355067,
+      "evaluator_workflow_run_url": "https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45224355067",
+      "published_comparator": {
+        "paper": "Wen et al. (2024), UnifiedCut: A Simple and Efficient Neural Model for Thai, Burmese and Khmer Word Segmentation",
+        "doi": "10.3390/app142311435",
+        "khpos_published_word_level": {
+          "precision": 0.969,
+          "recall": 0.973,
+          "f1": 0.971
+        },
+        "unifiedcut_published_word_level": {
+          "precision": 0.983,
+          "recall": 0.987,
+          "f1": 0.985
+        },
+        "comparison": "CONTEXTUAL_NOT_STRICT_REPRODUCTION"
+      }
     }
   }
 ]
