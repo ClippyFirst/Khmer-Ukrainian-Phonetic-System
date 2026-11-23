@@ -6559,3 +6559,35 @@ This supersedes the earlier `DEFERRED` status for *conducting* a local tagger ex
 - The PR's remaining distinct work is primarily optional Python-side Khmer Phonemizer / Epitran / MekongPhon adapters, their optional dependencies, and raw-output smoke workflows. The current main already has the typed `HybridKhmerEngine` injection boundary but does not include those optional provider adapters.
 - The GitHub Pages app is static and has no Python runtime or deployed inference API. These adapters cannot serve live requests from the public browser as currently hosted. Their candidates are unadjudicated and remain provisional; no provider accuracy or target-profile match is established.
 - **Decision:** do not merge or rebase PR #519 blindly, do not force-update or close its branch, and do not port its provider adapters into the public runtime without a supported inference backend, explicit data/model-rights review, and independent IPA validation. Keep the PR open for later selective reconciliation. The existing public method switch remains the accepted implementation on main.
+
+
+## Public service hosting and one-pass readiness closeout — 2026-11-23
+
+### Hosting state
+
+- **Hosting target:** GitHub Pages, canonical URL [https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/](https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/). README and both public HTML entry points use the canonical repository slug. This supersedes stale historical references that used the former trailing-hyphen slug; PR #550 normalized 1,011 such references and merged as `139c2673b461ab91e85143685574a23ed2f19d57`.
+- **Automatic deployment is configured:** `.github/workflows/pages.yml` runs on every push to `main` and on manual dispatch. It installs dependencies, runs `npm run check`, builds Vite, runs `npm run test:browser` against the production preview, uploads `dist/`, deploys with `actions/deploy-pages`, and then uses retrying `curl` requests to smoke-test the deployed root page, `system.html`, production JavaScript entry asset and CSS asset.
+- **Runtime model:** this is a static, client-side GitHub Pages application. The deterministic engine and Worker run in the visitor's browser; the same local engine is used as the Worker fallback. The page CSP sets `connect-src 'none'`. There is no hosted Python/API inference backend, external G2P call, user-input upload, account service or persistent server-side job. "Hosting the service" means hosting the static app and its browser runtime on GitHub Pages, not operating an always-on inference server.
+- **Prior live evidence:** the existing handoff records successful HTTP 200 checks for the canonical live HTML and the production JS, Worker, shared preload JS and CSS assets. Historical evidence is retained in the earlier deployment closeout section.
+- **Current deployment observation limitation:** after PR #550's documentation-only merge, the Pages workflow is configured to run from the resulting main push. The available GitHub connector in this session does not expose push-triggered workflow-run listing, and outbound HTTP/DNS access from this execution environment is unavailable. Therefore the post-#550 deployment result was **not independently observed in this session**; do not label that particular run PASS without its Actions record or a fresh public HTTP smoke test. No application source, dependency, or build configuration changed in PR #550.
+
+### Runtime verification evidence retained
+
+- Quality on the unchanged runtime code: 472 Python tests + 70 subtests passed; Node web checks and Vite build passed in the existing Quality workflow.
+- Chromium production preview: 36/36 passed in the existing browser workflow.
+- The Pages workflow itself includes a fresh production build, Chromium exercise, deploy, and post-deploy HTML/JS/CSS smoke. Its current run must be checked in Actions before asserting post-#550 deployment success.
+- Latest source-code verification evidence: Quality [45254285432](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45254285432); Chromium [45254285509](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45254285509). These ran on the source-identical code before the documentation-only PR #550.
+
+### One-pass readiness decision
+
+- **Hosting/configuration:** DONE_VERIFIED. GitHub Pages workflow and canonical URL are configured; previous live asset smoke evidence exists.
+- **Browser execution and automated regression coverage:** DONE_VERIFIED for the tested code revision. The service builds and exercises its browser runtime in Chromium.
+- **Linguistic validity:** PARTIAL / NOT EXPERT-VALIDATED. The service is a functional public beta, not a complete or accuracy-validated Khmer pronunciation authority. Independent IPA gold remains 0; empirical pronunciation accuracy remains NOT_ASSESSED. This cannot be honestly converted to DONE_VERIFIED by software-only changes.
+- **Production scope:** static client-side research service only. Do not imply hosted API, guaranteed availability/SLA, complete Khmer coverage, or expert-confirmed pronunciation.
+- **Next release blocker:** independently adjudicated IPA pilot and manual accessibility review. If no outside specialists are available, retain explicit uncertainty and public-beta status; do not manufacture gold labels or claim complete accuracy.
+
+### Final repository closeout for this run
+
+- Starting main: `0b27aa73f1f3b0742dee579c043236c3145d358e`.
+- PR #550 merged: `139c2673b461ab91e85143685574a23ed2f19d57`.
+- No runtime source, model, dictionary, or deployment configuration was changed in the hosting closeout. The remaining inability to verify the post-#550 live deployment is an observability/network limitation, not evidence of deployment failure.
