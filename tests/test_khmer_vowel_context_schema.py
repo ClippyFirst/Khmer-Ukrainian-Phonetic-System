@@ -63,3 +63,18 @@ def test_context_dimensions_have_resolvable_sources_and_explicit_boundaries():
         # Context findings are not lexical gold or permission to infer a
         # deterministic output from an incomplete cross-product.
         assert len(item["implementation"]) >= 20, item["id"]
+
+
+def test_source_attested_coda_examples_without_word_level_ipa_stay_unresolved():
+    register = load_json(REGISTER)
+    cases = {case["id"]: case for case in register["cases"]}
+
+    for case_id in ("KHV-010", "KHV-011", "KHV-012", "KHV-013", "KHV-014"):
+        case = cases[case_id]
+        assert case["ipa_source"] == "r12a-orthography"
+        assert case["status"] == "SOURCE_ATTESTED_NOT_GOLD"
+        assert case["ipa"] is None
+        assert case["ukrainian_adaptation"] is None
+        assert case["ukrainian_status"] == "NOT_ESTABLISHED"
+        assert case["source_locator"]
+        assert case["limitations"]
