@@ -1,0 +1,99 @@
+name: Full Khmer lexicon rebuild
+
+on:
+  push:
+    branches:
+      - research/khmer-full-google-lexicon-rebuild-2026-11-23
+    paths:
+      - data/khmer/google-pronunciation-full.tsv
+      - .github/workflows/full-khmer-lexicon-build.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-full-lexicon:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        run: python -m pip install --disable-pip-version-check uv
+
+      - name: Check out pinned upstream builder
+        env:
+          UPSTREAM_REVISION: 31b72cd4665f69678fc835da2f501771e42f097a
+        run: |
+          git clone --filter=blob:none https://github.com/pheasaKhmer/khmer-engine.git "$RUNNER_TEMP/khmer-engine"
+          git -C "$RUNNER_TEMP/khmer-engine" checkout --detach "$UPSTREAM_REVISION"
+
+      - name: Verify bundled Google source and build full dictionary
+        working-directory: ${{ runner.temp }}/khmer-engine
+        run: |
+          mkdir -p data/raw
+          cp "${{ github.workspace }}/data/khmer/google-pronunciation-full.tsv" data/raw/google-km-lexicon.tsv
+          uv sync --locked --group data
+          uv run --locked --group data python scripts/build_data.py --raw data/raw --out "${{ runner.temp }}/khmer-full-build" --workers 8
+
+      - name: Validate generated full dictionary
+        env:
+          OUTPUT_DIR: ${{ runner.temp }}/khmer-full-build
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          output = Path(os.environ["OUTPUT_DIR"])
+          lexicon = output / "lexicon.tsv"
+          bigrams = output / "bigrams.tsv"
+
+          def data_rows(path):
+              return sum(1 for line in path.read_text(encoding="utf-8").splitlines()
+                         if line.strip() and not line.startswith("#"))
+
+          word_count = data_rows(lexicon)
+          bigram_count = data_rows(bigrams)
+          if word_count != 61980:
+              raise SystemExit(f"Expected 61,980 normalized words, got {word_count}")
+          if bigram_count < 1:
+              raise SystemExit("No bigram rows were generated")
+
+          summary = {
+              "upstream_repository": "https://github.com/pheasaKhmer/khmer-engine",
+              "upstream_revision": "31b72cd4665f69678fc835da2f501771e42f097a",
+              "google_source": "data/khmer/google-pronunciation-full.tsv",
+              "google_source_expected_sha256": "b3f2e700d07d6c01a4c8cac5aa2f13b9a66885668ac482cc0c513f73c56495e5",
+              "fineweb2_source_revision": "af9c13333eb981300149d5ca60a8e9d659b276b9",
+              "fineweb2_expected_sha256": "26ae4e654770b07e24a4ef6b8ef3a01c84076a920f1922ac014364ab411b84f0",
+              "normalized_word_rows": word_count,
+              "bigram_rows": bigram_count,
+              "lexicon_bytes": lexicon.stat().st_size,
+              "bigrams_bytes": bigrams.stat().st_size,
+              "lexicon_sha256": hashlib.sha256(lexicon.read_bytes()).hexdigest(),
+              "bigrams_sha256": hashlib.sha256(bigrams.read_bytes()).hexdigest(),
+              "status": "BUILD_VERIFIED"
+          }
+          (output / "build-summary.json").write_text(
+              json.dumps(summary, ensure_ascii=False, indent=2) + "\\n",
+              encoding="utf-8"
+          )
+          print(json.dumps(summary, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Upload reproducible full lexicon artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: khmer-full-lexicon-build
+          path: ${{ runner.temp }}/khmer-full-build/
+          if-no-files-found: error
+          retention-days: 14
