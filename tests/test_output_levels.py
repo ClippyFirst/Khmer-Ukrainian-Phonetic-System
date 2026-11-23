@@ -5,7 +5,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_shared_strictness_labels_preserve_existing_semantics():
     html = (ROOT / "index.html").read_text(encoding="utf-8")
-    engine = (ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    engine = (ROOT / "src" / "main.js").read_text(encoding="utf-8") + (ROOT / "src" / "khmer-engine-core.js").read_text(encoding="utf-8")
 
     assert '<option value="strict">Strict ·' in html
     assert '<option value="balanced" selected>Soft ·' in html
