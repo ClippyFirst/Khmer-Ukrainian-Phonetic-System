@@ -3,7 +3,7 @@ import { mapIpa } from "../src/ukrainian-practical.js";
 
 const html = fs.readFileSync("index.html", "utf8");
 const systemHtml = fs.readFileSync("system.html", "utf8");
-const js = fs.readFileSync("src/main.js", "utf8");
+const js = fs.readFileSync("src/main.js", "utf8") + "\n" + fs.readFileSync("src/khmer-engine-core.js", "utf8");
 const outputLevelStart = html.indexOf('<select id="output-level"');
 const outputLevelEnd = html.indexOf("</select>", outputLevelStart);
 const outputLevelSelector = outputLevelStart >= 0 && outputLevelEnd >= 0 ? html.slice(outputLevelStart, outputLevelEnd + 9) : "";
@@ -113,7 +113,7 @@ if (systemHtml.includes("<td>/c, cʰ/</td><td>ч</td>") || systemHtml.includes("
 console.log("web-engine structural tests: PASS");
 
 
-const sourceGuard = fs.readFileSync("src/main.js", "utf8");
+const sourceGuard = fs.readFileSync("src/khmer-engine-core.js", "utf8");
 if (/const\s+shifter\s*=\s*shifters\[0\]/u.test(sourceGuard)) throw new Error("register-shifter resolver uses an undefined shifters variable");
 if (!sourceGuard.includes("const shifter = structural[positions[0]]")) throw new Error("register-shifter resolver is not reading the structurally detected shifter");
 if (!sourceGuard.includes('fallback_status: "PROVISIONAL"')) throw new Error("provisional Khmer onset fallback is missing");
