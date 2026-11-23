@@ -6,6 +6,7 @@ from khmer_ua.word_segmenter import (
     WORD_DICTIONARY_SIZE,
     WORD_SEGMENTER_ID,
     segment_words,
+    segment_words_candidates,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -65,3 +66,61 @@ def test_engine_exposes_provisional_word_segmentation_without_claiming_pronuncia
     assert result["word_segmentation"]["oov_runs"] == 0
     assert result["word_segmentation"]["accuracy"] is None
     assert result["complete"] is False
+
+
+
+def test_ranked_candidates_are_lossless_distinct_and_keep_the_existing_best_path():
+    for source in ("កម", "ផ្ឯម", "ខ្ញុំស្រឡាញ់ប្រទេសកម្ពុជា", "សុខសប្បាយទេ"):
+        candidates = segment_words_candidates(source, 3)
+        assert candidates
+        assert len(candidates) <= 3
+        assert [item["cost"] for item in candidates] == sorted(item["cost"] for item in candidates)
+        assert len({
+            tuple((segment["text"], segment["known"]) for segment in item["segments"])
+            for item in candidates
+        }) == len(candidates)
+        assert all("".join(segment["text"] for segment in item["segments"]) == source for item in candidates)
+        best = segment_words(source)
+        assert candidates[0]["segments"] == [
+            {
+                "text": piece.text,
+                "known": piece.known,
+                "status": piece.status,
+            }
+            for piece in best
+        ]
+
+
+def test_candidate_limit_is_bounded_and_validated():
+    import pytest
+
+    with pytest.raises(ValueError, match="1 to 10"):
+        segment_words_candidates("កម", 0)
+    with pytest.raises(ValueError, match="1 to 10"):
+        segment_words_candidates("កម", 11)
+    with pytest.raises(ValueError, match="1 to 10"):
+        segment_words_candidates("កម", True)
+
+
+def test_candidate_diagnostics_protect_registered_lexical_spans():
+    result = RuleBasedKhmerEngine().analyze("ក្រុងចតុម្មុខ")
+    run = result["word_segmentation"]["candidate_runs"][0]
+    assert run["source"] == "ក្រុងចតុម្មុខ"
+    chunks = run["chunks"]
+    assert "".join(chunk["source"] for chunk in chunks) == run["source"]
+    protected = [chunk for chunk in chunks if chunk["method"] == "LEXICAL_FIXTURE_PROTECTED"]
+    assert any(chunk["source"] == "ចតុម្មុខ" for chunk in protected)
+    assert all(
+        "".join(segment["text"] for segment in candidate["segments"]) == chunk["source"]
+        for chunk in chunks
+        for candidate in chunk["candidates"]
+    )
+
+
+def test_candidate_diagnostics_are_explicitly_not_probabilities_or_accuracy():
+    result = RuleBasedKhmerEngine().analyze("កម")
+    diagnostics = result["word_segmentation"]
+    assert diagnostics["candidate_limit"] == 3
+    assert "not probabilities" in diagnostics["score_note"]
+    assert diagnostics["accuracy"] is None
+    assert diagnostics["candidate_runs"][0]["chunks"][0]["method"] == "DICTIONARY_VITERBI_NBEST"
