@@ -6079,3 +6079,11 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - Exact head `c0df000e179d6da16c05c78960ede774966bdcf7`: Quality [45145033315](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145033315) passed 455 Python tests + 70 subtests, Node checks, the new 8-case cross-runtime parity test, tokenizer benchmark and Vite build. Chromium [45145043709](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145043709) passed 34/34.
 - Same-head tokenizer stress benchmark: 8,000 code points; trie median 6.52 ms, pre-trie median 459.43 ms, 70.4×; about 1.23 million code points/s. CI-host variance is visible across runs; use this as a synthetic comparative stress result, not a universal speed guarantee.
 - **Task ledger:** eight-case cross-runtime structural parity = DONE_VERIFIED; malformed-COENG trace preservation = DONE_VERIFIED; complete Python↔JS structural/phonological parity = PARTIAL; broader fixture coverage and all independent-vowel structural forms remain TODO.
+
+
+## Independent-vowel structural parity — 2026-11-23
+
+- Extended the executable parity fixture set from eight to nine cases with a standalone Khmer independent vowel. The browser parser now records it as an established orthographic base with no consonant register/onset, matching Python's structural representation; no pronunciation is invented.
+- Exact head `8a2d86a85436ddec149cd55a7d1909ac0b2c7cc0`: Quality [45145337895](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145337895) and [45145346826](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145346826) passed: 455 Python tests + 70 subtests, Node checks, 9-case Python↔JS structural parity, tokenizer benchmark and Vite build. Chromium [45145346888](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145346888): 34/34 passed.
+- Tokenizer stress benchmark on this head: 8,000 code points; 6.26 ms trie median vs 466.00 ms pre-trie median, 74.4× in this synthetic test. This remains a tokenizer-only comparison, not a full phonology/G2P benchmark.
+- Current parity scope is still deliberately bounded: nine representative cases, not complete Unicode inventory or full end-to-end Python/JS result equality.
