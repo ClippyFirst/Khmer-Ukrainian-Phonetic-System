@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build-full-lexicon:
@@ -101,6 +101,51 @@ jobs:
           )
           print(json.dumps(summary, ensure_ascii=False, indent=2))
           PY
+
+      - name: Export normalized word frequencies into the repository
+        env:
+          OUTPUT_DIR: ${{ runner.temp }}/khmer-full-build
+          GITHUB_TOKEN: ${{ github.token }}
+          TARGET_BRANCH: ${{ github.ref_name }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          source = Path(os.environ["OUTPUT_DIR"]) / "lexicon.tsv"
+          entries = []
+          with source.open(encoding="utf-8") as lines:
+              for line in lines:
+                  if line.startswith("#") or not line.strip():
+                      continue
+                  word, count, *_ = line.rstrip("\\n").split("\\t")
+                  entries.append({"word": word, "count": int(count)})
+
+          if len(entries) != 61980 or len({row["word"] for row in entries}) != 61980:
+              raise SystemExit(f"Unexpected frequency rows or duplicates: {len(entries)}")
+
+          payload = {
+              "schema_version": 1,
+              "dataset_id": "google-khmer-fineweb2-full-word-frequencies-v1",
+              "upstream_builder": "https://github.com/pheasaKhmer/khmer-engine/tree/31b72cd4665f69678fc835da2f501771e42f097a",
+              "google_lexicon_sha256": "b3f2e700d07d6c01a4c8cac5aa2f13b9a66885668ac482cc0c513f73c56495e5",
+              "fineweb2_test_split_sha256": "26ae4e654770b07e24a4ef6b8ef3a01c84076a920f1922ac014364ab411b84f0",
+              "google_lexicon_license": "CC BY 4.0",
+              "frequency_data_license": "ODC-By 1.0",
+              "entries": entries,
+          }
+          destination = Path(os.environ["GITHUB_WORKSPACE"]) / "data/khmer/google-khmer-word-frequencies.json"
+          destination.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\\n", encoding="utf-8")
+          print(f"Wrote {len(entries):,} words ({destination.stat().st_size:,} bytes)")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/khmer/google-khmer-word-frequencies.json
+          if ! git diff --cached --quiet; then
+            git commit -m "data: add reproducible full Khmer word frequencies"
+            git push origin "HEAD:${TARGET_BRANCH}"
+          fi
 
       - name: Upload reproducible full lexicon artifact
         uses: actions/upload-artifact@v4
