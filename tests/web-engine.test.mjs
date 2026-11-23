@@ -131,8 +131,8 @@ if (!sourceGuard.includes("Khmer combining structure cannot begin a standalone o
 if (sourceGuard.includes("if (!raw || !isKhmerConsonant(raw[0])) return { status: \"NOT_ESTABLISHED\", raw };")) throw new Error("malformed-leading-unit guard is too permissive");
 console.log("adversarial source guards: PASS");
 
-if (!sourceGuard.includes("FIXTURE_TRIE") || !sourceGuard.includes("node.value && isSeparator(chars[cursor + 1])")) throw new Error("verified lexical spans are not prioritized through deterministic trie matching");
-if (!sourceGuard.includes("node.value && isSeparator(chars[cursor + 1])")) throw new Error("fixture span boundary guard missing");
+if (!sourceGuard.includes("FIXTURE_TRIE") || !sourceGuard.includes("isMultiClusterFixture(node.value)")) throw new Error("verified multi-cluster lexical spans are not prioritized through deterministic trie matching");
+if (!sourceGuard.includes("isKhmerConsonant(chars[cursor + 1])")) throw new Error("concatenated Khmer fixture boundary guard missing");
 if (!sourceGuard.includes("units.push(fixtureKey)")) throw new Error("fixture span is not preserved as a unit");
 console.log("lexical-span tokenization guards: PASS");
 
