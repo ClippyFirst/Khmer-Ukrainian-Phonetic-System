@@ -119,7 +119,7 @@ jobs:
               for line in lines:
                   if line.startswith("#") or not line.strip():
                       continue
-                  word, count, *_ = line.rstrip("\\n").split("\\t")
+                  word, count, *_ = line.rstrip("\n").split("\t")
                   entries.append({"word": word, "count": int(count)})
 
           if len(entries) != 61980 or len({row["word"] for row in entries}) != 61980:
@@ -136,7 +136,7 @@ jobs:
               "entries": entries,
           }
           destination = Path(os.environ["GITHUB_WORKSPACE"]) / "data/khmer/google-khmer-word-frequencies.json"
-          destination.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\\n", encoding="utf-8")
+          destination.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
           print(f"Wrote {len(entries):,} words ({destination.stat().st_size:,} bytes)")
           PY
           git config user.name "github-actions[bot]"
