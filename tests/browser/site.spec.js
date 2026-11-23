@@ -321,7 +321,7 @@ test("unresolved Khmer phrase displays archived external IPA candidates with tra
   await expect(page.locator("#unit-details")).toContainText("mekongphon");
   await expect(page.locator("#unit-details")).toContainText("profile match UNVERIFIED");
   await expect(page.locator("#unit-details")).toContainText("Відхилені виходи провайдерів");
-  await expect(page.locator("#unit-details")).toContainText("Epitran");
+  await expect(page.locator("#unit-details")).toContainText("epitran");
   await expect(page.locator("#unit-details")).toContainText("Попередня українська форма:");
   await expect(page.locator("#unit-details")).toContainText("BGN/PCGN, не IPA");
 });
