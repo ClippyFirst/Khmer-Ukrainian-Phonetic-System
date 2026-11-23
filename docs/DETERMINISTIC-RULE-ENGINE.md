@@ -67,3 +67,12 @@ Chromium-тест штучно затримує першу відповідь Wo
 Python-рушій раніше міг вивести притаманну голосну серії для одиниці з `subscript_independent_vowels`, хоча браузерний рушій коректно утримував IPA через неповну структуру. Умова Python тепер явно забороняє такий висновок. Регресії в обох середовищах для `ផ្ឯម` підтверджують: одна орфографічна одиниця, канонічну IPA не встановлено, притаманна голосна не вгадується.
 
 На code head `224ad5e6530596912a69b334fe98ea7329330f96` Quality [45144332414](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45144332414) — 455 Python tests + 70 subtests; Chromium [45144332627](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45144332627) — 34/34. Trie benchmark: 8 000 code points, 2,96 ms vs 223,12 ms pre-trie, 75,3×; це синтетичний токенізаторний stress-test.
+
+
+## Автоматичний паритет Python↔JavaScript — 2026-11-23
+
+Додано `data/tests/structural-parity.json` як спільний набір входів, Python reference exporter `scripts/export_structural_parity.py`, Node comparator `tests/cross-runtime-structural-parity.mjs` та CI gate `npm run test:parity`. На кожному вході звіряються токенізація й поля структури: базовий приголосний, регістр, підрядкові приголосні/незалежні голосні, залежні голосні, статус і IPA початкового приголосного.
+
+Перший differential run знайшов розбіжність у malformed COENG: JS позначав послідовність некоректною, але втрачав уже розпізнаний базовий приголосний. Тепер структурний trace зберігає його та malformed tail, як Python. Набір із восьми випадків проходить на head `c0df000e179d6da16c05c78960ede774966bdcf7`: Quality [45145033315](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145033315), Chromium [45145043709](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45145043709) — 34/34.
+
+Повний семантичний паритет ще не заявляється: це початковий executable slice, який треба розширити незалежними голосними, складними кластерами, повними unit records і кінцевими IPA/UA результатами.
