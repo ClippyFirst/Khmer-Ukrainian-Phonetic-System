@@ -6191,3 +6191,13 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - Browser privacy run [45149575280](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45149575280): 35/35 passed, including the no-external-network-request assertion.
 - Exact-head engine microbenchmark: JS 0.4903 ms per 36-fixture batch, Python 4.9692 ms, 10.13× on this CI runner. The research engine returns richer structure metadata; this is not a controlled algorithm-only comparison. Tokenizer stress: 8,000 code points, 3.38 ms trie vs 298.75 ms pre-trie, 97.7× synthetic comparison.
 - **Task ledger:** inventory-wide structural + IPA withholding parity = DONE_VERIFIED; 36 lexical fixture and 46 consonant/register output parity = DONE_VERIFIED; browser local-only privacy regression = DONE_VERIFIED; full contextual phonology/result schema = PARTIAL; OOV word segmentation = TODO; external model/data rights = BLOCKED.
+
+
+## IPA establishment/withholding parity and local-network regression — 2026-11-23
+
+- Extended the 129-case structural parity gate to run the full Python rule engine and browser `convert()` for each inventory case. It now compares unit count, status, normalized IPA (including whether IPA is withheld), and Ukrainian output whenever Python marks the unit PROPOSED. This prevents a structurally valid but unsupported vowel/subscript form from silently acquiring a browser-only IPA guess.
+- Added a Chromium regression that types Khmer after initial page load and asserts there are no external HTTP(S) requests during inference. This supplements the static no-network worker/client contract test.
+- Exact code head `338a3c0b2f941c264a3fb5f442e9b9d7156b9ee2`: Quality [45149642609](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45149642609) passed 455 Python tests + 70 subtests, 129 structural+IPA/status cases, 36 lexical fixtures, 46 consonant/register outputs, engine benchmark, tokenizer benchmark and Vite build. The same-head browser run was still running at checkpoint; previous code head `f0f806d8f9075a92cf8faa0d0d0876e9a90b6203` passed 35/35, including the new no-external-request test.
+- Same-head engine microbenchmark: JS 0.4903 ms/36 fixtures, Python 4.9692 ms/36, 10.13× observed ratio; workload-specific and not algorithm-only because result contracts differ.
+- Same-head tokenizer stress: 8,000 code points, trie median 4.89 ms vs pre-trie 478.02 ms, 97.7× synthetic tokenizer-only comparison.
+- **Task ledger:** 129-case structural + IPA withholding/status parity = DONE_VERIFIED; full result-schema parity and untested contexts remain PARTIAL; local no-external-request browser regression = DONE_VERIFIED; OOV word segmentation = TODO.
