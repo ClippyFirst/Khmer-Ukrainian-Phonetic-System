@@ -136,7 +136,7 @@ jobs:
               "entries": [[word, count] for word, count in full_counts.items()],
           }
           runtime_json.write_text(
-              json.dumps(runtime_dataset, ensure_ascii=False, separators=(",", ":")) + "\\n",
+              json.dumps(runtime_dataset, ensure_ascii=False, separators=(",", ":")),
               encoding="utf-8",
           )
           frequency_bytes = frequency.read_bytes()
