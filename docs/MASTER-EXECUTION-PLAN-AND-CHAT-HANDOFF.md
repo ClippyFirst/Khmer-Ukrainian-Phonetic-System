@@ -6708,11 +6708,12 @@ This supersedes the earlier `DEFERRED` status for *conducting* a local tagger ex
 | KHM-IPA-GOLD-001 | DEFERRED | User says expert gold work is not feasible/in scope now; accuracy remains NOT_ASSESSED, no fabricated labels |
 | KHM-ACCESSIBILITY-MANUAL-001 | DEFERRED | User says manual audit is not feasible/in scope now; no WCAG conformance claim |
 | KHM-PHON-CONTEXT-001 evidence matrix | PARTIAL, expanded | Nine context dimensions source-indexed and schema/test-covered; full lexical cross-product and general runtime rules remain incomplete |
-| Context-dimension schema and source-reference test | Implementation present; exact-head CI pending | Must pass Quality workflow on the resulting branch head |
+| Context-dimension schema, source-reference tests and generated-report integration | DONE_VERIFIED | Exact-head Quality passed; nine context rows exposed in both generated reports |
 | Runtime contextual vowel/coda implementation | TODO / evidence-limited | Needs exact lexical cases, positive/negative fixtures, profile qualification and Python/browser parity before promotion |
 
 ### Verification boundary
 
-- No local tests are claimed. The exact-head GitHub Actions Quality workflow must validate the new schema and test. Existing prior CI evidence for the branch does not validate these latest changes.
-- New Undermind deep literature search is running in workspace 4f071406-bdb4-4fd1-b93f-71b9d5ec661d, search path /analysis/Phnom Penh Khmer contextual vowel conditioning evidence matrix 2026. Review its final result before treating the literature sweep as complete.
+- No local tests are claimed. Exact-head CI on `5ecd53fa26d84f910761803967558129a9346867`: Quality [45280037870](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45280037870) — 477 passed + 70 subtests; Chromium [45280037890](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45280037890) — 39/39; external khPOS [45280037997](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45280037997), pinned Rust [45280037893](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45280037893), optional Khmer Phonemizer [45280037944](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45280037944) — all PASS.
+- A previous exact-head Quality run caught a literal escaped-newline syntax error in `scripts/coverage.py`; it was corrected in `5ecd53f`, and all checks above passed on that corrected head.
+- Undermind deep literature search completed. Workspace: https://app.undermind.ai/projects/4f071406-bdb4-4fd1-b93f-71b9d5ec661d?path=/analysis/Phnom%20Penh%20Khmer%20contextual%20vowel%20conditioning%20evidence%20matrix%202026. Its abstract-level summary is supplemented by full-text reading of Chem (2020), Mam et al. (2025) and Sak (1968), and direct public-source inspection of Ishida and Unicode.
 - PR #557 remains open and unmerged. No Pages deployment or release was performed.
