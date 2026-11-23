@@ -236,6 +236,7 @@ def _analyze_unit(unit: str) -> dict[str, Any]:
             syllable.get("status") == "ESTABLISHED_STRUCTURE"
             and syllable.get("base_consonant")
             and not syllable.get("subscripts")
+            and not syllable.get("subscript_independent_vowels")
             and not syllable.get("vowel_signs")
             and not syllable.get("independent_vowel")
         ):
