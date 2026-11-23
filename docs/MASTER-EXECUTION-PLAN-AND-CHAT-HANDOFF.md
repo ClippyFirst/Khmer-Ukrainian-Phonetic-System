@@ -6123,3 +6123,12 @@ Tier-B evidence classification PR #497 was squash-merged as b6e0e69638562e93cb5b
 - Exact code head `e584d986a7d7fe9ac177709374c29bd4298e93f2`: Quality [45147094378](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147094378) passed 455 Python tests + 70 subtests, Node checks, 129-case structural parity, 36-fixture IPA/UA parity, tokenizer benchmark and Vite build. Chromium [45147094466](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147094466) passed 34/34.
 - Same-head 8,000-code-point tokenizer stress: trie median 3.23 ms, pre-trie 357.92 ms, 110.8×. Synthetic tokenizer-only comparison; no general G2P latency guarantee.
 - **Task ledger:** 129-case structural parity = DONE_VERIFIED; 36-fixture IPA/UA/status parity = DONE_VERIFIED; complete contextual phonology and full result-schema parity = PARTIAL; lexical word segmentation/OOV inference = TODO.
+
+
+## Lexical fixture parity extension — 2026-11-23
+
+- Added an executable Python↔JavaScript lexical parity gate: Python `RuleBasedKhmerEngine` exports every entry from the shared browser lexicon fixture set, and Node compares browser-engine per-unit source, IPA, Ukrainian adaptation, status and lexical-mapping agreement.
+- Coverage: **36/36 lexical fixtures** from `data/tests/web-fixtures.json`, including the negative multi-register-shifter entry and phrase-level examples. This is fixture parity, not proof of full Python/JS semantic equivalence or open-vocabulary G2P.
+- Exact code head `e584d986a7d7fe9ac177709374c29bd4298e93f2`: Quality [45147094378](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147094378) passed 455 Python tests + 70 subtests, Node checks, 129-case structural parity, 36-fixture lexical parity, tokenizer benchmark and Vite build. Browser [45147094466](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45147094466) passed 34/34, including local Worker, failed-asset fallback and stale-response race.
+- Same-head synthetic 8,000-code-point tokenizer stress: trie median 3.23 ms vs pre-trie 357.92 ms, 110.8× on the CI runner. Tokenizer-only synthetic measurement, not an end-to-end Khmer phonemizer benchmark.
+- **Task ledger:** lexical fixture IPA/UA/status parity = DONE_VERIFIED; full Python↔JS rule/result parity = PARTIAL; general lexical word segmentation/OOV remains TODO.
