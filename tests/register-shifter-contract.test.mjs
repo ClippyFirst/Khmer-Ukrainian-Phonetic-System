@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { parseSyllable } from "../src/main.js";
+import { parseSyllable } from "../src/khmer-engine-core.js";
 
 const fixture = JSON.parse(
   readFileSync(new URL("../data/tests/register-shifter-contract.json", import.meta.url), "utf8")
