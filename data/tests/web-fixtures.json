@@ -59,28 +59,44 @@
     "ipa": "/kəj/",
     "ua": "кей",
     "status": "PROPOSED",
-    "note": "Представницький серієвий контраст; українська форма є проєктною практичною пропозицією."
+    "note": "Представницький серієвий контраст; українська форма є проєктною практичною пропозицією.",
+    "evidence": [
+      "r12a-orthography"
+    ],
+    "source_locator": "Richard Ishida, Khmer (Cambodian) Orthography Notes, §Consonant registers, table “Examples of vowel pronunciation changes, depending on the class of the base consonant”, rows U+1780/U+1782 × U+17B8/U+17B6 (lines 237–243): https://r12a.github.io/scripts/khmr/km.html (updated 2026-04-27; accessed 2026-11-24). The source explicitly gives the listed IPA forms for these four open-syllable examples; it does not establish complete contextual coverage or independent Phnom Penh-profile adjudication."
   },
   "គី": {
     "source": "គី",
     "ipa": "/kiː/",
     "ua": "кі",
     "status": "PROPOSED",
-    "note": "Представницький серієвий контраст; українська форма є проєктною практичною пропозицією."
+    "note": "Представницький серієвий контраст; українська форма є проєктною практичною пропозицією.",
+    "evidence": [
+      "r12a-orthography"
+    ],
+    "source_locator": "Richard Ishida, Khmer (Cambodian) Orthography Notes, §Consonant registers, table “Examples of vowel pronunciation changes, depending on the class of the base consonant”, rows U+1780/U+1782 × U+17B8/U+17B6 (lines 237–243): https://r12a.github.io/scripts/khmr/km.html (updated 2026-04-27; accessed 2026-11-24). The source explicitly gives the listed IPA forms for these four open-syllable examples; it does not establish complete contextual coverage or independent Phnom Penh-profile adjudication."
   },
   "កា": {
     "source": "កា",
     "ipa": "/kaː/",
     "ua": "ка",
     "status": "PROPOSED",
-    "note": "Представницький серієвий контраст; українська форма є проєктною практичною пропозицією."
+    "note": "Представницький серієвий контраст; українська форма є проєктною практичною пропозицією.",
+    "evidence": [
+      "r12a-orthography"
+    ],
+    "source_locator": "Richard Ishida, Khmer (Cambodian) Orthography Notes, §Consonant registers, table “Examples of vowel pronunciation changes, depending on the class of the base consonant”, rows U+1780/U+1782 × U+17B8/U+17B6 (lines 237–243): https://r12a.github.io/scripts/khmr/km.html (updated 2026-04-27; accessed 2026-11-24). The source explicitly gives the listed IPA forms for these four open-syllable examples; it does not establish complete contextual coverage or independent Phnom Penh-profile adjudication."
   },
   "គា": {
     "source": "គា",
     "ipa": "/kiə/",
     "ua": "кіє",
     "status": "PROPOSED",
-    "note": "Представницький серієвий контраст; українська форма є проєктною практичною пропозицією; форму уточнено для українського читання /iə/."
+    "note": "Представницький серієвий контраст; українська форма є проєктною практичною пропозицією; форму уточнено для українського читання /iə/.",
+    "evidence": [
+      "r12a-orthography"
+    ],
+    "source_locator": "Richard Ishida, Khmer (Cambodian) Orthography Notes, §Consonant registers, table “Examples of vowel pronunciation changes, depending on the class of the base consonant”, rows U+1780/U+1782 × U+17B8/U+17B6 (lines 237–243): https://r12a.github.io/scripts/khmr/km.html (updated 2026-04-27; accessed 2026-11-24). The source explicitly gives the listed IPA forms for these four open-syllable examples; it does not establish complete contextual coverage or independent Phnom Penh-profile adjudication."
   },
   "ខ្ញុំ": {
     "source": "ខ្ញុំ",
