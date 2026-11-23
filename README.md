@@ -46,6 +46,8 @@ The browser service is:
 
 The browser phonetic path now runs in a local Web Worker. The UI and Worker share `src/khmer-engine-core.js`; if the Worker cannot start, the same deterministic JavaScript core runs locally as a fallback. Entered text is not sent to a server. CI checks Python↔JavaScript parity on 129 structural cases, 36 lexical fixtures and 46 consonant/rule cases; these subsets do not establish full result-schema parity or linguistic accuracy.
 
+The phonetic engine now segments continuous Khmer runs into **provisional word-boundary candidates** using a local frequency-weighted Viterbi dictionary (3,009 entries). It preserves unknown runs as OOV instead of treating every orthographic syllable as a lexical word. This makes sentence-level processing possible, but it is not a validated Khmer segmenter: no independent segmentation gold corpus or accuracy score exists. The bundled Google phonemic strings are retained with provenance and are **not** treated as project IPA. See [dataset attribution and limits](data/khmer/GOOGLE_PRONUNCIATION_SAMPLE_ATTRIBUTION.md).
+
 ## Scope
 
 Primary variety: contemporary Standard Khmer, with Phnom Penh-oriented pronunciation where evidence supports it.
