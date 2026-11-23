@@ -23,10 +23,10 @@ Adopt a native-first browser architecture modelled on the Thai repository: JavaS
 
 | Task | Status | Evidence / acceptance |
 |---|---|---|
-| Offload existing deterministic browser inference from UI thread | PARTIAL | Worker/client and UI integration committed; exact-head CI and browser evidence still required |
-| Keep all user text local | PARTIAL | Worker protocol is same-origin local messaging and contains no network API; verify built bundle and runtime network panel |
-| Prevent stale render overwrite during rapid input | PARTIAL | Monotonic render revision guard added; requires browser race/regression test |
-| Worker failure fallback | PARTIAL | Client falls back to the same local `convert()`; add simulated worker failure test |
+| Offload existing deterministic browser inference from UI thread | DONE_VERIFIED | Exact-head CI and Chromium confirm the local Worker path runs |
+| Keep all user text local in the inference path | DONE_VERIFIED | Worker/client use local messaging only; static contract test rejects network APIs in these modules. A separate manual network-panel audit remains optional follow-up |
+| Prevent stale render overwrite during rapid input | DONE_VERIFIED | Chromium race test deliberately delays the first Worker response and confirms it cannot overwrite the second input |
+| Worker failure fallback | DONE_VERIFIED | Chromium test aborts the Worker asset request and confirms the same local engine returns the result |
 | Full Python↔JavaScript structural/rule parity | TODO | Port missing Python semantics and establish shared fixtures with exact per-unit parity |
 | Native Khmer lexical segmentation/OOV model | TODO | Evaluate and pin tokenizer/model only after exact asset rights and parity are established |
 | Optional deterministic FST/WASM inference | DEFERRED | May be added if benchmark shows meaningful quality/speed improvement and asset rights are cleared |
@@ -35,11 +35,11 @@ Adopt a native-first browser architecture modelled on the Thai repository: JavaS
 
 ## Verification
 
-No local test/build/browser command was executed in this session because the local environment could not resolve GitHub for repository checkout. No passing CI or deployment is claimed here. Required next checks: full `npm test`, `npm run build`, Playwright browser suite, exact-head GitHub Actions, deployed Pages smoke and runtime network inspection. Merge only after exact-head checks pass.
+Local checkout was unavailable, so local commands are not claimed. GitHub Actions on exact code head `c2dc56949ee519dfcdb13139e49002b92a3fa5bc` passed Quality [45136544361](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136544361) and Chromium [45136544247](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136544247). Quality: 453 Python tests + 70 subtests, all Node checks and Vite production build passed. Chromium: 34/34 passed, including Worker execution, Worker asset failure fallback, and an intentionally delayed first response proving stale results cannot overwrite newer input. The Worker bundle is 124.02 kB. No Pages deployment or post-deploy smoke is claimed because the PR remains unmerged.
 
 ## Release assessment
 
-This is an incremental performance/UX improvement, not completion of the requested engine port. The repository remains a research/beta prototype; linguistic accuracy remains NOT_ASSESSED. The change is not release-ready until CI/build/browser checks pass. Full Python↔JavaScript parity and evidence-backed phonology remain separate acceptance gates.
+The Worker/UI engineering change is verified and ready for review, but the repository is not yet updated on `main` or deployed from this PR. This is not completion of the requested Python→JavaScript engine port: semantic parity, broader tokenizer/OOV integration and measured throughput remain open. The repository remains a research/beta prototype; linguistic accuracy is NOT_ASSESSED. Full Python↔JavaScript parity and evidence-backed phonology remain separate acceptance gates.
 
 
 ## Exact-head verification addendum
@@ -60,3 +60,10 @@ The deterministic engine has been extracted into `src/khmer-engine-core.js`. The
 ## Isolated core and final verification
 
 The worker now imports `src/khmer-engine-core.js` directly; the DOM entry point `src/main.js` imports the core for UI rendering. This avoids bundling the UI entry point into the Worker. Exact code head `9fd26941efb7e4936d921d700ee5215569449bda` passed Quality [45136120659](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136120659) and Chromium [45136120671](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136120671): 453 Python tests + 70 subtests, Node checks, Vite build, and 33 Chromium tests including Worker execution and failure fallback. Worker bundle reduced from 136.40 kB to 124.02 kB; this is not a throughput benchmark. The PR is unmerged; no Pages deployment is claimed.
+
+
+## Final code-head verification — 2026-11-23
+
+- Exact code head: `c2dc56949ee519dfcdb13139e49002b92a3fa5bc`.
+- Quality [45136544361](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136544361): 453 Python tests + 70 subtests; Node checks, worker contract and Vite build all passed.
+- Chromium [45136544247](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45136544247): 34/34 passed; worker execution, worker asset failure fallback and delayed stale-response race all passed.
