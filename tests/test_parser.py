@@ -204,3 +204,11 @@ def test_zwnj_does_not_split_a_khmer_orthographic_unit():
 
     source = "ប\u200C៊"
     assert segment_syllables(source) == [source]
+
+
+def test_unicode18_subscript_independent_vowel_keeps_following_coda_in_same_unit():
+    from khmer_ua.parser import segment_syllables
+
+    # Unicode 18 §16 example: a consonant after a subscript independent vowel
+    # is not an automatic orthographic syllable boundary.
+    assert segment_syllables("ផ្ឯម") == ["ផ្ឯម"]
