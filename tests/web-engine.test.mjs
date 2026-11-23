@@ -13,7 +13,7 @@ const adapterSource = fs.readFileSync("src/ukrainian-practical.js", "utf8");
 const policy = JSON.parse(fs.readFileSync("data/ukrainian/practical-policy.json", "utf8"));
 const fixtures = JSON.parse(fs.readFileSync("data/tests/web-fixtures.json", "utf8"));
 const adversarial = JSON.parse(fs.readFileSync("data/tests/adversarial-cases.json", "utf8"));
-const tokenizerParity = JSON.parse(fs.readFileSync("data/tests/tokenizer-parity.json", "utf8"));
+const wordSegmentationParity = JSON.parse(fs.readFileSync("data/tests/word-segmentation-parity.json", "utf8"));
 const vite = fs.readFileSync("vite.config.js", "utf8");
 
 for (const x of ["Content-Security-Policy", "src/main.js", 'id="source"', 'id="results"']) {
@@ -215,7 +215,7 @@ for (const x of ['<nav class="site-nav" aria-label="Основна навіга�
 if (!js.includes("function confidenceTier(item)") || !js.includes("доказовий рівень") || !js.includes("unit.confidence_tier")) throw new Error("evidence confidence tiers are not surfaced in the browser");
 
 // Shared expected boundaries are consumed by both Python and browser tests.
-for (const item of tokenizerParity.cases) {
+for (const item of wordSegmentationParity.cases) {
   const actual = tokenize(item.input);
   if (JSON.stringify(actual) !== JSON.stringify(item.units)) {
     throw new Error("browser/Python tokenizer parity mismatch for " + JSON.stringify(item.input)
