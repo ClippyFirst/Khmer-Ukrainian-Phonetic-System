@@ -6591,3 +6591,25 @@ This supersedes the earlier `DEFERRED` status for *conducting* a local tagger ex
 - Starting main: `0b27aa73f1f3b0742dee579c043236c3145d358e`.
 - PR #550 merged: `139c2673b461ab91e85143685574a23ed2f19d57`.
 - No runtime source, model, dictionary, or deployment configuration was changed in the hosting closeout. The remaining inability to verify the post-#550 live deployment is an observability/network limitation, not evidence of deployment failure.
+
+## Live regression fix: ក្រុងចតុម្មុខ — 2026-11-23
+
+### Reproduced defect
+- Opened the canonical public GitHub Pages service in a real browser and entered the exact user-reported input `ក្រុងចតុម្មុខ`.
+- Before the fix, the live result was IPA `⟦NOT_ESTABLISHED⟧ ⟦NOT_ESTABLISHED⟧`, Ukrainian `Кронг??? ???`, and a provisional orthographic fallback. The site was responsive, but the pronunciation pipeline withheld both lexical units.
+- Root cause: `data/tests/web-fixtures.json` explicitly required `ចតុម្មុខ` to have `ipa: null` and `NOT_ESTABLISHED`, even though lexical sources supported its syllabification and a standard IPA entry existed for the documented spelling variant `ចតុមុខ`. A full-phrase fixture was initially attempted, but it accidentally protected the entire phrase as one tokenizer unit; that was reverted. The final design preserves word segmentation and composes the two independently registered lexical fixtures.
+
+### Implementation and evidence
+- PR #552 merged as `07925e960a66905b0f9b3b61875cbafb6dcb7c10`.
+- Registered sources for `ក្រុង`, `ចតុមុខ`, and the exact spelling `ចតុម្មុខ`, including Khmer Wiktionary and the Phkasla/Chuon Nath cross-check.
+- Added separate lexical fixtures: `ក្រុង` → `/kroŋ/`; `ចតុម្មុខ` → `/caʔ.tom.muk/`. The latter is explicitly a spelling-variant inference: the exact spelling's lexical identity and syllabification are documented, while the IPA is sourced from the orthographic variant. The full phrase is compositional, not directly phrase-attested.
+- Both units flow through the existing IPA → Ukrainian adapter; no direct Khmer-grapheme-to-Ukrainian shortcut was introduced.
+- Public result after deployment: IPA `/kroŋ/ /caʔ.tom.muk/`; Ukrainian `кронг тьатоммук`; status `PROPOSED`, evidence tier B. This is not expert-adjudicated or a claim of universal pronunciation accuracy.
+
+### Verification
+- Quality checks on merged main: 472 Python tests + 70 subtests passed; Node web checks and production build passed.
+- Chromium browser smoke on merged main: 37/37 passed, including the new exact-input regression test.
+- GitHub Pages deployment workflow on merged main completed successfully, including its production-preview Chromium exercise and post-deploy HTML/JS/CSS smoke test.
+- Independently re-entered `ក្រុងចតុម្មុខ` in the live public service after deployment and observed the exact IPA, Ukrainian output, and PROPOSED status above.
+- Deployment workflow run: [45259540612](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45259540612).
+- Main remains a public beta. Independent expert IPA gold is still 0 and corpus-wide empirical pronunciation accuracy remains NOT_ASSESSED; this targeted regression does not change that readiness boundary.
