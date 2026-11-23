@@ -95,7 +95,7 @@ jobs:
               "status": "BUILD_VERIFIED"
           }
           (output / "build-summary.json").write_text(
-              json.dumps(summary, ensure_ascii=False, indent=2) + "\\n",
+              json.dumps(summary, ensure_ascii=False, indent=2),
               encoding="utf-8"
           )
           print(json.dumps(summary, ensure_ascii=False, indent=2))
