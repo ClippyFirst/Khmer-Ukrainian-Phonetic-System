@@ -1,3 +1,17 @@
+## Final beta engineering release — 2026-11-23
+
+- **DONE_VERIFIED — browser execution:** PR [#520](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/520) was squash-merged into `main` as `9ca91136c037a83271517a80de65d3896739d9ec`. The merged implementation adds `src/khmer-engine-core.js`, `src/khmer-engine-client.js` and `src/khmer-engine.worker.js`; the UI and Worker share the same deterministic JavaScript core, and Worker failure falls back locally to that core.
+- **Exact-head verification before merge:** Quality run [45162250546](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45162250546) SUCCESS: 455 Python tests + 70 subtests, web checks, 129 structural parity cases, 36 lexical fixtures, 46 consonant/rule-output cases, engine/tokenizer benchmarks and Vite production build. Chromium run [45162250521](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45162250521) SUCCESS: 35/35, including Worker execution, local fallback, no external requests after Khmer text entry and stale-response protection.
+- **Benchmarks (CI runner only):** 36-fixture warmed JS/Python batch benchmark reported 9.25× JS/Python timing ratio; synthetic trie stress benchmark reported 84.9× vs the pre-trie reference. These are workload-specific engineering measurements, not device latency guarantees or linguistic accuracy.
+- **DONE_VERIFIED — live Pages assets:** canonical site URL is [https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/](https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/). Live HTML returned HTTP 200 and referenced the production entry asset `service-yGSUMeDP.js`; the entry asset, Worker asset `khmer-engine.worker-CzSCGl0G.js`, shared preload JS and CSS each returned HTTP 200. The previous URL with a trailing hyphen returns 404; current README and both public pages now use the canonical repository/site slug.
+- **PR #519 reconciliation:** remains OPEN and untouched. After PR #520 merged, its branch is 73 commits ahead and 1 behind `main`, is marked non-mergeable, and overlaps `src/main.js`, browser tests and shared docs. Its method-switch / optional hybrid-provider behavior needs a deliberate rebase and semantic review; do not merge the stale branch wholesale.
+- **PARTIAL:** full Python↔JavaScript semantic/result-schema parity, contextual vowel/subscript/coda phonology, general lexical word segmentation/OOV inference and representative mobile latency remain incomplete.
+- **DEFERRED for public beta / BLOCKED for expert-validated claims:** independent expert-adjudicated IPA gold remains empty; empirical accuracy remains `NOT_ASSESSED`. Qualified independent annotators, adjudicator, approved profile-specific IPA convention and rights-cleared blind corpus are not available.
+- **TODO:** manual visual, keyboard, screen-reader and mobile accessibility QA. Automated Chromium smoke is not a manual WCAG assessment.
+- **Readiness:** `BETA_READY` for engineering/publication with explicit linguistic limitations; not production linguistic validation. No unsupported IPA, gold labels, accuracy score or uncleared third-party corpus/model was added.
+
+---
+
 ## Lao-style unresolved final-output marker — 2026-11-22
 
 - **DONE_VERIFIED — engineering/UI scope:** PR [#508](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/pull/508) merged to `main` as `35866ecf493bdd61e62fe3a7784893a6f94ef8eb`.
