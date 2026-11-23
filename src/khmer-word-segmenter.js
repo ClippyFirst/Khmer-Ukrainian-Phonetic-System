@@ -125,7 +125,7 @@ export function segmentKhmerWords(text) {
   return segmentKhmerWordsDetailed(text).map((item) => item.text);
 }
 
-export function describeWordSegmentation(units, fixtureKeys = new Set()) {
+export function describeWordSegmentation(units, fixtureKeys = new Set(), sourceText = "") {
   const tokens = units
     .filter((unit) => /[\u1780-\u17d3]/u.test(unit))
     .map((text) => ({
@@ -134,6 +134,31 @@ export function describeWordSegmentation(units, fixtureKeys = new Set()) {
         ? "LEXICAL_FIXTURE"
         : isKnownKhmerWord(text) ? "DICTIONARY_MATCH" : "OOV_RUN",
     }));
+  const candidateRuns = [...sourceText.matchAll(/[\\u1780-\\u17d3\\u17dd\\u200c\\u200d]+/gu)].map(([run]) => {
+    const protectedFixtures = [...fixtureKeys].filter((key) => {
+      if (!run.includes(key)) return false;
+      const { chars, bounds } = clusterStarts(key);
+      return bounds.length - 1 >= 2;
+    }).sort();
+    if (protectedFixtures.length) {
+      return {
+        source: run,
+        status: "LEXICAL_FIXTURE_PROTECTED",
+        protected_fixtures: protectedFixtures,
+        candidates: [],
+      };
+    }
+    return {
+      source: run,
+      status: "CANDIDATES_AVAILABLE",
+      protected_fixtures: [],
+      candidates: segmentKhmerWordsCandidates(run, 3).map((candidate, index) => ({
+        rank: index + 1,
+        ...candidate,
+      })),
+    };
+  });
+
   return {
     method: "DICTIONARY_VITERBI_CANDIDATE",
     engine: WORD_SEGMENTER_ID,
@@ -142,6 +167,9 @@ export function describeWordSegmentation(units, fixtureKeys = new Set()) {
     oov_runs: tokens.filter((item) => item.status === "OOV_RUN").length,
     accuracy: null,
     tokens,
+    candidate_limit: 3,
+    candidate_runs: candidateRuns,
+    score_note: "Candidate costs are uncalibrated negative-log frequency scores, not probabilities or confidence values.",
     note: "Word boundaries are provisional dictionary-Viterbi candidates; no independent segmentation accuracy has been measured for this project.",
   };
 }
