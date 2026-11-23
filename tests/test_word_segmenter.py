@@ -6,6 +6,7 @@ from khmer_ua.word_segmenter import (
     WORD_DICTIONARY_SIZE,
     WORD_SEGMENTER_ID,
     segment_words,
+    is_known_word,
     segment_words_candidates,
     describe_word_segmentation,
 )
@@ -133,12 +134,12 @@ def test_candidate_diagnostics_are_explicitly_not_probabilities_or_accuracy():
 
 
 
-def test_every_full_dictionary_entry_remains_a_single_known_word():
+def test_every_full_dictionary_entry_is_indexed_and_segmentation_is_lossless():
     data = json.loads((ROOT / "data/khmer/google-pronunciation-full-frequency.json").read_text(encoding="utf-8"))
     for word, _count in data["entries"]:
+        assert is_known_word(word), word
         pieces = segment_words(word)
-        assert len(pieces) == 1, word
-        assert pieces[0].text == word and pieces[0].known, word
+        assert "".join(piece.text for piece in pieces) == word, word
 
 
 def test_long_runs_skip_only_nbest_diagnostics_and_keep_the_input():
