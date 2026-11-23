@@ -3719,10 +3719,12 @@ The khPOS train/test and ALT corpora are CC BY-NC-SA 4.0. The 12,000-row train s
 - Runtime coverage is exact lexical lookup plus a narrow deterministic inherent-vowel path. The full dependent-vowel × consonant-series × coda × syllable-context matrix is not wired into a general rule generator. The 61,980-entry word/count dictionary is segmentation data, not pronunciation data. Unsupported structures are generally withheld; this is preferable to invented IPA, but it does not meet a broad automatic Khmer-to-IPA coverage expectation.
 - Acceptance: source-located and context-qualified rules for each promoted vowel/subscript/coda environment; exact positive/negative fixtures; Python/browser parity; independent specialist review; no blanket grapheme-to-Ukrainian shortcut.
 
-### KHM-FIXTURE-PROVENANCE-001 — PARTIAL
+### KHM-FIXTURE-PROVENANCE-001 — DONE_VERIFIED (four representative vowel fixtures only)
 
-- The runtime fixture file contains 38 entries, 37 with IPA. Four `PROPOSED` entries (`កី`, `គី`, `កា`, `គា`) have empty evidence arrays and no source locator. They currently carry only a representative-contrast note and must not be treated as source-verified tier B or gold.
-- Acceptance: add exact registered pronunciation-capable source IDs and source locators for the precise orthographic/profile environment, or withhold the IPA/UA values until such evidence is established. Do not invent citations.
+- The four previously uncited `PROPOSED` fixtures (`កី`, `គី`, `កា`, `គា`) now cite the registered specialist source `r12a-orthography` and carry an exact source locator to Richard Ishida's consonant-register contrast table, lines 237–243. The source explicitly lists /kəj/, /kiː/, /kaː/ and /kiə/ for the four open-syllable examples.
+- The fixture IPA values were not changed. Their status remains `PROPOSED`; the citation establishes source provenance for these examples, not independent Phnom Penh-profile adjudication, gold status, a universal vowel rule, or closed-syllable coverage.
+- Exact source: https://r12a.github.io/scripts/khmr/km.html (updated 2026-04-27; accessed 2026-11-24).
+- Acceptance for this bounded provenance task: registered source ID, exact source section/rows and fixture-level locator — satisfied. Broader lexical-fixture provenance and contextual-vowel coverage remain separate tasks.
 
 ### KHM-IPA-GOLD-001 — BLOCKED
 
