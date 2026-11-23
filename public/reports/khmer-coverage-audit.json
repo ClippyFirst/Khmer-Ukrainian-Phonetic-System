@@ -527,25 +527,120 @@
         "profile": "NOT_SPECIFIED_PER_CASE",
         "source_transcription": null,
         "length_evidence": "NOT_ESTABLISHED_NO_SOURCE_TRANSCRIPTION"
+      },
+      {
+        "case_id": "KHV-010",
+        "orthography": "ពាម",
+        "source_id": "r12a-orthography",
+        "source_role": "Specialist orthography/phonology synthesis; updated 2026-04-27",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "base_consonant_class": "second",
+        "dependent_vowel_sequence": [
+          "ា"
+        ],
+        "inherent_or_no_dependent_sign_context": false,
+        "subscript_sequence": [],
+        "register_shifter_sign": null,
+        "orthographic_coda_marker": "ម",
+        "phonological_syllable_type": "NOT_ESTABLISHED",
+        "profile": "NOT_SPECIFIED_PER_CASE",
+        "source_transcription": null,
+        "length_evidence": "NOT_ESTABLISHED_NO_SOURCE_TRANSCRIPTION"
+      },
+      {
+        "case_id": "KHV-011",
+        "orthography": "ពាំ",
+        "source_id": "r12a-orthography",
+        "source_role": "Specialist orthography/phonology synthesis; updated 2026-04-27",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "base_consonant_class": "second",
+        "dependent_vowel_sequence": [
+          "ា"
+        ],
+        "inherent_or_no_dependent_sign_context": false,
+        "subscript_sequence": [],
+        "register_shifter_sign": null,
+        "orthographic_coda_marker": "NIKAHIT U+17C6",
+        "phonological_syllable_type": "NOT_ESTABLISHED",
+        "profile": "NOT_SPECIFIED_PER_CASE",
+        "source_transcription": null,
+        "length_evidence": "NOT_ESTABLISHED_NO_SOURCE_TRANSCRIPTION"
+      },
+      {
+        "case_id": "KHV-012",
+        "orthography": "ខាត",
+        "source_id": "r12a-orthography",
+        "source_role": "Specialist orthography/phonology synthesis; updated 2026-04-27",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "base_consonant_class": "first",
+        "dependent_vowel_sequence": [
+          "ា"
+        ],
+        "inherent_or_no_dependent_sign_context": false,
+        "subscript_sequence": [],
+        "register_shifter_sign": null,
+        "orthographic_coda_marker": "ត",
+        "phonological_syllable_type": "NOT_ESTABLISHED",
+        "profile": "NOT_SPECIFIED_PER_CASE",
+        "source_transcription": null,
+        "length_evidence": "NOT_ESTABLISHED_NO_SOURCE_TRANSCRIPTION"
+      },
+      {
+        "case_id": "KHV-013",
+        "orthography": "ខាត់",
+        "source_id": "r12a-orthography",
+        "source_role": "Specialist orthography/phonology synthesis; updated 2026-04-27",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "base_consonant_class": "first",
+        "dependent_vowel_sequence": [
+          "ា"
+        ],
+        "inherent_or_no_dependent_sign_context": false,
+        "subscript_sequence": [],
+        "register_shifter_sign": null,
+        "orthographic_coda_marker": "ត",
+        "phonological_syllable_type": "NOT_ESTABLISHED",
+        "profile": "NOT_SPECIFIED_PER_CASE",
+        "source_transcription": null,
+        "length_evidence": "NOT_ESTABLISHED_NO_SOURCE_TRANSCRIPTION"
+      },
+      {
+        "case_id": "KHV-014",
+        "orthography": "ជ័រ",
+        "source_id": "r12a-orthography",
+        "source_role": "Specialist orthography/phonology synthesis; updated 2026-04-27",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "base_consonant_class": "second",
+        "dependent_vowel_sequence": [
+          "័"
+        ],
+        "inherent_or_no_dependent_sign_context": false,
+        "subscript_sequence": [],
+        "register_shifter_sign": null,
+        "orthographic_coda_marker": "រ",
+        "phonological_syllable_type": "NOT_ESTABLISHED",
+        "profile": "NOT_SPECIFIED_PER_CASE",
+        "source_transcription": null,
+        "length_evidence": "NOT_ESTABLISHED_NO_SOURCE_TRANSCRIPTION"
       }
     ],
     "case_counts": {
-      "cases_with_dependent_vowel": 4,
+      "cases_with_dependent_vowel": 9,
       "cases_with_explicit_length_mark": 4,
-      "cases_with_orthographic_coda_marker": 2,
+      "cases_with_orthographic_coda_marker": 7,
       "cases_with_source_transcription": 6,
       "cases_with_subscripts": 1,
       "cases_without_dependent_vowel": 5,
-      "cases_without_explicit_length_mark_or_ipa": 5,
-      "cases_without_explicit_profile": 9,
+      "cases_without_explicit_length_mark_or_ipa": 10,
+      "cases_without_explicit_profile": 14,
       "cases_without_orthographic_coda_marker": 7,
-      "cases_without_register_shifter": 9,
-      "cases_without_source_transcription": 3,
-      "cases_without_subscripts": 8
+      "cases_without_register_shifter": 14,
+      "cases_without_source_transcription": 8,
+      "cases_without_subscripts": 13
     },
     "evidence_status_counts": {
       "CONFLICTING_SOURCE_ANALYSES": 2,
-      "SOURCE_ATTESTED_NOT_GOLD": 7
+      "SOURCE_ATTESTED_NOT_GOLD": 12
     },
     "context_dimensions": {
       "base_consonant_class": "RECORDED_WHERE_PRESENT; not a complete lexical contrast set",
