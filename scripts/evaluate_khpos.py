@@ -235,6 +235,28 @@ def score_predictions(
     }
 
 
+def prediction_signature(
+    boundary_predictions,
+    all_token_predictions,
+    khmer_word_predictions,
+):
+    rows = [
+        [
+            sorted(boundaries),
+            [list(span) for span in sorted(all_tokens)],
+            [list(span) for span in sorted(khmer_words)],
+        ]
+        for boundaries, all_tokens, khmer_words in zip(
+            boundary_predictions,
+            all_token_predictions,
+            khmer_word_predictions,
+            strict=True,
+        )
+    ]
+    canonical = json.dumps(rows, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+    return hashlib.sha256(canonical).hexdigest()
+
+
 def download_corpus(destination: Path) -> bytes:
     request = urllib.request.Request(
         UPSTREAM_URL,
