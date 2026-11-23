@@ -303,6 +303,142 @@
       "limitations": [
         "The two transcriptions are retained as source-specific contrast examples, not an adjudicated dialect-normalized gold pair."
       ]
+    },
+    {
+      "id": "KHV-010",
+      "orthography": "ពាម",
+      "grapheme_structure": {
+        "base": "ព",
+        "dependent_vowels": [
+          "ា"
+        ],
+        "subscripts": [],
+        "register_shifter": null,
+        "coda": "ម"
+      },
+      "base_consonant_class": "second",
+      "register_condition": "second-series base ព + dependent vowel U+17B6 + written coda ម",
+      "phonological_interpretation": "R12A uses ពាម as the comparison form for ពាំ to illustrate that NIKAHIT changes the sound value of the vowel sign U+17B6.",
+      "ipa": null,
+      "ipa_source": "r12a-orthography",
+      "ukrainian_adaptation": null,
+      "ukrainian_status": "NOT_ESTABLISHED",
+      "evidence_level": "SOURCE_ATTESTED_NOT_GOLD",
+      "status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "Khmer Orthography Notes, §Coda diacritics, lines 1250–1258; comparison ពាម / ពាំ.",
+      "limitations": [
+        "The source uses the pair to illustrate a nucleus effect but does not provide a word-level IPA transcription here; IPA remains null.",
+        "Do not infer a general vowel value for every NIKAHIT combination."
+      ]
+    },
+    {
+      "id": "KHV-011",
+      "orthography": "ពាំ",
+      "grapheme_structure": {
+        "base": "ព",
+        "dependent_vowels": [
+          "ា"
+        ],
+        "subscripts": [],
+        "register_shifter": null,
+        "coda": "NIKAHIT U+17C6"
+      },
+      "base_consonant_class": "second",
+      "register_condition": "second-series base ព + dependent vowel U+17B6 + NIKAHIT U+17C6",
+      "phonological_interpretation": "R12A explicitly contrasts ពាំ with ពាម as an example of NIKAHIT changing the sound value of the vowel sign U+17B6.",
+      "ipa": null,
+      "ipa_source": "r12a-orthography",
+      "ukrainian_adaptation": null,
+      "ukrainian_status": "NOT_ESTABLISHED",
+      "evidence_level": "SOURCE_ATTESTED_NOT_GOLD",
+      "status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "Khmer Orthography Notes, §Coda diacritics, lines 1250–1258; comparison ពាម / ពាំ.",
+      "limitations": [
+        "The source does not provide a word-level IPA transcription for this token in the cited passage; IPA remains null.",
+        "NIKAHIT affects both coda and nucleus; do not model it as a generic independent vowel sign."
+      ]
+    },
+    {
+      "id": "KHV-012",
+      "orthography": "ខាត",
+      "grapheme_structure": {
+        "base": "ខ",
+        "dependent_vowels": [
+          "ា"
+        ],
+        "subscripts": [],
+        "register_shifter": null,
+        "coda": "ត"
+      },
+      "base_consonant_class": "first",
+      "register_condition": "first-series base ខ + dependent vowel U+17B6 + coda ត; no BANTOC",
+      "phonological_interpretation": "R12A uses ខាត as the long-vowel comparison for ខាត់ when explaining the shortening effect of U+17CB BANTOC.",
+      "ipa": null,
+      "ipa_source": "r12a-orthography",
+      "ukrainian_adaptation": null,
+      "ukrainian_status": "NOT_ESTABLISHED",
+      "evidence_level": "SOURCE_ATTESTED_NOT_GOLD",
+      "status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "Khmer Orthography Notes, §Vowel modifier marks, lines 332–348; comparison ខាត / ខាត់.",
+      "limitations": [
+        "The source gives a relative length example, not a word-level IPA transcription; IPA remains null.",
+        "Do not assign a numeric duration or infer all short/long outcomes from the spelling pair."
+      ]
+    },
+    {
+      "id": "KHV-013",
+      "orthography": "ខាត់",
+      "grapheme_structure": {
+        "base": "ខ",
+        "dependent_vowels": [
+          "ា"
+        ],
+        "subscripts": [],
+        "register_shifter": null,
+        "coda": "ត",
+        "coda_diacritic": "់"
+      },
+      "base_consonant_class": "first",
+      "register_condition": "first-series base ខ + dependent vowel U+17B6 + coda ត + BANTOC U+17CB",
+      "phonological_interpretation": "R12A states that U+17CB BANTOC basically shortens the preceding vowel and illustrates this with ខាត់ compared with ខាត.",
+      "ipa": null,
+      "ipa_source": "r12a-orthography",
+      "ukrainian_adaptation": null,
+      "ukrainian_status": "NOT_ESTABLISHED",
+      "evidence_level": "SOURCE_ATTESTED_NOT_GOLD",
+      "status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "Khmer Orthography Notes, §Vowel modifier marks, lines 332–348; comparison ខាត / ខាត់.",
+      "limitations": [
+        "The source gives a relative length example, not a word-level IPA transcription; IPA remains null.",
+        "Do not assign a numeric duration or infer all short/long outcomes from the spelling pair."
+      ]
+    },
+    {
+      "id": "KHV-014",
+      "orthography": "ជ័រ",
+      "grapheme_structure": {
+        "base": "ជ",
+        "dependent_vowels": [
+          "័"
+        ],
+        "subscripts": [],
+        "register_shifter": null,
+        "coda": "រ"
+      },
+      "base_consonant_class": "second",
+      "register_condition": "second-series base ជ + U+17D0 vowel modifier + final រ",
+      "phonological_interpretation": "R12A states that final រ is usually silent, but the combination U+17D0 + U+179A produces the sound ɔə; ជ័រ is the cited example.",
+      "ipa": null,
+      "ipa_source": "r12a-orthography",
+      "ukrainian_adaptation": null,
+      "ukrainian_status": "NOT_ESTABLISHED",
+      "evidence_level": "SOURCE_ATTESTED_NOT_GOLD",
+      "status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "Khmer Orthography Notes, §§Diphthongs and rhymes / Vowel modifier marks, lines 318–324 and 332–342.",
+      "limitations": [
+        "The source specifies the vowel sequence's sound but does not provide a full word-level IPA transcription here; IPA remains null.",
+        "Do not generalize this special U+17D0 + រ sequence to all final រ contexts."
+      ]
     }
   ],
   "coverage_policy": "Rows with ukrainian_adaptation=null are deliberate: the repository has a proposed segment adapter, but these word-level outputs have not been adjudicated and must not be presented as confident lexical transcriptions.",
