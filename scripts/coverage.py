@@ -32,7 +32,7 @@ def _nonempty_items(value):
     return [item for item in values if item is not None and str(item).strip()]
 
 
-def build_contextual_vowel_evidence(cases, sources, context_dimensions=None):
+def build_contextual_vowel_evidence(cases, sources, context_dimensions=None, coda_pattern_observations=None):
     """Expose exact case-level context while refusing to infer missing phonology.
 
     This is an evidence inventory, not a Cartesian prediction matrix. In particular,
@@ -118,6 +118,23 @@ def build_contextual_vowel_evidence(cases, sources, context_dimensions=None):
             for item in sorted(context_dimensions or [], key=lambda row: row["id"])
         ],
         "context_dimension_count": len(context_dimensions or []),
+        "source_backed_coda_pattern_observations": [
+            {
+                "id": item["id"],
+                "pattern": item["pattern"],
+                "base_consonant_class": item["base_consonant_class"],
+                "source_ipa": item["source_ipa"],
+                "source_id": item["source_id"],
+                "source_locator": item["source_locator"],
+                "evidence_status": item["evidence_status"],
+                "profile_scope": item["profile_scope"],
+                "ukrainian_adaptation": item["ukrainian_adaptation"],
+                "ukrainian_status": item["ukrainian_status"],
+                "limitations": item["limitations"],
+            }
+            for item in sorted(coda_pattern_observations or [], key=lambda row: row["id"])
+        ],
+        "coda_pattern_observation_count": len(coda_pattern_observations or []),
         "context_dimension_evidence_status_counts": dict(sorted(Counter(
             item["evidence_status"] for item in (context_dimensions or [])
         ).items())),
@@ -213,7 +230,8 @@ def build_report(signs, consonants, registers, evidence):
     status_counts = Counter(cell["status"] for cell in cells.values())
     conflict_cases = [case for case in cases if case.get("status") == "CONFLICTING_SOURCE_ANALYSES"]
     contextual_evidence = build_contextual_vowel_evidence(
-        cases, evidence.get("sources", {}), evidence.get("context_dimensions", [])
+        cases, evidence.get("sources", {}), evidence.get("context_dimensions", []),
+        evidence.get("coda_pattern_observations", [])
     )
     return {
         "schema_version": "1.0.0",
