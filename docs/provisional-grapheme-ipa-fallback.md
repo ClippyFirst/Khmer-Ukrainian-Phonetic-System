@@ -1,6 +1,6 @@
 # Provisional Khmer grapheme-to-IPA fallback
 
-Status: design contract; implementation pending.
+Status: **DONE_VERIFIED for the bounded onset-only preview contract**; full positional grapheme-to-IPA inventory remains **PARTIAL**.
 
 ## Purpose
 
@@ -8,9 +8,9 @@ Mirror the Lao hybrid's typed, low-confidence grapheme fallback without weakenin
 
 ## Required pipeline
 
-Khmer grapheme cluster / recognized positional unit → provisional IPA token(s) → the existing IPA-to-Ukrainian adapter → Ukrainian text with a visible `?` uncertainty marker.
+Khmer orthography → parser-confirmed onset IPA hint → existing IPA-to-Ukrainian adapter → primary IPA and Ukrainian preview with a trailing `???` marker for the unresolved remainder.
 
-Never map Khmer code points directly to Ukrainian letters. Provisional IPA must be typed `PROVISIONAL`, carry source grapheme, positional role, rule ID and evidence, and must not be counted as supported IPA in benchmarks.
+Never map Khmer code points directly to Ukrainian letters. The typed result stores the bare partial IPA and marks the Ukrainian value `IPA_DERIVED_PROVISIONAL`; the display appends `???` to both the IPA and Ukrainian onset preview. The trace carries source unit, onset position, rule ID and phonology evidence. Provisional results are not supported IPA and must not be counted in phonological coverage or accuracy benchmarks.
 
 ## Eligibility and limits
 
@@ -25,10 +25,10 @@ Never map Khmer code points directly to Ukrainian letters. Provisional IPA must 
 
 - `SUPPORTED`: normal engine path only.
 - `UNCERTAIN`: structurally complete IPA with a known uncertainty.
-- `PROVISIONAL`: grapheme-position hint, low confidence; append `?` to the Ukrainian rendering of the affected unresolved unit.
-- `UNKNOWN`: no registered IPA hint; render `?` only, with the source grapheme preserved in trace.
+- `PROVISIONAL`: parser-confirmed onset hint, low confidence; show `/onset/???` in the primary IPA display and the IPA-adapted onset plus `???` in Ukrainian.
+- `UNKNOWN`: no registered IPA hint; render `???` only, with the source grapheme and reason preserved in trace.
 
-Provisional values must not be promoted to canonical `ipa`, and must be excluded from IPA accuracy scoring. Browser and Python must return the same text and trace.
+Provisional onset values must not be promoted to a complete/canonical pronunciation and must be excluded from supported-IPA coverage and IPA accuracy scoring. The browser's typed result exposes bare partial IPA and `IPA_DERIVED_PROVISIONAL`; the visible result carries `???`. The current cross-runtime tests verify shared onset fixtures and structural parity, but do not establish full phonological accuracy.
 
 ## Acceptance
 
@@ -41,7 +41,14 @@ Provisional values must not be promoted to canonical `ipa`, and must be excluded
 
 ## Current evidence boundary
 
-The existing engine's partial Khmer parser and the practical IPA adapter are not themselves a source-backed grapheme fallback inventory. Do not manufacture IPA hints from the Ukrainian practical table. Until positional Khmer rules are registered and sourced, unsupported constructions remain `UNKNOWN`.
+The currently implemented fallback is deliberately narrower than a general grapheme fallback inventory:
+
+- It reuses the parser's registered onset IPA hint for a valid unit when full deterministic IPA is unavailable.
+- The 33-entry `data/khmer-positional-onset-evidence.json` register mirrors specialist-reference onset rows, but those rows are not independently adjudicated for the project pronunciation profile and the register is not a runtime rule source.
+- The engine does not emit provisional vowels, codas, coeng/subscript realizations, independent-vowel values, register-shifter realizations or tone through this fallback.
+- A known onset does not make the whole word known. For example, `ពាក់` displays `/p/???` and `п???`; any separate BGN/PCGN candidate such as `Пеак` is orthographic only, not pronunciation.
+
+Do not manufacture IPA hints from the Ukrainian practical table. The broader positional inventory and profile-matched phonetic evidence remain **PARTIAL / EVIDENCE-LIMITED**. Unsupported constructions without a registered onset hint remain explicitly unresolved.
 
 
 ## Implementation checkpoint — 2026-11-11
@@ -85,3 +92,15 @@ The user's explicit output contract requires the best supported approximate resu
 Regression example: `ពាក់` exposes `/p/???` and `п???`; its separate `Пеак` candidate is labelled BGN/PCGN-derived orthography, not pronunciation. This is a low-confidence onset preview, not a complete or adjudicated IPA transcription.
 
 This correction changes display behavior, not the evidence threshold for full IPA. Provisional hints remain excluded from supported-IPA coverage and accuracy scoring.
+
+
+## Superseding implementation and verification checkpoint — 2026-11-24
+
+The 2026-11-11 checkpoints above are historical and are superseded for the onset-only preview by PR [#558](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/558), head `4d100a35b9a39a01ddffdb87f1497a5f8c494846`.
+
+- The onset preview is surfaced in the primary result before the BGN/PCGN orthographic fallback; an orthographic candidate remains a separate diagnostic.
+- The parser-derived unresolved status is preserved and the full result remains incomplete. The typed target kind is `IPA_DERIVED_PROVISIONAL`.
+- `ពាក់` displays `/p/???` and `п???`; this is only the supported onset, not a complete pronunciation.
+- Exact-head Quality, Chromium browser smoke and external khPOS benchmark workflows passed: [45384743307](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45384743307), [45384743278](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45384743278), [45384743282](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45384743282).
+- **DONE_VERIFIED:** primary visibility of supported onset previews, `???` uncertainty rendering, orthographic/phonetic separation, and the covered browser/schema/runtime regressions.
+- **PARTIAL:** complete positional grapheme-to-IPA coverage, independently reviewed phonetic evidence for every hint, vowel/coda/coeng rules, and independent pronunciation accuracy. No gold labels or accuracy scores are inferred.
