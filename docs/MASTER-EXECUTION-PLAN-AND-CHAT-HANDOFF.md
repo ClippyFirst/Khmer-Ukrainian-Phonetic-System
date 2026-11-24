@@ -5,7 +5,7 @@
 - Current default-branch base: `de158a3fd47bc151b6f952b2a89c4e67360174fe` (includes merged PR #569).
 - Benchmark branch: `bench/khmer-cross-engine-mekongphon-20261125`.
 - PR: [#570](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/570).
-- Exact benchmark code head: `84830e3e8d2fe0c30e555ddef868ac864915fa52`.
+- Initial 100-word benchmark code head: `84830e3e8d2fe0c30e555ddef868ac864915fa52`; final two-source benchmark code/test head: `7a9f081795bcfcc5bc4c0b7d55179828cbe2a898` (subsequent PR commits are documentation/register updates only).
 - Initial four-engine 100-word MekongPhon run [45499595763](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45499595763): SUCCESS; aggregate-only artifact [14970916634](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45499595763/artifacts/14970916634).
 - Final two-source/four-engine run [45500823688](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45500823688): SUCCESS; aggregate-only artifact [14971017765](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45500823688/artifacts/14971017765). Exact-head Quality [45500823635](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45500823635) and Chromium [45500823563](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45500823563): SUCCESS.
 - Exact-head project Quality run [45499595556](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45499595556): SUCCESS (Python, JS/web, parity, engine/tokenizer benchmarks, production build).
