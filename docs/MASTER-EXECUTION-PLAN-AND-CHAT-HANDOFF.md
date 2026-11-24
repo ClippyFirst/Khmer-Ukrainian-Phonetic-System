@@ -1,15 +1,31 @@
-# Master execution plan and chat handoff — 2026-11-24
+# Master execution plan and chat handoff — 2026-11-25
 
-## Current continuation: Lao engine architecture alignment — 2026-11-24
+## Current continuation: shared Khmer IPA engine benchmark — 2026-11-25
+
+- Current default-branch base: `de158a3fd47bc151b6f952b2a89c4e67360174fe` (includes merged PR #569).
+- Benchmark branch: `bench/khmer-cross-engine-mekongphon-20261125`.
+- PR: [#570](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/570).
+- Initial 100-word benchmark code head: `84830e3e8d2fe0c30e555ddef868ac864915fa52`; final two-source benchmark code/test head: `7a9f081795bcfcc5bc4c0b7d55179828cbe2a898` (subsequent PR commits are documentation/register updates only).
+- Initial four-engine 100-word MekongPhon run [45499595763](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45499595763): SUCCESS; aggregate-only artifact [14970916634](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45499595763/artifacts/14970916634).
+- Final two-source/four-engine run [45500823688](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45500823688): SUCCESS; aggregate-only artifact [14971017765](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45500823688/artifacts/14971017765). Exact-head Quality [45500823635](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45500823635) and Chromium [45500823563](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45500823563): SUCCESS.
+- Exact-head project Quality run [45499595556](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45499595556): SUCCESS (Python, JS/web, parity, engine/tokenizer benchmarks, production build).
+- Same 100 MekongPhon inputs: project rules 95% non-empty / 94 partial / 74.61% CER; Khmer Phonemizer 100% / 25.71%; Epitran 100% / 114.73%; MekongPhon neural 100% / 12.54%. On 1,509 IPA-Dict forms filtered against visible MekongPhon train/eval files: project rules 58.38% coverage / 858 partial / 83.41% CER; Khmer Phonemizer 100% / 33.40%; Epitran 100% / 114.50%; MekongPhon neural 100% / 14.52%. Neural exact matches drop from 64% on the small MekongPhon set to 14.45% on IPA-Dict. These are source-attested diagnostics, **not accuracy**; independent adjudicated IPA gold remains 0.
+- Full methodology and findings: [KHMER-CROSS-ENGINE-BENCHMARK-2026-11-25.md](research/KHMER-CROSS-ENGINE-BENCHMARK-2026-11-25.md).
+- Key interpretation: the deterministic engine's low score is driven by 94 onset-only/partial outputs, not 94 full but wrong canonical pronunciations. It is evidence of insufficient productive vowel/coda coverage and an overly restrictive only-output path. MekongPhon is the strongest fallback candidate on this small sample; profile equivalence and rights remain unresolved.
+- NCKL/PhonSobon 38,629-pair pronunciation-respelling corpus is identified as a separate third benchmark source, but its targets are Khmer-script respellings rather than IPA and must be evaluated separately. IPA-Dict's 3,286-row Khmer list is the second IPA source; 1,509 words remained after filtering visible MekongPhon overlaps.
+- Production neural fallback remains BLOCKED: the static Pages app has no inference backend and browser CSP blocks network calls. Do not silently add a server, transmit user text or bundle unreviewed weights. Next acceptance gate: profile-matched expert pilot, source/model rights review, and explicit runtime/privacy design.
+
+
+## Previous task record (historical): Lao engine architecture alignment — 2026-11-24
 
 - Repository: `ClippyFirst/Khmer-Ukrainian-Phonetic-System`.
 - Starting `main`: `1b8649c4b874fbf34a66012d7e02aa1da04fb6da`.
 - Working branch: `feat/khmer-lao-engine-contract-parity-20261124`.
-- PR: [#568](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/568), ready for human review; exact-head workflows passed; no merge was performed.
+- PR [#568](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/568) was merged by squash as `50d22708a0bda8d47edfd476ae3ff3ed848d18f6`; PR #569 subsequently added the visible orthographic Ukrainian result and was merged as current base `de158a3fd47bc151b6f952b2a89c4e67360174fe`.
 - Reference architecture: `ClippyFirst/Lao-Ukrainian-Phonetic-System`, especially `docs/lao-grapheme-ipa-preview.md`.
 - Final source/test head: `f579e1444fbda2b186fdf8a04dc9f52f7ebc044e`. Subsequent commits through `3584ce714202c475f3e8f58cc69fe1f34530f9f0` update documentation, benchmark evidence, replica artifacts and handoff registers only. This final handoff refresh is documentation-only; the source/test head remains unchanged.
 - Local clone was unavailable because the container could not resolve `github.com`. Repository edits were made directly on this isolated GitHub branch. No local test pass is claimed.
-- No deployment, release tag, main-branch merge or external setting change was performed.
+- The #568 implementation and #569 result-card fix are on main; #569's Chromium verification passed. No formal release tag or external setting change was performed.
 
 ### Implemented architecture
 
@@ -51,7 +67,7 @@
 
 ### PR and branch reconciliation
 
-- PR #568 is this isolated architecture continuation; all exact-head automated workflows passed. It is ready for human review; no merge was performed. The PR is mergeable and based directly on the unchanged starting `main`.
+- PR #568 is historical and merged; it is no longer an open continuation branch. Its exact-head automated workflows passed before merge.
 - PR #519 remains open and untouched. It is a separate, diverged hybrid-inference change (73 commits ahead / 200 behind, reported non-mergeable); do not merge blindly.
 - Historical branches were not deleted or rewritten.
 - No public deployment or formal release was requested or performed.
