@@ -6751,3 +6751,38 @@ This supersedes the earlier `DEFERRED` status for *conducting* a local tagger ex
 - The Huffman title page says its copyright claim ends in 1975 and the work thereafter enters the public domain; attribution is retained, and this project has not performed a separate legal rights opinion.
 - Updated PPH-CTX-003, -011 and -012 with lexical source links and precise scope. The register now has 13 context dimensions, 15 pattern-level rhyme observations and 20 lexical source-transcription examples, while retaining the original 14 lexical case rows and 32-cell sign × series matrix.
 - Schema, generator, both report copies and regression tests now expose the pattern and lexical layers separately. No runtime IPA or Ukrainian rule was promoted.
+
+
+## Final evidence and verification update — 2026-11-24
+
+### Source-attributed lexical evidence
+
+- **20 lexical coda/REAHMUK examples** are now registered: 12 from Franklin E. Huffman's *Cambodian System of Writing and Beginning Reader* (1970; with assistance from Chhom-Rak Thong Lambert and Im Proum), plus 8 from Ishida's *Khmer Block Notes*. The earlier draft incorrectly named the 1970 source "Huffman & Jenner"; the attribution is corrected throughout the registry, reports, tests, handoff and PR.
+- **3 lexical stress-marker examples** from Huffman 1970 are separately registered: ស្រៈ /sraq/, ធុរៈ /thureăq/, and គណៈរដ្ឋមន្ត្រី /konaq-rŏətmuəntrey/. These illustrate the U+17C8 spelling convention for stressed syllables/junctures; they are not acoustic measurements of stress.
+- Huffman's transcription is explicitly stored as the author's phonological notation, not IPA. The source describes Standard Cambodian taught in schools/educated speech and explicitly distinguishes Phnom Penh colloquial speech (printed pp.6–7). R12A Block Notes state that its transcriptions vary from broad to narrow phonetic and phonemic according to available sources. Consequently all 23 source-transcription examples retain `ipa: null` and `ukrainian_adaptation: null`.
+- The register now contains **13 context dimensions**, **15 source-attested rhyme-pattern observations**, **20 lexical coda examples**, **3 lexical stress examples**, the existing **14 lexical case observations**, and the unchanged **32-cell** dependent-vowel × series matrix.
+
+### Engineering changes
+
+- Extended the register schema for pattern-level rhyme observations and distinct lexical coda/stress evidence arrays.
+- Extended the coverage generator and both canonical/public JSON reports; added tests for REAHMUK class contrasts, velar/non-velar environments, source transcription boundaries, stress marker examples, source attribution and report synchronization.
+- No deterministic IPA or Ukrainian runtime rule was added. The new material is evidence-layer data only; the full context model remains PARTIAL.
+
+### Exact-head verification
+
+Code/data/test head `967a357333f31f605eecaed530dc0a0020c09fb3`:
+
+- Quality: **484 passed + 70 subtests passed**; web checks, structural/lexical/consonant/segmentation parity, benchmarks and site build — PASS.
+- Chromium: **39/39 — PASS**.
+- External khPOS segmentation benchmark — PASS.
+- Pinned upstream Rust Khmer segmentation comparison — PASS.
+- Optional Khmer Phonemizer raw-output diagnostic — PASS; artifact ID `14908779235`, SHA-256 `5629e48f84037edb2df77917c7b5c7992681564d6b51f8cc4969e92455e3dc77`.
+- During iteration, CI caught stale generated-report ordering and two overly broad test assumptions about source transcription/profile scope. The report serialization order was corrected, tests were made source-specific, and the final exact-head run above passed. No test was disabled or weakened to hide a failure.
+
+### Status
+
+- Source-backed pattern/lexical evidence expansion: DONE_VERIFIED.
+- Runtime contextual phonology: PARTIAL; evidence is not yet sufficient for a full lexical cross-product or safe rule promotion.
+- Independent gold corpus and manual accessibility audit: DEFERRED by user instruction, not blockers.
+- Independent pronunciation accuracy: NOT_ASSESSED. Repository remains a research-ready partial prototype, not release-ready on linguistic accuracy grounds.
+- PR #557 remains open and unmerged; no public Pages deployment or release was performed.
