@@ -47,7 +47,8 @@
         "profile",
         "rule_trace",
         "provenance",
-        "uncertainty"
+        "uncertainty",
+        "typed_ipa"
       ],
       "properties": {
         "source": {
@@ -158,6 +159,126 @@
             "NOT_APPLICABLE"
           ],
           "description": "Identifies whether the Ukrainian string is derived from IPA or is a separately sourced provisional orthographic-romanization candidate."
+        },
+        "typed_ipa": {
+          "description": "Typed IPA boundary consumed by the sole Ukrainian target adapter. Null only for punctuation and non-linguistic pass-through.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/typedIpa"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "typedIpa": {
+      "type": "object",
+      "required": [
+        "phonemic_ipa",
+        "segments",
+        "syllable_boundaries",
+        "vowel_length",
+        "tone_category",
+        "tone_contour_ipa",
+        "status",
+        "provenance",
+        "uncertainty"
+      ],
+      "properties": {
+        "phonemic_ipa": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "segments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "ipa",
+              "kind",
+              "provenance",
+              "certainty"
+            ],
+            "properties": {
+              "ipa": {
+                "type": "string"
+              },
+              "kind": {
+                "enum": [
+                  "vowel",
+                  "consonant",
+                  "modifier",
+                  "boundary",
+                  "unknown"
+                ]
+              },
+              "provenance": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "certainty": {
+                "enum": [
+                  "SUPPORTED",
+                  "UNCERTAIN",
+                  "PROVISIONAL",
+                  "UNRESOLVED"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "syllable_boundaries": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "vowel_length": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tone_category": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tone_contour_ipa": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "enum": [
+            "SUPPORTED",
+            "UNCERTAIN",
+            "PROVISIONAL",
+            "UNRESOLVED"
+          ]
+        },
+        "provenance": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "uncertainty": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "additionalProperties": false
