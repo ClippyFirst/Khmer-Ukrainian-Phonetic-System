@@ -3183,3 +3183,13 @@ The prior status line in `docs/provisional-grapheme-ipa-fallback.md` still said 
 - **Regression example:** `ពាក់` → `/p/???`, `п???`; any separate `Пеак` remains orthographic-only. This is not a full-word pronunciation.
 - **Verification basis:** PR #558 exact head `4d100a35b9a39a01ddffdb87f1497a5f8c494846`; Quality run 45384743307, Chromium smoke 45384743278, external khPOS benchmark 45384743282 all passed. This documentation-only reconciliation does not change runtime code or claim linguistic accuracy.
 - **PR state:** #558 remains open, ready for review and mergeable. No merge or deployment was performed.
+
+
+## PR #558 integration and GitHub Pages deployment — 2026-11-24
+
+- PR #558 merged by squash into `main`: `baebc49901e2e3f0eb93f5969b3ccf1f5291b9e8` (base before merge `cbc19240899510066098bf15f16b946143905565`; PR head `590623c4afddf4413b9f834382609ce02d9f8315`).
+- Exact PR-head Quality, Chromium and external khPOS workflows passed: 45405383057, 45405383056, 45405383114.
+- GitHub Pages production workflow 45426890695 ran on the merge commit and completed successfully. Build job: `npm ci`, `npm run check`, `npm run build`, Chromium smoke, Pages artifact upload — all successful. Deploy job and its post-deployment smoke test for both HTML pages and generated JS/CSS assets — successful.
+- Live service verification: HTTP 200; entering `ពាក់` yields primary IPA `/p/???`, Ukrainian phonetic preview `п???`, and `NOT ESTABLISHED` / confidence C. The separate `Пеак` BGN/PCGN-derived orthographic candidate is explicitly not pronunciation.
+- Canonical host: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/ . No Vercel project exists or was created; no formal version release/tag was created.
+- Scope boundary: the onset-only preview is `DONE_VERIFIED`; full contextual phonology and full positional grapheme-to-IPA coverage remain `PARTIAL`; independent IPA gold count remains 0 and accuracy `NOT_ASSESSED`; manual accessibility audit remains `DEFERRED` under the user's earlier instruction. Status: hosted public beta / research-ready partial prototype, not a linguistically validated production standard.
