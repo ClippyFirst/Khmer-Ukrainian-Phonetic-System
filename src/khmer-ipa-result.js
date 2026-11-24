@@ -32,7 +32,7 @@ function makeResult({
   uncertainty = [],
   vowel_length = null,
 }) {
-  const value = {
+  return {
     phonemic_ipa,
     segments,
     syllable_boundaries: [0, segments.length],
@@ -43,18 +43,20 @@ function makeResult({
     provenance: [...provenance],
     uncertainty: [...uncertainty],
   };
-  value.toJSON = () => ({
-    phonemic_ipa: value.phonemic_ipa,
-    segments: value.segments.map((segment) => ({ ...segment })),
-    syllable_boundaries: [...value.syllable_boundaries],
-    vowel_length: value.vowel_length,
-    tone_category: value.tone_category,
-    tone_contour_ipa: value.tone_contour_ipa,
-    status: value.status,
-    provenance: [...value.provenance],
-    uncertainty: [...value.uncertainty],
-  });
-  return value;
+}
+
+export function serializePhoneticResult(result) {
+  return {
+    phonemic_ipa: result.phonemic_ipa,
+    segments: result.segments.map((segment) => ({ ...segment })),
+    syllable_boundaries: [...result.syllable_boundaries],
+    vowel_length: result.vowel_length,
+    tone_category: result.tone_category,
+    tone_contour_ipa: result.tone_contour_ipa,
+    status: result.status,
+    provenance: [...result.provenance],
+    uncertainty: [...result.uncertainty],
+  };
 }
 
 export function fromIpa(ipa, {
