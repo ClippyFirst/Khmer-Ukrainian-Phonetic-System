@@ -7,7 +7,7 @@
 - Working branch: `feat/khmer-lao-engine-contract-parity-20261124`.
 - PR: [#568](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/568), ready for human review; exact-head workflows passed; no merge was performed.
 - Reference architecture: `ClippyFirst/Lao-Ukrainian-Phonetic-System`, especially `docs/lao-grapheme-ipa-preview.md`.
-- Final source/test head: `f579e1444fbda2b186fdf8a04dc9f52f7ebc044e`. Subsequent commits through `40457ce26f023d7543e6944b9e81b8dc6266c33f` update documentation, benchmark evidence, replica artifacts and handoff registers only. This handoff refresh is also documentation-only.
+- Final source/test head: `f579e1444fbda2b186fdf8a04dc9f52f7ebc044e`. Subsequent commits through `3584ce714202c475f3e8f58cc69fe1f34530f9f0` update documentation, benchmark evidence, replica artifacts and handoff registers only. This final handoff refresh is documentation-only; the source/test head remains unchanged.
 - Local clone was unavailable because the container could not resolve `github.com`. Repository edits were made directly on this isolated GitHub branch. No local test pass is claimed.
 - No deployment, release tag, main-branch merge or external setting change was performed.
 
@@ -29,13 +29,13 @@
 |---|---|---|
 | Test-first RED for typed IPA model | DONE_VERIFIED | Initial PR-head Quality failure was the expected missing-module failure |
 | Test-first RED for CLI contract | DONE_VERIFIED | Initial CLI tests failed because CLI still called structural parser only |
-| Python suite | DONE_VERIFIED | 503 passed + 70 subtests in latest successful Quality run [45490428639](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428639) |
-| Browser deterministic checks | DONE_VERIFIED | Latest Quality run [45490428639](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428639); web engine, runtime, Worker, typed IPA adapter and CLI tests passed |
+| Python suite | DONE_VERIFIED | 503 passed + 70 subtests in exact PR-head Quality run [45491600216](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45491600216) |
+| Browser deterministic checks | DONE_VERIFIED | Exact PR-head Quality run [45491600216](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45491600216); web engine, runtime, Worker, typed IPA adapter and CLI tests passed |
 | Python/JavaScript parity | DONE_VERIFIED | 129 structural, 38 lexical, 46 consonant/rule and 6 segmentation fixtures passed; typed IPA fields are included in rule-output parity |
-| Benchmarks and Vite build | DONE_VERIFIED | Quality run [45490428639](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428639) |
-| Exact-head Chromium smoke | DONE_VERIFIED | [45490428728](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428728) passed 42/42 Playwright tests, including typed IPA detail disclosure |
-| Exact-head pinned Rust comparison | DONE_VERIFIED | [45490428786](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428786) passed |
-| External khPOS comparison | DONE_VERIFIED | [45490428814](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428814) passed |
+| Benchmarks and Vite build | DONE_VERIFIED | Exact PR-head Quality run [45491600216](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45491600216) |
+| Exact-head Chromium smoke | DONE_VERIFIED | [45491600082](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45491600082) passed 42/42 Playwright tests, including typed IPA detail disclosure |
+| Exact-head pinned Rust comparison | DONE_VERIFIED | [45491600143](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45491600143) passed |
+| External khPOS comparison | DONE_VERIFIED | [45491600273](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45491600273) passed |
 | Linguistic accuracy | NOT_ASSESSED | Independent adjudicated IPA gold corpus remains empty |
 
 ### Task ledger
