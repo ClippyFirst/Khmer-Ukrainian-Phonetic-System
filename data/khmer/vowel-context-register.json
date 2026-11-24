@@ -1289,5 +1289,67 @@
         "No Ukrainian adaptation is justified until the source transcription is normalized under the approved target-profile IPA convention."
       ]
     }
+  ],
+  "lexical_stress_examples": [
+    {
+      "id": "KHV-STRESS-001",
+      "orthography": "ស្រៈ",
+      "source_phonological_transcription": "/sraq/",
+      "transcription_system": "Huffman & Jenner phonological transcription; not IPA",
+      "gloss": "vowel",
+      "phonological_context": "U+17C8 YUKALEAPINTUQ marks a stressed syllable after a first-series consonant; -aq",
+      "source_id": "huffman-jenner1970",
+      "source_locator": "§VII.A.9, printed p.52, PDF text lines 2216–2225.",
+      "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target.",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "ipa": null,
+      "ukrainian_adaptation": null,
+      "ukrainian_status": "NOT_ESTABLISHED",
+      "limitations": [
+        "The transcription is the source's phonological notation, not IPA; do not normalize silently.",
+        "The examples document the use of U+17C8 as a stress-related spelling mark, not an acoustic measurement of stress.",
+        "Standard Cambodian source, not independently established for contemporary Phnom Penh careful-citation speech."
+      ]
+    },
+    {
+      "id": "KHV-STRESS-002",
+      "orthography": "ធុរៈ",
+      "source_phonological_transcription": "/thureăq/",
+      "transcription_system": "Huffman & Jenner phonological transcription; not IPA",
+      "gloss": "preoccupation",
+      "phonological_context": "U+17C8 YUKALEAPINTUQ marks a stressed syllable after a second-series consonant; -eăq",
+      "source_id": "huffman-jenner1970",
+      "source_locator": "§VII.A.9, printed p.52, PDF text lines 2216–2225.",
+      "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target.",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "ipa": null,
+      "ukrainian_adaptation": null,
+      "ukrainian_status": "NOT_ESTABLISHED",
+      "limitations": [
+        "The transcription is the source's phonological notation, not IPA; do not normalize silently.",
+        "The examples document the use of U+17C8 as a stress-related spelling mark, not an acoustic measurement of stress.",
+        "Standard Cambodian source, not independently established for contemporary Phnom Penh careful-citation speech."
+      ]
+    },
+    {
+      "id": "KHV-STRESS-003",
+      "orthography": "គណៈរដ្ឋមន្ត្រី",
+      "source_phonological_transcription": "/konaq-rŏətmuəntrey/",
+      "transcription_system": "Huffman & Jenner phonological transcription; not IPA",
+      "gloss": "cabinet",
+      "phonological_context": "U+17C8 occurs before an internal compound juncture; the source identifies the marked syllable as stressed",
+      "source_id": "huffman-jenner1970",
+      "source_locator": "§VII.A.9, printed p.52, PDF text lines 2216–2225.",
+      "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target.",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "ipa": null,
+      "ukrainian_adaptation": null,
+      "ukrainian_status": "NOT_ESTABLISHED",
+      "limitations": [
+        "The transcription is the source's phonological notation, not IPA; do not normalize silently.",
+        "The examples document the use of U+17C8 as a stress-related spelling mark, not an acoustic measurement of stress.",
+        "Standard Cambodian source, not independently established for contemporary Phnom Penh careful-citation speech."
+      ]
+    }
   ]
 }
