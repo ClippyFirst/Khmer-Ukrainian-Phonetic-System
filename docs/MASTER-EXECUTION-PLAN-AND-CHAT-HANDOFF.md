@@ -1,6 +1,63 @@
 # Master execution plan and chat handoff — 2026-11-24
 
-## Current repository state
+## Current continuation: Lao engine architecture alignment — 2026-11-24
+
+- Repository: `ClippyFirst/Khmer-Ukrainian-Phonetic-System`.
+- Starting `main`: `1b8649c4b874fbf34a66012d7e02aa1da04fb6da`.
+- Working branch: `feat/khmer-lao-engine-contract-parity-20261124`.
+- PR: [#568](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/568), currently a draft while exact-head CI completes.
+- Reference architecture: `ClippyFirst/Lao-Ukrainian-Phonetic-System`, especially `docs/lao-grapheme-ipa-preview.md`.
+- Current branch head when this continuation was recorded: `55c6f86933807e620b51eb07c4606f12bd5ab6f4`; later documentation commits update the exact final SHA.
+- Local clone was unavailable because the container could not resolve `github.com`. Repository edits were made directly on this isolated GitHub branch. No local test pass is claimed.
+- No deployment, release tag, main-branch merge or external setting change was performed.
+
+### Implemented architecture
+
+1. Added `TypedPhoneticResult` and `PhoneticSegment` without replacing the existing public `PhoneticResult` envelope.
+2. Added typed statuses `SUPPORTED`, `UNCERTAIN`, `PROVISIONAL`, `UNRESOLVED`; current Khmer lexical proposals remain `UNCERTAIN`, not promoted to `SUPPORTED`.
+3. Added source-independent IPA tokenization preserving segment sequence, syllable boundaries, length marks, tone symbols, certainty, provenance and uncertainty.
+4. Added one IPA-only Ukrainian target adapter for complete and provisional phonetic results. It does not read Khmer graphemes or romanization.
+5. Provisional onset IPA remains `PROVISIONAL`, carries `phonemic_ipa=null`, and always retains one explicit unknown tail; the adapter maps the known run and returns `???` for the remainder.
+6. Valid IPA with no Ukrainian target correspondence remains valid IPA; the target value is withheld instead of guessed.
+7. Preserved the separate `ORTHOGRAPHIC_ROMANIZATION_FALLBACK` candidate and the opt-in, non-canonical external-provider contract.
+8. Integrated Python engine, JavaScript core, Worker output, CLI, UI unit details and `schemas/phonetic-result.schema.json`.
+9. Added replica-skill recon, feature matrix, architecture, test plan, bug log and build log under `replica/`.
+
+### Verification ledger
+
+| Check | State | Evidence |
+|---|---|---|
+| Test-first RED for typed IPA model | DONE_VERIFIED | Initial PR-head Quality failure was the expected missing-module failure |
+| Test-first RED for CLI contract | DONE_VERIFIED | Initial CLI tests failed because CLI still called structural parser only |
+| Python suite | DONE_VERIFIED | 503 passed + 70 subtests in exact code-head Quality run [45488340718](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45488340718) |
+| Browser deterministic checks | DONE_VERIFIED | Same Quality run; web engine, runtime, Worker and typed IPA adapter tests passed |
+| Python/JavaScript parity | DONE_VERIFIED | 129 structural, 38 lexical, 46 consonant/rule and 6 segmentation fixtures passed; typed IPA fields are included in rule-output parity |
+| Benchmarks and Vite build | DONE_VERIFIED | Quality run [45488340718](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45488340718) |
+| Exact-head Chromium smoke | PARTIAL | Run [45489099153](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45489099153) was in progress at record time |
+| Exact-head pinned Rust comparison | PARTIAL | Run [45489099154](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45489099154) was queued at record time |
+| Linguistic accuracy | NOT_ASSESSED | Independent adjudicated IPA gold corpus remains empty |
+
+### Task ledger
+
+| Task | Status | Acceptance boundary |
+|---|---|---|
+| `KHM-LAO-ENGINE-CONTRACT-001` | PARTIAL pending exact-head Chromium/Rust workflows | Typed result model, shared adapter, Python/JS parity, CLI, schema and uncertainty output; no language-rule transfer |
+| `KHM-PROVISIONAL-OUTPUT-001` | DONE_VERIFIED on prior main | Existing onset-first primary output and separate orthographic fallback preserved |
+| `KHM-PHON-CONTEXT-001` | PARTIAL | Full contextual vowel/coda/series/length matrix remains incomplete |
+| `KHM-IPA-GOLD-001` | BLOCKED | Independent gold has 0 entries; two annotators and adjudicator still required |
+| Pronunciation accuracy | NOT_ASSESSED | No gold denominator |
+| Manual accessibility audit | DEFERRED | Outside this architecture change |
+
+### PR and branch reconciliation
+
+- PR #568 is this isolated architecture continuation; no merge until exact-head checks and review are complete.
+- PR #519 remains open and untouched. It is a separate, diverged hybrid-inference change; do not merge blindly.
+- Historical branches were not deleted or rewritten.
+- No public deployment or formal release was requested or performed.
+
+---
+
+## Prior task record — provisional output and benchmark (historical)
 
 - Repository: `ClippyFirst/Khmer-Ukrainian-Phonetic-System`
 - Starting `main` for the provisional-output task: `422023d03283648bea9ca59ef0ea01caedf41698`.
