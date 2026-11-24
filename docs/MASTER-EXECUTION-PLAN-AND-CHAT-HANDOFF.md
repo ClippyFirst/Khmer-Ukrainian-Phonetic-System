@@ -6848,3 +6848,12 @@ Current registry counts: 14 case records, 13 context dimensions, 15 coda/rhyme p
 - `KHM-PHON-CONTEXT-EVIDENCE-001` (bounded evidence-register/schema/report/test implementation): **DONE_VERIFIED** by exact-main Quality [45435877079](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45435877079), which passed Python tests, schema validation, report reproducibility and parity checks. Live public coverage report is HTTP 200.
 - `KHM-PHON-CONTEXT-001` (full contextual phonology/runtime rule coverage): **PARTIAL**. The full profile × series × vowel × phonological coda × syllable type × measured length × stress/harmony lexical cross-product remains incomplete; no extrapolation is permitted.
 - The 32-cell dependent-vowel × series view remains a first-order evidence inventory, not a complete phonological matrix. Independent IPA gold remains 0; accuracy remains NOT_ASSESSED. Manual accessibility and independent gold pilot remain deferred under prior scope instructions.
+
+
+## Third-party source-rights correction — Ishida reference table — 2026-11-24
+
+- A rights review located no explicit reuse license or permission on Richard Ishida's Khmer Orthography Notes page or in the checked upstream repository root. The page does provide a bibliographic citation and describes its phonological transcriptions as varying from broad to narrow and phonemic to phonetic.
+- The 54-row machine-readable copy introduced by PR #560 has been withdrawn. The canonical register and generated report now hold a metadata-only pointer: `reported_table_rows=54`, `data_values_copied=false`, `license_status=UNKNOWN_NO_EXPLICIT_LICENSE_LOCATED`, `redistribution_status=BLOCKED_PENDING_EXPLICIT_PERMISSION_OR_CLEAR_LICENSE`, `runtime_eligible=false`.
+- The earlier source-value array is not present in the machine-readable registry or generated report. The pre-existing Markdown table in evidence matrix §8 predates the structured copy and remains a separate inherited third-party-rights review item; its presence is not treated as permission.
+- **KHM-REFERENCE-MAPPING-001 — BLOCKED** until explicit permission or a verified license authorizes copying, modification and redistribution. The project CC BY-NC license does not cover this third-party source.
+- `KHM-PHON-CONTEXT-EVIDENCE-001` remains DONE_VERIFIED for the project's own source-indexed evidence/register/schema/report engineering. `KHM-PHON-CONTEXT-001` remains PARTIAL. No IPA or Ukrainian runtime rules are added.
