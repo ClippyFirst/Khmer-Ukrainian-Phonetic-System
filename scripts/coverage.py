@@ -32,7 +32,7 @@ def _nonempty_items(value):
     return [item for item in values if item is not None and str(item).strip()]
 
 
-def build_contextual_vowel_evidence(cases, sources, context_dimensions=None, coda_pattern_observations=None, lexical_coda_examples=None, lexical_stress_examples=None):
+def build_contextual_vowel_evidence(cases, sources, context_dimensions=None, coda_pattern_observations=None, lexical_coda_examples=None, lexical_stress_examples=None, reference_mapping_observations=None):
     """Expose exact case-level context while refusing to infer missing phonology.
 
     This is an evidence inventory, not a Cartesian prediction matrix. In particular,
@@ -175,6 +175,25 @@ def build_contextual_vowel_evidence(cases, sources, context_dimensions=None, cod
             for item in sorted(lexical_stress_examples or [], key=lambda row: row["id"])
         ],
         "lexical_stress_example_count": len(lexical_stress_examples or []),
+        "source_backed_reference_mapping_observations": [
+            {
+                "id": item["id"],
+                "source_transcription": item["source_transcription"],
+                "consonant_class_scope": item["consonant_class_scope"],
+                "orthographic_context": item["orthographic_context"],
+                "source_id": item["source_id"],
+                "source_locator": item["source_locator"],
+                "mapping_kind": item["mapping_kind"],
+                "evidence_status": item["evidence_status"],
+                "profile_scope": item["profile_scope"],
+                "runtime_eligible": item["runtime_eligible"],
+                "ukrainian_adaptation": item["ukrainian_adaptation"],
+                "ukrainian_status": item["ukrainian_status"],
+                "limitations": item["limitations"],
+            }
+            for item in sorted(reference_mapping_observations or [], key=lambda row: row["id"])
+        ],
+        "reference_mapping_observation_count": len(reference_mapping_observations or []),
         "context_dimension_evidence_status_counts": dict(sorted(Counter(
             item["evidence_status"] for item in (context_dimensions or [])
         ).items())),
@@ -273,7 +292,8 @@ def build_report(signs, consonants, registers, evidence):
         cases, evidence.get("sources", {}), evidence.get("context_dimensions", []),
         evidence.get("coda_pattern_observations", []),
         evidence.get("lexical_coda_examples", []),
-        evidence.get("lexical_stress_examples", [])
+        evidence.get("lexical_stress_examples", []),
+        evidence.get("reference_mapping_observations", [])
     )
     return {
         "schema_version": "1.0.0",
