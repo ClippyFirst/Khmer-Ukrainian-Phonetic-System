@@ -34,6 +34,10 @@
     "huffman-jenner1970": {
       "url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Cambodian_system_of_writing_and_beginning_reader.pdf",
       "role": "Huffman, Cambodian System of Writing and Beginning Reader (Yale University Press, 1970), §VII.A.8, printed p.52. Provides exact Khmer forms with the author's own phonological transcription, explicitly not IPA. The book describes Standard Cambodian taught in schools and educated speech and explicitly notes Phnom Penh colloquial differences (printed pp.6–7). Front matter states its copyright claim ends in 1975; item-level legal rights are not independently audited."
+    },
+    "r12a-block-notes": {
+      "url": "https://r12a.github.io/scripts/khmr/block.html",
+      "role": "Richard Ishida, Khmer Block Notes (21-Dec-2024), U+17C7, U+17D0 and U+17CB entries. Gives lexical Khmer spellings with source phonological transcriptions for REAHMUK and coda-conditioned vowel patterns. The page explicitly says transcriptions vary from broad to narrow phonetic and phonemic according to source availability; do not assume every token is strict IPA."
     }
   },
   "cases": [
@@ -1116,6 +1120,166 @@
         "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
         "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
         "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+      ]
+    },
+    {
+      "id": "KHV-LEX-013",
+      "orthography": "ពាក់",
+      "source_phonological_transcription": "/pĕəʔ/",
+      "transcription_system": "R12A Khmer Block Notes phonological transcription; broad/narrow notation varies by source and is not independently normalized to IPA",
+      "gloss": "to wear",
+      "phonological_context": "U+17B6 + U+17CB before a velar coda; source's velar-context example",
+      "source_id": "r12a-block-notes",
+      "source_locator": "Khmer Block Notes, U+17C7 REAHMUK entry and U+17D0 SAMYOK SANNYA entry; examples and combination notes.",
+      "profile_scope": "Modern Khmer orthography reference with lexical examples; individual tokens are not established as contemporary Phnom Penh careful-citation pronunciations.",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "ipa": null,
+      "ukrainian_adaptation": null,
+      "ukrainian_status": "NOT_ESTABLISHED",
+      "limitations": [
+        "The source explicitly allows broad-to-narrow phonetic and phonemic transcriptions; this string is not silently treated as strict IPA.",
+        "No audio token or independent expert adjudication is supplied for this lexical record.",
+        "No Ukrainian adaptation is justified until the source transcription is normalized under the approved target-profile IPA convention."
+      ]
+    },
+    {
+      "id": "KHV-LEX-014",
+      "orthography": "ពាក្យ",
+      "source_phonological_transcription": "/piəʔ/",
+      "transcription_system": "R12A Khmer Block Notes phonological transcription; broad/narrow notation varies by source and is not independently normalized to IPA",
+      "gloss": "word",
+      "phonological_context": "R12A's comparison form for ពាក់; source presents a distinct lexical rhyme",
+      "source_id": "r12a-block-notes",
+      "source_locator": "Khmer Block Notes, U+17C7 REAHMUK entry and U+17D0 SAMYOK SANNYA entry; examples and combination notes.",
+      "profile_scope": "Modern Khmer orthography reference with lexical examples; individual tokens are not established as contemporary Phnom Penh careful-citation pronunciations.",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "ipa": null,
+      "ukrainian_adaptation": null,
+      "ukrainian_status": "NOT_ESTABLISHED",
+      "limitations": [
+        "The source explicitly allows broad-to-narrow phonetic and phonemic transcriptions; this string is not silently treated as strict IPA.",
+        "No audio token or independent expert adjudication is supplied for this lexical record.",
+        "No Ukrainian adaptation is justified until the source transcription is normalized under the approved target-profile IPA convention."
+      ]
+    },
+    {
+      "id": "KHV-LEX-015",
+      "orthography": "មាន់",
+      "source_phonological_transcription": "/mŏən/",
+      "transcription_system": "R12A Khmer Block Notes phonological transcription; broad/narrow notation varies by source and is not independently normalized to IPA",
+      "gloss": "chicken",
+      "phonological_context": "U+17B6 + U+17CB context before a non-velar final; source's comparison example",
+      "source_id": "r12a-block-notes",
+      "source_locator": "Khmer Block Notes, U+17C7 REAHMUK entry and U+17D0 SAMYOK SANNYA entry; examples and combination notes.",
+      "profile_scope": "Modern Khmer orthography reference with lexical examples; individual tokens are not established as contemporary Phnom Penh careful-citation pronunciations.",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "ipa": null,
+      "ukrainian_adaptation": null,
+      "ukrainian_status": "NOT_ESTABLISHED",
+      "limitations": [
+        "The source explicitly allows broad-to-narrow phonetic and phonemic transcriptions; this string is not silently treated as strict IPA.",
+        "No audio token or independent expert adjudication is supplied for this lexical record.",
+        "No Ukrainian adaptation is justified until the source transcription is normalized under the approved target-profile IPA convention."
+      ]
+    },
+    {
+      "id": "KHV-LEX-016",
+      "orthography": "មាន",
+      "source_phonological_transcription": "/miən/",
+      "transcription_system": "R12A Khmer Block Notes phonological transcription; broad/narrow notation varies by source and is not independently normalized to IPA",
+      "gloss": "to have",
+      "phonological_context": "R12A's comparison form for មាន់; source presents a distinct lexical rhyme",
+      "source_id": "r12a-block-notes",
+      "source_locator": "Khmer Block Notes, U+17C7 REAHMUK entry and U+17D0 SAMYOK SANNYA entry; examples and combination notes.",
+      "profile_scope": "Modern Khmer orthography reference with lexical examples; individual tokens are not established as contemporary Phnom Penh careful-citation pronunciations.",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "ipa": null,
+      "ukrainian_adaptation": null,
+      "ukrainian_status": "NOT_ESTABLISHED",
+      "limitations": [
+        "The source explicitly allows broad-to-narrow phonetic and phonemic transcriptions; this string is not silently treated as strict IPA.",
+        "No audio token or independent expert adjudication is supplied for this lexical record.",
+        "No Ukrainian adaptation is justified until the source transcription is normalized under the approved target-profile IPA convention."
+      ]
+    },
+    {
+      "id": "KHV-LEX-017",
+      "orthography": "ល័ខ",
+      "source_phonological_transcription": "/lĕəʔ/",
+      "transcription_system": "R12A Khmer Block Notes phonological transcription; broad/narrow notation varies by source and is not independently normalized to IPA",
+      "gloss": "red dye",
+      "phonological_context": "U+17D0 SAMYOK SANNYA before a velar final",
+      "source_id": "r12a-block-notes",
+      "source_locator": "Khmer Block Notes, U+17C7 REAHMUK entry and U+17D0 SAMYOK SANNYA entry; examples and combination notes.",
+      "profile_scope": "Modern Khmer orthography reference with lexical examples; individual tokens are not established as contemporary Phnom Penh careful-citation pronunciations.",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "ipa": null,
+      "ukrainian_adaptation": null,
+      "ukrainian_status": "NOT_ESTABLISHED",
+      "limitations": [
+        "The source explicitly allows broad-to-narrow phonetic and phonemic transcriptions; this string is not silently treated as strict IPA.",
+        "No audio token or independent expert adjudication is supplied for this lexical record.",
+        "No Ukrainian adaptation is justified until the source transcription is normalized under the approved target-profile IPA convention."
+      ]
+    },
+    {
+      "id": "KHV-LEX-018",
+      "orthography": "វ័ង",
+      "source_phonological_transcription": "/ʋŭəŋ/",
+      "transcription_system": "R12A Khmer Block Notes phonological transcription; broad/narrow notation varies by source and is not independently normalized to IPA",
+      "gloss": "palace",
+      "phonological_context": "U+17D0 SAMYOK SANNYA before a velar final",
+      "source_id": "r12a-block-notes",
+      "source_locator": "Khmer Block Notes, U+17C7 REAHMUK entry and U+17D0 SAMYOK SANNYA entry; examples and combination notes.",
+      "profile_scope": "Modern Khmer orthography reference with lexical examples; individual tokens are not established as contemporary Phnom Penh careful-citation pronunciations.",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "ipa": null,
+      "ukrainian_adaptation": null,
+      "ukrainian_status": "NOT_ESTABLISHED",
+      "limitations": [
+        "The source explicitly allows broad-to-narrow phonetic and phonemic transcriptions; this string is not silently treated as strict IPA.",
+        "No audio token or independent expert adjudication is supplied for this lexical record.",
+        "No Ukrainian adaptation is justified until the source transcription is normalized under the approved target-profile IPA convention."
+      ]
+    },
+    {
+      "id": "KHV-LEX-019",
+      "orthography": "ទ័ព",
+      "source_phonological_transcription": "/toə̆p/",
+      "transcription_system": "R12A Khmer Block Notes phonological transcription; broad/narrow notation varies by source and is not independently normalized to IPA",
+      "gloss": "army",
+      "phonological_context": "U+17D0 SAMYOK SANNYA with a non-velar final",
+      "source_id": "r12a-block-notes",
+      "source_locator": "Khmer Block Notes, U+17C7 REAHMUK entry and U+17D0 SAMYOK SANNYA entry; examples and combination notes.",
+      "profile_scope": "Modern Khmer orthography reference with lexical examples; individual tokens are not established as contemporary Phnom Penh careful-citation pronunciations.",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "ipa": null,
+      "ukrainian_adaptation": null,
+      "ukrainian_status": "NOT_ESTABLISHED",
+      "limitations": [
+        "The source explicitly allows broad-to-narrow phonetic and phonemic transcriptions; this string is not silently treated as strict IPA.",
+        "No audio token or independent expert adjudication is supplied for this lexical record.",
+        "No Ukrainian adaptation is justified until the source transcription is normalized under the approved target-profile IPA convention."
+      ]
+    },
+    {
+      "id": "KHV-LEX-020",
+      "orthography": "ជ័រ",
+      "source_phonological_transcription": "/cɔə/",
+      "transcription_system": "R12A Khmer Block Notes phonological transcription; broad/narrow notation varies by source and is not independently normalized to IPA",
+      "gloss": "resin",
+      "phonological_context": "U+17D0 + final រ; source-specific lexical transcription",
+      "source_id": "r12a-block-notes",
+      "source_locator": "Khmer Block Notes, U+17C7 REAHMUK entry and U+17D0 SAMYOK SANNYA entry; examples and combination notes.",
+      "profile_scope": "Modern Khmer orthography reference with lexical examples; individual tokens are not established as contemporary Phnom Penh careful-citation pronunciations.",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "ipa": null,
+      "ukrainian_adaptation": null,
+      "ukrainian_status": "NOT_ESTABLISHED",
+      "limitations": [
+        "The source explicitly allows broad-to-narrow phonetic and phonemic transcriptions; this string is not silently treated as strict IPA.",
+        "No audio token or independent expert adjudication is supplied for this lexical record.",
+        "No Ukrainian adaptation is justified until the source transcription is normalized under the approved target-profile IPA convention."
       ]
     }
   ]
