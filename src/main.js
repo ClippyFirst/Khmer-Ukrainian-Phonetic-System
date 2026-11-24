@@ -8,6 +8,8 @@ if (typeof document !== "undefined") {
   const $ = (id) => document.getElementById(id);
   const source = $("source");
   const romanizationResult = $("romanization-result");
+  const uaOrthographicResult = $("ua-orthographic-result");
+  const uaOrthographicStatus = $("ua-orthographic-status");
   const results = $("results");
   const empty = $("empty");
   const issue = $("issue");
@@ -114,6 +116,12 @@ if (typeof document !== "undefined") {
       ? "— · для готової романізації оберіть метод «З романізації»"
       : moveMarkerToWordEnd(data.ua);
     const romanizationUaOutput = uaRomanized.text || "???";
+    uaOrthographicResult.textContent = romanizationUaOutput;
+    uaOrthographicStatus.textContent = uaRomanized.status === "PROVISIONAL"
+      ? "PROVISIONAL · BGN/PCGN-derived орфографічна передача; не вимова."
+      : uaRomanized.status === "PARTIAL"
+        ? "PARTIAL · непідтримані латинські фрагменти позначено в ⟦…⟧; не вимова."
+        : "PASSTHROUGH · окремої романізаційної передачі немає; не вимова.";
     $("ua-result").textContent = activeMode === "romanization"
       ? romanizationUaOutput
       : phoneticUaOutput;

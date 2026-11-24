@@ -54,6 +54,9 @@ test("phonetic mode never substitutes an orthographic romanization fallback for 
   await expect(page.locator("#ipa-result")).toHaveText("/s/???");
   await expect(page.locator("#ua-result")).toHaveText("с???");
   await expect(page.locator("#status")).toContainText("ЧАСТКОВА IPA-ПІДКАЗКА");
+  await expect(page.locator("#ua-orthographic-panel")).toBeVisible();
+  await expect(page.locator("#ua-orthographic-result")).not.toBeEmpty();
+  await expect(page.locator("#ua-orthographic-status")).toContainText("не вимова");
   await expect(page.locator("#unit-details")).toContainText("Попередня IPA-підказка: /s/ → с???");
   await expect(page.locator("#status")).not.toContainText("EXTERNAL IPA CANDIDATE");
 });
