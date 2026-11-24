@@ -68,3 +68,23 @@ These are segmentation evaluations, not pronunciation or IPA validation. The pin
 ## Relation to the Lao implementation
 
 The Lao repository's grapheme-preview and stress-benchmark reports were used as a behavioral reference: retain partial output, type its uncertainty, measure latency and coverage separately, and avoid claiming accuracy without held-out gold. The Khmer corpus and phonology differ, so Lao benchmark scores are not treated as directly comparable targets.
+
+
+## Typed IPA contract overhead — 2026-11-24
+
+Source: exact code-head Quality workflow [45488340718](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45488340718), branch `feat/khmer-lao-engine-contract-parity-20261124`, commit `e8219217ac308dc603a32bd25f3017cfe8311603`.
+
+| Measure | JavaScript core | Python engine |
+|---|---:|---:|
+| Runtime | Node v24.22.3 | Python 3.12.16 |
+| Unique NFC inputs | 39 | 39 |
+| Warm-up / measured batches | 5 / 25 | 5 / 25 |
+| Median batch latency | 1.5124 ms | 8.4259 ms |
+| Throughput | 25,787.68 inputs/s | 4,628.56 inputs/s |
+| Complete / partial / unresolved | 37 / 2 / 0 | 37 / 2 / 0 |
+
+Compared with the previous code-head measurement (1.3028 ms JS; 5.2737 ms Python), this typed segmentation and result serialization adds measurable overhead: approximately 16.1% to the JS median and 59.8% to the Python median in this CI microbenchmark. Absolute throughput remains 25.8k / 4.6k fixture inputs per second. This is recorded rather than hidden; no optimization was added without evidence that the latency is a user-facing problem. The Node/Python speed ratio is 5.57× in this environment.
+
+Tokenizer stress on the same workflow: 8,000 code points, 61,980 dictionary entries, 8.22 ms median, 972,949 code points/s, source preserved. This is a segmentation stress measure, not a phonetic metric.
+
+Coverage and throughput remain engineering measures. The input corpus is not adjudicated IPA gold; pronunciation accuracy remains NOT_ASSESSED.
