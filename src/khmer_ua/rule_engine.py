@@ -381,7 +381,11 @@ class RuleBasedKhmerEngine:
             and unit.get("ukrainian") is not None
             for unit in linguistic
         )
-        partial = not complete and bool(resolved)
+        has_provisional_preview = any(
+            unit.get("provisional_ipa") or unit.get("provisional_ukrainian")
+            for unit in linguistic
+        )
+        partial = not complete and (bool(resolved) or has_provisional_preview)
 
         typed_units = []
         for unit in rendered:
