@@ -152,6 +152,7 @@
           "type": "string",
           "enum": [
             "IPA_DERIVED",
+            "IPA_DERIVED_PROVISIONAL",
             "ORTHOGRAPHIC_ROMANIZATION_FALLBACK",
             "UNRESOLVED",
             "NOT_APPLICABLE"
