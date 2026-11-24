@@ -1,3 +1,6 @@
+import practicalPolicy from "../data/ukrainian/practical-policy.json" with { type: "json" };
+import { mapIpa } from "./ukrainian-practical.js";
+
 const MODIFIERS = new Set(["ˈ", "ˌ", "ː", "ˑ"]);
 const TONE_MARKS = new Set(["˥", "˦", "˧", "˨", "˩"]);
 const BOUNDARIES = new Set([" ", "\t", "\n", ".", "·", "‧"]);
