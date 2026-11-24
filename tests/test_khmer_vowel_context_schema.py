@@ -134,5 +134,8 @@ def test_reahmuk_lexical_examples_keep_custom_transcription_out_of_ipa():
         assert item["ipa"] is None
         assert item["ukrainian_adaptation"] is None
         assert item["ukrainian_status"] == "NOT_ESTABLISHED"
-        assert "Standard Cambodian" in item["profile_scope"]
+        if item["source_id"] == "huffman-jenner1970":
+            assert "Standard Cambodian" in item["profile_scope"]
+        else:
+            assert "not established as contemporary Phnom Penh" in item["profile_scope"]
         assert item["limitations"]
