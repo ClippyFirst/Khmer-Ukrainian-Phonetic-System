@@ -1,3 +1,15 @@
+## Shared cross-engine Khmer IPA benchmark — 2026-11-25
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-CROSS-ENGINE-BENCH-001 | DONE_VERIFIED (source-attested diagnostic only) | PR [#570](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/570), exact head `84830e3e8d2fe0c30e555ddef868ac864915fa52`; four-engine shared holdout run [45499595763](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45499595763) SUCCESS; project Quality [45499595556](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45499595556) SUCCESS; aggregate artifact [14970916634](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45499595763/artifacts/14970916634). Full report: `docs/research/KHMER-CROSS-ENGINE-BENCHMARK-2026-11-25.md`. | Same 100 MekongPhon source-attested words: project rules 95% non-empty, 94 partial, 74.61% CER; Khmer Phonemizer 100%, 25.71% CER; Epitran 100%, 114.73% CER; MekongPhon neural 100%, 12.54% CER. The upstream snapshot has no declared corpus-data license and its labels are not independent project gold. Accuracy remains null; no result is promoted. |
+| KHM-IPA-APPROX-FALLBACK-001 | BLOCKED (production integration) | The MekongPhon model is a promising provisional fallback on this small diagnostic; the existing Python HybridKhmerEngine already supports typed external candidates. The static Pages UI has no inference backend and CSP blocks network calls. | Before production: confirm profile/IPA convention equivalence, obtain rights clearance for any redistributed model/data, complete expert-adjudicated blind pilot, and explicitly approve either a local browser model (asset/startup/offline/parity tests) or a backend/privacy design. Any fallback must remain `PROVISIONAL`, retain provenance and uncertainty, and never overwrite canonical IPA. |
+| KHM-NCKL-RESPelling-BENCH-001 | PARTIAL (dataset identified; IPA-incomparable) | PhonSobon/NCKL Khmer G2P reports 38,629 word–Khmer-respelling pairs, 1,920 test pairs / 1,888 unique words, split by word. Source is NCKL Khmer Dictionary 2022; terms require checking. | Run as a separate Khmer-script respelling/syllabification benchmark. Do not combine its metrics with IPA CER or mechanically relabel respellings as IPA. |
+
+**Research boundary:** independent expert-adjudicated Khmer IPA gold remains 0; pronunciation accuracy remains NOT_ASSESSED. The shared benchmark is source-attested concordance only. See the report for normalization, engine revisions, timing and rights limitations.
+
+---
+
 ## Khmer engine architecture parity — 2026-11-24
 
 | ID | Status | Evidence | Acceptance boundary |
