@@ -55,8 +55,12 @@ assert.ok(unresolvedUnits[0].provisional_ukrainian.endsWith("???"), "the unresol
 assert.ok(unresolvedUnits[0].orthographic_fallback_ukrainian, "the separate orthographic candidate must remain inspectable");
 const unresolvedTypedUnits = unresolvedWord.phonetic_result.units.filter((unit) => unit.status === "EVIDENCE_LIMITED" || unit.status === "NOT_ESTABLISHED");
 assert.equal(unresolvedTypedUnits.length, 1, "machine-readable IPA provenance must retain word-level uncertainty");
-assert.equal(unresolvedTypedUnits[0].ukrainian_kind, "IPA_DERIVED_PROVISIONAL", "the target must be typed as an onset-only IPA-derived preview");
-assert.ok(unresolvedTypedUnits[0].ipa && !unresolvedTypedUnits[0].ipa.includes("NOT_ESTABLISHED"), "the typed result must retain the bare supported onset IPA");
+assert.equal(unresolvedTypedUnits[0].ukrainian_kind, "ORTHOGRAPHIC_ROMANIZATION_FALLBACK", "the visible Ukrainian target must be typed as an orthographic fallback");
+assert.equal(unresolvedTypedUnits[0].canonical_ukrainian, "???", "the canonical IPA-derived Ukrainian field must remain unresolved");
+assert.ok(unresolvedTypedUnits[0].ukrainian.endsWith("???"), "the visible orthographic candidate must carry the uncertainty suffix");
+assert.equal(unresolvedTypedUnits[0].provisional_ukrainian_kind, "ORTHOGRAPHIC_ROMANIZATION_FALLBACK");
+assert.ok(unresolvedTypedUnits[0].ipa_derived_provisional_ukrainian?.endsWith("???"), "the independently supported onset-only IPA adaptation must remain inspectable");
+assert.ok(unresolvedTypedUnits[0].provisional_ipa && !unresolvedTypedUnits[0].provisional_ipa.includes("NOT_ESTABLISHED"), "the typed result must retain the bare supported onset IPA separately");
 
 
 const bySource = Object.fromEntries(result.units.map((unit) => [unit.source, unit]));
