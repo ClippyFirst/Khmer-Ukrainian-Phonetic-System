@@ -50,10 +50,10 @@ test("primary method switch is visible beside the main result without opening re
 test("phonetic mode never substitutes an orthographic romanization fallback for unresolved IPA", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("ស៊៉ា");
-  await expect(page.locator("#ipa-result")).toHaveText("/s/⟦EVIDENCE_LIMITED⟧");
+  await expect(page.locator("#ipa-result")).toHaveText("/s/???");
   await expect(page.locator("#ua-result")).toHaveText("с???");
   await expect(page.locator("#status")).toContainText("EVIDENCE LIMITED");
-  await expect(page.locator("#unit-details")).toContainText("Попередня підказка: s → с??? [PROVISIONAL]");
+  await expect(page.locator("#unit-details")).toContainText("Попередня IPA-підказка: /s/ → с???");
   await expect(page.locator("#status")).not.toContainText("EXTERNAL IPA CANDIDATE");
 });
 
@@ -374,8 +374,8 @@ test("unresolved Khmer phrase displays archived external IPA candidates with tra
   await expect(page.locator("#unit-details")).toContainText("profile match UNVERIFIED");
   await expect(page.locator("#unit-details")).toContainText("Відхилені виходи провайдерів");
   await expect(page.locator("#unit-details")).toContainText("epitran");
-  await expect(page.locator("#unit-details")).toContainText("Попередня українська форма:");
-  await expect(page.locator("#unit-details")).toContainText("BGN/PCGN, не IPA");
+  await expect(page.locator("#unit-details")).toContainText("Окрема орфографічна романізація:");
+  await expect(page.locator("#unit-details")).toContainText("BGN/PCGN-derived, не вимова");
 });
 
 test("archived provisional IPA candidate remains visible at every detail level", async ({ page }) => {
