@@ -276,3 +276,26 @@ This section consolidates the current public-source and full-text review into co
 5. Build a future matched PP corpus across vowel × series × coda × syllable type × stress/style; record speaker metadata, token counts, raw audio locators and both phonemic and narrow phonetic transcription.
 
 **Current status:** the contextual matrix is now more explicit and source-indexed (ten dimensions, 14 case records), but remains **PARTIAL**. This update improves evidence coverage and testability; it does not add any new deterministic vowel/coda/tone rule to the runtime, does not alter Ukrainian adaptation, and does not establish corpus-wide accuracy.
+
+
+## Evidence expansion — REAHMUK, coda place and stress — 2026-11-24
+
+### Newly source-indexed evidence
+
+- **REAHMUK U+17C7 is nucleus-conditioned, not a detachable /h/ suffix.** Ishida's rhyme table records ɑ-class /eh/ for U+17B7+U+17C7, U+17C1+U+17C7 and U+17C2+U+17C7; /oh/ for U+17BB+U+17C7; and /ah/ for U+17C4+U+17C7 and bare U+17C7. For ɔ-class, the corresponding listed values include /ih/ for U+17B7+U+17C7 and U+17C1+U+17C7, /uə̆h/ for U+17C4+U+17C7, and /eə̆h/ for bare U+17C7. Exact source locator: *Khmer Orthography Notes*, vowel/rhyme mapping lines 721–804 and coda summary lines 1250–1265.
+- **Coda place changes the listed ɔ-class rhyme for two specific spellings.** U+17D0 before velar finals is /eə̆/ and before non-velar finals /oə̆/; the same split is listed for U+17B6+U+17CB. U+17B6+U+17C6 before non-velar finals is separately listed as /oə̆m/. These are pattern-level mappings; the cited table does not provide a complete lexical cross-product or identify a balanced PP acoustic sample. Locator: lines 777–826.
+- **Stress evidence has two distinct phenomena.** R12A marks several short-vowel correspondences as followed by glottal closure in stressed but not unstressed syllables (legend lines 491–496 and entries lines 503–615). It also says the first syllable of many bisyllabic words is typically unstressed and realized as schwa in colloquial speech, while compounds may differ (lines 201–209). These must not be collapsed into one blanket “unstressed = schwa” rule.
+- **Acoustic scope check:** Chem (2020) studied four selected PP speakers and 61 lexical items × 3 in a formal carrier phrase. Open/closed duration and coda influence are described, but coda place/manner was not systematically modeled and stress was not an independent factor. Its reported /iɜ/ vs /iɜt/ example is bounded, not a general coda-place rule. Mam et al. (2025) measured F0 only in the stressed rime; it did not test REAHMUK, vowel quality, coda place, or stressed-vs-unstressed vowel differences.
+
+### Implementation
+
+- Added 15 pattern-level rows to `data/khmer/vowel-context-register.json` under `coda_pattern_observations`. They retain source IPA exactly, class and coda environment, source locators, profile limits, and null Ukrainian adaptation. These are not lexical words or gold rows.
+- Added context dimensions PPH-CTX-011–013 for REAHMUK × class, U+17D0/BANTOC × coda place, and stress-conditioned glottal closure/weak-syllable reduction. Refined PPH-CTX-003 and PPH-CTX-004 with full-text limits.
+- Extended the JSON schema, coverage generator and both generated report copies. The report exposes pattern observations separately from the 14 lexical case records; the 32-cell dependent-vowel × series matrix remains unchanged.
+- Added schema and report regression tests for exact REAHMUK class contrasts, velar/non-velar differences, source resolution, and the prohibition on deriving Ukrainian output.
+
+### Status
+
+- `KHM-PHON-CONTEXT-EVIDENCE-001`: PARTIAL pending exact-head CI and review of generated report parity.
+- `KHM-PHON-CONTEXT-001`: PARTIAL. These new pattern-level observations do not establish a full lexical cross-product or a runtime rule.
+- No new deterministic IPA or Ukrainian runtime behavior was changed. No source pattern is promoted to independent gold or a Phnom Penh-specific acoustic fact.
