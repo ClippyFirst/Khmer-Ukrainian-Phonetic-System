@@ -483,9 +483,12 @@
       "environment": "stressed vs unstressed vowels; first syllable of many bisyllabic words",
       "finding": "R12A describes many native Khmer bisyllabic words as having a typically unstressed first syllable whose vowel is realized as schwa in colloquial speech, with compounds as an explicit exception class. Its vowel-mapping legend separately marks several short-vowel correspondences (including /i, e, o, oː/ in specified register/sign combinations) as followed by glottal closure in stressed syllables but not unstressed syllables. These are source-reported mappings, not a controlled stress experiment. Chem's carrier phrase was selected to avoid sentence-stress distortion, but stress was not analyzed as an independent factor; Mam et al. measured F0 only in the stressed rime and did not compare stressed and unstressed vowels.",
       "source_ids": [
-        "r12a-orthography"
+        "r12a-orthography",
+        "chem2020",
+        "mam2025",
+        "huffman-jenner1970"
       ],
-      "locator": "R12A §§Phonetic syllables, lines 201–209; vowel mapping legend lines 491–496 and individual entries lines 503–615. Chem 2020, printed pp. 104–107 (PDF pp. 12–15), Methods; Mam et al. 2025, §§2.1–2.3.",
+      "locator": "R12A §§Phonetic syllables, lines 201–209; vowel mapping legend lines 491–496 and individual entries lines 503–615. Huffman & Jenner 1970, printed pp. 6–7 (standard vs Phnom Penh scope and typical stress pattern in disyllables); Chem 2020 Methods, printed pp. 104–107 (PDF pp. 12–15); Mam et al. 2025 §§2.1–2.3.",
       "profile_scope": "General modern Khmer description with explicit colloquial qualification; not a controlled Phnom Penh stress experiment.",
       "evidence_status": "SOURCE_REPORTED_NOT_EXPERIMENTALLY_VERIFIED",
       "implementation": "Keep stress, word structure and speech style explicit. Treat schwa reduction and stressed-syllable glottal closure as source-reported context conditions, not automatic spelling-only rules. Do not infer stress from word position alone, do not apply reduction to compounds by default, and do not use the F0-only Mam study as evidence for vowel quality or glottalization."
@@ -586,11 +589,13 @@
       "id": "PPH-CTX-011",
       "dimension": "reahmuk_rhyme_by_consonant_class",
       "environment": "U+17C7 REAHMUK combined with U+17B7, U+17C1, U+17C2, U+17BB, U+17C4, or used alone after ɑ-class vs ɔ-class consonants",
-      "finding": "R12A's rhyme table explicitly gives /eh/ for ɑ-class 17B7+17C7 (ិះ), 17C1+17C7 (េះ), and 17C2+17C7 (ែះ); /oh/ for ɑ-class 17BB+17C7 (ុះ); /ah/ for ɑ-class 17C4+17C7 (ោះ) and bare 17C7 (ះ). For ɔ-class, 17B7+17C7 (ិះ) and 17C1+17C7 (េះ) are /ih/, 17C4+17C7 (ោះ) is /uə̆h/, and bare 17C7 (ះ) is /eə̆h/. The sign therefore does not have one invariant /h/ suffix realization.",
+      "finding": "R12A's rhyme table explicitly gives /eh/ for ɑ-class 17B7+17C7 (ិះ), 17C1+17C7 (េះ), and 17C2+17C7 (ែះ); /oh/ for ɑ-class 17BB+17C7 (ុះ); /ah/ for ɑ-class 17C4+17C7 (ោះ) and bare 17C7 (ះ). For ɔ-class, 17B7+17C7 (ិះ) and 17C1+17C7 (េះ) are /ih/, 17C4+17C7 (ោះ) is /uə̆h/, and bare 17C7 (ះ) is /eə̆h/. The sign therefore does not have one invariant /h/ suffix realization. Lexical illustrations are available in Huffman & Jenner's Standard Cambodian reader (e.g. សេះ /seh/, នេះ /nih/, កោះ /kah/, គោះ /kŭəh/) and R12A Block Notes; their transcription conventions are kept separate from IPA and the Phnom Penh profile.",
       "source_ids": [
-        "r12a-orthography"
+        "r12a-orthography",
+        "r12a-block-notes",
+        "huffman-jenner1970"
       ],
-      "locator": "Khmer Orthography Notes, §§Diphthongs and rhymes, lines 721–804; Coda diacritics, lines 1250–1265.",
+      "locator": "R12A Khmer Orthography Notes, rhyme mapping lines 721–804 and coda summary lines 1250–1265; R12A Khmer Block Notes, U+17C7 REAHMUK examples; Huffman & Jenner 1970, §VII.A.8, printed p.52 / PDF lines 2189–2215.",
       "profile_scope": "Modern Khmer descriptive orthographic-to-rhyme mapping. The page does not identify a balanced contemporary Phnom Penh speaker sample for these exact combinations; IPA is retained as the source's broad transcription.",
       "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
       "implementation": "Treat each listed sign sequence × consonant class as a distinct source-attested rhyme pattern. Do not generalize to unlisted signs or lexical forms; keep Ukrainian output and runtime promotion unresolved until exact lexical tokens and target-profile evidence are available."
@@ -599,11 +604,13 @@
       "id": "PPH-CTX-012",
       "dimension": "sam yok sannya_coda_place_conditioning",
       "environment": "ɔ-class U+17D0 SAMYOK SANNYA, and U+17B6 + U+17CB BANTOC, before velar vs non-velar syllable-final consonants",
-      "finding": "R12A lists /eə̆/ before velar finals and /oə̆/ before non-velar finals for both ɔ-class U+17D0 and the corresponding U+17B6 + U+17CB sequence. It separately lists /oə̆m/ for ɔ-class U+17B6 + U+17C6 before non-velar finals. The source does not enumerate a complete lexical cross-product in the cited table.",
+      "finding": "R12A lists /eə̆/ before velar finals and /oə̆/ before non-velar finals for both ɔ-class U+17D0 and the corresponding U+17B6 + U+17CB sequence. It separately lists /oə̆m/ for ɔ-class U+17B6 + U+17C6 before non-velar finals. The source does not enumerate a complete lexical cross-product in the cited table. Lexical forms include R12A's ពាក់ /pĕəʔ/ (velar), មាន់ /mŏən/ (non-velar), ល័ខ /lĕəʔ/ and វ័ង /ʋŭəŋ/ (velar), and ទ័ព /toə̆p/ (non-velar); these are retained as source-specific phonological transcriptions, not normalized project IPA.",
       "source_ids": [
-        "r12a-orthography"
+        "r12a-orthography",
+        "r12a-block-notes",
+        "huffman-jenner1970"
       ],
-      "locator": "Khmer Orthography Notes, vowel/rhyme mapping entries lines 777–826; U+17D0 description lines 336–342.",
+      "locator": "R12A Khmer Orthography Notes, vowel/rhyme mapping lines 777–826; R12A Khmer Block Notes, U+17D0 SAMYOK SANNYA and U+17B6+U+17CB entries; Huffman & Jenner 1970, §VII.A.1(b), printed pp.47–48, PDF lines 2008–2019.",
       "profile_scope": "Specialist modern Khmer spelling/rhyme mapping, with U+17D0 explicitly associated with some Pali/Sanskrit loanwords. Not a Phnom Penh acoustic experiment.",
       "evidence_status": "SOURCE_REPORTED_CONTEXT_DEPENDENT",
       "implementation": "Keep the velar/non-velar coda distinction explicit for the exact listed ɔ-class patterns. Do not infer the coda from an unresolved orthographic string, do not extend to other vowel signs, and do not turn the mapping into a broad coda-place rewrite."
