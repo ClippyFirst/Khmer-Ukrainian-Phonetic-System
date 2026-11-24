@@ -44,6 +44,13 @@ def test_provisional_ipa_keeps_known_onset_and_one_unknown_region():
     assert adapt_phonetic_result(result) == "к???"
 
 
+def test_syllable_boundaries_are_preserved_without_becoming_source_graphemes():
+    result = from_ipa("a.ja", status="SUPPORTED")
+
+    assert [segment.ipa for segment in result.segments] == ["a", ".", "j", "a"]
+    assert result.syllable_boundaries == (0, 1, 2, 4)
+
+
 def test_affricate_tie_bar_and_length_are_preserved_as_ipa_features():
     affricate = from_ipa("t͡s", status="SUPPORTED")
     long_vowel = from_ipa("ɑː", status="UNCERTAIN")
