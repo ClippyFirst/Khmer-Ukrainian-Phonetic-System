@@ -165,3 +165,20 @@ def test_coverage_report_keeps_custom_lexical_transcriptions_out_of_ipa():
         else "not independently normalized to IPA" in item["transcription_system"]
         for item in examples
     )
+
+
+def test_coverage_report_exposes_lexical_stress_examples_separately():
+    report = json.loads(REPORT.read_text(encoding="utf-8"))
+    registry = json.loads(
+        (ROOT / "data" / "khmer" / "vowel-context-register.json").read_text(encoding="utf-8")
+    )
+    contextual = report["contextual_vowel_evidence"]
+    examples = contextual["source_backed_lexical_stress_examples"]
+
+    assert contextual["lexical_stress_example_count"] == len(registry["lexical_stress_examples"]) == 3
+    assert [item["id"] for item in examples] == sorted(
+        item["id"] for item in registry["lexical_stress_examples"]
+    )
+    assert all(item["ipa"] is None for item in examples)
+    assert all(item["ukrainian_adaptation"] is None for item in examples)
+    assert all(item["source_id"] == "huffman-jenner1970" for item in examples)
