@@ -24,6 +24,7 @@ from benchmark_mekongphon_model import (  # noqa: E402
     MODEL_REVISION,
     codepoint_levenshtein,
     load_rows,
+    sha256_file,
     predict as predict_mekongphon,
 )
 from benchmark_shared_mekongphon import ipa_from_internal_result, phonemizer_output  # noqa: E402
@@ -51,7 +52,7 @@ def load_ipa_dict(path: Path) -> dict[str, list[str]]:
         for alternative in alternatives:
             value = unicodedata.normalize("NFC", alternative)
             if value.strip():
-                references[parts[0]].add(value)
+                references[orthography].add(value)
     if not references:
         raise ValueError("IPA-Dict file contains no pronunciation rows")
     return {word: sorted(values) for word, values in references.items()}
@@ -110,8 +111,8 @@ def main() -> int:
     args = parser.parse_args()
 
     refs_all = load_ipa_dict(args.ipa_dict)
-    train_words = {row["orth"] for row in load_rows(args.mekong_train)}
-    eval_words = {row["orth"] for row in load_rows(args.mekong_eval)}
+    train_words = {unicodedata.normalize("NFC", row["orth"]) for row in load_rows(args.mekong_train)}
+    eval_words = {unicodedata.normalize("NFC", row["orth"]) for row in load_rows(args.mekong_eval)}
     overlap_train = set(refs_all) & train_words
     overlap_eval = set(refs_all) & eval_words
     refs = {
@@ -126,6 +127,7 @@ def main() -> int:
     report = {
         "corpus": "open-dict-data/ipa-dict Khmer data/km.txt",
         "corpus_source_revision": "972cd67dd5f96bc5660e28070cde26e3928abcd7",
+        "corpus_file_sha256": sha256_file(args.ipa_dict),
         "corpus_rows": sum(1 for line in args.ipa_dict.read_text(encoding="utf-8").splitlines() if line.strip()),
         "unique_orthographies": len(refs_all),
         "unique_orthographies_after_deduplication_and_leakage_filter": len(words),
