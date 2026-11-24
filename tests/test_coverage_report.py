@@ -126,3 +126,20 @@ def test_coverage_report_exposes_source_backed_context_dimensions():
         assert item["profile_scope"]
         assert item["implementation"]
     assert contextual["cross_product_assessment"]["status"] == "NOT_ESTABLISHED"
+
+
+def test_coverage_report_exposes_coda_pattern_evidence_without_lexical_promotion():
+    report = json.loads(REPORT.read_text(encoding="utf-8"))
+    registry = json.loads(
+        (ROOT / "data" / "khmer" / "vowel-context-register.json").read_text(encoding="utf-8")
+    )
+    contextual = report["contextual_vowel_evidence"]
+    patterns = contextual["source_backed_coda_pattern_observations"]
+    expected = registry["coda_pattern_observations"]
+
+    assert contextual["coda_pattern_observation_count"] == len(expected) == 15
+    assert [item["id"] for item in patterns] == sorted(item["id"] for item in expected)
+    assert all(item["evidence_status"] == "SOURCE_ATTESTED_NOT_GOLD" for item in patterns)
+    assert all(item["ukrainian_adaptation"] is None for item in patterns)
+    assert all(item["ukrainian_status"] == "NOT_ESTABLISHED" for item in patterns)
+    assert report["orthographic_inventory"]["expected_dependent_vowel_x_series_cells"] == 32
