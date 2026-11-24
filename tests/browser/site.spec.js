@@ -388,15 +388,15 @@ test("archived provisional IPA candidate remains visible at every detail level",
   }
 });
 
-test("unresolved Khmer cluster keeps romanization fallback out of the IPA route", async ({ page }) => {
+test("unresolved Khmer cluster shows the known onset in IPA mode and keeps romanization separate", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("ក្ក");
-  await expect(page.locator("#ipa-result")).toHaveText("⟦NOT_ESTABLISHED⟧");
-  await expect(page.locator("#ua-result")).toHaveText("???");
-  await expect(page.locator("#status")).toContainText("NOT ESTABLISHED");
-  await expect(page.locator("#unit-details")).toContainText("Попередня українська форма:");
-  await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-rule-id", "KHMER-BGN-PCGN-ORTHOGRAPHIC-FALLBACK-V1");
-  await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-position", "whole-unit");
+  await expect(page.locator("#ipa-result")).toHaveText("/k/???");
+  await expect(page.locator("#ua-result")).toHaveText("к???");
+  await expect(page.locator("#status")).toContainText("EVIDENCE LIMITED");
+  await expect(page.locator("#unit-details")).toContainText("Попередня IPA-підказка:");
+  await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-rule-id", "KHMER-PREVIEW-ONSET-IPA-V1");
+  await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-position", "onset");
   await page.locator("#mode-romanization").click();
   await expect(page.locator("#ua-result")).not.toContainText("???");
   await expect(page.locator("#status")).toContainText("РОМАНІЗАЦІЯ");
