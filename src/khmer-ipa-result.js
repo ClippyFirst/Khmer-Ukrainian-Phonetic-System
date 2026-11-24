@@ -1,24 +1,12 @@
-import practicalPolicy from "../data/ukrainian/practical-policy.json" with { type: "json" };
-import { mapIpa } from "./ukrainian-practical.js";
-
-const RESULT_STATUSES = new Set(["SUPPORTED", "UNCERTAIN", "PROVISIONAL", "UNRESOLVED"]);
 const MODIFIERS = new Set(["ˈ", "ˌ", "ː", "ˑ"]);
+const TONE_MARKS = new Set(["˥", "˦", "˧", "˨", "˩"]);
 const BOUNDARIES = new Set([" ", "\t", "\n", ".", "·", "‧"]);
-const IPA_SYMBOLS = [
-  ...new Set([
-    ...Object.keys(practicalPolicy.segments ?? {}),
-    ...Object.keys(practicalPolicy.sequences ?? {}),
-  ]),
-].filter(Boolean).sort((a, b) => b.length - a.length);
-
-function stripOuterDelimiters(ipa) {
-  const value = ipa.trim();
-  if (value.length >= 2 && ((value[0] === "/" && value.at(-1) === "/")
-      || (value[0] === "[" && value.at(-1) === "]"))) return value.slice(1, -1);
-  return value;
-}
+const TIE_BARS = new Set(["͡", "͜"]);
+const isIpaBase = (character) => /[\p{Script=Latin}\p{Script=Greek}]/u.test(character);
+const isModifierLetter = (character) => /\p{Lm}/u.test(character);
 
 function segmentKind(symbol) {
+  if (TONE_MARKS.has(symbol)) return "tone";
   if (MODIFIERS.has(symbol)) return "modifier";
   if (BOUNDARIES.has(symbol)) return "boundary";
   return "aeiouɑɒæɛɜəɨɪɔɵœɐɤɯʊʌʏʉ".includes(symbol[0]) ? "vowel" : "consonant";
@@ -59,12 +47,58 @@ export function serializePhoneticResult(result) {
   };
 }
 
+function tokenizeIpa(ipa, provenance, certainty) {
+  const chars = [...ipa];
+  const segments = [];
+  const unsupported = [];
+  for (let index = 0; index < chars.length;) {
+    const character = chars[index];
+    if (BOUNDARIES.has(character) || MODIFIERS.has(character) || TONE_MARKS.has(character)) {
+      segments.push({ ipa: character, kind: segmentKind(character), provenance: [...provenance], certainty });
+      index += 1;
+      continue;
+    }
+    if (!isIpaBase(character)) {
+      unsupported.push(character);
+      segments.push({ ipa: character, kind: "unknown", provenance: [...provenance], certainty: "UNRESOLVED" });
+      index += 1;
+      continue;
+    }
+    let token = character;
+    index += 1;
+    while (index < chars.length && /\p{M}/u.test(chars[index]) && !TIE_BARS.has(chars[index])) {
+      token += chars[index];
+      index += 1;
+    }
+    if (index < chars.length && TIE_BARS.has(chars[index])) {
+      token += chars[index];
+      index += 1;
+      if (index < chars.length && isIpaBase(chars[index])) {
+        token += chars[index];
+        index += 1;
+        while (index < chars.length && /\p{M}/u.test(chars[index]) && !TIE_BARS.has(chars[index])) {
+          token += chars[index];
+          index += 1;
+        }
+      } else {
+        unsupported.push(token);
+      }
+    }
+    while (index < chars.length && isModifierLetter(chars[index]) && !TONE_MARKS.has(chars[index])) {
+      token += chars[index];
+      index += 1;
+    }
+    segments.push({ ipa: token, kind: segmentKind(token), provenance: [...provenance], certainty });
+  }
+  return { segments, unsupported };
+}
+
 export function fromIpa(ipa, {
   status = "SUPPORTED",
   provenance = [],
   uncertainty = [],
 } = {}) {
-  if (!RESULT_STATUSES.has(status) || ["PROVISIONAL", "UNRESOLVED"].includes(status)) {
+  if (!["SUPPORTED", "UNCERTAIN"].includes(status)) {
     throw new TypeError("fromIpa requires SUPPORTED or UNCERTAIN status");
   }
   if (typeof ipa !== "string" || !ipa.trim()) {
@@ -73,35 +107,16 @@ export function fromIpa(ipa, {
       uncertainty: [...uncertainty, "EMPTY-IPA-RESULT"],
     });
   }
-
-  const raw = stripOuterDelimiters(ipa);
-  const segments = [];
-  const unsupported = [];
-  for (let index = 0; index < raw.length;) {
-    const char = raw[index];
-    if (BOUNDARIES.has(char) || MODIFIERS.has(char)) {
-      segments.push({ ipa: char, kind: segmentKind(char), provenance: [...provenance], certainty: status });
-      index += 1;
-      continue;
-    }
-    const match = IPA_SYMBOLS.find((symbol) => raw.startsWith(symbol, index));
-    if (!match) {
-      unsupported.push(char);
-      segments.push({ ipa: char, kind: "unknown", provenance: [...provenance], certainty: "UNRESOLVED" });
-      index += 1;
-      continue;
-    }
-    segments.push({ ipa: match, kind: segmentKind(match), provenance: [...provenance], certainty: status });
-    index += match.length;
-  }
-
+  let raw = ipa.trim();
+  if (raw.length >= 2 && ((raw[0] === "/" && raw.at(-1) === "/")
+      || (raw[0] === "[" && raw.at(-1) === "]"))) raw = raw.slice(1, -1);
+  const { segments, unsupported } = tokenizeIpa(raw, provenance, status);
   if (unsupported.length) {
     return makeResult({
-      phonemic_ipa: null,
       segments,
       status: "UNRESOLVED",
       provenance,
-      uncertainty: [...new Set([...uncertainty, "UNSUPPORTED-IPA-SEGMENT"])],
+      uncertainty: [...new Set([...uncertainty, "UNSUPPORTED-IPA-NOTATION"])],
     });
   }
   return makeResult({
@@ -139,7 +154,6 @@ export function fromProvisionalIpa(ipaHint, {
     });
   }
   return makeResult({
-    phonemic_ipa: null,
     segments,
     status: ipaHint ? "PROVISIONAL" : "UNRESOLVED",
     provenance: [...new Set([...provenance, "FALLBACK:GRAPHEME-POSITION-PREVIEW"])],
@@ -167,7 +181,8 @@ export function fromUnknownSourceUnit(surface, {
 }
 
 export function adaptPhoneticResult(result, { allowUncertain = false } = {}) {
-  if (!result || !RESULT_STATUSES.has(result.status) || !Array.isArray(result.segments)) {
+  if (!result || !["SUPPORTED", "UNCERTAIN", "PROVISIONAL", "UNRESOLVED"].includes(result.status)
+      || !Array.isArray(result.segments)) {
     throw new TypeError("Ukrainian adaptation requires a typed phonetic result");
   }
   if (result.status === "UNRESOLVED") {
@@ -190,7 +205,7 @@ export function adaptPhoneticResult(result, { allowUncertain = false } = {}) {
       }
     };
     for (const segment of result.segments) {
-      if (segment.kind === "unknown") {
+      if (segment.kind === "unknown" || segment.kind === "tone") {
         flushKnown();
         if (!unknownRun) output.push("???");
         unknownRun = true;
@@ -204,7 +219,7 @@ export function adaptPhoneticResult(result, { allowUncertain = false } = {}) {
   }
   if (result.status === "UNCERTAIN" && !allowUncertain) return null;
   if (!["SUPPORTED", "UNCERTAIN"].includes(result.status) || !result.segments.length
-      || result.segments.some((segment) => segment.kind === "unknown")) return null;
+      || result.segments.some((segment) => segment.kind === "unknown" || segment.kind === "tone")) return null;
   const mapped = mapIpa(result.segments.map((segment) => segment.ipa).join(""), practicalPolicy);
   return mapped.value;
 }
