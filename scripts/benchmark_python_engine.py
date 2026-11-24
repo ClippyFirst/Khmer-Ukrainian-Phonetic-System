@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import statistics
 import time
+import platform
 from collections import Counter
 from pathlib import Path
 from khmer_ua.rule_engine import RuleBasedKhmerEngine
@@ -32,7 +33,8 @@ coverage = {
 }
 print(json.dumps({
     "runtime": "python",
-    "corpus": "web-fixtures ∪ verified-lexical-corpus (input-only; not IPA gold)",
+    "corpus": "web-fixtures ∪ verified-lexical-corpus ∪ onset-fallback-fixtures (input-only; not IPA gold)",
+    "python_version": platform.python_version(),
     "fixture_count": len(inputs),
     "rounds": rounds,
     "median_ms_per_fixture_batch": round(median_ms, 4),
