@@ -178,15 +178,26 @@ def _tokenize_input(text: str) -> list[str]:
     return units
 
 
-def _provisional_preview(structure: Any) -> dict[str, Any] | None:
+def _provisional_preview(structure: Any, source_text: str | None = None) -> dict[str, Any] | None:
     """Expose only registered onset IPA; never infer a vowel from an incomplete unit."""
     syllables = structure.phonological_representation.get("syllables", [])
+    consonant_by_char = {item.get("char"): item for item in CONSONANTS}
+    if not syllables and source_text and source_text[0] in consonant_by_char:
+        # Even when the syllable parser withholds its structure, a token that
+        # begins with a registered Khmer consonant can expose that consonant's
+        # onset only. Do not scan past a leading vowel/sign or guess a base.
+        syllables = [{"raw_text": source_text, "base_consonant": source_text[0]}]
     if not syllables:
         return None
     previews = []
     for unit in syllables:
+        raw_text = unit.get("raw_text", "")
         base = unit.get("base_consonant")
+        if not base and raw_text and raw_text[0] in consonant_by_char:
+            base = raw_text[0]
         onset = unit.get("phonology", {}).get("onset_ipa")
+        if not onset and base:
+            onset = consonant_by_char.get(base, {}).get("onset_ipa")
         if base and not onset:
             # A register/shifter conflict can withhold the syllable's full
             # phonological analysis without invalidating the registered onset.
@@ -198,23 +209,23 @@ def _provisional_preview(structure: Any) -> dict[str, Any] | None:
             )
         if not base or not onset:
             previews.append({
-                "source": unit.get("raw_text", ""),
+                "source": raw_text,
                 "ipa": None,
                 "ukrainian": "???",
                 "status": "UNKNOWN",
                 "position": None,
                 "rule_id": None,
-                "unresolved_graphemes": list(unit.get("raw_text", "")),
+                "unresolved_graphemes": list(raw_text),
             })
             continue
         mapped, unsupported = map_ipa_string(onset)
         rendered = mapped if unsupported is None and mapped is not None else ""
         unresolved = [
-            ch for ch in unit.get("raw_text", "")
+            ch for ch in raw_text
             if ch != base and ch not in {"\u200c"}
         ]
         previews.append({
-            "source": unit.get("raw_text", ""),
+            "source": raw_text,
             "ipa": onset,
             "ukrainian": rendered + ("???" if unresolved or not rendered else ""),
             "status": "PROVISIONAL" if rendered else "UNKNOWN",
@@ -321,7 +332,7 @@ def _analyze_unit(unit: str) -> dict[str, Any]:
                     "structure": structure.phonological_representation,
                 }
 
-    preview = _provisional_preview(structure)
+    preview = _provisional_preview(structure, unit)
     return {
         "source": unit, "ipa": None, "ukrainian": None, "status": "NOT_ESTABLISHED",
         "provisional_ipa": preview["ipa_preview"] if preview else None,
