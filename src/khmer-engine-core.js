@@ -606,8 +606,11 @@ function getStatusNotice(data) {
   if (data.ukrainian_output_kind === "ORTHOGRAPHIC_ROMANIZATION_FALLBACK") {
     return "Український рядок містить попередню орфографічну підказку з романізації, а не підтверджену вимову. ??? позначає невстановлену фонетичну частину; IPA залишається окремо невстановленою.";
   }
-  if (data.status === "PROVISIONAL") {
+  if (data.ukrainian_output_kind === "IPA_DERIVED_PARTIAL") {
     return "Показано лише низькодостовірні IPA-підказки відомих початкових приголосних. Знак ??? позначає невстановлену частину; голосні, фіналі й тон не вгадуються.";
+  }
+  if (data.status === "PROVISIONAL") {
+    return "Показано зовнішній IPA-кандидат зі статусом PROVISIONAL; його профіль не підтверджений незалежною ад'юдикацією.";
   }
   if (data.status === "PROPOSED") {
     return "Результат має статус PROPOSED: IPA та українське читання є дослідницькими пропозиціями для цих записів, а не підтвердженою універсальною моделлю. Перевіряйте джерела й лексичний контекст перед використанням.";
@@ -843,7 +846,8 @@ function convert(text, profile) {
     complete,
     partial: !complete && (resolved.length > 0 || Boolean(selectedExternalCandidate)
       || hasPartialOnset || hasOrthographicFallback),
-    status: displayStatus,
+    status: selectedExternalCandidate ? "PROVISIONAL" : canonicalStatus,
+    display_status: displayStatus,
     ukrainian_output_kind: ukrainianOutputKind,
     confidence_tier: confidence,
     note: note + segmentationNote,
