@@ -6828,3 +6828,14 @@ The onset preview does not overwrite the parser's structural status. A unit such
 - **Acceptance:** exact row count and unique IDs, source resolution, strict schema, report/registry equality, canonical/public generated-report parity, and explicit non-promotion checks; exact-head GitHub Actions results must be recorded before marking DONE_VERIFIED.
 - **Status:** structured reference extraction is pending exact-head CI; runtime contextual phonology remains PARTIAL. No IPA gold or accuracy claim is created.
 - **Prior-state reconciliation:** PR #557, #558 and #559 are merged; PR #519 remains open and unrelated. GitHub Pages remains the production host.
+
+
+## Final verification — structured Ishida reference mappings — 2026-11-24
+
+- PR #560 merged as `1f48334047c3cbadc6d9d4e0a9c9a3fcf419d989`.
+- Exact PR-head Quality [45434765907](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45434765907) and Chromium [45434766063](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45434766063) passed; Chromium reported 40/40.
+- Exact-main Quality [45435043181](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45435043181), Chromium [45435043196](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45435043196), and GitHub Pages build/deploy [45435043183](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45435043183) all passed.
+- Live service and methodology pages returned HTTP 200. The deployed `/reports/khmer-coverage-audit.json` returned HTTP 200 and exposes `reference_mapping_observation_count: 54`.
+- **KHM-REFERENCE-MAPPING-001 — DONE_VERIFIED:** 54 source-resolved records, strict schema, exact IDs, generated report parity, canonical/public report parity, explicit non-executable/non-IPA boundary, exact-head CI and live deployment verification.
+- **KHM-PHON-CONTEXT-001 — PARTIAL:** the structured specialist reference inventory does not complete the contextual lexical/audio cross-product or authorize runtime vowel/coda rules. Independent pronunciation accuracy remains NOT_ASSESSED.
+- **Repository status:** PR #557, #558, #559 and #560 are merged; PR #519 remains open and unrelated. The live service remains a public beta, not a linguistically validated production standard.
