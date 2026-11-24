@@ -3815,3 +3815,12 @@ Code/data/test head `967a357333f31f605eecaed530dc0a0020c09fb3`:
 - Independent gold corpus and manual accessibility audit: DEFERRED by user instruction, not blockers.
 - Independent pronunciation accuracy: NOT_ASSESSED. Repository remains a research-ready partial prototype, not release-ready on linguistic accuracy grounds.
 - PR #557 remains open and unmerged; no public Pages deployment or release was performed.
+
+
+## Structured specialist reference mapping inventory — 2026-11-24
+
+- Added 54 machine-readable observations mirroring the complete Ishida vowel/rhyme mapping table in matrix §8. They retain source notation, consonant-class scope, orthographic sequence, source locator and limitations.
+- These are reference mappings, not lexical tokens, adjudicated IPA, or runtime rules. All 54 have `runtime_eligible=false`, `ukrainian_adaptation=null`, and `ukrainian_status=NOT_ESTABLISHED`.
+- Schema, deterministic report generator, canonical/public reports and regression tests were extended. The existing 32-cell sign × series coverage summary is unchanged.
+- Status: structured reference extraction **PENDING exact-head CI**; runtime contextual phonology remains **PARTIAL**. No new pronunciation accuracy claim.
+- Reconciliation: PR #557 is already merged (not open); PR #558 and PR #559 are also merged. PR #519 remains open and unrelated. The service is hosted on GitHub Pages; see the master handoff's production closeout.
