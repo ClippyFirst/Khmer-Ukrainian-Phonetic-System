@@ -214,7 +214,8 @@
                   "consonant",
                   "modifier",
                   "boundary",
-                  "unknown"
+                  "unknown",
+                  "tone"
                 ]
               },
               "provenance": {
