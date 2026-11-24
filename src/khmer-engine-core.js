@@ -828,7 +828,7 @@ function convert(text, profile) {
     + " мають окрему IPA-підказку лише для початкового приголосного; "
     + rendered.filter((item) => Boolean(item.orthographic_fallback_ukrainian)
       || (item.fallback_status === "PROVISIONAL" && Boolean(item.fallback_ukrainian))).length
-    + " мають орфографічну українську підказку, показану з ???. Це не IPA й не підтверджена вимова."
+    + " мають орфографічну українську підказку, показану з ???. Це не IPA й не підтверджена вимова. Невизначеність IPA збережено."
     + (unresolvedNames.length ? " Невстановлені/проблемні одиниці: " + unresolvedNames.join(" · ") + "." : "");
   const note = selectedExternalCandidate
     ? resultNote + " Додатково показано зовнішній IPA-кандидат від " + selectedExternalCandidate.provider
