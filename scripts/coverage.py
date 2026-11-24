@@ -32,7 +32,7 @@ def _nonempty_items(value):
     return [item for item in values if item is not None and str(item).strip()]
 
 
-def build_contextual_vowel_evidence(cases, sources, context_dimensions=None, coda_pattern_observations=None):
+def build_contextual_vowel_evidence(cases, sources, context_dimensions=None, coda_pattern_observations=None, lexical_coda_examples=None):
     """Expose exact case-level context while refusing to infer missing phonology.
 
     This is an evidence inventory, not a Cartesian prediction matrix. In particular,
@@ -135,6 +135,26 @@ def build_contextual_vowel_evidence(cases, sources, context_dimensions=None, cod
             for item in sorted(coda_pattern_observations or [], key=lambda row: row["id"])
         ],
         "coda_pattern_observation_count": len(coda_pattern_observations or []),
+        "source_backed_lexical_coda_examples": [
+            {
+                "id": item["id"],
+                "orthography": item["orthography"],
+                "source_phonological_transcription": item["source_phonological_transcription"],
+                "transcription_system": item["transcription_system"],
+                "gloss": item["gloss"],
+                "phonological_context": item["phonological_context"],
+                "source_id": item["source_id"],
+                "source_locator": item["source_locator"],
+                "profile_scope": item["profile_scope"],
+                "evidence_status": item["evidence_status"],
+                "ipa": item["ipa"],
+                "ukrainian_adaptation": item["ukrainian_adaptation"],
+                "ukrainian_status": item["ukrainian_status"],
+                "limitations": item["limitations"],
+            }
+            for item in sorted(lexical_coda_examples or [], key=lambda row: row["id"])
+        ],
+        "lexical_coda_example_count": len(lexical_coda_examples or []),
         "context_dimension_evidence_status_counts": dict(sorted(Counter(
             item["evidence_status"] for item in (context_dimensions or [])
         ).items())),
@@ -231,7 +251,8 @@ def build_report(signs, consonants, registers, evidence):
     conflict_cases = [case for case in cases if case.get("status") == "CONFLICTING_SOURCE_ANALYSES"]
     contextual_evidence = build_contextual_vowel_evidence(
         cases, evidence.get("sources", {}), evidence.get("context_dimensions", []),
-        evidence.get("coda_pattern_observations", [])
+        evidence.get("coda_pattern_observations", []),
+        evidence.get("lexical_coda_examples", [])
     )
     return {
         "schema_version": "1.0.0",
