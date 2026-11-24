@@ -519,7 +519,7 @@ function renderUnknownUnit(unit, profile) {
         partial_ipa: onsetIpa,
         partial_candidate_kind: "ONSET_ONLY",
         unresolved_graphemes: [...unit].slice(1),
-        phonology_evidence: CONSONANTS[analysis.base]?.evidence ?? [],
+        phonology_evidence: (CONSONANTS[analysis.base]?.evidence ?? []).filter((sourceId) => sourceId !== "unicode17-ch16"),
         orthographic_fallback_ukrainian: orthographicFallback,
         fallback_trace: [{
           source: unit,
@@ -527,6 +527,7 @@ function renderUnknownUnit(unit, profile) {
           ipa: onsetIpa,
           ukrainian: provisionalUkrainian,
           rule_id: "KHMER-PREVIEW-ONSET-IPA-V1",
+          evidence: (CONSONANTS[analysis.base]?.evidence ?? []).filter((sourceId) => sourceId !== "unicode17-ch16"),
           certainty: "PROVISIONAL",
         }],
       };
