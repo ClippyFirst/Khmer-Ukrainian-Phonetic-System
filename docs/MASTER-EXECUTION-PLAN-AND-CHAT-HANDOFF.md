@@ -1,3 +1,16 @@
+## Current continuation — provisional output and cross-runtime benchmark (2026-11-24)
+
+- **Starting main:** `422023d03283648bea9ca59ef0ea01caedf41698`.
+- **Working branch:** `feat/khmer-provisional-output-benchmarks-20261124`; **PR #566:** https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/566.
+- **Implementation batch:** the browser's main Ukrainian field now exposes a typed BGN/PCGN-derived orthographic fallback with a mandatory `???` suffix when canonical IPA is unavailable. `canonical_ipa` and `canonical_ua` remain separate and unchanged; the visible result is `PROVISIONAL`, `complete=false`, and tagged `ORTHOGRAPHIC_ROMANIZATION_FALLBACK`. No IPA, vowel, coda or tone is manufactured by the orthographic fallback. Onset-only IPA hints remain separately typed.
+- **Benchmark batch:** `scripts/benchmark_python_engine.py` and `benchmarks/browser-engine.mjs` now use the same unique NFC input set: `web-fixtures ∪ verified-lexical-corpus`. They report warmed median batch latency, throughput, complete/partial/unresolved coverage and status counts for Python and browser runtimes. Source-attested/compositional corpus rows are input coverage only, not adjudicated IPA gold and not an accuracy denominator. Main CI already includes `npm run bench:engine`.
+- **Tests/docs:** extended browser contract tests and updated deterministic-engine and benchmarking documentation. Exact code changes are in PR #566.
+- **Task ledger:** provisional display contract = PARTIAL pending exact-head Quality/Chromium and output behavior verification; shared runtime benchmark = PARTIAL pending exact-head run artifact; independent IPA accuracy = BLOCKED (adjudicated gold remains unavailable); external provider promotion = BLOCKED by existing profile/rights/gold gates.
+- **PR reconciliation:** PR #519 remains open and untouched. It is 73 commits ahead / 198 behind current main and has broad overlapping UI, Python hybrid, workflow and documentation changes; do not merge it blindly. PR #566 is based directly on current main and is limited to the provisional output/benchmark contract.
+- **Environment:** local `git clone` was attempted but DNS/network access to github.com was unavailable. No local tests are claimed. GitHub Actions are the authoritative verification route for this branch.
+- **At this checkpoint:** Quality/Chromium workflows are running on PR head `111b4f7d047ba671ce4cff4bba690c595b5414e0`; no Pages deployment or merge is claimed. Append exact run outcomes and final head after CI completes.
+
+
 ## Current continuation state — PR #557 progressive IPA recovery — 2026-11-23
 
 - **Working branch:** `fix/retain-partial-ipa-on-evidence-limited-2026-11-23`, based on main `5845c6d163ab41ab4d28bab0a04d276608a55166`; pre-closeout PR-head commit `705c87fa24929a02d20578ff8b64f221520c7bcf`. PR [#557](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/557) is ready for review but not merged; merge remains an owner decision.
