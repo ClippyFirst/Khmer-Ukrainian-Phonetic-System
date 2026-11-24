@@ -50,6 +50,18 @@ export function serializePhoneticResult(result) {
   };
 }
 
+function syllableBoundaries(segments) {
+  const boundaries = [0];
+  segments.forEach((segment, index) => {
+    if (segment.kind === "boundary") {
+      if (!boundaries.includes(index)) boundaries.push(index);
+      if (!boundaries.includes(index + 1)) boundaries.push(index + 1);
+    }
+  });
+  if (!boundaries.includes(segments.length)) boundaries.push(segments.length);
+  return boundaries;
+}
+
 function tokenizeIpa(ipa, provenance, certainty) {
   const chars = [...ipa];
   const segments = [];
@@ -122,7 +134,7 @@ export function fromIpa(ipa, {
       uncertainty: [...new Set([...uncertainty, "UNSUPPORTED-IPA-NOTATION"])],
     });
   }
-  return makeResult({
+  const result = makeResult({
     phonemic_ipa: raw,
     segments,
     status,
@@ -130,6 +142,8 @@ export function fromIpa(ipa, {
     uncertainty,
     vowel_length: raw.includes("ː") ? "long" : null,
   });
+  result.syllable_boundaries = syllableBoundaries(segments);
+  return result;
 }
 
 export function fromProvisionalIpa(ipaHint, {
