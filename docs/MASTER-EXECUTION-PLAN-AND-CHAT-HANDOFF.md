@@ -6799,3 +6799,8 @@ Code/data/test head `967a357333f31f605eecaed530dc0a0020c09fb3`:
 - **Documentation:** `docs/provisional-grapheme-ipa-fallback.md` and `docs/repository-audit.md` record the corrected contract and root cause.
 - **Open PR reconciliation:** PR #519 is unrelated, based on an older main SHA and reported non-mergeable; leave it untouched. PR #557 is already merged; do not reopen it.
 - **Next steps:** finish the red/green cycle for all web checks; run exact-head Quality, Chromium browser smoke and Vite build; inspect generated drift and review the full branch diff; update this section with exact final SHA and run IDs; create a PR for owner review. Do not merge or deploy without explicit authorization.
+
+
+### Status-field refinement — 2026-11-24
+
+The onset preview does not overwrite the parser's structural status. A unit such as `ពាក់` whose broad parse status is `ESTABLISHED_STRUCTURE` but whose full syllabification is unresolved remains `NOT_ESTABLISHED`; a unit whose parser status is already `EVIDENCE_LIMITED` retains that status. In both cases the user-facing IPA and Ukrainian displays still show the known onset followed by `???`, with confidence tier C. The typed result keeps the onset as bare partial IPA and the target as `IPA_DERIVED_PROVISIONAL`. This preserves Python/browser structural status parity without hiding the partial result.
