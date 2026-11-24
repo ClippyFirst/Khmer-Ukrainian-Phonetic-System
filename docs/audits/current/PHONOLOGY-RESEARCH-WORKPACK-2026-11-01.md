@@ -94,3 +94,13 @@ The current evidence supports a classification of claims, not a new global phono
 - Mam et al. (2025) report possible PPK pitch phonologization beyond /r>-h/ forms, including voiced-onset disyllables. The sample is five speakers and 50 words; the authors call for further work. Do not infer tone from spelling or alter the careful-citation profile.
 
 **Implementation decision:** no new global syllable-rejection rule, coda rule, tone label or /r/-rewrite is introduced. The parser's `syllables` are orthographic structural units; `phonetic_representation.status` remains `phoneticization_not_yet_established`.
+
+
+## Machine-readable reference mapping continuation — 2026-11-24
+
+- Transcribed all 54 rows of Ishida's “Vowel sounds mapped to characters” table (§8 of the canonical evidence matrix) into `reference_mapping_observations` in the canonical vowel-context register.
+- The new layer preserves source notation, consonant-class scope and orthographic sequence verbatim, with source ID, locator, scope and explicit `runtime_eligible=false`.
+- It is deliberately separate from lexical/context case rows, source IPA fields, coda lexical examples and the deterministic engine. The source table is not an adjudicated Phnom Penh lexical corpus.
+- The generated report exposes all 54 mappings as source-reference observations. The 32-cell sign × series coverage summary is unchanged; this extraction does not fill any missing cell by analogy or claim that every class/sign sequence is a universal phonological rule.
+- Acceptance: schema-valid, all source IDs resolve, stable unique IDs KHV-MAP-001–054, report mirrors registry exactly, no IPA/UA promotion, canonical/public report byte parity.
+- Status: structured reference extraction **PENDING exact-head CI**; runtime contextual phonology remains **PARTIAL**. No new pronunciation accuracy claim.

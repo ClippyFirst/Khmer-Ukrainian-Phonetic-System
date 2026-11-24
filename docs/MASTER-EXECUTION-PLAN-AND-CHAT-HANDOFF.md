@@ -6816,3 +6816,15 @@ The onset preview does not overwrite the parser's structural status. A unit such
 - **Current host:** https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/ . The service remains a public beta and no version tag or formal release was created.
 - **Research status unchanged:** the onset-only display contract is `DONE_VERIFIED`; full positional grapheme-to-IPA coverage and the full contextual vowel/rime phonology remain `PARTIAL`. Independent adjudicated IPA gold remains 0 and pronunciation accuracy `NOT_ASSESSED`. Manual accessibility review remains `DEFERRED` per the user's earlier scope instruction. The repository is hosted and engineering-verified as a public beta, not a linguistically validated production standard.
 - **Supersedes earlier checkpoint wording:** statements above that PR #558 was open/unmerged or that no deployment had occurred were accurate at their historical timestamps and are superseded by this closeout.
+
+
+## Structured specialist vowel/rhyme reference inventory — 2026-11-24
+
+- **Starting main:** `a69f3bd97a18dc08f45e3970bc74a1b6cfd147e4`.
+- **Branch:** `research/khmer-reference-mapping-registry-2026-11-24`, based directly on the starting main SHA.
+- **Work:** machine-readable extraction of all 54 rows from Ishida's “Vowel sounds mapped to characters” table in `docs/audits/current/KHMER-VOWEL-SERIES-CODA-EVIDENCE-MATRIX-2026-11-01.md` §8.
+- **Files:** canonical register, schema, `scripts/coverage.py`, both generated coverage report copies, two regression test files, evidence matrix, phonology workpack, linguistic completion register, docs index, repository audit and this handoff.
+- **Evidence boundary:** `KHV-MAP-001`–`KHV-MAP-054` preserve Ishida's transcription, class scope and orthographic context as `source_transcription`. They are specialist reference mappings, not lexical tokens or project-normalized IPA. Every row is `SOURCE_ATTESTED_NOT_GOLD`, `runtime_eligible=false`, with null Ukrainian adaptation and `NOT_ESTABLISHED` target status. The existing 32-cell sign × series coverage and runtime behavior do not change.
+- **Acceptance:** exact row count and unique IDs, source resolution, strict schema, report/registry equality, canonical/public generated-report parity, and explicit non-promotion checks; exact-head GitHub Actions results must be recorded before marking DONE_VERIFIED.
+- **Status:** structured reference extraction is pending exact-head CI; runtime contextual phonology remains PARTIAL. No IPA gold or accuracy claim is created.
+- **Prior-state reconciliation:** PR #557, #558 and #559 are merged; PR #519 remains open and unrelated. GitHub Pages remains the production host.

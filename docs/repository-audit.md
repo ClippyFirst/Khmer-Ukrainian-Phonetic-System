@@ -3193,3 +3193,12 @@ The prior status line in `docs/provisional-grapheme-ipa-fallback.md` still said 
 - Live service verification: HTTP 200; entering `ពាក់` yields primary IPA `/p/???`, Ukrainian phonetic preview `п???`, and `NOT ESTABLISHED` / confidence C. The separate `Пеак` BGN/PCGN-derived orthographic candidate is explicitly not pronunciation.
 - Canonical host: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/ . No Vercel project exists or was created; no formal version release/tag was created.
 - Scope boundary: the onset-only preview is `DONE_VERIFIED`; full contextual phonology and full positional grapheme-to-IPA coverage remain `PARTIAL`; independent IPA gold count remains 0 and accuracy `NOT_ASSESSED`; manual accessibility audit remains `DEFERRED` under the user's earlier instruction. Status: hosted public beta / research-ready partial prototype, not a linguistically validated production standard.
+
+
+## Structured Khmer reference mapping inventory — 2026-11-24
+
+- Added 54 source-indexed Ishida vowel/rhyme mapping observations from the complete table in matrix §8 to `data/khmer/vowel-context-register.json`.
+- The machine-readable rows preserve the source transcription and written context separately. They are not lexical audio tokens, project-normalized IPA, Ukrainian output or runtime rules; all rows explicitly carry `runtime_eligible=false`.
+- The JSON schema, deterministic report generator, canonical/public report copies and regression tests were updated together. The 32-cell dependent-vowel × series status calculation remains unchanged.
+- Exact-head CI is required before marking this extraction DONE_VERIFIED. No deterministic phonological behavior or linguistic accuracy claim is added.
+- Status reconciliation: PR #557, #558 and #559 are merged; PR #519 remains open and unrelated. The canonical public host is GitHub Pages.
