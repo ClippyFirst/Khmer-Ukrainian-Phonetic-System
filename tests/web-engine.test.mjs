@@ -40,7 +40,7 @@ for (const x of ["Content-Security-Policy", "src/main.js", 'id="source"', 'id="r
   if (!html.includes(x)) throw new Error("index missing " + x);
 if (!outputLevelSelector.includes('value="strict"') || !outputLevelSelector.includes('value="balanced"') || !outputLevelSelector.includes('value="exploratory"')) throw new Error("all three evidence-aware output levels must be selectable");
 if (!js.includes('outputLevelMode === "strict"') || !js.includes('outputLevelMode === "exploratory"') || !js.includes('outputLevel?.addEventListener("change"')) throw new Error("output-level presentation policy is not wired to the interface");
-if (!js.includes('unit.provisional_ipa ? " · Попередня підказка: "')) throw new Error("balanced mode must preserve the separately labelled provisional onset preview");
+if (!js.includes('unit.partial_candidate_kind === "ONSET_ONLY"')) throw new Error("the primary detail view must distinguish onset-only IPA previews from orthographic fallback");
 }
 for (const x of ["Регістри, шифтери та кластери", "Приголосні: українська ціль", "Голосні: контекст важливіший за знак", "/c/","/h/","/ʋ/","/w/","Валідація складних випадків","ភាសាខ្មែរ","п\u0027ієса к\u0027мае"]) {
   if (!systemHtml.includes(x)) throw new Error("system missing " + x);
