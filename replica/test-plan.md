@@ -16,7 +16,7 @@ Build: `feat/khmer-lao-engine-contract-parity-20261124`  Date: 2026-11-24
 | F06-H1 | CLI analyze / explain | Integration | JSON includes typed result, provenance and uncertainty | `tests/test_cli_phonetic_result.py` |
 | F06-H2 | CLI ipa / transliterate | Integration | Partial output remains visible with ???; no-hint case is ??? | `tests/test_cli_phonetic_result.py` |
 | F07-H1 | Python ↔ JavaScript engine | Parity | Typed status, segment sequence, boundaries and target result match | `tests/cross-runtime-rule-output-parity.mjs` |
-| F08-H1 | Browser detail disclosure | UI | Typed IPA, confidence, provenance and caveats visible in Ukrainian | Chromium browser smoke (exact-head pending) |
+| F08-H1 | Browser detail disclosure | UI | Typed IPA, confidence, provenance and caveats visible in Ukrainian | PASS — 42/42 exact-head Playwright tests |
 
 ## Evidence boundary
 
