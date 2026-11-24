@@ -739,7 +739,6 @@ function convert(text, profile) {
     ipa_kind: ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status) ? "NOT_APPLICABLE" : "UNRESOLVED",
     rule_trace: item.rule_trace ?? [],
     ipa: item.partial_ipa ?? (item.status !== "PUNCTUATION" && /^\/.*\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa),
-    canonical_ukrainian: item.status === "PROPOSED" ? item.ua : "???",
     ukrainian: item.partial_candidate_kind === "ONSET_ONLY"
       ? item.provisional_ukrainian
       : (item.orthographic_fallback_ukrainian || item.fallback_ukrainian)
@@ -760,17 +759,6 @@ function convert(text, profile) {
         ? ["data/ukrainian/practical-policy.json"]
         : item.fallback_status === "PROVISIONAL" ? ["src/khmer-romanization-ukrainian.js"] : [],
     },
-    provisional_ipa: item.partial_ipa ?? item.provisional_ipa ?? null,
-    ipa_derived_provisional_ukrainian: item.partial_candidate_kind === "ONSET_ONLY"
-      ? item.provisional_ukrainian : null,
-    provisional_ukrainian: item.partial_candidate_kind === "ONSET_ONLY"
-      ? item.provisional_ukrainian
-      : item.orthographic_fallback_ukrainian ?? item.fallback_ukrainian ?? null,
-    provisional_ukrainian_kind: item.partial_candidate_kind === "ONSET_ONLY"
-      ? "IPA_DERIVED_PROVISIONAL"
-      : item.orthographic_fallback_ukrainian || item.fallback_status === "PROVISIONAL"
-        ? "ORTHOGRAPHIC_ROMANIZATION_FALLBACK" : null,
-    orthographic_fallback_ukrainian: item.orthographic_fallback_ukrainian ?? item.fallback_ukrainian ?? null,
     uncertainty: ["PUNCTUATION", "NON_LINGUISTIC", "PROPOSED"].includes(item.status)
       ? []
       : [{ status: item.status, note: item.note ?? "", unresolved_graphemes: item.analysis?.graphemes?.slice(1).map((g) => g.text) ?? item.analysis?.unknown ?? [] }],
@@ -867,7 +855,6 @@ function convert(text, profile) {
       pipeline: ["source-orthography", "structural-analysis", "source-phonology", "ipa", "ukrainian-target-adaptation"],
       complete,
       partial: !complete && (resolved.length > 0 || hasPartialOnset || hasOrthographicFallback),
-      ukrainian_output_kind: ukrainianOutputKind,
       units: phoneticResults,
     },
     analyses,
