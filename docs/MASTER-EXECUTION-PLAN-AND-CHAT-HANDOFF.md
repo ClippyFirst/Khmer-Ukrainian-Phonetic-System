@@ -6786,3 +6786,21 @@ Code/data/test head `967a357333f31f605eecaed530dc0a0020c09fb3`:
 - Independent gold corpus and manual accessibility audit: DEFERRED by user instruction, not blockers.
 - Independent pronunciation accuracy: NOT_ASSESSED. Repository remains a research-ready partial prototype, not release-ready on linguistic accuracy grounds.
 - PR #557 remains open and unmerged; no public Pages deployment or release was performed.
+
+
+## Provisional pronunciation visibility correction — 2026-11-24
+
+- **Current work branch:** `fix/provisional-pronunciation-unknowns-2026-11-24`, based on main `cbc19240899510066098bf15f16b946143905565`.
+- **User requirement:** when full pronunciation is uncertain, show the best supported approximate phonetic result and append `???`; do not replace it with an empty abstention marker or an orthographic transliteration.
+- **Root cause:** `renderUnknownUnit()` only enabled the onset preview when the parser's overall status was `EVIDENCE_LIMITED`, even though valid units such as `ពាក់` can retain `ESTABLISHED_STRUCTURE` while `syllabification_status` is `NOT_ESTABLISHED`. The BGN/PCGN fallback also ran before the onset preview, so `Пеак` pre-empted the available /p/ hint.
+- **Implementation — DONE_VERIFIED for the requested display contract:** the browser engine now surfaces a registered onset IPA hint before orthographic fallback whenever full deterministic IPA is unavailable. It emits primary `/p/???` and `п???` for `ពាក់`, retains `Пеак` separately as orthographic-only metadata, preserves parser-derived status (`NOT_ESTABLISHED` or `EVIDENCE_LIMITED`) and confidence C, and types the Ukrainian value as `IPA_DERIVED_PROVISIONAL`. No vowel, coda, subscript realization, tone or complete lexical pronunciation is inferred.
+- **Test-first evidence:** test-only commit `e2a092a360cf864f0ccf12c89dc3c31f4e7e736e` failed as expected at the new `ពាក់` regression because `partial_candidate_kind` was absent. Implementation, schema, UI, browser and runtime test changes follow on the same branch.
+- **Verification — exact implementation head `cb40d3091d21d303103820e568e7ecdf49215960`:** Quality PASS (484 Python tests + 70 subtests; web checks; structural, lexical, consonant and segmentation parity; deterministic-engine and browser-tokenizer benchmarks; Vite build) in run `45384388954`; Chromium browser smoke PASS in `45384389114`; external khPOS benchmark PASS in `45384389054`. The test-first regression failed as expected on test-only commit `e2a092a360cf864f0ccf12c89dc3c31f4e7e736e` because the onset candidate was absent. No local clone was available because the container could not resolve github.com; all relevant checks ran successfully in GitHub Actions.
+- **Documentation:** `docs/provisional-grapheme-ipa-fallback.md` and `docs/repository-audit.md` record the corrected contract and root cause.
+- **Open PR reconciliation:** PR #519 is unrelated, based on an older main SHA and reported non-mergeable; leave it untouched. PR #557 is already merged; do not reopen it.
+- **Integration:** PR #558 (`https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/558`) is open, ready for review and mergeable. It is not merged; no deployment or release was performed. Do not merge or deploy without explicit user authorization. Existing open PR #519 remains unrelated and untouched.
+
+
+### Status-field refinement — 2026-11-24
+
+The onset preview does not overwrite the parser's structural status. A unit such as `ពាក់` whose broad parse status is `ESTABLISHED_STRUCTURE` but whose full syllabification is unresolved remains `NOT_ESTABLISHED`; a unit whose parser status is already `EVIDENCE_LIMITED` retains that status. In both cases the user-facing IPA and Ukrainian displays still show the known onset followed by `???`, with confidence tier C. The typed result keeps the onset as bare partial IPA and the target as `IPA_DERIVED_PROVISIONAL`. This preserves Python/browser structural status parity without hiding the partial result.

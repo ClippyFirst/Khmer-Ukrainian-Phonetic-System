@@ -50,10 +50,10 @@ test("primary method switch is visible beside the main result without opening re
 test("phonetic mode never substitutes an orthographic romanization fallback for unresolved IPA", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("ស៊៉ា");
-  await expect(page.locator("#ipa-result")).toHaveText("/s/⟦EVIDENCE_LIMITED⟧");
+  await expect(page.locator("#ipa-result")).toHaveText("/s/???");
   await expect(page.locator("#ua-result")).toHaveText("с???");
   await expect(page.locator("#status")).toContainText("EVIDENCE LIMITED");
-  await expect(page.locator("#unit-details")).toContainText("Попередня підказка: s → с??? [PROVISIONAL]");
+  await expect(page.locator("#unit-details")).toContainText("Попередня IPA-підказка: /s/ → с???");
   await expect(page.locator("#status")).not.toContainText("EXTERNAL IPA CANDIDATE");
 });
 
@@ -255,6 +255,16 @@ test("one unsupported unit does not hide neighboring IPA and Ukrainian output", 
   await expect(page.locator("#ua-result")).toHaveText("ка ??? ко");
 });
 
+test("unresolved Khmer coda displays the available onset with an uncertainty marker", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("ពាក់");
+  await expect(page.locator("#ipa-result")).toHaveText("/p/???");
+  await expect(page.locator("#ua-result")).toHaveText("п???");
+  await expect(page.locator("#unit-details")).toContainText("лише початковий приголосний");
+  await expect(page.locator("#unit-details")).toContainText("Окрема орфографічна романізація: Пеак");
+  await expect(page.locator("#status")).toContainText("NOT ESTABLISHED");
+});
+
 test("clear control restores the empty state", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("ក");
@@ -364,8 +374,8 @@ test("unresolved Khmer phrase displays archived external IPA candidates with tra
   await expect(page.locator("#unit-details")).toContainText("profile match UNVERIFIED");
   await expect(page.locator("#unit-details")).toContainText("Відхилені виходи провайдерів");
   await expect(page.locator("#unit-details")).toContainText("epitran");
-  await expect(page.locator("#unit-details")).toContainText("Попередня українська форма:");
-  await expect(page.locator("#unit-details")).toContainText("BGN/PCGN, не IPA");
+  await expect(page.locator("#unit-details")).toContainText("Окрема орфографічна романізація:");
+  await expect(page.locator("#unit-details")).toContainText("BGN/PCGN-derived, не вимова");
 });
 
 test("archived provisional IPA candidate remains visible at every detail level", async ({ page }) => {
@@ -378,15 +388,15 @@ test("archived provisional IPA candidate remains visible at every detail level",
   }
 });
 
-test("unresolved Khmer cluster keeps romanization fallback out of the IPA route", async ({ page }) => {
+test("unresolved Khmer cluster shows the known onset in IPA mode and keeps romanization separate", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("ក្ក");
-  await expect(page.locator("#ipa-result")).toHaveText("⟦NOT_ESTABLISHED⟧");
-  await expect(page.locator("#ua-result")).toHaveText("???");
+  await expect(page.locator("#ipa-result")).toHaveText("/k/???");
+  await expect(page.locator("#ua-result")).toHaveText("к???");
   await expect(page.locator("#status")).toContainText("NOT ESTABLISHED");
-  await expect(page.locator("#unit-details")).toContainText("Попередня українська форма:");
-  await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-rule-id", "KHMER-BGN-PCGN-ORTHOGRAPHIC-FALLBACK-V1");
-  await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-position", "whole-unit");
+  await expect(page.locator("#unit-details")).toContainText("Попередня IPA-підказка:");
+  await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-rule-id", "KHMER-PREVIEW-ONSET-IPA-V1");
+  await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-position", "onset");
   await page.locator("#mode-romanization").click();
   await expect(page.locator("#ua-result")).not.toContainText("???");
   await expect(page.locator("#status")).toContainText("РОМАНІЗАЦІЯ");
