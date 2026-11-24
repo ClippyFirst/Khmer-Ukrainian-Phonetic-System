@@ -56,3 +56,10 @@ For `កម្ពុជាប្រជាធិបតេយ្យ`:
 - Epitran's raw output is retained only as a rejected backend failure because it contains a non-IPA Khmer combining mark.
 
 The selected browser display is `/kampuciə prɑciətʰɨppaʔtaj/???` and `кампутьіє пратьієт'иппатай???`. The marker applies to the complete unadjudicated candidate. `profile_match=UNVERIFIED`; this snapshot is not expert gold, a measured-accuracy result, or evidence that the external provider's dialect/style equals the selected citation profile. The canonical deterministic result and all raw candidate/failure records remain separately inspectable. Provider order selects a display candidate only; it is not voting or ranking by accuracy.
+
+
+## Typed IPA adapter integration — 2026-11-24
+
+Provider candidates are now tokenized into the same source-independent `TypedPhoneticResult` model before target adaptation. The IPA parser preserves valid IPA even if the Ukrainian correspondence table cannot map it; the target adapter then withholds the Ukrainian value and the provider diagnostic retains the exact unsupported tail. Provider status, profile match, provenance and uncertainty remain separate from canonical engine status. A provider's `COMPLETE` assertion does not become `SUPPORTED` gold, and no provider candidate overwrites canonical IPA or Ukrainian output.
+
+The target adapter consumes typed IPA only. It does not read Khmer graphemes or the romanization route. BGN/PCGN orthographic fallback remains a separate display candidate and is never passed through the IPA adapter.
