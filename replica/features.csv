@@ -1,0 +1,18 @@
+feature,area,priority,original,clone,notes
+Typed phonetic result with four confidence states,engine,must,yes,yes,TypedPhoneticResult and PhoneticSegment added without replacing the existing public result envelope
+Segment provenance and uncertainty,engine,must,yes,yes,Per-result and per-segment provenance plus uncertainty are serialized
+Syllable boundaries and vowel length,engine,must,yes,yes,Boundaries and length marks are preserved in the typed IPA model
+Tone is retained but never inferred,engine,must,yes,yes,Tone symbols remain explicit segments; tone_category and contour stay null for Khmer
+One IPA-only target adapter,engine,must,yes,yes,Canonical and provisional IPA use adapt_phonetic_result / adaptPhoneticResult
+Provisional IPA uses the same adapter,engine,must,yes,yes,Registered onset hints remain PROVISIONAL and unresolved tail is one ???
+Unknown source unit is explicit,engine,must,yes,yes,UNRESOLVED result maps to ???
+Valid IPA can remain unmapped to Ukrainian,engine,must,yes,yes,IPA confidence is not downgraded merely because target correspondence is absent
+Python and JavaScript typed result parity,parity,must,yes,yes,Typed status, segments, boundaries and target result included in cross-runtime checks
+Worker result is structured-clone-safe,browser,must,yes,yes,Typed results are plain data; Worker contract test passes
+CLI uses the deterministic engine,cli,should,yes,yes,analyze/explain JSON includes typed IPA; ipa/transliterate expose partial and unresolved results
+Browser detail exposes typed confidence,browser,should,yes,partial,Implemented in unit details; exact-head Chromium smoke still pending
+Orthographic romanization remains separate,engine,must,yes,yes,Orthographic fallback remains a separately typed candidate and never enters IPA adapter
+External providers remain opt-in and non-canonical,engine,should,yes,yes,Existing HybridKhmerEngine contract preserved
+Lao language rules and source values,linguistics,skip,yes,skip,Not transferable to Khmer and intentionally excluded
+Independent Khmer IPA gold and accuracy,linguistics,skip,no,skip,External expert annotation is a separate blocked research task
+Public Pages deployment,release,skip,yes,skip,No deployment requested; PR remains a draft until exact-head browser verification
