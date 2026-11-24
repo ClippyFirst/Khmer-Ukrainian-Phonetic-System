@@ -156,3 +156,27 @@ def test_stress_marker_lexical_examples_keep_source_transcription_out_of_ipa():
         assert item["ukrainian_status"] == "NOT_ESTABLISHED"
         assert "not IPA" in item["transcription_system"]
         assert item["limitations"]
+
+
+def test_reference_mapping_observations_are_source_resolved_and_non_executable():
+    register = load_json(REGISTER)
+    source_ids = set(register["sources"])
+    rows = register["reference_mapping_observations"]
+    ids = [row["id"] for row in rows]
+
+    assert len(rows) == 54
+    assert len(ids) == len(set(ids))
+    assert ids == [f"KHV-MAP-{index:03d}" for index in range(1, 55)]
+    for row in rows:
+        assert row["source_id"] in source_ids
+        assert row["source_id"] == "r12a-orthography"
+        assert row["source_transcription"]
+        assert row["consonant_class_scope"]
+        assert row["orthographic_context"]
+        assert row["source_locator"]
+        assert row["evidence_status"] == "SOURCE_ATTESTED_NOT_GOLD"
+        assert row["mapping_kind"] == "SPECIALIST_REFERENCE_MAPPING_NOT_LEXICAL_TOKEN"
+        assert row["runtime_eligible"] is False
+        assert row["ukrainian_adaptation"] is None
+        assert row["ukrainian_status"] == "NOT_ESTABLISHED"
+        assert row["limitations"]
