@@ -256,13 +256,21 @@ def _analyze_unit(unit: str) -> dict[str, Any]:
     if fixture is not None:
         raw_ipa = fixture.get("ipa")
         if not raw_ipa:
+            structure = analyze_structure(unit)
+            preview = _provisional_preview(structure, unit)
             return {
                 "source": unit, "ipa": None, "ukrainian": None,
                 "status": fixture.get("status", "EVIDENCE_LIMITED"),
-                "rule_trace": ["KHMER_LEXICAL_FIXTURE_WITHHELD"],
+                "rule_trace": ["KHMER_LEXICAL_FIXTURE_WITHHELD"]
+                    + (["PROVISIONAL_ONSET_IPA_PREVIEW"] if preview else []),
                 "reason": fixture.get("note", "The lexical fixture has no established IPA value."),
                 "evidence": fixture.get("evidence", []),
                 "source_locator": fixture.get("source_locator"),
+                "structure": structure.phonological_representation,
+                "provisional_ipa": preview["ipa_preview"] if preview else None,
+                "provisional_ukrainian": preview["ukrainian_preview"] if preview else None,
+                "fallback_status": preview["status"] if preview else "UNKNOWN",
+                "fallback_trace": preview["syllables"] if preview else [],
             }
         ipa = raw_ipa.strip().strip("/")
         ukrainian, unsupported = map_ipa_string(ipa)
