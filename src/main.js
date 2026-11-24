@@ -158,7 +158,15 @@ if (typeof document !== "undefined") {
         + (unit.fallback_status === "PROVISIONAL"
           ? " · Попередня українська форма: " + unit.fallback_ukrainian + " [PROVISIONAL · BGN/PCGN, не IPA]"
           : " · Українська: " + unit.ua)
-        + (unit.provisional_ipa ? " · Попередня підказка: " + unit.provisional_ipa + " → " + unit.provisional_ukrainian + " [PROVISIONAL]" : "");
+        + (unit.partial_candidate_kind === "ONSET_ONLY"
+          ? " · Попередня IPA-підказка: /" + unit.provisional_ipa + "/ → " + unit.provisional_ukrainian
+            + " [лише початковий приголосний; PROVISIONAL]"
+            + (unit.orthographic_fallback_ukrainian
+              ? " · Окрема орфографічна романізація: " + unit.orthographic_fallback_ukrainian + " [BGN/PCGN-derived, не вимова]"
+              : "")
+          : unit.provisional_ipa
+            ? " · Попередня підказка: " + unit.provisional_ipa + " → " + unit.provisional_ukrainian + " [PROVISIONAL]"
+            : "");
       const note = document.createElement("p");
       note.className = "unit-note";
       note.textContent = unit.note || "Окремого пояснення для цієї одиниці немає.";
