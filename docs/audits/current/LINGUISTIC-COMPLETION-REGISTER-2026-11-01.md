@@ -1,3 +1,13 @@
+## Khmer engine architecture parity — 2026-11-24
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-LAO-ENGINE-CONTRACT-001 | PARTIAL pending exact-head Chromium/Rust workflows | PR [#568](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/568); test-first typed IPA and CLI regressions; Quality [45488340718](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45488340718) passed 503 Python tests + 70 subtests, browser deterministic checks, Python/JS parity, benchmarks and build. | Typed IPA result and segment model; `SUPPORTED` / `UNCERTAIN` / `PROVISIONAL` / `UNRESOLVED`; one IPA-only target adapter for canonical and provisional output; preserved length/boundaries/tone symbols/provenance/uncertainty; Python/JS/Worker/CLI/schema/UI contract. This is engineering evidence only: no new Khmer phonological rules, IPA gold labels or pronunciation accuracy claims. |
+
+**Research boundary unchanged:** the architecture parity task does not expand the accepted Khmer phonological inventory. Independent IPA gold remains 0 and accuracy remains NOT_ASSESSED. Full positional vowel/coda/coeng/register coverage remains PARTIAL.
+
+---
+
 ## Progressive IPA recovery and hybrid candidate selection — 2026-11-23
 
 | ID | Status | Evidence | Acceptance boundary |
