@@ -3853,3 +3853,11 @@ Current canonical registry counts: **14 case records**, **13 context dimensions*
 - Acceptance to unblock: obtain explicit permission or verify a license that covers copying, modification and redistribution of the source table; record exact terms and attribution requirements; only then decide whether to reintroduce a structured copy.
 - The pre-existing Markdown table in matrix §8 remains a separate rights-review item. Do not interpret the repository's CC BY-NC license as covering this third-party content.
 - This rights blocker does not change `KHM-PHON-CONTEXT-EVIDENCE-001 = DONE_VERIFIED` for the project's own source-indexed evidence register, schema and report tests. Full contextual phonology `KHM-PHON-CONTEXT-001` remains `PARTIAL`.
+
+
+## Ishida rights-status correction — 2026-11-24
+
+- The temporary `KHM-REFERENCE-MAPPING-001 — BLOCKED` status is superseded. Both Ishida source pages (`km.html` and `block.html`) explicitly display a CC BY 4.0 footer.
+- The 54-row machine-readable mapping layer is restored with per-row attribution, license URL and a change notice. The canonical inventory records `CC-BY-4.0_VERIFIED_ON_SOURCE_PAGE` and `ALLOWED_WITH_ATTRIBUTION`.
+- **KHM-REFERENCE-MAPPING-001 — DONE_VERIFIED:** 54 stable rows, source resolution, strict schema, report/registry parity, canonical/public parity, attribution/change notices, exact-head CI and live deployment.
+- Linguistic boundary unchanged: the 54 rows are specialist reference mappings, not lexical tokens or gold IPA; all are non-executable, and no Ukrainian adaptation is assigned. Full contextual phonology remains PARTIAL.
