@@ -52,7 +52,7 @@ test("phonetic mode never substitutes an orthographic romanization fallback for 
   await page.locator("#source").fill("ស៊៉ា");
   await expect(page.locator("#ipa-result")).toHaveText("/s/???");
   await expect(page.locator("#ua-result")).toHaveText("с???");
-  await expect(page.locator("#status")).toContainText("EVIDENCE LIMITED");
+  await expect(page.locator("#status")).toContainText("NOT ESTABLISHED");
   await expect(page.locator("#unit-details")).toContainText("Попередня IPA-підказка: /s/ → с???");
   await expect(page.locator("#status")).not.toContainText("EXTERNAL IPA CANDIDATE");
 });
