@@ -299,3 +299,12 @@ This section consolidates the current public-source and full-text review into co
 - `KHM-PHON-CONTEXT-EVIDENCE-001`: PARTIAL pending exact-head CI and review of generated report parity.
 - `KHM-PHON-CONTEXT-001`: PARTIAL. These new pattern-level observations do not establish a full lexical cross-product or a runtime rule.
 - No new deterministic IPA or Ukrainian runtime behavior was changed. No source pattern is promoted to independent gold or a Phnom Penh-specific acoustic fact.
+
+
+## Lexical source examples — REAHMUK and coda-conditioned rhymes — 2026-11-24
+
+- Added 20 source-located lexical examples to `lexical_coda_examples`: 12 from Huffman & Jenner (1970), §VII.A.8, printed p.52 (including បះ /pah/, ប្រទះ /pratĕəh/, ជិះ /cih/, សេះ /seh/, នេះ /nih/, កោះ /kah/, គោះ /kŭəh/, ចង្កេះ /caŋkeh/), and eight from Ishida's *Khmer Block Notes* (including ពាក់ /pĕəʔ/, មាន់ /mŏən/, ល័ខ /lĕəʔ/, វ័ង /ʋŭəŋ/, ទ័ព /toə̆p/, ជ័រ /cɔə/).
+- **Transcription boundary:** Huffman & Jenner explicitly describe their own phonological transcription and the Standard Cambodian taught in schools/used by educated speakers; they explicitly distinguish Phnom Penh colloquial speech (printed pp.6–7). R12A's Block Notes state that transcription varies from broad to narrow phonetic and phonemic according to source availability. Therefore these source strings are stored as `source_phonological_transcription`, never copied into `ipa`; IPA and Ukrainian adaptation remain null pending convention/profile adjudication.
+- The Huffman & Jenner title page says its copyright claim ends in 1975 and the work thereafter enters the public domain; attribution is retained, and this project has not performed a separate legal rights opinion.
+- Updated PPH-CTX-003, -011 and -012 with lexical source links and precise scope. The register now has 13 context dimensions, 15 pattern-level rhyme observations and 20 lexical source-transcription examples, while retaining the original 14 lexical case rows and 32-cell sign × series matrix.
+- Schema, generator, both report copies and regression tests now expose the pattern and lexical layers separately. No runtime IPA or Ukrainian rule was promoted.
