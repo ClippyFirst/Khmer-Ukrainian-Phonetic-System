@@ -162,7 +162,7 @@ def from_ipa(
     return TypedPhoneticResult(
         phonemic_ipa=raw,
         segments=segments,
-        syllable_boundaries=(0, len(segments)),
+        syllable_boundaries=_syllable_boundaries(segments),
         vowel_length="long" if "ː" in raw else None,
         tone_category=None,
         tone_contour_ipa=None,
