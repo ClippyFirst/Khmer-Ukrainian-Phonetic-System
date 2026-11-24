@@ -3202,3 +3202,8 @@ The prior status line in `docs/provisional-grapheme-ipa-fallback.md` still said 
 - The JSON schema, deterministic report generator, canonical/public report copies and regression tests were updated together. The 32-cell dependent-vowel × series status calculation remains unchanged.
 - Exact-head CI is required before marking this extraction DONE_VERIFIED. No deterministic phonological behavior or linguistic accuracy claim is added.
 - Status reconciliation: PR #557, #558 and #559 are merged; PR #519 remains open and unrelated. The canonical public host is GitHub Pages.
+
+
+## Final verification — Khmer reference mapping registry — 2026-11-24
+
+PR #560 merged as `1f48334047c3cbadc6d9d4e0a9c9a3fcf419d989`. The 54 Ishida reference mappings are schema-validated, source-resolved, exposed in the deterministic coverage report and explicitly excluded from runtime IPA/UA generation. Exact PR-head Quality/Chromium (45434765907, 45434766063) and exact-main Quality/Chromium/Pages (45435043181, 45435043196, 45435043183) all passed. Live service, methodology page and report returned HTTP 200; the live report exposes count 54. This bounded evidence extraction is DONE_VERIFIED; contextual runtime phonology remains PARTIAL.
