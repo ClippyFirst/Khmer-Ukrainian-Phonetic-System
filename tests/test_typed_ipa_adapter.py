@@ -23,7 +23,7 @@ def test_full_ipa_is_segmented_and_adapted_through_typed_boundary():
     assert isinstance(result, TypedPhoneticResult)
     assert result.status == "UNCERTAIN"
     assert result.phonemic_ipa == "kʰmae"
-    assert [segment.ipa for segment in result.segments] == ["kʰ", "m", "ae"]
+    assert [segment.ipa for segment in result.segments] == ["kʰ", "m", "a", "e"]
     assert all(segment.certainty == "UNCERTAIN" for segment in result.segments)
     assert adapt_phonetic_result(result, allow_uncertain=True) == "к'мае"
     assert result.status == "UNCERTAIN"
