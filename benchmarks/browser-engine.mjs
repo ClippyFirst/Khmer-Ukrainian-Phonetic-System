@@ -2,9 +2,14 @@ import { spawnSync } from "node:child_process";
 import { performance } from "node:perf_hooks";
 import fixtures from "../data/tests/web-fixtures.json" with { type: "json" };
 import lexical from "../data/tests/verified-lexical-corpus.json" with { type: "json" };
+import onsetFallbacks from "../data/tests/khmer-onset-fallback-fixtures.json" with { type: "json" };
 import { convert } from "../src/khmer-engine-core.js";
 
-const inputs = [...new Set([...Object.keys(fixtures), ...Object.keys(lexical)])].sort();
+const inputs = [...new Set([
+  ...Object.keys(fixtures),
+  ...Object.keys(lexical),
+  ...onsetFallbacks.cases.map((item) => item.source),
+])].sort();
 for (let warmup = 0; warmup < 5; warmup += 1) {
   for (const value of inputs) convert(value, "khmer-pph-careful-citation-v1");
 }
