@@ -126,6 +126,8 @@ assert.equal(paakApproximation.units[0].orthographic_fallback_ukrainian, "Пеа
 assert.equal(paakApproximation.phonetic_result.units[0].ukrainian, "п???", "the typed IPA-first result must preserve the visible partial IPA-derived target");
 assert.equal(paakApproximation.phonetic_result.units[0].ukrainian_kind, "IPA_DERIVED_PROVISIONAL");
 assert.equal(paakApproximation.phonetic_result.units[0].ipa, "p", "the typed IPA value must remain bare IPA without display uncertainty markers");
+assert.deepEqual(paakApproximation.phonetic_result.units[0].provenance.structure, ["unicode17-ch16"]);
+assert.deepEqual(paakApproximation.phonetic_result.units[0].provenance.phonology, ["r12a-orthography"], "Unicode structure evidence must not be mislabeled as phonetic evidence");
 
 const multipleShifters = convert("ស៊៉ា", "khmer-pph-careful-citation-v1");
 assert.equal(multipleShifters.status, "EVIDENCE_LIMITED");
