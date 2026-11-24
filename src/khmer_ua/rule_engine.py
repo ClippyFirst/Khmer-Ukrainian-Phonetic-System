@@ -191,7 +191,7 @@ def _provisional_preview(structure: Any) -> dict[str, Any] | None:
             previews.append({
                 "source": unit.get("raw_text", ""),
                 "ipa": None,
-                "ukrainian": "?",
+                "ukrainian": "???",
                 "status": "UNKNOWN",
                 "position": None,
                 "rule_id": None,
@@ -207,7 +207,7 @@ def _provisional_preview(structure: Any) -> dict[str, Any] | None:
         previews.append({
             "source": unit.get("raw_text", ""),
             "ipa": onset,
-            "ukrainian": rendered + ("?" if unresolved or not rendered else ""),
+            "ukrainian": rendered + ("???" if unresolved or not rendered else ""),
             "status": "PROVISIONAL" if rendered else "UNKNOWN",
             "position": "onset",
             "rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
