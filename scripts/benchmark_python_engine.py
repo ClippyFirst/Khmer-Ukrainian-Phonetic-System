@@ -10,7 +10,8 @@ from khmer_ua.rule_engine import RuleBasedKhmerEngine
 ROOT = Path(__file__).resolve().parents[1]
 fixtures = json.loads((ROOT / "data/tests/web-fixtures.json").read_text(encoding="utf-8"))
 lexical = json.loads((ROOT / "data/tests/verified-lexical-corpus.json").read_text(encoding="utf-8"))
-inputs = sorted(set(fixtures) | set(lexical))
+onset_fallbacks = json.loads((ROOT / "data/tests/khmer-onset-fallback-fixtures.json").read_text(encoding="utf-8"))
+inputs = sorted(set(fixtures) | set(lexical) | {case["source"] for case in onset_fallbacks["cases"]})
 engine = RuleBasedKhmerEngine()
 for _ in range(5):
     for value in inputs:
