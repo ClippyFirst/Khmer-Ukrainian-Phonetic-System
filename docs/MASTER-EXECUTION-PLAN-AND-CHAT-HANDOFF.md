@@ -4,7 +4,7 @@
 
 - Current default-branch base: `de158a3fd47bc151b6f952b2a89c4e67360174fe` (includes merged PR #569).
 - Benchmark branch: `bench/khmer-cross-engine-mekongphon-20261125`.
-- PR: [#570](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/570).
+- PR [#570](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/570) merged by squash as `4d928ae9010967c137f65044770523f8cef49c5a`; current `main` at closeout starts from this commit.
 - Initial 100-word benchmark code head: `84830e3e8d2fe0c30e555ddef868ac864915fa52`; final two-source benchmark code/test head: `7a9f081795bcfcc5bc4c0b7d55179828cbe2a898` (subsequent PR commits are documentation/register updates only).
 - Initial four-engine 100-word MekongPhon run [45499595763](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45499595763): SUCCESS; aggregate-only artifact [14970916634](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45499595763/artifacts/14970916634).
 - Final two-source/four-engine run [45500823688](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45500823688): SUCCESS; aggregate-only artifact [14971017765](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45500823688/artifacts/14971017765). Exact-head Quality [45500823635](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45500823635) and Chromium [45500823563](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45500823563): SUCCESS.
@@ -13,7 +13,8 @@
 - Full methodology and findings: [KHMER-CROSS-ENGINE-BENCHMARK-2026-11-25.md](research/KHMER-CROSS-ENGINE-BENCHMARK-2026-11-25.md).
 - Key interpretation: the deterministic engine's low score is driven by 94 onset-only/partial outputs, not 94 full but wrong canonical pronunciations. It is evidence of insufficient productive vowel/coda coverage and an overly restrictive only-output path. MekongPhon is the strongest fallback candidate on this small sample; profile equivalence and rights remain unresolved.
 - NCKL/PhonSobon 38,629-pair pronunciation-respelling corpus is identified as a separate third benchmark source, but its targets are Khmer-script respellings rather than IPA and must be evaluated separately. IPA-Dict's 3,286-row Khmer list is the second IPA source; 1,509 words remained after filtering visible MekongPhon overlaps.
-- Production neural fallback remains BLOCKED: the static Pages app has no inference backend and browser CSP blocks network calls. Do not silently add a server, transmit user text or bundle unreviewed weights. Next acceptance gate: profile-matched expert pilot, source/model rights review, and explicit runtime/privacy design.
+- Benchmark harness, report and updated master/register are merged to `main` in `4d928ae9010967c137f65044770523f8cef49c5a`. The exact source/test head `7a9f081795bcfcc5bc4c0b7d55179828cbe2a898` passed Python/JS quality, browser smoke and both dataset benchmark runs before the final documentation-only commits.
+- Production neural fallback remains BLOCKED: the static Pages app has no inference backend and browser CSP blocks network calls. The candidate model has 33.6M float32 parameters and no hosted inference provider; a browser-local quantized build or an explicitly approved backend/privacy design is required. Do not silently add a server, transmit user text or bundle unreviewed weights. Next acceptance gate: profile-matched expert pilot, source/model rights review, and explicit runtime/privacy design.
 
 
 ## Previous task record (historical): Lao engine architecture alignment — 2026-11-24
