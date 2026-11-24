@@ -76,7 +76,7 @@ Fixture: `data/tests/khmer-onset-fallback-fixtures.json`. Acceptance remains lim
 The user's explicit output contract requires the best supported approximate result to remain visible when a complete pronunciation is unavailable. An onset-only preview is therefore no longer confined to the per-unit diagnostics:
 
 - When the parser identifies a source-backed onset but the full unit cannot be converted to IPA, the primary IPA display shows `/onset/???` and the primary Ukrainian phonetic display shows the IPA-adapted onset followed by `???`.
-- The unit status remains `EVIDENCE_LIMITED`; `complete` remains false. The typed result stores bare onset IPA without display markers and types the Ukrainian value as `IPA_DERIVED_PROVISIONAL`.
+- The unit retains its parser-derived status (`NOT_ESTABLISHED` or `EVIDENCE_LIMITED`); `complete` remains false. The typed result stores bare onset IPA without display markers and types the Ukrainian value as `IPA_DERIVED_PROVISIONAL`.
 - No vowel, coda, subscript realization, syllable boundary, tone or full-word pronunciation is inferred by this fallback.
 - If an orthographic BGN/PCGN candidate is also available, it remains separately visible as an orthographic candidate and must never replace the phonetic preview.
 - The onset preview is attempted before the orthographic fallback. It applies whenever a valid parsed unit has a registered onset hint but deterministic full-unit IPA is unavailable, including units whose broad structural status remains `ESTABLISHED_STRUCTURE` while syllabification is unresolved.
