@@ -198,15 +198,6 @@ def _provisional_preview(structure: Any, source_text: str | None = None) -> dict
         onset = unit.get("phonology", {}).get("onset_ipa")
         if not onset and base:
             onset = consonant_by_char.get(base, {}).get("onset_ipa")
-        if base and not onset:
-            # A register/shifter conflict can withhold the syllable's full
-            # phonological analysis without invalidating the registered onset.
-            # Recover only that consonant's source-registered onset IPA; never
-            # infer a vowel, coda, tone or full syllable from this fallback.
-            onset = next(
-                (item.get("onset_ipa") for item in CONSONANTS if item.get("char") == base),
-                None,
-            )
         if not base or not onset:
             previews.append({
                 "source": raw_text,
