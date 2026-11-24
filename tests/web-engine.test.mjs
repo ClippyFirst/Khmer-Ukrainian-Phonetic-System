@@ -319,7 +319,7 @@ if (!chaktomukCandidates.some((item) => item.source === "ចតុម្មុ�
 
 const unicode18SubscriptVowel = convert("ផ្ឯម", "khmer-pph-careful-citation-v1");
 if (unicode18SubscriptVowel.units.length !== 1
-    || unicode18SubscriptVowel.units[0].status !== "EVIDENCE_LIMITED"
+    || unicode18SubscriptVowel.units[0].status !== "NOT_ESTABLISHED"
     || unicode18SubscriptVowel.units[0].partial_candidate_kind !== "ONSET_ONLY"
     || unicode18SubscriptVowel.units[0].provisional_ipa !== "pʰ"
     || unicode18SubscriptVowel.ipa !== "/pʰ/???") {
