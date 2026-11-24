@@ -693,8 +693,9 @@ function convert(text, profile) {
   flushUnresolved();
   const ua = uaParts.join("");
   const hasOrthographicFallback = rendered.some((item) =>
-    Boolean(item.orthographic_fallback_ukrainian)
-      || (item.fallback_status === "PROVISIONAL" && Boolean(item.fallback_ukrainian))
+    item.partial_candidate_kind !== "ONSET_ONLY"
+      && (Boolean(item.orthographic_fallback_ukrainian)
+        || (item.fallback_status === "PROVISIONAL" && Boolean(item.fallback_ukrainian)))
   );
   const hasPartialOnset = rendered.some((item) => item.partial_candidate_kind === "ONSET_ONLY");
   const provisionalUaParts = [];
@@ -717,10 +718,7 @@ function convert(text, profile) {
     }
     if (item.partial_candidate_kind === "ONSET_ONLY") {
       flushProvisionalUnknown();
-      const orthographicCandidate = item.orthographic_fallback_ukrainian;
-      provisionalUaParts.push(orthographicCandidate
-        ? orthographicCandidate + "???"
-        : item.provisional_ukrainian);
+      provisionalUaParts.push(item.provisional_ukrainian);
       continue;
     }
     if (item.fallback_status === "PROVISIONAL" && item.fallback_ukrainian) {
@@ -742,13 +740,15 @@ function convert(text, profile) {
     rule_trace: item.rule_trace ?? [],
     ipa: item.partial_ipa ?? (item.status !== "PUNCTUATION" && /^\/.*\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa),
     canonical_ukrainian: item.status === "PROPOSED" ? item.ua : "???",
-    ukrainian: (item.orthographic_fallback_ukrainian || item.fallback_ukrainian)
-      ? (item.orthographic_fallback_ukrainian || item.fallback_ukrainian) + "???"
-      : item.partial_candidate_kind === "ONSET_ONLY" ? item.provisional_ukrainian : item.ua,
-    ukrainian_kind: item.orthographic_fallback_ukrainian || item.fallback_status === "PROVISIONAL"
-      ? "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
-      : item.partial_candidate_kind === "ONSET_ONLY"
-        ? "IPA_DERIVED_PROVISIONAL"
+    ukrainian: item.partial_candidate_kind === "ONSET_ONLY"
+      ? item.provisional_ukrainian
+      : (item.orthographic_fallback_ukrainian || item.fallback_ukrainian)
+        ? (item.orthographic_fallback_ukrainian || item.fallback_ukrainian) + "???"
+        : item.ua,
+    ukrainian_kind: item.partial_candidate_kind === "ONSET_ONLY"
+      ? "IPA_DERIVED_PROVISIONAL"
+      : item.orthographic_fallback_ukrainian || item.fallback_status === "PROVISIONAL"
+        ? "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
         : ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
           ? "NOT_APPLICABLE"
           : item.status === "PROPOSED" ? "IPA_DERIVED" : "UNRESOLVED",
@@ -763,11 +763,14 @@ function convert(text, profile) {
     provisional_ipa: item.partial_ipa ?? item.provisional_ipa ?? null,
     ipa_derived_provisional_ukrainian: item.partial_candidate_kind === "ONSET_ONLY"
       ? item.provisional_ukrainian : null,
-    provisional_ukrainian: item.orthographic_fallback_ukrainian ?? item.fallback_ukrainian
-      ?? (item.partial_candidate_kind === "ONSET_ONLY" ? item.provisional_ukrainian : null),
-    provisional_ukrainian_kind: item.orthographic_fallback_ukrainian || item.fallback_status === "PROVISIONAL"
-      ? "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
-      : item.partial_candidate_kind === "ONSET_ONLY" ? "IPA_DERIVED_PROVISIONAL" : null,
+    provisional_ukrainian: item.partial_candidate_kind === "ONSET_ONLY"
+      ? item.provisional_ukrainian
+      : item.orthographic_fallback_ukrainian ?? item.fallback_ukrainian ?? null,
+    provisional_ukrainian_kind: item.partial_candidate_kind === "ONSET_ONLY"
+      ? "IPA_DERIVED_PROVISIONAL"
+      : item.orthographic_fallback_ukrainian || item.fallback_status === "PROVISIONAL"
+        ? "ORTHOGRAPHIC_ROMANIZATION_FALLBACK" : null,
+    orthographic_fallback_ukrainian: item.orthographic_fallback_ukrainian ?? item.fallback_ukrainian ?? null,
     uncertainty: ["PUNCTUATION", "NON_LINGUISTIC", "PROPOSED"].includes(item.status)
       ? []
       : [{ status: item.status, note: item.note ?? "", unresolved_graphemes: item.analysis?.graphemes?.slice(1).map((g) => g.text) ?? item.analysis?.unknown ?? [] }],
@@ -829,8 +832,9 @@ function convert(text, profile) {
     + " мають попередній орфографічний український кандидат; "
     + rendered.filter((item) => item.partial_candidate_kind === "ONSET_ONLY").length
     + " мають окрему IPA-підказку лише для початкового приголосного; "
-    + rendered.filter((item) => Boolean(item.orthographic_fallback_ukrainian)
-      || (item.fallback_status === "PROVISIONAL" && Boolean(item.fallback_ukrainian))).length
+    + rendered.filter((item) => item.partial_candidate_kind !== "ONSET_ONLY"
+      && (Boolean(item.orthographic_fallback_ukrainian)
+        || (item.fallback_status === "PROVISIONAL" && Boolean(item.fallback_ukrainian)))).length
     + " мають орфографічну українську підказку, показану з ???. Це не IPA й не підтверджена вимова. Невизначеність IPA збережено."
     + (unresolvedNames.length ? " Невстановлені/проблемні одиниці: " + unresolvedNames.join(" · ") + "." : "");
   const note = selectedExternalCandidate
