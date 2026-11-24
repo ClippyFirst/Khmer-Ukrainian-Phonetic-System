@@ -3240,3 +3240,10 @@ The temporary source-rights blocker was based on a missed footer. Both `https://
 - **KHM-PHON-CONTEXT-EVIDENCE-001 — DONE_VERIFIED** for the bounded source-indexed register/schema/report engineering.
 - **KHM-PHON-CONTEXT-001 — PARTIAL:** the full profile × consonant series × vowel × phonological coda × syllable type × measured length × stress/harmony lexical cross-product and runtime rule coverage remain incomplete. No pronunciation accuracy claim.
 - **Remaining:** independent adjudicated IPA gold = 0; accuracy = NOT_ASSESSED; manual accessibility review = DEFERRED under the prior scope instruction. PR #519 remains open and unrelated. PRs #557–#564 are merged. Public beta hosted on GitHub Pages; no formal release tag.
+
+
+## Non-blocking provisional output and runtime benchmark — 2026-11-24
+
+PR #566 implements the user-requested Lao-like partial-output contract without promoting orthographic spelling to IPA. Registered onset-only IPA previews take priority; otherwise an orthographic fallback can be displayed with `???` and a visible non-pronunciation warning; otherwise the output remains `???`. Canonical IPA/UA/status remain separate. Python and JavaScript both preserve onset previews and mark them partial.
+
+Verification: Quality [45469227028](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469227028) PASS; Chromium [45469227245](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469227245) PASS; external khPOS [45469227035](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469227035) PASS; pinned Rust comparison [45469227088](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469227088) PASS. Shared benchmark: 39 NFC inputs, 25 batches; Node 2.0835 ms / 18,718 inputs/s, Python 7.8815 ms / 4,948 inputs/s, 37 complete + 2 partial + 0 unresolved for each. Tokenizer stress: 8,000 code points, 10.4 ms, 769,482 code points/s, source preserved. This is engineering coverage, not IPA accuracy. Independent IPA gold remains 0; accuracy NOT_ASSESSED; contextual phonology PARTIAL.

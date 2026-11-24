@@ -1,3 +1,20 @@
+## Verified provisional output and engine benchmark — 2026-11-24
+
+- **Starting main:** `422023d03283648bea9ca59ef0ea01caedf41698`.
+- **Branch / PR:** `feat/khmer-provisional-output-benchmarks-20261124`, [PR #566](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/566).
+- **Output contract:** preserve canonical IPA/UA/status; show a source-registered onset-only IPA candidate with `???` where available; otherwise show a typed orthographic romanization fallback with `???`; if neither exists, show `???`. Orthographic fallback is explicitly not IPA or a pronunciation claim. The UI uses `display_status=PROVISIONAL`; canonical `status` and `canonical_ua`/`canonical_ipa` remain separate. Vowels, codas, tone and complete syllables are never inferred from the orthographic fallback.
+- **Python reference:** registered onset previews survive withheld lexical fixtures, including register-conflict cases; partial previews count as `partial=true`; visible uncertainty uses the same triple marker.
+- **Deterministic core benchmark:** Quality [45468823590](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45468823590), 39 unique NFC inputs, 25 warmed batches. Node v24.22.3: 2.0835 ms/batch, 18,718.39 inputs/s. Python 3.12.16: 7.8815 ms/batch, 4,948.31 inputs/s. Observed 3.78× Node/Python throughput ratio in this CI environment. Both runtimes: 37 complete, 2 partial, 0 unresolved.
+- **Tokenizer stress:** 8,000 code points; 61,980 dictionary entries; 10.4 ms median; 769,482 code points/s; source preservation PASS.
+- **Independent segmentation checks:** external khPOS benchmark [45469227035](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469227035) PASS; pinned upstream Rust comparison [45469227088](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469227088) PASS. These assess segmentation, not phonetic accuracy.
+- **Chromium:** [browser smoke 45469227245](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469227245) PASS, including the visible orthographic fallback with `???` and explicit non-pronunciation warning.
+- **Quality:** [45469227028](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469227028) PASS — Python tests, web checks, Python↔JavaScript structural/lexical/consonant/segmentation parity, engine benchmark, tokenizer benchmark and production build.
+- **Task ledger:** `KHM-PROVISIONAL-OUTPUT-001` DONE_VERIFIED; `KHM-ENGINE-BENCHMARK-001` DONE_VERIFIED; tokenizer/segmentation benchmark checks DONE_VERIFIED. `KHM-PHON-CONTEXT-001` remains PARTIAL; independent IPA gold = 0; pronunciation accuracy = NOT_ASSESSED; manual accessibility audit remains DEFERRED.
+- **PR reconciliation:** PR #519 remains open and untouched (diverged substantially from current main); do not merge it blindly. PR #566 is based on current main and has no merge conflict.
+- **Environment:** local clone was unavailable because DNS/network access to github.com failed; verification was performed by GitHub Actions. The browser and quality runs above passed on code head `f1961674ca7f02e9705b661816354b6241be3960`; report-only commits followed. Exact final-head checks are still required after the final documentation update.
+- **Hosting:** no merge, production deployment or formal release is claimed at this checkpoint.
+- **Interpretation:** this is a better non-blocking public-beta output contract and a measured engineering prototype, not a linguistically validated G2P product. Benchmark coverage is not phonetic accuracy.
+
 ## Current continuation — provisional output and cross-runtime benchmark (2026-11-24)
 
 - **Starting main:** `422023d03283648bea9ca59ef0ea01caedf41698`.
