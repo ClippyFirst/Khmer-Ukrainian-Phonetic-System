@@ -29,6 +29,14 @@ def test_full_ipa_is_segmented_and_adapted_through_typed_boundary():
     assert result.status == "UNCERTAIN"
 
 
+def test_provisional_ipa_always_has_an_unknown_tail_even_without_source_positions():
+    result = from_provisional_ipa("k")
+
+    assert result.status == "PROVISIONAL"
+    assert [segment.ipa for segment in result.segments] == ["k", "?"]
+    assert adapt_phonetic_result(result) == "к???"
+
+
 def test_provisional_ipa_keeps_known_onset_and_one_unknown_region():
     result = from_provisional_ipa(
         "k",
@@ -81,6 +89,14 @@ def test_unknown_source_unit_is_explicit_and_renders_three_question_marks():
     assert len(result.segments) == 1
     assert result.segments[0].kind == "unknown"
     assert adapt_phonetic_result(result) == "???"
+
+
+def test_target_adapter_does_not_read_source_graphemes_or_romanization():
+    import inspect
+
+    source = inspect.getsource(adapt_phonetic_result).lower()
+    assert "grapheme" not in source
+    assert "romanization" not in source
 
 
 def test_adapter_rejects_untyped_strings():
