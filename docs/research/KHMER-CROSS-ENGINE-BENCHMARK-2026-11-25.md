@@ -9,7 +9,8 @@ A reproducible CI run evaluated four engines on two Khmer IPA sources: a 100-wor
 ## Reproducibility
 
 - Repository PR: [#570](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/570)
-- Exact code head: 84830e3e8d2fe0c30e555ddef868ac864915fa52
+- Initial 100-word benchmark code head: 84830e3e8d2fe0c30e555ddef868ac864915fa52.
+- Final two-source benchmark code/test head: 7a9f081795bcfcc5bc4c0b7d55179828cbe2a898 (subsequent commits on PR #570 update documentation/registers only).
 - Shared benchmark workflow: [45499595763](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45499595763) — SUCCESS.
 - Full project quality workflow: [45500823635](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45500823635) — SUCCESS.
 - Chromium browser smoke: [45500823563](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45500823563) — SUCCESS.
