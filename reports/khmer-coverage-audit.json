@@ -685,9 +685,12 @@
         "id": "PPH-CTX-003",
         "dimension": "stress_and_weak_syllables",
         "source_ids": [
-          "r12a-orthography"
+          "r12a-orthography",
+          "chem2020",
+          "mam2025",
+          "huffman-jenner1970"
         ],
-        "locator": "R12A §§Phonetic syllables, lines 201–209; vowel mapping legend lines 491–496 and individual entries lines 503–615. Chem 2020, printed pp. 104–107 (PDF pp. 12–15), Methods; Mam et al. 2025, §§2.1–2.3.",
+        "locator": "R12A §§Phonetic syllables, lines 201–209; vowel mapping legend lines 491–496 and individual entries lines 503–615. Huffman & Jenner 1970, printed pp. 6–7 (standard vs Phnom Penh scope and typical stress pattern in disyllables); Chem 2020 Methods, printed pp. 104–107 (PDF pp. 12–15); Mam et al. 2025 §§2.1–2.3.",
         "profile_scope": "General modern Khmer description with explicit colloquial qualification; not a controlled Phnom Penh stress experiment.",
         "evidence_status": "SOURCE_REPORTED_NOT_EXPERIMENTALLY_VERIFIED",
         "implementation": "Keep stress, word structure and speech style explicit. Treat schwa reduction and stressed-syllable glottal closure as source-reported context conditions, not automatic spelling-only rules. Do not infer stress from word position alone, do not apply reduction to compounds by default, and do not use the F0-only Mam study as evidence for vowel quality or glottalization."
@@ -774,9 +777,11 @@
         "id": "PPH-CTX-011",
         "dimension": "reahmuk_rhyme_by_consonant_class",
         "source_ids": [
-          "r12a-orthography"
+          "r12a-orthography",
+          "r12a-block-notes",
+          "huffman-jenner1970"
         ],
-        "locator": "Khmer Orthography Notes, §§Diphthongs and rhymes, lines 721–804; Coda diacritics, lines 1250–1265.",
+        "locator": "R12A Khmer Orthography Notes, rhyme mapping lines 721–804 and coda summary lines 1250–1265; R12A Khmer Block Notes, U+17C7 REAHMUK examples; Huffman & Jenner 1970, §VII.A.8, printed p.52 / PDF lines 2189–2215.",
         "profile_scope": "Modern Khmer descriptive orthographic-to-rhyme mapping. The page does not identify a balanced contemporary Phnom Penh speaker sample for these exact combinations; IPA is retained as the source's broad transcription.",
         "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
         "implementation": "Treat each listed sign sequence × consonant class as a distinct source-attested rhyme pattern. Do not generalize to unlisted signs or lexical forms; keep Ukrainian output and runtime promotion unresolved until exact lexical tokens and target-profile evidence are available."
@@ -785,9 +790,11 @@
         "id": "PPH-CTX-012",
         "dimension": "sam yok sannya_coda_place_conditioning",
         "source_ids": [
-          "r12a-orthography"
+          "r12a-orthography",
+          "r12a-block-notes",
+          "huffman-jenner1970"
         ],
-        "locator": "Khmer Orthography Notes, vowel/rhyme mapping entries lines 777–826; U+17D0 description lines 336–342.",
+        "locator": "R12A Khmer Orthography Notes, vowel/rhyme mapping lines 777–826; R12A Khmer Block Notes, U+17D0 SAMYOK SANNYA and U+17B6+U+17CB entries; Huffman & Jenner 1970, §VII.A.1(b), printed pp.47–48, PDF lines 2008–2019.",
         "profile_scope": "Specialist modern Khmer spelling/rhyme mapping, with U+17D0 explicitly associated with some Pali/Sanskrit loanwords. Not a Phnom Penh acoustic experiment.",
         "evidence_status": "SOURCE_REPORTED_CONTEXT_DEPENDENT",
         "implementation": "Keep the velar/non-velar coda distinction explicit for the exact listed ɔ-class patterns. Do not infer the coda from an unresolved orthographic string, do not extend to other vowel signs, and do not turn the mapping into a broad coda-place rewrite."
