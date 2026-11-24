@@ -120,6 +120,19 @@ def test_typed_phonetic_result_matches_published_json_schema_shape():
             assert set(unit_schema["properties"]["uncertainty"]["items"]["required"]).issubset(uncertainty)
 
 
+
+
+def test_onset_only_preview_counts_as_partial_not_total_abstention():
+    result = RuleBasedKhmerEngine().analyze("ក្ក")
+
+    assert result["complete"] is False
+    assert result["partial"] is True
+    assert result["status"] == "NOT_ESTABLISHED"
+    assert result["provisional_ipa"] == "k"
+    assert result["provisional_ukrainian"] == "к???"
+    assert result["phonetic_result"]["complete"] is False
+    assert result["phonetic_result"]["partial"] is True
+
 def test_internal_ipa_kind_stays_explicitly_unresolved_until_convention_approval():
     result = RuleBasedKhmerEngine().analyze("ឆ")
     assert result["ipa"] == "cʰɑː"
