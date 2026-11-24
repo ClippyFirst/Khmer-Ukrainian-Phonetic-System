@@ -367,7 +367,10 @@ function mapThroughTypedIpa(ipa, provenance = [], uncertainty = []) {
     uncertainty,
   });
   const value = adaptPhoneticResult(typed_ipa, { allowUncertain: true });
-  return { value, unsupported: value === null ? ipa : null, typed_ipa };
+  // The raw adapter is consulted only to report the exact unsupported tail;
+  // it never supplies a Ukrainian result or changes the typed IPA status.
+  const diagnostic = value === null ? mapIpa(ipa, practicalPolicy) : null;
+  return { value, unsupported: value === null ? (diagnostic?.unsupported ?? ipa) : null, typed_ipa };
 }
 
 function renderFixture(fixture, profile) {
