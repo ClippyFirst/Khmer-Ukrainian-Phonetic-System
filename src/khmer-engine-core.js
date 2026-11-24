@@ -542,7 +542,7 @@ function renderUnknownUnit(unit, profile) {
       ipa: "⟦NOT_ESTABLISHED⟧",
       ua: orthographicFallback,
       status: "NOT_ESTABLISHED",
-      rule_trace: ["KHMER_STRUCTURE_PARSED", "IPA_NOT_ESTABLISHED", "BGN_PC_GN_ORTHOGRAPHIC_UKRAINIAN_FALLBACK"],
+      rule_trace: ["KHMER_STRUCTURE_PARSED", "IPA_NOT_ESTABLISHED", "BGN_PCNG_ORTHOGRAPHIC_UKRAINIAN_FALLBACK"],
       note: "IPA-вимову для цієї одиниці не встановлено. Показано найкращий доступний попередній український кандидат із BGN/PCGN-похідної романізації; це орфографічна апроксимація, а не підтверджена вимова.",
       analysis,
       profile,
