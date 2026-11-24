@@ -2,7 +2,7 @@
 
 ## Executive result
 
-A reproducible CI run evaluated four engines on the same 100-word MekongPhon Khmer held-out lexical split. The project rule engine returned non-empty material for 95/100 inputs, but 94 of those outputs were partial/provisional onset hints. The pinned MekongPhon neural model was the strongest candidate on this small source-attested sample; Khmer Phonemizer was second. Epitran returned something for every word but its string concordance was poor.
+A reproducible CI run evaluated four engines on two Khmer IPA sources: a 100-word MekongPhon lexical evaluation split and a 1,509-word IPA-Dict cross-source subset after filtering overlaps with the visible MekongPhon train/eval files. The project rule engine returned non-empty material for 95/100 inputs in the first set (94 partial/provisional onset hints) and 881/1,509 in the second (858 partial/provisional). The pinned MekongPhon neural model had the lowest source-attested CER on both sets; Khmer Phonemizer was second. Epitran returned strings for every word but had poor concordance.
 
 **These are source-attested diagnostics, not independent accuracy scores.** The repository's expert-adjudicated Khmer IPA gold remains empty (0 rows); accuracy remains null and no candidate is promoted to canonical IPA.
 
@@ -11,7 +11,9 @@ A reproducible CI run evaluated four engines on the same 100-word MekongPhon Khm
 - Repository PR: [#570](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/570)
 - Exact code head: 84830e3e8d2fe0c30e555ddef868ac864915fa52
 - Shared benchmark workflow: [45499595763](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45499595763) — SUCCESS.
-- Full project quality workflow: [45499595556](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45499595556) — SUCCESS.
+- Full project quality workflow: [45500823635](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45500823635) — SUCCESS.
+- Chromium browser smoke: [45500823563](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45500823563) — SUCCESS.
+- Two-source/four-engine benchmark: [45500823688](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45500823688) — SUCCESS; aggregate-only artifact [14971017765](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45500823688/artifacts/14971017765), SHA-256 a58d45ff1fac02aca2d9a6ff04779a16e738afc1992cc67b0bb02e78ed59b3e9.
 - Aggregate-only artifact: [14970916634](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45499595763/artifacts/14970916634), SHA-256 d8c5dba103d60ea16604326b85fe508f909e53cc795e383d3925647b753e9509.
 - Corpus repository: byu-matrix-lab/MekongPhon, pinned commit f80f6c1840c4818b51e05f2e00cded4701a5b662.
 - Evaluation file: data/splits/khmer_eval.csv, 100 unique Khmer orthographies.
@@ -36,6 +38,25 @@ Epitran illustrates why “it returned a string” is not enough: it had 100% ou
 
 On this 100-word sample, MekongPhon has the best string concordance (64 exact; 12.54% CER), followed by Khmer Phonemizer (18 exact; 25.71% CER). This is a **candidate ranking for further evaluation only**, not proof that either provider matches the project's careful-citation profile.
 
+## Results — external IPA-Dict cross-source subset
+
+Source: [open-dict-data/ipa-dict](https://github.com/open-dict-data/ipa-dict), Khmer file data/km.txt at commit 972cd67dd5f96bc5660e28070cde26e3928abcd7. The source file has 3,286 rows and 3,261 unique orthographies. It is derived from the aakanee.com Khmer-English Dictionary; its Khmer data retain CC BY-NC-SA 4.0 terms. File SHA-256: d125b5ec03f661b0f02af47efebac3e018bd435b605b0a3dc8444570f910ef2a.
+
+To reduce direct training leakage, the harness excluded 1,732 orthographies overlapping the visible MekongPhon train file and 20 overlapping its visible eval file. The remaining set contains 1,509 unique forms; 24 forms have multiple source-listed IPA alternatives. Scoring accepts any listed alternative and uses the best normalized code-point edit ratio among alternatives. No source words, references or per-word predictions are saved in the artifact.
+
+| Engine | Non-empty output | Partial / provisional | Strict source matches | Source-attested CER | Mean latency |
+|---|---:|---:|---:|---:|---:|
+| Project deterministic rules | 881/1,509 (58.38%) | 858 | 0/1,509 | 83.41% | 0.542 ms/input |
+| Khmer Phonemizer 0.0.3 | 1,509/1,509 (100%) | 0 | 81/1,509 (5.37%) | 33.40% | 0.289 ms/input |
+| Epitran 1.35.3 (khm-Khmr) | 1,509/1,509 (100%) | 0 | 0/1,509 | 114.50% | 0.021 ms/input |
+| MekongPhon neural | 1,509/1,509 (100%) | 0 | 218/1,509 (14.45%) | 14.52% | 31.705 ms/input |
+
+This second source changes the interpretation materially. MekongPhon still has the best CER, but its exact-match rate drops from 64% on the 100-word MekongPhon evaluation split to 14.45% on this external dictionary source. This indicates strong source/profile sensitivity and means the model must be presented as approximate, not as a universal Khmer pronunciation oracle. Its full training corpus may include data beyond the visible 7,940-row train/8,041-row lexicon snapshot, so excluding visible overlaps does **not** prove absence of all model-training leakage.
+
+The project's deterministic engine has lower coverage on this broader lexical set (58.38%) and still no exact full-word matches; 858 outputs are partial/provisional. This confirms the main weakness is productive coverage, especially full syllable/vowel/coda generation, not throughput. Khmer Phonemizer is a substantially better low-latency fallback than the current rule-only output, but its CER is more than twice MekongPhon's on this set. Epitran again has 100% output coverage but poor source concordance.
+
+Both IPA sources are source-attested dictionaries, not independently adjudicated project gold. The IPA-Dict source is a different dictionary, but dialect and transcription-convention equivalence with the target remains unverified. The model may have seen additional data beyond the accessible MekongPhon snapshot. These scores are therefore cross-source diagnostics only; accuracy remains NOT_ASSESSED.
+
 ## What this says about the current IPA engine
 
 The main bottleneck is not runtime speed or the size of the Khmer character inventory. The current rule engine has a narrow evidence-backed set of full lexical readings and only limited productive phonology. Outside that coverage it preserves a registered onset hint, then marks the rest unresolved. This is an intentional evidence gate, but it is too conservative as the only user-facing result path when a separately labelled approximate candidate is acceptable.
@@ -46,7 +67,7 @@ Khmer spelling is not a one-letter/one-sound code. Unicode's Khmer chapter docum
 
 ### MekongPhon — IPA G2P
 
-Shurtz, Richardson & Richardson (LREC 2026) report 1.3 million Khmer orthography–IPA pairs and under 2% CER for a Transformer on their held-out test sets. They also report their linguistically informed transliteration tools outperforming Epitran by 6–71 CER points. Those are the paper's results, not the result of this repository's 100-row diagnostic. The accessible upstream snapshot used here has a 100-row Khmer evaluation file, and its repository snapshot has no declared corpus-data license. The test here is therefore ephemeral, source-attested research only; no dataset rows or model weights were copied into this repository.
+Shurtz, Richardson & Richardson (LREC 2026) report 1.3 million Khmer orthography–IPA pairs and under 2% CER for a Transformer on their held-out test sets. They also report their linguistically informed transliteration tools outperforming Epitran by 6–71 CER points. Those are the paper's results, not the result of this repository's 100-row diagnostic. The accessible upstream snapshot used here contains a 100-row Khmer evaluation file and a visible train split of 7,940 entries (8,041 lexicon-file lines including header), far smaller than the 1.3-million-pair scale reported in the paper. The repository snapshot has no declared corpus-data license. The test here is therefore ephemeral, source-attested research only; no dataset rows or model weights were copied into this repository.
 
 Paper: [MekongPhon, LREC 2026](https://aclanthology.org/2026.lrec-1.129/), DOI [10.63317/4bb9rvdshu4z](https://doi.org/10.63317/4bb9rvdshu4z).
 
@@ -76,7 +97,7 @@ These studies use different datasets, phone inventories, normalization and evalu
 ## Status
 
 - Shared-engine diagnostic harness: DONE_VERIFIED on PR #570 exact head.
-- Four-engine same-input execution: DONE_VERIFIED (100/100 inputs per engine; all four ran).
+- Four-engine same-input execution: DONE_VERIFIED on both sources (100 MekongPhon words and 1,509 non-overlapping IPA-Dict forms; all four engines ran).
 - Independent IPA gold: BLOCKED / 0 records.
 - Pronunciation accuracy: NOT_ASSESSED.
 - Production neural fallback: BLOCKED pending profile adjudication, asset/data rights review and browser/runtime architecture decision.
