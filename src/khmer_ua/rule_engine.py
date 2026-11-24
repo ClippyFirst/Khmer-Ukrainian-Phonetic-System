@@ -316,10 +316,10 @@ def _analyze_unit(unit: str) -> dict[str, Any]:
             "rule_trace": ["KHMER_STRUCTURAL_VALIDATION_FAILED"],
             "reason": "Unsupported or malformed source code point/sequence; inspect the structural grapheme trace.",
             "provisional_ipa": None,
-            "provisional_ukrainian": "?",
+            "provisional_ukrainian": "???",
             "fallback_status": "UNKNOWN",
             "fallback_trace": [{
-                "source": unit, "ipa": None, "ukrainian": "?", "status": "UNKNOWN",
+                "source": unit, "ipa": None, "ukrainian": "???", "status": "UNRESOLVED",
                 "position": None, "rule_id": None, "unresolved_graphemes": list(unit),
             }],
             "evidence": [],
