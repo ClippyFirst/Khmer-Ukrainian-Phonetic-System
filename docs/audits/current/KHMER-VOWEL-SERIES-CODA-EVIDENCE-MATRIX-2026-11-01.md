@@ -347,9 +347,7 @@ PR #557 and PR #558–#562 have since been merged; the public beta is hosted on 
 
 ## Structured Ishida reference mappings — 2026-11-24
 
-The registry now carries a **metadata-only pointer** to the 54-row Ishida reference table. The 54 source values are not duplicated in the machine-readable registry or generated coverage report.
-
-**Rights boundary:** no explicit reuse license or permission was located on the cited page or in the upstream repository. Redistribution is therefore `BLOCKED_PENDING_EXPLICIT_PERMISSION_OR_CLEAR_LICENSE`. The earlier 54-row machine-readable copy has been withdrawn. The table already present in this Markdown matrix predates that copy and remains a separate source-rights review item; this note does not imply that its reuse is cleared.
+The 54 rows in §8 are represented in `data/khmer/vowel-context-register.json` and both generated coverage reports. The source page footer explicitly states **CC BY 4.0**. The structured rows include the source attribution, license URL and a change notice; source transcriptions are retained verbatim as `source_transcription`, not normalized to project IPA. They remain specialist reference mappings, not lexical gold or deterministic runtime rules.
 
 
 ## Final verification — structured Ishida reference mappings — 2026-11-24
@@ -374,3 +372,8 @@ Current canonical registry counts: **14 case records**, **13 context dimensions*
 ## Source-rights correction — 2026-11-24
 
 The 54-row machine-readable Ishida mapping mirror has been removed. `reference_mapping_inventory` now stores only the source ID, page locator, reported row count, rights status and explicit `data_values_copied=false`. No source transcriptions or mapping contexts are included in the generated JSON report. The existing Markdown table in §8 is a pre-existing third-party-derived content item and remains **BLOCKED_PENDING_RIGHTS_REVIEW**; do not treat its presence in this repository as a license grant.
+
+
+## Source-rights correction — 2026-11-24 (supersedes the temporary blocker)
+
+The first rights review missed the CC BY 4.0 license line in the source-page footer. Both the Khmer Orthography Notes page and Khmer Block Notes page display “Licence CC-By” and link to CC BY 4.0. The metadata-only correction was therefore superseded; the 54 rows are restored with attribution and change notice. The source table is licensed CC BY 4.0, but its source transcription conventions still vary and do not authorize IPA normalization or runtime rules.
