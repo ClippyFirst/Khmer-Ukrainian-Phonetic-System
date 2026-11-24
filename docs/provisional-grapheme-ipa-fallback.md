@@ -69,3 +69,19 @@ The fallback is a separate diagnostic preview, not a replacement for canonical I
 A shared machine-readable fixture now exercises the existing onset-only preview for an unresolved COENG+subscript unit (ក្ក). Python and Chromium tests read the same case. Python asserts the API's intentional `null` canonical fields; the browser asserts the corresponding rendered `NOT_ESTABLISHED` markers. Both assert the separate onset-only `k` → `к?` preview is visibly provisional and carries the same rule ID, exposed as inspectable unit-detail data attributes. This is a cross-runtime contract regression, not a pronunciation gold item and not a new grapheme-to-IPA rule.
 
 Fixture: `data/tests/khmer-onset-fallback-fixtures.json`. Acceptance remains limited to the existing onset hint. The dedicated register now exists at `data/khmer-positional-onset-evidence.json` with a JSON Schema and parity tests. It records the 33 existing consonant onset hints against Richard Ishida's Basic consonants rows. This is a specialist-reference evidence container only: entries are not independently reviewed or adjudicated for the project profile, and the register is not a runtime rule source. Primary phonetic evidence and qualified target-profile review remain outstanding. No unsupported vowel, coda, subscript realization or tone is inferred.
+
+
+## Primary display correction — 2026-11-24
+
+The user's explicit output contract requires the best supported approximate result to remain visible when a complete pronunciation is unavailable. An onset-only preview is therefore no longer confined to the per-unit diagnostics:
+
+- When the parser identifies a source-backed onset but the full unit cannot be converted to IPA, the primary IPA display shows `/onset/???` and the primary Ukrainian phonetic display shows the IPA-adapted onset followed by `???`.
+- The unit status remains `EVIDENCE_LIMITED`; `complete` remains false. The typed result stores bare onset IPA without display markers and types the Ukrainian value as `IPA_DERIVED_PROVISIONAL`.
+- No vowel, coda, subscript realization, syllable boundary, tone or full-word pronunciation is inferred by this fallback.
+- If an orthographic BGN/PCGN candidate is also available, it remains separately visible as an orthographic candidate and must never replace the phonetic preview.
+- The onset preview is attempted before the orthographic fallback. It applies whenever a valid parsed unit has a registered onset hint but deterministic full-unit IPA is unavailable, including units whose broad structural status remains `ESTABLISHED_STRUCTURE` while syllabification is unresolved.
+- If no source-backed onset hint exists, the result remains `???` with the source grapheme and reason preserved.
+
+Regression example: `ពាក់` exposes `/p/???` and `п???`; its separate `Пеак` candidate is labelled BGN/PCGN-derived orthography, not pronunciation. This is a low-confidence onset preview, not a complete or adjudicated IPA transcription.
+
+This correction changes display behavior, not the evidence threshold for full IPA. Provisional hints remain excluded from supported-IPA coverage and accuracy scoring.
