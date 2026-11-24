@@ -113,3 +113,13 @@ The current evidence supports a classification of claims, not a new global phono
 - Exact-main Quality [45435043181](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45435043181), Chromium [45435043196](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45435043196), and Pages build/deploy [45435043183](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45435043183) all passed.
 - Live service and methodology pages returned HTTP 200. The deployed coverage report returned HTTP 200 and exposes all 54 `KHV-MAP-001`–`KHV-MAP-054` rows.
 - Structured reference extraction: **DONE_VERIFIED**. Runtime contextual phonology remains **PARTIAL**; no IPA, Ukrainian adaptation, deterministic runtime rule, gold label or accuracy claim was added. The 32-cell sign × series status remains unchanged.
+
+
+## Canonical register reconciliation — 2026-11-24
+
+Current canonical registry counts: **14 case records**, **13 context dimensions**, **15 source-backed coda/rhyme pattern observations**, **20 lexical coda examples**, **3 lexical stress examples**, and **54 Ishida reference mappings**. These are different evidence layers and must not be conflated.
+
+- `KHM-PHON-CONTEXT-EVIDENCE-001` (bounded source-register/schema/report/test implementation): **DONE_VERIFIED**. The exact-main Quality workflow [45435877079](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45435877079) passed, including schema validation, all Python tests, generated-report reproducibility, canonical/public report parity and cross-runtime checks. The deployed report exposes the evidence layers at HTTP 200.
+- `KHM-PHON-CONTEXT-001` (complete contextual phonology and runtime rule coverage): **PARTIAL**. These counts do not complete the profile × series × vowel × phonological coda × syllable type × measured length × stress/harmony lexical cross-product. No rule is promoted by analogy.
+- Independent IPA gold remains 0; pronunciation accuracy remains NOT_ASSESSED. Gold pilot remains DEFERRED/BLOCKED pending human roles and rights evidence. Manual accessibility remains DEFERRED under the earlier scope instruction.
+- The 32-cell dependent-vowel × series matrix is still a first-order evidence view, not a complete phonological matrix.
