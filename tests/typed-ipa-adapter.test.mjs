@@ -14,7 +14,7 @@ const full = fromIpa("kʰmae", {
 });
 assert.equal(full.status, "UNCERTAIN");
 assert.equal(full.phonemic_ipa, "kʰmae");
-assert.deepEqual(full.segments.map((segment) => segment.ipa), ["kʰ", "m", "ae"]);
+assert.deepEqual(full.segments.map((segment) => segment.ipa), ["kʰ", "m", "a", "e"]);
 assert.ok(full.segments.every((segment) => segment.certainty === "UNCERTAIN"));
 assert.equal(adaptPhoneticResult(full, { allowUncertain: true }), "к'мае");
 assert.equal(full.status, "UNCERTAIN", "target adaptation must not promote confidence");
@@ -39,7 +39,8 @@ assert.equal(unknown.status, "UNRESOLVED");
 assert.equal(adaptPhoneticResult(unknown), "???");
 
 const unsupported = fromIpa("kʰɥ", { status: "UNCERTAIN" });
-assert.equal(unsupported.status, "UNRESOLVED");
+assert.equal(unsupported.status, "UNCERTAIN", "valid IPA remains valid even when the Ukrainian target table lacks a correspondence");
+assert.deepEqual(unsupported.segments.map((segment) => segment.ipa), ["kʰ", "ɥ"]);
 assert.equal(adaptPhoneticResult(unsupported, { allowUncertain: true }), null);
 
 const lexical = convert("ខ្មែរ", "khmer-pph-careful-citation-v1");
