@@ -490,16 +490,58 @@ function renderUnknownUnit(unit, profile) {
     }
   }
 
-  // Best-effort orthographic candidate for unresolved but renderable Khmer.
-  // It is not IPA-derived and therefore never changes the phonetic status.
+  // Keep the orthographic candidate available for diagnostics, but never
+  // let it pre-empt an independently supported IPA onset hint.
   const orthographicFallback = deriveOrthographicRomanizationFallback(unit);
+
+  // A unit may have a recognized base consonant while its coda, subscript,
+  // vowel sequence or syllable boundary remains unresolved. In that case the
+  // onset-only preview is still useful and must be surfaced before the
+  // orthographic-only fallback.
+  if (analysis.onset_ipa && analysis.status !== "INVALID_OR_UNSUPPORTED" && !analysis.unknown?.length) {
+    const onsetIpa = renderIpaProfile(analysis.onset_ipa, profile);
+    const onsetMapping = mapIpa(onsetIpa, practicalPolicy);
+    if (onsetMapping.value !== null) {
+      const provisionalUkrainian = onsetMapping.value + "???";
+      return {
+        source: unit,
+        ipa: "⟦NOT_ESTABLISHED⟧",
+        ua: "⟦НЕВСТАНОВЛЕНО⟧",
+        status: "EVIDENCE_LIMITED",
+        rule_trace: ["KHMER_STRUCTURE_PARSED", "IPA_NOT_ESTABLISHED", "PARTIAL_ONSET_IPA_ONLY"],
+        note: "Повну вимову одиниці не встановлено. Попередній фонетичний результат містить лише початковий приголосний /"
+          + onsetIpa + "/; голосну, підрядкові приголосні, фіналь і тон не виведено. ??? позначає невстановлену частину."
+          + (orthographicFallback ? " Окремий орфографічний кандидат «" + orthographicFallback + "» не є вимовою." : ""),
+        analysis,
+        profile,
+        provisional_ipa: onsetIpa,
+        provisional_ukrainian: provisionalUkrainian,
+        partial_ipa: onsetIpa,
+        partial_candidate_kind: "ONSET_ONLY",
+        unresolved_graphemes: [...unit].slice(1),
+        phonology_evidence: CONSONANTS[analysis.base]?.evidence ?? [],
+        orthographic_fallback_ukrainian: orthographicFallback,
+        fallback_trace: [{
+          source: unit,
+          position: "onset",
+          ipa: onsetIpa,
+          ukrainian: provisionalUkrainian,
+          rule_id: "KHMER-PREVIEW-ONSET-IPA-V1",
+          certainty: "PROVISIONAL",
+        }],
+      };
+    }
+  }
+
+  // If no positional IPA hint exists, retain the independent orthographic
+  // romanization candidate as a secondary diagnostic only.
   if (orthographicFallback && analysis.status !== "INVALID_OR_UNSUPPORTED") {
     return {
       source: unit,
       ipa: "⟦NOT_ESTABLISHED⟧",
       ua: orthographicFallback,
       status: "NOT_ESTABLISHED",
-      rule_trace: ["KHMER_STRUCTURE_PARSED", "IPA_NOT_ESTABLISHED", "BGN_PCNG_ORTHOGRAPHIC_UKRAINIAN_FALLBACK"],
+      rule_trace: ["KHMER_STRUCTURE_PARSED", "IPA_NOT_ESTABLISHED", "BGN_PC_GN_ORTHOGRAPHIC_UKRAINIAN_FALLBACK"],
       note: "IPA-вимову для цієї одиниці не встановлено. Показано найкращий доступний попередній український кандидат із BGN/PCGN-похідної романізації; це орфографічна апроксимація, а не підтверджена вимова.",
       analysis,
       profile,
@@ -514,30 +556,6 @@ function renderUnknownUnit(unit, profile) {
         source_path: "BGN/PCGN-derived ASCII romanization",
       }],
     };
-  }
-
-  // Last-resort onset-only IPA: the source grapheme is never mapped
-  // directly to Ukrainian and no vowel/coda/tone is inferred.
-  if (analysis.onset_ipa && analysis.status !== "INVALID_OR_UNSUPPORTED" && !analysis.unknown?.length) {
-    const onsetIpa = renderIpaProfile(analysis.onset_ipa, profile);
-    const onsetMapping = mapIpa(onsetIpa, practicalPolicy);
-    if (onsetMapping.value !== null) {
-      return {
-        source: unit,
-        ipa: "⟦NOT_ESTABLISHED⟧",
-        ua: "⟦НЕВСТАНОВЛЕНО⟧",
-        status: "NOT_ESTABLISHED",
-        rule_trace: ["KHMER_STRUCTURE_PARSED", "IPA_NOT_ESTABLISHED", "ONSET_ONLY_PREVIEW"],
-        note: "Канонічну вимову не встановлено. Окрема низькодостовірна підказка містить лише IPA початкового приголосного; голосну, підрядкові приголосні, фіналь і тон не виведено.",
-        analysis,
-        profile,
-        provisional_ipa: onsetIpa,
-        provisional_ukrainian: onsetMapping.value + "?",
-        unresolved_graphemes: [...unit].slice(1),
-        fallback_status: "PROVISIONAL",
-        fallback_trace: [{ source: unit, position: "onset", ipa: onsetIpa, ukrainian: onsetMapping.value + "?", rule_id: "KHMER-PREVIEW-ONSET-IPA-V1", certainty: "PROVISIONAL" }],
-      };
-    }
   }
 
   return {
@@ -630,7 +648,7 @@ function convert(text, profile) {
   // line must not repeat the same abstention token for each unresolved
   // orthographic unit in one uninterrupted Khmer word/run.
   const rawIpa = rendered.map((item) => item.partial_candidate_kind === "ONSET_ONLY"
-    ? "/" + item.partial_ipa + "/⟦EVIDENCE_LIMITED⟧"
+    ? "/" + item.partial_ipa + "/???"
     : item.ipa).join("");
   const ipa = rawIpa.replace(/(⟦NOT_ESTABLISHED⟧){2,}/gu, "⟦NOT_ESTABLISHED⟧");
   // Lao-style final abstention: retain supported neighbours, but use a clear
@@ -679,17 +697,21 @@ function convert(text, profile) {
     ipa_kind: ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status) ? "NOT_APPLICABLE" : "UNRESOLVED",
     rule_trace: item.rule_trace ?? [],
     ipa: item.partial_ipa ?? (item.status !== "PUNCTUATION" && /^\/.*\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa),
-    ukrainian: item.ua,
-    ukrainian_kind: item.fallback_status === "PROVISIONAL"
-      ? "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
-      : ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
-        ? "NOT_APPLICABLE"
-        : item.status === "PROPOSED" ? "IPA_DERIVED" : "UNRESOLVED",
+    ukrainian: item.partial_candidate_kind === "ONSET_ONLY"
+      ? item.provisional_ukrainian
+      : item.ua,
+    ukrainian_kind: item.partial_candidate_kind === "ONSET_ONLY"
+      ? "IPA_DERIVED_PROVISIONAL"
+      : item.fallback_status === "PROVISIONAL"
+        ? "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
+        : ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
+          ? "NOT_APPLICABLE"
+          : item.status === "PROPOSED" ? "IPA_DERIVED" : "UNRESOLVED",
     profile,
     provenance: {
       phonology: item.phonology_evidence ?? item.evidence ?? [],
       structure: item.analysis ? ["unicode17-ch16"] : [],
-      target_policy: item.mapping_check
+      target_policy: item.mapping_check || item.partial_candidate_kind === "ONSET_ONLY"
         ? ["data/ukrainian/practical-policy.json"]
         : item.fallback_status === "PROVISIONAL" ? ["src/khmer-romanization-ukrainian.js"] : [],
     },
