@@ -3172,3 +3172,14 @@ Release blockers remain: adjudicated IPA gold absent; IPA convention unapproved;
 **Verification:** test-first regression for `ពាក់` failed on the test-only commit because `partial_candidate_kind` was absent, then passed after implementation. Exact head `cb40d3091d21d303103820e568e7ecdf49215960`: Quality PASS (484 Python tests + 70 subtests; web checks; structural, lexical, consonant and segmentation parity; deterministic-engine and browser-tokenizer benchmarks; Vite build); Chromium browser smoke PASS; external khPOS benchmark PASS. The onset-preview display behavior is `DONE_VERIFIED`; independent pronunciation accuracy remains `NOT_ASSESSED`. PR #558 is open, ready for review, mergeable, and not merged. No deployment was performed.
 
 **Repository reconciliation:** main at start was `cbc19240899510066098bf15f16b946143905565`. Existing open PR #519 is unrelated, based on an older main SHA and reported non-mergeable; it was left untouched. PR #557 is already merged and is not reopened.
+
+
+## Documentation reconciliation — provisional IPA preview — 2026-11-24
+
+The prior status line in `docs/provisional-grapheme-ipa-fallback.md` still said “implementation pending” and described a single `?` marker, despite the implemented primary-result behavior. This was stale documentation, not a missing engine feature.
+
+- **Corrected:** the document now records `DONE_VERIFIED` for the bounded onset-only primary preview, the visible `/onset/???` and Ukrainian `onset???` contract, the typed `IPA_DERIVED_PROVISIONAL` target, and the separation from orthographic BGN/PCGN candidates.
+- **Still PARTIAL:** a complete positional grapheme-to-IPA inventory, profile-matched independent phonetic review of all hints, vowel/coda/coeng realization, and independent pronunciation accuracy. The 33-entry specialist-reference onset register is not independently adjudicated and is not a runtime rule source.
+- **Regression example:** `ពាក់` → `/p/???`, `п???`; any separate `Пеак` remains orthographic-only. This is not a full-word pronunciation.
+- **Verification basis:** PR #558 exact head `4d100a35b9a39a01ddffdb87f1497a5f8c494846`; Quality run 45384743307, Chromium smoke 45384743278, external khPOS benchmark 45384743282 all passed. This documentation-only reconciliation does not change runtime code or claim linguistic accuracy.
+- **PR state:** #558 remains open, ready for review and mergeable. No merge or deployment was performed.
