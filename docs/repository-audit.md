@@ -3278,8 +3278,8 @@ Research limits remain: independent adjudicated IPA gold = 0; pronunciation accu
 ### Verification
 
 - Test-first regressions were added before implementation for the typed IPA adapter and CLI behavior; both produced the expected RED failures.
-- Exact code-head Quality [45488340718](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45488340718) passed 503 Python tests + 70 subtests, browser deterministic checks, structural/lexical/consonant/segmentation parity, benchmarks and Vite production build.
-- Exact-head Chromium and pinned Rust comparison were pending at the time of this audit; see the current master handoff for their final results.
+- Exact-head Quality [45489728897](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45489728897) passed 503 Python tests + 70 subtests, browser deterministic checks, structural/lexical/consonant/segmentation parity, benchmarks and Vite production build.
+- Exact-head Chromium [45489728870](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45489728870) passed 42/42 Playwright tests, including typed IPA status/provenance disclosure. Pinned Rust comparison [45489728830](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45489728830) and external khPOS benchmark [45489728814](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45489728814) also passed.
 - The benchmark shows measurable runtime overhead from typed segmentation; results and exact values are recorded in `docs/research/KHMER-ENGINE-BENCHMARK-2026-11-24.md`. The absolute throughput remains adequate for this 39-input engineering benchmark; no speculative optimization was added.
 - Local clone and local test execution were unavailable because the container could not resolve GitHub. CI is the verification source; no local pass is claimed.
 
