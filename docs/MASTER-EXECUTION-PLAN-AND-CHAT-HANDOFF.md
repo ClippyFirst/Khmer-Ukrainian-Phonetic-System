@@ -6866,3 +6866,16 @@ Current registry counts: 14 case records, 13 context dimensions, 15 coda/rhyme p
 - `KHM-REFERENCE-MAPPING-001` returns to **DONE_VERIFIED** after exact-head CI. The 54 rows remain specialist source transcriptions, not lexical gold or project IPA; every row is non-executable, with no Ukrainian adaptation.
 - The CC BY 4.0 deed requires appropriate credit, a license link and an indication of changes; see https://creativecommons.org/licenses/by/4.0/. The report and source register carry those notices.
 - This correction supersedes the temporary `BLOCKED_PENDING_EXPLICIT_PERMISSION_OR_CLEAR_LICENSE` status in the immediately preceding source-rights closeout. It does not change the separate linguistic evidence limitations: contextual runtime phonology remains PARTIAL.
+
+
+## Final closeout — 2026-11-24
+
+- **Final main:** `23ae0a75072c1d60cb3f5251d1b1bd630e33a2b8`.
+- **PR #564:** restored all 54 Ishida vowel/rhyme reference mappings under verified CC BY 4.0 after correcting the temporary rights block. Both source page footers explicitly state CC BY 4.0; every row carries author attribution, license URL and a change notice.
+- **Exact PR-head verification:** Quality [45439887228](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45439887228) PASS (485 Python tests + 70 subtests, schema, generated report reproducibility/parity, Python/JS parity, benchmarks and build); Chromium [45439886928](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45439886928) PASS.
+- **Exact-main verification:** Chromium [45440207900](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45440207900) PASS; GitHub Pages deployment [45440208449](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45440208449) PASS.
+- **Live verification:** service, methodology page and generated coverage report all HTTP 200; report exposes 54 reference rows with CC BY 4.0 attribution.
+- **KHM-REFERENCE-MAPPING-001 — DONE_VERIFIED:** 54 stable rows, strict schema, source resolution, attribution/license/change notices, report/registry parity, canonical/public parity, exact-head CI and live deployment. All rows remain `runtime_eligible=false`, with no project IPA or Ukrainian adaptation.
+- **KHM-PHON-CONTEXT-EVIDENCE-001 — DONE_VERIFIED** for the bounded source-indexed register/schema/report engineering.
+- **KHM-PHON-CONTEXT-001 — PARTIAL:** the full profile × consonant series × vowel × phonological coda × syllable type × measured length × stress/harmony lexical cross-product and runtime rule coverage remain incomplete. No pronunciation accuracy claim.
+- **Remaining:** independent adjudicated IPA gold = 0; accuracy = NOT_ASSESSED; manual accessibility review = DEFERRED under prior scope instruction. PR #519 remains open and unrelated. PRs #557–#564 are merged. Public beta hosted on GitHub Pages; no formal release tag.
