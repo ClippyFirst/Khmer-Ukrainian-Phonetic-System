@@ -35,6 +35,7 @@ class PhoneticUnitResult:
     ukrainian_kind: str = "UNRESOLVED"
     rule_trace: tuple[str, ...] = ()
     uncertainty: tuple[PhoneticUncertainty, ...] = ()
+    typed_ipa: dict[str, Any] | None = None
 
     def to_dict(self) -> dict[str, Any]:
         value = asdict(self)
