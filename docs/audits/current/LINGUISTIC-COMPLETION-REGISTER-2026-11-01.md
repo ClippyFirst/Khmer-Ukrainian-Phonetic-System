@@ -3845,3 +3845,11 @@ Current canonical registry counts: **14 case records**, **13 context dimensions*
 - `KHM-PHON-CONTEXT-001` (complete contextual phonology and runtime rule coverage): **PARTIAL**. These counts do not complete the profile × series × vowel × phonological coda × syllable type × measured length × stress/harmony lexical cross-product. No rule is promoted by analogy.
 - Independent IPA gold remains 0; pronunciation accuracy remains NOT_ASSESSED. Gold pilot remains DEFERRED/BLOCKED pending human roles and rights evidence. Manual accessibility remains DEFERRED under the earlier scope instruction.
 - The 32-cell dependent-vowel × series matrix is still a first-order evidence view, not a complete phonological matrix.
+
+
+## Rights correction — Ishida reference table — 2026-11-24
+
+- **KHM-REFERENCE-MAPPING-001 — BLOCKED:** no explicit license or permission for redistributing Richard Ishida's 54-row vowel/rhyme table was located. The new machine-readable copy was withdrawn; the canonical registry and report now retain metadata only (`reported_table_rows=54`, `data_values_copied=false`).
+- Acceptance to unblock: obtain explicit permission or verify a license that covers copying, modification and redistribution of the source table; record exact terms and attribution requirements; only then decide whether to reintroduce a structured copy.
+- The pre-existing Markdown table in matrix §8 remains a separate rights-review item. Do not interpret the repository's CC BY-NC license as covering this third-party content.
+- This rights blocker does not change `KHM-PHON-CONTEXT-EVIDENCE-001 = DONE_VERIFIED` for the project's own source-indexed evidence register, schema and report tests. Full contextual phonology `KHM-PHON-CONTEXT-001` remains `PARTIAL`.
