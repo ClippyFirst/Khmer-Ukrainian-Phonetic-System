@@ -176,6 +176,26 @@ if (typeof document !== "undefined") {
       note.className = "unit-note";
       note.textContent = unit.note || "Окремого пояснення для цієї одиниці немає.";
       card.append(heading, values, note);
+
+      if (unit.typed_ipa) {
+        const typed = unit.typed_ipa;
+        const typedStatusLabels = {
+          SUPPORTED: "підтверджена IPA",
+          UNCERTAIN: "IPA з невизначеністю",
+          PROVISIONAL: "попередня часткова IPA",
+          UNRESOLVED: "IPA не встановлено",
+        };
+        const typedValue = typed.phonemic_ipa
+          ?? typed.segments.map((segment) => segment.kind === "unknown" ? "???" : segment.ipa).join("");
+        const typedDetail = document.createElement("p");
+        typedDetail.className = "unit-note typed-ipa-detail";
+        typedDetail.textContent = "Типізована IPA-послідовність: " + (typedValue || "???")
+          + " · " + (typedStatusLabels[typed.status] ?? "IPA не встановлено")
+          + (typed.provenance?.length ? " · Походження: " + typed.provenance.join(", ") : "")
+          + (typed.uncertainty?.length ? " · Застереження: " + typed.uncertainty.join("; ") : "")
+          + " · Українську форму отримано лише через IPA-адаптер; невідомі ділянки позначено як ???.";
+        card.append(typedDetail);
+      }
       if (outputLevelMode === "exploratory") {
         const parts = unit.analysis?.orthographic_structure?.components ?? unit.analysis?.graphemes ?? [];
         if (parts.length) {
