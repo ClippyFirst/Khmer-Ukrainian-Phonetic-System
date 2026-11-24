@@ -91,6 +91,17 @@ def test_ipa_string_adapter_does_not_invent_affricates_or_guess_unknown_segments
     assert unsupported == "ɥ"
 
 
+
+
+def test_multiple_register_shifters_keep_independently_registered_onset_preview():
+    result = RuleBasedKhmerEngine().analyze("ស៊៉ា")
+
+    assert result["complete"] is False
+    assert result["partial"] is True
+    assert result["status"] == "EVIDENCE_LIMITED"
+    assert result["provisional_ipa"] == "s"
+    assert result["provisional_ukrainian"] == "с???"
+
 def test_unresolved_khmer_unit_exposes_onset_only_provisional_ipa():
     result = RuleBasedKhmerEngine().analyze("ក្ក")
     assert result["ipa"] is None
