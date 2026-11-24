@@ -46,6 +46,7 @@ def load_ipa_dict(path: Path) -> dict[str, list[str]]:
         parts = line.split("\t")
         if len(parts) != 2 or not parts[0].strip():
             raise ValueError(f"IPA-Dict line {line_number} must contain orthography<TAB>IPA")
+        orthography = unicodedata.normalize("NFC", parts[0])
         alternatives = re.findall(r"/([^/]+)/", parts[1])
         if not alternatives:
             raise ValueError(f"IPA-Dict line {line_number} contains no slash-delimited IPA")
