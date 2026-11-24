@@ -17,6 +17,7 @@ This is the navigation map for the repository. It does not replace the canonical
 - [System specification](system-specification.md) — system scope and expected behavior.
 - [Phonology](phonology.md) — Khmer phonological analysis and open questions.
 - [Deterministic rule engine](DETERMINISTIC-RULE-ENGINE.md) — actual engine contract and limitations.
+- [Provisional grapheme-to-IPA fallback](provisional-grapheme-ipa-fallback.md) — onset-only phonetic previews, visible uncertainty markers and non-promotion rules.
 - [Implementation](implementation.md) — implementation details.
 - [Validation](validation.md) — engineering and linguistic validation boundaries.
 - [Limitations](limitations.md) — unsupported and unresolved cases.
