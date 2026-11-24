@@ -8,7 +8,7 @@ The benchmark is an engineering throughput and output-availability test. It is *
 
 ## Deterministic Python ↔ JavaScript core
 
-Source: `npm run bench:engine` in Quality workflow [45469711688](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45468823590), PR head `0d53d301331d33c5877299f8cbd730bfe85c84bc`.
+Source: `npm run bench:engine` in Quality workflow [45469711688](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469711688), PR head `0d53d301331d33c5877299f8cbd730bfe85c84bc`.
 
 | Measure | JavaScript core | Python engine |
 |---|---:|---:|
@@ -34,7 +34,7 @@ Coverage counts mean that the engine returned a complete or explicitly partial r
 
 ## Browser tokenizer stress
 
-Source: `npm run bench:tokenizer`, same Quality run [45468823590](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45468823590).
+Source: `npm run bench:tokenizer`, same Quality run [45469711688](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469711688).
 
 - Input: 8,000 Khmer code points.
 - Dictionary: 61,980 entries.
@@ -47,14 +47,14 @@ This is a deterministic tokenizer stress test, not a segmentation-accuracy resul
 
 ## Independent segmentation comparisons
 
-- [External khPOS segmentation benchmark — run 45469711811](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45468823661): PASS.
-- [Pinned upstream Rust Khmer segmentation comparison — run 45469711685](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45468823790): PASS.
+- [External khPOS segmentation benchmark — run 45469711811](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469711811): PASS.
+- [Pinned upstream Rust Khmer segmentation comparison — run 45469711685](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469711685): PASS.
 
 These are segmentation evaluations, not pronunciation or IPA validation. The pinned Rust workflow's ephemeral HMM/tagger training is research-only and non-commercial; models are trained in memory only and no redistributable model artifact is produced.
 
 ## Browser behavior verification
 
-- [Chromium browser smoke — run 45469711820](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45468823523): PASS, including the visible-result assertion in Chromium.
+- [Chromium browser smoke — run 45469711820](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469711820): PASS, including the visible-result assertion in Chromium.
 - The test specifically checks an unsupported independent vowel: IPA remains `⟦NOT_ESTABLISHED⟧`, while the main Ukrainian field shows the separately typed orthographic fallback ending in `???` and the UI states that it is not a pronunciation claim.
 - Onset-only IPA previews take precedence over orthographic fallback when the source-registered onset is known. Vowels, codas, tones and full syllables are not inferred from an orthographic candidate.
 
