@@ -38,10 +38,11 @@ if (python.status !== 0) throw new Error("Python benchmark failed: " + (python.s
 const reference = JSON.parse(python.stdout);
 if (reference.fixture_count !== inputs.length) throw new Error("Python and JavaScript benchmark fixture counts differ");
 const result = {
-  corpus: "web-fixtures ∪ verified-lexical-corpus (input-only; not IPA gold)",
+  corpus: "web-fixtures ∪ verified-lexical-corpus ∪ onset-fallback-fixtures (input-only; not IPA gold)",
   fixture_count: inputs.length,
   rounds,
   javascript: {
+    node_version: process.version,
     median_ms_per_fixture_batch: Number(medianMs.toFixed(4)),
     fixtures_per_second: Number((inputs.length * 1000 / medianMs).toFixed(2)),
     coverage,
