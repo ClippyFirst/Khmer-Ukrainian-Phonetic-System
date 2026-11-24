@@ -32,6 +32,10 @@ assert.equal(adaptPhoneticResult(provisional), "к???");
 assert.equal(provisional.tone_category, null);
 assert.equal(provisional.tone_contour_ipa, null);
 
+const syllabified = fromIpa("a.ja", { status: "SUPPORTED" });
+assert.deepEqual(syllabified.segments.map((segment) => segment.ipa), ["a", ".", "j", "a"]);
+assert.deepEqual(syllabified.syllable_boundaries, [0, 1, 2, 4]);
+
 const affricate = fromIpa("t͡s", { status: "SUPPORTED" });
 assert.deepEqual(affricate.segments.map((segment) => segment.ipa), ["t͡s"]);
 const longVowel = fromIpa("ɑː", { status: "UNCERTAIN" });
