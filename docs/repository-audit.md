@@ -3164,7 +3164,7 @@ Release blockers remain: adjudicated IPA gold absent; IPA convention unapproved;
 **Correction in branch `fix/provisional-pronunciation-unknowns-2026-11-24`:**
 
 - The engine now tries a parser-confirmed, registered onset IPA hint whenever a valid unit lacks a full deterministic IPA result, before considering orthographic romanization.
-- Primary display uses `/p/???` and `п???` for `ពាក់`; the complete word remains unresolved and is marked `EVIDENCE_LIMITED`.
+- Primary display uses `/p/???` and `п???` for `ពាក់`; the complete word remains unresolved and retains the parser-derived status `NOT_ESTABLISHED` (or `EVIDENCE_LIMITED` where the parser itself reports that status).
 - `Пеак` is retained separately as an orthographic BGN/PCGN-derived candidate, explicitly not pronunciation.
 - The typed IPA-first result keeps bare IPA `p`, the IPA-derived provisional target `п???`, provenance, and an `IPA_DERIVED_PROVISIONAL` type. The full result remains incomplete and provisional hints do not count as supported IPA or accuracy.
 - No vowel, coda, subscript realization, syllable boundary, tone or full-word pronunciation is inferred.
