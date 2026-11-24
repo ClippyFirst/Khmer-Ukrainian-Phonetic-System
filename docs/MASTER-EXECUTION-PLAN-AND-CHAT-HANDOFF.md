@@ -139,3 +139,30 @@ Local tests were not run in this session because the local clone/network route w
 3. Continue specialist review of the provisional phonological rules and Ukrainian adaptation. Never promote romanization candidates to IPA or infer unsupported vowel/coda/tone values.
 
 **Release assessment:** public beta is deployed and the engineering path is verified. This remains a research-ready partial prototype, not a linguistically validated G2P product.
+
+
+### Final exact-head verification update — 2026-11-24 21:34 UTC
+
+The pinned upstream Rust comparison has now completed successfully on the final PR head `3ecbbbdbe4ffefbb02c0c7e7c55fd017c2ee8443`.
+
+| Required check | Final exact-head result |
+|---|---|
+| Quality / Python | PASS — 503 tests + 70 subtests |
+| Browser / Chromium | PASS |
+| External khPOS benchmark | PASS |
+| Pinned upstream Rust comparison | PASS |
+| GitHub commit check-runs | 5/5 successful |
+| PR mergeability | mergeable=true |
+| PR review threads | 0 |
+| PR state | OPEN, non-draft; not merged |
+| Main branch | unchanged at `1b8649c4b874fbf34a66012d7e02aa1da04fb6da` |
+
+Exact workflow runs:
+- [Quality checks](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45492207753)
+- [Browser smoke](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45492207565)
+- [External khPOS benchmark](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45492207569)
+- [Pinned upstream Rust comparison](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45492207566)
+
+The external benchmark pins upstream `Alujack/khmer-tokenizer` at `f38eae5924d4e41a46fd2204cf6951cdb0dc8908`, uses its 61,980-entry dictionary, and scores 1,000 corpus sentences / 10,778 gold tokens. The corpus is CC BY-NC-SA 4.0 and was downloaded temporarily by CI; it was not copied into the repository. The benchmark evaluates tokenization/segmentation, not phonetic transcription. Therefore it is valid external segmentation evidence but must not be cited as Khmer IPA accuracy.
+
+The PR now meets its engineering acceptance criteria. It remains unmerged because no explicit merge instruction was given. The only remaining work for this branch is owner review/merge; linguistic research tasks remain as previously recorded (independent IPA gold = 0; pronunciation accuracy NOT_ASSESSED; full contextual phonology PARTIAL).
