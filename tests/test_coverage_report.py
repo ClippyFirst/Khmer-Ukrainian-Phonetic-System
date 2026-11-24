@@ -153,7 +153,7 @@ def test_coverage_report_keeps_custom_lexical_transcriptions_out_of_ipa():
     contextual = report["contextual_vowel_evidence"]
     examples = contextual["source_backed_lexical_coda_examples"]
 
-    assert contextual["lexical_coda_example_count"] == len(registry["lexical_coda_examples"]) == 12
+    assert contextual["lexical_coda_example_count"] == len(registry["lexical_coda_examples"]) == 20
     assert [item["id"] for item in examples] == sorted(
         item["id"] for item in registry["lexical_coda_examples"]
     )
