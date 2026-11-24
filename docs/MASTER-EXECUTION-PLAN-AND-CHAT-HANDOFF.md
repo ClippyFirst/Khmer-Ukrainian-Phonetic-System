@@ -7,7 +7,7 @@
 - Working branch: `feat/khmer-lao-engine-contract-parity-20261124`.
 - PR: [#568](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/568), currently a draft while exact-head CI completes.
 - Reference architecture: `ClippyFirst/Lao-Ukrainian-Phonetic-System`, especially `docs/lao-grapheme-ipa-preview.md`.
-- Final branch head: `940ece83e08e3e4c7b551af7617f7ea4c01e9d97`.
+- Final implementation code commit before evidence-only closeout: `940ece83e08e3e4c7b551af7617f7ea4c01e9d97`. The final handoff/audit-only commits follow it; see the PR head for the final branch SHA.
 - Local clone was unavailable because the container could not resolve `github.com`. Repository edits were made directly on this isolated GitHub branch. No local test pass is claimed.
 - No deployment, release tag, main-branch merge or external setting change was performed.
 
