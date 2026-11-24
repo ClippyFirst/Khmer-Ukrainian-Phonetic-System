@@ -113,6 +113,15 @@ assert.equal(parseSyllable("ក៊").status, "EVIDENCE_LIMITED");
 assert.equal(parseSyllable("គ៉").status, "EVIDENCE_LIMITED");
 assert.equal(parseSyllable("ក៊").register_rule, "NON_STANDARD_SHIFTER_USE");
 
+const paakApproximation = convert("ពាក់", "khmer-pph-careful-citation-v1");
+assert.equal(paakApproximation.units.length, 1, "ពាក់ must remain one lexical unit");
+assert.equal(paakApproximation.units[0].partial_candidate_kind, "ONSET_ONLY", "an unresolved coda must not hide the independently supported onset");
+assert.equal(paakApproximation.units[0].provisional_ipa, "p", "the known onset must be surfaced as a partial IPA candidate");
+assert.equal(paakApproximation.units[0].provisional_ukrainian, "п???", "the partial Ukrainian result must end with the explicit uncertainty marker");
+assert.equal(paakApproximation.ua, "п???", "the primary Ukrainian output must show the approximate phonetic result, not only ???");
+assert.equal(paakApproximation.units[0].orthographic_fallback_ukrainian, "Пеак", "the orthographic romanization candidate must remain available but separately typed");
+assert.equal(paakApproximation.phonetic_result.units[0].ukrainian, "п???", "the typed IPA-first result must preserve the visible partial IPA-derived target");
+
 const multipleShifters = convert("ស៊៉ា", "khmer-pph-careful-citation-v1");
 assert.equal(multipleShifters.status, "EVIDENCE_LIMITED");
 assert.equal(multipleShifters.units[0].provisional_ipa, "s", "a register conflict must not erase the independently identifiable onset");
