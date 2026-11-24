@@ -54,7 +54,7 @@ These are segmentation evaluations, not pronunciation or IPA validation. The pin
 
 ## Browser behavior verification
 
-- [Chromium browser smoke — run 45468823523](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45468823523): pending at report authoring.
+- [Chromium browser smoke — run 45468823523](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45468823523): PASS, including the visible-result assertion in Chromium.
 - The test specifically checks an unsupported independent vowel: IPA remains `⟦NOT_ESTABLISHED⟧`, while the main Ukrainian field shows the separately typed orthographic fallback ending in `???` and the UI states that it is not a pronunciation claim.
 - Onset-only IPA previews take precedence over orthographic fallback when the source-registered onset is known. Vowels, codas, tones and full syllables are not inferred from an orthographic candidate.
 
