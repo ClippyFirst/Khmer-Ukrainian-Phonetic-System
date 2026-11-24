@@ -159,4 +159,9 @@ def test_coverage_report_keeps_custom_lexical_transcriptions_out_of_ipa():
     )
     assert all(item["ipa"] is None for item in examples)
     assert all(item["ukrainian_adaptation"] is None for item in examples)
-    assert all("not IPA" in item["transcription_system"] for item in examples)
+    assert all(
+        "not IPA" in item["transcription_system"]
+        if item["source_id"] == "huffman-jenner1970"
+        else "not independently normalized to IPA" in item["transcription_system"]
+        for item in examples
+    )
