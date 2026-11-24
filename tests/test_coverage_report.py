@@ -182,3 +182,23 @@ def test_coverage_report_exposes_lexical_stress_examples_separately():
     assert all(item["ipa"] is None for item in examples)
     assert all(item["ukrainian_adaptation"] is None for item in examples)
     assert all(item["source_id"] == "huffman1970" for item in examples)
+
+
+def test_coverage_report_exposes_reference_mapping_observations_without_promoting_them_to_ipa():
+    report = json.loads(REPORT.read_text(encoding="utf-8"))
+    registry = json.loads(
+        (ROOT / "data" / "khmer" / "vowel-context-register.json").read_text(encoding="utf-8")
+    )
+    contextual = report["contextual_vowel_evidence"]
+    rows = contextual["source_backed_reference_mapping_observations"]
+    expected = registry["reference_mapping_observations"]
+
+    assert contextual["reference_mapping_observation_count"] == len(expected) == 54
+    assert [row["id"] for row in rows] == sorted(row["id"] for row in expected)
+    assert all(row["source_id"] == "r12a-orthography" for row in rows)
+    assert all(row["mapping_kind"] == "SPECIALIST_REFERENCE_MAPPING_NOT_LEXICAL_TOKEN" for row in rows)
+    assert all(row["runtime_eligible"] is False for row in rows)
+    assert all(row["ukrainian_adaptation"] is None for row in rows)
+    assert all(row["ukrainian_status"] == "NOT_ESTABLISHED" for row in rows)
+    assert all("source_transcription" in row and "ipa" not in row for row in rows)
+    assert report["orthographic_inventory"]["expected_dependent_vowel_x_series_cells"] == 32
