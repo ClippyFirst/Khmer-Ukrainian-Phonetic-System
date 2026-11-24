@@ -3882,3 +3882,12 @@ Current canonical registry counts: **14 case records**, **13 context dimensions*
 - **KHM-ENGINE-BENCHMARK-001 — DONE_VERIFIED (PR #566):** shared 39-input, 25-batch Python/Node benchmark; both runtimes report 37 complete, 2 partial, 0 unresolved. Node v24.22.3: 1.3028 ms/batch and 29,934.7 inputs/s; Python 3.12.16: 5.2737 ms/batch and 7,395.16 inputs/s. Observed 4.05× ratio is CI/environment-specific, not a device guarantee. Tokenizer stress: 8,000 code points, 7.65 ms median, 1,046,065 code points/s, source preservation PASS.
 - Exact Quality [45469711688](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469227028), Chromium [45469711820](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469227245), external khPOS [45469711811](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469227035), and pinned Rust comparison [45469711685](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469227088) all PASS on PR code head.
 - These benchmarks establish engineering output coverage and segmentation performance, **not** phonetic correctness. Independent adjudicated IPA gold remains 0; accuracy remains NOT_ASSESSED. Full contextual phonology remains PARTIAL. Manual accessibility review remains DEFERRED.
+
+
+## Final-main merge and deployment closeout — 2026-11-24
+
+- PR [#566](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/566) merged by squash as `fff886dfaca8979387dc6cacbd7417a89020a407`.
+- Final-main Quality [45474856164](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45474856164), Chromium [45474855979](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45474855979), khPOS [45474855939](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45474855939), pinned Rust comparison [45474856176](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45474856176), and Pages deployment/live smoke [45474855848](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45474855848) all PASS.
+- GitHub Pages production home, methodology, JS and CSS assets were fetched successfully; production Chromium smoke passed.
+- Public beta is deployed. Formal release tag not created. Independent IPA gold remains 0; pronunciation accuracy NOT_ASSESSED; contextual phonology PARTIAL; manual accessibility audit DEFERRED.
+- PR #519 remains open and non-mergeable; left untouched pending explicit diff reconciliation.
