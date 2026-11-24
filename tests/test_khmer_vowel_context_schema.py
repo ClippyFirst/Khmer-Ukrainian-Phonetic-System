@@ -139,3 +139,20 @@ def test_reahmuk_lexical_examples_keep_custom_transcription_out_of_ipa():
         else:
             assert "not established as contemporary Phnom Penh" in item["profile_scope"]
         assert item["limitations"]
+
+
+def test_stress_marker_lexical_examples_keep_source_transcription_out_of_ipa():
+    register = load_json(REGISTER)
+    examples = register["lexical_stress_examples"]
+    assert len(examples) == 3
+    by_form = {item["orthography"]: item for item in examples}
+    assert by_form["ស្រៈ"]["source_phonological_transcription"] == "/sraq/"
+    assert by_form["ធុរៈ"]["source_phonological_transcription"] == "/thureăq/"
+    assert by_form["គណៈរដ្ឋមន្ត្រី"]["gloss"] == "cabinet"
+    for item in examples:
+        assert item["source_id"] == "huffman-jenner1970"
+        assert item["ipa"] is None
+        assert item["ukrainian_adaptation"] is None
+        assert item["ukrainian_status"] == "NOT_ESTABLISHED"
+        assert "not IPA" in item["transcription_system"]
+        assert item["limitations"]
