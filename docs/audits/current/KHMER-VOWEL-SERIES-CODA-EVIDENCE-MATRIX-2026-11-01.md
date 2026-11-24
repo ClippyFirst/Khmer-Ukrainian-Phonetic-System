@@ -350,3 +350,12 @@ Code/data/test head `967a357333f31f605eecaed530dc0a0020c09fb3`:
 The 54 rows in §8 are now also represented in `data/khmer/vowel-context-register.json` as `reference_mapping_observations` and exposed in both generated coverage reports. Each row preserves Ishida's source transcription, class scope and exact orthographic context, with a source locator and explicit non-executable status.
 
 **Important boundary:** this is a machine-readable mirror of a specialist reference table, not 54 lexical tokens, not an independently adjudicated IPA corpus, and not 54 deterministic vowel rules. The source strings remain `source_transcription`; they are not copied into the project's `ipa` field, no Ukrainian adaptation is assigned, and `runtime_eligible=false` for every row. The 32-cell sign × series case matrix and its coverage status are unchanged.
+
+
+## Final verification — structured Ishida reference mappings — 2026-11-24
+
+- PR #560 merged into `main` as `1f48334047c3cbadc6d9d4e0a9c9a3fcf419d989`.
+- Exact PR-head Quality [45434765907](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45434765907) and Chromium [45434766063](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45434766063) passed; Chromium reported 40/40.
+- Exact-main Quality [45435043181](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45435043181), Chromium [45435043196](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45435043196), and Pages build/deploy [45435043183](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45435043183) all passed.
+- Live service and methodology pages returned HTTP 200. The deployed coverage report returned HTTP 200 and exposes all 54 `KHV-MAP-001`–`KHV-MAP-054` rows.
+- Structured reference extraction: **DONE_VERIFIED**. Runtime contextual phonology remains **PARTIAL**; no IPA, Ukrainian adaptation, deterministic runtime rule, gold label or accuracy claim was added. The 32-cell sign × series status remains unchanged.
