@@ -1542,15 +1542,18 @@
       "source_id": "r12a-orthography",
       "source_locator": "Richard Ishida, Khmer (Cambodian) Orthography Notes, sections “Vowels”, “Vowel sounds mapped to characters”, “Codas” and “Vowel mappings”; https://r12a.github.io/scripts/khmr/km.html",
       "reported_table_rows": 54,
-      "license_status": "UNKNOWN_NO_EXPLICIT_LICENSE_LOCATED",
-      "redistribution_status": "BLOCKED_PENDING_EXPLICIT_PERMISSION_OR_CLEAR_LICENSE",
+      "license_status": "CC-BY-4.0_VERIFIED_ON_SOURCE_PAGE",
+      "redistribution_status": "ALLOWED_WITH_ATTRIBUTION",
+      "license_id": "CC-BY-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Richard Ishida, “Khmer (Cambodian) Orthography Notes”, https://r12a.github.io/scripts/khmr/km.html, licensed CC BY 4.0; table transcribed into structured JSON and metadata added, source strings retained verbatim.",
       "runtime_eligible": false,
-      "data_values_copied": false,
+      "data_values_copied": true,
       "notes": [
-        "The source table is cited as an external reference only; its 54 source values are not duplicated in this machine-readable registry or generated report.",
-        "The earlier 54-row machine-readable copy was withdrawn because no explicit redistribution permission or source license was located.",
-        "The pre-existing table in the canonical Markdown evidence matrix predates this correction and remains a separate source-rights review item; no conclusion about its legal status is implied.",
-        "Do not generate IPA, Ukrainian adaptations, or runtime rules from this source until source convention and rights are reviewed."
+        "The source page footer explicitly states CC BY 4.0; attribution and license link are required, and changes must be indicated.",
+        "The 54 source strings are preserved verbatim in source_transcription, not normalized into the project's IPA field.",
+        "The rows are specialist reference mappings, not lexical audio tokens, adjudicated IPA gold, or deterministic runtime rules.",
+        "No Ukrainian adaptation or runtime rule is authorized by this reference table alone."
       ]
     },
     "source_backed_reference_mapping_observations": [
