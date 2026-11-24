@@ -117,6 +117,19 @@ def _tokenize_ipa(ipa: str, provenance: tuple[str, ...], certainty: str):
     return tuple(segments), tuple(unsupported)
 
 
+def _syllable_boundaries(segments: tuple[PhoneticSegment, ...]) -> tuple[int, ...]:
+    boundaries = [0]
+    for index, segment in enumerate(segments):
+        if segment.kind == "boundary":
+            if index not in boundaries:
+                boundaries.append(index)
+            if index + 1 not in boundaries:
+                boundaries.append(index + 1)
+    if len(segments) not in boundaries:
+        boundaries.append(len(segments))
+    return tuple(boundaries)
+
+
 def from_ipa(
     ipa: str,
     *,
@@ -141,7 +154,7 @@ def from_ipa(
         return TypedPhoneticResult(
             phonemic_ipa=None,
             segments=segments,
-            syllable_boundaries=(0, len(segments)),
+            syllable_boundaries=_syllable_boundaries(segments),
             status="UNRESOLVED",
             provenance=provenance,
             uncertainty=tuple(dict.fromkeys((*uncertainty, "UNSUPPORTED-IPA-NOTATION"))),
