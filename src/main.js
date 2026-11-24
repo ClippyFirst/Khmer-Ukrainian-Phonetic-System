@@ -126,9 +126,9 @@ if (typeof document !== "undefined") {
         : data.selected_external_candidate
           ? "EXTERNAL IPA CANDIDATE · " + data.selected_external_candidate.provider + " · PROFILE MATCH UNVERIFIED · ??? наприкінці неперевіреного результату · доказовий рівень C"
           : data.ukrainian_output_kind === "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
-            ? "PROVISIONAL · ОРФОГРАФІЧНА ПІДКАЗКА · НЕ IPA · ??? · доказовий рівень C"
+            ? data.status.replaceAll("_", " ") + " · PROVISIONAL · ОРФОГРАФІЧНА ПІДКАЗКА · НЕ IPA · ??? · доказовий рівень C"
             : data.ukrainian_output_kind === "IPA_DERIVED_PARTIAL"
-              ? "PROVISIONAL · ЧАСТКОВА IPA-ПІДКАЗКА · ??? · доказовий рівень C"
+              ? data.status.replaceAll("_", " ") + " · PROVISIONAL · ЧАСТКОВА IPA-ПІДКАЗКА · ??? · доказовий рівень C"
               : data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
     const levelGuidance = {
       strict: "Обережний рівень: показано лише наявні джерельно індексовані пропозиції; непідтверджені IPA не реконструюються. Якщо вимову не встановлено, окрема орфографічна підказка має суфікс ??? і не є транскрипцією. PROPOSED не є експертним gold.",
