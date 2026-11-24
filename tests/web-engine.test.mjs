@@ -159,10 +159,10 @@ console.log("web-engine structural tests: PASS");
 const sourceGuard = fs.readFileSync("src/main.js", "utf8") + "\n" + fs.readFileSync("src/khmer-engine-core.js", "utf8");
 if (/const\s+shifter\s*=\s*shifters\[0\]/u.test(sourceGuard)) throw new Error("register-shifter resolver uses an undefined shifters variable");
 if (!sourceGuard.includes("const shifter = structural[positions[0]]")) throw new Error("register-shifter resolver is not reading the structurally detected shifter");
-if (!sourceGuard.includes('fallback_status: "PROVISIONAL"')) throw new Error("provisional Khmer onset fallback is missing");
+if (!sourceGuard.includes('partial_candidate_kind: "ONSET_ONLY"')) throw new Error("provisional Khmer onset fallback is missing");
 if (!sourceGuard.includes('provisional_ipa: onsetIpa')) throw new Error("provisional Khmer IPA preview is missing");
 if (!sourceGuard.includes('const provisionalUkrainian = onsetMapping.value + "???"')) throw new Error("provisional Khmer Ukrainian preview must retain the three-question-mark uncertainty marker");
-if (!sourceGuard.includes('unit.provisional_ipa ? " · Попередня підказка: "')) throw new Error("Khmer provisional preview is not shown separately from canonical output");
+if (!sourceGuard.includes('unit.partial_candidate_kind === "ONSET_ONLY"')) throw new Error("Khmer provisional preview is not shown separately from canonical output");
 if (!sourceGuard.includes("PROVISIONAL")) throw new Error("Khmer aggregate status must preserve provisional confidence");
 if (!sourceGuard.includes("Khmer combining structure cannot begin a standalone orthographic unit.")) throw new Error("malformed leading Khmer combining marks are not rejected");
 if (sourceGuard.includes("if (!raw || !isKhmerConsonant(raw[0])) return { status: \"NOT_ESTABLISHED\", raw };")) throw new Error("malformed-leading-unit guard is too permissive");
@@ -242,7 +242,7 @@ if (coverageCells.some((cell) => !["SOURCE_ATTESTED_NOT_GOLD", "CONFLICTING_SOUR
 if (!coverageHtml.includes("./reports/khmer-coverage-audit.json")) {
   throw new Error("full machine-readable coverage report is not linked from the site");
 }
-const orthographicFallback = convert("ក្ក", "khmer-pph-careful-citation-v1");
+const orthographicFallback = convert("ឥ", "khmer-pph-careful-citation-v1");
 if (orthographicFallback.ipa !== "⟦NOT_ESTABLISHED⟧"
     || orthographicFallback.ua !== "???"
     || orthographicFallback.canonical_ua !== "???") {
@@ -319,7 +319,9 @@ if (!chaktomukCandidates.some((item) => item.source === "ចតុម្មុ�
 
 const unicode18SubscriptVowel = convert("ផ្ឯម", "khmer-pph-careful-citation-v1");
 if (unicode18SubscriptVowel.units.length !== 1
-    || unicode18SubscriptVowel.units[0].status !== "NOT_ESTABLISHED"
-    || unicode18SubscriptVowel.units[0].ipa !== "⟦NOT_ESTABLISHED⟧") {
-  throw new Error("subscript independent-vowel sequence must not receive an inherent-vowel IPA guess");
+    || unicode18SubscriptVowel.units[0].status !== "EVIDENCE_LIMITED"
+    || unicode18SubscriptVowel.units[0].partial_candidate_kind !== "ONSET_ONLY"
+    || unicode18SubscriptVowel.units[0].provisional_ipa !== "pʰ"
+    || unicode18SubscriptVowel.ipa !== "/pʰ/???") {
+  throw new Error("subscript independent-vowel sequence must expose only its onset and must not receive an inherent-vowel IPA guess");
 }
