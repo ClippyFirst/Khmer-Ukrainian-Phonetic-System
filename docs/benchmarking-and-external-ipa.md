@@ -32,7 +32,7 @@ Run the shared-input throughput and output-coverage benchmark with:
 npm run bench:engine
 ```
 
-Both runtimes process the same unique NFC inputs: the union of `data/tests/web-fixtures.json` and `data/tests/verified-lexical-corpus.json`. The latter is source-attested or compositional evidence, not adjudicated IPA gold. The harness performs five warm-up passes and 25 measured batches per runtime, reports median batch latency and inputs/second, and compares complete/partial/unresolved output counts plus status distributions. The JavaScript harness also checks that both runtimes processed the same number of inputs.
+Both runtimes process the same unique NFC inputs: the union of `data/tests/web-fixtures.json`, `data/tests/verified-lexical-corpus.json`, and `data/tests/khmer-onset-fallback-fixtures.json`. The latter is source-attested or compositional evidence, not adjudicated IPA gold. The harness performs five warm-up passes and 25 measured batches per runtime, reports median batch latency and inputs/second, and compares complete/partial/unresolved output counts plus status distributions. The JavaScript harness also checks that both runtimes processed the same number of inputs.
 
 These are deterministic engineering throughput and rendering-coverage diagnostics, not IPA accuracy scores. Do not interpret Python/JavaScript speedup as a device-independent browser latency guarantee, and do not interpret complete/partial status counts as phonetic correctness. The main CI workflow runs this benchmark after Python↔JavaScript parity tests.
 
