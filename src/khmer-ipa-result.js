@@ -127,12 +127,14 @@ export function fromIpa(ipa, {
       || (raw[0] === "[" && raw.at(-1) === "]"))) raw = raw.slice(1, -1);
   const { segments, unsupported } = tokenizeIpa(raw, provenance, status);
   if (unsupported.length) {
-    return makeResult({
+    const result = makeResult({
       segments,
       status: "UNRESOLVED",
       provenance,
       uncertainty: [...new Set([...uncertainty, "UNSUPPORTED-IPA-NOTATION"])],
     });
+    result.syllable_boundaries = syllableBoundaries(segments);
+    return result;
   }
   const result = makeResult({
     phonemic_ipa: raw,
