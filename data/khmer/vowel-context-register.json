@@ -481,17 +481,17 @@
       "id": "PPH-CTX-003",
       "dimension": "stress_and_weak_syllables",
       "environment": "stressed vs unstressed vowels; first syllable of many bisyllabic words",
-      "finding": "R12A describes many native Khmer bisyllabic words as having a typically unstressed first syllable whose vowel is realized as schwa in colloquial speech, with compounds as an explicit exception class. Its vowel-mapping legend separately marks several short-vowel correspondences (including /i, e, o, oː/ in specified register/sign combinations) as followed by glottal closure in stressed syllables but not unstressed syllables. These are source-reported mappings, not a controlled stress experiment. Chem's carrier phrase was selected to avoid sentence-stress distortion, but stress was not analyzed as an independent factor; Mam et al. measured F0 only in the stressed rime and did not compare stressed and unstressed vowels.",
+      "finding": "R12A describes many native Khmer bisyllabic words as having a typically unstressed first syllable whose vowel is realized as schwa in colloquial speech, with compounds as an explicit exception class. Its vowel-mapping legend separately marks several short-vowel correspondences (including /i, e, o, oː/ in specified register/sign combinations) as followed by glottal closure in stressed syllables but not unstressed syllables. These are source-reported mappings, not a controlled stress experiment. Chem's carrier phrase was selected to avoid sentence-stress distortion, but stress was not analyzed as an independent factor; Mam et al. measured F0 only in the stressed rime and did not compare stressed and unstressed vowels. Huffman & Jenner provide three exact lexical examples of U+17C8 YUKALEAPINTUQ in stressed syllables (ស្រៈ /sraq/, ធុរៈ /thureăq/, គណៈរដ្ឋមន្ត្រី /konaq-rŏətmuəntrey/), but these are the source's phonological transcription and the sign's orthographic marking is not an acoustic measurement of stress.",
       "source_ids": [
         "r12a-orthography",
         "chem2020",
         "mam2025",
         "huffman-jenner1970"
       ],
-      "locator": "R12A §§Phonetic syllables, lines 201–209; vowel mapping legend lines 491–496 and individual entries lines 503–615. Huffman & Jenner 1970, printed pp. 6–7 (standard vs Phnom Penh scope and typical stress pattern in disyllables); Chem 2020 Methods, printed pp. 104–107 (PDF pp. 12–15); Mam et al. 2025 §§2.1–2.3.",
+      "locator": "R12A §§Phonetic syllables, lines 201–209; vowel mapping legend lines 491–496 and individual entries lines 503–615. Huffman & Jenner 1970, printed pp.6–7 (typical disyllabic stress pattern and explicit Standard-vs-Phnom Penh scope), §VII.A.9, printed p.52 / PDF lines 2216–2225 (U+17C8 stress-marked lexical examples); Chem 2020 Methods, printed pp.104–107 (PDF pp.12–15); Mam et al. 2025 §§2.1–2.3.",
       "profile_scope": "General modern Khmer description with explicit colloquial qualification; not a controlled Phnom Penh stress experiment.",
       "evidence_status": "SOURCE_REPORTED_NOT_EXPERIMENTALLY_VERIFIED",
-      "implementation": "Keep stress, word structure and speech style explicit. Treat schwa reduction and stressed-syllable glottal closure as source-reported context conditions, not automatic spelling-only rules. Do not infer stress from word position alone, do not apply reduction to compounds by default, and do not use the F0-only Mam study as evidence for vowel quality or glottalization."
+      "implementation": "Keep stress, word structure and speech style explicit. Treat schwa reduction and stressed-syllable glottal closure as source-reported context conditions, not automatic spelling-only rules. Do not infer stress from word position alone, do not apply reduction to compounds by default, and do not use the F0-only Mam study as evidence for vowel quality or glottalization. U+17C8 is a spelling cue for the source-described stressed syllable/juncture contexts, not a general stress diacritic to insert or infer in runtime."
     },
     {
       "id": "PPH-CTX-004",
