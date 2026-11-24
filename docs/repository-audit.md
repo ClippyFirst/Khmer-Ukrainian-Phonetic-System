@@ -3155,3 +3155,20 @@ PR #459 merged as `c0fb6f8efcadf20ff55aec58b1188144707ae52f`. Exact-main Quality
 The live inventory after merge is 333 refs, 333 unique names and tips: 150 docs, 44 audit, 50 feature, 29 research, 26 test, 24 fix, 4 data, 2 accessibility and four singleton/unprefixed refs. Zero open PRs. All branches retained.
 
 Release blockers remain: adjudicated IPA gold absent; IPA convention unapproved; expert/annotator/adjudicator recruitment and blind pilot incomplete; external data rights unresolved; root license awaits owner decision; lexical segmentation and manual accessibility review partial. Status: research-ready partial prototype, not release-ready. Full ancestry audit remains **PARTIAL**.
+
+
+## Provisional pronunciation visibility audit — 2026-11-24
+
+**Finding:** the browser correctly withheld unsupported full-word IPA, but it also hid an independently supported onset preview for many unresolved words. For `ពាក់`, the parser retained onset IPA `p` and marked syllabification unresolved, while the overall parser status could remain `ESTABLISHED_STRUCTURE`. The fallback gate checked only `EVIDENCE_LIMITED`; additionally, the BGN/PCGN orthographic fallback ran before the onset preview. The result was an orthographic candidate such as `Пеак` in diagnostics and only `???` in the primary phonetic output.
+
+**Correction in branch `fix/provisional-pronunciation-unknowns-2026-11-24`:**
+
+- The engine now tries a parser-confirmed, registered onset IPA hint whenever a valid unit lacks a full deterministic IPA result, before considering orthographic romanization.
+- Primary display uses `/p/???` and `п???` for `ពាក់`; the complete word remains unresolved and is marked `EVIDENCE_LIMITED`.
+- `Пеак` is retained separately as an orthographic BGN/PCGN-derived candidate, explicitly not pronunciation.
+- The typed IPA-first result keeps bare IPA `p`, the IPA-derived provisional target `п???`, provenance, and an `IPA_DERIVED_PROVISIONAL` type. The full result remains incomplete and provisional hints do not count as supported IPA or accuracy.
+- No vowel, coda, subscript realization, syllable boundary, tone or full-word pronunciation is inferred.
+
+**Verification state at this audit update:** test-first regression for `ពាក់` was observed failing on the test-only commit because `partial_candidate_kind` was absent. Implementation and regression updates are committed to the branch; exact-head Quality, browser smoke and build verification are still pending. Do not mark this task DONE_VERIFIED until those runs pass.
+
+**Repository reconciliation:** main at start was `cbc19240899510066098bf15f16b946143905565`. Existing open PR #519 is unrelated, based on an older main SHA and reported non-mergeable; it was left untouched. PR #557 is already merged and is not reopened.
