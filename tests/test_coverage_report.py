@@ -143,3 +143,20 @@ def test_coverage_report_exposes_coda_pattern_evidence_without_lexical_promotion
     assert all(item["ukrainian_adaptation"] is None for item in patterns)
     assert all(item["ukrainian_status"] == "NOT_ESTABLISHED" for item in patterns)
     assert report["orthographic_inventory"]["expected_dependent_vowel_x_series_cells"] == 32
+
+
+def test_coverage_report_keeps_custom_lexical_transcriptions_out_of_ipa():
+    report = json.loads(REPORT.read_text(encoding="utf-8"))
+    registry = json.loads(
+        (ROOT / "data" / "khmer" / "vowel-context-register.json").read_text(encoding="utf-8")
+    )
+    contextual = report["contextual_vowel_evidence"]
+    examples = contextual["source_backed_lexical_coda_examples"]
+
+    assert contextual["lexical_coda_example_count"] == len(registry["lexical_coda_examples"]) == 12
+    assert [item["id"] for item in examples] == sorted(
+        item["id"] for item in registry["lexical_coda_examples"]
+    )
+    assert all(item["ipa"] is None for item in examples)
+    assert all(item["ukrainian_adaptation"] is None for item in examples)
+    assert all("not IPA" in item["transcription_system"] for item in examples)
