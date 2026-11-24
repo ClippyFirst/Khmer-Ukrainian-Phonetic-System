@@ -1,0 +1,51 @@
+name: Shared Khmer IPA engine benchmark
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "scripts/benchmark_shared_mekongphon.py"
+      - "scripts/benchmark_mekongphon_model.py"
+      - ".github/workflows/khmer-shared-engine-benchmark.yml"
+      - "src/khmer_ua/**"
+
+permissions:
+  contents: read
+
+jobs:
+  shared-heldout-benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7
+        with:
+          repository: byu-matrix-lab/MekongPhon
+          ref: f80f6c1840c4818b51e05f2e00cded4701a5b662
+          path: mekongphon
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install project and pinned independent engines
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[phonemizer]"
+          python -m pip install "epitran==1.35.3"
+      - name: Install pinned CPU neural inference runtime
+        run: |
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu "torch==2.5.1"
+          python -m pip install "transformers==4.46.3" "tokenizers==0.20.3" "huggingface-hub==0.26.2" "safetensors==0.4.5"
+      - name: Run every engine on the same held-out Khmer inputs
+        run: |
+          python scripts/benchmark_shared_mekongphon.py \
+            --corpus mekongphon/data/splits/khmer_eval.csv | tee shared-engine-benchmark.json
+      - name: Upload aggregate-only diagnostic
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: khmer-shared-engine-benchmark
+          path: shared-engine-benchmark.json
+          if-no-files-found: warn
+          retention-days: 30
