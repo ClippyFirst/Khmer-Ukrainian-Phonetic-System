@@ -801,8 +801,11 @@ function convert(text, profile) {
   const canonicalStatus = combineStatus(linguistic);
   const providerEntry = provisionalIpaCandidates.entries[normalized] ?? null;
   const externalCandidates = (providerEntry?.candidates ?? []).map((candidate) => {
+    const candidateProvenance = candidate.provenance && typeof candidate.provenance === "object"
+      ? Object.entries(candidate.provenance).map(([key, value]) => key + ":" + JSON.stringify(value))
+      : [];
     const mapping = candidate.profile === profile
-      ? mapThroughTypedIpa(candidate.ipa, candidate.provenance ?? [], candidate.uncertainty ?? [])
+      ? mapThroughTypedIpa(candidate.ipa, candidateProvenance, candidate.uncertainty ?? [])
       : { value: null, unsupported: "PROFILE_MISMATCH" };
     const mappedUkrainian = mapping.value !== null ? mapping.value : null;
     return {
