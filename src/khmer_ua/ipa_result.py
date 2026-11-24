@@ -178,6 +178,7 @@ def from_provisional_ipa(
     unresolved_graphemes: Iterable[str] = (),
     provenance: tuple[str, ...] = (),
     uncertainty: tuple[str, ...] = (),
+    append_unknown_tail: bool = True,
 ) -> TypedPhoneticResult:
     """Build provisional IPA + one explicit unknown region from registered hints."""
     segments: list[PhoneticSegment] = []
@@ -198,7 +199,8 @@ def from_provisional_ipa(
         )
     # A contiguous unresolved tail is one uncertainty region, not one marker
     # per Khmer code point. The original graphemes remain on the source trace.
-    if tuple(unresolved_graphemes) or not segments:
+    unresolved_values = tuple(unresolved_graphemes)
+    if append_unknown_tail or unresolved_values or not segments:
         segments.append(PhoneticSegment("?", "unknown", provenance, "PROVISIONAL"))
     if not segments:
         segments.append(PhoneticSegment("?", "unknown", provenance, "PROVISIONAL"))
