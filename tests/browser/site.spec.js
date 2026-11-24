@@ -66,7 +66,7 @@ test("unresolved independent vowel still receives a marked provisional result", 
   await expect(page.locator("#ua-result")).toHaveText(/\?\?\?$/u);
   await expect(page.locator("#status")).toContainText("ОРФОГРАФІЧНА ПІДКАЗКА");
   await expect(page.locator("#status")).toContainText("НЕ IPA");
-  await expect(page.locator("#issue-text")).toContainText("це не підтверджена вимова");
+  await expect(page.locator("#issue-text")).toContainText("а не підтверджену вимову");
 });
 
 test("research tools are collapsed by default and can be opened on demand", async ({ page }) => {
