@@ -1,6 +1,64 @@
 # Master execution plan and chat handoff — 2026-11-24
 
-## Current repository state
+## Current continuation: Lao engine architecture alignment — 2026-11-24
+
+- Repository: `ClippyFirst/Khmer-Ukrainian-Phonetic-System`.
+- Starting `main`: `1b8649c4b874fbf34a66012d7e02aa1da04fb6da`.
+- Working branch: `feat/khmer-lao-engine-contract-parity-20261124`.
+- PR: [#568](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/568), ready for human review; exact-head workflows passed; no merge was performed.
+- Reference architecture: `ClippyFirst/Lao-Ukrainian-Phonetic-System`, especially `docs/lao-grapheme-ipa-preview.md`.
+- Final source/test head: `f579e1444fbda2b186fdf8a04dc9f52f7ebc044e`. Subsequent commits through `3584ce714202c475f3e8f58cc69fe1f34530f9f0` update documentation, benchmark evidence, replica artifacts and handoff registers only. This final handoff refresh is documentation-only; the source/test head remains unchanged.
+- Local clone was unavailable because the container could not resolve `github.com`. Repository edits were made directly on this isolated GitHub branch. No local test pass is claimed.
+- No deployment, release tag, main-branch merge or external setting change was performed.
+
+### Implemented architecture
+
+1. Added `TypedPhoneticResult` and `PhoneticSegment` without replacing the existing public `PhoneticResult` envelope.
+2. Added typed statuses `SUPPORTED`, `UNCERTAIN`, `PROVISIONAL`, `UNRESOLVED`; current Khmer lexical proposals remain `UNCERTAIN`, not promoted to `SUPPORTED`.
+3. Added source-independent IPA tokenization preserving segment sequence, syllable boundaries, length marks, tone symbols, certainty, provenance and uncertainty.
+4. Added one IPA-only Ukrainian target adapter for complete and provisional phonetic results. It does not read Khmer graphemes or romanization.
+5. Provisional onset IPA remains `PROVISIONAL`, carries `phonemic_ipa=null`, and always retains one explicit unknown tail; the adapter maps the known run and returns `???` for the remainder.
+6. Valid IPA with no Ukrainian target correspondence remains valid IPA; the target value is withheld instead of guessed.
+7. Preserved the separate `ORTHOGRAPHIC_ROMANIZATION_FALLBACK` candidate and the opt-in, non-canonical external-provider contract.
+8. Integrated Python engine, JavaScript core, Worker output, CLI, UI unit details and `schemas/phonetic-result.schema.json`.
+9. Added replica-skill recon, feature matrix, architecture, test plan, bug log and build log under `replica/`.
+
+### Verification ledger
+
+| Check | State | Evidence |
+|---|---|---|
+| Test-first RED for typed IPA model | DONE_VERIFIED | Initial PR-head Quality failure was the expected missing-module failure |
+| Test-first RED for CLI contract | DONE_VERIFIED | Initial CLI tests failed because CLI still called structural parser only |
+| Python suite | DONE_VERIFIED | 503 passed + 70 subtests in exact PR-head Quality run [45491600216](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45491600216) |
+| Browser deterministic checks | DONE_VERIFIED | Exact PR-head Quality run [45491600216](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45491600216); web engine, runtime, Worker, typed IPA adapter and CLI tests passed |
+| Python/JavaScript parity | DONE_VERIFIED | 129 structural, 38 lexical, 46 consonant/rule and 6 segmentation fixtures passed; typed IPA fields are included in rule-output parity |
+| Benchmarks and Vite build | DONE_VERIFIED | Exact PR-head Quality run [45491600216](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45491600216) |
+| Exact-head Chromium smoke | DONE_VERIFIED | [45491600082](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45491600082) passed 42/42 Playwright tests, including typed IPA detail disclosure |
+| Exact-head pinned Rust comparison | DONE_VERIFIED | [45491600143](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45491600143) passed |
+| External khPOS comparison | DONE_VERIFIED | [45491600273](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45491600273) passed |
+| Linguistic accuracy | NOT_ASSESSED | Independent adjudicated IPA gold corpus remains empty |
+
+### Task ledger
+
+| Task | Status | Acceptance boundary |
+|---|---|---|
+| `KHM-LAO-ENGINE-CONTRACT-001` | DONE_VERIFIED | Typed result model, shared adapter, Python/JS parity, CLI, schema and uncertainty output; no language-rule transfer |
+| `KHM-PROVISIONAL-OUTPUT-001` | DONE_VERIFIED on prior main | Existing onset-first primary output and separate orthographic fallback preserved |
+| `KHM-PHON-CONTEXT-001` | PARTIAL | Full contextual vowel/coda/series/length matrix remains incomplete |
+| `KHM-IPA-GOLD-001` | BLOCKED | Independent gold has 0 entries; two annotators and adjudicator still required |
+| Pronunciation accuracy | NOT_ASSESSED | No gold denominator |
+| Manual accessibility audit | DEFERRED | Outside this architecture change |
+
+### PR and branch reconciliation
+
+- PR #568 is this isolated architecture continuation; all exact-head automated workflows passed. It is ready for human review; no merge was performed. The PR is mergeable and based directly on the unchanged starting `main`.
+- PR #519 remains open and untouched. It is a separate, diverged hybrid-inference change (73 commits ahead / 200 behind, reported non-mergeable); do not merge blindly.
+- Historical branches were not deleted or rewritten.
+- No public deployment or formal release was requested or performed.
+
+---
+
+## Prior task record — provisional output and benchmark (historical)
 
 - Repository: `ClippyFirst/Khmer-Ukrainian-Phonetic-System`
 - Starting `main` for the provisional-output task: `422023d03283648bea9ca59ef0ea01caedf41698`.
@@ -81,3 +139,30 @@ Local tests were not run in this session because the local clone/network route w
 3. Continue specialist review of the provisional phonological rules and Ukrainian adaptation. Never promote romanization candidates to IPA or infer unsupported vowel/coda/tone values.
 
 **Release assessment:** public beta is deployed and the engineering path is verified. This remains a research-ready partial prototype, not a linguistically validated G2P product.
+
+
+### Final exact-head verification update — 2026-11-24 21:34 UTC
+
+The pinned upstream Rust comparison has now completed successfully on the final PR head `3ecbbbdbe4ffefbb02c0c7e7c55fd017c2ee8443`.
+
+| Required check | Final exact-head result |
+|---|---|
+| Quality / Python | PASS — 503 tests + 70 subtests |
+| Browser / Chromium | PASS |
+| External khPOS benchmark | PASS |
+| Pinned upstream Rust comparison | PASS |
+| GitHub commit check-runs | 5/5 successful |
+| PR mergeability | mergeable=true |
+| PR review threads | 0 |
+| PR state | OPEN, non-draft; not merged |
+| Main branch | unchanged at `1b8649c4b874fbf34a66012d7e02aa1da04fb6da` |
+
+Exact workflow runs:
+- [Quality checks](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45492207753)
+- [Browser smoke](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45492207565)
+- [External khPOS benchmark](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45492207569)
+- [Pinned upstream Rust comparison](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45492207566)
+
+The external benchmark pins upstream `Alujack/khmer-tokenizer` at `f38eae5924d4e41a46fd2204cf6951cdb0dc8908`, uses its 61,980-entry dictionary, and scores 1,000 corpus sentences / 10,778 gold tokens. The corpus is CC BY-NC-SA 4.0 and was downloaded temporarily by CI; it was not copied into the repository. The benchmark evaluates tokenization/segmentation, not phonetic transcription. Therefore it is valid external segmentation evidence but must not be cited as Khmer IPA accuracy.
+
+The PR now meets its engineering acceptance criteria. It remains unmerged because no explicit merge instruction was given. The only remaining work for this branch is owner review/merge; linguistic research tasks remain as previously recorded (independent IPA gold = 0; pronunciation accuracy NOT_ASSESSED; full contextual phonology PARTIAL).

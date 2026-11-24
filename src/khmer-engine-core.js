@@ -8,6 +8,7 @@ import provisionalIpaCandidates from "../data/khmer/provisional-ipa-candidates.j
 import sources from "../data/khmer/sources.json" with { type: "json" };
 import { khmerToLatin } from "@gmana/km-translit";
 import { mapIpa } from "./ukrainian-practical.js";
+import { fromIpa, fromProvisionalIpa, fromUnknownSourceUnit, adaptPhoneticResult, serializePhoneticResult } from "./khmer-ipa-result.js";
 import { segmentKhmerWords, describeWordSegmentation } from "./khmer-word-segmenter.js";
 import { renderLatinWord } from "./khmer-romanization-ukrainian.js";
 
@@ -359,6 +360,19 @@ function renderIpaProfile(ipa, profile) {
   return ipa;
 }
 
+function mapThroughTypedIpa(ipa, provenance = [], uncertainty = []) {
+  const typed_ipa = fromIpa(ipa, {
+    status: "UNCERTAIN",
+    provenance,
+    uncertainty,
+  });
+  const value = adaptPhoneticResult(typed_ipa, { allowUncertain: true });
+  // The raw adapter is consulted only to report the exact unsupported tail;
+  // it never supplies a Ukrainian result or changes the typed IPA status.
+  const diagnostic = value === null ? mapIpa(ipa, practicalPolicy) : null;
+  return { value, unsupported: value === null ? (diagnostic?.unsupported ?? ipa) : null, typed_ipa };
+}
+
 function renderFixture(fixture, profile) {
   if (!PROFILES.has(profile)) throw new Error("Unsupported pronunciation profile: " + profile);
   if (!fixture.ipa) {
@@ -368,9 +382,19 @@ function renderFixture(fixture, profile) {
     // register realization, coda, tone or complete lexical pronunciation.
     const analysis = fixture.status === "EVIDENCE_LIMITED" ? parseSyllable(fixture.source) : null;
     const onsetIpa = analysis?.status === "EVIDENCE_LIMITED" ? analysis.onset_ipa : null;
-    const onsetMapping = onsetIpa ? mapIpa(onsetIpa, practicalPolicy) : null;
-    const hasPartialOnset = Boolean(onsetIpa && onsetMapping?.value !== null);
-    const partialUkrainian = hasPartialOnset ? onsetMapping.value + "???" : null;
+    const unresolved = analysis?.graphemes?.slice(1).map((grapheme) => grapheme.text)
+      ?? [...fixture.source].slice(1);
+    const typedPreview = onsetIpa ? fromProvisionalIpa(onsetIpa, {
+      unresolvedGraphemes: unresolved.length ? unresolved : ["UNKNOWN_REMAINDER"],
+      provenance: CONSONANTS[analysis.base]?.evidence ?? [],
+      uncertainty: ["CONSONANT_POSITION_OR_RIME_NOT_ESTABLISHED"],
+    }) : null;
+    const partialUkrainian = typedPreview ? adaptPhoneticResult(typedPreview) : null;
+    const hasPartialOnset = Boolean(onsetIpa && typedPreview?.status === "PROVISIONAL");
+    const unresolvedTyped = fromUnknownSourceUnit(fixture.source, {
+      provenance: fixture.evidence ?? [],
+      uncertainty: [fixture.note ?? "LEXICAL-IPA-WITHHELD"],
+    });
     return {
       source: fixture.source,
       ipa: fixture.status === "NOT_ESTABLISHED" ? "⟦NOT_ESTABLISHED⟧" : "⟦EVIDENCE_LIMITED⟧",
@@ -387,6 +411,7 @@ function renderFixture(fixture, profile) {
       mapping_check: null,
       evidence: fixture.evidence ?? [],
       source_locator: fixture.source_locator ?? null,
+      typed_ipa: typedPreview ?? unresolvedTyped,
       ...(hasPartialOnset ? {
         analysis,
         phonology_evidence: CONSONANTS[analysis.base]?.evidence ?? [],
@@ -400,7 +425,7 @@ function renderFixture(fixture, profile) {
 
   const sourceIpa = fixture.ipa.replace(/^\//, "").replace(/\/$/, "");
   const ipa = renderIpaProfile(sourceIpa, profile);
-  const mapped = mapIpa(ipa, practicalPolicy);
+  const mapped = mapThroughTypedIpa(ipa, fixture.evidence ?? []);
   const agrees = mapped.value !== null && mapped.value === fixture.ua;
 
   if (!agrees) {
@@ -415,6 +440,7 @@ function renderFixture(fixture, profile) {
       mapping_check: { policy_render: mapped.value, lexical_render: fixture.ua ?? null, agrees: false },
       evidence: fixture.evidence ?? [],
       source_locator: fixture.source_locator ?? null,
+      typed_ipa: mapped.typed_ipa,
     };
   }
 
@@ -422,6 +448,7 @@ function renderFixture(fixture, profile) {
     source: fixture.source,
     ipa: "/" + ipa + "/",
     ua: mapped.value,
+    typed_ipa: mapped.typed_ipa,
     status: fixture.status,
     rule_trace: ["KHMER_LEXICAL_FIXTURE", "IPA_TO_UKRAINIAN_LONGEST_MATCH"],
     note: fixture.note + " Профіль: " + profile + ".",
@@ -462,6 +489,7 @@ function renderUnknownUnit(unit, profile) {
       source: unit,
       ipa: "⟦INVALID_OR_UNSUPPORTED⟧",
       ua: "⟦НЕПІДТРИМУЄТЬСЯ⟧",
+      typed_ipa: fromUnknownSourceUnit(unit, { provenance: ["KHMER_UNICODE_VALIDATION_FAILED"] }),
       status: "INVALID_OR_UNSUPPORTED",
       rule_trace: ["KHMER_UNICODE_VALIDATION_FAILED"],
       note: analysis.reason ?? "Некоректна або непідтримувана Unicode-послідовність.",
@@ -473,12 +501,13 @@ function renderUnknownUnit(unit, profile) {
   const derivedIpa = deriveDeterministicIpa(analysis);
   if (derivedIpa) {
     const profiledIpa = renderIpaProfile(derivedIpa, profile);
-    const mapped = mapIpa(profiledIpa, practicalPolicy);
+    const mapped = mapThroughTypedIpa(profiledIpa, CONSONANTS[analysis.base]?.evidence ?? []);
     if (mapped.value !== null) {
       return {
         source: unit,
         ipa: "/" + profiledIpa + "/",
         ua: mapped.value,
+        typed_ipa: mapped.typed_ipa,
         status: "PROPOSED",
         rule_trace: ["KHMER_REGISTER_SERIES_INHERENT_VOWEL", "IPA_TO_UKRAINIAN_LONGEST_MATCH"],
         note: "Вимову виведено з документованої структури: базовий приголосний + встановлений регістр/шифтер + притаманна голосна серії. Українська форма є проєктною; результат не є лексичним винятком.",
@@ -500,9 +529,13 @@ function renderUnknownUnit(unit, profile) {
   // orthographic-only fallback.
   if (analysis.onset_ipa && analysis.status !== "INVALID_OR_UNSUPPORTED" && !analysis.unknown?.length) {
     const onsetIpa = renderIpaProfile(analysis.onset_ipa, profile);
-    const onsetMapping = mapIpa(onsetIpa, practicalPolicy);
-    if (onsetMapping.value !== null) {
-      const provisionalUkrainian = onsetMapping.value + "???";
+    const typedPreview = fromProvisionalIpa(onsetIpa, {
+      unresolvedGraphemes: [...unit].slice(1).length ? [...unit].slice(1) : ["UNKNOWN_REMAINDER"],
+      provenance: (CONSONANTS[analysis.base]?.evidence ?? []).filter((sourceId) => sourceId !== "unicode17-ch16"),
+      uncertainty: ["CONSONANT_POSITION_OR_RIME_NOT_ESTABLISHED"],
+    });
+    const provisionalUkrainian = adaptPhoneticResult(typedPreview) ?? "???";
+    if (typedPreview.status === "PROVISIONAL") {
       return {
         source: unit,
         ipa: "⟦NOT_ESTABLISHED⟧",
@@ -516,6 +549,7 @@ function renderUnknownUnit(unit, profile) {
         profile,
         provisional_ipa: onsetIpa,
         provisional_ukrainian: provisionalUkrainian,
+        typed_ipa: typedPreview,
         partial_ipa: onsetIpa,
         partial_candidate_kind: "ONSET_ONLY",
         unresolved_graphemes: [...unit].slice(1),
@@ -541,6 +575,7 @@ function renderUnknownUnit(unit, profile) {
       source: unit,
       ipa: "⟦NOT_ESTABLISHED⟧",
       ua: orthographicFallback,
+      typed_ipa: fromUnknownSourceUnit(unit, { provenance: ["BGN-PCGN-ORTHOGRAPHIC-ONLY"] }),
       status: "NOT_ESTABLISHED",
       rule_trace: ["KHMER_STRUCTURE_PARSED", "IPA_NOT_ESTABLISHED", "BGN_PCNG_ORTHOGRAPHIC_UKRAINIAN_FALLBACK"],
       note: "IPA-вимову для цієї одиниці не встановлено. Показано найкращий доступний попередній український кандидат із BGN/PCGN-похідної романізації; це орфографічна апроксимація, а не підтверджена вимова.",
@@ -563,6 +598,7 @@ function renderUnknownUnit(unit, profile) {
     source: unit,
     ipa: "⟦NOT_ESTABLISHED⟧",
     ua: "⟦НЕВСТАНОВЛЕНО⟧",
+    typed_ipa: fromUnknownSourceUnit(unit, { provenance: ["KHMER-IPA-NOT-ESTABLISHED"] }),
     status: analysis.status === "EVIDENCE_LIMITED" ? "EVIDENCE_LIMITED" : "NOT_ESTABLISHED",
     rule_trace: ["KHMER_STRUCTURE_PARSED", "IPA_NOT_ESTABLISHED"],
     note: "Структуру запису розпізнано, але для цієї одиниці немає достатньо встановленої орфографія → IPA моделі. Система не вгадує вимову.",
@@ -630,10 +666,10 @@ function convert(text, profile) {
 
   const units = tokenize(normalized);
   const rendered = units.map((unit) => {
-    if (unit === ZWSP) return { source: unit, ipa: " ", ua: " ", status: "PUNCTUATION", note: "U+200B ZERO WIDTH SPACE трактовано як невидиму межу слова.", profile };
-    if (PUNCTUATION.test(unit)) return { source: unit, ipa: unit, ua: unit, status: "PUNCTUATION", note: "", profile };
+    if (unit === ZWSP) return { source: unit, ipa: " ", ua: " ", typed_ipa: null, status: "PUNCTUATION", note: "U+200B ZERO WIDTH SPACE трактовано як невидиму межу слова.", profile };
+    if (PUNCTUATION.test(unit)) return { source: unit, ipa: unit, ua: unit, typed_ipa: null, status: "PUNCTUATION", note: "", profile };
     if (/^\p{N}+$/u.test(unit)) return {
-      source: unit, ipa: unit, ua: unit, status: "NON_LINGUISTIC",
+      source: unit, ipa: unit, ua: unit, typed_ipa: null, status: "NON_LINGUISTIC",
       note: "Числовий запис збережено без фонетичного читання; вимову чисел не встановлено.",
       rule_trace: ["NON_LINGUISTIC_NUMERAL_PASSTHROUGH"], profile,
     };
@@ -746,7 +782,9 @@ function convert(text, profile) {
       ? item.provisional_ukrainian
       : (item.orthographic_fallback_ukrainian || item.fallback_ukrainian)
         ? (item.orthographic_fallback_ukrainian || item.fallback_ukrainian) + "???"
-        : item.ua,
+        : ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
+          ? item.ua
+          : item.status === "PROPOSED" ? item.ua : "???",
     ukrainian_kind: item.partial_candidate_kind === "ONSET_ONLY"
       ? "IPA_DERIVED_PROVISIONAL"
       : item.orthographic_fallback_ukrainian || item.fallback_status === "PROVISIONAL"
@@ -754,13 +792,15 @@ function convert(text, profile) {
         : ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
           ? "NOT_APPLICABLE"
           : item.status === "PROPOSED" ? "IPA_DERIVED" : "UNRESOLVED",
+    typed_ipa: item.typed_ipa ? serializePhoneticResult(item.typed_ipa) : null,
     profile,
     provenance: {
       phonology: item.phonology_evidence ?? item.evidence ?? [],
       structure: item.analysis ? ["unicode17-ch16"] : [],
-      target_policy: item.mapping_check || item.partial_candidate_kind === "ONSET_ONLY"
-        ? ["data/ukrainian/practical-policy.json"]
-        : item.fallback_status === "PROVISIONAL" ? ["src/khmer-romanization-ukrainian.js"] : [],
+      target_policy: item.orthographic_fallback_ukrainian || item.fallback_ukrainian
+        ? ["src/khmer-romanization-ukrainian.js"]
+        : item.typed_ipa && item.typed_ipa.status !== "UNRESOLVED"
+          ? ["data/ukrainian/practical-policy.json"] : [],
     },
     uncertainty: ["PUNCTUATION", "NON_LINGUISTIC", "PROPOSED"].includes(item.status)
       ? []
@@ -770,8 +810,11 @@ function convert(text, profile) {
   const canonicalStatus = combineStatus(linguistic);
   const providerEntry = provisionalIpaCandidates.entries[normalized] ?? null;
   const externalCandidates = (providerEntry?.candidates ?? []).map((candidate) => {
+    const candidateProvenance = candidate.provenance && typeof candidate.provenance === "object"
+      ? Object.entries(candidate.provenance).map(([key, value]) => key + ":" + JSON.stringify(value))
+      : [];
     const mapping = candidate.profile === profile
-      ? mapIpa(candidate.ipa, practicalPolicy)
+      ? mapThroughTypedIpa(candidate.ipa, candidateProvenance, candidate.uncertainty ?? [])
       : { value: null, unsupported: "PROFILE_MISMATCH" };
     const mappedUkrainian = mapping.value !== null ? mapping.value : null;
     return {

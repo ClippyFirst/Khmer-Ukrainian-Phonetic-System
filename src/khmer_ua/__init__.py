@@ -59,6 +59,8 @@ from .ipa import (
 )
 from .practical import map_segment, map_sequence, map_ipa_string, explain_segment
 from .phonetic_result import PhoneticResult, PhoneticUnitResult, PhoneticUncertainty
+from .ipa_result import PhoneticSegment, TypedPhoneticResult, from_ipa, from_provisional_ipa, from_unknown_source_unit
+from .ipa_target import adapt_phonetic_result
 from .word_boundaries import BoundaryEvidence, BoundaryCandidate, WordBoundaryAnalysis
 from .orthographic_structure import KhmerOrthographicComponent, KhmerOrthographicScan, scan_orthographic_components
 from .orthographic_syllables import KhmerOrthographicSyllable, KhmerOrthographicSyllableParse, parse_orthographic_syllables
@@ -133,6 +135,12 @@ __all__ = [
     "PhoneticResult",
     "PhoneticUnitResult",
     "PhoneticUncertainty",
+    "PhoneticSegment",
+    "TypedPhoneticResult",
+    "from_ipa",
+    "from_provisional_ipa",
+    "from_unknown_source_unit",
+    "adapt_phonetic_result",
     "RuleBasedKhmerEngine",
     "HybridKhmerEngine",
     "create_hybrid_engine",

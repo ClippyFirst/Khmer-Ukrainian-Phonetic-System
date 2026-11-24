@@ -68,3 +68,25 @@ These are segmentation evaluations, not pronunciation or IPA validation. The pin
 ## Relation to the Lao implementation
 
 The Lao repository's grapheme-preview and stress-benchmark reports were used as a behavioral reference: retain partial output, type its uncertainty, measure latency and coverage separately, and avoid claiming accuracy without held-out gold. The Khmer corpus and phonology differ, so Lao benchmark scores are not treated as directly comparable targets.
+
+
+## Typed IPA contract overhead — 2026-11-24
+
+Source: latest successful exact-source/docs-head Quality workflow [45490428639](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428639), branch `feat/khmer-lao-engine-contract-parity-20261124`, docs-evidence head `79d7ff26e2f7c5905ea4ed6fde903fdbfe81de82`. The implementation source/test head is `f579e1444fbda2b186fdf8a04dc9f52f7ebc044e`; subsequent commits are documentation and evidence-register updates only.
+
+| Measure | JavaScript core | Python engine |
+|---|---:|---:|
+| Runtime | Node v24.22.3 | Python 3.12.16 |
+| Unique NFC inputs | 39 | 39 |
+| Warm-up / measured batches | 5 / 25 | 5 / 25 |
+| Median batch latency (run 45490428639) | 1.5012 ms | 7.8004 ms |
+| Throughput (run 45490428639) | 25,980.01 inputs/s | 4,999.74 inputs/s |
+| Complete / partial / unresolved | 37 / 2 / 0 | 37 / 2 / 0 |
+| Same-source-head repeat (45489728897) | 1.4829 ms | 8.6119 ms |
+| Second same-source-head repeat (45489719057) | 1.4772 ms | 9.1197 ms |
+
+Compared with the earlier main-branch measurement (1.3028 ms JS; 5.2737 ms Python), the latest docs-evidence-head run is 15.2% higher in the JS median and 47.9% higher in the Python median. Repeated runs on the same source/test head vary (Python 7.8004–9.1197 ms; JS 1.4772–1.5012 ms), showing CI runner variance. These are microbenchmarks, not a controlled before/after experiment; runner contention and environment noise may contribute, so the figures must not be attributed wholly to typed segmentation. Absolute throughput remains approximately 26.0k / 5.0k fixture inputs per second, or 0.20 ms per fixture in the Python batch. The measured overhead is recorded for future profiling; no speculative optimization was added without a controlled repeat or evidence of user-visible latency. The Node/Python speed ratio is 5.20× in the latest run.
+
+Tokenizer stress on run 45490428639: 8,000 code points, 61,980 dictionary entries, 6.74 ms median, 1,187,391 code points/s, source preserved. This is a stress microbenchmark, not a segmentation-accuracy measure.
+
+Coverage and throughput remain engineering measures. The input corpus is not adjudicated IPA gold; pronunciation accuracy remains NOT_ASSESSED.

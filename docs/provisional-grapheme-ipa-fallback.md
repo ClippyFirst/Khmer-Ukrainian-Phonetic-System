@@ -104,3 +104,22 @@ The 2026-11-11 checkpoints above are historical and are superseded for the onset
 - Exact-head Quality, Chromium browser smoke and external khPOS benchmark workflows passed: [45384743307](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45384743307), [45384743278](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45384743278), [45384743282](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45384743282).
 - **DONE_VERIFIED:** primary visibility of supported onset previews, `???` uncertainty rendering, orthographic/phonetic separation, and the covered browser/schema/runtime regressions.
 - **PARTIAL:** complete positional grapheme-to-IPA coverage, independently reviewed phonetic evidence for every hint, vowel/coda/coeng rules, and independent pronunciation accuracy. No gold labels or accuracy scores are inferred.
+
+
+## Typed IPA contract alignment — 2026-11-24
+
+The bounded onset-only fallback now uses the same typed result boundary and target adapter as complete IPA output. This changes the engine architecture and output provenance; it does **not** broaden the linguistic fallback inventory.
+
+- Python: `TypedPhoneticResult`, `PhoneticSegment`, `from_ipa()`, `from_provisional_ipa()`, `from_unknown_source_unit()`, and `adapt_phonetic_result()`.
+- Browser: `src/khmer-ipa-result.js` exposes the equivalent typed constructors, serializer and `adaptPhoneticResult()`.
+- A complete current lexical IPA proposal is nested as `UNCERTAIN`, not `SUPPORTED`, because the project has no independently adjudicated gold for these examples.
+- An onset hint is `PROVISIONAL`, has no `phonemic_ipa` field, and always retains one explicit unknown tail. The same IPA-only adapter maps the known onset; the target output remains `IPA_DERIVED_PROVISIONAL` and ends in `???`.
+- No defensible IPA hint is `UNRESOLVED` and renders `???`.
+- A valid IPA sequence can remain `UNCERTAIN` even when the Ukrainian target table has no correspondence. The adapter withholds a Ukrainian mapping rather than relabelling valid IPA as invalid or guessing a target letter.
+- IPA tokenization preserves segment sequence, syllable/word boundaries, length marks, tone symbols, segment certainty, provenance and uncertainty. The Khmer engine does not infer tone; tone fields remain null unless explicitly supported by a future accepted source.
+- The IPA parser does not read Ukrainian target correspondences. The target adapter does not read Khmer graphemes or romanization. BGN/PCGN candidates remain separately typed as orthographic fallbacks and never enter the IPA adapter.
+- CLI `analyze`/`explain` expose the typed envelope; `ipa` and `transliterate` show provisional material with `???` rather than suppressing it.
+
+Exact-head Quality workflow [45490428639](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428639) passed 503 Python tests + 70 subtests, web checks, Python/JavaScript parity, benchmarks and Vite build. Exact-head Chromium [45490428728](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428728) passed 42/42 Playwright tests, including the typed IPA detail disclosure. Pinned Rust segmentation comparison [45490428786](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428786) and external khPOS benchmark [45490428814](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428814) also passed. Engineering architecture status: DONE_VERIFIED; linguistic accuracy remains NOT_ASSESSED.
+
+The existing positional-onset register remains research evidence only, not a runtime source. No new vowel, coda, coeng/subscript, register-shifter or tone rule was introduced. Independent Khmer pronunciation accuracy remains NOT_ASSESSED.

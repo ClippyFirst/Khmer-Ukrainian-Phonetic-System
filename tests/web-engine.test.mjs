@@ -161,7 +161,7 @@ if (/const\s+shifter\s*=\s*shifters\[0\]/u.test(sourceGuard)) throw new Error("r
 if (!sourceGuard.includes("const shifter = structural[positions[0]]")) throw new Error("register-shifter resolver is not reading the structurally detected shifter");
 if (!sourceGuard.includes('partial_candidate_kind: "ONSET_ONLY"')) throw new Error("provisional Khmer onset fallback is missing");
 if (!sourceGuard.includes('provisional_ipa: onsetIpa')) throw new Error("provisional Khmer IPA preview is missing");
-if (!sourceGuard.includes('const provisionalUkrainian = onsetMapping.value + "???"')) throw new Error("provisional Khmer Ukrainian preview must retain the three-question-mark uncertainty marker");
+if (!sourceGuard.includes('const provisionalUkrainian = adaptPhoneticResult(typedPreview) ?? "???"')) throw new Error("provisional Khmer Ukrainian preview must use the typed IPA adapter and retain the uncertainty marker");
 if (!sourceGuard.includes('unit.partial_candidate_kind === "ONSET_ONLY"')) throw new Error("Khmer provisional preview is not shown separately from canonical output");
 if (!sourceGuard.includes("PROVISIONAL")) throw new Error("Khmer aggregate status must preserve provisional confidence");
 if (!sourceGuard.includes("Khmer combining structure cannot begin a standalone orthographic unit.")) throw new Error("malformed leading Khmer combining marks are not rejected");

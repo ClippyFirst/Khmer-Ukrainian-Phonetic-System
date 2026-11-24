@@ -400,6 +400,15 @@ test("archived provisional IPA candidate remains visible at every detail level",
   }
 });
 
+test("unit details disclose typed IPA status, provenance and unresolved remainder", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("ក្ក");
+  await expect(page.locator("#unit-details")).toContainText("Типізована IPA-послідовність: k???");
+  await expect(page.locator("#unit-details")).toContainText("попередня часткова IPA");
+  await expect(page.locator("#unit-details")).toContainText("Українську форму отримано лише через IPA-адаптер");
+  await expect(page.locator("#unit-details")).toContainText("Застереження:");
+});
+
 test("unresolved Khmer cluster shows the known onset in IPA mode and keeps romanization separate", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("ក្ក");

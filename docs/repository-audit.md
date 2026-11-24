@@ -3256,3 +3256,37 @@ PR #566 was squash-merged as `fff886dfaca8979387dc6cacbd7417a89020a407`. The web
 Final-main verification: Quality [45474856164](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45474856164), Chromium [45474855979](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45474855979), external khPOS [45474855939](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45474855939), pinned Rust comparison [45474856176](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45474856176), Pages deployment/live smoke [45474855848](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45474855848): all PASS. Benchmark results and scope are in `docs/research/KHMER-ENGINE-BENCHMARK-2026-11-24.md`.
 
 Research limits remain: independent adjudicated IPA gold = 0; pronunciation accuracy = NOT_ASSESSED; full contextual phonology = PARTIAL; manual accessibility review = DEFERRED. PR #519 remains open and non-mergeable, untouched pending a separate diff reconciliation. No formal release tag was created.
+
+
+## Lao engine architecture alignment audit — 2026-11-24
+
+**Scope:** replicate the Lao typed engine/result-output architecture in the Khmer repository, not Lao phonological content.
+
+### Findings and changes
+
+- The existing Khmer parser, lexical fixtures, consonant/register rules, profile policy, browser Worker, romanization path and external candidate API were preserved.
+- The old public `PhoneticResult` envelope was retained. A separate `TypedPhoneticResult` / `PhoneticSegment` layer now represents IPA as inspectable structured data.
+- IPA tokenization is source-notation work and is independent of the Ukrainian correspondence table. The target adapter consumes typed IPA only and never reads Khmer graphemes or romanization.
+- Complete source IPA proposals are `UNCERTAIN`; no existing Khmer lexical proposal was promoted to `SUPPORTED`.
+- Registered onset-only hints are `PROVISIONAL`, preserve an unknown tail and use the same IPA → Ukrainian adapter as complete results.
+- No defensible hint is `UNRESOLVED` and renders `???`.
+- Valid IPA that lacks a Ukrainian target correspondence remains valid IPA; the target mapping is withheld. Unsupported target mapping is not evidence that the source IPA is invalid.
+- IPA segments retain syllable boundaries, length, tone symbols, certainty, provenance and uncertainty. Tone is not inferred.
+- The orthographic BGN/PCGN fallback remains a separately typed candidate; external provider candidates remain opt-in and non-canonical.
+- Python engine, JavaScript core, Worker, CLI, UI detail, schema and cross-runtime tests were updated.
+
+### Verification
+
+- Test-first regressions were added before implementation for the typed IPA adapter and CLI behavior; both produced the expected RED failures.
+- Exact-head Quality [45490428639](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428639) passed 503 Python tests + 70 subtests, browser deterministic checks, structural/lexical/consonant/segmentation parity, benchmarks and Vite production build.
+- Exact-head Chromium [45490428728](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428728) passed 42/42 Playwright tests, including typed IPA status/provenance disclosure. Pinned Rust comparison [45490428786](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428786) and external khPOS benchmark [45490428814](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428814) also passed.
+- The benchmark shows measurable runtime overhead from typed segmentation; results and exact values are recorded in `docs/research/KHMER-ENGINE-BENCHMARK-2026-11-24.md`. The absolute throughput remains adequate for this 39-input engineering benchmark; no speculative optimization was added.
+- Local clone and local test execution were unavailable because the container could not resolve GitHub. CI is the verification source; no local pass is claimed.
+
+### Remaining boundaries
+
+- This is an engineering architecture completion, not new phonetic evidence.
+- The broader Khmer positional IPA inventory remains PARTIAL.
+- Independent adjudicated IPA gold remains empty; pronunciation accuracy remains NOT_ASSESSED.
+- PR #519 remains open and untouched because it is a separate, diverged hybrid-inference branch.
+- No deployment, release or main-branch merge was performed.
