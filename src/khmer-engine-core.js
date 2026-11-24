@@ -777,21 +777,27 @@ function convert(text, profile) {
     ipa: item.partial_ipa ?? (item.status !== "PUNCTUATION" && /^\/.*\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa),
     ukrainian: item.partial_candidate_kind === "ONSET_ONLY"
       ? item.provisional_ukrainian
-      : ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
-        ? item.ua
-        : item.status === "PROPOSED" ? item.ua : "???",
+      : (item.orthographic_fallback_ukrainian || item.fallback_ukrainian)
+        ? (item.orthographic_fallback_ukrainian || item.fallback_ukrainian) + "???"
+        : ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
+          ? item.ua
+          : item.status === "PROPOSED" ? item.ua : "???",
     ukrainian_kind: item.partial_candidate_kind === "ONSET_ONLY"
       ? "IPA_DERIVED_PROVISIONAL"
-      : ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
-        ? "NOT_APPLICABLE"
-        : item.status === "PROPOSED" ? "IPA_DERIVED" : "UNRESOLVED",
+      : item.orthographic_fallback_ukrainian || item.fallback_status === "PROVISIONAL"
+        ? "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
+        : ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
+          ? "NOT_APPLICABLE"
+          : item.status === "PROPOSED" ? "IPA_DERIVED" : "UNRESOLVED",
     typed_ipa: item.typed_ipa ? serializePhoneticResult(item.typed_ipa) : null,
     profile,
     provenance: {
       phonology: item.phonology_evidence ?? item.evidence ?? [],
       structure: item.analysis ? ["unicode17-ch16"] : [],
-      target_policy: item.typed_ipa && item.typed_ipa.status !== "UNRESOLVED"
-        ? ["data/ukrainian/practical-policy.json"] : [],
+      target_policy: item.orthographic_fallback_ukrainian || item.fallback_ukrainian
+        ? ["src/khmer-romanization-ukrainian.js"]
+        : item.typed_ipa && item.typed_ipa.status !== "UNRESOLVED"
+          ? ["data/ukrainian/practical-policy.json"] : [],
     },
     uncertainty: ["PUNCTUATION", "NON_LINGUISTIC", "PROPOSED"].includes(item.status)
       ? []
