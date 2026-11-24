@@ -87,7 +87,7 @@ function tokenizeIpa(ipa, provenance, certainty) {
         unsupported.push(token);
       }
     }
-    while (index < chars.length && isModifierLetter(chars[index]) && !TONE_MARKS.has(chars[index])) {
+    while (index < chars.length && isModifierLetter(chars[index]) && !TONE_MARKS.has(chars[index]) && !MODIFIERS.has(chars[index])) {
       token += chars[index];
       index += 1;
     }
