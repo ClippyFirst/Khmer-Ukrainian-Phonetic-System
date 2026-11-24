@@ -690,10 +690,10 @@
           "mam2025",
           "huffman-jenner1970"
         ],
-        "locator": "R12A §§Phonetic syllables, lines 201–209; vowel mapping legend lines 491–496 and individual entries lines 503–615. Huffman & Jenner 1970, printed pp. 6–7 (standard vs Phnom Penh scope and typical stress pattern in disyllables); Chem 2020 Methods, printed pp. 104–107 (PDF pp. 12–15); Mam et al. 2025 §§2.1–2.3.",
+        "locator": "R12A §§Phonetic syllables, lines 201–209; vowel mapping legend lines 491–496 and individual entries lines 503–615. Huffman & Jenner 1970, printed pp.6–7 (typical disyllabic stress pattern and explicit Standard-vs-Phnom Penh scope), §VII.A.9, printed p.52 / PDF lines 2216–2225 (U+17C8 stress-marked lexical examples); Chem 2020 Methods, printed pp.104–107 (PDF pp.12–15); Mam et al. 2025 §§2.1–2.3.",
         "profile_scope": "General modern Khmer description with explicit colloquial qualification; not a controlled Phnom Penh stress experiment.",
         "evidence_status": "SOURCE_REPORTED_NOT_EXPERIMENTALLY_VERIFIED",
-        "implementation": "Keep stress, word structure and speech style explicit. Treat schwa reduction and stressed-syllable glottal closure as source-reported context conditions, not automatic spelling-only rules. Do not infer stress from word position alone, do not apply reduction to compounds by default, and do not use the F0-only Mam study as evidence for vowel quality or glottalization."
+        "implementation": "Keep stress, word structure and speech style explicit. Treat schwa reduction and stressed-syllable glottal closure as source-reported context conditions, not automatic spelling-only rules. Do not infer stress from word position alone, do not apply reduction to compounds by default, and do not use the F0-only Mam study as evidence for vowel quality or glottalization. U+17C8 is a spelling cue for the source-described stressed syllable/juncture contexts, not a general stress diacritic to insert or infer in runtime."
       },
       {
         "id": "PPH-CTX-004",
