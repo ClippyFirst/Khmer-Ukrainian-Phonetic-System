@@ -186,9 +186,16 @@ def test_source_traceable_proposed_ipa_requires_registered_exact_locator():
     assert cluster_word["ipa"] == "lŋiəc"
     assert cluster_word["ukrainian"] == "лнгієть"
 
-    unreferenced = engine.analyze("កី")
-    assert unreferenced["confidence_tier"] == "C"
-    assert unreferenced["units"][0]["confidence_tier"] == "C"
+    # These four representative open-syllable examples now have exact
+    # registered R12A locators. They remain PROPOSED, not expert gold.
+    for source in ("កី", "គី", "កា", "គា"):
+        result = engine.analyze(source)
+        assert result["status"] == "PROPOSED", source
+        assert result["confidence_tier"] == "B", source
+        assert result["units"][0]["confidence_tier"] == "B", source
+        assert "r12a-orthography" in result["evidence"], source
+        assert result["units"][0]["source_locator"], source
+        assert result["units"][0]["lexical_mapping_agrees"] is True, source
 
     unsupported = engine.analyze("☃")
     assert unsupported["confidence_tier"] == "D"

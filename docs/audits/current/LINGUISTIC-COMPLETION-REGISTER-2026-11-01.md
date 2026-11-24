@@ -1,3 +1,20 @@
+## Progressive IPA recovery and hybrid candidate selection — 2026-11-23
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-PARTIAL-IPA-001 | DONE_VERIFIED (PR-head exact-input behavior) | PR [#557](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/557); test-first red run [45272634271](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45272634271); final-head Quality final-docs-head Quality [45275236404](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45275236404); code-head Chromium [45274851139](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45274851139). | A lexical fixture with withheld full IPA preserves only an independently supported onset candidate. For `ស៊៉ា`, visible IPA is `/s/⟦EVIDENCE_LIMITED⟧`, UA is `с???`; canonical unit status/IPA remain unresolved, and the separate candidate carries source provenance. No vowel/register/coda/tone/full pronunciation is inferred. |
+| KHM-HYBRID-CANDIDATE-001 | DONE_VERIFIED (Python API PR-head) | `HybridKhmerEngine` validates typed provider IPA, maps it with the existing Ukrainian adapter, retains mapping failures, and exposes a separate `PROVISIONAL` candidate only when canonical IPA is unresolved. Pre-closeout-head Quality [45275627175](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45275627175) passed 475 Python tests + 70 subtests and all JS/Python parity/build checks. | First mappable provider is selected; if none maps, first valid IPA remains visible with an explicit mapping failure. Canonical fields are immutable; no provider voting, accuracy ranking or gold promotion. |
+| KHM-KHMERPHONEMIZER-001 | DONE_VERIFIED (opt-in provider smoke) | Pinned `khmerphonemizer==0.0.3`, MIT; optional extra and lazy adapter are explicit opt-in. Pre-closeout-head smoke [45275627089](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45275627089) passed and emitted a typed `PHONETIC_BROAD` / `PARTIAL` candidate with `profile_match=UNVERIFIED`; artifact [14868055182](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45275627089/artifacts/14868055182), SHA-256 `2f8747681fd9fe4c0b1b92a01c40973b101632b2938dd653a8277c944c62f408`. | Provider smoke proves executable candidate generation only. It does not prove dialect/profile equivalence, tone/stress completeness, accuracy, or expert adjudication. No auto-discovery; callers must opt in. |
+| KHM-BROWSER-LIVE-HYBRID-001 | BLOCKED | GitHub Pages is static; browser CSP sets `connect-src 'none'`. No Python/API inference backend exists. The public page cannot invoke the optional Python provider for arbitrary input. | Requires a separately approved backend/privacy and operational design, or a validated local browser model with pinned rights-cleared assets, size/startup evidence, offline behavior and browser parity. Do not transmit user-entered text or relax CSP silently. |
+| KHM-PHON-CONTEXT-001 | PARTIAL (unchanged) | Exact lexical fixtures, narrow inherent-vowel rules, and partial onset preservation; broad dependent-vowel × consonant-series × coda × syllable-context matrix remains incomplete. | Context-qualified, source-located rules and positive/negative fixtures; Python/browser parity; specialist review; no grapheme-to-Ukrainian shortcut. |
+| KHM-IPA-GOLD-001 | BLOCKED (unchanged) | Independent expert-adjudicated gold remains 0; issue #104 remains open. | Approved versioned IPA convention, two independent annotators, third adjudicator, curator, private blind intake and rights-cleared 30-item pilot. |
+ 
+**Public-service boundary:** the PR changes are not merged to `main` or deployed. Current PR #557 is a draft continuation branch. Public Pages behavior must not be described as having live multi-provider inference. Broad pronunciation accuracy remains **NOT ASSESSED**.
+
+**Development process gate adopted:** reproduce and minimize the exact defect; document root cause; add a failing regression; make the smallest repair; run Python, Node, structural/lexical/rule/segmentation parity, benchmarks, build and Chromium checks; inspect the complete diff; update this register and the master handoff. A passing unit test alone is not release evidence.
+
+---
+
 ## MekongPhon evidence review — 2026-11-04
 
 | ID | Status | Evidence | Acceptance boundary |
@@ -3702,18 +3719,99 @@ The khPOS train/test and ALT corpora are CC BY-NC-SA 4.0. The 12,000-row train s
 - Runtime coverage is exact lexical lookup plus a narrow deterministic inherent-vowel path. The full dependent-vowel × consonant-series × coda × syllable-context matrix is not wired into a general rule generator. The 61,980-entry word/count dictionary is segmentation data, not pronunciation data. Unsupported structures are generally withheld; this is preferable to invented IPA, but it does not meet a broad automatic Khmer-to-IPA coverage expectation.
 - Acceptance: source-located and context-qualified rules for each promoted vowel/subscript/coda environment; exact positive/negative fixtures; Python/browser parity; independent specialist review; no blanket grapheme-to-Ukrainian shortcut.
 
-### KHM-FIXTURE-PROVENANCE-001 — PARTIAL
+### KHM-FIXTURE-PROVENANCE-001 — DONE_VERIFIED (four representative vowel fixtures only)
 
-- The runtime fixture file contains 38 entries, 37 with IPA. Four `PROPOSED` entries (`កី`, `គី`, `កា`, `គា`) have empty evidence arrays and no source locator. They currently carry only a representative-contrast note and must not be treated as source-verified tier B or gold.
-- Acceptance: add exact registered pronunciation-capable source IDs and source locators for the precise orthographic/profile environment, or withhold the IPA/UA values until such evidence is established. Do not invent citations.
+- The four previously uncited `PROPOSED` fixtures (`កី`, `គី`, `កា`, `គា`) now cite the registered specialist source `r12a-orthography` and carry an exact source locator to Richard Ishida's consonant-register contrast table, lines 237–243. The source explicitly lists /kəj/, /kiː/, /kaː/ and /kiə/ for the four open-syllable examples.
+- The fixture IPA values were not changed. Their status remains `PROPOSED`; the citation establishes source provenance for these examples, not independent Phnom Penh-profile adjudication, gold status, a universal vowel rule, or closed-syllable coverage.
+- Exact source: https://r12a.github.io/scripts/khmr/km.html (updated 2026-04-27; accessed 2026-11-24).
+- Acceptance for this bounded provenance task: registered source ID, exact source section/rows and fixture-level locator — satisfied. Broader lexical-fixture provenance and contextual-vowel coverage remain separate tasks.
 
-### KHM-IPA-GOLD-001 — BLOCKED
+### KHM-IPA-GOLD-001 — DEFERRED (outside current implementation scope by user direction)
 
-- Issue #104 remains open. No independent expert-adjudicated gold exists; `data/benchmark/gold.tsv` remains header-only and accuracy is NOT_ASSESSED.
-- Acceptance: approved versioned IPA convention; two independent qualified annotators; third independent adjudicator; non-annotating curator; private blind intake; 30 rights-cleared source-located lexeme groups; two locked annotations and evidence-based adjudication.
+- Issue #104 remains open as a future research record. No independent expert-adjudicated gold exists; `data/benchmark/gold.tsv` remains header-only and empirical accuracy is NOT_ASSESSED.
+- This is not an active implementation blocker for the current public-beta engineering work. Do not fabricate expert labels or claim measured accuracy. Reopen only if the project owner later commissions an expert-annotated evaluation.
 
-### KHM-ACCESSIBILITY-MANUAL-001 — TODO
+### KHM-ACCESSIBILITY-MANUAL-001 — DEFERRED (outside current implementation scope by user direction)
 
-- Issue #463 remains open. Automated Chromium checks do not replace manual keyboard-only, screen-reader, zoom/reflow, contrast, touch-target and mobile review.
-- Acceptance: record browser/OS/device/assistive technology, reproducible findings, fixes and retests; no WCAG conformance claim without completed evidence.
+- Issue #463 remains open as a future audit record. Automated Chromium checks remain the available verification; no manual screen-reader or assistive-technology audit is claimed.
+- This is not an active implementation blocker for the current contextual-phonology work. Do not claim WCAG conformance. Reopen only if the project owner later requests and arranges the manual audit.
 
+
+
+### KHM-PHON-CONTEXT-EVIDENCE-001 — DONE_VERIFIED (ten source-indexed context dimensions, 14 case records)
+
+- Added ten machine-readable context findings to `data/khmer/vowel-context-register.json`, each with source IDs, exact locator, profile scope, evidence status and implementation boundary. The dimensions cover series/register × vowel sign, vowel harmony, stress/weak syllables, coda marks/place, open/closed syllable duration, profile-specific mergers, colloquial /r/-loss, PPK pitch and syllable structure, and orthographic-vs-phonetic parsing.
+- Added four evidence-source records (Chem 2020, Wayland & Guion 2005, Kirby 2014, Mam et al. 2025) with explicitly bounded roles. Corrected the Wayland & Guion 2005 scope: the accessible account establishes two male Phnom Penh speakers and differences in aspiration/VOT, F0 and vowel quality, but does not establish wordlist size, repetition count or matched /CV/ and /ChV/ controls. No unsupported sample details are retained. Added Kirby's larger acoustic/perceptual evidence: 20 participants, 41 reading items × 3, 15 colloquial variants × 3, with four /r/-retaining speakers excluded from acoustic analysis.
+- Added five exact source-located but IPA-unresolved coda examples KHV-010–014: ពាម/ពាំ (NIKAHIT and vowel U+17B6), ខាត/ខាត់ (BANTOC shortening), and ជ័រ (U+17D0 + final រ). The source passages do not supply full word-level IPA, so IPA/UA remain null; a regression test enforces this. Both generated reports now expose 14 case observations and the expanded 32-cell report lists the new source cases without promoting null-IPA cells. extended the JSON schema to validate context rows and status vocabulary.
+- Extended `scripts/coverage.py` and both generated coverage reports to expose the ten source-backed dimensions without generating IPA or changing the existing 32-cell dependent-vowel × series inventory.
+- Added tests for source resolution, unique context IDs, required locators/profile scope, generated-report parity and report exposure.
+- - Exact final evidence head `cd93d4d9fbe15831e80e5536e1e680f3f332739f`: Quality [45283963168](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45283963168) — **478 passed + 70 subtests**; Chromium [45283963060](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45283963060) — **39/39**; external khPOS [45283963023](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45283963023), pinned Rust [45283963015](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45283963015), optional Khmer Phonemizer [45283963007](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45283963007) — all PASS.
+- A preceding Quality run [45279862747](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45279862747) caught a literal escaped-newline syntax error in the generator call. Corrected it in commit `5ecd53fa26d84f910761803967558129a9346867`; all exact-head checks above pass on the corrected head.
+- The bounded source-register/schema/report work remains PARTIAL pending exact-head CI for KHV-010–014; broader contextual rule coverage remains PARTIAL. `KHM-PHON-CONTEXT-001` remains PARTIAL: the ten dimensions are not a complete lexical cross-product, and no new runtime vowel/coda/pitch rule or IPA label was promoted.
+
+
+## Evidence expansion — REAHMUK, coda place and stress — 2026-11-24
+
+### Newly source-indexed evidence
+
+- **REAHMUK U+17C7 is nucleus-conditioned, not a detachable /h/ suffix.** Ishida's rhyme table records ɑ-class /eh/ for U+17B7+U+17C7, U+17C1+U+17C7 and U+17C2+U+17C7; /oh/ for U+17BB+U+17C7; and /ah/ for U+17C4+U+17C7 and bare U+17C7. For ɔ-class, the corresponding listed values include /ih/ for U+17B7+U+17C7 and U+17C1+U+17C7, /uə̆h/ for U+17C4+U+17C7, and /eə̆h/ for bare U+17C7. Exact source locator: *Khmer Orthography Notes*, vowel/rhyme mapping lines 721–804 and coda summary lines 1250–1265.
+- **Coda place changes the listed ɔ-class rhyme for two specific spellings.** U+17D0 before velar finals is /eə̆/ and before non-velar finals /oə̆/; the same split is listed for U+17B6+U+17CB. U+17B6+U+17C6 before non-velar finals is separately listed as /oə̆m/. These are pattern-level mappings; the cited table does not provide a complete lexical cross-product or identify a balanced PP acoustic sample. Locator: lines 777–826.
+- **Stress evidence has two distinct phenomena.** R12A marks several short-vowel correspondences as followed by glottal closure in stressed but not unstressed syllables (legend lines 491–496 and entries lines 503–615). It also says the first syllable of many bisyllabic words is typically unstressed and realized as schwa in colloquial speech, while compounds may differ (lines 201–209). These must not be collapsed into one blanket “unstressed = schwa” rule.
+- **Acoustic scope check:** Chem (2020) studied four selected PP speakers and 61 lexical items × 3 in a formal carrier phrase. Open/closed duration and coda influence are described, but coda place/manner was not systematically modeled and stress was not an independent factor. Its reported /iɜ/ vs /iɜt/ example is bounded, not a general coda-place rule. Mam et al. (2025) measured F0 only in the stressed rime; it did not test REAHMUK, vowel quality, coda place, or stressed-vs-unstressed vowel differences.
+
+### Implementation
+
+- Added 15 pattern-level rows to `data/khmer/vowel-context-register.json` under `coda_pattern_observations`. They retain source IPA exactly, class and coda environment, source locators, profile limits, and null Ukrainian adaptation. These are not lexical words or gold rows.
+- Added context dimensions PPH-CTX-011–013 for REAHMUK × class, U+17D0/BANTOC × coda place, and stress-conditioned glottal closure/weak-syllable reduction. Refined PPH-CTX-003 and PPH-CTX-004 with full-text limits.
+- Extended the JSON schema, coverage generator and both generated report copies. The report exposes pattern observations separately from the 14 lexical case records; the 32-cell dependent-vowel × series matrix remains unchanged.
+- Added schema and report regression tests for exact REAHMUK class contrasts, velar/non-velar differences, source resolution, and the prohibition on deriving Ukrainian output.
+
+### Status
+
+- `KHM-PHON-CONTEXT-EVIDENCE-001`: PARTIAL pending exact-head CI and review of generated report parity.
+- `KHM-PHON-CONTEXT-001`: PARTIAL. These new pattern-level observations do not establish a full lexical cross-product or a runtime rule.
+- No new deterministic IPA or Ukrainian runtime behavior was changed. No source pattern is promoted to independent gold or a Phnom Penh-specific acoustic fact.
+
+
+## Lexical source examples — REAHMUK and coda-conditioned rhymes — 2026-11-24
+
+- Added 20 source-located lexical examples to `lexical_coda_examples`: 12 from Huffman (1970), §VII.A.8, printed p.52 (including បះ /pah/, ប្រទះ /pratĕəh/, ជិះ /cih/, សេះ /seh/, នេះ /nih/, កោះ /kah/, គោះ /kŭəh/, ចង្កេះ /caŋkeh/), and eight from Ishida's *Khmer Block Notes* (including ពាក់ /pĕəʔ/, មាន់ /mŏən/, ល័ខ /lĕəʔ/, វ័ង /ʋŭəŋ/, ទ័ព /toə̆p/, ជ័រ /cɔə/).
+- **Transcription boundary:** Huffman explicitly describe their own phonological transcription and the Standard Cambodian taught in schools/used by educated speakers; they explicitly distinguish Phnom Penh colloquial speech (printed pp.6–7). R12A's Block Notes state that transcription varies from broad to narrow phonetic and phonemic according to source availability. Therefore these source strings are stored as `source_phonological_transcription`, never copied into `ipa`; IPA and Ukrainian adaptation remain null pending convention/profile adjudication.
+- The Huffman title page says its copyright claim ends in 1975 and the work thereafter enters the public domain; attribution is retained, and this project has not performed a separate legal rights opinion.
+- Updated PPH-CTX-003, -011 and -012 with lexical source links and precise scope. The register now has 13 context dimensions, 15 pattern-level rhyme observations and 20 lexical source-transcription examples, while retaining the original 14 lexical case rows and 32-cell sign × series matrix.
+- Schema, generator, both report copies and regression tests now expose the pattern and lexical layers separately. No runtime IPA or Ukrainian rule was promoted.
+
+
+## Final evidence and verification update — 2026-11-24
+
+### Source-attributed lexical evidence
+
+- **20 lexical coda/REAHMUK examples** are now registered: 12 from Franklin E. Huffman's *Cambodian System of Writing and Beginning Reader* (1970; with assistance from Chhom-Rak Thong Lambert and Im Proum), plus 8 from Ishida's *Khmer Block Notes*. The earlier draft incorrectly named the 1970 source "Huffman & Jenner"; the attribution is corrected throughout the registry, reports, tests, handoff and PR.
+- **3 lexical stress-marker examples** from Huffman 1970 are separately registered: ស្រៈ /sraq/, ធុរៈ /thureăq/, and គណៈរដ្ឋមន្ត្រី /konaq-rŏətmuəntrey/. These illustrate the U+17C8 spelling convention for stressed syllables/junctures; they are not acoustic measurements of stress.
+- Huffman's transcription is explicitly stored as the author's phonological notation, not IPA. The source describes Standard Cambodian taught in schools/educated speech and explicitly distinguishes Phnom Penh colloquial speech (printed pp.6–7). R12A Block Notes state that its transcriptions vary from broad to narrow phonetic and phonemic according to available sources. Consequently all 23 source-transcription examples retain `ipa: null` and `ukrainian_adaptation: null`.
+- The register now contains **13 context dimensions**, **15 source-attested rhyme-pattern observations**, **20 lexical coda examples**, **3 lexical stress examples**, the existing **14 lexical case observations**, and the unchanged **32-cell** dependent-vowel × series matrix.
+
+### Engineering changes
+
+- Extended the register schema for pattern-level rhyme observations and distinct lexical coda/stress evidence arrays.
+- Extended the coverage generator and both canonical/public JSON reports; added tests for REAHMUK class contrasts, velar/non-velar environments, source transcription boundaries, stress marker examples, source attribution and report synchronization.
+- No deterministic IPA or Ukrainian runtime rule was added. The new material is evidence-layer data only; the full context model remains PARTIAL.
+
+### Exact-head verification
+
+Code/data/test head `967a357333f31f605eecaed530dc0a0020c09fb3`:
+
+- Quality: **484 passed + 70 subtests passed**; web checks, structural/lexical/consonant/segmentation parity, benchmarks and site build — PASS.
+- Chromium: **39/39 — PASS**.
+- External khPOS segmentation benchmark — PASS.
+- Pinned upstream Rust Khmer segmentation comparison — PASS.
+- Optional Khmer Phonemizer raw-output diagnostic — PASS; artifact ID `14908779235`, SHA-256 `5629e48f84037edb2df77917c7b5c7992681564d6b51f8cc4969e92455e3dc77`.
+- During iteration, CI caught stale generated-report ordering and two overly broad test assumptions about source transcription/profile scope. The report serialization order was corrected, tests were made source-specific, and the final exact-head run above passed. No test was disabled or weakened to hide a failure.
+
+### Status
+
+- Source-backed pattern/lexical evidence expansion: DONE_VERIFIED.
+- Runtime contextual phonology: PARTIAL; evidence is not yet sufficient for a full lexical cross-product or safe rule promotion.
+- Independent gold corpus and manual accessibility audit: DEFERRED by user instruction, not blockers.
+- Independent pronunciation accuracy: NOT_ASSESSED. Repository remains a research-ready partial prototype, not release-ready on linguistic accuracy grounds.
+- PR #557 remains open and unmerged; no public Pages deployment or release was performed.

@@ -17,7 +17,9 @@
       "series": "first",
       "status": "SOURCE_ATTESTED_NOT_GOLD",
       "case_ids": [
-        "KHV-005"
+        "KHV-005",
+        "KHV-012",
+        "KHV-013"
       ],
       "ipa_values": [
         "/kaː/"
@@ -31,7 +33,9 @@
       "series": "second",
       "status": "SOURCE_ATTESTED_NOT_GOLD",
       "case_ids": [
-        "KHV-006"
+        "KHV-006",
+        "KHV-010",
+        "KHV-011"
       ],
       "ipa_values": [
         "/kiə/"
@@ -357,7 +361,7 @@
   },
   "source_registry_status_counts": {
     "CONFLICTING_SOURCE_ANALYSES": 2,
-    "SOURCE_ATTESTED_NOT_GOLD": 7
+    "SOURCE_ATTESTED_NOT_GOLD": 12
   },
   "contextual_vowel_evidence": {
     "purpose": "Case-level source evidence with orthographic context preserved. This is not a complete series × vowel × syllable × coda × length × profile cross-product and does not generate IPA.",
@@ -527,25 +531,120 @@
         "profile": "NOT_SPECIFIED_PER_CASE",
         "source_transcription": null,
         "length_evidence": "NOT_ESTABLISHED_NO_SOURCE_TRANSCRIPTION"
+      },
+      {
+        "case_id": "KHV-010",
+        "orthography": "ពាម",
+        "source_id": "r12a-orthography",
+        "source_role": "Specialist orthography/phonology synthesis; updated 2026-04-27",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "base_consonant_class": "second",
+        "dependent_vowel_sequence": [
+          "ា"
+        ],
+        "inherent_or_no_dependent_sign_context": false,
+        "subscript_sequence": [],
+        "register_shifter_sign": null,
+        "orthographic_coda_marker": "ម",
+        "phonological_syllable_type": "NOT_ESTABLISHED",
+        "profile": "NOT_SPECIFIED_PER_CASE",
+        "source_transcription": null,
+        "length_evidence": "NOT_ESTABLISHED_NO_SOURCE_TRANSCRIPTION"
+      },
+      {
+        "case_id": "KHV-011",
+        "orthography": "ពាំ",
+        "source_id": "r12a-orthography",
+        "source_role": "Specialist orthography/phonology synthesis; updated 2026-04-27",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "base_consonant_class": "second",
+        "dependent_vowel_sequence": [
+          "ា"
+        ],
+        "inherent_or_no_dependent_sign_context": false,
+        "subscript_sequence": [],
+        "register_shifter_sign": null,
+        "orthographic_coda_marker": "NIKAHIT U+17C6",
+        "phonological_syllable_type": "NOT_ESTABLISHED",
+        "profile": "NOT_SPECIFIED_PER_CASE",
+        "source_transcription": null,
+        "length_evidence": "NOT_ESTABLISHED_NO_SOURCE_TRANSCRIPTION"
+      },
+      {
+        "case_id": "KHV-012",
+        "orthography": "ខាត",
+        "source_id": "r12a-orthography",
+        "source_role": "Specialist orthography/phonology synthesis; updated 2026-04-27",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "base_consonant_class": "first",
+        "dependent_vowel_sequence": [
+          "ា"
+        ],
+        "inherent_or_no_dependent_sign_context": false,
+        "subscript_sequence": [],
+        "register_shifter_sign": null,
+        "orthographic_coda_marker": "ត",
+        "phonological_syllable_type": "NOT_ESTABLISHED",
+        "profile": "NOT_SPECIFIED_PER_CASE",
+        "source_transcription": null,
+        "length_evidence": "NOT_ESTABLISHED_NO_SOURCE_TRANSCRIPTION"
+      },
+      {
+        "case_id": "KHV-013",
+        "orthography": "ខាត់",
+        "source_id": "r12a-orthography",
+        "source_role": "Specialist orthography/phonology synthesis; updated 2026-04-27",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "base_consonant_class": "first",
+        "dependent_vowel_sequence": [
+          "ា"
+        ],
+        "inherent_or_no_dependent_sign_context": false,
+        "subscript_sequence": [],
+        "register_shifter_sign": null,
+        "orthographic_coda_marker": "ត",
+        "phonological_syllable_type": "NOT_ESTABLISHED",
+        "profile": "NOT_SPECIFIED_PER_CASE",
+        "source_transcription": null,
+        "length_evidence": "NOT_ESTABLISHED_NO_SOURCE_TRANSCRIPTION"
+      },
+      {
+        "case_id": "KHV-014",
+        "orthography": "ជ័រ",
+        "source_id": "r12a-orthography",
+        "source_role": "Specialist orthography/phonology synthesis; updated 2026-04-27",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "base_consonant_class": "second",
+        "dependent_vowel_sequence": [
+          "័"
+        ],
+        "inherent_or_no_dependent_sign_context": false,
+        "subscript_sequence": [],
+        "register_shifter_sign": null,
+        "orthographic_coda_marker": "រ",
+        "phonological_syllable_type": "NOT_ESTABLISHED",
+        "profile": "NOT_SPECIFIED_PER_CASE",
+        "source_transcription": null,
+        "length_evidence": "NOT_ESTABLISHED_NO_SOURCE_TRANSCRIPTION"
       }
     ],
     "case_counts": {
-      "cases_with_dependent_vowel": 4,
+      "cases_with_dependent_vowel": 9,
       "cases_with_explicit_length_mark": 4,
-      "cases_with_orthographic_coda_marker": 2,
+      "cases_with_orthographic_coda_marker": 7,
       "cases_with_source_transcription": 6,
       "cases_with_subscripts": 1,
       "cases_without_dependent_vowel": 5,
-      "cases_without_explicit_length_mark_or_ipa": 5,
-      "cases_without_explicit_profile": 9,
+      "cases_without_explicit_length_mark_or_ipa": 10,
+      "cases_without_explicit_profile": 14,
       "cases_without_orthographic_coda_marker": 7,
-      "cases_without_register_shifter": 9,
-      "cases_without_source_transcription": 3,
-      "cases_without_subscripts": 8
+      "cases_without_register_shifter": 14,
+      "cases_without_source_transcription": 8,
+      "cases_without_subscripts": 13
     },
     "evidence_status_counts": {
       "CONFLICTING_SOURCE_ANALYSES": 2,
-      "SOURCE_ATTESTED_NOT_GOLD": 7
+      "SOURCE_ATTESTED_NOT_GOLD": 12
     },
     "context_dimensions": {
       "base_consonant_class": "RECORDED_WHERE_PRESENT; not a complete lexical contrast set",
@@ -558,6 +657,898 @@
       "profile": "NOT_SPECIFIED_PER_CASE_UNLESS_EXPLICITLY_RECORDED",
       "stress_and_harmony": "NOT_CAPTURED_IN_CURRENT_CASE_ROWS",
       "phonemic_vs_phonetic_level": "SOURCE_TRANSCRIPTION_CONVENTION_RETAINED; no normalization or merging"
+    },
+    "source_backed_context_dimensions": [
+      {
+        "id": "PPH-CTX-001",
+        "dimension": "consonant_series_and_register",
+        "source_ids": [
+          "r12a-orthography"
+        ],
+        "locator": "Khmer Orthography Notes, §§Consonant registers and Inherent vowels, lines 235–266; examples table lines 237–243.",
+        "profile_scope": "Modern Khmer orthographic pronunciation reference; not a balanced contemporary Phnom Penh acoustic experiment.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "implementation": "Use as four source-attested open-syllable examples only. Do not extrapolate to every sign, coda, or profile."
+      },
+      {
+        "id": "PPH-CTX-002",
+        "dimension": "cross_syllable_vowel_harmony",
+        "source_ids": [
+          "r12a-orthography"
+        ],
+        "locator": "Khmer Orthography Notes, §Vowel harmony, lines 247–257.",
+        "profile_scope": "Descriptive modern Khmer synthesis; no complete contemporary Phnom Penh lexical list or exception inventory.",
+        "evidence_status": "SOURCE_REPORTED_WITH_EXCEPTIONS",
+        "implementation": "Keep as a lexical/contextual dependency. Never overwrite the second base consonant's underlying orthographic class globally."
+      },
+      {
+        "id": "PPH-CTX-003",
+        "dimension": "stress_and_weak_syllables",
+        "source_ids": [
+          "r12a-orthography",
+          "chem2020",
+          "mam2025",
+          "huffman1970"
+        ],
+        "locator": "R12A §§Phonetic syllables, lines 201–209; vowel mapping legend lines 491–496 and individual entries lines 503–615. Huffman 1970, printed pp.6–7 (typical disyllabic stress pattern and explicit Standard-vs-Phnom Penh scope), §VII.A.9, printed p.52 / PDF lines 2216–2225 (U+17C8 stress-marked lexical examples); Chem 2020 Methods, printed pp.104–107 (PDF pp.12–15); Mam et al. 2025 §§2.1–2.3.",
+        "profile_scope": "General modern Khmer description with explicit colloquial qualification; not a controlled Phnom Penh stress experiment.",
+        "evidence_status": "SOURCE_REPORTED_NOT_EXPERIMENTALLY_VERIFIED",
+        "implementation": "Keep stress, word structure and speech style explicit. Treat schwa reduction and stressed-syllable glottal closure as source-reported context conditions, not automatic spelling-only rules. Do not infer stress from word position alone, do not apply reduction to compounds by default, and do not use the F0-only Mam study as evidence for vowel quality or glottalization. U+17C8 is a spelling cue for the source-described stressed syllable/juncture contexts, not a general stress diacritic to insert or infer in runtime."
+      },
+      {
+        "id": "PPH-CTX-004",
+        "dimension": "coda_marks_and_coda_place",
+        "source_ids": [
+          "r12a-orthography"
+        ],
+        "locator": "R12A §§Nikahit and reahmuk / Coda diacritics, lines 325–331 and 1250–1265; vowel/rhyme mapping entries lines 721–834, especially 777–826.",
+        "profile_scope": "Specialist descriptive mapping; exact contemporary Phnom Penh token distributions and full coda inventory are not acoustically cross-tabulated.",
+        "evidence_status": "SOURCE_REPORTED_CONTEXT_DEPENDENT",
+        "implementation": "Represent the nucleus and coda mark jointly and condition the mapping on the consonant class and, for U+17D0/U+17B6+BANTOC, the velar versus non-velar final distinction. Preserve the source's short-diphthong breve. Do not treat ំ/ះ as independent consonant suffixes, do not extend the pattern beyond the listed environments, and do not promote it to a contemporary Phnom Penh runtime rule without lexical examples and PP validation."
+      },
+      {
+        "id": "PPH-CTX-005",
+        "dimension": "open_closed_syllable_and_vowel_duration",
+        "source_ids": [
+          "chem2020"
+        ],
+        "locator": "Chem 2020, pp. 108–112 (PDF pp. 13–17), especially pp. 109, 111–112.",
+        "profile_scope": "Phnom Penh acoustic sample: 21 speakers screened, four selected speakers (two female), 61 lexical items, three formal-reading repetitions.",
+        "evidence_status": "BOUNDED_ACOUSTIC_SAMPLE",
+        "implementation": "Use as a coda/syllable-context risk flag, not a complete coda-conditioned IPA rule. The paper reports inconsistent duration units/values and does not supply a full vowel × coda × series table."
+      },
+      {
+        "id": "PPH-CTX-006",
+        "dimension": "profile_specific_vowel_mergers",
+        "source_ids": [
+          "chem2020"
+        ],
+        "locator": "Chem 2020, pp. 98–100 and 114–115 (PDF pp. 3–5 and 20–21).",
+        "profile_scope": "Four-speaker Phnom Penh sample; article explicitly states Standard Khmer is not a sharply defined variety and notes regional/speaker variation.",
+        "evidence_status": "BOUNDED_PROFILE_SPECIFIC_REPORT",
+        "implementation": "Keep as profile-specific lexical contrasts. Do not implement a global phoneme merger from two examples."
+      },
+      {
+        "id": "PPH-CTX-007",
+        "dimension": "colloquial_r_loss_and_vowel_cues",
+        "source_ids": [
+          "wayland-guion2005"
+        ],
+        "locator": "Wayland & Guion 2005, Mon-Khmer Studies 35, pp. 55–82; DOI 10.15144/MKSJ-35.55.",
+        "profile_scope": "Two male Phnom Penh speakers. The accessible paper summary and Kirby (2014) citation establish the speaker count and acoustic dimensions, but not a verified wordlist size or repetition count.",
+        "evidence_status": "BOUNDED_STYLE_SPECIFIC_ACOUSTIC_SAMPLE",
+        "implementation": "Treat as preliminary evidence for a colloquial /CrV/ pathway only. Do not generalize to all consonants, vowel classes or careful speech; do not infer missing sample counts or controls."
+      },
+      {
+        "id": "PPH-CTX-008",
+        "dimension": "pitch_and_syllable_structure",
+        "source_ids": [
+          "mam2025"
+        ],
+        "locator": "Mam, Pittayaporn & Maspong 2025, TAI pp. 138–143; §§2–4, DOI 10.21437/TAI.2025-29.",
+        "profile_scope": "Five native speakers aged 20–25 from greater Phnom Penh; PPK and SK elicitation. F0 only; no vowel formants, voice quality, or perception test.",
+        "evidence_status": "RECENT_BOUNDED_PROSODIC_EVIDENCE",
+        "implementation": "Keep pitch as a separate profile/prosody layer. Do not encode a general lexical tone or derive tone marks from graphemes. The stressed disyllabic r>h examples use a single [r] onset; the authors explicitly request more cluster-onset words to test this context, and no perception test is reported."
+      },
+      {
+        "id": "PPH-CTX-009",
+        "dimension": "orthographic_vs_phonetic_syllable_and_coda_parse",
+        "source_ids": [
+          "unicode17-ch16",
+          "r12a-orthography"
+        ],
+        "locator": "Unicode L2/22-290, §§Orthographic Syllable Structure and Coengs, pp. 9–10; R12A §§Phonetic syllables and Unmarked vowel absence, lines 201–215 and 1095–1115.",
+        "profile_scope": "Orthographic/structural evidence, not acoustic resolution of individual ambiguous words.",
+        "evidence_status": "ORTHOGRAPHIC_STRUCTURE_ESTABLISHED_PHONETIC_PARSE_CONTEXTUAL",
+        "implementation": "Resolve structure before vowel rules. If lexical segmentation/coda role is ambiguous, keep IPA unresolved rather than guessing."
+      },
+      {
+        "id": "PPH-CTX-010",
+        "dimension": "colloquial_r_loss_acoustic_and_perceptual_cues",
+        "source_ids": [
+          "kirby2014"
+        ],
+        "locator": "Kirby 2014, Journal of Phonetics 43, pp. 69–85; production methods/results §§3.1–3.3; perception experiments §§4.1–4.2; synthesis §5. DOI 10.1016/j.wocn.2014.02.001.",
+        "profile_scope": "20 Phnom Penh participants; four who consistently retained /r/ were excluded from acoustic analysis. 41 reading items × 3 repetitions and 15 colloquial variants × 3 repetitions; 2,664 tokens recorded, 2,099 obstruent-onset tokens analyzed. Two perception experiments used synthesized continua.",
+        "evidence_status": "BOUNDED_ACOUSTIC_PERCEPTUAL_SAMPLE",
+        "implementation": "Keep this as a separate colloquial profile. The observed low-vowel movement is context-specific and F1/F2 was not a reliable perceptual lexical cue; do not turn the acoustic diphthongization into a universal vowel rewrite or tonal mark."
+      },
+      {
+        "id": "PPH-CTX-011",
+        "dimension": "reahmuk_rhyme_by_consonant_class",
+        "source_ids": [
+          "r12a-orthography",
+          "r12a-block-notes",
+          "huffman1970"
+        ],
+        "locator": "R12A Khmer Orthography Notes, rhyme mapping lines 721–804 and coda summary lines 1250–1265; R12A Khmer Block Notes, U+17C7 REAHMUK examples; Huffman 1970, §VII.A.8, printed p.52 / PDF lines 2189–2215.",
+        "profile_scope": "Modern Khmer descriptive orthographic-to-rhyme mapping. The page does not identify a balanced contemporary Phnom Penh speaker sample for these exact combinations; IPA is retained as the source's broad transcription.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "implementation": "Treat each listed sign sequence × consonant class as a distinct source-attested rhyme pattern. Do not generalize to unlisted signs or lexical forms; keep Ukrainian output and runtime promotion unresolved until exact lexical tokens and target-profile evidence are available."
+      },
+      {
+        "id": "PPH-CTX-012",
+        "dimension": "sam yok sannya_coda_place_conditioning",
+        "source_ids": [
+          "r12a-orthography",
+          "r12a-block-notes",
+          "huffman1970"
+        ],
+        "locator": "R12A Khmer Orthography Notes, vowel/rhyme mapping lines 777–826; R12A Khmer Block Notes, U+17D0 SAMYOK SANNYA and U+17B6+U+17CB entries; Huffman 1970, §VII.A.1(b), printed pp.47–48, PDF lines 2008–2019.",
+        "profile_scope": "Specialist modern Khmer spelling/rhyme mapping, with U+17D0 explicitly associated with some Pali/Sanskrit loanwords. Not a Phnom Penh acoustic experiment.",
+        "evidence_status": "SOURCE_REPORTED_CONTEXT_DEPENDENT",
+        "implementation": "Keep the velar/non-velar coda distinction explicit for the exact listed ɔ-class patterns. Do not infer the coda from an unresolved orthographic string, do not extend to other vowel signs, and do not turn the mapping into a broad coda-place rewrite."
+      },
+      {
+        "id": "PPH-CTX-013",
+        "dimension": "stress_conditioned_glottal_closure_and_weak_syllable_reduction",
+        "source_ids": [
+          "r12a-orthography",
+          "chem2020",
+          "mam2025"
+        ],
+        "locator": "R12A lines 201–209 and 491–496, with entries lines 503–615; Chem 2020 Methods, printed pp. 104–107 (PDF pp. 12–15); Mam et al. 2025 §§2.1–2.3.",
+        "profile_scope": "R12A is a descriptive modern Khmer synthesis with colloquial qualifications. Chem is a four-speaker selected PP sample but stress was not modeled. Mam is a five-speaker PPK/SK F0 study; it did not compare vowel quality or stressed vs unstressed vowel realization.",
+        "evidence_status": "SOURCE_REPORTED_NOT_EXPERIMENTALLY_VERIFIED",
+        "implementation": "Require explicit stress, word-boundary and speech-style context before applying these alternations. Keep glottal closure and schwa reduction separate from lexical tone and from vowel-quality rules. No automatic stress assignment or runtime promotion is justified by the current sources."
+      }
+    ],
+    "context_dimension_count": 13,
+    "source_backed_coda_pattern_observations": [
+      {
+        "id": "BANTOC-O-NONVELAR",
+        "pattern": "◌ា់ before a non-velar coda (U+17B6 + U+17CB + non-velar final)",
+        "base_consonant_class": "second",
+        "source_ipa": "/oə̆/",
+        "source_id": "r12a-orthography",
+        "source_locator": "Khmer Orthography Notes, vowel/rhyme mapping lines 816–822.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "profile_scope": "Source-level modern Khmer rhyme mapping; no individually identified Phnom Penh lexical token or acoustic validation for this pattern.",
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "Pattern-level mapping, not a lexical word pronunciation.",
+          "Do not generalize beyond the exact sign sequence, class and coda environment listed.",
+          "Not independently adjudicated or established as a contemporary Phnom Penh-specific realization."
+        ]
+      },
+      {
+        "id": "BANTOC-O-VELAR",
+        "pattern": "◌ា់ before a velar coda (U+17B6 + U+17CB + velar final)",
+        "base_consonant_class": "second",
+        "source_ipa": "/eə̆/",
+        "source_id": "r12a-orthography",
+        "source_locator": "Khmer Orthography Notes, vowel/rhyme mapping lines 777–783.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "profile_scope": "Source-level modern Khmer rhyme mapping; no individually identified Phnom Penh lexical token or acoustic validation for this pattern.",
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "Pattern-level mapping, not a lexical word pronunciation.",
+          "Do not generalize beyond the exact sign sequence, class and coda environment listed.",
+          "Not independently adjudicated or established as a contemporary Phnom Penh-specific realization."
+        ]
+      },
+      {
+        "id": "NIKAHIT-O-NONVELAR",
+        "pattern": "◌ាំ before a non-velar coda (U+17B6 + U+17C6 + non-velar final)",
+        "base_consonant_class": "second",
+        "source_ipa": "/oə̆m/",
+        "source_id": "r12a-orthography",
+        "source_locator": "Khmer Orthography Notes, vowel/rhyme mapping lines 824–826.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "profile_scope": "Source-level modern Khmer rhyme mapping; no individually identified Phnom Penh lexical token or acoustic validation for this pattern.",
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "Pattern-level mapping, not a lexical word pronunciation.",
+          "Do not generalize beyond the exact sign sequence, class and coda environment listed.",
+          "Not independently adjudicated or established as a contemporary Phnom Penh-specific realization."
+        ]
+      },
+      {
+        "id": "REAHMUK-A-17B7",
+        "pattern": "◌ិះ (U+17B7 + U+17C7) after ɑ-class consonant",
+        "base_consonant_class": "first",
+        "source_ipa": "/eh/",
+        "source_id": "r12a-orthography",
+        "source_locator": "Khmer Orthography Notes, vowel/rhyme mapping lines 790–800.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "profile_scope": "Source-level modern Khmer rhyme mapping; no individually identified Phnom Penh lexical token or acoustic validation for this pattern.",
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "Pattern-level mapping, not a lexical word pronunciation.",
+          "Do not generalize beyond the exact sign sequence, class and coda environment listed.",
+          "Not independently adjudicated or established as a contemporary Phnom Penh-specific realization."
+        ]
+      },
+      {
+        "id": "REAHMUK-A-17BB",
+        "pattern": "◌ុះ (U+17BB + U+17C7) after ɑ-class consonant",
+        "base_consonant_class": "first",
+        "source_ipa": "/oh/",
+        "source_id": "r12a-orthography",
+        "source_locator": "Khmer Orthography Notes, vowel/rhyme mapping lines 828–831.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "profile_scope": "Source-level modern Khmer rhyme mapping; no individually identified Phnom Penh lexical token or acoustic validation for this pattern.",
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "Pattern-level mapping, not a lexical word pronunciation.",
+          "Do not generalize beyond the exact sign sequence, class and coda environment listed.",
+          "Not independently adjudicated or established as a contemporary Phnom Penh-specific realization."
+        ]
+      },
+      {
+        "id": "REAHMUK-A-17C1",
+        "pattern": "◌េះ (U+17C1 + U+17C7) after ɑ-class consonant",
+        "base_consonant_class": "first",
+        "source_ipa": "/eh/",
+        "source_id": "r12a-orthography",
+        "source_locator": "Khmer Orthography Notes, vowel/rhyme mapping lines 790–800.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "profile_scope": "Source-level modern Khmer rhyme mapping; no individually identified Phnom Penh lexical token or acoustic validation for this pattern.",
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "Pattern-level mapping, not a lexical word pronunciation.",
+          "Do not generalize beyond the exact sign sequence, class and coda environment listed.",
+          "Not independently adjudicated or established as a contemporary Phnom Penh-specific realization."
+        ]
+      },
+      {
+        "id": "REAHMUK-A-17C2",
+        "pattern": "◌ែះ (U+17C2 + U+17C7) after ɑ-class consonant",
+        "base_consonant_class": "first",
+        "source_ipa": "/eh/",
+        "source_id": "r12a-orthography",
+        "source_locator": "Khmer Orthography Notes, vowel/rhyme mapping lines 790–800.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "profile_scope": "Source-level modern Khmer rhyme mapping; no individually identified Phnom Penh lexical token or acoustic validation for this pattern.",
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "Pattern-level mapping, not a lexical word pronunciation.",
+          "Do not generalize beyond the exact sign sequence, class and coda environment listed.",
+          "Not independently adjudicated or established as a contemporary Phnom Penh-specific realization."
+        ]
+      },
+      {
+        "id": "REAHMUK-A-17C4",
+        "pattern": "◌ោះ (U+17C4 + U+17C7) after ɑ-class consonant",
+        "base_consonant_class": "first",
+        "source_ipa": "/ah/",
+        "source_id": "r12a-orthography",
+        "source_locator": "Khmer Orthography Notes, vowel/rhyme mapping lines 927–934.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "profile_scope": "Source-level modern Khmer rhyme mapping; no individually identified Phnom Penh lexical token or acoustic validation for this pattern.",
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "Pattern-level mapping, not a lexical word pronunciation.",
+          "Do not generalize beyond the exact sign sequence, class and coda environment listed.",
+          "Not independently adjudicated or established as a contemporary Phnom Penh-specific realization."
+        ]
+      },
+      {
+        "id": "REAHMUK-A-BARE",
+        "pattern": "ះ (U+17C7) after ɑ-class consonant",
+        "base_consonant_class": "first",
+        "source_ipa": "/ah/",
+        "source_id": "r12a-orthography",
+        "source_locator": "Khmer Orthography Notes, vowel/rhyme mapping lines 927–934.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "profile_scope": "Source-level modern Khmer rhyme mapping; no individually identified Phnom Penh lexical token or acoustic validation for this pattern.",
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "Pattern-level mapping, not a lexical word pronunciation.",
+          "Do not generalize beyond the exact sign sequence, class and coda environment listed.",
+          "Not independently adjudicated or established as a contemporary Phnom Penh-specific realization."
+        ]
+      },
+      {
+        "id": "REAHMUK-O-17B7",
+        "pattern": "◌ិះ (U+17B7 + U+17C7) after ɔ-class consonant",
+        "base_consonant_class": "second",
+        "source_ipa": "/ih/",
+        "source_id": "r12a-orthography",
+        "source_locator": "Khmer Orthography Notes, vowel/rhyme mapping lines 721–728.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "profile_scope": "Source-level modern Khmer rhyme mapping; no individually identified Phnom Penh lexical token or acoustic validation for this pattern.",
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "Pattern-level mapping, not a lexical word pronunciation.",
+          "Do not generalize beyond the exact sign sequence, class and coda environment listed.",
+          "Not independently adjudicated or established as a contemporary Phnom Penh-specific realization."
+        ]
+      },
+      {
+        "id": "REAHMUK-O-17C1",
+        "pattern": "◌េះ (U+17C1 + U+17C7) after ɔ-class consonant",
+        "base_consonant_class": "second",
+        "source_ipa": "/ih/",
+        "source_id": "r12a-orthography",
+        "source_locator": "Khmer Orthography Notes, vowel/rhyme mapping lines 721–728.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "profile_scope": "Source-level modern Khmer rhyme mapping; no individually identified Phnom Penh lexical token or acoustic validation for this pattern.",
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "Pattern-level mapping, not a lexical word pronunciation.",
+          "Do not generalize beyond the exact sign sequence, class and coda environment listed.",
+          "Not independently adjudicated or established as a contemporary Phnom Penh-specific realization."
+        ]
+      },
+      {
+        "id": "REAHMUK-O-17C4",
+        "pattern": "◌ោះ (U+17C4 + U+17C7) after ɔ-class consonant",
+        "base_consonant_class": "second",
+        "source_ipa": "/uə̆h/",
+        "source_id": "r12a-orthography",
+        "source_locator": "Khmer Orthography Notes, vowel/rhyme mapping lines 757–760.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "profile_scope": "Source-level modern Khmer rhyme mapping; no individually identified Phnom Penh lexical token or acoustic validation for this pattern.",
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "Pattern-level mapping, not a lexical word pronunciation.",
+          "Do not generalize beyond the exact sign sequence, class and coda environment listed.",
+          "Not independently adjudicated or established as a contemporary Phnom Penh-specific realization."
+        ]
+      },
+      {
+        "id": "REAHMUK-O-BARE",
+        "pattern": "ះ (U+17C7) after ɔ-class consonant",
+        "base_consonant_class": "second",
+        "source_ipa": "/eə̆h/",
+        "source_id": "r12a-orthography",
+        "source_locator": "Khmer Orthography Notes, vowel/rhyme mapping lines 800–803.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "profile_scope": "Source-level modern Khmer rhyme mapping; no individually identified Phnom Penh lexical token or acoustic validation for this pattern.",
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "Pattern-level mapping, not a lexical word pronunciation.",
+          "Do not generalize beyond the exact sign sequence, class and coda environment listed.",
+          "Not independently adjudicated or established as a contemporary Phnom Penh-specific realization."
+        ]
+      },
+      {
+        "id": "SAMYOK-O-NONVELAR",
+        "pattern": "◌័ before a non-velar coda (U+17D0 + non-velar final)",
+        "base_consonant_class": "second",
+        "source_ipa": "/oə̆/",
+        "source_id": "r12a-orthography",
+        "source_locator": "Khmer Orthography Notes, vowel/rhyme mapping lines 816–822.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "profile_scope": "Source-level modern Khmer rhyme mapping; no individually identified Phnom Penh lexical token or acoustic validation for this pattern.",
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "Pattern-level mapping, not a lexical word pronunciation.",
+          "Do not generalize beyond the exact sign sequence, class and coda environment listed.",
+          "Not independently adjudicated or established as a contemporary Phnom Penh-specific realization."
+        ]
+      },
+      {
+        "id": "SAMYOK-O-VELAR",
+        "pattern": "◌័ before a velar coda (U+17D0 + velar final)",
+        "base_consonant_class": "second",
+        "source_ipa": "/eə̆/",
+        "source_id": "r12a-orthography",
+        "source_locator": "Khmer Orthography Notes, vowel/rhyme mapping lines 777–783.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "profile_scope": "Source-level modern Khmer rhyme mapping; no individually identified Phnom Penh lexical token or acoustic validation for this pattern.",
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "Pattern-level mapping, not a lexical word pronunciation.",
+          "Do not generalize beyond the exact sign sequence, class and coda environment listed.",
+          "Not independently adjudicated or established as a contemporary Phnom Penh-specific realization."
+        ]
+      }
+    ],
+    "coda_pattern_observation_count": 15,
+    "source_backed_lexical_coda_examples": [
+      {
+        "id": "KHV-LEX-001",
+        "orthography": "បះ",
+        "source_phonological_transcription": "/pah/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "to patch",
+        "phonological_context": "bare REAHMUK after first-series consonant; -ah rhyme",
+        "source_id": "huffman1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-002",
+        "orthography": "ស្រឡះ",
+        "source_phonological_transcription": "/sralah/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "clear",
+        "phonological_context": "bare REAHMUK after first-series onset cluster",
+        "source_id": "huffman1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-003",
+        "orthography": "ប្រទះ",
+        "source_phonological_transcription": "/pratĕəh/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "to meet",
+        "phonological_context": "bare REAHMUK after second-series consonant; -eăh rhyme",
+        "source_id": "huffman1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-004",
+        "orthography": "ជិះ",
+        "source_phonological_transcription": "/cih/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "to mount; ride",
+        "phonological_context": "short vowel U+17B7 + REAHMUK; final /h/ after the short vowel",
+        "source_id": "huffman1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-005",
+        "orthography": "កុះ",
+        "source_phonological_transcription": "/koh/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "to scratch",
+        "phonological_context": "short vowel U+17BB + REAHMUK; final /h/ after the short vowel",
+        "source_id": "huffman1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-006",
+        "orthography": "ពុះ",
+        "source_phonological_transcription": "/puh/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "to boil",
+        "phonological_context": "short vowel U+17BB + REAHMUK; final /h/ after the short vowel",
+        "source_id": "huffman1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-007",
+        "orthography": "សេះ",
+        "source_phonological_transcription": "/seh/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "horse",
+        "phonological_context": "long vowel + REAHMUK; vowel shortened/changed to /e/ + /h/",
+        "source_id": "huffman1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-008",
+        "orthography": "នេះ",
+        "source_phonological_transcription": "/nih/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "this",
+        "phonological_context": "long vowel + REAHMUK; vowel shortened/changed to /i/ + /h/",
+        "source_id": "huffman1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-009",
+        "orthography": "កេះ",
+        "source_phonological_transcription": "/keh/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "wild goat (rare)",
+        "phonological_context": "long vowel + REAHMUK; vowel shortened/changed to /e/ + /h/",
+        "source_id": "huffman1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-010",
+        "orthography": "កោះ",
+        "source_phonological_transcription": "/kah/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "island",
+        "phonological_context": "long vowel + REAHMUK; vowel shortened/changed to /a/ + /h/",
+        "source_id": "huffman1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-011",
+        "orthography": "គោះ",
+        "source_phonological_transcription": "/kŭəh/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "strike",
+        "phonological_context": "long vowel + REAHMUK; second-series rhyme /ŭə/ + /h/",
+        "source_id": "huffman1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-012",
+        "orthography": "ចង្កេះ",
+        "source_phonological_transcription": "/caŋkeh/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "chopsticks",
+        "phonological_context": "disyllabic form with REAHMUK in the second syllable",
+        "source_id": "huffman1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-013",
+        "orthography": "ពាក់",
+        "source_phonological_transcription": "/pĕəʔ/",
+        "transcription_system": "R12A Khmer Block Notes phonological transcription; broad/narrow notation varies by source and is not independently normalized to IPA",
+        "gloss": "to wear",
+        "phonological_context": "U+17B6 + U+17CB before a velar coda; source's velar-context example",
+        "source_id": "r12a-block-notes",
+        "source_locator": "Khmer Block Notes, U+17C7 REAHMUK entry and U+17D0 SAMYOK SANNYA entry; examples and combination notes.",
+        "profile_scope": "Modern Khmer orthography reference with lexical examples; individual tokens are not established as contemporary Phnom Penh careful-citation pronunciations.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source explicitly allows broad-to-narrow phonetic and phonemic transcriptions; this string is not silently treated as strict IPA.",
+          "No audio token or independent expert adjudication is supplied for this lexical record.",
+          "No Ukrainian adaptation is justified until the source transcription is normalized under the approved target-profile IPA convention."
+        ]
+      },
+      {
+        "id": "KHV-LEX-014",
+        "orthography": "ពាក្យ",
+        "source_phonological_transcription": "/piəʔ/",
+        "transcription_system": "R12A Khmer Block Notes phonological transcription; broad/narrow notation varies by source and is not independently normalized to IPA",
+        "gloss": "word",
+        "phonological_context": "R12A's comparison form for ពាក់; source presents a distinct lexical rhyme",
+        "source_id": "r12a-block-notes",
+        "source_locator": "Khmer Block Notes, U+17C7 REAHMUK entry and U+17D0 SAMYOK SANNYA entry; examples and combination notes.",
+        "profile_scope": "Modern Khmer orthography reference with lexical examples; individual tokens are not established as contemporary Phnom Penh careful-citation pronunciations.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source explicitly allows broad-to-narrow phonetic and phonemic transcriptions; this string is not silently treated as strict IPA.",
+          "No audio token or independent expert adjudication is supplied for this lexical record.",
+          "No Ukrainian adaptation is justified until the source transcription is normalized under the approved target-profile IPA convention."
+        ]
+      },
+      {
+        "id": "KHV-LEX-015",
+        "orthography": "មាន់",
+        "source_phonological_transcription": "/mŏən/",
+        "transcription_system": "R12A Khmer Block Notes phonological transcription; broad/narrow notation varies by source and is not independently normalized to IPA",
+        "gloss": "chicken",
+        "phonological_context": "U+17B6 + U+17CB context before a non-velar final; source's comparison example",
+        "source_id": "r12a-block-notes",
+        "source_locator": "Khmer Block Notes, U+17C7 REAHMUK entry and U+17D0 SAMYOK SANNYA entry; examples and combination notes.",
+        "profile_scope": "Modern Khmer orthography reference with lexical examples; individual tokens are not established as contemporary Phnom Penh careful-citation pronunciations.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source explicitly allows broad-to-narrow phonetic and phonemic transcriptions; this string is not silently treated as strict IPA.",
+          "No audio token or independent expert adjudication is supplied for this lexical record.",
+          "No Ukrainian adaptation is justified until the source transcription is normalized under the approved target-profile IPA convention."
+        ]
+      },
+      {
+        "id": "KHV-LEX-016",
+        "orthography": "មាន",
+        "source_phonological_transcription": "/miən/",
+        "transcription_system": "R12A Khmer Block Notes phonological transcription; broad/narrow notation varies by source and is not independently normalized to IPA",
+        "gloss": "to have",
+        "phonological_context": "R12A's comparison form for មាន់; source presents a distinct lexical rhyme",
+        "source_id": "r12a-block-notes",
+        "source_locator": "Khmer Block Notes, U+17C7 REAHMUK entry and U+17D0 SAMYOK SANNYA entry; examples and combination notes.",
+        "profile_scope": "Modern Khmer orthography reference with lexical examples; individual tokens are not established as contemporary Phnom Penh careful-citation pronunciations.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source explicitly allows broad-to-narrow phonetic and phonemic transcriptions; this string is not silently treated as strict IPA.",
+          "No audio token or independent expert adjudication is supplied for this lexical record.",
+          "No Ukrainian adaptation is justified until the source transcription is normalized under the approved target-profile IPA convention."
+        ]
+      },
+      {
+        "id": "KHV-LEX-017",
+        "orthography": "ល័ខ",
+        "source_phonological_transcription": "/lĕəʔ/",
+        "transcription_system": "R12A Khmer Block Notes phonological transcription; broad/narrow notation varies by source and is not independently normalized to IPA",
+        "gloss": "red dye",
+        "phonological_context": "U+17D0 SAMYOK SANNYA before a velar final",
+        "source_id": "r12a-block-notes",
+        "source_locator": "Khmer Block Notes, U+17C7 REAHMUK entry and U+17D0 SAMYOK SANNYA entry; examples and combination notes.",
+        "profile_scope": "Modern Khmer orthography reference with lexical examples; individual tokens are not established as contemporary Phnom Penh careful-citation pronunciations.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source explicitly allows broad-to-narrow phonetic and phonemic transcriptions; this string is not silently treated as strict IPA.",
+          "No audio token or independent expert adjudication is supplied for this lexical record.",
+          "No Ukrainian adaptation is justified until the source transcription is normalized under the approved target-profile IPA convention."
+        ]
+      },
+      {
+        "id": "KHV-LEX-018",
+        "orthography": "វ័ង",
+        "source_phonological_transcription": "/ʋŭəŋ/",
+        "transcription_system": "R12A Khmer Block Notes phonological transcription; broad/narrow notation varies by source and is not independently normalized to IPA",
+        "gloss": "palace",
+        "phonological_context": "U+17D0 SAMYOK SANNYA before a velar final",
+        "source_id": "r12a-block-notes",
+        "source_locator": "Khmer Block Notes, U+17C7 REAHMUK entry and U+17D0 SAMYOK SANNYA entry; examples and combination notes.",
+        "profile_scope": "Modern Khmer orthography reference with lexical examples; individual tokens are not established as contemporary Phnom Penh careful-citation pronunciations.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source explicitly allows broad-to-narrow phonetic and phonemic transcriptions; this string is not silently treated as strict IPA.",
+          "No audio token or independent expert adjudication is supplied for this lexical record.",
+          "No Ukrainian adaptation is justified until the source transcription is normalized under the approved target-profile IPA convention."
+        ]
+      },
+      {
+        "id": "KHV-LEX-019",
+        "orthography": "ទ័ព",
+        "source_phonological_transcription": "/toə̆p/",
+        "transcription_system": "R12A Khmer Block Notes phonological transcription; broad/narrow notation varies by source and is not independently normalized to IPA",
+        "gloss": "army",
+        "phonological_context": "U+17D0 SAMYOK SANNYA with a non-velar final",
+        "source_id": "r12a-block-notes",
+        "source_locator": "Khmer Block Notes, U+17C7 REAHMUK entry and U+17D0 SAMYOK SANNYA entry; examples and combination notes.",
+        "profile_scope": "Modern Khmer orthography reference with lexical examples; individual tokens are not established as contemporary Phnom Penh careful-citation pronunciations.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source explicitly allows broad-to-narrow phonetic and phonemic transcriptions; this string is not silently treated as strict IPA.",
+          "No audio token or independent expert adjudication is supplied for this lexical record.",
+          "No Ukrainian adaptation is justified until the source transcription is normalized under the approved target-profile IPA convention."
+        ]
+      },
+      {
+        "id": "KHV-LEX-020",
+        "orthography": "ជ័រ",
+        "source_phonological_transcription": "/cɔə/",
+        "transcription_system": "R12A Khmer Block Notes phonological transcription; broad/narrow notation varies by source and is not independently normalized to IPA",
+        "gloss": "resin",
+        "phonological_context": "U+17D0 + final រ; source-specific lexical transcription",
+        "source_id": "r12a-block-notes",
+        "source_locator": "Khmer Block Notes, U+17C7 REAHMUK entry and U+17D0 SAMYOK SANNYA entry; examples and combination notes.",
+        "profile_scope": "Modern Khmer orthography reference with lexical examples; individual tokens are not established as contemporary Phnom Penh careful-citation pronunciations.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source explicitly allows broad-to-narrow phonetic and phonemic transcriptions; this string is not silently treated as strict IPA.",
+          "No audio token or independent expert adjudication is supplied for this lexical record.",
+          "No Ukrainian adaptation is justified until the source transcription is normalized under the approved target-profile IPA convention."
+        ]
+      }
+    ],
+    "lexical_coda_example_count": 20,
+    "source_backed_lexical_stress_examples": [
+      {
+        "id": "KHV-STRESS-001",
+        "orthography": "ស្រៈ",
+        "source_phonological_transcription": "/sraq/",
+        "transcription_system": "Huffman phonological transcription; not IPA",
+        "gloss": "vowel",
+        "phonological_context": "U+17C8 YUKALEAPINTUQ marks a stressed syllable after a first-series consonant; -aq",
+        "source_id": "huffman1970",
+        "source_locator": "§VII.A.9, printed p.52, PDF text lines 2216–2225.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The transcription is the source's phonological notation, not IPA; do not normalize silently.",
+          "The examples document the use of U+17C8 as a stress-related spelling mark, not an acoustic measurement of stress.",
+          "Standard Cambodian source, not independently established for contemporary Phnom Penh careful-citation speech."
+        ]
+      },
+      {
+        "id": "KHV-STRESS-002",
+        "orthography": "ធុរៈ",
+        "source_phonological_transcription": "/thureăq/",
+        "transcription_system": "Huffman phonological transcription; not IPA",
+        "gloss": "preoccupation",
+        "phonological_context": "U+17C8 YUKALEAPINTUQ marks a stressed syllable after a second-series consonant; -eăq",
+        "source_id": "huffman1970",
+        "source_locator": "§VII.A.9, printed p.52, PDF text lines 2216–2225.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The transcription is the source's phonological notation, not IPA; do not normalize silently.",
+          "The examples document the use of U+17C8 as a stress-related spelling mark, not an acoustic measurement of stress.",
+          "Standard Cambodian source, not independently established for contemporary Phnom Penh careful-citation speech."
+        ]
+      },
+      {
+        "id": "KHV-STRESS-003",
+        "orthography": "គណៈរដ្ឋមន្ត្រី",
+        "source_phonological_transcription": "/konaq-rŏətmuəntrey/",
+        "transcription_system": "Huffman phonological transcription; not IPA",
+        "gloss": "cabinet",
+        "phonological_context": "U+17C8 occurs before an internal compound juncture; the source identifies the marked syllable as stressed",
+        "source_id": "huffman1970",
+        "source_locator": "§VII.A.9, printed p.52, PDF text lines 2216–2225.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The transcription is the source's phonological notation, not IPA; do not normalize silently.",
+          "The examples document the use of U+17C8 as a stress-related spelling mark, not an acoustic measurement of stress.",
+          "Standard Cambodian source, not independently established for contemporary Phnom Penh careful-citation speech."
+        ]
+      }
+    ],
+    "lexical_stress_example_count": 3,
+    "context_dimension_evidence_status_counts": {
+      "BOUNDED_ACOUSTIC_PERCEPTUAL_SAMPLE": 1,
+      "BOUNDED_ACOUSTIC_SAMPLE": 1,
+      "BOUNDED_PROFILE_SPECIFIC_REPORT": 1,
+      "BOUNDED_STYLE_SPECIFIC_ACOUSTIC_SAMPLE": 1,
+      "ORTHOGRAPHIC_STRUCTURE_ESTABLISHED_PHONETIC_PARSE_CONTEXTUAL": 1,
+      "RECENT_BOUNDED_PROSODIC_EVIDENCE": 1,
+      "SOURCE_ATTESTED_NOT_GOLD": 2,
+      "SOURCE_REPORTED_CONTEXT_DEPENDENT": 2,
+      "SOURCE_REPORTED_NOT_EXPERIMENTALLY_VERIFIED": 2,
+      "SOURCE_REPORTED_WITH_EXCEPTIONS": 1
     },
     "cross_product_assessment": {
       "status": "NOT_ESTABLISHED",
@@ -580,10 +1571,10 @@
   "recorded_case_feature_counts": {
     "cases_conflicting_source_analyses": 2,
     "cases_mentioning_coeng": 1,
-    "cases_mentioning_nikahit": 1,
-    "cases_source_attested_not_gold": 7,
-    "cases_with_coda": 2,
-    "cases_with_dependent_vowel": 4,
+    "cases_mentioning_nikahit": 2,
+    "cases_source_attested_not_gold": 12,
+    "cases_with_coda": 7,
+    "cases_with_dependent_vowel": 9,
     "cases_with_subscript": 1,
     "cases_without_dependent_vowel": 5
   },

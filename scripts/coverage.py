@@ -32,7 +32,7 @@ def _nonempty_items(value):
     return [item for item in values if item is not None and str(item).strip()]
 
 
-def build_contextual_vowel_evidence(cases, sources):
+def build_contextual_vowel_evidence(cases, sources, context_dimensions=None, coda_pattern_observations=None, lexical_coda_examples=None, lexical_stress_examples=None):
     """Expose exact case-level context while refusing to infer missing phonology.
 
     This is an evidence inventory, not a Cartesian prediction matrix. In particular,
@@ -105,6 +105,79 @@ def build_contextual_vowel_evidence(cases, sources):
             "stress_and_harmony": "NOT_CAPTURED_IN_CURRENT_CASE_ROWS",
             "phonemic_vs_phonetic_level": "SOURCE_TRANSCRIPTION_CONVENTION_RETAINED; no normalization or merging",
         },
+        "source_backed_context_dimensions": [
+            {
+                "id": item["id"],
+                "dimension": item["dimension"],
+                "source_ids": item["source_ids"],
+                "locator": item["locator"],
+                "profile_scope": item["profile_scope"],
+                "evidence_status": item["evidence_status"],
+                "implementation": item["implementation"],
+            }
+            for item in sorted(context_dimensions or [], key=lambda row: row["id"])
+        ],
+        "context_dimension_count": len(context_dimensions or []),
+        "source_backed_coda_pattern_observations": [
+            {
+                "id": item["id"],
+                "pattern": item["pattern"],
+                "base_consonant_class": item["base_consonant_class"],
+                "source_ipa": item["source_ipa"],
+                "source_id": item["source_id"],
+                "source_locator": item["source_locator"],
+                "evidence_status": item["evidence_status"],
+                "profile_scope": item["profile_scope"],
+                "ukrainian_adaptation": item["ukrainian_adaptation"],
+                "ukrainian_status": item["ukrainian_status"],
+                "limitations": item["limitations"],
+            }
+            for item in sorted(coda_pattern_observations or [], key=lambda row: row["id"])
+        ],
+        "coda_pattern_observation_count": len(coda_pattern_observations or []),
+        "source_backed_lexical_coda_examples": [
+            {
+                "id": item["id"],
+                "orthography": item["orthography"],
+                "source_phonological_transcription": item["source_phonological_transcription"],
+                "transcription_system": item["transcription_system"],
+                "gloss": item["gloss"],
+                "phonological_context": item["phonological_context"],
+                "source_id": item["source_id"],
+                "source_locator": item["source_locator"],
+                "profile_scope": item["profile_scope"],
+                "evidence_status": item["evidence_status"],
+                "ipa": item["ipa"],
+                "ukrainian_adaptation": item["ukrainian_adaptation"],
+                "ukrainian_status": item["ukrainian_status"],
+                "limitations": item["limitations"],
+            }
+            for item in sorted(lexical_coda_examples or [], key=lambda row: row["id"])
+        ],
+        "lexical_coda_example_count": len(lexical_coda_examples or []),
+        "source_backed_lexical_stress_examples": [
+            {
+                "id": item["id"],
+                "orthography": item["orthography"],
+                "source_phonological_transcription": item["source_phonological_transcription"],
+                "transcription_system": item["transcription_system"],
+                "gloss": item["gloss"],
+                "phonological_context": item["phonological_context"],
+                "source_id": item["source_id"],
+                "source_locator": item["source_locator"],
+                "profile_scope": item["profile_scope"],
+                "evidence_status": item["evidence_status"],
+                "ipa": item["ipa"],
+                "ukrainian_adaptation": item["ukrainian_adaptation"],
+                "ukrainian_status": item["ukrainian_status"],
+                "limitations": item["limitations"],
+            }
+            for item in sorted(lexical_stress_examples or [], key=lambda row: row["id"])
+        ],
+        "lexical_stress_example_count": len(lexical_stress_examples or []),
+        "context_dimension_evidence_status_counts": dict(sorted(Counter(
+            item["evidence_status"] for item in (context_dimensions or [])
+        ).items())),
         "cross_product_assessment": {
             "status": "NOT_ESTABLISHED",
             "required_dimensions": [
@@ -196,7 +269,12 @@ def build_report(signs, consonants, registers, evidence):
     total = len(cells)
     status_counts = Counter(cell["status"] for cell in cells.values())
     conflict_cases = [case for case in cases if case.get("status") == "CONFLICTING_SOURCE_ANALYSES"]
-    contextual_evidence = build_contextual_vowel_evidence(cases, evidence.get("sources", {}))
+    contextual_evidence = build_contextual_vowel_evidence(
+        cases, evidence.get("sources", {}), evidence.get("context_dimensions", []),
+        evidence.get("coda_pattern_observations", []),
+        evidence.get("lexical_coda_examples", []),
+        evidence.get("lexical_stress_examples", [])
+    )
     return {
         "schema_version": "1.0.0",
         "generated_by": "scripts/coverage.py",

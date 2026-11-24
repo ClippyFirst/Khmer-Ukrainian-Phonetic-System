@@ -362,17 +362,39 @@ function renderIpaProfile(ipa, profile) {
 function renderFixture(fixture, profile) {
   if (!PROFILES.has(profile)) throw new Error("Unsupported pronunciation profile: " + profile);
   if (!fixture.ipa) {
+    // A withheld full-word fixture must not erase independently supported
+    // phonetic material. For evidence-limited register conflicts, preserve
+    // only the structurally identifiable onset; never infer the vowel,
+    // register realization, coda, tone or complete lexical pronunciation.
+    const analysis = fixture.status === "EVIDENCE_LIMITED" ? parseSyllable(fixture.source) : null;
+    const onsetIpa = analysis?.status === "EVIDENCE_LIMITED" ? analysis.onset_ipa : null;
+    const onsetMapping = onsetIpa ? mapIpa(onsetIpa, practicalPolicy) : null;
+    const hasPartialOnset = Boolean(onsetIpa && onsetMapping?.value !== null);
+    const partialUkrainian = hasPartialOnset ? onsetMapping.value + "???" : null;
     return {
       source: fixture.source,
       ipa: fixture.status === "NOT_ESTABLISHED" ? "⟦NOT_ESTABLISHED⟧" : "⟦EVIDENCE_LIMITED⟧",
       ua: "⟦НЕВСТАНОВЛЕНО⟧",
       status: fixture.status,
-      rule_trace: ["KHMER_LEXICAL_FIXTURE_WITHHELD"],
-      note: fixture.note,
+      rule_trace: hasPartialOnset
+        ? ["KHMER_LEXICAL_FIXTURE_WITHHELD", "PARTIAL_ONSET_IPA_ONLY"]
+        : ["KHMER_LEXICAL_FIXTURE_WITHHELD"],
+      note: hasPartialOnset
+        ? fixture.note + " Частковий результат: початковий приголосний /" + onsetIpa
+          + "/ розпізнано окремо; голосну, регістр, фіналь і тон не встановлено. Знак ??? позначає невстановлений залишок."
+        : fixture.note,
       profile,
       mapping_check: null,
       evidence: fixture.evidence ?? [],
       source_locator: fixture.source_locator ?? null,
+      ...(hasPartialOnset ? {
+        analysis,
+        phonology_evidence: CONSONANTS[analysis.base]?.evidence ?? [],
+        provisional_ipa: onsetIpa,
+        provisional_ukrainian: partialUkrainian,
+        partial_ipa: onsetIpa,
+        partial_candidate_kind: "ONSET_ONLY",
+      } : {}),
     };
   }
 
@@ -607,7 +629,9 @@ function convert(text, profile) {
   // detailed per-unit records below retain every status, but the public IPA
   // line must not repeat the same abstention token for each unresolved
   // orthographic unit in one uninterrupted Khmer word/run.
-  const rawIpa = rendered.map((item) => item.ipa).join("");
+  const rawIpa = rendered.map((item) => item.partial_candidate_kind === "ONSET_ONLY"
+    ? "/" + item.partial_ipa + "/⟦EVIDENCE_LIMITED⟧"
+    : item.ipa).join("");
   const ipa = rawIpa.replace(/(⟦NOT_ESTABLISHED⟧){2,}/gu, "⟦NOT_ESTABLISHED⟧");
   // Lao-style final abstention: retain supported neighbours, but use a clear
   // three-question-mark placeholder for any unresolved linguistic unit.
@@ -630,6 +654,11 @@ function convert(text, profile) {
       uaParts.push(item.ua);
       continue;
     }
+    if (item.partial_candidate_kind === "ONSET_ONLY") {
+      flushUnresolved();
+      uaParts.push(item.provisional_ukrainian);
+      continue;
+    }
     if (item.status === "PROPOSED") {
       flushUnresolved();
       uaParts.push(item.ua);
@@ -649,7 +678,7 @@ function convert(text, profile) {
     status: item.status,
     ipa_kind: ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status) ? "NOT_APPLICABLE" : "UNRESOLVED",
     rule_trace: item.rule_trace ?? [],
-    ipa: item.status !== "PUNCTUATION" && /^\/.*\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa,
+    ipa: item.partial_ipa ?? (item.status !== "PUNCTUATION" && /^\/.*\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa),
     ukrainian: item.ua,
     ukrainian_kind: item.fallback_status === "PROVISIONAL"
       ? "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
@@ -658,7 +687,7 @@ function convert(text, profile) {
         : item.status === "PROPOSED" ? "IPA_DERIVED" : "UNRESOLVED",
     profile,
     provenance: {
-      phonology: item.evidence ?? [],
+      phonology: item.phonology_evidence ?? item.evidence ?? [],
       structure: item.analysis ? ["unicode17-ch16"] : [],
       target_policy: item.mapping_check
         ? ["data/ukrainian/practical-policy.json"]
@@ -715,7 +744,9 @@ function convert(text, profile) {
     + unresolved.length + " потребують окремого встановлення або перевірки (" + notEstablished
     + " не встановлено, " + evidenceLimited + " з обмеженою доказовістю, " + invalid
     + " некоректних/непідтримуваних); " + linguistic.filter((item) => item.fallback_status === "PROVISIONAL").length
-    + " мають попередній орфографічний український кандидат. Невизначеність IPA збережено."
+    + " мають попередній орфографічний український кандидат; "
+    + rendered.filter((item) => item.partial_candidate_kind === "ONSET_ONLY").length
+    + " мають окрему IPA-підказку лише для початкового приголосного. Невизначеність IPA збережено."
     + (unresolvedNames.length ? " Невстановлені/проблемні одиниці: " + unresolvedNames.join(" · ") + "." : "");
   const note = selectedExternalCandidate
     ? resultNote + " Додатково показано зовнішній IPA-кандидат від " + selectedExternalCandidate.provider
@@ -733,7 +764,8 @@ function convert(text, profile) {
     backend_failures: providerEntry?.backend_failures ?? [],
     selected_external_candidate: selectedExternalCandidate,
     complete,
-    partial: !complete && (resolved.length > 0 || Boolean(selectedExternalCandidate)),
+    partial: !complete && (resolved.length > 0 || Boolean(selectedExternalCandidate)
+      || rendered.some((item) => item.partial_candidate_kind === "ONSET_ONLY")),
     status: displayStatus,
     confidence_tier: selectedExternalCandidate ? "C" : confidence,
     note: note + segmentationNote,
@@ -744,7 +776,8 @@ function convert(text, profile) {
       schema: "khmer-phonetic-result/v1",
       pipeline: ["source-orthography", "structural-analysis", "source-phonology", "ipa", "ukrainian-target-adaptation"],
       complete,
-      partial: !complete && resolved.length > 0,
+      partial: !complete && (resolved.length > 0
+        || rendered.some((item) => item.partial_candidate_kind === "ONSET_ONLY")),
       units: phoneticResults,
     },
     analyses,

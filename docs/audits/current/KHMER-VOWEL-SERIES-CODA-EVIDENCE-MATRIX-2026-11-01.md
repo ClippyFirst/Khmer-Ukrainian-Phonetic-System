@@ -240,3 +240,106 @@ The runtime no longer treats any non-empty `evidence` array as sufficient for ti
 - **DONE_VERIFIED (diagnostic only):** optional Phonemizer run `44936590367` SUCCESS — 6/6 outputs, 0 failed outputs, 2 strict source-string matches and 6 limited-notation-normalized matches. Independent gold count is 0 and accuracy is null; do not describe these counts as accuracy.
 - **Current evidence boundary:** B applies to `ក`, `គ`, `ខ្មែរ`, `ភាសា`, `ភ្នំពេញ`, `កម្ពុជា`, and `ខ្ញុំ`, with exact source locators and adapter/lexical-reference agreement. `ភាសាខ្មែរ` remains C (compositional phrase without phrase-level source); `ឆ` remains C (R12A internal register-list conflict). No A-tier units or independent gold rows exist.
 - **Remaining:** contextual vowel-series × coda coverage, lexical segmentation, independent Phnom Penh IPA convention/adjudication, and independent gold remain PARTIAL/DEFERRED. Accuracy is NOT_ASSESSED.
+
+
+## 12. Contextual phonology evidence update — 2026-11-24
+
+This section consolidates the current public-source and full-text review into context dimensions. It deliberately does not turn every finding into a runtime G2P rule. The corresponding machine-readable entries are in `data/khmer/vowel-context-register.json` under `context_dimensions` (PPH-CTX-001–010), validated by the schema and tests.
+
+| Dimension | Evidence and exact scope | Evidence status | Runtime consequence |
+|---|---|---|---|
+| Consonant class/register × vowel sign | Ishida gives four explicit open-syllable examples: ក /kɑː/, គ /kɔː/, កី /kəj/, គី /kiː/, កា /kaː/, គា /kiə/ (Khmer Orthography Notes, §§Consonant registers/Inherent vowels, lines 235–266). Register shifters are separately described. | SOURCE_ATTESTED_NOT_GOLD; specialist synthesis, not a balanced PP acoustic experiment | Retain exact example fixtures and their source locators. No universal sign×series table is inferred from four examples. |
+| Cross-syllable vowel harmony | In two-syllable words, second syllables beginning with ង ញ ណ ន ម យ ឡ ល រ វ may take the first syllable's vowel class; exceptions are explicitly noted (Ishida, §Vowel harmony, lines 247–257). | SOURCE_REPORTED_WITH_EXCEPTIONS | Harmony must be lexical/contextual. Do not permanently rewrite the underlying consonant class or treat the list as exception-free. |
+| Stress and weak syllables | Ishida's mapping legend states that several vowels are followed by glottal closure in stressed syllables but not unstressed (lines 491–496 and individual entries 503–615). Many bisyllables have an unstressed first syllable realized as schwa in colloquial speech, but compounds may differ (§Phonetic syllables, lines 201–209). Chem's PP experiment deliberately placed words in a frame to reduce sentence-stress effects, but reports unnatural word stress and lexical gaps (2020, pp. 104–106). | SOURCE_REPORTED_NOT_EXPERIMENTALLY_VERIFIED for the broad rule; bounded PP method evidence | Stress and lexical/prosodic structure are required inputs for a surface-phonetic layer. Do not inject schwa or glottal closure from spelling alone. |
+| Coda marks and coda place | U+17C6 / U+17C7 represent /-m/ and /-h/ and affect the nucleus; U+17CB shortens the preceding vowel (Ishida, §§Nikahit and reahmuk, lines 325–347). Some ɔ-class U+17D0 rhymes are explicitly split by velar vs non-velar finals (/eə̆/ vs /oə̆/, lines 777–826). | SOURCE_REPORTED_CONTEXT_DEPENDENT | Nucleus and coda must be analyzed jointly; these examples justify explicit context fields, not a complete coda×vowel cross-product. Added exact source-located but IPA-unresolved cases KHV-010–014: ពាម/ពាំ (17B6 with consonant coda vs NIKAHIT), ខាត/ខាត់ (BANTOC shortening), and ជ័រ (17D0 + final រ → ɔə). The cited passages do not give full word-level IPA for these examples, so their IPA and Ukrainian fields remain null. |
+| Open vs closed syllable / duration | Chem (2020) reports 21 speakers screened, then four selected Phnom Penh speakers (two female), 61 lexical items, three formal-reading repetitions (pp. 104–105). Closed syllables are usually shorter; coda can modify vowel quality/length; short diphthongs are reported in closed /-h, -k, -ʔ/ contexts (pp. 108–112). | BOUNDED_ACOUSTIC_SAMPLE | Treat closure as a material conditioning factor. Do not create coda-specific deterministic outputs without item-level matched evidence. |
+| Profile-specific vowel mergers | Chem reports Standard Khmer /tiɜ/ vs /tiət/ but a single /tiɜ/ in the sampled PP variety; likewise /eː/ vs /ɛe/ are reported merged as /eː/ in PP (2020, pp. 98–100, 114–115). The paper stresses that “Standard Khmer” is not sharply defined and PP speech varies. | BOUNDED_PROFILE_SPECIFIC_REPORT | Keep these as profile-specific lexical probes, not global phoneme mergers. |
+| Colloquial /r/-loss and vowel cues (preliminary study) | Wayland & Guion (2005) report aspiration/VOT, F0 and vowel-quality differences for two male PP speakers. The accessible account does not establish the wordlist size, repetition count or matched /CV/ and /ChV/ controls; these details are intentionally left unspecified (Mon-Khmer Studies 35, pp. 55–82; DOI 10.15144/MKSJ-35.55). | BOUNDED_STYLE_SPECIFIC_ACOUSTIC_SAMPLE | Treat as preliminary /CrV/-only evidence. Do not generalize to all codas, vowels or careful speech.
+| Colloquial /r/-loss acoustic and perceptual cues | Kirby (2014) studied 20 PP speakers; four who consistently retained /r/ were excluded from acoustic analysis. The production design used 41 reading items × 3 repetitions and 15 colloquial variants × 3, yielding 2,664 tokens, of which 2,099 obstruent-onset tokens were analyzed. Colloquial /CrV/ shows lower F0, increased VOT, spectral-balance differences and low-vowel diphthongization. Perception experiments found F0 sufficient, with aspiration/breathiness as reinforcing cues; F1/F2 changes were not a reliable lexical cue (Journal of Phonetics 43, pp. 69–85, §§3–5; DOI 10.1016/j.wocn.2014.02.001). | BOUNDED_ACOUSTIC_PERCEPTUAL_SAMPLE | Keep as a separate colloquial profile. Do not turn low-vowel diphthongization into a universal vowel rewrite or tone mark; it is an /r/-conditioned style effect and vowel-height manipulation was not a reliable perceptual cue. |
+| Pitch and syllable structure | Mam, Pittayaporn & Maspong (2025) use 50 words, five native speakers (2M/3F, ages 20–25), three repetitions in PPK and SK. F0 is measured on the stressed rime. PPK shows a lower group for r>h onsets and voiced-onset disyllables; authors interpret the separation as possible phonologized high/low pitch (pp. 139–143, §§2–4; DOI 10.21437/TAI.2025-29). | RECENT_BOUNDED_PROSODIC_EVIDENCE | Keep F0/pitch in a separate prosodic profile layer. The study does not measure vowel formants or voice quality and does not license a general grapheme-to-tone rule. Its stressed disyllabic r>h items use a single [r] onset; the authors explicitly call for more cluster-onset words to test that environment (§4, p. 142). |
+| Orthographic vs phonetic syllable/coda parse | Unicode L2/22-290 (§§Orthographic Syllable Structure/Coengs, pp. 9–10) describes coeng as onset cluster or syllable chaining; Ishida documents unmarked vowel absence and ambiguous parses (lines 1095–1115). | ORTHOGRAPHIC_STRUCTURE_ESTABLISHED_PHONETIC_PARSE_CONTEXTUAL | Resolve lexical segmentation and coda role before vowel realization. Ambiguous parses remain unresolved. |
+
+### Source quality and conflict controls
+
+- **Chem (2020) is useful but bounded.** Its abstract itself says Standard Khmer is not sharply defined (pp. 93–96); the four-speaker acoustic sample is small and selected, and the authors note unnatural stress, lexical familiarity gaps and substituted samples (pp. 104–106). Some reported duration values/units are internally inconsistent (pp. 111–115). We therefore use its reported context effects and dialect probes as source evidence, not gold labels or calibrated duration thresholds.
+- **Do not collapse register, phonation and tone.** Ishida describes the consonant-class mechanism as vowel selection, not tone (lines 235–246). Chem reports first-register vowels as lower/more open and more diphthongized in its PP sample (pp. 114–115), but this is not an automatic instruction to add breathy-voice diacritics. Mam (2025) specifically measures F0 and finds pitch grouping; it does not measure vowel formants or voice quality.
+- **Do not collapse PPK and Standard Khmer.** Chem's reported PP mergers are sample- and profile-specific. Wayland & Guion, Kirby and Mam address colloquial PPK effects with different methods and sample sizes; the engine's current selected profile is careful citation speech. A future colloquial profile must be versioned separately.
+- **Do not transfer An Giang or Western Khmer rules.** The An Giang 2026 comparison and Western Khmer register studies are separate dialect evidence; they do not fill PPK cells.
+- **IPA convention remains a separate decision.** Preserve source notation verbatim in evidence records. A source's /ɜ/, [ə], /iɜ/ or pitch notation must not be silently normalized into project phonemic IPA without a declared convention and profile.
+
+### Ranked next engineering/research actions
+
+1. Continue the source-indexed lexical register for the remaining 17C7 contexts, series-2 17D0 before velar vs non-velar codas, and stress-conditioned glottal closure. KHV-010–014 now record five exact coda/diacritic examples without inventing word-level IPA. Keep IPA null where the source gives only a rule description or contextual example without a complete token transcription.
+2. Add positive and negative runtime tests for structure/context detection (coda identity, syllable type, stress unknown, harmony trigger/exception, careful vs colloquial profile) without enabling unsupported IPA output.
+3. Only promote a context rule after at least one exact lexical source locator plus independent profile review; a single descriptive table is not enough for a universal rule.
+4. Keep PPK F0/pitch as an explicit optional phonetic/prosodic annotation dimension. Before deterministic tonal output, require perception evidence and broader speaker/lexical coverage.
+5. Build a future matched PP corpus across vowel × series × coda × syllable type × stress/style; record speaker metadata, token counts, raw audio locators and both phonemic and narrow phonetic transcription.
+
+**Current status:** the contextual matrix is now more explicit and source-indexed (ten dimensions, 14 case records), but remains **PARTIAL**. This update improves evidence coverage and testability; it does not add any new deterministic vowel/coda/tone rule to the runtime, does not alter Ukrainian adaptation, and does not establish corpus-wide accuracy.
+
+
+## Evidence expansion — REAHMUK, coda place and stress — 2026-11-24
+
+### Newly source-indexed evidence
+
+- **REAHMUK U+17C7 is nucleus-conditioned, not a detachable /h/ suffix.** Ishida's rhyme table records ɑ-class /eh/ for U+17B7+U+17C7, U+17C1+U+17C7 and U+17C2+U+17C7; /oh/ for U+17BB+U+17C7; and /ah/ for U+17C4+U+17C7 and bare U+17C7. For ɔ-class, the corresponding listed values include /ih/ for U+17B7+U+17C7 and U+17C1+U+17C7, /uə̆h/ for U+17C4+U+17C7, and /eə̆h/ for bare U+17C7. Exact source locator: *Khmer Orthography Notes*, vowel/rhyme mapping lines 721–804 and coda summary lines 1250–1265.
+- **Coda place changes the listed ɔ-class rhyme for two specific spellings.** U+17D0 before velar finals is /eə̆/ and before non-velar finals /oə̆/; the same split is listed for U+17B6+U+17CB. U+17B6+U+17C6 before non-velar finals is separately listed as /oə̆m/. These are pattern-level mappings; the cited table does not provide a complete lexical cross-product or identify a balanced PP acoustic sample. Locator: lines 777–826.
+- **Stress evidence has two distinct phenomena.** R12A marks several short-vowel correspondences as followed by glottal closure in stressed but not unstressed syllables (legend lines 491–496 and entries lines 503–615). It also says the first syllable of many bisyllabic words is typically unstressed and realized as schwa in colloquial speech, while compounds may differ (lines 201–209). These must not be collapsed into one blanket “unstressed = schwa” rule.
+- **Acoustic scope check:** Chem (2020) studied four selected PP speakers and 61 lexical items × 3 in a formal carrier phrase. Open/closed duration and coda influence are described, but coda place/manner was not systematically modeled and stress was not an independent factor. Its reported /iɜ/ vs /iɜt/ example is bounded, not a general coda-place rule. Mam et al. (2025) measured F0 only in the stressed rime; it did not test REAHMUK, vowel quality, coda place, or stressed-vs-unstressed vowel differences.
+
+### Implementation
+
+- Added 15 pattern-level rows to `data/khmer/vowel-context-register.json` under `coda_pattern_observations`. They retain source IPA exactly, class and coda environment, source locators, profile limits, and null Ukrainian adaptation. These are not lexical words or gold rows.
+- Added context dimensions PPH-CTX-011–013 for REAHMUK × class, U+17D0/BANTOC × coda place, and stress-conditioned glottal closure/weak-syllable reduction. Refined PPH-CTX-003 and PPH-CTX-004 with full-text limits.
+- Extended the JSON schema, coverage generator and both generated report copies. The report exposes pattern observations separately from the 14 lexical case records; the 32-cell dependent-vowel × series matrix remains unchanged.
+- Added schema and report regression tests for exact REAHMUK class contrasts, velar/non-velar differences, source resolution, and the prohibition on deriving Ukrainian output.
+
+### Status
+
+- `KHM-PHON-CONTEXT-EVIDENCE-001`: PARTIAL pending exact-head CI and review of generated report parity.
+- `KHM-PHON-CONTEXT-001`: PARTIAL. These new pattern-level observations do not establish a full lexical cross-product or a runtime rule.
+- No new deterministic IPA or Ukrainian runtime behavior was changed. No source pattern is promoted to independent gold or a Phnom Penh-specific acoustic fact.
+
+
+## Lexical source examples — REAHMUK and coda-conditioned rhymes — 2026-11-24
+
+- Added 20 source-located lexical examples to `lexical_coda_examples`: 12 from Huffman (1970), §VII.A.8, printed p.52 (including បះ /pah/, ប្រទះ /pratĕəh/, ជិះ /cih/, សេះ /seh/, នេះ /nih/, កោះ /kah/, គោះ /kŭəh/, ចង្កេះ /caŋkeh/), and eight from Ishida's *Khmer Block Notes* (including ពាក់ /pĕəʔ/, មាន់ /mŏən/, ល័ខ /lĕəʔ/, វ័ង /ʋŭəŋ/, ទ័ព /toə̆p/, ជ័រ /cɔə/).
+- **Transcription boundary:** Huffman explicitly describe their own phonological transcription and the Standard Cambodian taught in schools/used by educated speakers; they explicitly distinguish Phnom Penh colloquial speech (printed pp.6–7). R12A's Block Notes state that transcription varies from broad to narrow phonetic and phonemic according to source availability. Therefore these source strings are stored as `source_phonological_transcription`, never copied into `ipa`; IPA and Ukrainian adaptation remain null pending convention/profile adjudication.
+- The Huffman title page says its copyright claim ends in 1975 and the work thereafter enters the public domain; attribution is retained, and this project has not performed a separate legal rights opinion.
+- Updated PPH-CTX-003, -011 and -012 with lexical source links and precise scope. The register now has 13 context dimensions, 15 pattern-level rhyme observations and 20 lexical source-transcription examples, while retaining the original 14 lexical case rows and 32-cell sign × series matrix.
+- Schema, generator, both report copies and regression tests now expose the pattern and lexical layers separately. No runtime IPA or Ukrainian rule was promoted.
+
+
+## Final evidence and verification update — 2026-11-24
+
+### Source-attributed lexical evidence
+
+- **20 lexical coda/REAHMUK examples** are now registered: 12 from Franklin E. Huffman's *Cambodian System of Writing and Beginning Reader* (1970; with assistance from Chhom-Rak Thong Lambert and Im Proum), plus 8 from Ishida's *Khmer Block Notes*. The earlier draft incorrectly named the 1970 source "Huffman & Jenner"; the attribution is corrected throughout the registry, reports, tests, handoff and PR.
+- **3 lexical stress-marker examples** from Huffman 1970 are separately registered: ស្រៈ /sraq/, ធុរៈ /thureăq/, and គណៈរដ្ឋមន្ត្រី /konaq-rŏətmuəntrey/. These illustrate the U+17C8 spelling convention for stressed syllables/junctures; they are not acoustic measurements of stress.
+- Huffman's transcription is explicitly stored as the author's phonological notation, not IPA. The source describes Standard Cambodian taught in schools/educated speech and explicitly distinguishes Phnom Penh colloquial speech (printed pp.6–7). R12A Block Notes state that its transcriptions vary from broad to narrow phonetic and phonemic according to available sources. Consequently all 23 source-transcription examples retain `ipa: null` and `ukrainian_adaptation: null`.
+- The register now contains **13 context dimensions**, **15 source-attested rhyme-pattern observations**, **20 lexical coda examples**, **3 lexical stress examples**, the existing **14 lexical case observations**, and the unchanged **32-cell** dependent-vowel × series matrix.
+
+### Engineering changes
+
+- Extended the register schema for pattern-level rhyme observations and distinct lexical coda/stress evidence arrays.
+- Extended the coverage generator and both canonical/public JSON reports; added tests for REAHMUK class contrasts, velar/non-velar environments, source transcription boundaries, stress marker examples, source attribution and report synchronization.
+- No deterministic IPA or Ukrainian runtime rule was added. The new material is evidence-layer data only; the full context model remains PARTIAL.
+
+### Exact-head verification
+
+Code/data/test head `967a357333f31f605eecaed530dc0a0020c09fb3`:
+
+- Quality: **484 passed + 70 subtests passed**; web checks, structural/lexical/consonant/segmentation parity, benchmarks and site build — PASS.
+- Chromium: **39/39 — PASS**.
+- External khPOS segmentation benchmark — PASS.
+- Pinned upstream Rust Khmer segmentation comparison — PASS.
+- Optional Khmer Phonemizer raw-output diagnostic — PASS; artifact ID `14908779235`, SHA-256 `5629e48f84037edb2df77917c7b5c7992681564d6b51f8cc4969e92455e3dc77`.
+- During iteration, CI caught stale generated-report ordering and two overly broad test assumptions about source transcription/profile scope. The report serialization order was corrected, tests were made source-specific, and the final exact-head run above passed. No test was disabled or weakened to hide a failure.
+
+### Status
+
+- Source-backed pattern/lexical evidence expansion: DONE_VERIFIED.
+- Runtime contextual phonology: PARTIAL; evidence is not yet sufficient for a full lexical cross-product or safe rule promotion.
+- Independent gold corpus and manual accessibility audit: DEFERRED by user instruction, not blockers.
+- Independent pronunciation accuracy: NOT_ASSESSED. Repository remains a research-ready partial prototype, not release-ready on linguistic accuracy grounds.
+- PR #557 remains open and unmerged; no public Pages deployment or release was performed.

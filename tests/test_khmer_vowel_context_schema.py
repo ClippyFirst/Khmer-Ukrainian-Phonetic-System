@@ -43,3 +43,116 @@ def test_contextual_vowel_evidence_references_are_resolvable_and_not_gold():
             assert case["ipa"] is None, case["id"]
             assert case["ukrainian_adaptation"] is None, case["id"]
             assert case["ukrainian_status"] == "NOT_ESTABLISHED", case["id"]
+
+
+def test_context_dimensions_have_resolvable_sources_and_explicit_boundaries():
+    register = load_json(REGISTER)
+    source_ids = set(register["sources"])
+    dimensions = register["context_dimensions"]
+    dimension_ids = [item["id"] for item in dimensions]
+
+    assert len(dimensions) >= 1
+    assert len(dimension_ids) == len(set(dimension_ids))
+    for item in dimensions:
+        assert item["source_ids"], item["id"]
+        assert set(item["source_ids"]) <= source_ids, item["id"]
+        assert item["environment"], item["id"]
+        assert item["locator"], item["id"]
+        assert item["profile_scope"], item["id"]
+        assert item["implementation"], item["id"]
+        # Context findings are not lexical gold or permission to infer a
+        # deterministic output from an incomplete cross-product.
+        assert len(item["implementation"]) >= 20, item["id"]
+
+
+def test_source_attested_coda_examples_without_word_level_ipa_stay_unresolved():
+    register = load_json(REGISTER)
+    cases = {case["id"]: case for case in register["cases"]}
+
+    for case_id in ("KHV-010", "KHV-011", "KHV-012", "KHV-013", "KHV-014"):
+        case = cases[case_id]
+        assert case["ipa_source"] == "r12a-orthography"
+        assert case["status"] == "SOURCE_ATTESTED_NOT_GOLD"
+        assert case["ipa"] is None
+        assert case["ukrainian_adaptation"] is None
+        assert case["ukrainian_status"] == "NOT_ESTABLISHED"
+        assert case["source_locator"]
+        assert case["limitations"]
+
+
+def test_source_attested_rhyme_patterns_preserve_class_and_coda_conditioning():
+    register = load_json(REGISTER)
+    source_ids = set(register["sources"])
+    patterns = register["coda_pattern_observations"]
+    pattern_ids = [item["id"] for item in patterns]
+
+    assert len(pattern_ids) == len(set(pattern_ids))
+    assert len(patterns) == 15
+    by_id = {item["id"]: item for item in patterns}
+    assert by_id["REAHMUK-A-17C1"]["source_ipa"] == "/eh/"
+    assert by_id["REAHMUK-O-17C1"]["source_ipa"] == "/ih/"
+    assert by_id["REAHMUK-O-17C4"]["source_ipa"] == "/uə̆h/"
+    assert by_id["REAHMUK-O-BARE"]["source_ipa"] == "/eə̆h/"
+    assert by_id["SAMYOK-O-VELAR"]["source_ipa"] == "/eə̆/"
+    assert by_id["SAMYOK-O-NONVELAR"]["source_ipa"] == "/oə̆/"
+
+    for item in patterns:
+        assert item["source_id"] in source_ids, item["id"]
+        assert item["source_locator"], item["id"]
+        assert item["profile_scope"], item["id"]
+        assert item["evidence_status"] == "SOURCE_ATTESTED_NOT_GOLD"
+        assert item["ukrainian_adaptation"] is None
+        assert item["ukrainian_status"] == "NOT_ESTABLISHED"
+        assert item["limitations"], item["id"]
+
+
+def test_reahmuk_lexical_examples_keep_custom_transcription_out_of_ipa():
+    register = load_json(REGISTER)
+    source_ids = set(register["sources"])
+    examples = register["lexical_coda_examples"]
+    ids = [item["id"] for item in examples]
+
+    assert len(examples) == 20
+    assert len(ids) == len(set(ids))
+    by_form = {item["orthography"]: item for item in examples}
+    assert by_form["សេះ"]["source_phonological_transcription"] == "/seh/"
+    assert by_form["នេះ"]["source_phonological_transcription"] == "/nih/"
+    assert by_form["គោះ"]["source_phonological_transcription"] == "/kŭəh/"
+    assert by_form["កោះ"]["gloss"] == "island"
+    assert by_form["ពាក់"]["source_phonological_transcription"] == "/pĕəʔ/"
+    assert by_form["ល័ខ"]["source_phonological_transcription"] == "/lĕəʔ/"
+    assert by_form["ទ័ព"]["source_phonological_transcription"] == "/toə̆p/"
+    assert by_form["ជ័រ"]["source_phonological_transcription"] == "/cɔə/"
+
+    for item in examples:
+        assert item["source_id"] in source_ids
+        if item["source_id"] == "huffman1970":
+            assert "not IPA" in item["transcription_system"]
+        else:
+            assert item["source_id"] == "r12a-block-notes"
+            assert "not independently normalized to IPA" in item["transcription_system"]
+        assert item["ipa"] is None
+        assert item["ukrainian_adaptation"] is None
+        assert item["ukrainian_status"] == "NOT_ESTABLISHED"
+        if item["source_id"] == "huffman1970":
+            assert "Standard Cambodian" in item["profile_scope"]
+        else:
+            assert "not established as contemporary Phnom Penh" in item["profile_scope"]
+        assert item["limitations"]
+
+
+def test_stress_marker_lexical_examples_keep_source_transcription_out_of_ipa():
+    register = load_json(REGISTER)
+    examples = register["lexical_stress_examples"]
+    assert len(examples) == 3
+    by_form = {item["orthography"]: item for item in examples}
+    assert by_form["ស្រៈ"]["source_phonological_transcription"] == "/sraq/"
+    assert by_form["ធុរៈ"]["source_phonological_transcription"] == "/thureăq/"
+    assert by_form["គណៈរដ្ឋមន្ត្រី"]["gloss"] == "cabinet"
+    for item in examples:
+        assert item["source_id"] == "huffman1970"
+        assert item["ipa"] is None
+        assert item["ukrainian_adaptation"] is None
+        assert item["ukrainian_status"] == "NOT_ESTABLISHED"
+        assert "not IPA" in item["transcription_system"]
+        assert item["limitations"]

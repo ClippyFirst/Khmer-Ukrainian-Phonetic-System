@@ -113,6 +113,16 @@ assert.equal(parseSyllable("ក៊").status, "EVIDENCE_LIMITED");
 assert.equal(parseSyllable("គ៉").status, "EVIDENCE_LIMITED");
 assert.equal(parseSyllable("ក៊").register_rule, "NON_STANDARD_SHIFTER_USE");
 
+const multipleShifters = convert("ស៊៉ា", "khmer-pph-careful-citation-v1");
+assert.equal(multipleShifters.status, "EVIDENCE_LIMITED");
+assert.equal(multipleShifters.units[0].provisional_ipa, "s", "a register conflict must not erase the independently identifiable onset");
+assert.equal(multipleShifters.units[0].provisional_ukrainian, "с???", "the partial target must retain an explicit unknown remainder");
+assert.equal(multipleShifters.ipa, "/s/⟦EVIDENCE_LIMITED⟧", "the primary IPA line must expose the known onset and preserve uncertainty");
+assert.equal(multipleShifters.ua, "с???", "the primary Ukrainian line must expose the known onset without pretending the whole form is resolved");
+assert.equal(multipleShifters.phonetic_result.units[0].ipa, "s", "typed IPA must contain only the actual IPA candidate, not the display status marker");
+assert.equal(multipleShifters.phonetic_result.partial, true, "an onset-only candidate is a partial result, not a total abstention");
+
+
 const mixed = convert("ក ☃ គ", "khmer-pph-careful-citation-v1");
 assert.equal(mixed.status, "EVIDENCE_LIMITED");
 assert.equal(mixed.complete, false);

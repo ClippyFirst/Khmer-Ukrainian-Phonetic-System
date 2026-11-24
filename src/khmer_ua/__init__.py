@@ -63,7 +63,7 @@ from .word_boundaries import BoundaryEvidence, BoundaryCandidate, WordBoundaryAn
 from .orthographic_structure import KhmerOrthographicComponent, KhmerOrthographicScan, scan_orthographic_components
 from .orthographic_syllables import KhmerOrthographicSyllable, KhmerOrthographicSyllableParse, parse_orthographic_syllables
 from .rule_engine import RuleBasedKhmerEngine
-from .hybrid import HybridKhmerEngine, create_hybrid_engine, make_mekongphon_backend, make_command_backend
+from .hybrid import HybridKhmerEngine, create_hybrid_engine, make_khmerphonemizer_backend, make_mekongphon_backend, make_command_backend
 
 __all__ = [
     "analyze",
@@ -136,6 +136,7 @@ __all__ = [
     "RuleBasedKhmerEngine",
     "HybridKhmerEngine",
     "create_hybrid_engine",
+    "make_khmerphonemizer_backend",
     "make_mekongphon_backend",
     "make_command_backend",
 ]

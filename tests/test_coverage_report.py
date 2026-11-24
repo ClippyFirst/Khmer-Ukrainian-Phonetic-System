@@ -102,3 +102,83 @@ def test_contextual_vowel_evidence_exposes_missing_dimensions_without_inference(
     conflicting = [row for row in observations if row["evidence_status"] == "CONFLICTING_SOURCE_ANALYSES"]
     assert conflicting
     assert all(row["source_transcription"] is None for row in conflicting)
+
+
+def test_coverage_report_exposes_source_backed_context_dimensions():
+    report = json.loads(REPORT.read_text(encoding="utf-8"))
+    registry = json.loads(
+        (ROOT / "data" / "khmer" / "vowel-context-register.json").read_text(encoding="utf-8")
+    )
+    contextual = report["contextual_vowel_evidence"]
+    dimensions = contextual["source_backed_context_dimensions"]
+    expected = registry["context_dimensions"]
+
+    assert contextual["context_dimension_count"] == len(expected)
+    assert [item["id"] for item in dimensions] == sorted(item["id"] for item in expected)
+    assert contextual["context_dimension_evidence_status_counts"] == {
+        status: sum(1 for item in expected if item["evidence_status"] == status)
+        for status in sorted({item["evidence_status"] for item in expected})
+    }
+    source_ids = set(registry["sources"])
+    for item in dimensions:
+        assert set(item["source_ids"]) <= source_ids
+        assert item["locator"]
+        assert item["profile_scope"]
+        assert item["implementation"]
+    assert contextual["cross_product_assessment"]["status"] == "NOT_ESTABLISHED"
+
+
+def test_coverage_report_exposes_coda_pattern_evidence_without_lexical_promotion():
+    report = json.loads(REPORT.read_text(encoding="utf-8"))
+    registry = json.loads(
+        (ROOT / "data" / "khmer" / "vowel-context-register.json").read_text(encoding="utf-8")
+    )
+    contextual = report["contextual_vowel_evidence"]
+    patterns = contextual["source_backed_coda_pattern_observations"]
+    expected = registry["coda_pattern_observations"]
+
+    assert contextual["coda_pattern_observation_count"] == len(expected) == 15
+    assert [item["id"] for item in patterns] == sorted(item["id"] for item in expected)
+    assert all(item["evidence_status"] == "SOURCE_ATTESTED_NOT_GOLD" for item in patterns)
+    assert all(item["ukrainian_adaptation"] is None for item in patterns)
+    assert all(item["ukrainian_status"] == "NOT_ESTABLISHED" for item in patterns)
+    assert report["orthographic_inventory"]["expected_dependent_vowel_x_series_cells"] == 32
+
+
+def test_coverage_report_keeps_custom_lexical_transcriptions_out_of_ipa():
+    report = json.loads(REPORT.read_text(encoding="utf-8"))
+    registry = json.loads(
+        (ROOT / "data" / "khmer" / "vowel-context-register.json").read_text(encoding="utf-8")
+    )
+    contextual = report["contextual_vowel_evidence"]
+    examples = contextual["source_backed_lexical_coda_examples"]
+
+    assert contextual["lexical_coda_example_count"] == len(registry["lexical_coda_examples"]) == 20
+    assert [item["id"] for item in examples] == sorted(
+        item["id"] for item in registry["lexical_coda_examples"]
+    )
+    assert all(item["ipa"] is None for item in examples)
+    assert all(item["ukrainian_adaptation"] is None for item in examples)
+    assert all(
+        "not IPA" in item["transcription_system"]
+        if item["source_id"] == "huffman1970"
+        else "not independently normalized to IPA" in item["transcription_system"]
+        for item in examples
+    )
+
+
+def test_coverage_report_exposes_lexical_stress_examples_separately():
+    report = json.loads(REPORT.read_text(encoding="utf-8"))
+    registry = json.loads(
+        (ROOT / "data" / "khmer" / "vowel-context-register.json").read_text(encoding="utf-8")
+    )
+    contextual = report["contextual_vowel_evidence"]
+    examples = contextual["source_backed_lexical_stress_examples"]
+
+    assert contextual["lexical_stress_example_count"] == len(registry["lexical_stress_examples"]) == 3
+    assert [item["id"] for item in examples] == sorted(
+        item["id"] for item in registry["lexical_stress_examples"]
+    )
+    assert all(item["ipa"] is None for item in examples)
+    assert all(item["ukrainian_adaptation"] is None for item in examples)
+    assert all(item["source_id"] == "huffman1970" for item in examples)
