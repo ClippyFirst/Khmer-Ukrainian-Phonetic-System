@@ -6786,3 +6786,16 @@ Code/data/test head `967a357333f31f605eecaed530dc0a0020c09fb3`:
 - Independent gold corpus and manual accessibility audit: DEFERRED by user instruction, not blockers.
 - Independent pronunciation accuracy: NOT_ASSESSED. Repository remains a research-ready partial prototype, not release-ready on linguistic accuracy grounds.
 - PR #557 remains open and unmerged; no public Pages deployment or release was performed.
+
+
+## Provisional pronunciation visibility correction — 2026-11-24
+
+- **Current work branch:** `fix/provisional-pronunciation-unknowns-2026-11-24`, based on main `cbc19240899510066098bf15f16b946143905565`.
+- **User requirement:** when full pronunciation is uncertain, show the best supported approximate phonetic result and append `???`; do not replace it with an empty abstention marker or an orthographic transliteration.
+- **Root cause:** `renderUnknownUnit()` only enabled the onset preview when the parser's overall status was `EVIDENCE_LIMITED`, even though valid units such as `ពាក់` can retain `ESTABLISHED_STRUCTURE` while `syllabification_status` is `NOT_ESTABLISHED`. The BGN/PCGN fallback also ran before the onset preview, so `Пеак` pre-empted the available /p/ hint.
+- **Implementation in progress:** the browser engine now attempts a registered onset IPA hint before orthographic fallback whenever full deterministic IPA is unavailable. It emits primary `/p/???` and `п???` for `ពាក់`, retains `Пеак` separately as orthographic-only metadata, and keeps status `EVIDENCE_LIMITED` / confidence C. The typed unit uses bare IPA `p` and `ukrainian_kind: IPA_DERIVED_PROVISIONAL`. No vowel, coda, subscript realization, tone or complete lexical pronunciation is inferred.
+- **Test-first evidence:** test-only commit `e2a092a360cf864f0ccf12c89dc3c31f4e7e736e` failed as expected at the new `ពាក់` regression because `partial_candidate_kind` was absent. Implementation, schema, UI, browser and runtime test changes follow on the same branch.
+- **Verification status:** the Quality workflow has repeatedly caught stale source guards and assertions that assumed unresolved input must display only `NOT_ESTABLISHED`. Those assertions are being updated to the explicit approximate-output contract, not disabled. At this handoff update, no final Quality, browser smoke or build pass is yet recorded for the final branch head. The local container cannot clone GitHub because DNS resolution for github.com is unavailable; GitHub Actions is the executable verification environment.
+- **Documentation:** `docs/provisional-grapheme-ipa-fallback.md` and `docs/repository-audit.md` record the corrected contract and root cause.
+- **Open PR reconciliation:** PR #519 is unrelated, based on an older main SHA and reported non-mergeable; leave it untouched. PR #557 is already merged; do not reopen it.
+- **Next steps:** finish the red/green cycle for all web checks; run exact-head Quality, Chromium browser smoke and Vite build; inspect generated drift and review the full branch diff; update this section with exact final SHA and run IDs; create a PR for owner review. Do not merge or deploy without explicit authorization.
