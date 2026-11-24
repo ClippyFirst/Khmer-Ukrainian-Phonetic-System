@@ -246,7 +246,8 @@ assert.ok(!greetingResult.ipa.includes("⟦ВИМОВУ НЕ ВСТАНОВЛЕ�
 assert.ok(!greetingResult.ua.includes("⟦ТРАНСКРИПЦІЮ НЕ ВСТАНОВЛЕНО ДЛЯ ЧАСТИНИ ВВОДУ⟧"));
 assert.ok(greetingResult.ipa.includes("/kam.pu.ciə/"), "known lexical IPA must survive an unresolved neighboring unit");
 assert.ok(greetingResult.ua.includes("кампутьіє"), "known IPA-derived Ukrainian output must survive an unresolved neighboring unit");
-assert.ok(greetingResult.ipa.includes("⟦NOT_ESTABLISHED⟧"), "unresolved units must remain explicitly marked in place");
+assert.ok(greetingResult.ipa.includes("???"), "unresolved units must retain a visible uncertainty marker after any supported onset");
+assert.ok(greetingResult.ua.includes("???"), "the IPA-derived Ukrainian line must retain the same local uncertainty marker");
 console.log("full Khmer sentence integrity: PASS");
 
 const unicodePunctuation = "ក。គ";
