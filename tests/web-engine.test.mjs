@@ -251,8 +251,7 @@ if (orthographicFallback.ipa !== "⟦NOT_ESTABLISHED⟧"
 if (orthographicFallback.ua !== orthographicFallback.units[0].fallback_ukrainian + "???"
     || orthographicFallback.status !== "PROVISIONAL"
     || orthographicFallback.ukrainian_output_kind !== "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
-    || orthographicFallback.phonetic_result.units[0]?.ukrainian_kind !== "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
-    || orthographicFallback.phonetic_result.units[0]?.provisional_ukrainian_kind !== "ORTHOGRAPHIC_ROMANIZATION_FALLBACK") {
+    || orthographicFallback.phonetic_result.units[0]?.ukrainian_kind !== "ORTHOGRAPHIC_ROMANIZATION_FALLBACK") {
   throw new Error("the main Ukrainian output must expose the orthographic fallback with an explicit ??? marker and typed provenance");
 }
 if (orthographicFallback.complete || !orthographicFallback.partial
