@@ -3824,3 +3824,14 @@ Code/data/test head `967a357333f31f605eecaed530dc0a0020c09fb3`:
 - Schema, deterministic report generator, canonical/public reports and regression tests were extended. The existing 32-cell sign × series coverage summary is unchanged.
 - Status: structured reference extraction **PENDING exact-head CI**; runtime contextual phonology remains **PARTIAL**. No new pronunciation accuracy claim.
 - Reconciliation: PR #557 is already merged (not open); PR #558 and PR #559 are also merged. PR #519 remains open and unrelated. The service is hosted on GitHub Pages; see the master handoff's production closeout.
+
+
+## Final verification — structured Ishida reference mappings — 2026-11-24
+
+- PR #560 merged as `1f48334047c3cbadc6d9d4e0a9c9a3fcf419d989`.
+- Exact PR-head Quality 45434765907 and Chromium 45434766063 passed (40/40 browser tests).
+- Exact-main Quality 45435043181, Chromium 45435043196 and GitHub Pages build/deploy 45435043183 passed.
+- Live Pages service, methodology page and generated coverage report returned HTTP 200; the live report contains 54 reference mapping observations.
+- **KHM-REFERENCE-MAPPING-001 — DONE_VERIFIED:** 54 source-resolved rows, strict schema, report/registry parity, canonical/public report parity, non-executable boundary, and exact-main CI/deployment evidence.
+- **KHM-PHON-CONTEXT-001 — PARTIAL:** this structured extraction does not complete the contextual lexical/audio cross-product or authorize runtime vowel/coda rules. Independent pronunciation accuracy remains NOT_ASSESSED.
+- PR #557, #558, #559 and #560 are merged. PR #519 remains open and unrelated.
