@@ -185,14 +185,22 @@ if (typeof document !== "undefined") {
           PROVISIONAL: "попередня часткова IPA",
           UNRESOLVED: "IPA не встановлено",
         };
+        const typedCaveatLabels = {
+          "PHONETIC-READING-PROVISIONAL": "Повну вимову не встановлено",
+          "PHONETIC-READING-UNKNOWN": "Немає надійної підказки щодо вимови",
+          "CONSONANT_POSITION_OR_RIME_NOT_ESTABLISHED": "Позицію приголосного або риму не встановлено",
+          "VOWEL_CODA_AND_SYLLABLE_NOT_ESTABLISHED": "Голосну, фіналь і складову структуру не встановлено",
+          "UNSUPPORTED-IPA-NOTATION": "Фонетичний запис містить непідтримуваний знак",
+        };
         const typedValue = typed.phonemic_ipa
           ?? typed.segments.map((segment) => segment.kind === "unknown" ? "???" : segment.ipa).join("");
+        const typedCaveats = typed.uncertainty?.map((item) => typedCaveatLabels[item] ?? "Потребує окремої фонетичної перевірки") ?? [];
         const typedDetail = document.createElement("p");
         typedDetail.className = "unit-note typed-ipa-detail";
         typedDetail.textContent = "Типізована IPA-послідовність: " + (typedValue || "???")
           + " · " + (typedStatusLabels[typed.status] ?? "IPA не встановлено")
           + (typed.provenance?.length ? " · Походження: " + typed.provenance.join(", ") : "")
-          + (typed.uncertainty?.length ? " · Застереження: " + typed.uncertainty.join("; ") : "")
+          + (typedCaveats.length ? " · Застереження: " + typedCaveats.join("; ") : "")
           + " · Українську форму отримано лише через IPA-адаптер; невідомі ділянки позначено як ???.";
         card.append(typedDetail);
       }
