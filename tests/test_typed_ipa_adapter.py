@@ -44,6 +44,25 @@ def test_provisional_ipa_keeps_known_onset_and_one_unknown_region():
     assert adapt_phonetic_result(result) == "к???"
 
 
+def test_affricate_tie_bar_and_length_are_preserved_as_ipa_features():
+    affricate = from_ipa("t͡s", status="SUPPORTED")
+    long_vowel = from_ipa("ɑː", status="UNCERTAIN")
+
+    assert [segment.ipa for segment in affricate.segments] == ["t͡s"]
+    assert [segment.ipa for segment in long_vowel.segments] == ["ɑ", "ː"]
+    assert long_vowel.vowel_length == "long"
+    assert long_vowel.tone_category is None
+
+
+def test_tone_marks_are_retained_without_inference_or_target_guessing():
+    result = from_ipa("k˥", status="UNCERTAIN")
+
+    assert [segment.kind for segment in result.segments] == ["consonant", "tone"]
+    assert result.tone_category is None
+    assert result.tone_contour_ipa is None
+    assert adapt_phonetic_result(result, allow_uncertain=True) is None
+
+
 def test_unknown_source_unit_is_explicit_and_renders_three_question_marks():
     result = from_unknown_source_unit(
         "☃",
