@@ -5,9 +5,9 @@
 - Repository: `ClippyFirst/Khmer-Ukrainian-Phonetic-System`.
 - Starting `main`: `1b8649c4b874fbf34a66012d7e02aa1da04fb6da`.
 - Working branch: `feat/khmer-lao-engine-contract-parity-20261124`.
-- PR: [#568](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/568), currently a draft while exact-head CI completes.
+- PR: [#568](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/568), ready for human review; exact-head workflows passed; no merge was performed.
 - Reference architecture: `ClippyFirst/Lao-Ukrainian-Phonetic-System`, especially `docs/lao-grapheme-ipa-preview.md`.
-- Final implementation code commit before evidence-only closeout: `940ece83e08e3e4c7b551af7617f7ea4c01e9d97`. The final handoff/audit-only commits follow it; see the PR head for the final branch SHA.
+- Final source/test head: `f579e1444fbda2b186fdf8a04dc9f52f7ebc044e`. Subsequent commits through `fbfe2ae68c1376a3ba5a6634bc79790cb4cf687a` update documentation, benchmark evidence and handoff registers only. This handoff refresh is also documentation-only.
 - Local clone was unavailable because the container could not resolve `github.com`. Repository edits were made directly on this isolated GitHub branch. No local test pass is claimed.
 - No deployment, release tag, main-branch merge or external setting change was performed.
 
@@ -29,19 +29,19 @@
 |---|---|---|
 | Test-first RED for typed IPA model | DONE_VERIFIED | Initial PR-head Quality failure was the expected missing-module failure |
 | Test-first RED for CLI contract | DONE_VERIFIED | Initial CLI tests failed because CLI still called structural parser only |
-| Python suite | DONE_VERIFIED | 503 passed + 70 subtests in exact code-head Quality run [45488340718](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45488340718) |
-| Browser deterministic checks | DONE_VERIFIED | Same Quality run; web engine, runtime, Worker and typed IPA adapter tests passed |
+| Python suite | DONE_VERIFIED | 503 passed + 70 subtests in latest successful Quality run [45490428639](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428639) |
+| Browser deterministic checks | DONE_VERIFIED | Latest Quality run [45490428639](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428639); web engine, runtime, Worker, typed IPA adapter and CLI tests passed |
 | Python/JavaScript parity | DONE_VERIFIED | 129 structural, 38 lexical, 46 consonant/rule and 6 segmentation fixtures passed; typed IPA fields are included in rule-output parity |
-| Benchmarks and Vite build | DONE_VERIFIED | Quality run [45488340718](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45488340718) |
-| Exact-head Chromium smoke | DONE_VERIFIED | [45489983875](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45489983875) passed on final head |
-| Exact-head pinned Rust comparison | DONE_VERIFIED | [45489983905](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45489983905) passed on final head |
-| Linguistic accuracy | NOT_ASSESSED | Independent adjudicated IPA gold corpus remains empty |
+| Benchmarks and Vite build | DONE_VERIFIED | Quality run [45490428639](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428639) |
+| Exact-head Chromium smoke | DONE_VERIFIED | [45490428728](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428728) passed 42/42 Playwright tests, including typed IPA detail disclosure |
+| Exact-head pinned Rust comparison | DONE_VERIFIED | [45490428786](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428786) passed |
+| External khPOS comparison | DONE_VERIFIED | [45490428814](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428814) passed |\n| Linguistic accuracy | NOT_ASSESSED | Independent adjudicated IPA gold corpus remains empty |
 
 ### Task ledger
 
 | Task | Status | Acceptance boundary |
 |---|---|---|
-| `KHM-LAO-ENGINE-CONTRACT-001` | PARTIAL pending exact-head Chromium/Rust workflows | Typed result model, shared adapter, Python/JS parity, CLI, schema and uncertainty output; no language-rule transfer |
+| `KHM-LAO-ENGINE-CONTRACT-001` | DONE_VERIFIED | Typed result model, shared adapter, Python/JS parity, CLI, schema and uncertainty output; no language-rule transfer |
 | `KHM-PROVISIONAL-OUTPUT-001` | DONE_VERIFIED on prior main | Existing onset-first primary output and separate orthographic fallback preserved |
 | `KHM-PHON-CONTEXT-001` | PARTIAL | Full contextual vowel/coda/series/length matrix remains incomplete |
 | `KHM-IPA-GOLD-001` | BLOCKED | Independent gold has 0 entries; two annotators and adjudicator still required |
@@ -50,8 +50,8 @@
 
 ### PR and branch reconciliation
 
-- PR #568 is this isolated architecture continuation; all exact-head automated workflows passed. It is ready for human review; no merge was performed.
-- PR #519 remains open and untouched. It is a separate, diverged hybrid-inference change; do not merge blindly.
+- PR #568 is this isolated architecture continuation; all exact-head automated workflows passed. It is ready for human review; no merge was performed. The PR is mergeable and based directly on the unchanged starting `main`.
+- PR #519 remains open and untouched. It is a separate, diverged hybrid-inference change (73 commits ahead / 200 behind, reported non-mergeable); do not merge blindly.
 - Historical branches were not deleted or rewritten.
 - No public deployment or formal release was requested or performed.
 
