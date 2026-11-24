@@ -15,16 +15,16 @@
 - Production neural fallback remains BLOCKED: the static Pages app has no inference backend and browser CSP blocks network calls. Do not silently add a server, transmit user text or bundle unreviewed weights. Next acceptance gate: profile-matched expert pilot, source/model rights review, and explicit runtime/privacy design.
 
 
-## Current continuation: Lao engine architecture alignment — 2026-11-24
+## Previous task record (historical): Lao engine architecture alignment — 2026-11-24
 
 - Repository: `ClippyFirst/Khmer-Ukrainian-Phonetic-System`.
 - Starting `main`: `1b8649c4b874fbf34a66012d7e02aa1da04fb6da`.
 - Working branch: `feat/khmer-lao-engine-contract-parity-20261124`.
-- PR: [#568](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/568), ready for human review; exact-head workflows passed; no merge was performed.
+- PR [#568](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/568) was merged by squash as `50d22708a0bda8d47edfd476ae3ff3ed848d18f6`; PR #569 subsequently added the visible orthographic Ukrainian result and was merged as current base `de158a3fd47bc151b6f952b2a89c4e67360174fe`.
 - Reference architecture: `ClippyFirst/Lao-Ukrainian-Phonetic-System`, especially `docs/lao-grapheme-ipa-preview.md`.
 - Final source/test head: `f579e1444fbda2b186fdf8a04dc9f52f7ebc044e`. Subsequent commits through `3584ce714202c475f3e8f58cc69fe1f34530f9f0` update documentation, benchmark evidence, replica artifacts and handoff registers only. This final handoff refresh is documentation-only; the source/test head remains unchanged.
 - Local clone was unavailable because the container could not resolve `github.com`. Repository edits were made directly on this isolated GitHub branch. No local test pass is claimed.
-- No deployment, release tag, main-branch merge or external setting change was performed.
+- The #568 implementation and #569 result-card fix are on main; #569's Chromium verification passed. No formal release tag or external setting change was performed.
 
 ### Implemented architecture
 
@@ -66,7 +66,7 @@
 
 ### PR and branch reconciliation
 
-- PR #568 is this isolated architecture continuation; all exact-head automated workflows passed. It is ready for human review; no merge was performed. The PR is mergeable and based directly on the unchanged starting `main`.
+- PR #568 is historical and merged; it is no longer an open continuation branch. Its exact-head automated workflows passed before merge.
 - PR #519 remains open and untouched. It is a separate, diverged hybrid-inference change (73 commits ahead / 200 behind, reported non-mergeable); do not merge blindly.
 - Historical branches were not deleted or rewritten.
 - No public deployment or formal release was requested or performed.
