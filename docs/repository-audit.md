@@ -3207,3 +3207,13 @@ The prior status line in `docs/provisional-grapheme-ipa-fallback.md` still said 
 ## Final verification — Khmer reference mapping registry — 2026-11-24
 
 PR #560 merged as `1f48334047c3cbadc6d9d4e0a9c9a3fcf419d989`. The 54 Ishida reference mappings are schema-validated, source-resolved, exposed in the deterministic coverage report and explicitly excluded from runtime IPA/UA generation. Exact PR-head Quality/Chromium (45434765907, 45434766063) and exact-main Quality/Chromium/Pages (45435043181, 45435043196, 45435043183) all passed. Live service, methodology page and report returned HTTP 200; the live report exposes count 54. This bounded evidence extraction is DONE_VERIFIED; contextual runtime phonology remains PARTIAL.
+
+
+## Canonical register reconciliation — 2026-11-24
+
+Current canonical registry counts: **14 case records**, **13 context dimensions**, **15 source-backed coda/rhyme pattern observations**, **20 lexical coda examples**, **3 lexical stress examples**, and **54 Ishida reference mappings**. These are different evidence layers and must not be conflated.
+
+- `KHM-PHON-CONTEXT-EVIDENCE-001` (bounded source-register/schema/report/test implementation): **DONE_VERIFIED**. The exact-main Quality workflow [45435877079](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45435877079) passed, including schema validation, all Python tests, generated-report reproducibility, canonical/public report parity and cross-runtime checks. The deployed report exposes the evidence layers at HTTP 200.
+- `KHM-PHON-CONTEXT-001` (complete contextual phonology and runtime rule coverage): **PARTIAL**. These counts do not complete the profile × series × vowel × phonological coda × syllable type × measured length × stress/harmony lexical cross-product. No rule is promoted by analogy.
+- Independent IPA gold remains 0; pronunciation accuracy remains NOT_ASSESSED. Gold pilot remains DEFERRED/BLOCKED pending human roles and rights evidence. Manual accessibility remains DEFERRED under the earlier scope instruction.
+- The 32-cell dependent-vowel × series matrix is still a first-order evidence view, not a complete phonological matrix.
