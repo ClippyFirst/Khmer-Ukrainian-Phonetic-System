@@ -760,6 +760,9 @@ function convert(text, profile) {
         ? ["data/ukrainian/practical-policy.json"]
         : item.fallback_status === "PROVISIONAL" ? ["src/khmer-romanization-ukrainian.js"] : [],
     },
+    provisional_ipa: item.partial_ipa ?? item.provisional_ipa ?? null,
+    ipa_derived_provisional_ukrainian: item.partial_candidate_kind === "ONSET_ONLY"
+      ? item.provisional_ukrainian : null,
     provisional_ukrainian: item.orthographic_fallback_ukrainian ?? item.fallback_ukrainian
       ?? (item.partial_candidate_kind === "ONSET_ONLY" ? item.provisional_ukrainian : null),
     provisional_ukrainian_kind: item.orthographic_fallback_ukrainian || item.fallback_status === "PROVISIONAL"
