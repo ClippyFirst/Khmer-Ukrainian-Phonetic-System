@@ -1,17 +1,19 @@
 """Typed, provenance-aware IPA values for the Khmer → Ukrainian pipeline.
 
-This is deliberately separate from the public result-envelope dataclasses in
-phonetic_result.py. A TypedPhoneticResult represents the IPA adapter boundary;
-it never reads Khmer graphemes and never promotes a provisional segment.
+IPA parsing is source-notation work and does not consult the Ukrainian
+correspondence table. The target adapter is a separate consumer of this model.
 """
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
+import unicodedata
 from typing import Iterable
 
 RESULT_STATUSES = frozenset({"SUPPORTED", "UNCERTAIN", "PROVISIONAL", "UNRESOLVED"})
 _MODIFIERS = frozenset({"ˈ", "ˌ", "ː", "ˑ"})
+_TONE_MARKS = frozenset("˥˦˧˨˩")
 _BOUNDARIES = frozenset({" ", "\t", "\n", ".", "·", "‧"})
+_TIE_BARS = frozenset({"͡", "͜"})
 
 
 @dataclass(frozen=True)
@@ -48,24 +50,24 @@ class TypedPhoneticResult:
         }
 
 
-def _ipa_symbols() -> tuple[str, ...]:
-    # The correspondence inventory is used only to tokenize supplied IPA.
-    # It is never used to infer a source-language pronunciation.
-    from .practical import POLICY
-
-    symbols = set(POLICY.get("segments", {}))
-    symbols.update(POLICY.get("sequences", {}))
-    return tuple(sorted((symbol for symbol in symbols if symbol), key=len, reverse=True))
+def _is_ipa_base(character: str) -> bool:
+    category = unicodedata.category(character)
+    name = unicodedata.name(character, "")
+    return category.startswith("L") and any(
+        marker in name for marker in ("LATIN", "GREEK", "CLICK")
+    )
 
 
-def _strip_outer_delimiters(ipa: str) -> str:
-    value = ipa.strip()
-    if len(value) >= 2 and (value[0], value[-1]) in {("/", "/"), ("[", "]")}:
-        return value[1:-1]
-    return value
+def _is_modifier_letter(character: str) -> bool:
+    return (
+        unicodedata.category(character) == "Lm"
+        and "MODIFIER LETTER" in unicodedata.name(character, "")
+    )
 
 
 def _segment_kind(symbol: str) -> str:
+    if symbol in _TONE_MARKS:
+        return "tone"
     if symbol in _MODIFIERS:
         return "modifier"
     if symbol in _BOUNDARIES:
@@ -77,24 +79,41 @@ def _segment_kind(symbol: str) -> str:
 
 
 def _tokenize_ipa(ipa: str, provenance: tuple[str, ...], certainty: str):
-    symbols = _ipa_symbols()
     segments: list[PhoneticSegment] = []
     unsupported: list[str] = []
     index = 0
     while index < len(ipa):
-        char = ipa[index]
-        if char in _BOUNDARIES or char in _MODIFIERS:
-            segments.append(PhoneticSegment(char, _segment_kind(char), provenance, certainty))
+        character = ipa[index]
+        if character in _BOUNDARIES or character in _MODIFIERS or character in _TONE_MARKS:
+            segments.append(PhoneticSegment(character, _segment_kind(character), provenance, certainty))
             index += 1
             continue
-        match = next((symbol for symbol in symbols if ipa.startswith(symbol, index)), None)
-        if match is None:
-            unsupported.append(char)
-            segments.append(PhoneticSegment(char, "unknown", provenance, "UNRESOLVED"))
+        if not _is_ipa_base(character):
+            unsupported.append(character)
+            segments.append(PhoneticSegment(character, "unknown", provenance, "UNRESOLVED"))
             index += 1
             continue
-        segments.append(PhoneticSegment(match, _segment_kind(match), provenance, certainty))
-        index += len(match)
+
+        token = character
+        index += 1
+        while index < len(ipa) and unicodedata.category(ipa[index]).startswith("M") and ipa[index] not in _TIE_BARS:
+            token += ipa[index]
+            index += 1
+        if index < len(ipa) and ipa[index] in _TIE_BARS:
+            token += ipa[index]
+            index += 1
+            if index < len(ipa) and _is_ipa_base(ipa[index]):
+                token += ipa[index]
+                index += 1
+                while index < len(ipa) and unicodedata.category(ipa[index]).startswith("M") and ipa[index] not in _TIE_BARS:
+                    token += ipa[index]
+                    index += 1
+            else:
+                unsupported.append(token)
+        while index < len(ipa) and _is_modifier_letter(ipa[index]) and ipa[index] not in _TONE_MARKS:
+            token += ipa[index]
+            index += 1
+        segments.append(PhoneticSegment(token, _segment_kind(token), provenance, certainty))
     return tuple(segments), tuple(unsupported)
 
 
@@ -105,15 +124,18 @@ def from_ipa(
     provenance: tuple[str, ...] = (),
     uncertainty: tuple[str, ...] = (),
 ) -> TypedPhoneticResult:
-    """Tokenize an already supplied IPA string without inventing any phones."""
-    if status not in RESULT_STATUSES - {"PROVISIONAL", "UNRESOLVED"}:
+    """Parse supplied IPA symbols without consulting target correspondences."""
+    if status not in {"SUPPORTED", "UNCERTAIN"}:
         raise ValueError(f"unsupported complete IPA status: {status}")
     if not isinstance(ipa, str) or not ipa.strip():
         return from_unknown_source_unit(
-            "?", provenance=provenance,
+            "?",
+            provenance=provenance,
             uncertainty=(*uncertainty, "EMPTY-IPA-RESULT"),
         )
-    raw = _strip_outer_delimiters(ipa)
+    raw = ipa.strip()
+    if len(raw) >= 2 and (raw[0], raw[-1]) in {("/", "/"), ("[", "]")}:
+        raw = raw[1:-1]
     segments, unsupported = _tokenize_ipa(raw, provenance, status)
     if unsupported:
         return TypedPhoneticResult(
@@ -122,7 +144,7 @@ def from_ipa(
             syllable_boundaries=(0, len(segments)),
             status="UNRESOLVED",
             provenance=provenance,
-            uncertainty=tuple(dict.fromkeys((*uncertainty, "UNSUPPORTED-IPA-SEGMENT"))),
+            uncertainty=tuple(dict.fromkeys((*uncertainty, "UNSUPPORTED-IPA-NOTATION"))),
         )
     return TypedPhoneticResult(
         phonemic_ipa=raw,
@@ -155,17 +177,13 @@ def from_provisional_ipa(
             uncertainty=uncertainty,
         )
         if hint.status == "UNRESOLVED":
-            return TypedPhoneticResult(
-                None, hint.segments, hint.syllable_boundaries,
-                status="UNRESOLVED", provenance=provenance,
-                uncertainty=tuple(dict.fromkeys((*uncertainty, *hint.uncertainty))),
-            )
+            return hint
         raw = hint.phonemic_ipa
         segments.extend(
-            PhoneticSegment(segment.ipa, segment.kind, segment.provenance, "PROVISIONAL")
+            replace(segment, certainty="PROVISIONAL")
             for segment in hint.segments
         )
-    # One contiguous unresolved tail is one uncertainty region, not one marker
+    # A contiguous unresolved tail is one uncertainty region, not one marker
     # per Khmer code point. The original graphemes remain on the source trace.
     if tuple(unresolved_graphemes) or not segments:
         segments.append(PhoneticSegment("?", "unknown", provenance, "PROVISIONAL"))
