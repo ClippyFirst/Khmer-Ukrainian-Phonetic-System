@@ -84,7 +84,7 @@ const coengSubscriptFixtureCollision = tokenize("ក្ក");
 assert.deepEqual(coengSubscriptFixtureCollision, ["ក្ក"], "a lexical fixture must never split a consonant following COENG from its orthographic base");
 const coengSubscriptResult = convert("ក្ក", "khmer-pph-careful-citation-v1");
 assert.equal(coengSubscriptResult.units.length, 1);
-assert.equal(coengSubscriptResult.units[0].status, "EVIDENCE_LIMITED", "a structurally valid cluster without full IPA must expose its provisional onset");
+assert.equal(coengSubscriptResult.units[0].status, "NOT_ESTABLISHED", "a structurally valid cluster without full IPA must expose its provisional onset while retaining its parser status");
 assert.equal(coengSubscriptResult.ipa, "/k/???");
 assert.equal(coengSubscriptResult.ua, "к???");
 
