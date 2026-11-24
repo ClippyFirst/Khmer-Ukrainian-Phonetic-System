@@ -37,7 +37,7 @@ if (typeof document !== "undefined") {
       : "Шлях 2 · з романізації: кмерська графіка → BGN/PCGN-derived латинський запис або готова BGN/PCGN-форма → українська орфографічна передача. Це не фонетична транскрипція; IPA тут не використовується.";
     uaResultTitle.textContent = mode === "phonetic" ? "Українська за вимовою (IPA)" : "Українська з романізації";
     uaResultDescription.textContent = mode === "phonetic"
-      ? "Результат проходить через IPA та українську фонетичну адаптацію."
+      ? "Основний шлях — через IPA. Якщо повну вимову не встановлено, може з'явитися окремо позначена орфографічна підказка з ???; це не підтверджена вимова."
       : "Окремий орфографічний шлях через BGN/PCGN; не залежить від стану IPA.";
     render();
   }
@@ -107,8 +107,9 @@ if (typeof document !== "undefined") {
           ? candidate + "???"
           : chars.slice(0, firstNumber).join("") + "???" + chars.slice(firstNumber).join("");
       }).join("");
-    // The primary phonetic field is IPA-derived only. Orthographic romanization
-    // is available exclusively after the user selects its independent route.
+    // Prefer an IPA-derived partial candidate when source phonology supports one.
+    // If no such candidate exists, surface a separately typed orthographic fallback
+    // with ???; the UI notice makes clear that it is not a pronunciation claim.
     const phoneticUaOutput = romanizationOnlyInput
       ? "— · для готової романізації оберіть метод «З романізації»"
       : moveMarkerToWordEnd(data.ua);
@@ -124,11 +125,15 @@ if (typeof document !== "undefined") {
         ? "IPA НЕ ЗАСТОСОВУЄТЬСЯ ДО ГОТОВОЇ РОМАНІЗАЦІЇ"
         : data.selected_external_candidate
           ? "EXTERNAL IPA CANDIDATE · " + data.selected_external_candidate.provider + " · PROFILE MATCH UNVERIFIED · ??? наприкінці неперевіреного результату · доказовий рівень C"
-          : data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
+          : data.ukrainian_output_kind === "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
+            ? data.status.replaceAll("_", " ") + " · PROVISIONAL · ОРФОГРАФІЧНА ПІДКАЗКА · НЕ IPA · ??? · доказовий рівень C"
+            : data.ukrainian_output_kind === "IPA_DERIVED_PARTIAL"
+              ? data.status.replaceAll("_", " ") + " · PROVISIONAL · ЧАСТКОВА IPA-ПІДКАЗКА · ??? · доказовий рівень C"
+              : data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
     const levelGuidance = {
-      strict: "Обережний рівень: показано лише наявні джерельно індексовані пропозиції; непідтверджені IPA/українські форми не реконструюються. PROPOSED не є експертним gold.",
-      balanced: "Збалансований рівень: показує основний частковий результат, статус кожної одиниці та причини невизначеності. Невстановлені фрагменти зберігаються на своїх позиціях.",
-      exploratory: "Дослідницький рівень: додатково показує доступні часткові структурні підказки початкового приголосного. Вони не є повним складом, IPA або підтвердженою українською вимовою."
+      strict: "Обережний рівень: показано лише наявні джерельно індексовані пропозиції; непідтверджені IPA не реконструюються. Якщо вимову не встановлено, окрема орфографічна підказка має суфікс ??? і не є транскрипцією. PROPOSED не є експертним gold.",
+      balanced: "Збалансований рівень: показує основний частковий результат, статус кожної одиниці та причини невизначеності. Невстановлені фрагменти зберігаються на своїх позиціях; орфографічні підказки позначаються ???.",
+      exploratory: "Дослідницький рівень: додатково показує часткові структурні підказки початкового приголосного та доступні орфографічні резервні варіанти. Вони не є повним складом або підтвердженою українською вимовою."
     };
     outputLevelNote.textContent = levelGuidance[outputLevelMode];
     $("details").textContent = data.note + " " + levelGuidance[outputLevelMode];

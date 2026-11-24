@@ -178,36 +178,51 @@ def _tokenize_input(text: str) -> list[str]:
     return units
 
 
-def _provisional_preview(structure: Any) -> dict[str, Any] | None:
+def _provisional_preview(structure: Any, source_text: str | None = None) -> dict[str, Any] | None:
     """Expose only registered onset IPA; never infer a vowel from an incomplete unit."""
     syllables = structure.phonological_representation.get("syllables", [])
+    consonant_by_char = {item.get("char"): item for item in CONSONANTS}
+    if not syllables and source_text and source_text[0] in consonant_by_char:
+        # Even when the syllable parser withholds its structure, a token that
+        # begins with a registered Khmer consonant can expose that consonant's
+        # onset only. Do not scan past a leading vowel/sign or guess a base.
+        syllables = [{"raw_text": source_text, "base_consonant": source_text[0]}]
     if not syllables:
         return None
     previews = []
     for unit in syllables:
+        raw_text = unit.get("raw_text", "")
         base = unit.get("base_consonant")
+        if not raw_text and source_text and not previews:
+            raw_text = source_text
+        if not base and source_text and not previews and source_text[0] in consonant_by_char:
+            base = source_text[0]
+        if not base and raw_text and raw_text[0] in consonant_by_char:
+            base = raw_text[0]
         onset = unit.get("phonology", {}).get("onset_ipa")
+        if not onset and base:
+            onset = consonant_by_char.get(base, {}).get("onset_ipa")
         if not base or not onset:
             previews.append({
-                "source": unit.get("raw_text", ""),
+                "source": raw_text,
                 "ipa": None,
-                "ukrainian": "?",
+                "ukrainian": "???",
                 "status": "UNKNOWN",
                 "position": None,
                 "rule_id": None,
-                "unresolved_graphemes": list(unit.get("raw_text", "")),
+                "unresolved_graphemes": list(raw_text),
             })
             continue
         mapped, unsupported = map_ipa_string(onset)
         rendered = mapped if unsupported is None and mapped is not None else ""
         unresolved = [
-            ch for ch in unit.get("raw_text", "")
+            ch for ch in raw_text
             if ch != base and ch not in {"\u200c"}
         ]
         previews.append({
-            "source": unit.get("raw_text", ""),
+            "source": raw_text,
             "ipa": onset,
-            "ukrainian": rendered + ("?" if unresolved or not rendered else ""),
+            "ukrainian": rendered + ("???" if unresolved or not rendered else ""),
             "status": "PROVISIONAL" if rendered else "UNKNOWN",
             "position": "onset",
             "rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
@@ -241,13 +256,21 @@ def _analyze_unit(unit: str) -> dict[str, Any]:
     if fixture is not None:
         raw_ipa = fixture.get("ipa")
         if not raw_ipa:
+            structure = analyze_structure(unit)
+            preview = _provisional_preview(structure, unit)
             return {
                 "source": unit, "ipa": None, "ukrainian": None,
                 "status": fixture.get("status", "EVIDENCE_LIMITED"),
-                "rule_trace": ["KHMER_LEXICAL_FIXTURE_WITHHELD"],
+                "rule_trace": ["KHMER_LEXICAL_FIXTURE_WITHHELD"]
+                    + (["PROVISIONAL_ONSET_IPA_PREVIEW"] if preview else []),
                 "reason": fixture.get("note", "The lexical fixture has no established IPA value."),
                 "evidence": fixture.get("evidence", []),
                 "source_locator": fixture.get("source_locator"),
+                "structure": structure.phonological_representation,
+                "provisional_ipa": preview["ipa_preview"] if preview else None,
+                "provisional_ukrainian": preview["ukrainian_preview"] if preview else None,
+                "fallback_status": preview["status"] if preview else "UNKNOWN",
+                "fallback_trace": preview["syllables"] if preview else [],
             }
         ipa = raw_ipa.strip().strip("/")
         ukrainian, unsupported = map_ipa_string(ipa)
@@ -312,7 +335,7 @@ def _analyze_unit(unit: str) -> dict[str, Any]:
                     "structure": structure.phonological_representation,
                 }
 
-    preview = _provisional_preview(structure)
+    preview = _provisional_preview(structure, unit)
     return {
         "source": unit, "ipa": None, "ukrainian": None, "status": "NOT_ESTABLISHED",
         "provisional_ipa": preview["ipa_preview"] if preview else None,
@@ -381,7 +404,11 @@ class RuleBasedKhmerEngine:
             and unit.get("ukrainian") is not None
             for unit in linguistic
         )
-        partial = not complete and bool(resolved)
+        has_provisional_preview = any(
+            unit.get("provisional_ipa") or unit.get("provisional_ukrainian")
+            for unit in linguistic
+        )
+        partial = not complete and (bool(resolved) or has_provisional_preview)
 
         typed_units = []
         for unit in rendered:

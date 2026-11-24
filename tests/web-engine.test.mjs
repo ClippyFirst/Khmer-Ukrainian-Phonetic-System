@@ -244,16 +244,22 @@ if (!coverageHtml.includes("./reports/khmer-coverage-audit.json")) {
 }
 const orthographicFallback = convert("ឥ", "khmer-pph-careful-citation-v1");
 if (orthographicFallback.ipa !== "⟦NOT_ESTABLISHED⟧"
-    || orthographicFallback.ua !== "???"
-    || orthographicFallback.canonical_ua !== "???") {
-  throw new Error("orthographic romanization fallback must not enter the IPA-derived aggregate result");
-}
-if (orthographicFallback.units[0]?.fallback_status !== "PROVISIONAL"
     || !orthographicFallback.units[0]?.fallback_ukrainian
-    || orthographicFallback.phonetic_result.units[0]?.ukrainian_kind !== "ORTHOGRAPHIC_ROMANIZATION_FALLBACK") {
-  throw new Error("orthographic fallback must remain available as a separately typed unit diagnostic");
+    || orthographicFallback.canonical_ua !== "???") {
+  throw new Error("orthographic fallback must not be promoted into canonical IPA-derived Ukrainian output");
 }
-console.log("IPA/romanization output separation: PASS");
+if (orthographicFallback.ua !== orthographicFallback.units[0].fallback_ukrainian + "???"
+    || orthographicFallback.status !== "NOT_ESTABLISHED"
+    || orthographicFallback.display_status !== "PROVISIONAL"
+    || orthographicFallback.ukrainian_output_kind !== "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
+    || orthographicFallback.phonetic_result.units[0]?.ukrainian_kind !== "ORTHOGRAPHIC_ROMANIZATION_FALLBACK") {
+  throw new Error("the main Ukrainian output must expose the orthographic fallback with an explicit ??? marker and typed provenance");
+}
+if (orthographicFallback.complete || !orthographicFallback.partial
+    || orthographicFallback.phonetic_result.complete || !orthographicFallback.phonetic_result.partial) {
+  throw new Error("provisional display must never be reported as complete phonetic transcription");
+}
+console.log("provisional Ukrainian fallback and IPA separation: PASS");
 
 console.log("evidence coverage dashboard integration: PASS");
 

@@ -603,8 +603,14 @@ function getStatusNotice(data) {
     return "Показано зовнішній IPA-кандидат від " + data.selected_external_candidate.provider
       + ". Це неперевірений широкофонетичний результат: profile_match=UNVERIFIED, незалежної ад'юдикації немає. ??? наприкінці IPA та українського зіставлення позначає весь результат як PROVISIONAL; інші виходи провайдерів збережено в деталях.";
   }
+  if (data.ukrainian_output_kind === "ORTHOGRAPHIC_ROMANIZATION_FALLBACK") {
+    return "Український рядок містить попередню орфографічну підказку з романізації, а не підтверджену вимову. ??? позначає невстановлену фонетичну частину; IPA залишається окремо невстановленою.";
+  }
+  if (data.ukrainian_output_kind === "IPA_DERIVED_PARTIAL") {
+    return "Показано лише низькодостовірні IPA-підказки відомих початкових приголосних. Знак ??? позначає невстановлену частину; голосні, фіналі й тон не вгадуються.";
+  }
   if (data.status === "PROVISIONAL") {
-    return "Показано лише низькодостовірні IPA-підказки відомих початкових приголосних. Знак ? позначає невстановлену частину; голосні, фіналі й тон не вгадуються.";
+    return "Показано зовнішній IPA-кандидат зі статусом PROVISIONAL; його профіль не підтверджений незалежною ад'юдикацією.";
   }
   if (data.status === "PROPOSED") {
     return "Результат має статус PROPOSED: IPA та українське читання є дослідницькими пропозиціями для цих записів, а не підтвердженою універсальною моделлю. Перевіряйте джерела й лексичний контекст перед використанням.";
@@ -689,6 +695,44 @@ function convert(text, profile) {
   }
   flushUnresolved();
   const ua = uaParts.join("");
+  const hasOrthographicFallback = rendered.some((item) =>
+    item.partial_candidate_kind !== "ONSET_ONLY"
+      && (Boolean(item.orthographic_fallback_ukrainian)
+        || (item.fallback_status === "PROVISIONAL" && Boolean(item.fallback_ukrainian)))
+  );
+  const hasPartialOnset = rendered.some((item) => item.partial_candidate_kind === "ONSET_ONLY");
+  const provisionalUaParts = [];
+  let pendingProvisionalUnknown = false;
+  const flushProvisionalUnknown = () => {
+    if (!pendingProvisionalUnknown) return;
+    provisionalUaParts.push("???");
+    pendingProvisionalUnknown = false;
+  };
+  for (const item of rendered) {
+    if (item.status === "PUNCTUATION" || item.status === "NON_LINGUISTIC") {
+      flushProvisionalUnknown();
+      provisionalUaParts.push(item.ua);
+      continue;
+    }
+    if (item.status === "PROPOSED") {
+      flushProvisionalUnknown();
+      provisionalUaParts.push(item.ua);
+      continue;
+    }
+    if (item.partial_candidate_kind === "ONSET_ONLY") {
+      flushProvisionalUnknown();
+      provisionalUaParts.push(item.provisional_ukrainian);
+      continue;
+    }
+    if (item.fallback_status === "PROVISIONAL" && item.fallback_ukrainian) {
+      flushProvisionalUnknown();
+      provisionalUaParts.push(item.fallback_ukrainian + "???");
+      continue;
+    }
+    pendingProvisionalUnknown = true;
+  }
+  flushProvisionalUnknown();
+  const provisionalUa = provisionalUaParts.join("");
   const complete = linguistic.length > 0 && linguistic.every((item) =>
     item.status === "PROPOSED" && !/⟦/.test(item.ipa) && !/⟦/.test(item.ua)
   );
@@ -700,10 +744,12 @@ function convert(text, profile) {
     ipa: item.partial_ipa ?? (item.status !== "PUNCTUATION" && /^\/.*\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa),
     ukrainian: item.partial_candidate_kind === "ONSET_ONLY"
       ? item.provisional_ukrainian
-      : item.ua,
+      : (item.orthographic_fallback_ukrainian || item.fallback_ukrainian)
+        ? (item.orthographic_fallback_ukrainian || item.fallback_ukrainian) + "???"
+        : item.ua,
     ukrainian_kind: item.partial_candidate_kind === "ONSET_ONLY"
       ? "IPA_DERIVED_PROVISIONAL"
-      : item.fallback_status === "PROVISIONAL"
+      : item.orthographic_fallback_ukrainian || item.fallback_status === "PROVISIONAL"
         ? "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
         : ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
           ? "NOT_APPLICABLE"
@@ -753,11 +799,18 @@ function convert(text, profile) {
     : canonicalIpa;
   const displayUa = selectedExternalCandidate
     ? selectedExternalCandidate.mapped_ukrainian + "???"
-    : canonicalUa;
-  const displayStatus = selectedExternalCandidate ? "PROVISIONAL" : canonicalStatus;
-  const confidence = linguistic.length
-    ? linguistic.map((item) => item.confidence_tier).sort((a, b) => ({A:0,B:1,C:2,D:3}[b] - {A:0,B:1,C:2,D:3}[a]))[0]
-    : "D";
+    : hasOrthographicFallback || hasPartialOnset ? provisionalUa : canonicalUa;
+  const ukrainianOutputKind = selectedExternalCandidate
+    ? "EXTERNAL_IPA_PROVISIONAL"
+    : hasOrthographicFallback ? "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
+      : hasPartialOnset ? "IPA_DERIVED_PARTIAL" : "CANONICAL_IPA_DERIVED_OR_UNRESOLVED";
+  const displayStatus = selectedExternalCandidate || hasOrthographicFallback || hasPartialOnset
+    ? "PROVISIONAL" : canonicalStatus;
+  const confidence = selectedExternalCandidate || hasOrthographicFallback || hasPartialOnset
+    ? "C"
+    : linguistic.length
+      ? linguistic.map((item) => item.confidence_tier).sort((a, b) => ({A:0,B:1,C:2,D:3}[b] - {A:0,B:1,C:2,D:3}[a]))[0]
+      : "D";
   const wordSegmentation = describeWordSegmentation(units, new Set(Object.keys(fixtures)), normalized);
   const segmentationNote = wordSegmentation.tokens.length
     ? " Сегментація слів: " + wordSegmentation.known_words + " словникових збігів, "
@@ -769,7 +822,11 @@ function convert(text, profile) {
     + " некоректних/непідтримуваних); " + linguistic.filter((item) => item.fallback_status === "PROVISIONAL").length
     + " мають попередній орфографічний український кандидат; "
     + rendered.filter((item) => item.partial_candidate_kind === "ONSET_ONLY").length
-    + " мають окрему IPA-підказку лише для початкового приголосного. Невизначеність IPA збережено."
+    + " мають окрему IPA-підказку лише для початкового приголосного; "
+    + rendered.filter((item) => item.partial_candidate_kind !== "ONSET_ONLY"
+      && (Boolean(item.orthographic_fallback_ukrainian)
+        || (item.fallback_status === "PROVISIONAL" && Boolean(item.fallback_ukrainian)))).length
+    + " мають орфографічну українську підказку, показану з ???. Це не IPA й не підтверджена вимова. Невизначеність IPA збережено."
     + (unresolvedNames.length ? " Невстановлені/проблемні одиниці: " + unresolvedNames.join(" · ") + "." : "");
   const note = selectedExternalCandidate
     ? resultNote + " Додатково показано зовнішній IPA-кандидат від " + selectedExternalCandidate.provider
@@ -788,9 +845,11 @@ function convert(text, profile) {
     selected_external_candidate: selectedExternalCandidate,
     complete,
     partial: !complete && (resolved.length > 0 || Boolean(selectedExternalCandidate)
-      || rendered.some((item) => item.partial_candidate_kind === "ONSET_ONLY")),
-    status: displayStatus,
-    confidence_tier: selectedExternalCandidate ? "C" : confidence,
+      || hasPartialOnset || hasOrthographicFallback),
+    status: selectedExternalCandidate ? "PROVISIONAL" : canonicalStatus,
+    display_status: displayStatus,
+    ukrainian_output_kind: ukrainianOutputKind,
+    confidence_tier: confidence,
     note: note + segmentationNote,
     profile,
     units: rendered,
@@ -799,8 +858,7 @@ function convert(text, profile) {
       schema: "khmer-phonetic-result/v1",
       pipeline: ["source-orthography", "structural-analysis", "source-phonology", "ipa", "ukrainian-target-adaptation"],
       complete,
-      partial: !complete && (resolved.length > 0
-        || rendered.some((item) => item.partial_candidate_kind === "ONSET_ONLY")),
+      partial: !complete && (resolved.length > 0 || hasPartialOnset || hasOrthographicFallback),
       units: phoneticResults,
     },
     analyses,

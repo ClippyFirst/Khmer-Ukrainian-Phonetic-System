@@ -5,7 +5,8 @@ test.beforeEach(async ({ page }, testInfo) => {
     "research tools are collapsed by default and can be opened on demand",
     "IPA and Latin romanization remain visible outside the collapsed analysis drawer",
     "primary method switch is visible beside the main result without opening research details",
-    "phonetic mode never substitutes an orthographic romanization fallback for unresolved IPA"
+    "phonetic mode never substitutes an orthographic romanization fallback for unresolved IPA",
+    "unresolved independent vowel still receives a marked provisional result"
   ].includes(testInfo.title)) return;
   await page.addInitScript(() => {
     document.addEventListener("DOMContentLoaded", () => {
@@ -52,9 +53,20 @@ test("phonetic mode never substitutes an orthographic romanization fallback for 
   await page.locator("#source").fill("ស៊៉ា");
   await expect(page.locator("#ipa-result")).toHaveText("/s/???");
   await expect(page.locator("#ua-result")).toHaveText("с???");
-  await expect(page.locator("#status")).toContainText("EVIDENCE LIMITED");
+  await expect(page.locator("#status")).toContainText("ЧАСТКОВА IPA-ПІДКАЗКА");
   await expect(page.locator("#unit-details")).toContainText("Попередня IPA-підказка: /s/ → с???");
   await expect(page.locator("#status")).not.toContainText("EXTERNAL IPA CANDIDATE");
+});
+
+test("unresolved independent vowel still receives a marked provisional result", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("ឥ");
+  await expect(page.locator("#ipa-result")).toHaveText("⟦NOT_ESTABLISHED⟧");
+  await expect(page.locator("#ua-result")).not.toHaveText("???");
+  await expect(page.locator("#ua-result")).toHaveText(/\?\?\?$/u);
+  await expect(page.locator("#status")).toContainText("ОРФОГРАФІЧНА ПІДКАЗКА");
+  await expect(page.locator("#status")).toContainText("НЕ IPA");
+  await expect(page.locator("#issue-text")).toContainText("а не підтверджену вимову");
 });
 
 test("research tools are collapsed by default and can be opened on demand", async ({ page }) => {
