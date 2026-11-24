@@ -10,7 +10,7 @@ Valid IPA can remain unmapped to Ukrainian,engine,must,yes,yes,IPA confidence is
 Python and JavaScript typed result parity,parity,must,yes,yes,Typed status, segments, boundaries and target result included in cross-runtime checks
 Worker result is structured-clone-safe,browser,must,yes,yes,Typed results are plain data; Worker contract test passes
 CLI uses the deterministic engine,cli,should,yes,yes,analyze/explain JSON includes typed IPA; ipa/transliterate expose partial and unresolved results
-Browser detail exposes typed confidence,browser,should,yes,partial,Implemented in unit details; exact-head Chromium smoke still pending
+Browser detail exposes typed confidence,browser,should,yes,yes,42/42 exact-head Chromium tests verify typed IPA status provenance and uncertainty disclosure
 Orthographic romanization remains separate,engine,must,yes,yes,Orthographic fallback remains a separately typed candidate and never enters IPA adapter
 External providers remain opt-in and non-canonical,engine,should,yes,yes,Existing HybridKhmerEngine contract preserved
 Lao language rules and source values,linguistics,skip,yes,skip,Not transferable to Khmer and intentionally excluded
