@@ -32,6 +32,18 @@ assert.equal(adaptPhoneticResult(provisional), "к???");
 assert.equal(provisional.tone_category, null);
 assert.equal(provisional.tone_contour_ipa, null);
 
+const affricate = fromIpa("t͡s", { status: "SUPPORTED" });
+assert.deepEqual(affricate.segments.map((segment) => segment.ipa), ["t͡s"]);
+const longVowel = fromIpa("ɑː", { status: "UNCERTAIN" });
+assert.deepEqual(longVowel.segments.map((segment) => segment.ipa), ["ɑ", "ː"]);
+assert.equal(longVowel.vowel_length, "long");
+
+const tone = fromIpa("k˥", { status: "UNCERTAIN" });
+assert.deepEqual(tone.segments.map((segment) => segment.kind), ["consonant", "tone"]);
+assert.equal(tone.tone_category, null);
+assert.equal(tone.tone_contour_ipa, null);
+assert.equal(adaptPhoneticResult(tone, { allowUncertain: true }), null);
+
 const unknown = fromUnknownSourceUnit("☃", {
   provenance: ["KHMER_UNICODE_VALIDATION_FAILED"],
 });
