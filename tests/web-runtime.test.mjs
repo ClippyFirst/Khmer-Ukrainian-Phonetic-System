@@ -121,12 +121,14 @@ assert.equal(paakApproximation.units[0].provisional_ukrainian, "п???", "the par
 assert.equal(paakApproximation.ua, "п???", "the primary Ukrainian output must show the approximate phonetic result, not only ???");
 assert.equal(paakApproximation.units[0].orthographic_fallback_ukrainian, "Пеак", "the orthographic romanization candidate must remain available but separately typed");
 assert.equal(paakApproximation.phonetic_result.units[0].ukrainian, "п???", "the typed IPA-first result must preserve the visible partial IPA-derived target");
+assert.equal(paakApproximation.phonetic_result.units[0].ukrainian_kind, "IPA_DERIVED_PROVISIONAL");
+assert.equal(paakApproximation.phonetic_result.units[0].ipa, "p", "the typed IPA value must remain bare IPA without display uncertainty markers");
 
 const multipleShifters = convert("ស៊៉ា", "khmer-pph-careful-citation-v1");
 assert.equal(multipleShifters.status, "EVIDENCE_LIMITED");
 assert.equal(multipleShifters.units[0].provisional_ipa, "s", "a register conflict must not erase the independently identifiable onset");
 assert.equal(multipleShifters.units[0].provisional_ukrainian, "с???", "the partial target must retain an explicit unknown remainder");
-assert.equal(multipleShifters.ipa, "/s/⟦EVIDENCE_LIMITED⟧", "the primary IPA line must expose the known onset and preserve uncertainty");
+assert.equal(multipleShifters.ipa, "/s/???", "the primary IPA line must expose the known onset and end with the uncertainty marker");
 assert.equal(multipleShifters.ua, "с???", "the primary Ukrainian line must expose the known onset without pretending the whole form is resolved");
 assert.equal(multipleShifters.phonetic_result.units[0].ipa, "s", "typed IPA must contain only the actual IPA candidate, not the display status marker");
 assert.equal(multipleShifters.phonetic_result.partial, true, "an onset-only candidate is a partial result, not a total abstention");
