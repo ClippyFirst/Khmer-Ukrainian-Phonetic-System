@@ -116,6 +116,6 @@ def test_unregistered_khmer_structure_remains_visible_as_unknown():
     result = RuleBasedKhmerEngine().analyze("្")
     assert result["ipa"] is None
     assert result["provisional_ipa"] is None
-    assert result["provisional_ukrainian"] == "?"
+    assert result["provisional_ukrainian"] == "???"
     assert result["fallback_status"] == "UNKNOWN"
     assert result["fallback_trace"][0]["source"] == "្"
