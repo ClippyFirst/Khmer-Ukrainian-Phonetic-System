@@ -16,7 +16,7 @@ def test_ipa_dict_loader_preserves_multiple_reference_alternatives(tmp_path):
         encoding="utf-8",
     )
     assert load_ipa_dict(source) == {
-        "ក": ["kɑɑ", "ka"],
+        "ក": ["ka", "kɑɑ"],
         "ខ": ["kʰɑɑ"],
     }
 
