@@ -128,3 +128,8 @@ Current canonical registry counts: **14 case records**, **13 context dimensions*
 ## Ishida source-rights correction — 2026-11-24
 
 No explicit reuse license or permission was located for the Richard Ishida Khmer Orthography Notes page or in the upstream repository root. The 54-row machine-readable copy has been withdrawn; the register/report now contain a metadata-only pointer with `reported_table_rows=54`, `data_values_copied=false`, and `redistribution_status=BLOCKED_PENDING_EXPLICIT_PERMISSION_OR_CLEAR_LICENSE`. The pre-existing Markdown table in evidence matrix §8 remains a separate rights-review item. No runtime rule or IPA claim is affected.
+
+
+## Ishida CC BY 4.0 verification — 2026-11-24
+
+The source-page footer on both `km.html` and `block.html` explicitly links to CC BY 4.0. The previous metadata-only withdrawal was based on missing that footer and is superseded. The 54-row reference table is restored with author attribution, license URL and a change notice in every machine-readable record and in the generated report. All 54 remain `runtime_eligible=false`, `ukrainian_adaptation=null`, and `ukrainian_status=NOT_ESTABLISHED`; source transcription strings are not normalized to project IPA.
