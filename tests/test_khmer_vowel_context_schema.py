@@ -78,3 +78,29 @@ def test_source_attested_coda_examples_without_word_level_ipa_stay_unresolved():
         assert case["ukrainian_status"] == "NOT_ESTABLISHED"
         assert case["source_locator"]
         assert case["limitations"]
+
+
+def test_source_attested_rhyme_patterns_preserve_class_and_coda_conditioning():
+    register = load_json(REGISTER)
+    source_ids = set(register["sources"])
+    patterns = register["coda_pattern_observations"]
+    pattern_ids = [item["id"] for item in patterns]
+
+    assert len(pattern_ids) == len(set(pattern_ids))
+    assert len(patterns) == 15
+    by_id = {item["id"]: item for item in patterns}
+    assert by_id["REAHMUK-A-17C1"]["source_ipa"] == "/eh/"
+    assert by_id["REAHMUK-O-17C1"]["source_ipa"] == "/ih/"
+    assert by_id["REAHMUK-O-17C4"]["source_ipa"] == "/uə̆h/"
+    assert by_id["REAHMUK-O-BARE"]["source_ipa"] == "/eə̆h/"
+    assert by_id["SAMYOK-O-VELAR"]["source_ipa"] == "/eə̆/"
+    assert by_id["SAMYOK-O-NONVELAR"]["source_ipa"] == "/oə̆/"
+
+    for item in patterns:
+        assert item["source_id"] in source_ids, item["id"]
+        assert item["source_locator"], item["id"]
+        assert item["profile_scope"], item["id"]
+        assert item["evidence_status"] == "SOURCE_ATTESTED_NOT_GOLD"
+        assert item["ukrainian_adaptation"] is None
+        assert item["ukrainian_status"] == "NOT_ESTABLISHED"
+        assert item["limitations"], item["id"]
