@@ -342,14 +342,14 @@ Code/data/test head `967a357333f31f605eecaed530dc0a0020c09fb3`:
 - Runtime contextual phonology: PARTIAL; evidence is not yet sufficient for a full lexical cross-product or safe rule promotion.
 - Independent gold corpus and manual accessibility audit: DEFERRED by user instruction, not blockers.
 - Independent pronunciation accuracy: NOT_ASSESSED. Repository remains a research-ready partial prototype, not release-ready on linguistic accuracy grounds.
-- PR #557 remains open and unmerged; no public Pages deployment or release was performed.
+PR #557 and PR #558–#562 have since been merged; the public beta is hosted on GitHub Pages. No formal release tag was created.
 
 
 ## Structured Ishida reference mappings — 2026-11-24
 
-The 54 rows in §8 are now also represented in `data/khmer/vowel-context-register.json` as `reference_mapping_observations` and exposed in both generated coverage reports. Each row preserves Ishida's source transcription, class scope and exact orthographic context, with a source locator and explicit non-executable status.
+The registry now carries a **metadata-only pointer** to the 54-row Ishida reference table. The 54 source values are not duplicated in the machine-readable registry or generated coverage report.
 
-**Important boundary:** this is a machine-readable mirror of a specialist reference table, not 54 lexical tokens, not an independently adjudicated IPA corpus, and not 54 deterministic vowel rules. The source strings remain `source_transcription`; they are not copied into the project's `ipa` field, no Ukrainian adaptation is assigned, and `runtime_eligible=false` for every row. The 32-cell sign × series case matrix and its coverage status are unchanged.
+**Rights boundary:** no explicit reuse license or permission was located on the cited page or in the upstream repository. Redistribution is therefore `BLOCKED_PENDING_EXPLICIT_PERMISSION_OR_CLEAR_LICENSE`. The earlier 54-row machine-readable copy has been withdrawn. The table already present in this Markdown matrix predates that copy and remains a separate source-rights review item; this note does not imply that its reuse is cleared.
 
 
 ## Final verification — structured Ishida reference mappings — 2026-11-24
@@ -369,3 +369,8 @@ Current canonical registry counts: **14 case records**, **13 context dimensions*
 - `KHM-PHON-CONTEXT-001` (complete contextual phonology and runtime rule coverage): **PARTIAL**. These counts do not complete the profile × series × vowel × phonological coda × syllable type × measured length × stress/harmony lexical cross-product. No rule is promoted by analogy.
 - Independent IPA gold remains 0; pronunciation accuracy remains NOT_ASSESSED. Gold pilot remains DEFERRED/BLOCKED pending human roles and rights evidence. Manual accessibility remains DEFERRED under the earlier scope instruction.
 - The 32-cell dependent-vowel × series matrix is still a first-order evidence view, not a complete phonological matrix.
+
+
+## Source-rights correction — 2026-11-24
+
+The 54-row machine-readable Ishida mapping mirror has been removed. `reference_mapping_inventory` now stores only the source ID, page locator, reported row count, rights status and explicit `data_values_copied=false`. No source transcriptions or mapping contexts are included in the generated JSON report. The existing Markdown table in §8 is a pre-existing third-party-derived content item and remains **BLOCKED_PENDING_RIGHTS_REVIEW**; do not treat its presence in this repository as a license grant.
