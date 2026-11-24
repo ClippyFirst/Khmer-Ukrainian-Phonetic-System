@@ -193,6 +193,10 @@ def _provisional_preview(structure: Any, source_text: str | None = None) -> dict
     for unit in syllables:
         raw_text = unit.get("raw_text", "")
         base = unit.get("base_consonant")
+        if not raw_text and source_text and not previews:
+            raw_text = source_text
+        if not base and source_text and not previews and source_text[0] in consonant_by_char:
+            base = source_text[0]
         if not base and raw_text and raw_text[0] in consonant_by_char:
             base = raw_text[0]
         onset = unit.get("phonology", {}).get("onset_ipa")
