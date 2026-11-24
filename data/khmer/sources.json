@@ -31,10 +31,12 @@
     "url": "https://r12a.github.io/scripts/khmr/km.html",
     "scope": "Modern Khmer orthography, consonant registers, vowel-sign behavior, IPA-oriented descriptive phonology, syllable structure",
     "status": "SPECIALIST_REFERENCE",
-    "license_status": "UNKNOWN_NO_EXPLICIT_LICENSE_LOCATED",
-    "redistribution_status": "BLOCKED_PENDING_EXPLICIT_PERMISSION_OR_CLEAR_LICENSE",
+    "license_status": "CC-BY-4.0_VERIFIED_ON_SOURCE_PAGE",
+    "redistribution_status": "ALLOWED_WITH_ATTRIBUTION",
     "license_reviewed_at": "2026-11-24",
-    "license_review_notes": "The cited page identifies its author and citation but no reuse license was located on the page or in the upstream GitHub repository root. Treat source-derived table contents as non-redistributable pending explicit permission or a verified license. This is a conservative project rights status, not legal advice."
+    "license_review_notes": "The source page footer explicitly states Licence CC-By and links to Creative Commons Attribution 4.0. Redistribution and adaptation are permitted subject to attribution, a license link, and indication of changes. Source transcription conventions still vary by entry and are not normalized project IPA.",
+    "license_id": "CC-BY-4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/"
   },
   {
     "id": "chem2020",
@@ -907,5 +909,20 @@
     "scope": "Secondary quotation of the Chuon Nath dictionary reading ចៈ-តុម-មុក and explanation of the name; corroborates the Khmer Wiktionary syllabification.",
     "status": "SECONDARY_LEXICAL_REFERENCE",
     "license": "Source text is quoted for research attribution only; no media or substantial prose copied."
+  },
+  {
+    "id": "r12a-block-notes",
+    "type": "specialist_orthography_reference",
+    "title": "Richard Ishida, Khmer Block Notes",
+    "year": 2024,
+    "url": "https://r12a.github.io/scripts/khmr/block.html",
+    "scope": "Khmer block notes for U+17C7 REAHMUK, U+17D0 SAMYOK SANNYA and U+17CB BANTOC; lexical spellings and source phonological transcriptions with variable broad/narrow and phonemic/phonetic detail.",
+    "status": "SPECIALIST_REFERENCE",
+    "license_status": "CC-BY-4.0_VERIFIED_ON_SOURCE_PAGE",
+    "redistribution_status": "ALLOWED_WITH_ATTRIBUTION",
+    "license_id": "CC-BY-4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "license_reviewed_at": "2026-11-24",
+    "license_review_notes": "The source page footer explicitly states Licence CC-By and links to Creative Commons Attribution 4.0. Redistribution and adaptation are permitted subject to attribution, a license link, and indication of changes. Source transcription conventions still vary by entry and are not normalized project IPA."
   }
 ]

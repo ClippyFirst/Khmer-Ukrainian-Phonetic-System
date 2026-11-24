@@ -6857,3 +6857,12 @@ Current registry counts: 14 case records, 13 context dimensions, 15 coda/rhyme p
 - The earlier source-value array is not present in the machine-readable registry or generated report. The pre-existing Markdown table in evidence matrix §8 predates the structured copy and remains a separate inherited third-party-rights review item; its presence is not treated as permission.
 - **KHM-REFERENCE-MAPPING-001 — BLOCKED** until explicit permission or a verified license authorizes copying, modification and redistribution. The project CC BY-NC license does not cover this third-party source.
 - `KHM-PHON-CONTEXT-EVIDENCE-001` remains DONE_VERIFIED for the project's own source-indexed evidence/register/schema/report engineering. `KHM-PHON-CONTEXT-001` remains PARTIAL. No IPA or Ukrainian runtime rules are added.
+
+
+## Ishida source-license correction — 2026-11-24
+
+- The previous rights blocker was erroneous: the source page footers on both `https://r12a.github.io/scripts/khmr/km.html` and `https://r12a.github.io/scripts/khmr/block.html` explicitly state “Licence CC-By” and link to CC BY 4.0.
+- The 54-row machine-readable reference mapping has been restored with per-row attribution, license URL and a change notice. The canonical source inventory records `CC-BY-4.0_VERIFIED_ON_SOURCE_PAGE` / `ALLOWED_WITH_ATTRIBUTION`.
+- `KHM-REFERENCE-MAPPING-001` returns to **DONE_VERIFIED** after exact-head CI. The 54 rows remain specialist source transcriptions, not lexical gold or project IPA; every row is non-executable, with no Ukrainian adaptation.
+- The CC BY 4.0 deed requires appropriate credit, a license link and an indication of changes; see https://creativecommons.org/licenses/by/4.0/. The report and source register carry those notices.
+- This correction supersedes the temporary `BLOCKED_PENDING_EXPLICIT_PERMISSION_OR_CLEAR_LICENSE` status in the immediately preceding source-rights closeout. It does not change the separate linguistic evidence limitations: contextual runtime phonology remains PARTIAL.
