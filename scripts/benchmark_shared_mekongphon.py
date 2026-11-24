@@ -55,14 +55,13 @@ def ipa_from_internal_result(result: dict) -> tuple[str, str]:
 
 def phonemizer_output(text: str) -> str:
     from khmerphonemizer import phonemize_single
+    from benchmark_g2p import phoneme_tokens
     raw = phonemize_single(text)
     if isinstance(raw, str):
         return raw
-    if isinstance(raw, (list, tuple)):
-        if raw and isinstance(raw[-1], (list, tuple)):
-            return "".join(str(phone) for phone in raw[-1])
-        if all(isinstance(item, str) for item in raw):
-            return "".join(raw)
+    tokens = phoneme_tokens(raw)
+    if tokens is not None:
+        return "".join(tokens)
     raise ValueError(f"unexpected khmerphonemizer output type: {type(raw).__name__}")
 
 
