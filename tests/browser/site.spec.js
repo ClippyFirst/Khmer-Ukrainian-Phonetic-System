@@ -255,6 +255,16 @@ test("one unsupported unit does not hide neighboring IPA and Ukrainian output", 
   await expect(page.locator("#ua-result")).toHaveText("ка ??? ко");
 });
 
+test("unresolved Khmer coda displays the available onset with an uncertainty marker", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("ពាក់");
+  await expect(page.locator("#ipa-result")).toHaveText("/p/???");
+  await expect(page.locator("#ua-result")).toHaveText("п???");
+  await expect(page.locator("#unit-details")).toContainText("лише початковий приголосний");
+  await expect(page.locator("#unit-details")).toContainText("Окрема орфографічна романізація: Пеак");
+  await expect(page.locator("#status")).toContainText("EVIDENCE LIMITED");
+});
+
 test("clear control restores the empty state", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("ក");
