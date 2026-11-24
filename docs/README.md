@@ -45,7 +45,7 @@ This is the navigation map for the repository. It does not replace the canonical
 - [External IPA renderers](external-ipa-renderers.md) — external tool/resource inventory.
 - [Current external corpus triage](audits/current/EXTERNAL-PHONETIC-CORPUS-TRIAGE-2026-11-01.md).
 - [Current Khmer vowel × series × coda evidence matrix](audits/current/KHMER-VOWEL-SERIES-CODA-EVIDENCE-MATRIX-2026-11-01.md).
-  - Its 54-row Ishida vowel/rhyme reference extraction is machine-readable in `data/khmer/vowel-context-register.json` and the generated coverage report; these rows are source mappings, not runtime IPA rules.
+  - The Ishida source inventory records a 54-row reference table and its locator only; source values are not duplicated in machine-readable data pending explicit redistribution permission.
 - [Current phonology research workpack](audits/current/PHONOLOGY-RESEARCH-WORKPACK-2026-11-01.md).
 - [Current linguistic completion register](audits/current/LINGUISTIC-COMPLETION-REGISTER-2026-11-01.md).
 

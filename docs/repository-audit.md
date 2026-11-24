@@ -3217,3 +3217,8 @@ Current canonical registry counts: **14 case records**, **13 context dimensions*
 - `KHM-PHON-CONTEXT-001` (complete contextual phonology and runtime rule coverage): **PARTIAL**. These counts do not complete the profile × series × vowel × phonological coda × syllable type × measured length × stress/harmony lexical cross-product. No rule is promoted by analogy.
 - Independent IPA gold remains 0; pronunciation accuracy remains NOT_ASSESSED. Gold pilot remains DEFERRED/BLOCKED pending human roles and rights evidence. Manual accessibility remains DEFERRED under the earlier scope instruction.
 - The 32-cell dependent-vowel × series matrix is still a first-order evidence view, not a complete phonological matrix.
+
+
+## Ishida reference-table rights correction — 2026-11-24
+
+A rights review found no explicit reuse license or permission on Richard Ishida's Khmer Orthography Notes page or in the checked upstream repository root. The 54-row machine-readable copy has been removed from the canonical register and generated reports. The source registry records `UNKNOWN_NO_EXPLICIT_LICENSE_LOCATED` and `BLOCKED_PENDING_EXPLICIT_PERMISSION_OR_CLEAR_LICENSE`; the report contains only a metadata pointer and row count. The pre-existing Markdown table in evidence matrix §8 remains a separate third-party-rights review item. No project CC BY-NC license is asserted over Ishida's material.
