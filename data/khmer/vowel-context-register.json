@@ -578,7 +578,7 @@
       "id": "PPH-CTX-011",
       "dimension": "reahmuk_rhyme_by_consonant_class",
       "environment": "U+17C7 REAHMUK combined with U+17B7, U+17C1, U+17C2, U+17BB, U+17C4, or used alone after ɑ-class vs ɔ-class consonants",
-      "finding": "R12A's rhyme table explicitly gives /eh/ for ɑ-class េះ, ែះ and ្ញ? (listed U+17B7/U+17C1/U+17C2 + U+17C7); /oh/ for ɑ-class ុះ; /ah/ for ɑ-class ោះ and bare ះ. For ɔ-class, េះ and ិះ are /ih/, ោះ is /uə̆h/, and bare ះ is /eə̆h/. The sign therefore does not have one invariant /h/ suffix realization.",
+      "finding": "R12A's rhyme table explicitly gives /eh/ for ɑ-class 17B7+17C7 (ិះ), 17C1+17C7 (េះ), and 17C2+17C7 (ែះ); /oh/ for ɑ-class 17BB+17C7 (ុះ); /ah/ for ɑ-class 17C4+17C7 (ោះ) and bare 17C7 (ះ). For ɔ-class, 17B7+17C7 (ិះ) and 17C1+17C7 (េះ) are /ih/, 17C4+17C7 (ោះ) is /uə̆h/, and bare 17C7 (ះ) is /eə̆h/. The sign therefore does not have one invariant /h/ suffix realization.",
       "source_ids": [
         "r12a-orthography"
       ],
