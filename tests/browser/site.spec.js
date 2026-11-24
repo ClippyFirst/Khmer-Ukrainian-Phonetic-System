@@ -52,7 +52,7 @@ test("phonetic mode never substitutes an orthographic romanization fallback for 
   await page.locator("#source").fill("ស៊៉ា");
   await expect(page.locator("#ipa-result")).toHaveText("/s/???");
   await expect(page.locator("#ua-result")).toHaveText("с???");
-  await expect(page.locator("#status")).toContainText("NOT ESTABLISHED");
+  await expect(page.locator("#status")).toContainText("EVIDENCE LIMITED");
   await expect(page.locator("#unit-details")).toContainText("Попередня IPA-підказка: /s/ → с???");
   await expect(page.locator("#status")).not.toContainText("EXTERNAL IPA CANDIDATE");
 });
@@ -262,7 +262,7 @@ test("unresolved Khmer coda displays the available onset with an uncertainty mar
   await expect(page.locator("#ua-result")).toHaveText("п???");
   await expect(page.locator("#unit-details")).toContainText("лише початковий приголосний");
   await expect(page.locator("#unit-details")).toContainText("Окрема орфографічна романізація: Пеак");
-  await expect(page.locator("#status")).toContainText("EVIDENCE LIMITED");
+  await expect(page.locator("#status")).toContainText("NOT ESTABLISHED");
 });
 
 test("clear control restores the empty state", async ({ page }) => {
@@ -393,7 +393,7 @@ test("unresolved Khmer cluster shows the known onset in IPA mode and keeps roman
   await page.locator("#source").fill("ក្ក");
   await expect(page.locator("#ipa-result")).toHaveText("/k/???");
   await expect(page.locator("#ua-result")).toHaveText("к???");
-  await expect(page.locator("#status")).toContainText("EVIDENCE LIMITED");
+  await expect(page.locator("#status")).toContainText("NOT ESTABLISHED");
   await expect(page.locator("#unit-details")).toContainText("Попередня IPA-підказка:");
   await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-rule-id", "KHMER-PREVIEW-ONSET-IPA-V1");
   await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-position", "onset");
