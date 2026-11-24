@@ -110,7 +110,7 @@ def _tokenize_ipa(ipa: str, provenance: tuple[str, ...], certainty: str):
                     index += 1
             else:
                 unsupported.append(token)
-        while index < len(ipa) and _is_modifier_letter(ipa[index]) and ipa[index] not in _TONE_MARKS:
+        while index < len(ipa) and _is_modifier_letter(ipa[index]) and ipa[index] not in _TONE_MARKS and ipa[index] not in _MODIFIERS:
             token += ipa[index]
             index += 1
         segments.append(PhoneticSegment(token, _segment_kind(token), provenance, certainty))
