@@ -42,7 +42,7 @@ def adapt_phonetic_result(
                 unknown_run = False
 
         for segment in result.segments:
-            if segment.kind == "unknown":
+            if segment.kind in {"unknown", "tone"}:
                 flush_known()
                 if not unknown_run:
                     output.append("???")
@@ -58,7 +58,7 @@ def adapt_phonetic_result(
         return None
     if result.status not in {"SUPPORTED", "UNCERTAIN"} or not result.segments:
         return None
-    if any(segment.kind == "unknown" for segment in result.segments):
+    if any(segment.kind in {"unknown", "tone"} for segment in result.segments):
         return None
     raw = "".join(segment.ipa for segment in result.segments)
     mapped, unsupported = map_ipa_string(raw)
