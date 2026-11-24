@@ -507,7 +507,7 @@ function renderUnknownUnit(unit, profile) {
         source: unit,
         ipa: "⟦NOT_ESTABLISHED⟧",
         ua: "⟦НЕВСТАНОВЛЕНО⟧",
-        status: "EVIDENCE_LIMITED",
+        status: analysis.status === "EVIDENCE_LIMITED" ? "EVIDENCE_LIMITED" : "NOT_ESTABLISHED",
         rule_trace: ["KHMER_STRUCTURE_PARSED", "IPA_NOT_ESTABLISHED", "PARTIAL_ONSET_IPA_ONLY"],
         note: "Повну вимову одиниці не встановлено. Попередній фонетичний результат містить лише початковий приголосний /"
           + onsetIpa + "/; голосну, підрядкові приголосні, фіналь і тон не виведено. ??? позначає невстановлену частину."
