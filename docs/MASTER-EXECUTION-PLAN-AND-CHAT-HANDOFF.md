@@ -7,7 +7,7 @@
 - Working branch: `feat/khmer-lao-engine-contract-parity-20261124`.
 - PR: [#568](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/568), currently a draft while exact-head CI completes.
 - Reference architecture: `ClippyFirst/Lao-Ukrainian-Phonetic-System`, especially `docs/lao-grapheme-ipa-preview.md`.
-- Current branch head when this continuation was recorded: `55c6f86933807e620b51eb07c4606f12bd5ab6f4`; later documentation commits update the exact final SHA.
+- Final branch head: `940ece83e08e3e4c7b551af7617f7ea4c01e9d97`.
 - Local clone was unavailable because the container could not resolve `github.com`. Repository edits were made directly on this isolated GitHub branch. No local test pass is claimed.
 - No deployment, release tag, main-branch merge or external setting change was performed.
 
@@ -33,8 +33,8 @@
 | Browser deterministic checks | DONE_VERIFIED | Same Quality run; web engine, runtime, Worker and typed IPA adapter tests passed |
 | Python/JavaScript parity | DONE_VERIFIED | 129 structural, 38 lexical, 46 consonant/rule and 6 segmentation fixtures passed; typed IPA fields are included in rule-output parity |
 | Benchmarks and Vite build | DONE_VERIFIED | Quality run [45488340718](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45488340718) |
-| Exact-head Chromium smoke | PARTIAL | Run [45489099153](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45489099153) was in progress at record time |
-| Exact-head pinned Rust comparison | PARTIAL | Run [45489099154](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45489099154) was queued at record time |
+| Exact-head Chromium smoke | DONE_VERIFIED | [45489983875](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45489983875) passed on final head |
+| Exact-head pinned Rust comparison | DONE_VERIFIED | [45489983905](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45489983905) passed on final head |
 | Linguistic accuracy | NOT_ASSESSED | Independent adjudicated IPA gold corpus remains empty |
 
 ### Task ledger
@@ -50,7 +50,7 @@
 
 ### PR and branch reconciliation
 
-- PR #568 is this isolated architecture continuation; no merge until exact-head checks and review are complete.
+- PR #568 is this isolated architecture continuation; all exact-head automated workflows passed. It is ready for human review; no merge was performed.
 - PR #519 remains open and untouched. It is a separate, diverged hybrid-inference change; do not merge blindly.
 - Historical branches were not deleted or rewritten.
 - No public deployment or formal release was requested or performed.
