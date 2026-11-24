@@ -1,4 +1,19 @@
-# Master execution plan and chat handoff — 2026-11-24
+# Master execution plan and chat handoff — 2026-11-25
+
+## Current continuation: shared Khmer IPA engine benchmark — 2026-11-25
+
+- Current default-branch base: `de158a3fd47bc151b6f952b2a89c4e67360174fe` (includes merged PR #569).
+- Benchmark branch: `bench/khmer-cross-engine-mekongphon-20261125`.
+- PR: [#570](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/570).
+- Exact benchmark code head: `84830e3e8d2fe0c30e555ddef868ac864915fa52`.
+- Shared four-engine run [45499595763](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45499595763): SUCCESS; aggregate-only artifact [14970916634](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45499595763/artifacts/14970916634).
+- Exact-head project Quality run [45499595556](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45499595556): SUCCESS (Python, JS/web, parity, engine/tokenizer benchmarks, production build).
+- Same 100 MekongPhon lexical inputs: project rules 95% non-empty / 94 partial / 74.61% source-attested CER; Khmer Phonemizer 100% / 25.71% CER; Epitran 100% / 114.73% CER; MekongPhon neural 100% / 12.54% CER. These are source-attested diagnostics, **not accuracy**; independent adjudicated IPA gold remains 0.
+- Full methodology and findings: [KHMER-CROSS-ENGINE-BENCHMARK-2026-11-25.md](research/KHMER-CROSS-ENGINE-BENCHMARK-2026-11-25.md).
+- Key interpretation: the deterministic engine's low score is driven by 94 onset-only/partial outputs, not 94 full but wrong canonical pronunciations. It is evidence of insufficient productive vowel/coda coverage and an overly restrictive only-output path. MekongPhon is the strongest fallback candidate on this small sample; profile equivalence and rights remain unresolved.
+- NCKL/PhonSobon 38,629-pair pronunciation-respelling corpus is identified as a second benchmark source, but its targets are Khmer-script respellings rather than IPA and must be evaluated separately.
+- Production neural fallback remains BLOCKED: the static Pages app has no inference backend and browser CSP blocks network calls. Do not silently add a server, transmit user text or bundle unreviewed weights. Next acceptance gate: profile-matched expert pilot, source/model rights review, and explicit runtime/privacy design.
+
 
 ## Current continuation: Lao engine architecture alignment — 2026-11-24
 
