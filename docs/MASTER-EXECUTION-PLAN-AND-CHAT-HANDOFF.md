@@ -6839,3 +6839,12 @@ The onset preview does not overwrite the parser's structural status. A unit such
 - **KHM-REFERENCE-MAPPING-001 — DONE_VERIFIED:** 54 source-resolved records, strict schema, exact IDs, generated report parity, canonical/public report parity, explicit non-executable/non-IPA boundary, exact-head CI and live deployment verification.
 - **KHM-PHON-CONTEXT-001 — PARTIAL:** the structured specialist reference inventory does not complete the contextual lexical/audio cross-product or authorize runtime vowel/coda rules. Independent pronunciation accuracy remains NOT_ASSESSED.
 - **Repository status:** PR #557, #558, #559 and #560 are merged; PR #519 remains open and unrelated. The live service remains a public beta, not a linguistically validated production standard.
+
+
+## Canonical Khmer evidence-register reconciliation — 2026-11-24
+
+Current registry counts: 14 case records, 13 context dimensions, 15 coda/rhyme pattern observations, 20 lexical coda examples, 3 lexical stress examples and 54 specialist Ishida reference mappings. Keep these as distinct evidence layers.
+
+- `KHM-PHON-CONTEXT-EVIDENCE-001` (bounded evidence-register/schema/report/test implementation): **DONE_VERIFIED** by exact-main Quality [45435877079](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45435877079), which passed Python tests, schema validation, report reproducibility and parity checks. Live public coverage report is HTTP 200.
+- `KHM-PHON-CONTEXT-001` (full contextual phonology/runtime rule coverage): **PARTIAL**. The full profile × series × vowel × phonological coda × syllable type × measured length × stress/harmony lexical cross-product remains incomplete; no extrapolation is permitted.
+- The 32-cell dependent-vowel × series view remains a first-order evidence inventory, not a complete phonological matrix. Independent IPA gold remains 0; accuracy remains NOT_ASSESSED. Manual accessibility and independent gold pilot remain deferred under prior scope instructions.
