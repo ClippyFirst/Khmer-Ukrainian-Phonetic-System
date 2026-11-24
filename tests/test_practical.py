@@ -96,7 +96,7 @@ def test_unresolved_khmer_unit_exposes_onset_only_provisional_ipa():
     assert result["ipa"] is None
     assert result["ukrainian"] is None
     assert result["provisional_ipa"] == "k"
-    assert result["provisional_ukrainian"] == "к?"
+    assert result["provisional_ukrainian"] == "к???"
     assert result["fallback_status"] == "PROVISIONAL"
     assert result["fallback_trace"][0]["unresolved_graphemes"] == ["្"]
 
