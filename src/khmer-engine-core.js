@@ -387,7 +387,7 @@ function renderFixture(fixture, profile) {
       uncertainty: ["CONSONANT_POSITION_OR_RIME_NOT_ESTABLISHED"],
     }) : null;
     const partialUkrainian = typedPreview ? adaptPhoneticResult(typedPreview) : null;
-    const hasPartialOnset = Boolean(onsetIpa && partialUkrainian && partialUkrainian !== "???");
+    const hasPartialOnset = Boolean(onsetIpa && typedPreview?.status === "PROVISIONAL");
     const unresolvedTyped = fromUnknownSourceUnit(fixture.source, {
       provenance: fixture.evidence ?? [],
       uncertainty: [fixture.note ?? "LEXICAL-IPA-WITHHELD"],
@@ -532,7 +532,7 @@ function renderUnknownUnit(unit, profile) {
       uncertainty: ["CONSONANT_POSITION_OR_RIME_NOT_ESTABLISHED"],
     });
     const provisionalUkrainian = adaptPhoneticResult(typedPreview) ?? "???";
-    if (provisionalUkrainian !== "???") {
+    if (typedPreview.status === "PROVISIONAL") {
       return {
         source: unit,
         ipa: "⟦NOT_ESTABLISHED⟧",
