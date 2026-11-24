@@ -72,19 +72,19 @@ The Lao repository's grapheme-preview and stress-benchmark reports were used as 
 
 ## Typed IPA contract overhead — 2026-11-24
 
-Source: exact code-head Quality workflow [45488340718](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45488340718), branch `feat/khmer-lao-engine-contract-parity-20261124`, commit `e8219217ac308dc603a32bd25f3017cfe8311603`.
+Source: exact final-head Quality workflow [45489728897](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45489728897), branch `feat/khmer-lao-engine-contract-parity-20261124`, commit `f579e1444fbda2b186fdf8a04dc9f52f7ebc044e`.
 
 | Measure | JavaScript core | Python engine |
 |---|---:|---:|
 | Runtime | Node v24.22.3 | Python 3.12.16 |
 | Unique NFC inputs | 39 | 39 |
 | Warm-up / measured batches | 5 / 25 | 5 / 25 |
-| Median batch latency | 1.5124 ms | 8.4259 ms |
-| Throughput | 25,787.68 inputs/s | 4,628.56 inputs/s |
+| Median batch latency | 2.3157 ms | 12.2009 ms |
+| Throughput | 16,841.52 inputs/s | 3,196.49 inputs/s |
 | Complete / partial / unresolved | 37 / 2 / 0 | 37 / 2 / 0 |
 
-Compared with the previous code-head measurement (1.3028 ms JS; 5.2737 ms Python), this typed segmentation and result serialization adds measurable overhead: approximately 16.1% to the JS median and 59.8% to the Python median in this CI microbenchmark. Absolute throughput remains 25.8k / 4.6k fixture inputs per second. This is recorded rather than hidden; no optimization was added without evidence that the latency is a user-facing problem. The Node/Python speed ratio is 5.57× in this environment.
+Compared with the earlier main-branch measurement (1.3028 ms JS; 5.2737 ms Python), the observed median is 77.8% higher in JS and 131.4% higher in Python. These are separate CI microbenchmark runs, not a controlled before/after experiment: runner contention and environment noise may contribute, so the figures must not be attributed wholly to typed segmentation. The final-head absolute throughput is 16.8k / 3.2k fixture inputs per second. This performance regression signal is recorded for future profiling; no speculative optimization was added without a controlled repeat or evidence of user-visible latency. The Node/Python speed ratio is 5.27× in this run.
 
-Tokenizer stress on the same workflow: 8,000 code points, 61,980 dictionary entries, 8.22 ms median, 972,949 code points/s, source preserved. This is a segmentation stress measure, not a phonetic metric.
+Tokenizer stress on the exact final-head workflow: 8,000 code points, 61,980 dictionary entries, 11.83 ms median, 676,476 code points/s, source preserved. The earlier run was 7.65 ms; this is a 54.6% higher observed latency, likewise not a controlled benchmark. This is a segmentation stress measure, not a phonetic metric.
 
 Coverage and throughput remain engineering measures. The input corpus is not adjudicated IPA gold; pronunciation accuracy remains NOT_ASSESSED.
