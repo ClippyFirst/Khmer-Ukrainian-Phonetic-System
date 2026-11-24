@@ -814,31 +814,6 @@
       }
     ],
     "context_dimension_count": 13,
-    "context_dimension_evidence_status_counts": {
-      "BOUNDED_ACOUSTIC_PERCEPTUAL_SAMPLE": 1,
-      "BOUNDED_ACOUSTIC_SAMPLE": 1,
-      "BOUNDED_PROFILE_SPECIFIC_REPORT": 1,
-      "BOUNDED_STYLE_SPECIFIC_ACOUSTIC_SAMPLE": 1,
-      "ORTHOGRAPHIC_STRUCTURE_ESTABLISHED_PHONETIC_PARSE_CONTEXTUAL": 1,
-      "RECENT_BOUNDED_PROSODIC_EVIDENCE": 1,
-      "SOURCE_ATTESTED_NOT_GOLD": 2,
-      "SOURCE_REPORTED_CONTEXT_DEPENDENT": 2,
-      "SOURCE_REPORTED_NOT_EXPERIMENTALLY_VERIFIED": 2,
-      "SOURCE_REPORTED_WITH_EXCEPTIONS": 1
-    },
-    "cross_product_assessment": {
-      "status": "NOT_ESTABLISHED",
-      "required_dimensions": [
-        "profile × consonant series × dependent-vowel sequence",
-        "vowel sequence × phonological coda identity",
-        "vowel sequence × open/closed syllable type",
-        "vowel sequence × measured vowel length",
-        "vowel sequence × stress and harmony context",
-        "register-shifter eligibility × lexical exception",
-        "phonemic target × phonetic realization"
-      ],
-      "policy": "Do not fill missing combinations by analogy or Unicode structure."
-    },
     "source_backed_coda_pattern_observations": [
       {
         "id": "BANTOC-O-NONVELAR",
@@ -1499,7 +1474,32 @@
         ]
       }
     ],
-    "lexical_coda_example_count": 20
+    "lexical_coda_example_count": 20,
+    "context_dimension_evidence_status_counts": {
+      "BOUNDED_ACOUSTIC_PERCEPTUAL_SAMPLE": 1,
+      "BOUNDED_ACOUSTIC_SAMPLE": 1,
+      "BOUNDED_PROFILE_SPECIFIC_REPORT": 1,
+      "BOUNDED_STYLE_SPECIFIC_ACOUSTIC_SAMPLE": 1,
+      "ORTHOGRAPHIC_STRUCTURE_ESTABLISHED_PHONETIC_PARSE_CONTEXTUAL": 1,
+      "RECENT_BOUNDED_PROSODIC_EVIDENCE": 1,
+      "SOURCE_ATTESTED_NOT_GOLD": 2,
+      "SOURCE_REPORTED_CONTEXT_DEPENDENT": 2,
+      "SOURCE_REPORTED_NOT_EXPERIMENTALLY_VERIFIED": 2,
+      "SOURCE_REPORTED_WITH_EXCEPTIONS": 1
+    },
+    "cross_product_assessment": {
+      "status": "NOT_ESTABLISHED",
+      "required_dimensions": [
+        "profile × consonant series × dependent-vowel sequence",
+        "vowel sequence × phonological coda identity",
+        "vowel sequence × open/closed syllable type",
+        "vowel sequence × measured vowel length",
+        "vowel sequence × stress and harmony context",
+        "register-shifter eligibility × lexical exception",
+        "phonemic target × phonetic realization"
+      ],
+      "policy": "Do not fill missing combinations by analogy or Unicode structure."
+    }
   },
   "source_conflict_case_ids": [
     "KHV-007",
