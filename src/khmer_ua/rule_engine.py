@@ -16,6 +16,8 @@ from .normalize import normalize_khmer
 from .parser import analyze as analyze_structure
 from .word_segmenter import describe_word_segmentation, segment_words
 from .phonetic_result import PhoneticResult, PhoneticUnitResult, PhoneticUncertainty
+from .ipa_result import from_ipa, from_provisional_ipa, from_unknown_source_unit
+from .ipa_target import adapt_phonetic_result
 from .practical import map_ipa_string
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -74,8 +76,17 @@ def _aggregate_confidence_tier(units: list[dict[str, Any]]) -> str:
 
 
 def _map_ipa(ipa: str) -> tuple[str | None, str | None]:
-    """Backward-compatible wrapper around the sole practical IPA adapter."""
-    return map_ipa_string(ipa)
+    """Route every engine IPA mapping through the typed IPA-only adapter."""
+    typed = from_ipa(
+        ipa,
+        status="UNCERTAIN",
+        provenance=("KHMER-ENGINE-IPA",),
+    )
+    mapped = adapt_phonetic_result(typed, allow_uncertain=True)
+    if mapped is not None:
+        return mapped, None
+    _, unsupported = map_ipa_string(ipa)
+    return None, unsupported or ipa
 
 
 def _is_separator(character: str | None) -> bool:
@@ -203,32 +214,43 @@ def _provisional_preview(structure: Any, source_text: str | None = None) -> dict
         if not onset and base:
             onset = consonant_by_char.get(base, {}).get("onset_ipa")
         if not base or not onset:
+            typed = from_unknown_source_unit(
+                raw_text or source_text or "?",
+                provenance=("KHMER-PREVIEW-UNRESOLVED-SOURCE",),
+            )
             previews.append({
                 "source": raw_text,
                 "ipa": None,
-                "ukrainian": "???",
-                "status": "UNKNOWN",
+                "ukrainian": adapt_phonetic_result(typed) or "???",
+                "status": "UNRESOLVED",
                 "position": None,
                 "rule_id": None,
                 "unresolved_graphemes": list(raw_text),
+                "typed_ipa": typed.to_dict(),
             })
             continue
-        mapped, unsupported = map_ipa_string(onset)
-        rendered = mapped if unsupported is None and mapped is not None else ""
         unresolved = [
             ch for ch in raw_text
             if ch != base and ch not in {"\u200c"}
         ]
+        typed = from_provisional_ipa(
+            onset,
+            unresolved_graphemes=tuple(unresolved) or ("UNKNOWN_REMAINDER",),
+            provenance=("KHMER-PREVIEW-ONSET-IPA-V1", "r12a-orthography"),
+            uncertainty=("CONSONANT_POSITION_OR_RIME_NOT_ESTABLISHED",),
+        )
+        rendered = adapt_phonetic_result(typed) or "???"
         previews.append({
             "source": raw_text,
             "ipa": onset,
-            "ukrainian": rendered + ("???" if unresolved or not rendered else ""),
-            "status": "PROVISIONAL" if rendered else "UNKNOWN",
+            "ukrainian": rendered,
+            "status": "PROVISIONAL",
             "position": "onset",
             "rule_id": "KHMER-PREVIEW-ONSET-IPA-V1",
-            "unresolved_graphemes": unresolved or ([] if rendered else [base]),
+            "unresolved_graphemes": unresolved or [base],
             "warnings": ["CONSONANT_POSITION_OR_RIME_NOT_ESTABLISHED"],
             "evidence": ["unicode17-ch16", "r12a-orthography"],
+            "typed_ipa": typed.to_dict(),
         })
     if not previews:
         return None
@@ -416,11 +438,9 @@ class RuleBasedKhmerEngine:
             source_ipa = unit.get("ipa")
             source_ua = unit.get("ukrainian")
             ipa_value = source_ipa if source_ipa is not None else f"⟦{status}⟧"
-            ua_value = source_ua if source_ua is not None else ("⟦НЕПІДТРИМУЄТЬСЯ⟧" if status == "INVALID_OR_UNSUPPORTED" else _UNKNOWN_UKRAINIAN)
             structure = unit.get("structure", {})
             structural_sources = ["unicode17-ch16"] if structure else []
             phonology_sources = list(unit.get("evidence", []))
-            target_sources = ["data/ukrainian/practical-policy.json"] if source_ipa is not None and source_ua is not None else []
             unresolved_graphemes = []
             for syllable in structure.get("syllables", []):
                 unresolved_graphemes.extend(
@@ -434,6 +454,48 @@ class RuleBasedKhmerEngine:
                     note=unit.get("reason", ""),
                     unresolved_graphemes=tuple(unresolved_graphemes),
                 ),)
+
+            typed_ipa = None
+            if status not in {"PUNCTUATION", "NON_LINGUISTIC"}:
+                if source_ipa is not None:
+                    typed_ipa = from_ipa(
+                        source_ipa,
+                        status="UNCERTAIN",
+                        provenance=tuple(phonology_sources),
+                        uncertainty=(unit.get("reason", ""),) if unit.get("reason") else (),
+                    )
+                elif unit.get("provisional_ipa"):
+                    fallback_trace = unit.get("fallback_trace", [])
+                    fallback_unresolved = tuple(
+                        grapheme
+                        for item in fallback_trace
+                        for grapheme in item.get("unresolved_graphemes", [])
+                    )
+                    typed_ipa = from_provisional_ipa(
+                        unit["provisional_ipa"],
+                        unresolved_graphemes=fallback_unresolved or ("UNKNOWN_REMAINDER",),
+                        provenance=tuple(phonology_sources) or ("KHMER-PREVIEW-ONSET-IPA-V1",),
+                        uncertainty=(unit.get("reason", ""),) if unit.get("reason") else (),
+                    )
+                else:
+                    typed_ipa = from_unknown_source_unit(
+                        unit["source"],
+                        provenance=tuple(phonology_sources) or ("KHMER-ENGINE-UNRESOLVED",),
+                        uncertainty=(unit.get("reason", ""),) if unit.get("reason") else (),
+                    )
+            typed_ua = (
+                adapt_phonetic_result(typed_ipa, allow_uncertain=True)
+                if typed_ipa is not None else source_ua
+            )
+            ua_value = typed_ua or source_ua or (
+                "⟦НЕПІДТРИМУЄТЬСЯ⟧" if status == "INVALID_OR_UNSUPPORTED" else "???"
+            )
+            target_sources = (
+                ["data/ukrainian/practical-policy.json"]
+                if typed_ipa is not None and typed_ua not in {None, "???"}
+                else []
+            )
+            typed_ipa_dict = typed_ipa.to_dict() if typed_ipa is not None else None
             typed_units.append(PhoneticUnitResult(
                 source=unit["source"],
                 status=status,
@@ -443,7 +505,8 @@ class RuleBasedKhmerEngine:
                 ipa_kind="NOT_APPLICABLE" if status in {"PUNCTUATION", "NON_LINGUISTIC"} else "UNRESOLVED",
                 ukrainian_kind=(
                     "NOT_APPLICABLE" if status in {"PUNCTUATION", "NON_LINGUISTIC"}
-                    else "IPA_DERIVED" if status == "PROPOSED" and source_ipa is not None and source_ua is not None
+                    else "IPA_DERIVED_PROVISIONAL" if typed_ipa is not None and typed_ipa.status == "PROVISIONAL"
+                    else "IPA_DERIVED" if typed_ipa is not None and typed_ipa.status in {"SUPPORTED", "UNCERTAIN"} and typed_ua is not None
                     else "UNRESOLVED"
                 ),
                 rule_trace=tuple(unit.get("rule_trace", [])),
@@ -453,6 +516,7 @@ class RuleBasedKhmerEngine:
                     "target_policy": tuple(target_sources),
                 },
                 uncertainty=uncertainty,
+                typed_ipa=typed_ipa_dict,
             ))
 
         phonetic_result = PhoneticResult(
