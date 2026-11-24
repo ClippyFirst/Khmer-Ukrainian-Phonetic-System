@@ -7,7 +7,7 @@
 - Working branch: `feat/khmer-lao-engine-contract-parity-20261124`.
 - PR: [#568](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/568), ready for human review; exact-head workflows passed; no merge was performed.
 - Reference architecture: `ClippyFirst/Lao-Ukrainian-Phonetic-System`, especially `docs/lao-grapheme-ipa-preview.md`.
-- Final source/test head: `f579e1444fbda2b186fdf8a04dc9f52f7ebc044e`. Subsequent commits through `fbfe2ae68c1376a3ba5a6634bc79790cb4cf687a` update documentation, benchmark evidence and handoff registers only. This handoff refresh is also documentation-only.
+- Final source/test head: `f579e1444fbda2b186fdf8a04dc9f52f7ebc044e`. Subsequent commits through `40457ce26f023d7543e6944b9e81b8dc6266c33f` update documentation, benchmark evidence, replica artifacts and handoff registers only. This handoff refresh is also documentation-only.
 - Local clone was unavailable because the container could not resolve `github.com`. Repository edits were made directly on this isolated GitHub branch. No local test pass is claimed.
 - No deployment, release tag, main-branch merge or external setting change was performed.
 
@@ -35,7 +35,8 @@
 | Benchmarks and Vite build | DONE_VERIFIED | Quality run [45490428639](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428639) |
 | Exact-head Chromium smoke | DONE_VERIFIED | [45490428728](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428728) passed 42/42 Playwright tests, including typed IPA detail disclosure |
 | Exact-head pinned Rust comparison | DONE_VERIFIED | [45490428786](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428786) passed |
-| External khPOS comparison | DONE_VERIFIED | [45490428814](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428814) passed |\n| Linguistic accuracy | NOT_ASSESSED | Independent adjudicated IPA gold corpus remains empty |
+| External khPOS comparison | DONE_VERIFIED | [45490428814](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428814) passed |
+| Linguistic accuracy | NOT_ASSESSED | Independent adjudicated IPA gold corpus remains empty |
 
 ### Task ledger
 
