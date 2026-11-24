@@ -104,3 +104,28 @@ def test_source_attested_rhyme_patterns_preserve_class_and_coda_conditioning():
         assert item["ukrainian_adaptation"] is None
         assert item["ukrainian_status"] == "NOT_ESTABLISHED"
         assert item["limitations"], item["id"]
+
+
+def test_reahmuk_lexical_examples_keep_custom_transcription_out_of_ipa():
+    register = load_json(REGISTER)
+    source_ids = set(register["sources"])
+    examples = register["lexical_coda_examples"]
+    ids = [item["id"] for item in examples]
+
+    assert len(examples) == 12
+    assert len(ids) == len(set(ids))
+    by_form = {item["orthography"]: item for item in examples}
+    assert by_form["សេះ"]["source_phonological_transcription"] == "/seh/"
+    assert by_form["នេះ"]["source_phonological_transcription"] == "/nih/"
+    assert by_form["គោះ"]["source_phonological_transcription"] == "/kŭəh/"
+    assert by_form["កោះ"]["gloss"] == "island"
+
+    for item in examples:
+        assert item["source_id"] in source_ids
+        assert item["source_id"] == "huffman-jenner1970"
+        assert "not IPA" in item["transcription_system"]
+        assert item["ipa"] is None
+        assert item["ukrainian_adaptation"] is None
+        assert item["ukrainian_status"] == "NOT_ESTABLISHED"
+        assert "Standard Cambodian" in item["profile_scope"]
+        assert item["limitations"]
