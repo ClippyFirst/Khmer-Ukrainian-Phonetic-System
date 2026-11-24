@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import assert from "node:assert/strict";
 import {
   fromIpa,
@@ -6,6 +7,10 @@ import {
   adaptPhoneticResult,
 } from "../src/khmer-ipa-result.js";
 import { convert } from "../src/khmer-engine-core.js";
+
+const adapterSource = readFileSync(new URL("../src/khmer-ipa-result.js", import.meta.url), "utf8");
+const adapterBody = adapterSource.slice(adapterSource.indexOf("export function adaptPhoneticResult"));
+assert.ok(!/grapheme|romanization/iu.test(adapterBody), "IPA target adapter must not inspect Khmer graphemes or romanization");
 
 const full = fromIpa("kʰmae", {
   status: "UNCERTAIN",
@@ -18,6 +23,11 @@ assert.deepEqual(full.segments.map((segment) => segment.ipa), ["kʰ", "m", "a", 
 assert.ok(full.segments.every((segment) => segment.certainty === "UNCERTAIN"));
 assert.equal(adaptPhoneticResult(full, { allowUncertain: true }), "к'мае");
 assert.equal(full.status, "UNCERTAIN", "target adaptation must not promote confidence");
+
+const bareProvisional = fromProvisionalIpa("k");
+assert.equal(bareProvisional.status, "PROVISIONAL");
+assert.deepEqual(bareProvisional.segments.map((segment) => segment.ipa), ["k", "?"]);
+assert.equal(adaptPhoneticResult(bareProvisional), "к???");
 
 const provisional = fromProvisionalIpa("k", {
   unresolvedGraphemes: ["្", "ក"],
