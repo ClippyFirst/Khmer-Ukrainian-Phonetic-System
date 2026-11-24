@@ -1089,7 +1089,250 @@
         ]
       }
     ],
-    "coda_pattern_observation_count": 15
+    "coda_pattern_observation_count": 15,
+    "source_backed_lexical_coda_examples": [
+      {
+        "id": "KHV-LEX-001",
+        "orthography": "បះ",
+        "source_phonological_transcription": "/pah/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "to patch",
+        "phonological_context": "bare REAHMUK after first-series consonant; -ah rhyme",
+        "source_id": "huffman-jenner1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-002",
+        "orthography": "ស្រឡះ",
+        "source_phonological_transcription": "/sralah/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "clear",
+        "phonological_context": "bare REAHMUK after first-series onset cluster",
+        "source_id": "huffman-jenner1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-003",
+        "orthography": "ប្រទះ",
+        "source_phonological_transcription": "/pratĕəh/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "to meet",
+        "phonological_context": "bare REAHMUK after second-series consonant; -eăh rhyme",
+        "source_id": "huffman-jenner1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-004",
+        "orthography": "ជិះ",
+        "source_phonological_transcription": "/cih/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "to mount; ride",
+        "phonological_context": "short vowel U+17B7 + REAHMUK; final /h/ after the short vowel",
+        "source_id": "huffman-jenner1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-005",
+        "orthography": "កុះ",
+        "source_phonological_transcription": "/koh/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "to scratch",
+        "phonological_context": "short vowel U+17BB + REAHMUK; final /h/ after the short vowel",
+        "source_id": "huffman-jenner1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-006",
+        "orthography": "ពុះ",
+        "source_phonological_transcription": "/puh/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "to boil",
+        "phonological_context": "short vowel U+17BB + REAHMUK; final /h/ after the short vowel",
+        "source_id": "huffman-jenner1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-007",
+        "orthography": "សេះ",
+        "source_phonological_transcription": "/seh/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "horse",
+        "phonological_context": "long vowel + REAHMUK; vowel shortened/changed to /e/ + /h/",
+        "source_id": "huffman-jenner1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-008",
+        "orthography": "នេះ",
+        "source_phonological_transcription": "/nih/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "this",
+        "phonological_context": "long vowel + REAHMUK; vowel shortened/changed to /i/ + /h/",
+        "source_id": "huffman-jenner1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-009",
+        "orthography": "កេះ",
+        "source_phonological_transcription": "/keh/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "wild goat (rare)",
+        "phonological_context": "long vowel + REAHMUK; vowel shortened/changed to /e/ + /h/",
+        "source_id": "huffman-jenner1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-010",
+        "orthography": "កោះ",
+        "source_phonological_transcription": "/kah/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "island",
+        "phonological_context": "long vowel + REAHMUK; vowel shortened/changed to /a/ + /h/",
+        "source_id": "huffman-jenner1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-011",
+        "orthography": "គោះ",
+        "source_phonological_transcription": "/kŭəh/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "strike",
+        "phonological_context": "long vowel + REAHMUK; second-series rhyme /ŭə/ + /h/",
+        "source_id": "huffman-jenner1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      },
+      {
+        "id": "KHV-LEX-012",
+        "orthography": "ចង្កេះ",
+        "source_phonological_transcription": "/caŋkeh/",
+        "transcription_system": "Huffman’s phonological transcription; not IPA",
+        "gloss": "chopsticks",
+        "phonological_context": "disyllabic form with REAHMUK in the second syllable",
+        "source_id": "huffman-jenner1970",
+        "source_locator": "§VII.A.8, printed p.52, PDF text lines 2189–2215.",
+        "profile_scope": "Standard Cambodian as described for school/educated speech, not the contemporary Phnom Penh colloquial target. The author explicitly distinguishes the Phnom Penh dialect at printed pp.6–7.",
+        "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+        "ipa": null,
+        "ukrainian_adaptation": null,
+        "ukrainian_status": "NOT_ESTABLISHED",
+        "limitations": [
+          "The source's transcription is a custom phonological notation, not IPA; it must not be copied into the IPA field or silently converted.",
+          "This source describes Standard Cambodian, not the project's contemporary Phnom Penh careful-citation profile.",
+          "The examples are source-attested, not independently adjudicated against recordings or a second lexical source."
+        ]
+      }
+    ],
+    "lexical_coda_example_count": 12
   },
   "source_conflict_case_ids": [
     "KHV-007",
