@@ -324,7 +324,7 @@ test("romanization mode exposes the exact IPA candidate for source-verified seri
   await expect(page.locator("#status")).toContainText("PROVISIONAL");
   await page.locator("#source").fill("កា");
   await expect(page.locator("#ua-result-description")).toContainText("IPA-кандидат: kaː");
-  await expect(page.locator("#ua-romanization-status")).toContainText("не вимова");
+  await expect(page.locator("#ua-orthographic-status")).toContainText("не вимова");
 });
 
 test("pre-romanized BGN/PCGN input maps directly to Ukrainian with diacritics", async ({ page }) => {
