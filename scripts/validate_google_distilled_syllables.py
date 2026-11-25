@@ -45,6 +45,16 @@ def validate_artifact(path: Path) -> dict:
         raise ValueError("teacher artifact must not claim independent pronunciation accuracy")
     if artifact["teacher"]["profile_equivalence"] != "UNVERIFIED":
         raise ValueError("teacher target-profile equivalence must remain UNVERIFIED")
+
+    candidates = {item["orthography"]: item for item in artifact["candidates"]}
+    # Regression probes are test inputs, not lexical additions. They verify
+    # that the generated CV/CVC transducer generalizes without word lookup.
+    for probe in ("រុង", "ឡឺត", "ឡាវ", "ឌី"):
+        candidate = candidates.get(probe)
+        if candidate is None or candidate.get("tier") != "soft":
+            raise ValueError(f"generated Soft CV/CVC candidate missing for regression probe {probe!r}")
+        if not candidate.get("google_phonemic_tokens") or not candidate.get("ipa") or not candidate.get("ukrainian_candidate"):
+            raise ValueError(f"generated Soft candidate is incomplete for regression probe {probe!r}")
     return artifact
 
 
@@ -56,6 +66,8 @@ def main() -> int:
     print(json.dumps({
         "schema": artifact["schema"],
         "accepted_candidates": len(artifact["candidates"]),
+        "accepted_soft_candidates": sum(item["tier"] == "soft" for item in artifact["candidates"]),
+        "accepted_exploratory_candidates": sum(item["tier"] == "exploratory" for item in artifact["candidates"]),
         "rejected_candidates": sum(artifact["rejected"].values()),
         "source_revision": artifact["source"]["revision"],
         "accuracy": artifact["teacher"]["accuracy"],
