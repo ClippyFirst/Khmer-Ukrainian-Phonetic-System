@@ -268,3 +268,28 @@ Live browser checks after deployment: `ស៊៉ា` shows IPA `⟦EVIDENCE_LIMI
 The 2026-11-23 output-route audit intentionally kept BGN/PCGN romanization out of the IPA-first primary field unless the user explicitly selected the separate romanization route. The user has now explicitly requested non-blocking approximate output marked with `???`, following the partial-output behavior used in the Lao project. PR #566 changes only the *display contract*: when a source-registered onset IPA preview exists, it takes precedence and is shown with `???`; when no onset preview exists but an orthographic romanization candidate does, that candidate is shown with `???` and `ukrainian_output_kind=ORTHOGRAPHIC_ROMANIZATION_FALLBACK`; if neither exists, the field shows `???`. The UI explicitly labels this as a provisional orthographic hint, not IPA or confirmed pronunciation. Canonical IPA, canonical Ukrainian output and canonical status remain unchanged; the independent romanization route remains available. No vowel, coda, tone or full syllable is inferred from the fallback.
 
 Exact PR code-head checks: Quality [45469711688](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469227028) PASS; Chromium [45469711820](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469227245) PASS; external khPOS benchmark [45469711811](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469227035) PASS; pinned upstream Rust comparison [45469711685](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45469227088) PASS. Benchmark details are recorded in `docs/research/KHMER-ENGINE-BENCHMARK-2026-11-24.md`. Independent IPA gold remains 0; accuracy remains NOT_ASSESSED.
+
+## Superseding update — browser-local neural model is now ported (2026-11-25)
+
+The 2026-11-23 deployment boundary above is historical and is superseded by the browser-local model port on branch feat/browser-local-mekongphon-ipa-20261125 / PR #578. The site still has no inference backend and never sends user text to a remote service, but it now fetches pinned, same-origin static model/runtime assets after an explicit user action.
+
+- Pinned model: byumatrixlab/khmer-ipa revision 20e069d384b240da76320e1569958568c12a54bc; model artifact declares Apache-2.0.
+- Browser export: separate encoder/decoder ONNX graphs; only dynamically quantized INT8 weights are deployed (about 35 MB). FP32 graphs are validation-only and removed before packaging.
+- Runtime: integrity-pinned onnxruntime-web@1.23.2 (MIT), WASM in a dedicated Web Worker; one-beam greedy decode, output limit 64 tokens. First use is explicit and lazy.
+- The worker fetches only same-origin static files; CSP now permits connect-src 'self' and wasm-unsafe-eval for those files/WASM. No third-party inference endpoint or telemetry is added.
+- Browser tokenizer IDs match the pinned Transformers tokenizers for the three export probes. The reported phrase's INT8 ONNX candidate matches FP32 ONNX exactly; FP32 ONNX differs from the pinned Transformers output by 3.03% CER. This is export parity, not pronunciation accuracy.
+- The model-enabled Chromium production build passed 46/46 Playwright tests, including real in-browser inference and the assertion that no external HTTP(S) requests occur.
+- Raw neural IPA is displayed separately and before target adaptation. Any Ukrainian adapter failure leaves the raw IPA visible. The neural result is always PROVISIONAL, profile match UNVERIFIED, never canonical or gold.
+- The training corpus is not included or redistributed; its rights remain unresolved. Independent adjudicated IPA gold remains 0 and pronunciation accuracy remains NOT_ASSESSED.
+
+### Revised task ledger
+
+| Task | Status | Evidence / acceptance |
+|---|---|---|
+| Export pinned MekongPhon weights to browser ONNX | DONE_VERIFIED | FP32/INT8 export and generation diagnostics; INT8 vs FP32 CER ≤5% across pinned probes; deploy only INT8 graphs |
+| Reproduce encoder/decoder tokenization in JavaScript | DONE_VERIFIED | tests/mekongphon-browser-tokenizer.test.mjs matches pinned Transformers IDs for all export probes |
+| Execute the model locally in a Web Worker | DONE_VERIFIED | 46/46 model-enabled Chromium tests, including actual model inference |
+| Keep user input off the network | DONE_VERIFIED | Browser test asserts no external HTTP(S) requests during inference; only same-origin static model/runtime assets are fetched |
+| Make the model candidate visible without hiding it behind an adapter failure | DONE_VERIFIED | Raw IPA is committed to UI before typed IPA/UA adaptation; regression test checks model output |
+| Independently adjudicate target-profile pronunciation accuracy | TODO / EVIDENCE-LIMITED | Requires a licensed, split-independent, expert-adjudicated IPA gold corpus and dialect/profile definition |
+| Resolve upstream training-corpus redistribution rights | BLOCKED | Model weights are licensed Apache-2.0; corpus is not redistributed and its rights remain unresolved |
