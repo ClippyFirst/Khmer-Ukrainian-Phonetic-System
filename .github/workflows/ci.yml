@@ -31,6 +31,9 @@ jobs:
       - name: Run Python tests
         run: pytest -q
 
+      - name: Verify generated Google phonemic lexicon shards
+        run: python scripts/build_google_phonemic_lexicon.py --check
+
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
