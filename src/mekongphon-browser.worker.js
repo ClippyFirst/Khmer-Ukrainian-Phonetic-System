@@ -142,7 +142,8 @@ async function generateBeam({ ort, encoder, decoder, tokenizers, manifest }, tex
       const candidate = candidates[rank];
       const ids = [...beams[candidate.parent].ids, candidate.tokenId];
       if (candidate.tokenId === eosId) {
-        if (rank < beamSize) finished.push({ ids, score: candidate.score });
+        // Match Transformers BeamSearchScorer: store the parent without EOS.
+        if (rank < beamSize) finished.push({ ids: beams[candidate.parent].ids, score: candidate.score });
       } else if (nextBeams.length < beamSize) {
         nextBeams.push({ ids, score: candidate.score });
       }
