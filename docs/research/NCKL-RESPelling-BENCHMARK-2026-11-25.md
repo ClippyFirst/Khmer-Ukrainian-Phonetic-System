@@ -58,5 +58,5 @@ Final MIT-package inference [45582973744](https://github.com/ClippyFirst/Khmer-U
 | Character error rate | 4.16% |
 | Syllable-count accuracy | 93.06% (1,757/1,888) |
 
-The final MIT-package run reproduces the upstream PyPI-reported test results to one decimal place (83.2% exact / 4.2% CER). The earlier GitHub-source-checkout run is superseded and not used as final evidence. These metrics concern NCKL Khmer-script respelling only; no IPA accuracy was measured.
+The final MIT-package run reproduces the upstream PyPI-reported test results to one decimal place (83.2% exact / 4.2% CER). Inference took 70.80 seconds for the 1,888-word batch on a GitHub-hosted CPU runner (batch size 64, one PyTorch thread; 37.50 ms per word amortized across batches). This is not a single-request latency guarantee. The earlier GitHub-source-checkout run is superseded and not used as final evidence. These metrics concern NCKL Khmer-script respelling only; no IPA accuracy was measured.
 - This benchmark is diagnostic research only; no runtime model integration is proposed.
