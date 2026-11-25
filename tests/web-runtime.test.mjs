@@ -46,6 +46,11 @@ assert.equal(superSoftTier.ipa, "/keʔ/???", "Super-soft must use the static neu
 assert.equal(superSoftTier.ua, "ке???", "The neural candidate must pass through the shared IPA-to-Ukrainian adapter");
 assert.equal(superSoftTier.units[0].partial_candidate_kind, "NEURAL_DISTILLED_OOV_SYLLABLE");
 assert.equal(superSoftTier.phonetic_result.units[0].ipa_kind, "PHONEMIC");
+assert.equal(strictTier.tier_coverage.strict.ipa_candidate_coverage, 0);
+assert.equal(softTier.tier_coverage.soft.ipa_candidate_coverage, 1,
+  "Soft must increase IPA-candidate coverage over Strict on an OOV input with a known onset");
+assert.equal(superSoftTier.tier_coverage.super_soft.nonempty_output_coverage, 1,
+  "Super-soft must return a non-empty output for every linguistic input unit, including explicit unknown markers");
 assert.equal(superSoftTier.phonetic_result.units[0].ukrainian_kind, "IPA_DERIVED_PROVISIONAL");
 assert.ok(superSoftTier.phonetic_result.units[0].typed_ipa.provenance.includes("CANDIDATE:PROVISIONAL-FULL-IPA"));
 const superSoftUnsupported = convert("☃", "khmer-pph-careful-citation-v1", { outputLevel: "exploratory" });
