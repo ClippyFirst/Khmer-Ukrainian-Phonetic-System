@@ -152,7 +152,7 @@ async function generateBeam({ ort, encoder, decoder, tokenizers, manifest }, tex
     if (finished.length >= beamSize || !beams.length) break;
   }
 
-  if (!finished.length) finished.push(...beams);
+  if (finished.length < beamSize) finished.push(...beams);
   if (!finished.length) throw new Error("MODEL_GENERATION_EMPTY");
   finished.sort((left, right) =>
     (right.score / Math.max(1, right.ids.length - 1))
