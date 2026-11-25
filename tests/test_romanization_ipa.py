@@ -39,3 +39,22 @@ def test_provisional_segments_keep_provenance_and_certainty():
     assert result["status"] == "PROVISIONAL"
     assert all(segment.certainty == "PROVISIONAL" for segment in result["typed_ipa"].segments)
     assert all(segment.provenance for segment in result["typed_ipa"].segments)
+
+
+def test_exact_representative_series_vowels_are_provisional_without_unknown_tail():
+    fixtures = (
+        ("ក", "ka", "kɑː"),
+        ("គ", "ko", "kɔː"),
+        ("កី", "kei", "kəj"),
+        ("គី", "ki", "kiː"),
+        ("កា", "ka", "kaː"),
+        ("គា", "kea", "kiə"),
+    )
+    for source, romanized, expected_ipa in fixtures:
+        result = build_romanization_ipa_candidate(source, romanized)
+        assert result["status"] == "PROVISIONAL"
+        assert result["typed_ipa"].status == "PROVISIONAL"
+        assert "".join(segment.ipa for segment in result["typed_ipa"].segments) == expected_ipa
+        assert all(segment.certainty == "PROVISIONAL" for segment in result["typed_ipa"].segments)
+        assert all(segment.kind != "unknown" for segment in result["typed_ipa"].segments)
+        assert "NOT_GENERALIZED_TO_OTHER_VOWEL_OR_CODA_CONTEXTS" in result["uncertainty"]
