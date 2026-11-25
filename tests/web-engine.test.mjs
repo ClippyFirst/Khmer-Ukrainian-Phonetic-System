@@ -331,3 +331,21 @@ if (unicode18SubscriptVowel.units.length !== 1
     || unicode18SubscriptVowel.ipa !== "/pʰ/???") {
   throw new Error("subscript independent-vowel sequence must expose only its onset and must not receive an inherent-vowel IPA guess");
 }
+
+
+// Regression: source-located lexical spans should keep the reported assembly
+// phrase on the direct IPA → Ukrainian route instead of collapsing to onset
+// hints or an orthographic romanization fallback.
+const nationalAssembly = convert("សភាតំណាងប្រជាជនកម្ពុជា", "khmer-pph-careful-citation-v1");
+if (nationalAssembly.ipa !== "/saʔ.pʰiə tɑm.naːŋ/ /prɑː.ciə.cŭən/ /kam.pu.ciə/") {
+  throw new Error("national-assembly phrase must retain source-located IPA spans: " + nationalAssembly.ipa);
+}
+if (nationalAssembly.ua !== "сап'іє тамнанг пратьієтьуен кампутьіє") {
+  throw new Error("national-assembly phrase must pass all IPA spans through the Ukrainian adapter: " + nationalAssembly.ua);
+}
+if (nationalAssembly.status !== "PROPOSED" || nationalAssembly.confidence_tier !== "B") {
+  throw new Error("national-assembly phrase must expose its source-traceable provisional evidence tier");
+}
+if (nationalAssembly.ukrainian_output_kind !== "CANONICAL_IPA_DERIVED_OR_UNRESOLVED") {
+  throw new Error("national-assembly phrase must not be rendered through orthographic romanization fallback");
+}
