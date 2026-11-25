@@ -831,7 +831,7 @@
       "ipa_status": "SOURCE_PHONEMIC_NOT_IPA",
       "adapter": "data/khmer/google-phonemic-to-ipa.json",
       "runtime_status": "PROVISIONAL_UNTIL_PROFILE_ADJUDICATION",
-      "note": "Counts and inventory validated against the pinned full TSV. The phonemic strings are not directly IPA and must pass through the dedicated adapter."
+      "note": "The full project TSV is byte-for-byte identical to the pinned upstream km/data/lexicon.tsv and its file header declares CC BY 4.0. Its 54 observed Khmer lexical phone tokens are the token inventory used by the project-authored adapter. The companion km/festvox/phonology.json reports 56 phones but is not redistributed because its file-level license scope is unresolved; it is retained only as a blocked source reference. Google phonemic strings are not directly IPA and must pass through the dedicated adapter."
     }
   },
   {
