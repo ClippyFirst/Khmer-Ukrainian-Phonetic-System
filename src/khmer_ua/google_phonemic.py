@@ -230,7 +230,7 @@ class GooglePhonemicLexicon:
 
 
 def _contains_khmer(value: str) -> bool:
-    return any("\\u1780" <= character <= "\\u17ff" for character in value)
+    return any("\u1780" <= character <= "\u17ff" for character in value)
 
 
 @lru_cache(maxsize=1)
@@ -264,7 +264,7 @@ def load_google_phonemic_lexicon(
     for source_row, line in enumerate(raw_bytes.decode("utf-8").splitlines(), start=1):
         if not line or line.startswith("#"):
             continue
-        fields = line.split("\\t")
+        fields = line.split("\t")
         if len(fields) < 2:
             continue
         word = unicodedata.normalize("NFC", fields[0].strip())
