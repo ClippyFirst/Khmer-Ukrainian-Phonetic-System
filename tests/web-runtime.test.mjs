@@ -170,7 +170,8 @@ assert.deepEqual(paakApproximation.phonetic_result.units[0].provenance.structure
 assert.deepEqual(paakApproximation.phonetic_result.units[0].provenance.phonology, ["GOOGLE_SOURCE:google-khmer-pronunciation-sample-2026", "GOOGLE_PHONOLOGY:a90601024f07ab7e96c911243324e0adeb16da96", "IPA_MAP:2026-11-25.1"], "Google phonemic provenance must remain explicit and distinct from structural evidence");
 
 const multipleShifters = convert("ស៊៉ា", "khmer-pph-careful-citation-v1");
-assert.equal(multipleShifters.status, "EVIDENCE_LIMITED");
+assert.equal(multipleShifters.canonical_status, "EVIDENCE_LIMITED", "the canonical engine status must retain the unresolved evidence state");
+assert.equal(multipleShifters.status, "PROVISIONAL", "the display status must disclose the separately exposed onset-only IPA candidate");
 assert.equal(multipleShifters.units[0].provisional_ipa, "s", "a register conflict must not erase the independently identifiable onset");
 assert.equal(multipleShifters.units[0].provisional_ukrainian, "с???", "the partial target must retain an explicit unknown remainder");
 assert.equal(multipleShifters.ipa, "/s/???", "the primary IPA line must expose the known onset and end with the uncertainty marker");
