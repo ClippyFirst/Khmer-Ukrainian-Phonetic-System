@@ -1,3 +1,17 @@
+## Browser-local MekongPhon port — 2026-11-25
+
+- User requirement: the IPA-producing neural engine must execute on the public site, not only through a Python/provider integration. Branch: feat/browser-local-mekongphon-ipa-20261125; PR #578.
+- Implemented a user-triggered, lazy browser-local model path: Khmer input → pinned ByteLevel BPE tokenizer → ONNX encoder/decoder → provisional IPA → existing typed IPA parser → Ukrainian practical adapter. Raw IPA is rendered before target mapping, so adapter limitations cannot hide the model candidate.
+- Upstream model artifact: byumatrixlab/khmer-ipa at immutable revision 20e069d384b240da76320e1569958568c12a54bc; model card declares Apache-2.0. The training corpus is not redistributed; corpus rights remain unresolved.
+- Export: FP32 encoder/decoder graphs are validation-only and removed before packaging; dynamically quantized INT8 pair is deployed (~35 MB). ONNX Runtime Web 1.23.2 (MIT) is integrity-pinned and vendored; WASM executes in a dedicated Web Worker. One-beam greedy decode, max output length 64 tokens, to keep browser latency bounded.
+- Privacy: no inference backend, telemetry or external model API. Only same-origin static model/runtime assets are fetched after explicit click; the Khmer input is passed to a local worker and never sent over the network. CSP permits connect-src 'self' and wasm-unsafe-eval only as required for local assets/WASM.
+- Export evidence: FP32 ONNX vs pinned Transformers generation is gated at ≤5% CER on three diagnostic probes; INT8 vs FP32 is gated at ≤5%. For the reported phrase, FP32 ONNX CER is 3.03%; INT8 matches FP32 exactly. These are export parity checks, not pronunciation accuracy.
+- Browser tokenizer parity: all pinned encoder/decoder token ID probes match Transformers. Model-enabled production build Chromium: 46/46 Playwright tests passed, including real local inference and no-external-request assertion.
+- Model output remains PROVISIONAL, profile match UNVERIFIED, not gold and never overrides canonical deterministic/lexical results. Independent adjudicated IPA gold remains 0; accuracy remains NOT_ASSESSED.
+- Model assets are generated in CI and Pages build, not committed to git. The FP32 graphs are deleted before packaging. CI uploads the built model asset from dist/models/mekongphon.
+- Remaining blockers: independent expert-adjudicated target-profile IPA gold; rights clarification for upstream training corpus; browser performance/coverage evaluation on longer, diverse inputs. The browser port itself is DONE_VERIFIED once final CI/Pages deployment checks pass.
+
+---
 ## Final merge and deployment closeout — 2026-11-25
 
 - Implementation PR [#576](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/576) was merged by squash into main as `ecbae0fa6b3a44433c5d787ba0877613caf05834`.
