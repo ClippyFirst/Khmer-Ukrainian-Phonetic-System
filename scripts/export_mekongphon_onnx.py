@@ -296,6 +296,7 @@ def main() -> int:
         finished = []
         for _ in range(args.max_length - 1):
             sequences = np.asarray([sequence for sequence, _ in beams], dtype=np.int64)
+            target_length = sequences.shape[1]
             batch_hidden = np.repeat(hidden, len(beams), axis=0)
             batch_mask = np.repeat(mask, len(beams), axis=0)
             logits = dec_session.run(
