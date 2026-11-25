@@ -563,6 +563,7 @@ function renderUnknownUnit(unit, profile, { outputLevel = "balanced", distilledS
       google_mapping_status: parsed.mapping_status,
       phonology_evidence: parsed.provenance,
       orthographic_fallback_ukrainian: orthographicFallback,
+      uncertainty: parsed.uncertainty,
       analysis,
       evidence: [],
     };
