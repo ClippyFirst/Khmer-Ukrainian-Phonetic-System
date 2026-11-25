@@ -445,5 +445,73 @@
         "r12a-orthography"
       ]
     }
+  ],
+  "representative_syllables": [
+    {
+      "source": "ក",
+      "romanization": "ka",
+      "ipa": "kɑː",
+      "rule_id": "V-REP-INHERENT-FIRST-KA",
+      "source_ids": [
+        "r12a-orthography"
+      ],
+      "source_locator": "vowels.json representative_series_contrasts: orthography ក, first series",
+      "scope": "exact single-character representative only; not generalized"
+    },
+    {
+      "source": "គ",
+      "romanization": "ko",
+      "ipa": "kɔː",
+      "rule_id": "V-REP-INHERENT-SECOND-KO",
+      "source_ids": [
+        "r12a-orthography"
+      ],
+      "source_locator": "vowels.json representative_series_contrasts: orthography គ, second series",
+      "scope": "exact single-character representative only; not generalized"
+    },
+    {
+      "source": "កី",
+      "romanization": "kei",
+      "ipa": "kəj",
+      "rule_id": "V-REP-FIRST-SERIES-II",
+      "source_ids": [
+        "r12a-orthography"
+      ],
+      "source_locator": "vowels.json representative_series_contrasts: orthography ក + ី, first series",
+      "scope": "exact orthographic fixture only; not generalized"
+    },
+    {
+      "source": "គី",
+      "romanization": "ki",
+      "ipa": "kiː",
+      "rule_id": "V-REP-SECOND-SERIES-II",
+      "source_ids": [
+        "r12a-orthography"
+      ],
+      "source_locator": "vowels.json representative_series_contrasts: orthography គ + ី, second series",
+      "scope": "exact orthographic fixture only; not generalized"
+    },
+    {
+      "source": "កា",
+      "romanization": "ka",
+      "ipa": "kaː",
+      "rule_id": "V-REP-FIRST-SERIES-AA",
+      "source_ids": [
+        "r12a-orthography"
+      ],
+      "source_locator": "vowels.json representative_series_contrasts: orthography ក + ា, first series",
+      "scope": "exact orthographic fixture only; not generalized"
+    },
+    {
+      "source": "គា",
+      "romanization": "kea",
+      "ipa": "kiə",
+      "rule_id": "V-REP-SECOND-SERIES-AA",
+      "source_ids": [
+        "r12a-orthography"
+      ],
+      "source_locator": "vowels.json representative_series_contrasts: orthography គ + ា, second series",
+      "scope": "exact orthographic fixture only; not generalized"
+    }
   ]
 }
