@@ -1049,7 +1049,7 @@ function convert(text, profile, options = {}) {
     complete,
     partial: !complete && (resolved.length > 0
       || (outputLevel !== "strict" && hasGoogleLexicalCandidate)
-      || (outputLevel === "exploratory" && hasNeuralDistilledCandidate)
+      || (outputLevel !== "strict" && hasNeuralDistilledCandidate)
       || (outputLevel !== "strict" && hasPartialOnset)
       ),
     status: displayStatus,
@@ -1069,7 +1069,7 @@ function convert(text, profile, options = {}) {
       pipeline: ["source-orthography", "structural-analysis", "source-phonology", "ipa", "ukrainian-target-adaptation"],
       complete,
       partial: !complete && (resolved.length > 0 || (outputLevel !== "strict" && hasGoogleLexicalCandidate)
-        || (outputLevel === "exploratory" && hasNeuralDistilledCandidate)
+        || (outputLevel !== "strict" && hasNeuralDistilledCandidate)
         || (outputLevel !== "strict" && hasPartialOnset)
         ),
       units: phoneticResults,
