@@ -2,13 +2,17 @@ import json
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(_ROOT / "src"))
 
 from khmer_ua.romanization_ipa import build_romanization_ipa_candidate
 
+with (_ROOT / "data" / "khmer" / "romanization_ipa_onsets.json").open(encoding="utf-8") as handle:
+    inventory = json.load(handle)
 cases = [
-    ("ខ្មែរ", "khmer"),
-    ("ង", "ng"),
+    (entry["source_units"][0], entry["romanization"])
+    for entry in inventory["entries"]
+] + [
     ("ប", "b"),
     ("ក", "kh"),
     ("្ក", "k"),
