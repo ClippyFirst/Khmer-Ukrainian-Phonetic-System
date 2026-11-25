@@ -115,6 +115,19 @@ for (const [word, expectedIpa, expectedUkrainian] of sourceBackedKhmerProbes) {
     }));
   }
 }
+const reportedPhrase = convert(
+  "រុងឡឺត ឡាវឌី",
+  "khmer-pph-careful-citation-v1",
+  { outputLevel: "balanced" },
+);
+if (reportedPhrase.ipa !== "/ruŋ/ /ləːt/ /laːw/ /ɗiː/"
+    || reportedPhrase.ua !== "рунг лет лау ді"
+    || reportedPhrase.status !== "PROVISIONAL") {
+  throw new Error("the exact reported Khmer phrase must flow through source-backed IPA and Ukrainian adaptation: " + JSON.stringify({
+    ipa: reportedPhrase.ipa, ua: reportedPhrase.ua, status: reportedPhrase.status,
+    units: reportedPhrase.units.map(item => item.source)
+  }));
+}
 const generatedOovCandidate = convert(
   "កិ",
   "khmer-pph-careful-citation-v1",
