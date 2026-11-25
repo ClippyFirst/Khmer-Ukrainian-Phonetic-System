@@ -986,7 +986,7 @@ function convert(text, profile, options = {}) {
         : usePartialCandidate ? "IPA_DERIVED_PARTIAL" : "CANONICAL_IPA_DERIVED_OR_UNRESOLVED";
   const displayStatus = outputLevel !== "strict" && (selectedExternalCandidate || useNeuralCandidate || useLexicalCandidate || usePartialCandidate)
     ? "PROVISIONAL" : canonicalStatus;
-  const confidence = outputLevel !== "strict" && (selectedExternalCandidate || useNeuralCandidate || useLexicalCandidate || useOrthographicCandidate || usePartialCandidate)
+  const confidence = outputLevel !== "strict" && (selectedExternalCandidate || useNeuralCandidate || useLexicalCandidate || usePartialCandidate)
     ? "C"
     : linguistic.length
       ? linguistic.map((item) => item.confidence_tier).sort((a, b) => ({A:0,B:1,C:2,D:3}[b] - {A:0,B:1,C:2,D:3}[a]))[0]
