@@ -98,6 +98,6 @@ To preserve the distinction between source-described reference mappings and exec
 
 - Temporary diagnostic test/file removed after recording the actual `@gmana/km-translit` outputs.
 - Python/JS parity includes all 26 negative contexts.
-- Quality [45585679238](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45585679238) SUCCESS.
+- Quality [45586289529](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45586289529) SUCCESS (516 Python tests + 70 subtests); Chromium [45586289504](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45586289504) SUCCESS (44/44). External khPOS [45586289526](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45586289526), shared held-out benchmark [45586289507](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45586289507), and pinned Rust [45586289555](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45586289555) also SUCCESS on exact head `20b860c01965ea2ea49cca439c26ab57ef351a8e`.
 - General vowel/coda/coeng rules remain PARTIAL / evidence-limited; the six source-aligned syllable fixtures remain the only full provisional IPA outputs.
 
