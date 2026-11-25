@@ -36,6 +36,17 @@ for (const [word] of fullWordFrequency.entries) {
   }
 }
 
+const cspTag = html.match(/<meta http-equiv="Content-Security-Policy" content="([^"]+)"/u)?.[1] ?? "";
+if (!cspTag.includes("connect-src 'self'") || !cspTag.includes("wasm-unsafe-eval")
+    || cspTag.includes("connect-src 'none'") || cspTag.includes("https://")) {
+  throw new Error("local ONNX model policy must allow same-origin fetch + WASM only, never remote model or text endpoints");
+}
+if (!html.includes('id="run-mekongphon"') || !html.includes('id="mekongphon-ipa"')) {
+  throw new Error("browser-local MekongPhon candidate panel is missing");
+}
+if (!js.includes("analyzeWithMekongPhon") || !js.includes("BROWSER-LOCAL-INFERENCE")) {
+  throw new Error("MekongPhon local worker is not wired into the browser UI");
+}
 for (const x of ["Content-Security-Policy", "src/main.js", 'id="source"', 'id="results"']) {
   if (!html.includes(x)) throw new Error("index missing " + x);
 if (!outputLevelSelector.includes('value="strict"') || !outputLevelSelector.includes('value="balanced"') || !outputLevelSelector.includes('value="exploratory"')) throw new Error("all three evidence-aware output levels must be selectable");
