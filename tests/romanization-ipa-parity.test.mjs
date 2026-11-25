@@ -4,6 +4,16 @@ import { test } from "node:test";
 import { buildRomanizationIpaCandidate } from "../src/khmer-romanization-ipa.js";
 import onsetInventory from "../data/khmer/romanization_ipa_onsets.json" with { type: "json" };
 
+const unlistedVowels = [
+  ["កិ","ke"],["គិ","ki"],["កឹ","koe"],["គឹ","koe"],
+  ["កឺ","koe"],["គឺ","koe"],["កុ","ko"],["គុ","ku"],
+  ["កូ","ko"],["គូ","ku"],["កេ","ke"],["គេ","ke"],
+  ["កែ","ke"],["គែ","ke"],["កៃ","kai"],["គៃ","key"],
+  ["កោ","kao"],["គោ","ko"],["កៅ","kau"],["គៅ","kou"],
+  ["កើ","kaeu"],["គើ","keu"],["កឿ","koea"],["គឿ","koea"],
+  ["កួ","kuo"],["គួ","kuo"],
+];
+
 test("Python and JavaScript romanization-mediated IPA results have exact semantic parity", () => {
   const python = spawnSync("python", ["scripts/export_romanization_ipa_parity.py"], {
     encoding: "utf8",
@@ -17,14 +27,9 @@ test("Python and JavaScript romanization-mediated IPA results have exact semanti
     ["ប", "b"],
     ["ក", "kh"],
     ["្ក", "k"],
-    ["កិ", "ke"], ["គិ", "ki"], ["កឹ", "koe"], ["គឹ", "koe"],
-     ("កឺ", "koe"], ["គឺ", "koe"], ["កុ", "ko"], ["គុ", "ku"],
-     ("កូ", "ko"], ["គូ", "ku"], ["កេ", "ke"], ["គេ", "ke"],
-     ("កែ", "ke"], ["គែ", "ke"], ["កៃ", "kai"], ["គៃ", "key"],
-     ("កោ", "kao"], ["គោ", "ko"], ["កៅ", "kau"], ["គៅ", "kou"],
-     ("កើ", "kaeu"], ["គើ", "keu"], ["កឿ", "koea"], ["គឿ", "koea"],
-     ("កួ", "kuo"], ["គួ", "kuo")),
-
+    ...unlistedVowels,
+    ["កី", "ki"],
+    ["គី", "kei"],
   ];
   const actual = cases.map(([source, romanized]) => {
     const result = buildRomanizationIpaCandidate(source, romanized);
