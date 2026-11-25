@@ -191,6 +191,25 @@ export function fromProvisionalIpa(ipaHint, {
   });
 }
 
+export function fromProvisionalFullIpa(ipa, {
+  kind = "PHONEMIC",
+  provenance = [],
+  uncertainty = [],
+} = {}) {
+  const typed = fromIpa(ipa, { status: "UNCERTAIN", kind, provenance, uncertainty });
+  if (typed.status === "UNRESOLVED") return typed;
+  return {
+    ...typed,
+    status: "PROVISIONAL",
+    segments: typed.segments.map((segment) => ({
+      ...segment,
+      certainty: "PROVISIONAL",
+    })),
+    provenance: [...new Set([...typed.provenance, "CANDIDATE:PROVISIONAL-FULL-IPA"])],
+    uncertainty: [...new Set([...typed.uncertainty, "PHONETIC-READING-PROVISIONAL"])],
+  };
+}
+
 export function fromUnknownSourceUnit(surface, {
   provenance = [],
   uncertainty = [],
