@@ -40,5 +40,21 @@ The workflow fetches the dataset and model ephemerally. It uploads only aggregat
 - Tests: `tests/test_benchmark_nckl_respelling.py`.
 - Optional workflow: `.github/workflows/optional-nckl-respelling-benchmark.yml`.
 - Test-first RED: Quality run [45581925948](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45581925948) failed exactly because the harness module did not yet exist (6 expected FileNotFoundError failures; 507 existing tests and 70 subtests passed).
-- Final harness/benchmark execution: pending.
+- Final Quality [45582195369](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45582195369): SUCCESS — full Python, JS, parity, deterministic benchmark and build suite.
+- Optional NCKL inference [45582195410](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45582195410): SUCCESS. Aggregate artifact [nckl-respelling-aggregate](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45582195410/artifacts/15007665451), ZIP SHA-256 `cc50383512e570b3cc36f1bd505046c1dc696a1ea607d3df992fb72087574755`; JSON SHA-256 `dc7a0c319e8499feac65d2ba7d11a064b37d0e3c0ed57449c4d3f09f6864d18e`. The archive contains only aggregate JSON and its checksum sidecar; this was inspected.
+
+## Measured result
+
+| Metric | Result |
+|---|---:|
+| Reference pairs | 1,920 |
+| Unique test words | 1,888 |
+| Output coverage | 100% (1,888/1,888) |
+| Word exact matches | 1,570 / 1,888 |
+| Word exact-match rate | 83.16% |
+| Character edits | 803 / 19,298 reference code points |
+| Character error rate | 4.16% |
+| Syllable-count accuracy | 93.06% (1,757/1,888) |
+
+The measured 83.16% exact-match rate and 4.16% CER reproduce the upstream PyPI-reported test results to one decimal place (83.2% / 4.2%). This is a useful reproducibility check, not evidence about our IPA engine. All model outputs were non-empty. No IPA accuracy was measured.
 - This benchmark is diagnostic research only; no runtime model integration is proposed.
