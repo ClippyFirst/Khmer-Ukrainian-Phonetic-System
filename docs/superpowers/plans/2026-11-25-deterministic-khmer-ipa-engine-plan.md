@@ -236,14 +236,19 @@
 
 ## Current task ledger — updated 2026-11-25
 
-- NCKL split-syllable bridge: PARTIAL / negative control; 8/12 exact and 6.93% CER versus direct Khmer Phonemizer 11/12 exact and 0.99% CER. Whole/spaced boundary variants remain TODO; NCKL is not integrated.
-- MekongPhon source-matrix gate: DONE_VERIFIED as a failed promotion diagnostic; greedy and beam-4 both 0/6 exact, 44.44% CER. Its public standalone model UI/ONNX deployment is removed by this continuation; archived research remains.
-- Google source inventory and typed phonemic→IPA adapter: DONE_VERIFIED on code-identical files in successful Quality run 45653367069; exact-head rerun pending.
-- Google deterministic lexical shards and Python/JS lookup: DONE_VERIFIED on code-identical files in successful Quality run 45653367069; exact-head rerun pending.
-- Project-owned neural teacher: DONE_VERIFIED by run 45653367069, artifact 15043450562; held-out source-label metrics 84.18% exact, 4.33% PER, 100% label coverage.
-- Neural-to-static OOV syllable distillation: DONE_VERIFIED as a research artifact by run 45653367069; 2,532 candidates, 63.86% exact, 14.19% PER, 98.4% composition coverage. Not gold accuracy.
-- Strict/Soft/Super-soft runtime integration: PARTIAL; tier filtering, local Google candidates, static neural table lookup, same-origin Worker/fallback and tests implemented; exact-head CI/Chromium pending.
-- Pages static table build/deploy: PARTIAL; cache/train/distill/stage/smoke steps implemented; Pages runs only from main and has not yet deployed this branch.
-- Independent pronunciation accuracy/profile equivalence: BLOCKED; adjudicated IPA gold remains 0 and Google source-profile equivalence is unverified.
-- Release gates: PARTIAL; Quality/Chromium/benchmarks queued at last check; no merge or deployment.
-- Workspace ruling: use the isolated remote GitHub branch because the container has no checkout and cannot resolve github.com. GitHub Actions exact-head runs are the verification source; no local repository test execution.
+- NCKL respelling → Khmer Phonemizer bridge: DONE_VERIFIED as a negative control. Split-syllable 8/12 exact, 6.93% CER; whole-string 7/12 exact, 6.93% CER; spaced-string 7/12 exact, 6.93% CER. Direct Khmer Phonemizer on the same 12 source-attested inputs: 11/12 exact, 0.99% CER. No NCKL bridge mode is integrated.
+- MekongPhon direct IPA source-matrix gate: DONE_VERIFIED as a failed promotion diagnostic; greedy and beam-4 both 0/6 exact, 44.44% CER. The standalone model UI/ONNX production path is removed in this continuation; historical research is retained.
+- Google source inventory and typed phonemic→IPA adapter: DONE_VERIFIED on code-identical files in successful Quality run 45653367069; latest exact-head rerun pending. The adapter keeps Google notation distinct from IPA and fails closed on unknown tokens.
+- Google deterministic lexical shards and Python/JS lookup: DONE_VERIFIED on code-identical files in successful Quality run 45653367069; latest exact-head rerun pending. Eight shards, four multi-pronunciation words preserved, 61 blank rows unresolved.
+- Google lexicon schemas: PARTIAL pending exact-head Quality; manifest/shard JSON Schema and a test covering all eight shards are now added.
+- Project-owned neural teacher: DONE_VERIFIED by run 45653367069, artifact 15043450562; held-out source-label metrics 84.18% exact, 4.33% PER, 100% label coverage. These are not independent IPA accuracy.
+- Neural-to-static OOV syllable distillation: DONE_VERIFIED as a research artifact by run 45653367069; 2,532 accepted candidates, 63.86% exact, 14.19% PER, 98.4% composition coverage. A dedicated schema and validator now guard the artifact; exact-head run pending.
+- Strict/Soft/Super-soft runtime integration: PARTIAL; tier filtering, local Google candidates, static neural table lookup, same-origin Worker/fallback and browser tests are implemented. Strict > Soft > Super-soft accuracy remains BLOCKED by zero independent IPA gold.
+- Browser initial-load performance: PARTIAL pending exact-head Vite build. The UI now avoids creating the Worker for empty input, defers the heavy engine import to the Worker/async fallback, and shows a local-processing status. Previous build measured a 5.88 MB service chunk (1.18 MB gzip) and 5.84 MB Worker chunk; the optimization must be confirmed by the current build output.
+- Production Pages artifact verification: PARTIAL; a branch-gated `pages-build-check` job now consumes the exact-head teacher artifact, validates/stages the static table, builds Pages and runs Chromium. The main Pages workflow also validates the artifact; the branch has not been deployed.
+- Independent pronunciation accuracy/profile equivalence: BLOCKED; adjudicated IPA gold remains 0 and Google source-profile equivalence is UNVERIFIED.
+- Whole-branch review and release gates: TODO/PARTIAL; exact-head Quality, browser smoke, teacher/distillation, Pages build and benchmark checks are pending. No merge or deployment has occurred.
+- PR reconciliation: #582 is the active draft branch. PR #519 remains open and untouched because it is 73 commits ahead / 212 behind main and overlaps older hybrid/provider behavior; it is not blindly merged.
+- Latest branch head at this ledger update: `a0c6608283492e441d1519a91a4035b89cfed994`; base main `8838a1f33b03aa1bad7c045c216305bb3e60e3f9`.
+- Latest exact-head workflow run [45673135462](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45673135462) was queued at the last status check; browser [45673135501](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45673135501) and benchmarks were pending. Older superseded runs are cancelled by per-branch workflow concurrency.
+- Workspace ruling: the container has no repository checkout and cannot resolve github.com. All source changes were committed remotely; GitHub Actions exact-head runs are the verification source. No local repository test execution is claimed.
