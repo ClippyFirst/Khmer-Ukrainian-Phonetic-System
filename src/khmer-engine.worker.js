@@ -29,7 +29,7 @@ self.addEventListener("message", async (event) => {
     return;
   }
   try {
-    const distilledSyllables = outputLevel === "exploratory" ? await loadDistilledTable() : null;
+    const distilledSyllables = outputLevel !== "strict" ? await loadDistilledTable() : null;
     const result = convert(text, profile, { outputLevel, distilledSyllables });
     self.postMessage({ id, result });
   } catch (error) {
