@@ -428,8 +428,8 @@ test("Strict withholds unadjudicated lexical candidates while Soft uses the loca
   await expect(page.locator("#ipa-result")).not.toHaveText("/kam.pu.ciə/ /prɑ.ciə.tʰɨp.paʔ.taj/???");
   for (const level of ["balanced", "exploratory"]) {
     await page.locator("#output-level").selectOption(level);
-    await expect(page.locator("#ua-result")).toHaveText("кампутьіє пратьієт'иппатай???");
-    await expect(page.locator("#ipa-result")).toHaveText("/kam.pu.ciə/ /prɑ.ciə.tʰɨp.paʔ.taj/???");
+    await expect(page.locator("#ua-result")).toHaveText("кампутьіє пратьієт'иппатай");
+    await expect(page.locator("#ipa-result")).toHaveText("/kam.pu.ciə/ /prɑ.ciə.tʰɨp.paʔ.taj/");
   }
 });
 
