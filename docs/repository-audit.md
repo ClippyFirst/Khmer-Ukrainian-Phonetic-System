@@ -3294,12 +3294,13 @@ Research limits remain: independent adjudicated IPA gold = 0; pronunciation accu
 
 ## Browser-local MekongPhon engine port audit — 2026-11-25
 
-PR #578 adds a real browser-side IPA inference path instead of relying only on the bounded onset/fixture adapter. The pinned model artifact is Apache-2.0 per upstream model-card metadata; corpus rights are not inherited and the training corpus is not bundled. The model is exported to INT8 ONNX and executed locally via vendored ONNX Runtime Web/WASM in a Worker. The model is lazy-loaded after user action, and output remains a separate PROVISIONAL candidate through the typed IPA → Ukrainian adapter.
+PR #578 adds a browser-side IPA inference path using the pinned BYU MATRIX MekongPhon model. The model artifact is Apache-2.0 per upstream model-card metadata; the upstream training/evaluation corpus is not copied and its redistribution rights remain unresolved. The model is exported to INT8 ONNX and executed locally via vendored ONNX Runtime Web/WASM in a Worker. Model weights are lazy-loaded only after explicit user action; output remains a separate PROVISIONAL candidate through the typed IPA → Ukrainian adapter.
 
-Evidence collected so far:
-- Python/JavaScript parity, Python tests, web checks, deterministic benchmarks and Vite build passed on PR head `74f6d885ce9312db1409854c760a2943a3649c47` (Quality run [45623011916](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45623011916)).
-- Browser tokenizer parity against pinned Transformers encoder and decoder tokenizers passed in the model-enabled export workflow.
-- Export generation parity: FP32 ONNX vs pinned Transformers was exact for two probes and 3.03% CER for the reported national-assembly phrase; INT8 output matched FP32 exactly on all three probes. This measures implementation parity only.
-- First model-enabled Chromium attempt failed because the test treated the initial explanatory status string containing the word PROVISIONAL as completed inference. The wait predicate was corrected to require the final `PROVISIONAL · MekongPhon@...` provider status, and the test window was extended to 230 seconds. The corrected exact-head run is pending.
+Exact-head evidence:
+- PR head: `572791638d18ec66a82469a36840f34d68dec1c9`.
+- Quality [45624434366](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624434366): PASS — Python tests, npm checks, structural/lexical/rule/segmentation parity, deterministic benchmarks, Vite build, pinned model export, tokenizer parity, production Chromium model inference, and model proof artifact upload.
+- Model-enabled Chromium: 46/46 Playwright tests passed, including real in-browser ONNX inference for the reported national-assembly phrase and assertion that no external HTTP(S) requests occur during inference.
+- Separate PR browser smoke [45624453942](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624453942): PASS.
+- Export generation parity: FP32 ONNX vs pinned Transformers was exact for two probes and 3.03% CER for the reported phrase; INT8 matched FP32 exactly on all three probes. These are implementation-parity metrics, not phonetic accuracy.
 
-Audit status: browser model integration PARTIAL pending exact-head Chromium and Pages gates; pronunciation accuracy remains NOT_ASSESSED; model profile match remains UNVERIFIED; independent IPA gold remains 0. The deterministic canonical engine and the external model candidate remain separate. Do not present this as linguistically validated or deploy before the model-enabled Pages workflow passes.
+Audit status: browser model integration DONE_VERIFIED on the PR branch; PR #578 remains draft and unmerged. GitHub Pages production deployment remains TODO until owner-authorized merge and a successful main-branch Pages run. Pronunciation accuracy remains NOT_ASSESSED; model profile match remains UNVERIFIED; independent IPA gold remains 0. The deterministic canonical engine and external model candidate remain separate. Do not present the model as linguistically validated.
