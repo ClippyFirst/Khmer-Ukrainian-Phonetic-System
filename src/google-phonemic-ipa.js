@@ -1,4 +1,4 @@
-import defaultMap from "../data/khmer/google-phonemic-to-ipa.json";
+import defaultMap from "../data/khmer/google-phonemic-to-ipa.json" with { type: "json" };
 import { fromProvisionalFullIpa } from "./khmer-ipa-result.js";
 
 export const GOOGLE_PHONEMIC_PROFILE = "khmer-pph-careful-citation-v1";
