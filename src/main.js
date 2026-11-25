@@ -55,7 +55,7 @@ if (typeof document !== "undefined") {
     const inputText = source.value;
     const profile = $("profile").value;
     $("count").textContent = `${[...inputText].length} символів`;
-    const data = await analyzeInWorker(inputText, profile, convert);
+    const data = await analyzeInWorker(inputText, profile, convert, outputLevelMode);
     if (revision !== renderRevision) return;
     if (!data) {
       results.hidden = true;
@@ -180,9 +180,9 @@ if (typeof document !== "undefined") {
               ? data.status.replaceAll("_", " ") + " · PROVISIONAL · ЧАСТКОВА IPA-ПІДКАЗКА · ??? · доказовий рівень C"
               : data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
     const levelGuidance = {
-      strict: "Обережний рівень: показано лише наявні джерельно індексовані пропозиції; непідтверджені IPA не реконструюються. Якщо вимову не встановлено, окрема орфографічна підказка має суфікс ??? і не є транскрипцією. PROPOSED не є експертним gold.",
-      balanced: "Збалансований рівень: показує основний частковий результат, статус кожної одиниці та причини невизначеності. Невстановлені фрагменти зберігаються на своїх позиціях; орфографічні підказки позначаються ???.",
-      exploratory: "Дослідницький рівень: додатково показує часткові структурні підказки початкового приголосного та доступні орфографічні резервні варіанти. Вони не є повним складом або підтвердженою українською вимовою."
+      strict: "Strict: лише детерміновані правила й джерельно індексовані пропозиції. Немає нейромережевих OOV-підстановок, словникових кандидатів без підтвердження профілю чи часткових підказок. Це найобережніший рівень, але не експертний gold.",
+      balanced: "Soft: додає точні словникові фонемні записи Google та часткові IPA-підказки, коли повну структуру не встановлено. Усі такі доповнення позначені PROVISIONAL і не маскують невизначеність.",
+      exploratory: "Super-soft: додатково використовує статичні детерміновані OOV-кандидати, отримані дистиляцією офлайнової нейромережі, та орфографічні резервні підказки. Це розширює непорожнє покриття, але збільшує частку неперевірених результатів."
     };
     outputLevelNote.textContent = levelGuidance[outputLevelMode];
     $("details").textContent = data.note + " " + levelGuidance[outputLevelMode];
@@ -218,9 +218,11 @@ if (typeof document !== "undefined") {
             + (unit.orthographic_fallback_ukrainian
               ? " · Окрема орфографічна романізація: " + unit.orthographic_fallback_ukrainian + " [BGN/PCGN-derived, не вимова]"
               : "")
-          : unit.provisional_ipa
-            ? " · Попередня підказка: " + unit.provisional_ipa + " → " + unit.provisional_ukrainian + " [PROVISIONAL]"
-            : "");
+          : unit.partial_candidate_kind === "NEURAL_DISTILLED_OOV_SYLLABLE"
+            ? " · Детермінований OOV-кандидат із нейромережевої дистиляції: /" + unit.provisional_ipa + "/ → " + unit.provisional_ukrainian + " [PROVISIONAL · лише Super-soft]"
+            : unit.provisional_ipa
+              ? " · Попередній IPA-кандидат: /" + unit.provisional_ipa + "/ → " + unit.provisional_ukrainian + " [PROVISIONAL]"
+              : "");
       const note = document.createElement("p");
       note.className = "unit-note";
       note.textContent = unit.note || "Окремого пояснення для цієї одиниці немає.";
