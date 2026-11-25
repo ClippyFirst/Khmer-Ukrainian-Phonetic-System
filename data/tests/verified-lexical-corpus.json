@@ -132,5 +132,27 @@
     "evidence_note": "Wiktionary permanent revision oldid=63698235 gives standard IPA /ʔak.ˈsɑː muːl/ for the directly listed Khmer entry អក្សរមូល. The page separately displays orthographic/phonemic ʼk̥srmūl and WT romanisation ʼaksɑɑ muul; these are not substituted for IPA. Community-maintained lexical reference; not independently adjudicated against audio.",
     "orthographic_phonemic_transcription": "ʼk̥srmūl",
     "wt_romanisation": "ʼaksɑɑ muul"
+  },
+  "សភាតំណាង": {
+    "ipa": "/saʔ.pʰiə tɑm.naːŋ/",
+    "profile": "careful_standard",
+    "ipa_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
+    "ua_status": "PROPOSED",
+    "sources": [
+      "https://kaweah.freedombox.rocks/kiwix/content/wiktionary_en_all_maxi_2023-04/A///%E1%9E%9F%E1%9E%97%E1%9E%B6%E1%9E%8F%E1%9F%86%E1%9E%8E%E1%9E%B6%E1%9E%84%E1%9E%9A%E1%9E%B6%E1%9E%9F%E1%9F%92%E1%9E%8F%E1%9F%92%E1%9E%9A"
+    ],
+    "evidence_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
+    "evidence_note": "The archived Wiktionary entry for the longer compound សភាតំណាងរាស្ត្រ gives standard IPA /saʔ.pʰiə tɑm.naːŋ riəh/. This corpus entry retains the exact first-two-component prefix only. It is not evidence for the full phrase សភាតំណាងប្រជាជនកម្ពុជា and has not been independently adjudicated against audio."
+  },
+  "ប្រជាជន": {
+    "ipa": "/prɑː.ciə.cŭən/",
+    "profile": "careful_standard",
+    "ipa_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
+    "ua_status": "PROPOSED",
+    "sources": [
+      "https://en.wiktionary.org/wiki/ប្រជាជន"
+    ],
+    "evidence_status": "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED",
+    "evidence_note": "Wiktionary Pronunciation gives standard IPA /prɑː.ciə.cŭən/. U+016D breve is retained as part of the source transcription; the Ukrainian target maps it to у without encoding quantity. Community-maintained lexical reference; not independently adjudicated against audio."
   }
 }
