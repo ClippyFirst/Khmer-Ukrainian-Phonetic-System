@@ -55,8 +55,8 @@ def test_google_phonemic_to_ipa_preserves_syllable_boundaries_and_length():
     assert result.ipa_kind == "PHONEMIC"
     assert result.status == "PROVISIONAL"
     assert result.mapping_status == "SOURCE_CORROBORATED"
-    assert result.candidate.kind == "PHONEMIC"
-    assert result.candidate.ipa == result.ipa
+    assert result.candidate.ipa_kind == "PHONEMIC"
+    assert result.candidate.phonemic_ipa == result.ipa
 
 
 def test_google_phonemic_to_ipa_maps_source_corroborated_diphthong_and_aspiration():
