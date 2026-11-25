@@ -15,7 +15,7 @@ The dataset card explicitly describes its target as Khmer-script respelling rath
 | Model architecture source | `PhonSobon/Khmer-pronunciation` revision `66b526ebd5edbacfeb7178f377de30662d9b30d2` | Upstream inference architecture and tokenizer |
 | Target split | `test` | Word-disjoint from train and validation |
 
-Dataset card split sizes: train 34,770 pairs / 33,979 unique words; validation 1,939 / 1,888; test 1,920 / 1,888. The harness verifies the split sizes and checks pairwise word-disjointness before inference.
+Dataset: [phonsobon/khmer-G2P](https://huggingface.co/datasets/phonsobon/khmer-G2P). Model: [phonsobon/khmer-g2p](https://huggingface.co/phonsobon/khmer-g2p). Upstream source: [PhonSobon/Khmer-pronunciation](https://github.com/PhonSobon/Khmer-pronunciation). Dataset card split sizes: train 34,770 pairs / 33,979 unique words; validation 1,939 / 1,888; test 1,920 / 1,888. The harness verifies the split sizes and checks pairwise word-disjointness before inference.
 
 The model card reports 83.37% validation word accuracy. The PyPI package description reports 83.2% word accuracy and 4.2% character error rate on its test split; those are upstream claims, not this repository's measurements.
 
