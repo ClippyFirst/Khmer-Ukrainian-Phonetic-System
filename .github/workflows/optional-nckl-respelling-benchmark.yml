@@ -1,0 +1,37 @@
+name: Optional NCKL Khmer respelling benchmark
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  nckl-respelling:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout benchmark harness
+        uses: actions/checkout@v7
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install pinned CPU inference and dataset dependencies
+        run: |
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu "torch==2.5.1"
+          python -m pip install "datasets==3.1.0" "huggingface-hub==0.26.2" "safetensors==0.4.5" "khmer-g2p==0.1.0"
+      - name: Run pinned NCKL test-split respelling benchmark
+        run: |
+          mkdir -p artifacts
+          python scripts/benchmark_nckl_respelling.py \
+            --output artifacts/nckl-respelling-aggregate.json
+      - name: Upload aggregate metrics only
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: nckl-respelling-aggregate
+          path: artifacts/nckl-respelling-aggregate.json*
+          if-no-files-found: warn
+          retention-days: 30
