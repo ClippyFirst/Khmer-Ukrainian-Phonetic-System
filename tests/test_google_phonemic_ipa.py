@@ -35,17 +35,18 @@ def _ipa_key(value):
 
 def test_google_phonemic_tokens_are_covered_by_pinned_inventory_and_map():
     mapping = load_google_phone_map()
-    inventory = json.loads((DATA / "google-phonology.json").read_text(encoding="utf-8"))
-    inventory_tokens = {row[0] for row in inventory["phones"]}
     observed = set()
     for pronunciations in _source_rows().values():
         for pronunciation in pronunciations:
             observed.update(token for token in pronunciation.split() if token != ".")
 
+    # The licensed CC BY 4.0 lexicon is the runtime token-inventory authority.
+    # The companion Google phonology JSON is not redistributed because its
+    # file-level license scope remains unresolved.
     assert len(observed) == 54
-    assert observed <= inventory_tokens
-    assert observed == set(mapping["tokens"]) - {"sil", "pau"}
-    assert set(mapping["tokens"]) == inventory_tokens
+    assert observed == set(mapping["tokens"])
+    assert "sil" not in mapping["tokens"]
+    assert "pau" not in mapping["tokens"]
 
 
 def test_google_phonemic_to_ipa_preserves_syllable_boundaries_and_length():
