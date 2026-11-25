@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 from collections import Counter
 from pathlib import Path
@@ -15,17 +14,12 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from khmer_ua.google_phonemic import (
     DEFAULT_INVENTORY_PATH,
-    DEFAULT_MAP_PATH,
     DEFAULT_TSV_PATH,
     load_google_phonemic_lexicon,
     parse_google_phonemic,
 )
 
 DEFAULT_OUTPUT = ROOT / "data" / "khmer" / "google-phonemic-ipa-lexicon.json"
-
-
-def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def build_google_phonemic_lexicon() -> dict[str, Any]:
@@ -79,9 +73,8 @@ def build_google_phonemic_lexicon() -> dict[str, Any]:
             "source_tsv_path": "data/khmer/google-pronunciation-full.tsv",
             "source_tsv_sha256": source.manifest["source_tsv_sha256"],
             "phonology_path": "data/khmer/google-phonology.json",
-            "phonology_sha256": _sha256(DEFAULT_INVENTORY_PATH),
+            "phonology_git_blob_sha": mapping["source"]["phonology_git_blob_sha"],
             "ipa_map_path": "data/khmer/google-phonemic-to-ipa.json",
-            "ipa_map_sha256": _sha256(DEFAULT_MAP_PATH),
             "ipa_map_version": mapping["map_version"],
         },
         "manifest": {
