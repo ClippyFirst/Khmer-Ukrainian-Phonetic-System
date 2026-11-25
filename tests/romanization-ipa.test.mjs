@@ -80,3 +80,28 @@ test("every mapped IPA onset equals the repository's source-registered consonant
     assert.ok(entry.source_ids.includes("r12a-orthography"));
   }
 });
+
+test("exact source-aligned representative series vowels produce provisional IPA without a fabricated tail", () => {
+  for (const fixture of onsetInventory.representative_syllables) {
+    const romanized = khmerToLatin(fixture.source).toLowerCase();
+    assert.equal(romanized, fixture.romanization, fixture.source + " upstream PCGN romanization");
+    const result = buildRomanizationIpaCandidate(fixture.source, romanized);
+    assert.equal(result.status, "PROVISIONAL", fixture.source);
+    assert.equal(result.typed_ipa.status, "PROVISIONAL", fixture.source);
+    assert.equal(result.typed_ipa.segments.map((segment) => segment.ipa).join(""), fixture.ipa, fixture.source);
+    assert.ok(result.typed_ipa.segments.every((segment) => segment.certainty === "PROVISIONAL"));
+    assert.ok(result.typed_ipa.segments.every((segment) => segment.kind !== "unknown"));
+    assert.ok(result.uncertainty.includes("NOT_GENERALIZED_TO_OTHER_VOWEL_OR_CODA_CONTEXTS"));
+  }
+});
+
+test("same ASCII romanization can remain distinct when original Khmer series context differs", () => {
+  const first = buildRomanizationIpaCandidate("ក", khmerToLatin("ក"));
+  const dependent = buildRomanizationIpaCandidate("កា", khmerToLatin("កា"));
+  assert.equal(first.status, "PROVISIONAL");
+  assert.equal(dependent.status, "PROVISIONAL");
+  assert.notEqual(
+    first.typed_ipa.segments.map((segment) => segment.ipa).join(""),
+    dependent.typed_ipa.segments.map((segment) => segment.ipa).join(""),
+  );
+});
