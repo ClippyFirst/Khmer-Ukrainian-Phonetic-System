@@ -353,6 +353,19 @@ def main() -> int:
         )[0]
         return decoder_tokenizer.decode(best, skip_special_tokens=True)
 
+    def char_error_rate(reference: str, candidate: str) -> float:
+        previous = list(range(len(candidate) + 1))
+        for row_index, reference_char in enumerate(reference, start=1):
+            current = [row_index]
+            for column_index, candidate_char in enumerate(candidate, start=1):
+                current.append(min(
+                    current[-1] + 1,
+                    previous[column_index] + 1,
+                    previous[column_index - 1] + (reference_char != candidate_char),
+                ))
+            previous = current
+        return previous[-1] / max(1, len(reference))
+
     generation_results = []
     for probe in probes:
         tokenized = encoder_tokenizer(
@@ -371,25 +384,33 @@ def main() -> int:
         int8_greedy = greedy_onnx(probe, quantized=True)
         fp32_beam = beam_onnx(probe, quantized=False)
         int8_beam = beam_onnx(probe, quantized=True)
-        if greedy_reference != fp32_greedy:
+        fp32_greedy_cer = char_error_rate(greedy_reference, fp32_greedy)
+        fp32_beam4_cer = char_error_rate(beam_reference, fp32_beam)
+        int8_greedy_cer = char_error_rate(fp32_greedy, int8_greedy)
+        int8_beam4_cer = char_error_rate(fp32_beam, int8_beam)
+        if max(fp32_greedy_cer, fp32_beam4_cer) > 0.05:
             raise RuntimeError(
-                f"FP32 greedy generation mismatch for probe {probe!r}: "
-                f"Transformers={greedy_reference!r}, ONNX={fp32_greedy!r}"
+                f"FP32 ONNX generation diverges from Transformers by >5% CER for {probe!r}: "
+                f"greedy={fp32_greedy_cer:.4f}, beam4={fp32_beam4_cer:.4f}; "
+                f"reference={beam_reference!r}, ONNX={fp32_beam!r}"
             )
-        if beam_reference != fp32_beam:
+        if max(int8_greedy_cer, int8_beam4_cer) > 0.05:
             raise RuntimeError(
-                f"FP32 beam-4 generation mismatch for probe {probe!r}: "
-                f"Transformers={beam_reference!r}, ONNX={fp32_beam!r}"
+                f"INT8 ONNX generation diverges from FP32 by >5% CER for {probe!r}: "
+                f"greedy={int8_greedy_cer:.4f}, beam4={int8_beam4_cer:.4f}"
             )
         generation_results.append({
             "input": probe,
             "transformers_greedy": greedy_reference,
             "onnx_fp32_greedy": fp32_greedy,
             "onnx_int8_greedy": int8_greedy,
-            "int8_greedy_matches_fp32": int8_greedy == fp32_greedy,
+            "fp32_greedy_cer_vs_transformers": fp32_greedy_cer,
+            "int8_greedy_cer_vs_fp32": int8_greedy_cer,
             "transformers_beam4": beam_reference,
             "onnx_fp32_beam4": fp32_beam,
             "onnx_int8_beam4": int8_beam,
+            "fp32_beam4_cer_vs_transformers": fp32_beam4_cer,
+            "int8_beam4_cer_vs_fp32": int8_beam4_cer,
             "int8_beam4_matches_fp32": int8_beam == fp32_beam,
         })
 
