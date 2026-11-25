@@ -34,7 +34,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: public/models/mekongphon
-          key: mekongphon-\${{ runner.os }}-\${{ hashFiles('scripts/export_mekongphon_onnx.py', 'requirements-mekongphon-browser-export.txt') }}
+          key: mekongphon-${{ runner.os }}-${{ hashFiles('scripts/export_mekongphon_onnx.py', 'requirements-mekongphon-browser-export.txt') }}
 
       - name: Install pinned model export toolchain
         if: steps.model-cache.outputs.cache-hit != 'true'
