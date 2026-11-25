@@ -75,9 +75,9 @@ The builder should first verify the exact behavior and licensing of `@gmana/km-t
 
 The first executable stage is implemented on branch `feat/romanization-mediated-ipa-20261125` (draft PR #572):
 
-- A source-aligned PCGN onset adapter cross-checks the leading romanization token against the original Khmer base consonant and the repository's source-registered onset IPA.
+- A source-aligned PCGN adapter cross-checks the leading romanization token against the original Khmer base consonant and the repository's source-registered onset IPA. It also supports six exact representative vowel syllables from the repository's cited series contrasts, but only when both full Khmer spelling and ASCII romanization match.
 - The resulting typed IPA is always `PROVISIONAL` or `UNRESOLVED`; Ukrainian output uses the existing IPA-only adapter.
 - The context-sensitive PCGN BA `b/p` row abstains. Vowels, codas, syllable boundaries, tone and dialect detail remain unresolved.
 - The orthographic romanization card remains separately available and explicitly marked “не вимова”.
 - Python/JavaScript semantics and all registered onset rules have parity tests. Quality checks passed on `9d5acbb95fbe46df884d1ccc2482eb48d6f6d90e`; Chromium smoke passed 43/43 on the same code head.
-- This is a verified partial implementation, not completion of the full contextual G2P acceptance criteria. The vowel model explicitly warns that its representative contrasts are not a complete deterministic orthography-to-IPA matrix. Do not generalize the onset-only inventory into vowel/coda rules without additional evidence and tests.
+- This is a verified partial implementation, not completion of the full contextual G2P acceptance criteria. The vowel model explicitly warns that its representative contrasts are not a complete deterministic orthography-to-IPA matrix; no general vowel or coda rules were inferred from the six examples. Do not generalize the onset-only inventory into vowel/coda rules without additional evidence and tests.
