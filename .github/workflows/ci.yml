@@ -202,12 +202,17 @@ jobs:
       - name: Train word-disjoint Google Khmer phonemic teacher
         run: python scripts/train_google_phonemic_teacher.py --epochs 12 --batch-size 192 --embedding-size 96 --hidden-size 128 --output-dir dist/google-khmer-teacher
 
-      - name: Upload offline teacher checkpoint and aggregate-only evaluation
+      - name: Distill teacher predictions into a deterministic OOV syllable candidate table
+        run: python scripts/distill_google_teacher.py --checkpoint dist/google-khmer-teacher/teacher.pt --output-dir dist/google-khmer-teacher --batch-size 192
+
+      - name: Upload offline teacher and deterministic distillation artifacts
         uses: actions/upload-artifact@v6
         with:
           name: google-khmer-phonemic-teacher-${{ github.sha }}
           path: |
             dist/google-khmer-teacher/teacher.pt
             dist/google-khmer-teacher/metrics.json
+            dist/google-khmer-teacher/distilled-syllables.json
+            dist/google-khmer-teacher/distillation-metrics.json
           if-no-files-found: error
           retention-days: 14

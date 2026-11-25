@@ -248,7 +248,7 @@ def main() -> int:
     )
     args.output_dir.mkdir(parents=True, exist_ok=True)
     config = {
-        "architecture": "bidirectional-GRU-encoder/GRU-decoder-v1",
+        "architecture": "bidirectional-GRU-encoder/attention-GRU-decoder-v1",
         "embedding_size": args.embedding_size,
         "hidden_size": args.hidden_size,
         "seed": args.seed,
