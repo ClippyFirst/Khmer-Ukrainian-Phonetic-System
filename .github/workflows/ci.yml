@@ -86,6 +86,18 @@ jobs:
           node-version: 24
       - name: Verify browser tokenizer against pinned Transformers tokenizers
         run: node tests/mekongphon-browser-tokenizer.test.mjs dist/mekongphon
+      - name: Stage model assets for the browser production test
+        run: mkdir -p public/models && cp -a dist/mekongphon public/models/mekongphon
+      - name: Vendor integrity-pinned ONNX Runtime Web
+        run: node scripts/vendor_onnxruntime_web.mjs public/vendor/onnxruntime-web
+      - name: Install web dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Build model-enabled browser app
+        run: npm run build
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Exercise on-device model in Chromium
+        run: npm run test:browser
       - name: Upload browser model proof-of-port
         uses: actions/upload-artifact@v6
         with:
