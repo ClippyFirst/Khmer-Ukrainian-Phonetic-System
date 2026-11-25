@@ -1,4 +1,6 @@
 import { test, expect } from "@playwright/test";
+import fs from "node:fs";
+import path from "node:path";
 
 test.beforeEach(async ({ page }, testInfo) => {
   if ([
@@ -615,3 +617,38 @@ test("reported Khmer national-assembly phrase renders a source-backed IPA-derive
   await expect(page.locator("#status")).not.toContainText("НЕВСТАНОВЛЕНО");
   await expect(page.locator("#ua-orthographic-status")).toContainText("не вимова");
 });
+
+test("MekongPhon runs as an on-device browser model and returns the pinned ONNX candidate", async ({ page }) => {
+  const manifestPath = path.resolve("dist/models/mekongphon/manifest.json");
+  test.skip(!fs.existsSync(manifestPath), "model assets are generated only in the model-enabled Pages/export build");
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+  const probe = manifest.parity.generation_probes.find((item) =>
+    item.input === "សភាតំណាងប្រជាជនកម្ពុជា"
+  );
+  expect(probe?.onnx_int8_beam4).toBeTruthy();
+  test.setTimeout(120000);
+
+  const externalRequests = [];
+  page.on("request", (request) => {
+    const url = new URL(request.url());
+    if (url.origin !== new URL("http://127.0.0.1").origin
+        && !["localhost", "127.0.0.1", "::1"].includes(url.hostname)) {
+      externalRequests.push(url.href);
+    }
+  });
+
+  await page.goto("/");
+  await page.locator("#source").fill("សភាតំណាងប្រជាជនកម្ពុជា");
+  const button = page.locator("#run-mekongphon");
+  await expect(button).toBeEnabled();
+  await button.click();
+  const expected = probe.onnx_int8_beam4;
+  await expect(page.locator("#mekongphon-ipa")).toHaveText(
+    expected.startsWith("/") ? expected : "/" + expected + "/",
+    { timeout: 110000 },
+  );
+  await expect(page.locator("#mekongphon-status")).toContainText("PROVISIONAL");
+  await expect(page.locator("#mekongphon-status")).toContainText("текст не надсилався на сервер");
+  expect(externalRequests).toEqual([]);
+});
+
