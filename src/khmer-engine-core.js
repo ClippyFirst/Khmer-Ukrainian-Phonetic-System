@@ -586,38 +586,41 @@ function renderUnknownUnit(unit, profile) {
   if (googleCandidates.length === 1) {
     const lexicalCandidate = googleCandidates[0];
     const parsed = lexicalCandidate.parsed;
-    const typedIpa = parsed.candidate;
-    const provisionalUkrainian = typedIpa
-      ? adaptPhoneticResult(typedIpa, { allowUncertain: true }) ?? "???"
+    const googleTypedIpa = parsed.candidate;
+    const provisionalUkrainian = googleTypedIpa
+      ? adaptPhoneticResult(googleTypedIpa, { allowUncertain: true }) ?? "???"
       : "???";
-    const sourceId = "google-khmer-pronunciation-sample-2026";
-    const inventoryId = "google-khmer-phonology-inventory-2026";
     return {
       source: unit,
       ipa: "⟦NOT_ESTABLISHED⟧",
       ua: "⟦НЕВСТАНОВЛЕНО⟧",
-      status: "PROVISIONAL",
-      rule_trace: [
-        "GOOGLE-PHONEMIC-LEXICON-EXACT",
-        "GOOGLE-PHONEMIC-TO-IPA",
-        `GOOGLE-SOURCE-ROW:${lexicalCandidate.source_row}`,
-        "IPA-TO-UKRAINIAN-LONGEST-MATCH",
-      ],
-      note: "Є локальний словниковий фонемний кандидат Google, перетворений на типізовану IPA. Відповідність обраному профілю та всі фонемні відповідності ще не ад'юдиковано; ??? позначає попередній статус.",
+      status: "NOT_ESTABLISHED",
+      rule_trace: ["KHMER_UNSUPPORTED_PATTERN_WITHHELD"],
+      note: "Канонічну вимову не встановлено. Окремо доступний попередній словниковий фонемний кандидат Google; його профільна відповідність не ад'юдикована.",
       profile,
-      typed_ipa: typedIpa,
+      typed_ipa: fromUnknownSourceUnit(unit, { provenance: ["KHMER-ENGINE-UNRESOLVED"] }),
       provisional_ipa: parsed.ipa,
       provisional_ukrainian: provisionalUkrainian,
       partial_candidate_kind: "LEXICAL_PHONEMIC_CANDIDATE",
-      evidence: [sourceId, inventoryId],
-      phonology_evidence: [sourceId, inventoryId],
-      uncertainty: parsed.uncertainty,
+      provisional_candidates: [{
+        candidate_type: "GOOGLE_PHONEMIC_LEXICON",
+        ipa: parsed.ipa,
+        ipa_kind: parsed.ipa_kind,
+        ukrainian: provisionalUkrainian,
+        status: "PROVISIONAL",
+        mapping_status: parsed.mapping_status,
+        source_row: lexicalCandidate.source_row,
+        source_phonemic: lexicalCandidate.source_phonemic,
+        provenance: [...parsed.provenance, `GOOGLE_SOURCE_ROW:${lexicalCandidate.source_row}`],
+        uncertainty: [...parsed.uncertainty, "AUXILIARY_CANDIDATE_DOES_NOT_REPLACE_CANONICAL_ENGINE_OUTPUT"],
+      }],
       google_source_row: lexicalCandidate.source_row,
       google_source_phonemic: lexicalCandidate.source_phonemic,
       google_mapping_status: parsed.mapping_status,
+      evidence: [],
+      phonology_evidence: [],
     };
   }
-
 
   // If no positional IPA hint exists, retain the independent orthographic
   // romanization candidate as a secondary diagnostic only.
@@ -840,15 +843,17 @@ function convert(text, profile) {
       ? "NOT_APPLICABLE"
       : item.typed_ipa?.ipa_kind ?? item.ipa_kind ?? "UNRESOLVED",
     rule_trace: item.rule_trace ?? [],
-    ipa: item.provisional_ipa ?? item.partial_ipa ?? (item.status !== "PUNCTUATION" && /^\/.*\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa),
-    ukrainian: ["ONSET_ONLY", "LEXICAL_PHONEMIC_CANDIDATE"].includes(item.partial_candidate_kind)
+    ipa: item.partial_candidate_kind === "LEXICAL_PHONEMIC_CANDIDATE"
+      ? item.ipa
+      : item.provisional_ipa ?? item.partial_ipa ?? (item.status !== "PUNCTUATION" && /^\/.*\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa),
+    ukrainian: item.partial_candidate_kind === "ONSET_ONLY"
       ? item.provisional_ukrainian
       : (item.orthographic_fallback_ukrainian || item.fallback_ukrainian)
         ? (item.orthographic_fallback_ukrainian || item.fallback_ukrainian) + "???"
         : ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
           ? item.ua
           : item.status === "PROPOSED" ? item.ua : "???",
-    ukrainian_kind: ["ONSET_ONLY", "LEXICAL_PHONEMIC_CANDIDATE"].includes(item.partial_candidate_kind)
+    ukrainian_kind: item.partial_candidate_kind === "ONSET_ONLY"
       ? "IPA_DERIVED_PROVISIONAL"
       : item.orthographic_fallback_ukrainian || item.fallback_status === "PROVISIONAL"
         ? "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"

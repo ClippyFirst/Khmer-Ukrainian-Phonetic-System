@@ -61,7 +61,7 @@ def _confidence_tier(unit: dict[str, Any]) -> str:
         and registered_phonology_source
     ):
         return "B"
-    if unit.get("provisional_ipa") or status in {"EVIDENCE_LIMITED", "PROPOSED", "PROVISIONAL", "ANALYSIS_DEPENDENT"}:
+    if unit.get("provisional_ipa") or unit.get("provisional_candidates") or status in {"EVIDENCE_LIMITED", "PROPOSED", "PROVISIONAL", "ANALYSIS_DEPENDENT"}:
         return "C"
     if status in {"PUNCTUATION", "NON_LINGUISTIC"}:
         return "N/A"
@@ -366,7 +366,8 @@ def _analyze_unit(unit: str) -> dict[str, Any]:
         "provisional_ukrainian": preview["ukrainian_preview"] if preview else None,
         "fallback_status": preview["status"] if preview else "UNKNOWN",
         "fallback_trace": preview["syllables"] if preview else [],
-        "rule_trace": ["KHMER_UNSUPPORTED_PATTERN_WITHHELD", "PROVISIONAL_ONSET_IPA_PREVIEW"],
+        "rule_trace": ["KHMER_UNSUPPORTED_PATTERN_WITHHELD"]
+            + (["PROVISIONAL_ONSET_IPA_PREVIEW"] if preview else []),
         "reason": "Canonical IPA remains withheld. A separate low-confidence onset-only preview is offered where a registered consonant IPA is available; no vowel, coda or tone is inferred.",
         "structure": structure.phonological_representation,
     }
@@ -458,6 +459,7 @@ class RuleBasedKhmerEngine:
         )
         has_provisional_preview = any(
             unit.get("provisional_ipa") or unit.get("provisional_ukrainian")
+            or unit.get("provisional_candidates")
             for unit in linguistic
         )
         partial = not complete and (bool(resolved) or has_provisional_preview)
