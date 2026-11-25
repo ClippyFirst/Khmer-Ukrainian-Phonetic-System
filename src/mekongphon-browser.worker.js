@@ -89,6 +89,7 @@ function topLogProbabilities(row, limit) {
 async function generateBeam({ ort, encoder, decoder, tokenizers, manifest }, text, postProgress) {
   const maxLength = manifest.generation?.max_length ?? 128;
   const beamSize = 4;
+  const lengthPenalty = manifest.generation?.length_penalty ?? 1.0;
   const encodedInput = tokenizers.encoder.encodeWithMetadata(text, { maxLength });
   const inputIds = encodedInput.ids;
   if (!inputIds.length) throw new Error("EMPTY_MODEL_INPUT");
@@ -152,8 +153,8 @@ async function generateBeam({ ort, encoder, decoder, tokenizers, manifest }, tex
         if (rank < beamSize) {
           finished.push({ ids: beams[candidate.parent].ids, score: candidate.score });
           finished.sort((left, right) =>
-            (right.score / Math.max(1, right.ids.length - 1))
-              - (left.score / Math.max(1, left.ids.length - 1))
+            (right.score / (Math.max(1, right.ids.length - 1) ** lengthPenalty))
+              - (left.score / (Math.max(1, left.ids.length - 1) ** lengthPenalty))
           );
           finished.splice(beamSize);
         }
@@ -169,11 +170,11 @@ async function generateBeam({ ort, encoder, decoder, tokenizers, manifest }, tex
       if (earlyStopping === true) break;
       if (earlyStopping === false) {
         const worstFinished = Math.min(
-          ...finished.map((item) => item.score / Math.max(1, item.ids.length - 1)),
+          ...finished.map((item) => item.score / (Math.max(1, item.ids.length - 1) ** lengthPenalty)),
         );
         const bestSumLogprobs = candidates[0].score;
         const currentGeneratedLength = Math.max(1, targetLength - 1);
-        if (worstFinished >= bestSumLogprobs / currentGeneratedLength) break;
+        if (worstFinished >= bestSumLogprobs / (currentGeneratedLength ** lengthPenalty)) break;
       }
     };
   }
@@ -181,8 +182,8 @@ async function generateBeam({ ort, encoder, decoder, tokenizers, manifest }, tex
   if (finished.length < beamSize) finished.push(...beams);
   if (!finished.length) throw new Error("MODEL_GENERATION_EMPTY");
   finished.sort((left, right) =>
-    (right.score / Math.max(1, right.ids.length - 1))
-      - (left.score / Math.max(1, left.ids.length - 1))
+    (right.score / (Math.max(1, right.ids.length - 1) ** lengthPenalty))
+      - (left.score / (Math.max(1, left.ids.length - 1) ** lengthPenalty))
   );
   const bestIds = finished[0].ids;
   return {
