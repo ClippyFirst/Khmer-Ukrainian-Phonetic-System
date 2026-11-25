@@ -774,6 +774,10 @@ function convert(text, profile) {
         || (item.fallback_status === "PROVISIONAL" && Boolean(item.fallback_ukrainian)))
   );
   const hasPartialOnset = rendered.some((item) => item.partial_candidate_kind === "ONSET_ONLY");
+  const hasGoogleLexicalCandidate = rendered.some((item) => item.partial_candidate_kind === "LEXICAL_PHONEMIC_CANDIDATE");
+  const googleCandidateIpa = rendered.map((item) => item.partial_candidate_kind === "LEXICAL_PHONEMIC_CANDIDATE"
+    ? "/" + item.provisional_ipa + "/???"
+    : item.ipa).join("");
   const provisionalUaParts = [];
   let pendingProvisionalUnknown = false;
   const flushProvisionalUnknown = () => {
