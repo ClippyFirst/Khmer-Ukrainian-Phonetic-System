@@ -1,3 +1,4 @@
+import assert from "node:assert/strict";
 import fs from "node:fs";
 
 const main = fs.readFileSync("src/main.js", "utf8");
@@ -39,4 +40,11 @@ if (!main.includes('if (typeof document !== "undefined")') || core.includes("doc
 if (!html.includes('src="/src/main.js"') && !html.includes('src="./src/main.js"') && !html.includes('src="src/main.js"')) {
   throw new Error("public page no longer loads the main application module");
 }
+const { analyzeInWorker } = await import("../src/khmer-engine-client.js");
+const asyncFallbackResult = await analyzeInWorker("fallback probe", "khmer-pph-careful-citation-v1", async () => ({
+  source: "fallback probe",
+  status: "FALLBACK_ASYNC_OK",
+}));
+assert.equal(asyncFallbackResult.status, "FALLBACK_ASYNC_OK",
+  "worker construction failure must await the asynchronous local engine fallback");
 console.log("Khmer Web Worker contract: PASS");
