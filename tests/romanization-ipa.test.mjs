@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { khmerToLatin } from "@gmana/km-translit";
 import onsetInventory from "../data/khmer/romanization_ipa_onsets.json" with { type: "json" };
+import consonants from "../data/khmer/consonants.json" with { type: "json" };
 import { buildRomanizationIpaCandidate } from "../src/khmer-romanization-ipa.js";
 
 test("confirms a romanized onset only against its source consonant class", () => {
@@ -63,5 +64,19 @@ test("every executable onset rule has an inspectable PCGN locator and IPA eviden
     assert.ok(entry.pcgn_source_locator);
     assert.deepEqual(entry.ipa_evidence, ["unicode17-ch16", "r12a-orthography"]);
     assert.match(entry.scope, /base consonant onset only/u);
+  }
+});
+
+test("every mapped IPA onset equals the repository's source-registered consonant IPA", () => {
+  const byChar = Object.fromEntries(consonants.map((item) => [item.char, item]));
+  for (const entry of onsetInventory.entries) {
+    const bases = entry.source_units.filter((unit) => byChar[unit]);
+    assert.ok(bases.length > 0, entry.rule_id + " must include a base consonant");
+    for (const base of bases) {
+      assert.equal(byChar[base].onset_ipa, entry.ipa, entry.rule_id + " must not invent IPA for " + base);
+    }
+    assert.ok(entry.source_ids.includes("pcgn-1972-notes-2-8"));
+    assert.ok(entry.source_ids.includes("unicode17-ch16"));
+    assert.ok(entry.source_ids.includes("r12a-orthography"));
   }
 });
