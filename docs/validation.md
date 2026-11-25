@@ -39,3 +39,12 @@ Regression coverage includes:
 - /t s/ remains т с; unsupported IPA withholds the complete result.
 
 PR #156 Quality CI run [43095083754](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43095083754) completed the Python tests, web checks and production build successfully; browser smoke run [43095083768](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/43095083768) was queued at the time of this update. These checks establish implementation consistency only. The independent adjudicated Khmer IPA/Ukrainian gold corpus remains empty; no empirical accuracy percentage is available.
+
+## Reported assembly phrase regression — 2026-11-25
+
+The previously unresolved input សភាតំណាងប្រជាជនកម្ពុជា now has a browser regression requiring three source-located lexical spans to remain aligned through the direct IPA → Ukrainian adapter. It checks exact IPA, Ukrainian candidate, source-evidence tier and continued separation from the orthographic romanization card.
+
+- Quality [45609962020](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45609962020): SUCCESS — 524 Python tests, 70 subtests, web checks, structural/lexical/rule/segmentation parity, deterministic benchmarks and Vite build.
+- Chromium [45609869453](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45609869453): SUCCESS — 45/45 Playwright tests.
+- The first test-only commit intentionally failed at the expected missing-lexical-fixture assertion; the log recorded the previous output /s/??? /t/??? /ɓ/??? /kam.pu.ciə/. The final source-backed fixture set passes.
+- All new IPA remains PROPOSED and not independently adjudicated. The complete input phrase is compositional; a phrase-level source locator for the entire string was not found. This demonstrates coverage for this lexical item, not general Khmer pronunciation accuracy.
