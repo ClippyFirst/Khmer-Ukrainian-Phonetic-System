@@ -106,6 +106,7 @@ const fullProvisional = fromProvisionalFullIpa("pʰiə.saː", {
 });
 assert.equal(fullProvisional.status, "PROVISIONAL");
 assert.equal(fullProvisional.ipa_kind, "PHONEMIC");
+assert.equal(fullProvisional.profile, "khmer-pph-careful-citation-v1");
 assert.equal(fullProvisional.phonemic_ipa, "pʰiə.saː");
 assert.ok(fullProvisional.segments.every((segment) => segment.certainty === "PROVISIONAL"));
 assert.equal(typeof adaptPhoneticResult(fullProvisional), "string");
