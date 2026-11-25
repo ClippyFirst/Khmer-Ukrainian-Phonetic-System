@@ -1,6 +1,9 @@
 name: Export browser-local MekongPhon model
 
 on:
+  push:
+    branches:
+      - feat/browser-local-mekongphon-ipa-20261125
   workflow_dispatch:
 
 permissions:
