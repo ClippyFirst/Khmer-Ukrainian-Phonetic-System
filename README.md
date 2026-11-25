@@ -254,7 +254,7 @@ The research registry records external pronunciation engines, IPA dictionaries, 
 
 ## Two output methods
 
-The service separates the phonetic IPA-first route from the orthographic romanization route. The romanization tab accepts either Khmer script (via the existing BGN/PCGN-derived ASCII package) or an already romanized BGN/PCGN Latin input with diacritics, then applies a separate provisional Ukrainian orthographic crosswalk. Unknown fragments remain explicit; mixed Khmer+Latin input is marked PARTIAL and should be entered in separate runs; the mode never falls back to IPA. See the [romanization → Ukrainian research matrix](docs/romanization-to-ukrainian-matrix.md) for the profile, source tables and unresolved rows.
+The service keeps the canonical phonetic IPA-first route distinct from orthographic romanization. In the “Українська через романізацію” display mode, Khmer-script input can additionally produce a narrowly bounded typed **PROVISIONAL IPA candidate**: the leading BGN/PCGN-derived romanized token is cross-checked against the original Khmer base consonant and source-registered onset IPA, then passed through the existing IPA → Ukrainian adapter. Only six exact, source-supported Khmer-spelling + romanization fixtures produce a complete IPA candidate. Other recognized cases remain onset-only with an explicit unknown tail, or UNRESOLVED; vowels, codas, syllable boundaries, tone and dialect are never guessed. This path does not apply to Latin-only input without the original Khmer spelling. The separate orthographic Ukrainian romanization card remains explicitly “not pronunciation” and never enters the IPA adapter. Mixed Khmer+Latin input is marked PARTIAL and should be entered in separate runs. See the [romanization → Ukrainian research matrix](docs/romanization-to-ukrainian-matrix.md) and the [implementation design](docs/superpowers/specs/2026-11-25-romanization-mediated-ipa-design.md).
 
 
 ## Machine-readable BGN/PCGN orthographic tables
@@ -279,7 +279,7 @@ Python entry points: `RuleBasedKhmerEngine` for canonical deterministic output; 
 
 GitHub Pages: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/
 
-The published phonetic path uses the deterministic local rule engine; the separate romanization mode is not used as a pronunciation fallback.
+The default phonetic path uses the deterministic local rule engine. The Khmer-script “Українська через романізацію” display mode also exposes the bounded, source-checked PROVISIONAL IPA candidate described above; it is not a general Khmer G2P fallback. The orthographic romanization card remains separate and is never treated as pronunciation.
 
 
 ## Research-only typed IPA candidates
