@@ -520,43 +520,6 @@ function renderUnknownUnit(unit, profile) {
     }
   }
 
-  const googleCandidates = lookupGooglePhonemicCandidates(unit);
-  if (googleCandidates.length === 1) {
-    const lexicalCandidate = googleCandidates[0];
-    const parsed = lexicalCandidate.parsed;
-    const typedIpa = parsed.candidate;
-    const provisionalUkrainian = typedIpa
-      ? adaptPhoneticResult(typedIpa, { allowUncertain: true }) ?? "???"
-      : "???";
-    const sourceId = "google-khmer-pronunciation-sample-2026";
-    const inventoryId = "google-khmer-phonology-inventory-2026";
-    return {
-      source: unit,
-      ipa: "⟦NOT_ESTABLISHED⟧",
-      ua: "⟦НЕВСТАНОВЛЕНО⟧",
-      status: "PROVISIONAL",
-      rule_trace: [
-        "GOOGLE-PHONEMIC-LEXICON-EXACT",
-        "GOOGLE-PHONEMIC-TO-IPA",
-        `GOOGLE-SOURCE-ROW:${lexicalCandidate.source_row}`,
-        "IPA-TO-UKRAINIAN-LONGEST-MATCH",
-      ],
-      note: "Є локальний словниковий фонемний кандидат Google, перетворений на типізовану IPA. Відповідність обраному профілю та всі фонемні відповідності ще не ад'юдиковано; ??? позначає попередній статус.",
-      profile,
-      typed_ipa: typedIpa,
-      provisional_ipa: parsed.ipa,
-      provisional_ukrainian: provisionalUkrainian,
-      partial_candidate_kind: "LEXICAL_PHONEMIC_CANDIDATE",
-      evidence: [sourceId, inventoryId],
-      phonology_evidence: [sourceId, inventoryId],
-      uncertainty: parsed.uncertainty,
-      google_source_row: lexicalCandidate.source_row,
-      google_source_phonemic: lexicalCandidate.source_phonemic,
-      google_mapping_status: parsed.mapping_status,
-    };
-  }
-
-
   // Keep the orthographic candidate available for diagnostics, but never
   // let it pre-empt an independently supported IPA onset hint.
   const orthographicFallback = deriveOrthographicRomanizationFallback(unit);
@@ -593,6 +556,19 @@ function renderUnknownUnit(unit, profile) {
         unresolved_graphemes: [...unit].slice(1),
         phonology_evidence: (CONSONANTS[analysis.base]?.evidence ?? []).filter((sourceId) => sourceId !== "unicode17-ch16"),
         orthographic_fallback_ukrainian: orthographicFallback,
+        provisional_candidates: lookupGooglePhonemicCandidates(unit).map((candidate) => ({
+          candidate_type: "GOOGLE_PHONEMIC_LEXICON",
+          ipa: candidate.parsed.ipa,
+          ipa_kind: candidate.parsed.ipa_kind,
+          ukrainian: candidate.parsed.candidate
+            ? adaptPhoneticResult(candidate.parsed.candidate, { allowUncertain: true }) ?? "???"
+            : "???",
+          status: "PROVISIONAL",
+          mapping_status: candidate.parsed.mapping_status,
+          source_row: candidate.source_row,
+          source_phonemic: candidate.source_phonemic,
+          uncertainty: [...candidate.parsed.uncertainty, "AUXILIARY_CANDIDATE_DOES_NOT_REPLACE_PARTIAL_ONSET"],
+        })),
         fallback_trace: [{
           source: unit,
           position: "onset",
@@ -605,6 +581,43 @@ function renderUnknownUnit(unit, profile) {
       };
     }
   }
+
+  const googleCandidates = lookupGooglePhonemicCandidates(unit);
+  if (googleCandidates.length === 1) {
+    const lexicalCandidate = googleCandidates[0];
+    const parsed = lexicalCandidate.parsed;
+    const typedIpa = parsed.candidate;
+    const provisionalUkrainian = typedIpa
+      ? adaptPhoneticResult(typedIpa, { allowUncertain: true }) ?? "???"
+      : "???";
+    const sourceId = "google-khmer-pronunciation-sample-2026";
+    const inventoryId = "google-khmer-phonology-inventory-2026";
+    return {
+      source: unit,
+      ipa: "⟦NOT_ESTABLISHED⟧",
+      ua: "⟦НЕВСТАНОВЛЕНО⟧",
+      status: "PROVISIONAL",
+      rule_trace: [
+        "GOOGLE-PHONEMIC-LEXICON-EXACT",
+        "GOOGLE-PHONEMIC-TO-IPA",
+        `GOOGLE-SOURCE-ROW:${lexicalCandidate.source_row}`,
+        "IPA-TO-UKRAINIAN-LONGEST-MATCH",
+      ],
+      note: "Є локальний словниковий фонемний кандидат Google, перетворений на типізовану IPA. Відповідність обраному профілю та всі фонемні відповідності ще не ад'юдиковано; ??? позначає попередній статус.",
+      profile,
+      typed_ipa: typedIpa,
+      provisional_ipa: parsed.ipa,
+      provisional_ukrainian: provisionalUkrainian,
+      partial_candidate_kind: "LEXICAL_PHONEMIC_CANDIDATE",
+      evidence: [sourceId, inventoryId],
+      phonology_evidence: [sourceId, inventoryId],
+      uncertainty: parsed.uncertainty,
+      google_source_row: lexicalCandidate.source_row,
+      google_source_phonemic: lexicalCandidate.source_phonemic,
+      google_mapping_status: parsed.mapping_status,
+    };
+  }
+
 
   // If no positional IPA hint exists, retain the independent orthographic
   // romanization candidate as a secondary diagnostic only.
