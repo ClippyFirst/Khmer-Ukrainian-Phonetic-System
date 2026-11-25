@@ -922,7 +922,7 @@ function convert(text, profile) {
     + rendered.filter((item) => item.partial_candidate_kind === "ONSET_ONLY").length
     + " мають окрему IPA-підказку лише для початкового приголосного; "
     + rendered.filter((item) => item.partial_candidate_kind === "LEXICAL_PHONEMIC_CANDIDATE").length
-    + " мають попередній IPA-кандидат із локального фонемного словника; 
+    + " мають попередній IPA-кандидат із локального фонемного словника; "
     + rendered.filter((item) => item.partial_candidate_kind !== "ONSET_ONLY"
       && (Boolean(item.orthographic_fallback_ukrainian)
         || (item.fallback_status === "PROVISIONAL" && Boolean(item.fallback_ukrainian)))).length
