@@ -18,7 +18,7 @@ def validate_artifact(path: Path) -> dict:
     schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
     artifact = json.loads(path.read_text(encoding="utf-8"))
     validator = Draft202012Validator(schema)
-    errors = sorted(validator.iter_errors(artifact), key=lambda error: list(error.absolute_path))
+    errors = sorted(validator.iter_errors(artifact), key=lambda error: tuple(str(part) for part in error.absolute_path))
     if errors:
         details = "; ".join(
             f"{'/'.join(map(str, error.absolute_path)) or '<root>'}: {error.message}"
