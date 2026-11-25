@@ -297,7 +297,7 @@ test("romanization mode renders a separate provisional Ukrainian form", async ({
   await expect(page.locator("#ua-romanization-status")).toContainText("PROVISIONAL");
   await expect(page.locator("#ua-result-title")).toHaveText("Українська через романізацію (попередня IPA)");
   await expect(page.locator("#ua-result")).toHaveText("с???");
-  await expect(page.locator("#ua-result-description")).toContainText("початковий приголосний");
+  await expect(page.locator("#ua-result-description")).toContainText("IPA-кандидат: s?");
   await expect(page.locator("#ipa-result")).toBeVisible();
 });
 
