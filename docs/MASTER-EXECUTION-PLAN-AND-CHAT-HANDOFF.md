@@ -310,7 +310,7 @@ Local execution was not available in this session; verification was performed by
 - Branch: `feat/browser-local-mekongphon-ipa-20261125`
 - Draft PR: [#578 — Port MekongPhon IPA inference into the browser](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/578)
 - PR base SHA: `de00a090db3c714ded911f1ecb2c8d18d6cd896d`
-- Current head at this handoff: `ad645892c4c65446dc343b562835a3f40adb2fe2`
+- Current exact verified head: `572791638d18ec66a82469a36840f34d68dec1c9`
 - Model: `byumatrixlab/khmer-ipa`, pinned revision `20e069d384b240da76320e1569958568c12a54bc`; model-card metadata says Apache-2.0. The upstream training corpus is not copied.
 
 ### Implementation delivered on branch
@@ -327,15 +327,15 @@ Local execution was not available in this session; verification was performed by
 |---|---|---|
 | Pinned model export and ONNX validation | DONE_VERIFIED | CI export produced INT8 graphs; FP32 ONNX generation differed from pinned Transformers by 0% CER on two probes and 3.03% CER on the reported assembly phrase; INT8 matched FP32 on all three probes. This is export/runtime parity, not phonetic accuracy. |
 | Browser tokenizer port | DONE_VERIFIED | Encoder and decoder ByteLevel BPE IDs and decoder round-trip matched the pinned Transformers tokenizers in CI. |
-| Python/JS core suite and parity | DONE_VERIFIED on PR head before latest test-only change | Python tests, npm checks, structural/lexical/rule/segmentation parity, deterministic benchmarks and Vite build passed in run [45623011916](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45623011916). |
-| Production Chromium model inference | PARTIAL | First run [45622223015](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45622223015) exposed a false-positive test wait: the initial status text itself contained `PROVISIONAL`, so the test proceeded before inference completed. The test now waits for the completed `PROVISIONAL · MekongPhon@...` result and has a 230-second inference window. Exact-head rerun is pending. |
+| Python/JS core suite and parity | DONE_VERIFIED on exact PR head | Python tests, npm checks, structural/lexical/rule/segmentation parity, deterministic benchmarks and Vite build passed in run [45624434366](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624434366). |
+| Production Chromium model inference | DONE_VERIFIED | Exact-head model-enabled run [45624434366](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624434366) passed 46/46 Playwright tests, including actual local ONNX inference for the reported phrase, IPA comparison against the pinned INT8 output, and no-external-request assertion; model proof artifact uploaded. The initial false-positive wait was fixed. |
 | GitHub Pages build/deploy | TODO for this PR | Workflow now exports the pinned model, verifies tokenizers, runs web/browser checks and smoke-tests the model assets. It must pass on exact PR head after merge before claiming public deployment. No deployment performed from this branch. |
 | Independent IPA accuracy | BLOCKED / evidence-limited | No independent adjudicated Phnom Penh IPA gold corpus; model profile equivalence is `UNVERIFIED`. No accuracy claim or promotion to canonical `SUPPORTED` is permitted. |
 
 ### Next acceptance gates
 
-1. Exact-head push CI [45623318504](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45623318504): export, tokenizer parity, model-enabled Chromium inference and all core checks must pass.
-2. PR #578's separate browser smoke must pass; it does not replace the model-enabled export/Chromium test.
-3. Review the 62-commit PR history and final diff; squash/merge only with owner authorization. Do not deploy or merge autonomously.
-4. After owner merge, verify Pages build/deploy and fetch the live manifest/model/runtime assets; then record exact main SHA and deployed workflow evidence.
+1. DONE_VERIFIED — exact-head push Quality [45624434366](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624434366): Python tests, npm checks, structural/lexical/rule/segmentation parity, deterministic benchmarks, Vite build, model export, tokenizer parity and model-enabled Chromium inference all passed.
+2. DONE_VERIFIED — exact-head PR browser smoke [45624453942](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624453942) passed; it complements but does not replace the model-enabled export/Chromium test.
+3. Owner review remains: PR #578 currently contains 81 incremental commits across 26 files; review the final diff/history and squash/merge only with owner authorization. Do not deploy or merge autonomously.
+4. After owner merge, verify Pages build/deploy and fetch the live manifest/model/runtime assets; then record exact main SHA and deployed workflow evidence. Until then the public main site is unchanged.
 5. Keep the model candidate separate and `PROVISIONAL` until an independent profile-matched IPA gold set and specialist adjudication exist.
