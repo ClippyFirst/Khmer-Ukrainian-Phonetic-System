@@ -1,3 +1,16 @@
+## NCKL Khmer-script respelling benchmark — 2026-11-25
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-NCKL-RESP-001 | PARTIAL (harness/tests verified; external model run pending) | Script `scripts/benchmark_nckl_respelling.py`; tests `tests/test_benchmark_nckl_respelling.py`; workflow `.github/workflows/optional-nckl-respelling-benchmark.yml`. Quality [45582195369](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45582195369) passed full Python, JS, parity, benchmark and build checks. Optional NCKL run [45582195410](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45582195410) is still running. | Verify exact pinned model loading, dataset split integrity, output counts and aggregate word/CER/syllable metrics. Never combine these Khmer-script respelling metrics with IPA CER. |
+| KHM-NCKL-RESP-RIGHTS-001 | BLOCKED for commercial use / redistribution | Dataset card labels the data `other / nckl-khmer-dictionary-2022` and states the underlying dictionary content remains © NCKL; no blanket redistribution license is stated. | Obtain direct NCKL permission/terms before commercial use or redistribution. Current CI stores aggregate metrics only and does not persist source rows, words, references or predictions. |
+
+**Representation boundary:** NCKL pronunciation respelling is Khmer script with hyphen syllable separators, not IPA. This benchmark evaluates only the external NCKL-respelling model against its held-out source split. Independent IPA gold remains 0; IPA accuracy remains NOT_ASSESSED.
+
+See [NCKL respelling benchmark methodology](../research/NCKL-RESPelling-BENCHMARK-2026-11-25.md).
+
+---
+
 ## Shared cross-engine Khmer IPA benchmark — 2026-11-25
 
 | ID | Status | Evidence | Acceptance boundary |
