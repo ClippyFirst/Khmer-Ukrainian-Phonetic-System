@@ -1,3 +1,13 @@
+## Final merge and deployment closeout — 2026-11-25
+
+- Implementation PR [#576](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/576) was merged by squash into main as `ecbae0fa6b3a44433c5d787ba0877613caf05834`.
+- Final implementation Quality [45610176769](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45610176769): SUCCESS — 524 Python tests + 70 subtests, npm web checks, structural/lexical/rule/segmentation parity, deterministic benchmarks and Vite build.
+- Final implementation Chromium [45610176751](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45610176751): SUCCESS — 45/45 Playwright tests.
+- Production Pages deployment [45610398273](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45610398273): SUCCESS — production Chromium, deployment and deployed-site/runtime-asset smoke test all passed.
+- Public app: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/ .
+- This closeout only records the completed merge/deployment; it does not broaden the linguistic acceptance boundary. Source-attested examples remain unadjudicated, full phrase IPA is compositional, independent gold remains 0, and pronunciation accuracy remains NOT_ASSESSED.
+
+---
 ## Current continuation: source-backed coverage for the reported Khmer assembly phrase — 2026-11-25
 
 - Base: current default main at 64c7dcacdf40e182b6d72876820c20fcd6e9c5f3; branch fix/romanization-ipa-entry-20261125; PR [#576](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/576).
