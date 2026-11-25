@@ -32,9 +32,23 @@ The build gate also verified: Google source SHA-256 `b3f2e700d07d6c01a4c8cac5aa2
 
 ## Runtime use and separation from IPA
 
-Only word spellings and frequency counts from the compact JSON are used by the segmenter. The full Google TSV retains source phonemic strings for provenance, but neither those strings nor the historical sample phonemic strings are treated as project IPA, passed to the IPA-to-Ukrainian adapter, or used to determine canonical pronunciation.
+The compact frequency JSON remains the word-segmentation source: only spellings and frequency counts from that file are used by the segmenter.
 
-The segmenter uses frequency-weighted dictionary matching over Khmer cluster boundaries. Unknown clusters remain OOV; registered multi-cluster lexical fixtures remain protected spans. Python and JavaScript expose up to three distinct n-best paths per unprotected chunk. Candidate costs are uncalibrated negative-log frequency scores, not probabilities, confidence values or accuracy estimates. The maximum dictionary word length is 14 orthographic clusters; n-best diagnostics remain bounded to 128 clusters per chunk.
+The full Google TSV also contains a separate source phonemic lexicon. Its Khmer subset has 62,179 rows, of which 62,118 contain phonemic transcriptions, 61 are blank, 62,114 spellings are unique, and four spellings have multiple pronunciation variants. The source phone inventory is copied verbatim to `google-phonology.json`; its 56 phones include all 54 distinct tokens observed in the non-empty Khmer lexical rows.
+
+The source phonemic strings are **not copied directly into IPA**. They now have a dedicated adapter boundary:
+
+- `google-phonemic-to-ipa.json` records each source token's IPA mapping, evidence status and source revision.
+- `src/khmer_ua/google_phonemic.py` and `src/google-phonemic-ipa.js` parse whitespace-delimited source phones and preserve `.` syllable boundaries.
+- The output is explicitly typed `PHONEMIC` IPA, with profile equivalence and non-corroborated token mappings kept provisional.
+- Unknown, silence, pause, malformed or unmapped tokens fail closed. The four multi-pronunciation words remain variant arrays; no arbitrary variant is selected.
+- The preliminary mapping matches all six R12A vowel-context examples, but only 3/7 overlapping source-attested lexical examples match exactly. Four lexical conflicts remain visible. These are source-concordance diagnostics, not accuracy results.
+
+At this revision, the adapter and its Python/JavaScript tests are implemented; exact-form lexicon lookup and site integration are still pending. Until those integration gates pass, the full TSV remains a source artifact and is not yet a production runtime pronunciation source. Even after integration, unadjudicated Google candidates remain PROVISIONAL and cannot overwrite canonical source-supported IPA.
+
+The intended runtime path is Google phonemic source → dedicated IPA adapter → existing typed IPA result → existing Ukrainian IPA adapter. No Ukrainian output may be generated independently from source graphemes for these candidates. The planned neural teacher is an offline training/build tool only; model weights are not to be shipped to the site.
+
+The segmenter continues to use frequency-weighted dictionary matching over Khmer cluster boundaries. Unknown clusters remain OOV; registered multi-cluster lexical fixtures remain protected spans. Python and JavaScript expose up to three distinct n-best paths per unprotected chunk. Candidate costs are uncalibrated negative-log frequency scores, not probabilities, confidence values or accuracy estimates. The maximum dictionary word length is 14 orthographic clusters; n-best diagnostics remain bounded to 128 clusters per chunk.
 
 ## Limitations
 
