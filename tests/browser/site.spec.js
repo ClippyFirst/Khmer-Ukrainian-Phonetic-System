@@ -69,7 +69,7 @@ test("unresolved independent vowel keeps orthographic fallback out of the phonet
   await expect(page.locator("#ua-result")).toHaveText("???");
   await expect(page.locator("#ua-orthographic-result")).not.toBeEmpty();
   await expect(page.locator("#ua-orthographic-status")).toContainText("не вимова");
-  await expect(page.locator("#issue-text")).toContainText("а не підтверджену вимову");
+  await expect(page.locator("#unit-details")).toContainText("IPA: ⟦NOT_ESTABLISHED⟧");
 });
 
 test("research tools are collapsed by default and can be opened on demand", async ({ page }) => {
@@ -459,7 +459,7 @@ test("output tiers select progressively broader local IPA candidates", async ({ 
   await page.locator("#output-level").selectOption("exploratory");
   await expect(page.locator("#ipa-result")).toHaveText("/keʔ/???");
   await expect(page.locator("#ua-result")).toHaveText("ке???");
-  await expect(page.locator("#unit-details")).toContainText("NEURAL_TEACHER_DISTILLED_STATIC_LOOKUP");
+  await expect(page.locator("#unit-details")).toContainText("Детермінований OOV-кандидат із нейромережевої дистиляції");
   await expect(page.locator("#unit-details")).toContainText("лише Super-soft");
 });
 
