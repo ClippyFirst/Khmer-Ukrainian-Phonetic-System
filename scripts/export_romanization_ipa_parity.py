@@ -13,6 +13,9 @@ cases = [
     (entry["source_units"][0], entry["romanization"])
     for entry in inventory["entries"]
 ] + [
+    (entry["source"], entry["romanization"])
+    for entry in inventory.get("representative_syllables", [])
+] + [
     ("ប", "b"),
     ("ក", "kh"),
     ("្ក", "k"),
