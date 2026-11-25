@@ -887,20 +887,16 @@ function convert(text, profile) {
   if (selectedExternalCandidate) selectedExternalCandidate.selected = true;
   const canonicalIpa = ipa;
   const canonicalUa = ua;
-  const displayIpa = hasGoogleLexicalCandidate
-    ? googleCandidateIpa
-    : selectedExternalCandidate
-      ? "/" + selectedExternalCandidate.ipa + "/???"
-      : canonicalIpa;
-  const displayUa = hasGoogleLexicalCandidate
-    ? provisionalUa
-    : selectedExternalCandidate
-      ? selectedExternalCandidate.mapped_ukrainian + "???"
+  const displayIpa = selectedExternalCandidate
+    ? "/" + selectedExternalCandidate.ipa + "/???"
+    : hasGoogleLexicalCandidate ? googleCandidateIpa : canonicalIpa;
+  const displayUa = selectedExternalCandidate
+    ? selectedExternalCandidate.mapped_ukrainian + "???"
+    : hasGoogleLexicalCandidate ? provisionalUa
       : hasOrthographicFallback || hasPartialOnset ? provisionalUa : canonicalUa;
-  const ukrainianOutputKind = hasGoogleLexicalCandidate
-    ? "IPA_DERIVED_PROVISIONAL"
-    : selectedExternalCandidate
-      ? "EXTERNAL_IPA_PROVISIONAL"
+  const ukrainianOutputKind = selectedExternalCandidate
+    ? "EXTERNAL_IPA_PROVISIONAL"
+    : hasGoogleLexicalCandidate ? "IPA_DERIVED_PROVISIONAL"
       : hasOrthographicFallback ? "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
         : hasPartialOnset ? "IPA_DERIVED_PARTIAL" : "CANONICAL_IPA_DERIVED_OR_UNRESOLVED";
   const displayStatus = selectedExternalCandidate || hasGoogleLexicalCandidate || hasOrthographicFallback || hasPartialOnset

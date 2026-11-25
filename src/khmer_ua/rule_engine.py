@@ -498,6 +498,8 @@ class RuleBasedKhmerEngine:
             if status not in {"PUNCTUATION", "NON_LINGUISTIC"}:
                 if source_ipa is not None:
                     kind = unit.get("ipa_kind", "PHONEMIC")
+                    if kind not in {"PHONEMIC", "PHONETIC_BROAD", "PHONETIC_NARROW"}:
+                        kind = "PHONEMIC"
                     uncertainty_notes = tuple(unit.get("uncertainty", ())) + ((unit.get("reason", ""),) if unit.get("reason") else ())
                     if status == "PROVISIONAL":
                         typed_ipa = from_provisional_full_ipa(
