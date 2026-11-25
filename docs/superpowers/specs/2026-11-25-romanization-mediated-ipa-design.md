@@ -81,3 +81,12 @@ The first executable stage is implemented on branch `feat/romanization-mediated-
 - The orthographic romanization card remains separately available and explicitly marked “не вимова”.
 - Python/JavaScript semantics and all registered onset rules have parity tests. Quality checks passed on `9d5acbb95fbe46df884d1ccc2482eb48d6f6d90e`; Chromium smoke passed 43/43 on the same code head.
 - This is a verified partial implementation, not completion of the full contextual G2P acceptance criteria. The vowel model explicitly warns that its representative contrasts are not a complete deterministic orthography-to-IPA matrix; no general vowel or coda rules were inferred from the six examples. Do not generalize the onset-only inventory into vowel/coda rules without additional evidence and tests.
+
+
+## Owner approval and implementation disposition — 2026-11-25
+
+The owner approved this specification. Implementation is available in [PR #572](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/572), branch `feat/romanization-mediated-ipa-20261125`, exact head `20b860c01965ea2ea49cca439c26ab57ef351a8e`.
+
+The approved preference order and separation are preserved: direct IPA remains preferred; romanization-mediated output is a typed PROVISIONAL IPA candidate and passes through the existing IPA-only Ukrainian adapter; the independent orthographic romanization card remains marked “не вимова”.
+
+Engineering acceptance for the bounded implementation is verified by Quality (516 tests + 70 subtests), Chromium (44/44), external khPOS, shared held-out engine benchmark and pinned Rust comparison. Full contextual vowel/coda/syllable coverage remains PARTIAL and is not represented as complete. No candidate becomes canonical IPA.
