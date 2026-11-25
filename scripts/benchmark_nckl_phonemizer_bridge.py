@@ -285,7 +285,7 @@ def main() -> int:
         runtime=runtime,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    rendered = json.dumps(report, ensure_ascii=False, indent=2) + "\\n"
+    rendered = json.dumps(report, ensure_ascii=False, indent=2) + "\n"
     args.output.write_text(rendered, encoding="utf-8")
     print(json.dumps({
         "input_count": report["input_count"],
