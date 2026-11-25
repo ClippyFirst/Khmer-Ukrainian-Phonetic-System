@@ -968,6 +968,31 @@ function convert(text, profile, options = {}) {
     ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status) ? item.ua
       : item.status === "PROPOSED" && item.confidence_tier === "B" ? item.ua : "???"
   ).join("");
+  const strictResolvedUnits = linguistic.filter((item) => item.status === "PROPOSED" && item.confidence_tier === "B").length;
+  const softCandidateUnits = linguistic.filter((item) =>
+    item.status === "PROPOSED" || ["LEXICAL_PHONEMIC_CANDIDATE", "ONSET_ONLY"].includes(item.partial_candidate_kind)
+  ).length;
+  const superSoftCandidateUnits = linguistic.filter((item) =>
+    item.status === "PROPOSED" || ["LEXICAL_PHONEMIC_CANDIDATE", "ONSET_ONLY", "NEURAL_DISTILLED_OOV_SYLLABLE"].includes(item.partial_candidate_kind)
+  ).length;
+  const coverageRatio = (covered, total) => total ? covered / total : 0;
+  const tierCoverage = {
+    strict: { ipa_candidate_units: strictResolvedUnits, total_units: linguistic.length, ipa_candidate_coverage: coverageRatio(strictResolvedUnits, linguistic.length) },
+    soft: { ipa_candidate_units: softCandidateUnits, total_units: linguistic.length, ipa_candidate_coverage: coverageRatio(softCandidateUnits, linguistic.length) },
+    super_soft: {
+      ipa_candidate_units: outputLevel === "exploratory" ? superSoftCandidateUnits : null,
+      total_units: linguistic.length,
+      ipa_candidate_coverage: outputLevel === "exploratory" ? coverageRatio(superSoftCandidateUnits, linguistic.length) : null,
+      nonempty_output_units: outputLevel === "exploratory" ? linguistic.length : null,
+      nonempty_output_coverage: outputLevel === "exploratory" && linguistic.length ? 1 : outputLevel === "exploratory" ? 0 : null,
+    },
+  };
+  const strictStatus = !linguistic.length ? canonicalStatus
+    : strictResolvedUnits === linguistic.length ? "PROPOSED"
+      : strictResolvedUnits > 0 ? "EVIDENCE_LIMITED" : "NOT_ESTABLISHED";
+  const strictConfidence = !linguistic.length ? "D"
+    : strictResolvedUnits === linguistic.length ? "B"
+      : strictResolvedUnits > 0 ? "C" : "D";
   const useNeuralCandidate = outputLevel === "exploratory" && hasNeuralDistilledCandidate;
   const useLexicalCandidate = outputLevel !== "strict" && hasGoogleLexicalCandidate;
   const usePartialCandidate = outputLevel !== "strict" && hasPartialOnset;
@@ -984,13 +1009,17 @@ function convert(text, profile, options = {}) {
     : useNeuralCandidate ? "NEURAL_DISTILLED_IPA_PROVISIONAL"
       : useLexicalCandidate ? "IPA_DERIVED_PROVISIONAL"
         : usePartialCandidate ? "IPA_DERIVED_PARTIAL" : "CANONICAL_IPA_DERIVED_OR_UNRESOLVED";
-  const displayStatus = outputLevel !== "strict" && (useNeuralCandidate || useLexicalCandidate || usePartialCandidate)
-    ? "PROVISIONAL" : canonicalStatus;
-  const confidence = outputLevel !== "strict" && (useNeuralCandidate || useLexicalCandidate || usePartialCandidate)
-    ? "C"
-    : linguistic.length
-      ? linguistic.map((item) => item.confidence_tier).sort((a, b) => ({A:0,B:1,C:2,D:3}[b] - {A:0,B:1,C:2,D:3}[a]))[0]
-      : "D";
+  const displayStatus = outputLevel === "strict"
+    ? strictStatus
+    : (useNeuralCandidate || useLexicalCandidate || usePartialCandidate)
+      ? "PROVISIONAL" : canonicalStatus;
+  const confidence = outputLevel === "strict"
+    ? strictConfidence
+    : (useNeuralCandidate || useLexicalCandidate || usePartialCandidate)
+      ? "C"
+      : linguistic.length
+        ? linguistic.map((item) => item.confidence_tier).sort((a, b) => ({A:0,B:1,C:2,D:3}[b] - {A:0,B:1,C:2,D:3}[a]))[0]
+        : "D";
   const wordSegmentation = describeWordSegmentation(units, new Set(Object.keys(fixtures)), normalized);
   const segmentationNote = wordSegmentation.tokens.length
     ? " Сегментація слів: " + wordSegmentation.known_words + " словникових збігів, "
@@ -1040,6 +1069,7 @@ function convert(text, profile, options = {}) {
     output_level: outputLevel,
     strict_ipa: strictIpa,
     strict_ua: strictUa,
+    tier_coverage: tierCoverage,
     ukrainian_output_kind: ukrainianOutputKind,
     confidence_tier: confidence,
     note: note + segmentationNote,
