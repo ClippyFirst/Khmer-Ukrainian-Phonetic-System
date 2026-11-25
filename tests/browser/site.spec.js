@@ -295,7 +295,9 @@ test("romanization mode renders a separate provisional Ukrainian form", async ({
   await expect(page.locator("#romanization-result")).toHaveText("Sokha");
   await expect(page.locator("#ua-romanization-result")).toHaveText("Сок'а");
   await expect(page.locator("#ua-romanization-status")).toContainText("PROVISIONAL");
-  await expect(page.locator("#ua-result")).toHaveText("Сок'а");
+  await expect(page.locator("#ua-result-title")).toHaveText("Українська через романізацію (попередня IPA)");
+  await expect(page.locator("#ua-result")).toHaveText("с???");
+  await expect(page.locator("#ua-result-description")).toContainText("початковий приголосний");
   await expect(page.locator("#ipa-result")).toBeVisible();
 });
 
@@ -422,8 +424,8 @@ test("unresolved Khmer cluster shows the known onset in IPA mode and keeps roman
   await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-rule-id", "KHMER-PREVIEW-ONSET-IPA-V1");
   await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-position", "onset");
   await page.locator("#mode-romanization").click();
-  await expect(page.locator("#ua-result")).not.toContainText("???");
-  await expect(page.locator("#status")).toContainText("РОМАНІЗАЦІЯ");
+  await expect(page.locator("#ua-result")).toHaveText("к???");
+  await expect(page.locator("#status")).toContainText("РОМАНІЗАЦІЯ → IPA");
 });
 
 
