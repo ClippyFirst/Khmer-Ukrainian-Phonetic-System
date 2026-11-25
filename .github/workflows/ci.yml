@@ -200,7 +200,7 @@ jobs:
         run: python -m pip install -r requirements-google-teacher.txt
 
       - name: Train word-disjoint Google Khmer phonemic teacher
-        run: python scripts/train_google_phonemic_teacher.py --epochs 6 --batch-size 192 --output-dir dist/google-khmer-teacher
+        run: python scripts/train_google_phonemic_teacher.py --epochs 12 --batch-size 192 --embedding-size 96 --hidden-size 128 --output-dir dist/google-khmer-teacher
 
       - name: Upload offline teacher checkpoint and aggregate-only evaluation
         uses: actions/upload-artifact@v6
