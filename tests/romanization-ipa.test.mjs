@@ -117,13 +117,30 @@ test("same ASCII romanization can remain distinct when original Khmer series con
   );
 });
 
-test("temporary diagnostic: inspect PCGN output for simple series-conditioned Khmer vowel syllables", () => {
-  const samples = [
-    "កិ","គិ","កឹ","គឹ","កឺ","គឺ","កុ","គុ","កូ","គូ",
-    "កេ","គេ","កែ","គែ","កៃ","គៃ","កោ","គោ","កៅ","គៅ",
-    "កើ","គើ","កឿ","គឿ","កួ","គួ",
+test("unlisted series-conditioned vowel spellings remain onset-only", () => {
+  const unlisted = [
+    ["កិ","ke"],["គិ","ki"],["កឹ","koe"],["គឹ","koe"],
+    ["កឺ","koe"],["គឺ","koe"],["កុ","ko"],["គុ","ku"],
+    ["កូ","ko"],["គូ","ku"],["កេ","ke"],["គេ","ke"],
+    ["កែ","ke"],["គែ","ke"],["កៃ","kai"],["គៃ","key"],
+    ["កោ","kao"],["គោ","ko"],["កៅ","kau"],["គៅ","kou"],
+    ["កើ","kaeu"],["គើ","keu"],["កឿ","koea"],["គឿ","koea"],
+    ["កួ","kuo"],["គួ","kuo"],
   ];
-  for (const source of samples) {
-    console.log("ROMANIZATION_DIAGNOSTIC", JSON.stringify({source, romanized:khmerToLatin(source)}));
+  for (const [source, romanized] of unlisted) {
+    const result = buildRomanizationIpaCandidate(source, romanized);
+    assert.equal(result.status, "PROVISIONAL", source);
+    assert.equal(result.romanized_onset, "k", source);
+    assert.equal(result.typed_ipa.phonemic_ipa, null, source);
+    assert.ok(result.typed_ipa.segments.some((segment) => segment.kind === "unknown"), source);
+  }
+});
+
+test("wrong romanization never reuses a representative vowel IPA", () => {
+  for (const [source, romanized] of [["កី","ki"],["គី","kei"]]) {
+    const result = buildRomanizationIpaCandidate(source, romanized);
+    assert.equal(result.status, "PROVISIONAL");
+    assert.equal(result.typed_ipa.phonemic_ipa, null);
+    assert.ok(result.typed_ipa.segments.some((segment) => segment.kind === "unknown"));
   }
 });
