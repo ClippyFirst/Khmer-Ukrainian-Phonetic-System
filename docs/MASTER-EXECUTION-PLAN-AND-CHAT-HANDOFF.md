@@ -327,12 +327,12 @@ Local execution was not available in this session; verification was performed by
 
 | Gate | Status | Evidence |
 |---|---|---|
-| Python tests, web checks, parity suites, deterministic benchmarks and Vite build on merged main | DONE_VERIFIED | Quality [45624955916](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955916) SUCCESS |
-| Pinned model export and tokenizer parity | DONE_VERIFIED | Main Pages workflow [45624955965](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955965): export and tokenizer parity passed |
+| Python tests, web checks, parity suites, deterministic benchmarks and Vite build on merged main | DONE_VERIFIED | Quality [45625848740](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45625848740) SUCCESS |
+| Pinned model export and tokenizer parity | DONE_VERIFIED | Main Pages workflow [45625848945](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45625848945): export and tokenizer parity passed |
 | Browser-local inference | DONE_VERIFIED | Model-enabled Chromium test passed 46/46 in exact PR Quality [45624434366](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624434366), including the reported phrase and no-external-request assertion |
 | PR browser smoke | DONE_VERIFIED | [45624453942](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624453942) SUCCESS |
-| Main browser smoke | DONE_VERIFIED | [45624955945](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955945) SUCCESS |
-| GitHub Pages deployment and deployed asset smoke | DONE_VERIFIED | [45624955965](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955965) SUCCESS; manifest revision, encoder/decoder ONNX files and WASM runtime were fetched successfully |
+| Main browser smoke | DONE_VERIFIED | [45625848767](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45625848767) SUCCESS |
+| GitHub Pages deployment and deployed asset smoke | DONE_VERIFIED | [45625848945](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45625848945) SUCCESS; manifest revision, encoder/decoder ONNX files and WASM runtime were fetched successfully |
 | Independent pronunciation accuracy | BLOCKED / NOT_ASSESSED | Independent adjudicated Phnom Penh IPA gold remains 0; MekongPhon profile match remains UNVERIFIED; model outputs remain PROVISIONAL |
 
 ### Remaining genuine blockers
