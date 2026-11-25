@@ -203,3 +203,16 @@ No external audio or lexicon rows were copied. Independent adjudicated Phnom Pen
 ## Pinned upstream artifact recheck — 2026-11-18
 
 The GitHub API tree, root README, dictionary README, root LICENSE, sample dictionary, releases endpoint and commit history were inspected at upstream main `2714994b41ccf875c5b6f6182b48a72f13632dbf`. The full dictionary remains unavailable in the public tree; the two README counts (29,204 vs. 33,091) and differently scoped data-license statements (dictionary CC BY-SA 4.0 vs. G2P mapping CC BY 4.0) remain unresolved. The six-line sample is not a gold corpus and was not copied. The external source remains candidate-only / BLOCKED for import or training pending exact full artifact, SHA-256, source provenance, profile/convention, artifact-specific rights and author clarification.
+
+## Google Khmer full-file parity and companion-inventory rights follow-up — 2026-11-25
+
+The earlier bounded-extraction limitation is superseded by a full upstream/project file-identity check:
+
+- Pinned upstream file: `google/language-resources/km/data/lexicon.tsv`, commit `a90601024f07ab7e96c911243324e0adeb16da96`, Git blob `d399efeca642b1185786b2982374488c525e37c4`.
+- Project file: `data/khmer/google-pronunciation-full.tsv`; its Git blob is the same `d399efeca642b1185786b2982374488c525e37c4`. This establishes exact Git-object identity, not merely matching samples.
+- Full file: 69,415 rows; 62,179 Khmer-script rows, 7,234 Latin-leading rows and two other entries (`7m`, `école`). There are 62,175 unique Khmer-script spellings; four spellings have two divergent phonemic readings; 61 Khmer rows have blank phonemic fields; 62,118 Khmer rows have non-empty phonemic strings.
+- The source TSV itself has an explicit CC BY 4.0 header. It is the only Google phonemic source data copied/derived in this engine branch. The project's 54-token IPA adapter is validated directly against the 54 tokens observed in this licensed TSV.
+- The companion `km/festvox/phonology.json` has blob `8fb697ff66b09ef0c2a17f17b35600af410a92a9` and no file-level license header. The upstream README says original files are Apache-2.0 unless otherwise noted; the 2018 paper broadly describes data as CC BY 4.0 unless otherwise noted. The exact file license remains unresolved. Its previous experimental copy was removed from the branch; no phonology JSON is included in the source lexicon, runtime or build artifact. The source registry marks this companion file `BLOCKED_LICENSE_SCOPE_UNRESOLVED`.
+- The upstream reference inventory's reported 56 phones and its inclusion of the 54 lexical tokens are retained as audit facts only. The two silence/pause symbols `sil` and `pau` are not in the runtime token map.
+
+The Google TSV remains a **candidate phonemic lexical comparator**, not independent IPA gold. Its target variety, transcription convention, per-item provenance and profile equivalence remain unresolved. `KHM-GOOGLE-TTS-001` remains PARTIAL; `KHM-GOLD-001` remains BLOCKED (adjudicated gold=0, accuracy=null).
