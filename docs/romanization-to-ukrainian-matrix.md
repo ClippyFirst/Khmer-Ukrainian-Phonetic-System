@@ -30,6 +30,29 @@ The current @gmana/km-translit 0.1.2 integration is documented as **BGN/PCGN-der
 
 The current romanization card remains independent from IPA → Ukrainian conversion. It supports two inputs: Khmer script, which is passed through the current BGN/PCGN-derived ASCII package, and an already romanized Latin string, which is mapped directly without re-romanization. The direct path preserves the PCGN diacritics represented in the matrix; unknown Latin fragments are bracketed. Matrix completeness and runtime integration do not establish full BGN/PCGN conformance, reversibility, or pronunciation evidence.
 
+## IPA-mediated companion lane (2026-11-25)
+
+This document remains the **orthographic** romanization → Ukrainian matrix. A separate companion path now uses the actual ASCII romanization as a contextual clue while retaining the original Khmer spelling. It does not reinterpret the Ukrainian orthographic crosswalk as IPA.
+
+The adapter has two evidence-bounded layers:
+
+1. **Source-checked onset fallback.** The longest initial PCGN token must agree with the original Khmer base consonant and the repository's registered onset IPA. Unsupported or ambiguous cases return `UNRESOLVED`; the PCGN BA `b/p` row deliberately abstains.
+2. **Six exact series/vowel exemplars.** These require an exact match of both the complete Khmer spelling and the ASCII romanization. They are copied from the existing representative IPA contrasts in `data/khmer/vowels.json`, not generalized to other signs or codas.
+
+| Khmer spelling | ASCII romanization | Provisional IPA | Evidence |
+|---|---|---|---|
+| ក | ka | kɑː | r12a representative first-series inherent vowel; PCGN vowel row 1 |
+| គ | ko | kɔː | r12a representative second-series inherent vowel; PCGN vowel row 1 |
+| កី | kei | kəj | r12a representative first-series dependent vowel; PCGN vowel row 4 |
+| គី | ki | kiː | r12a representative second-series dependent vowel; PCGN vowel row 4 |
+| កា | ka | kaː | r12a representative first-series dependent vowel; PCGN vowel row 2 |
+| គា | kea | kiə | r12a representative second-series dependent vowel; PCGN vowel row 2 |
+
+The ASCII form `ka` is intentionally ambiguous between `ក` and `កា`; retaining the source spelling allows the two cited IPA candidates to remain distinct. Every result is typed `PROVISIONAL` and is adapted to Ukrainian only through the existing IPA-only target adapter. The UI shows the IPA candidate and uncertainty while preserving the separate orthographic romanization card labelled “не вимова”.
+
+**Acceptance boundary:** all other vowels, codas, coeng/syllable roles, stress, tone and dialect detail remain unresolved. The six examples are not a general vowel table. The broader contextual IPA bridge remains PARTIAL until a complete, source-located series × vowel × coda × syllable-context matrix and specialist review exist. Canonical IPA and pronunciation-accuracy claims are unchanged.
+
+
 ## Consonant and subscript crosswalk (source-backed romanization; Ukrainian target is a project proposal)
 
 The machine-readable consonant matrix is [data/khmer/romanization_ukrainian.csv](../data/khmer/romanization_ukrainian.csv). It records all 22 official PCGN consonant-table rows plus the special ឝ row, source code-point sequences, BGN/PCGN forms, Ukrainian candidate, evidence status, URL and row locator. The CSV is authoritative for this consonant slice; it is not a complete vowel/rime matrix.
