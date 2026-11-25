@@ -1,3 +1,17 @@
+## Browser-local MekongPhon inference port — 2026-11-25
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-BROWSER-MEKONG-001 | DONE_VERIFIED (local execution path) | PR #578; CI model-enabled Chromium 46/46; tokenizer parity; pinned ONNX export and browser inference regression. | User-triggered same-origin ONNX model executes in a Web Worker on the public app; input text is not transmitted. Model candidate remains separate and PROVISIONAL. |
+| KHM-BROWSER-MEKONG-002 | DONE_VERIFIED (export/runtime parity only) | FP32 ONNX generation CER ≤5% vs pinned Transformers on three probes; INT8 vs FP32 CER ≤5%; reported phrase FP32 CER 3.03%, INT8 CER 0%. | This is port parity, not phonetic accuracy. The deployed browser uses INT8 greedy decoding, max 64 output tokens. |
+| KHM-BROWSER-MEKONG-003 | DONE_VERIFIED (tokenizer parity) | tests/mekongphon-browser-tokenizer.test.mjs; encoder and decoder IDs match pinned Transformers probes. | Three diagnostic probes; not exhaustive Unicode/tokenizer coverage. |
+| KHM-BROWSER-MEKONG-004 | DONE_VERIFIED (network boundary) | Chromium test asserts no external HTTP(S) requests during model inference; CSP limits connect-src to self. | Same-origin model/runtime static files are downloaded after explicit user action; no backend or telemetry. |
+| KHM-BROWSER-MEKONG-005 | BLOCKED (corpus rights) | Model artifact declares Apache-2.0; training corpus is not included. | Need independent rights clarification before redistributing the upstream training/evaluation corpus. |
+| KHM-BROWSER-MEKONG-006 | TODO / EVIDENCE-LIMITED (pronunciation accuracy) | No independent adjudicated target-profile IPA gold corpus; profile_match UNVERIFIED. | Requires licensed, split-independent, expert-adjudicated IPA data and defined dialect/style. |
+
+Model weights are ~35 MB INT8 and generated in CI, not committed. ONNX Runtime Web 1.23.2 is MIT-licensed and vendored with verified npm tarball integrity. The upstream model card declares Apache-2.0 for the artifact. No training corpus is redistributed.
+
+---
 ## Reported Khmer assembly phrase lexical coverage — 2026-11-25
 
 | ID | Status | Evidence | Acceptance boundary |
