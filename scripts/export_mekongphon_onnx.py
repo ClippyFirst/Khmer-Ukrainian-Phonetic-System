@@ -287,10 +287,15 @@ def main() -> int:
     for probe in probes:
         encoder_ids = encoder_tokenizer(probe, truncation=True, max_length=args.max_length)["input_ids"]
         decoder_ids = decoder_tokenizer(probe, truncation=True, max_length=args.max_length)["input_ids"]
+        decoder_probe = "suǝsdǝy kampuciə"
+        decoder_probe_ids = decoder_tokenizer(decoder_probe, truncation=True, max_length=args.max_length)["input_ids"]
         tokenizer_parity.append({
             "text": probe,
             "encoder_ids": list(encoder_ids),
             "decoder_ids": list(decoder_ids),
+            "decoder_probe": decoder_probe,
+            "decoder_probe_ids": list(decoder_probe_ids),
+            "decoder_probe_roundtrip": decoder_tokenizer.decode(decoder_probe_ids, skip_special_tokens=True),
         })
     write_json(output_dir / "tokenizer-parity.json", tokenizer_parity)
     files = {}
