@@ -27,7 +27,7 @@ function getWorker() {
  * Run the deterministic IPA-first engine off the UI thread.
  * The fallback is the same pinned in-process engine, never a remote service.
  */
-export function analyzeInWorker(text, profile, fallback) {
+export function analyzeInWorker(text, profile, fallback, outputLevel = "balanced") {
   try {
     const activeWorker = getWorker();
     const id = nextId++;
@@ -35,12 +35,12 @@ export function analyzeInWorker(text, profile, fallback) {
       pending.set(id, (response) => {
         if (response.result !== undefined) resolve(response.result);
         else {
-          try { resolve(fallback(text, profile)); }
+          try { resolve(fallback(text, profile, { outputLevel })); }
           catch { resolve(null); }
         }
       });
       try {
-        activeWorker.postMessage({ id, text, profile });
+        activeWorker.postMessage({ id, text, profile, outputLevel });
       } catch {
         pending.delete(id);
         try { resolve(fallback(text, profile)); }
@@ -48,6 +48,6 @@ export function analyzeInWorker(text, profile, fallback) {
       }
     });
   } catch {
-    return Promise.resolve().then(() => fallback(text, profile)).catch(() => null);
+    return Promise.resolve().then(() => fallback(text, profile, { outputLevel })).catch(() => null);
   }
 }
