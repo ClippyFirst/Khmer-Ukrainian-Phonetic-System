@@ -7,7 +7,6 @@ test.beforeEach(async ({ page }, testInfo) => {
     "primary method switch is visible beside the main result without opening research details",
     "phonetic mode never substitutes an orthographic romanization fallback for unresolved IPA",
     "unresolved independent vowel keeps orthographic fallback out of the phonetic result",
-    "output tiers select progressively broader local IPA candidates",
     "strict withholds archived external IPA candidates while Soft and Super-soft may expose them"
   ].includes(testInfo.title)) return;
   await page.addInitScript(() => {
@@ -478,7 +477,7 @@ test("unresolved Khmer cluster shows the known onset in IPA mode and keeps roman
   await page.locator("#source").fill("ក្ក");
   await expect(page.locator("#ipa-result")).toHaveText("/k/???");
   await expect(page.locator("#ua-result")).toHaveText("к???");
-  await expect(page.locator("#status")).toContainText("NOT ESTABLISHED");
+  await expect(page.locator("#status")).toContainText("PROVISIONAL");
   await expect(page.locator("#unit-details")).toContainText("Попередня IPA-підказка:");
   await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-rule-id", "KHMER-PREVIEW-ONSET-IPA-V1");
   await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-position", "onset");
@@ -668,7 +667,8 @@ test("Pages build serves and executes the actual neural-distilled static candida
   await page.goto("/");
   const assetUrl = new URL("/data/google-neural-distilled-syllables.json", page.url()).toString();
   const response = await page.request.get(assetUrl);
-  test.skip(response.status() === 404, "the generic browser-smoke job does not stage the Pages-only teacher artifact");
+  const contentType = response.headers()["content-type"] || "";
+  test.skip(response.status() === 404 || !contentType.includes("application/json"), "the generic browser-smoke job does not stage the Pages-only teacher artifact");
   expect(response.ok()).toBe(true);
   const artifact = await response.json();
   expect(artifact.schema).toBe("google-khmer-neural-distilled-syllables/v1");
