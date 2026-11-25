@@ -70,6 +70,33 @@ def phonemize_respelling(
     return ".".join(outputs)
 
 
+def _respelling_syllables(respelling: str) -> list[str]:
+    if not isinstance(respelling, str) or not respelling.strip():
+        raise ValueError("NCKL respelling must be a non-empty string")
+    syllables = respelling.split("-")
+    if any(not syllable for syllable in syllables):
+        raise ValueError("NCKL respelling contains an empty syllable")
+    return syllables
+
+
+def phonemize_respelling_whole(
+    respelling: str,
+    phonemizer: Callable[[str], Any],
+) -> str:
+    """Pass the intact respelling to the phonemizer, preserving hyphens."""
+    _respelling_syllables(respelling)
+    return phonemize_one(respelling, phonemizer)
+
+
+def phonemize_respelling_spaced(
+    respelling: str,
+    phonemizer: Callable[[str], Any],
+) -> str:
+    """Replace model syllable hyphens with spaces and phonemize once."""
+    syllables = _respelling_syllables(respelling)
+    return phonemize_one(" ".join(syllables), phonemizer)
+
+
 def load_source_corpus(path: Path) -> dict[str, dict[str, Any]]:
     corpus = load_corpus(path)
     selected = {
@@ -137,6 +164,8 @@ def build_report(
     direct_outputs: dict[str, str],
     bridge_outputs: dict[str, str],
     *,
+    whole_outputs: dict[str, str] | None = None,
+    spaced_outputs: dict[str, str] | None = None,
     model_revision: str,
     phonemizer_version: str | None,
     corpus_sha256: str,
@@ -152,8 +181,14 @@ def build_report(
     if any(not isinstance(value, str) for value in bridge_outputs.values()):
         raise ValueError("every bridged IPA output must be a string")
 
+    whole_outputs = whole_outputs if whole_outputs is not None else bridge_outputs
+    spaced_outputs = spaced_outputs if spaced_outputs is not None else bridge_outputs
+    if set(whole_outputs) != expected or set(spaced_outputs) != expected:
+        raise ValueError("expected one respelling IPA output per input for each boundary mode")
     direct = _metric_bundle(corpus, direct_outputs)
     bridge = _metric_bundle(corpus, bridge_outputs)
+    whole = _metric_bundle(corpus, whole_outputs)
+    spaced = _metric_bundle(corpus, spaced_outputs)
     respelling_coverage = sum(bool(value.strip()) for value in respellings.values())
     return {
         "schema_version": "1.0",
@@ -180,12 +215,28 @@ def build_report(
         "normalization": "NFC and existing source-IPA diagnostic key: outer /.../, whitespace, syllable dots and stress marks removed; phone symbols, aspiration, length and diacritics retained",
         "direct_phonemizer": direct,
         "nckl_respelling_phonemizer": bridge,
+        "nckl_respelling_phonemizer_whole": whole,
+        "nckl_respelling_phonemizer_spaced": spaced,
         "bridge_improvement": {
-            "strict_match_delta": bridge["strict_source_attested_matches"] - direct["strict_source_attested_matches"],
-            "character_error_delta": bridge["character_errors"] - direct["character_errors"],
-            "cer_delta": (
+            "split_strict_match_delta": bridge["strict_source_attested_matches"] - direct["strict_source_attested_matches"],
+            "split_character_error_delta": bridge["character_errors"] - direct["character_errors"],
+            "split_cer_delta": (
                 bridge["character_error_rate"] - direct["character_error_rate"]
                 if bridge["character_error_rate"] is not None and direct["character_error_rate"] is not None
+                else None
+            ),
+            "whole_strict_match_delta": whole["strict_source_attested_matches"] - direct["strict_source_attested_matches"],
+            "whole_character_error_delta": whole["character_errors"] - direct["character_errors"],
+            "whole_cer_delta": (
+                whole["character_error_rate"] - direct["character_error_rate"]
+                if whole["character_error_rate"] is not None and direct["character_error_rate"] is not None
+                else None
+            ),
+            "spaced_strict_match_delta": spaced["strict_source_attested_matches"] - direct["strict_source_attested_matches"],
+            "spaced_character_error_delta": spaced["character_errors"] - direct["character_errors"],
+            "spaced_cer_delta": (
+                spaced["character_error_rate"] - direct["character_error_rate"]
+                if spaced["character_error_rate"] is not None and direct["character_error_rate"] is not None
                 else None
             ),
         },
@@ -260,17 +311,27 @@ def main() -> int:
     direct_elapsed = time.perf_counter() - direct_started
 
     bridge_started = time.perf_counter()
+    whole_outputs: dict[str, str] = {}
+    spaced_outputs: dict[str, str] = {}
     for word in words:
         try:
             bridge_outputs[word] = phonemize_respelling(respellings[word], phonemize_single)
         except Exception:
             bridge_outputs[word] = ""
+        try:
+            whole_outputs[word] = phonemize_respelling_whole(respellings[word], phonemize_single)
+        except Exception:
+            whole_outputs[word] = ""
+        try:
+            spaced_outputs[word] = phonemize_respelling_spaced(respellings[word], phonemize_single)
+        except Exception:
+            spaced_outputs[word] = ""
     bridge_elapsed = time.perf_counter() - bridge_started
 
     runtime = {
         "nckl_model": model_runtime,
         "direct_phonemizer_elapsed_seconds": round(direct_elapsed, 6),
-        "bridge_phonemizer_elapsed_seconds": round(bridge_elapsed, 6),
+        "bridge_variants_elapsed_seconds": round(bridge_elapsed, 6),
         "device": "cpu",
         "batch_size": args.batch_size,
     }
@@ -279,6 +340,8 @@ def main() -> int:
         respellings,
         direct_outputs,
         bridge_outputs,
+        whole_outputs=whole_outputs,
+        spaced_outputs=spaced_outputs,
         model_revision=MODEL_REVISION,
         phonemizer_version=package_version("khmerphonemizer"),
         corpus_sha256=hashlib.sha256(corpus_bytes).hexdigest(),
@@ -294,9 +357,17 @@ def main() -> int:
             "exact": report["direct_phonemizer"]["strict_source_attested_matches"],
             "cer": report["direct_phonemizer"]["character_error_rate"],
         },
-        "nckl_respelling_phonemizer": {
+        "nckl_respelling_phonemizer_split": {
             "exact": report["nckl_respelling_phonemizer"]["strict_source_attested_matches"],
             "cer": report["nckl_respelling_phonemizer"]["character_error_rate"],
+        },
+        "nckl_respelling_phonemizer_whole": {
+            "exact": report["nckl_respelling_phonemizer_whole"]["strict_source_attested_matches"],
+            "cer": report["nckl_respelling_phonemizer_whole"]["character_error_rate"],
+        },
+        "nckl_respelling_phonemizer_spaced": {
+            "exact": report["nckl_respelling_phonemizer_spaced"]["strict_source_attested_matches"],
+            "cer": report["nckl_respelling_phonemizer_spaced"]["character_error_rate"],
         },
         "bridge_improvement": report["bridge_improvement"],
         "independent_gold_count": 0,
