@@ -99,7 +99,7 @@ if (chaktomukPhrase.ipa !== "/kroŋ/ /caʔ.tom.muk/" || chaktomukPhrase.ua !== "
 const sourceBackedKhmerProbes = [
   ["រុង", "ruŋ", "рунг"],
   ["ឡឺត", "ləːt", "лет"],
-  ["ឡាវ", "laːw", "лав"],
+  ["ឡាវ", "laːw", "лау"],
   ["ឌី", "ɗiː", "ді"],
 ];
 for (const [word, expectedIpa, expectedUkrainian] of sourceBackedKhmerProbes) {
