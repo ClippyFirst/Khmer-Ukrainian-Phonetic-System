@@ -9,6 +9,16 @@ from khmer_ua.romanization_ipa import build_romanization_ipa_candidate
 
 with (_ROOT / "data" / "khmer" / "romanization_ipa_onsets.json").open(encoding="utf-8") as handle:
     inventory = json.load(handle)
+
+unlisted_vowels = [
+    ("កិ", "ke"), ("គិ", "ki"), ("កឹ", "koe"), ("គឹ", "koe"),
+    ("កឺ", "koe"), ("គឺ", "koe"), ("កុ", "ko"), ("គុ", "ku"),
+    ("កូ", "ko"), ("គូ", "ku"), ("កេ", "ke"), ("គេ", "ke"),
+    ("កែ", "ke"), ("គែ", "ke"), ("កៃ", "kai"), ("គៃ", "key"),
+    ("កោ", "kao"), ("គោ", "ko"), ("កៅ", "kau"), ("គៅ", "kou"),
+    ("កើ", "kaeu"), ("គើ", "keu"), ("កឿ", "koea"), ("គឿ", "koea"),
+    ("កួ", "kuo"), ("គួ", "kuo"),
+]
 cases = [
     (entry["source_units"][0], entry["romanization"])
     for entry in inventory["entries"]
@@ -19,14 +29,10 @@ cases = [
     ("ប", "b"),
     ("ក", "kh"),
     ("្ក", "k"),
-    (("កិ", "ke"), ("គិ", "ki"), ("កឹ", "koe"), ("គឹ", "koe"),
-     ("កឺ", "koe"), ("គឺ", "koe"), ("កុ", "ko"), ("គុ", "ku"),
-     ("កូ", "ko"), ("គូ", "ku"), ("កេ", "ke"), ("គេ", "ke"),
-     ("កែ", "ke"), ("គែ", "ke"), ("កៃ", "kai"), ("គៃ", "key"),
-     ("កោ", "kao"), ("គោ", "ko"), ("កៅ", "kau"), ("គៅ", "kou"),
-     ("កើ", "kaeu"), ("គើ", "keu"), ("កឿ", "koea"), ("គឿ", "koea"),
-     ("កួ", "kuo"), ("គួ", "kuo")),
- ]
+] + unlisted_vowels + [
+    ("កី", "ki"),
+    ("គី", "kei"),
+]
 output = []
 for source, romanized in cases:
     result = build_romanization_ipa_candidate(source, romanized)
