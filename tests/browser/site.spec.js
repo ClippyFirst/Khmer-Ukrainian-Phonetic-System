@@ -406,13 +406,13 @@ test("romanization method can be activated by keyboard and status is announced",
 
 
 
-test("unresolved Khmer phrase displays archived external IPA candidates with trailing uncertainty marker", async ({ page }) => {
+test("local lexical IPA is primary while archived external candidates remain diagnostic", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("កម្ពុជាប្រជាធិបតេយ្យ");
-  await expect(page.locator("#ipa-result")).toHaveText("/kampuciə prɑciətʰɨppaʔtaj/???");
+  await expect(page.locator("#ipa-result")).toHaveText("/kam.pu.ciə/ /prɑ.ciə.tʰɨp.paʔ.taj/???");
   await expect(page.locator("#ua-result")).toHaveText("кампутьіє пратьієт'иппатай???");
-  await expect(page.locator("#status")).toContainText("EXTERNAL IPA CANDIDATE");
-  await expect(page.locator("#status")).toContainText("PROFILE MATCH UNVERIFIED");
+  await expect(page.locator("#status")).toContainText("PROVISIONAL");
+  await expect(page.locator("#status")).not.toContainText("EXTERNAL IPA CANDIDATE");
   await expect(page.locator("#unit-details")).toContainText("Зовнішні IPA-кандидати");
   await expect(page.locator("#unit-details")).toContainText("khmer-phonemizer");
   await expect(page.locator("#unit-details")).toContainText("mekongphon");
@@ -423,16 +423,16 @@ test("unresolved Khmer phrase displays archived external IPA candidates with tra
   await expect(page.locator("#unit-details")).toContainText("BGN/PCGN-derived, не вимова");
 });
 
-test("strict withholds archived external IPA candidates while Soft and Super-soft may expose them", async ({ page }) => {
+test("Strict withholds unadjudicated lexical candidates while Soft uses the local phonemic lexicon", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("កម្ពុជាប្រជាធិបតេយ្យ");
   await page.locator("#output-level").selectOption("strict");
   await expect(page.locator("#status")).not.toContainText("EXTERNAL IPA CANDIDATE");
-  await expect(page.locator("#ipa-result")).not.toHaveText("/kampuciə prɑciətʰɨppaʔtaj/???");
+  await expect(page.locator("#ipa-result")).not.toHaveText("/kam.pu.ciə/ /prɑ.ciə.tʰɨp.paʔ.taj/???");
   for (const level of ["balanced", "exploratory"]) {
     await page.locator("#output-level").selectOption(level);
     await expect(page.locator("#ua-result")).toHaveText("кампутьіє пратьієт'иппатай???");
-    await expect(page.locator("#ipa-result")).toHaveText("/kampuciə prɑciətʰɨppaʔtaj/???");
+    await expect(page.locator("#ipa-result")).toHaveText("/kam.pu.ciə/ /prɑ.ciə.tʰɨp.paʔ.taj/???");
   }
 });
 
