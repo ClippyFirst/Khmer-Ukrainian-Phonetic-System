@@ -95,6 +95,33 @@ if (chaktomukPhrase.ipa !== "/kroŋ/ /caʔ.tom.muk/" || chaktomukPhrase.ua !== "
     || chaktomukPhrase.status !== "PROPOSED" || chaktomukPhrase.confidence_tier !== "B") {
   throw new Error("Krong Chaktomuk phrase must retain both lexical units through the IPA-first adapter");
 }
+const generalizedCandidates = {
+  "រុង": { tier: "soft", google_phonemic_tokens: ["r", "u", "ŋ"] },
+  "ឡឺត": { tier: "soft", google_phonemic_tokens: ["l", "əə", "t"] },
+  "ឡាវ": { tier: "soft", google_phonemic_tokens: ["l", "aa", "w"] },
+  "ឌី": { tier: "soft", google_phonemic_tokens: ["ɗ", "ii"] },
+};
+const generalizedSoft = convert(
+  "រុង ឡឺត ឡាវ ឌី",
+  "khmer-pph-careful-citation-v1",
+  { outputLevel: "balanced", distilledSyllables: generalizedCandidates },
+);
+if (generalizedSoft.ipa !== "/ruŋ/ /ləːt/ /laːw/ /ɗiː/"
+    || generalizedSoft.ua !== "рунг лет лав ді"
+    || generalizedSoft.status !== "PROVISIONAL"
+    || generalizedSoft.complete !== false) {
+  throw new Error("Soft must use complete local neural-distilled CV/CVC candidates through the typed IPA→Ukrainian adapter: " + JSON.stringify({
+    ipa: generalizedSoft.ipa, ua: generalizedSoft.ua, status: generalizedSoft.status, complete: generalizedSoft.complete
+  }));
+}
+const generalizedStrict = convert(
+  "រុង ឡឺត ឡាវ ឌី",
+  "khmer-pph-careful-citation-v1",
+  { outputLevel: "strict", distilledSyllables: generalizedCandidates },
+);
+if (generalizedStrict.ipa.includes("/ruŋ/") || generalizedStrict.ua.includes("рунг")) {
+  throw new Error("Strict must not consume neural-distilled CV/CVC candidates");
+}
 const contextualPalatalMapping = mapIpa("prɑciə", policy);
 if (contextualPalatalMapping.value !== "пратьіє" || contextualPalatalMapping.unsupported !== null) throw new Error("IPA /c+iə/ must use Ukrainian contextual spelling with explicit project soft-sign distinction");
 const directPhraseMapping = mapIpa(fixtures["ជាខ្មែរ"].ipa.slice(1, -1), policy);
