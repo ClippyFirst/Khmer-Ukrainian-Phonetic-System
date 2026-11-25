@@ -8,6 +8,10 @@ import json
 from collections import Counter
 from pathlib import Path
 from typing import Any
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
 
 from khmer_ua.google_phonemic import (
     DEFAULT_INVENTORY_PATH,
@@ -17,7 +21,6 @@ from khmer_ua.google_phonemic import (
     parse_google_phonemic,
 )
 
-ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "data" / "khmer" / "google-phonemic-ipa-lexicon.json"
 
 
@@ -94,6 +97,8 @@ def build_google_phonemic_lexicon() -> dict[str, Any]:
     # that the adapter could convert. Never silently drop an ambiguous variant.
     if mapped_rows + unresolved_nonempty_rows != source.manifest["nonempty_pronunciation_rows"]:
         raise ValueError("Google phonemic lexicon row accounting does not reconcile")
+    if unresolved_nonempty_rows:
+        raise ValueError(f"{unresolved_nonempty_rows} non-empty Google phonemic rows failed IPA conversion")
     return data
 
 
