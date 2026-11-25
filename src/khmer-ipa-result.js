@@ -17,6 +17,7 @@ function segmentKind(symbol) {
 
 function makeResult({
   phonemic_ipa = null,
+  ipa_kind = "UNRESOLVED",
   segments = [],
   status = "SUPPORTED",
   provenance = [],
@@ -25,6 +26,7 @@ function makeResult({
 }) {
   return {
     phonemic_ipa,
+    ipa_kind,
     segments,
     syllable_boundaries: [0, segments.length],
     vowel_length,
@@ -39,6 +41,7 @@ function makeResult({
 export function serializePhoneticResult(result) {
   return {
     phonemic_ipa: result.phonemic_ipa,
+    ipa_kind: result.ipa_kind,
     segments: result.segments.map((segment) => ({ ...segment })),
     syllable_boundaries: [...result.syllable_boundaries],
     vowel_length: result.vowel_length,
@@ -110,11 +113,15 @@ function tokenizeIpa(ipa, provenance, certainty) {
 
 export function fromIpa(ipa, {
   status = "SUPPORTED",
+  kind = "PHONEMIC",
   provenance = [],
   uncertainty = [],
 } = {}) {
   if (!["SUPPORTED", "UNCERTAIN"].includes(status)) {
     throw new TypeError("fromIpa requires SUPPORTED or UNCERTAIN status");
+  }
+  if (!["PHONEMIC", "PHONETIC_BROAD", "PHONETIC_NARROW"].includes(kind)) {
+    throw new TypeError("fromIpa requires an explicit supported IPA kind");
   }
   if (typeof ipa !== "string" || !ipa.trim()) {
     return fromUnknownSourceUnit("?", {
@@ -129,6 +136,7 @@ export function fromIpa(ipa, {
   if (unsupported.length) {
     const result = makeResult({
       segments,
+      ipa_kind: "UNRESOLVED",
       status: "UNRESOLVED",
       provenance,
       uncertainty: [...new Set([...uncertainty, "UNSUPPORTED-IPA-NOTATION"])],
@@ -138,6 +146,7 @@ export function fromIpa(ipa, {
   }
   const result = makeResult({
     phonemic_ipa: raw,
+    ipa_kind: kind,
     segments,
     status,
     provenance,
@@ -153,10 +162,11 @@ export function fromProvisionalIpa(ipaHint, {
   provenance = [],
   uncertainty = [],
   appendUnknownTail = true,
+  kind = "PHONETIC_BROAD",
 } = {}) {
   let typed = null;
   if (ipaHint) {
-    typed = fromIpa(ipaHint, { status: "UNCERTAIN", provenance, uncertainty });
+    typed = fromIpa(ipaHint, { status: "UNCERTAIN", kind, provenance, uncertainty });
     if (typed.status === "UNRESOLVED") return typed;
   }
   const segments = (typed?.segments ?? []).map((segment) => ({
@@ -174,6 +184,7 @@ export function fromProvisionalIpa(ipaHint, {
   }
   return makeResult({
     segments,
+    ipa_kind: ipaHint ? kind : "UNRESOLVED",
     status: ipaHint ? "PROVISIONAL" : "UNRESOLVED",
     provenance: [...new Set([...provenance, "FALLBACK:GRAPHEME-POSITION-PREVIEW"])],
     uncertainty: [...new Set([...uncertainty, "PHONETIC-READING-PROVISIONAL"])],
@@ -187,6 +198,7 @@ export function fromUnknownSourceUnit(surface, {
   if (typeof surface !== "string" || !surface) throw new TypeError("Unknown source unit must not be empty");
   const trace = [...new Set([...provenance, "FALLBACK:UNKNOWN-SOURCE-UNIT"])];
   return makeResult({
+    ipa_kind: "UNRESOLVED",
     segments: [{
       ipa: "?",
       kind: "unknown",
