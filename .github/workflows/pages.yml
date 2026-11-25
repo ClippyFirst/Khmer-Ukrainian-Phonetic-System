@@ -37,7 +37,7 @@ jobs:
           key: google-khmer-teacher-${{ runner.os }}-${{ hashFiles('data/khmer/google-pronunciation-full.tsv', 'scripts/train_google_phonemic_teacher.py', 'scripts/google_teacher/**', 'scripts/distill_google_teacher.py', 'src/khmer_ua/google_phonemic.py', 'src/khmer_ua/google_teacher_data.py', 'src/khmer_ua/orthographic_syllables.py', 'requirements-google-teacher.txt') }}
 
       - name: Install pinned CPU-only Google Khmer teacher runtime
-        run: python -m pip install --upgrade pip && python -m pip install -r requirements-google-teacher.txt
+        run: python -m pip install --upgrade pip && python -m pip install -r requirements-google-teacher.txt && python -m pip install jsonschema==4.26.0
 
       - name: Train Google Khmer phonemic teacher when cache is cold
         if: steps.google-teacher-cache.outputs.cache-hit != 'true'
@@ -45,6 +45,9 @@ jobs:
 
       - name: Distill teacher into static deterministic OOV syllable candidates
         run: python scripts/distill_google_teacher.py --checkpoint .cache/google-khmer-teacher/teacher.pt --output-dir .cache/google-khmer-teacher --batch-size 192
+
+      - name: Validate static deterministic candidate artifact and evidence limits
+        run: python scripts/validate_google_distilled_syllables.py .cache/google-khmer-teacher/distilled-syllables.json
 
       - name: Stage deterministic OOV candidate table for the browser
         run: |
