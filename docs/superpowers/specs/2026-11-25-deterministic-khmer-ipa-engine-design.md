@@ -111,3 +111,32 @@ This is a screening threshold, not a production acceptance criterion. A pass per
 - Current branch: `feat/deterministic-neural-distillation-20261125`; current PR #582 is draft.
 - No merge, Pages deployment, release, license selection, or external rights assumption is authorized by this design.
 - The GitHub connector is the available repository workspace. The container has no local checkout and cannot resolve github.com, so local git/worktree execution is unavailable; exact-head GitHub Actions are the verification source. This increases the importance of branch-gated CI and exact SHA recording.
+
+## Decision update — Google phonemic lexicon + retrained neural teacher (2026-11-25)
+
+This decision supersedes the earlier selection of the NCKL-respelling bridge as the primary research path. The NCKL split-syllable bridge scored 8/12 exact and 6.93% CER, while direct Khmer Phonemizer scored 11/12 exact and 0.99% CER on the same 12 source-attested lexical items. The bridge is not promoted. Whole-string and space-separated NCKL boundary variants remain a bounded diagnostic only.
+
+A stronger project-local source has been verified:
+
+- The pinned Google Khmer pronunciation TSV at commit `a90601024f07ab7e96c911243324e0adeb16da96` contains 62,179 Khmer-script rows: 62,118 non-empty phonemic transcriptions, 61 empty transcriptions, 62,114 unique spellings, and four words with multiple pronunciation variants.
+- The same source's `km/festvox/phonology.json` defines 56 phones. All 54 distinct phone tokens observed in the non-empty Khmer lexicon are present in that inventory; only `sil` and `pau` are unused.
+- A preliminary, explicitly provisional token-to-IPA adapter matches all six non-conflicting R12A vowel-context IPA examples. On the separate source-attested lexical sample, only 3/7 overlapping entries match exactly; four conflicts (aspiration, glottal stop, or vowel length) remain visible and must not be silently normalized away.
+- The source attribution file records CC BY 4.0 for the Google pronunciation data. The phonemic strings are not already project IPA; they must pass through a dedicated token-to-IPA adapter.
+- The external NPanha neural G2P repository provides MIT-licensed training code but no committed model checkpoint and no committed training TSV. Its reported PER/WER cannot be treated as reproducible project evidence. The project will train its own offline teacher from the pinned Google corpus and use a true phone-token target tokenizer (space-delimited phones plus explicit syllable-boundary tokens), rather than trusting the external repository's missing checkpoint or its character-level tokenizer behavior.
+
+### Selected research/build architecture
+
+1. **Licensed source lexicon:** use the 62,118 non-empty Khmer entries as a versioned phonemic lexical source. Preserve the four multi-pronunciation words as candidate arrays; do not select one arbitrarily. Keep the 61 blank rows unresolved.
+2. **Google phonemic → IPA adapter:** map source phone tokens to IPA using the pinned Google phonology inventory plus explicit source-attested cross-checks. Emit `PHONEMIC` typed IPA, preserving `.` syllable boundaries and long-vowel marks. Tokens without defensible mappings remain unresolved or provisional; no unknown token is guessed.
+3. **Offline neural teacher:** train a project-owned model on the same CC BY 4.0 source corpus, with word-disjoint deterministic train/dev/test splits and phoneme-token-level target encoding. Record phoneme error rate, word exact match, syllable-boundary accuracy, coverage, seed, config, data hash and checkpoint hash. These are source-label prediction metrics, not independent IPA accuracy.
+4. **Deterministic student:** compile the exact lexical source and approved neural-derived syllable/context rules into stable static JSON/JavaScript data. The final site uses only that static artifact and the existing IPA → Ukrainian adapter. The neural checkpoint remains a build/research artifact and is not loaded by site visitors.
+5. **OOV policy:** exact lexical hits use the source phonemic candidate and IPA adapter; validated deterministic rules cover compositional cases; model-derived rules remain PROVISIONAL until independently corroborated. Unknowns preserve uncertainty.
+
+### Additional evidence gates
+
+- The Google phonemic token inventory must be fully accounted for by the pinned source phonology inventory; all lexicon rows must parse or be explicitly classified as blank/ambiguous/unsupported.
+- The token-to-IPA adapter must pass the six R12A source examples and report the four lexical conflicts without suppressing them. The 6/6 result is a screening check, not accuracy.
+- The retrained teacher must be evaluated on a word-disjoint held-out split. The split must group all variants of a spelling together.
+- The compiled deterministic student must be compared against the teacher on held-out inputs and independently against any available source IPA. Teacher agreement is not accuracy.
+- No generated lexicon/rule artifact is promoted to `SUPPORTED` solely because it is licensed, model-generated, or syntactically valid IPA.
+- CC BY 4.0 attribution must accompany any distributed derivative of the Google source. The external NPanha metrics are not used as project benchmark results.
