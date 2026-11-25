@@ -83,7 +83,7 @@ assert.equal(unresolvedWord.external_candidates.find((candidate) => candidate.pr
 assert.equal(unresolvedWord.external_candidates.length, 2, "both previously captured provider IPA candidates must remain inspectable");
 assert.equal(unresolvedWord.external_candidates.find((candidate) => candidate.provider === "mekongphon").mapping_failure, "y");
 assert.equal(unresolvedWord.backend_failures[0].provider, "epitran", "rejected provider output must remain visible as a failure, not be promoted to IPA");
-assert.ok(unresolvedWord.canonical_ipa.endsWith("???"), "the internal deterministic result must retain the unresolved second word marker");
+assert.ok(unresolvedWord.canonical_ipa.endsWith("⟦NOT_ESTABLISHED⟧"), "the canonical IPA lane must retain the typed unresolved marker; display-tier candidates remain separate");
 assert.ok(unresolvedWord.canonical_ua.endsWith("???"), "the canonical IPA-derived target must retain the unresolved second word marker");
 const unresolvedUnits = unresolvedWord.units.filter((unit) => unit.status === "EVIDENCE_LIMITED" || unit.status === "NOT_ESTABLISHED");
 assert.equal(unresolvedUnits.length, 1, "word segmentation must preserve the unresolved second lexical word as one unit");
