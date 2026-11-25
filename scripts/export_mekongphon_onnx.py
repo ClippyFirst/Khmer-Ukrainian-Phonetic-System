@@ -315,7 +315,7 @@ def main() -> int:
             beams = next_beams
             if len(finished) >= num_beams or not beams:
                 break
-        if not finished:
+        if len(finished) < num_beams:
             finished.extend(beams)
         best = max(
             finished,
