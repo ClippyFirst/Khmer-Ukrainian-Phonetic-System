@@ -316,6 +316,17 @@ test("romanization mode updates its contract when input switches between Khmer a
   await expect(page.locator("#ua-result")).toHaveText("с???");
 });
 
+test("romanization mode exposes the exact IPA candidate for source-verified series vowel examples", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("ក");
+  await page.locator("#mode-romanization").click();
+  await expect(page.locator("#ua-result-description")).toContainText("IPA-кандидат: kɑː");
+  await expect(page.locator("#status")).toContainText("PROVISIONAL");
+  await page.locator("#source").fill("កា");
+  await expect(page.locator("#ua-result-description")).toContainText("IPA-кандидат: kaː");
+  await expect(page.locator("#ua-romanization-status")).toContainText("не вимова");
+});
+
 test("pre-romanized BGN/PCGN input maps directly to Ukrainian with diacritics", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("Kâmpŭchéa");
