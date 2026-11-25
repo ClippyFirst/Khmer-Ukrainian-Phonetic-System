@@ -7,7 +7,7 @@ const core = fs.readFileSync("src/khmer-engine-core.js", "utf8");
 const html = fs.readFileSync("index.html", "utf8");
 
 for (const [label, source, required] of [
-  ["main", main, ['import { analyzeInWorker } from "./khmer-engine-client.js"', "await analyzeInWorker(inputText, profile, convert, outputLevelMode)", "renderRevision"]],
+  ["main", main, ['import { analyzeInWorker } from "./khmer-engine-client.js"', "await analyzeInWorker(inputText, profile, fallbackConvert, outputLevelMode)", "async function fallbackConvert(...args)", 'await import("./khmer-engine-core.js")', "if (!inputText.trim())", "renderRevision"]],
   ["client", client, ['new Worker(new URL("./khmer-engine.worker.js", import.meta.url)', 'postMessage({ id, text, profile, outputLevel })', "fallback(text, profile, options)"]],
   ["worker", worker, ['import { convert } from "./khmer-engine-core.js"', "convert(text, profile, { outputLevel, distilledSyllables })", 'self.addEventListener("message"']],
 ]) {
@@ -26,6 +26,12 @@ if (!client.includes('fetch(new URL("../data/google-neural-distilled-syllables.j
 }
 if (worker.includes("fetch(text") || worker.includes("fetch(inputText") || worker.includes("body: text")) {
   throw new Error("Khmer source text must never be sent as a network request body");
+}
+if (main.includes('from "./khmer-engine-core.js"')) {
+  throw new Error("the main page must not eagerly import the large deterministic engine bundle");
+}
+if (main.indexOf("if (!inputText.trim())") > main.indexOf("await analyzeInWorker(")) {
+  throw new Error("empty page initialization must not create/download the engine worker");
 }
 if (!main.includes('if (typeof document !== "undefined")') || core.includes("document.")) {
   throw new Error("UI must be isolated from the worker-safe engine core");
