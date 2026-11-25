@@ -1,5 +1,18 @@
 # Master execution plan and chat handoff — 2026-11-25
 
+## Current continuation: contextual romanization-mediated IPA — 2026-11-25
+
+- Owner approved `docs/superpowers/specs/2026-11-25-romanization-mediated-ipa-design.md`.
+- Implementation plan: [2026-11-25-romanization-mediated-ipa.md](superpowers/plans/2026-11-25-romanization-mediated-ipa.md).
+- Working branch: `feat/romanization-mediated-ipa-20261125`, based on current main `e972cd503f3670d08a2fbf0812efdc701513a810` plus the approved design/plan documentation commits.
+- Draft PR [#572](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/572).
+- Implemented: shared evidence-bounded PCGN onset inventory; JavaScript and Python adapters; source-onset/romanization cross-check; typed PROVISIONAL IPA; Ukrainian output through the existing IPA-only target adapter; romanization-mode UI integration; separate orthographic romanization card retained.
+- Conservative boundary: onset-only IPA. Vowels, codas, syllable boundaries, tone and dialect detail are not inferred. PCGN b/p alternation abstains. Romanized ASCII is never treated as lossless.
+- Added focused tests: `tests/romanization-ipa.test.mjs` and `tests/test_romanization_ipa.py`; JavaScript tests are included in `npm test` and `npm run check`.
+- CI run [45564965013](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45564965013) was in progress at the time of this handoff update. No test is marked passed until the workflow reports success.
+- Local tests were not run: no local repository clone/runtime was available in this session; GitHub Actions is the execution environment.
+- Current status: implementation PARTIAL pending CI, browser verification, explicit JS/Python output parity, and reviewer inspection. This does not change canonical IPA or the research accuracy status.
+
 ## Current continuation: shared Khmer IPA engine benchmark — 2026-11-25
 
 - Current default-branch base: `de158a3fd47bc151b6f952b2a89c4e67360174fe` (includes merged PR #569).
