@@ -30,6 +30,29 @@ The current @gmana/km-translit 0.1.2 integration is documented as **BGN/PCGN-der
 
 The current romanization card remains independent from IPA → Ukrainian conversion. It supports two inputs: Khmer script, which is passed through the current BGN/PCGN-derived ASCII package, and an already romanized Latin string, which is mapped directly without re-romanization. The direct path preserves the PCGN diacritics represented in the matrix; unknown Latin fragments are bracketed. Matrix completeness and runtime integration do not establish full BGN/PCGN conformance, reversibility, or pronunciation evidence.
 
+## IPA-mediated companion lane (2026-11-25)
+
+This document remains the **orthographic** romanization → Ukrainian matrix. A separate companion path now uses the actual ASCII romanization as a contextual clue while retaining the original Khmer spelling. It does not reinterpret the Ukrainian orthographic crosswalk as IPA.
+
+The adapter has two evidence-bounded layers:
+
+1. **Source-checked onset fallback.** The longest initial PCGN token must agree with the original Khmer base consonant and the repository's registered onset IPA. Unsupported or ambiguous cases return `UNRESOLVED`; the PCGN BA `b/p` row deliberately abstains.
+2. **Six exact series/vowel exemplars.** These require an exact match of both the complete Khmer spelling and the ASCII romanization. They are copied from the existing representative IPA contrasts in `data/khmer/vowels.json`, not generalized to other signs or codas.
+
+| Khmer spelling | ASCII romanization | Provisional IPA | Evidence |
+|---|---|---|---|
+| ក | ka | kɑː | r12a representative first-series inherent vowel; PCGN vowel row 1 |
+| គ | ko | kɔː | r12a representative second-series inherent vowel; PCGN vowel row 1 |
+| កី | kei | kəj | r12a representative first-series dependent vowel; PCGN vowel row 4 |
+| គី | ki | kiː | r12a representative second-series dependent vowel; PCGN vowel row 4 |
+| កា | ka | kaː | r12a representative first-series dependent vowel; PCGN vowel row 2 |
+| គា | kea | kiə | r12a representative second-series dependent vowel; PCGN vowel row 2 |
+
+The ASCII form `ka` is intentionally ambiguous between `ក` and `កា`; retaining the source spelling allows the two cited IPA candidates to remain distinct. Every result is typed `PROVISIONAL` and is adapted to Ukrainian only through the existing IPA-only target adapter. The UI shows the IPA candidate and uncertainty while preserving the separate orthographic romanization card labelled “не вимова”.
+
+**Acceptance boundary:** all other vowels, codas, coeng/syllable roles, stress, tone and dialect detail remain unresolved. The six examples are not a general vowel table. The broader contextual IPA bridge remains PARTIAL until a complete, source-located series × vowel × coda × syllable-context matrix and specialist review exist. Canonical IPA and pronunciation-accuracy claims are unchanged.
+
+
 ## Consonant and subscript crosswalk (source-backed romanization; Ukrainian target is a project proposal)
 
 The machine-readable consonant matrix is [data/khmer/romanization_ukrainian.csv](../data/khmer/romanization_ukrainian.csv). It records all 22 official PCGN consonant-table rows plus the special ឝ row, source code-point sequences, BGN/PCGN forms, Ukrainian candidate, evidence status, URL and row locator. The CSV is authoritative for this consonant slice; it is not a complete vowel/rime matrix.
@@ -146,6 +169,9 @@ Every supported Khmer grapheme/orthographic syllable must either have a complete
 | KHM-ROM-MARKS-NUMERALS-001 | DONE_VERIFIED (bounded source inventory only) | Six PCGN diacritic rule rows cover seven Khmer source marks, including both U+17CB BANTOC and U+17D0 SAMYOK SANNYA under shortened-vowel note 5; all ten numeral glyphs are inventoried. PR #204 exact-head Quality and Chromium passed; post-merge main Quality, Chromium and Pages deploy passed. | Inventory and provenance are complete and regression-tested. Contextual romanization behavior, including series/shortening/coda resolution, remains outside this task and KHM-ROM-ENGINE-001 remains PARTIAL. |
 | KHM-ROM-MATRIX-001 | PARTIAL | The target column is complete for the inventoried rows; PCGN consonant-series × vowel × shortening × coda resolution and contextual romanization generation remain incomplete |
 | KHM-ROM-TEST-001 | PARTIAL | Unit tests now cover all 22 consonant rows, all 37 raw diacritic-preserving vowel/rime forms, and direct-input behavior; browser tests cover direct Latin input and unknown fragments. | Remaining: Khmer-script-to-Latin contextual parity, marks/numerals matrix, broad real-package corpus and expert review of Ukrainian candidates. National 1997 profile remains a separate evidence-limited research task. |
+| KHM-ROM-IPA-ADAPTER-001 | DONE_VERIFIED (bounded rules only) | Draft PR [#572](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/572); latest Quality [45586289529](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45586289529) passed Python, JS, parity, source-inventory and build checks after 26 negative vowel-context tests were added. | All registered PCGN onset classes are cross-checked against source consonant IPA; six exact series/vowel fixtures require exact source spelling plus romanization. Twenty-six other observed vowel spellings remain onset-only with an unknown tail; mismatches do not reuse fixture IPA. All outputs remain PROVISIONAL; BA b/p abstains. This does not complete general G2P. |
+| KHM-ROM-IPA-UI-001 | DONE_VERIFIED (bounded browser behavior) | Chromium [45567063255](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45567063255) passed 44/44 Playwright tests, including exact series-vowel IPA display, onset fallback, direct Latin input, mode switching and the separate “не вимова” orthographic card. | Verified for the implemented bounded rules only; broader contextual G2P remains PARTIAL. |
+| KHM-ROM-IPA-CONTEXT-001 | PARTIAL (evidence-limited) | Six exact full-syllable examples are source-registered. The 54 R12a reference-mapping rows in `data/khmer/vowel-context-register.json` are explicitly marked `runtime_eligible=false` and `SPECIALIST_REFERENCE_MAPPING_NOT_LEXICAL_TOKEN`. | Do not promote those reference rows to runtime rules. General vowel-series × vowel-sign × coda × coeng/syllable-position rules, tone/stress/dialect handling and specialist review remain incomplete; no extrapolation from the six exact fixtures. |
 | KHM-IPA-001 | PARTIAL | Existing contextual vowel/register/coda IPA model and independent gold remain incomplete |
 
 
@@ -941,3 +967,5 @@ Neither LOC version supplies a dictionary or complete segmentation algorithm. Lo
 ## Unicode 18 orthographic-syllable BNF parser — 2026-11-16
 
 The Unicode 18 component scanner is a verified inventory only. The next implementation is a separate BNF parser using the exact §16.4 expression and Appendix A.2 semantics, returning all viable orthographic-syllable parses rather than selecting a greedy segmentation. Unicode Technical Note #61 v2 (February 2025) provides a more constrained proposed Modern Khmer structure, but is non-normative and must remain a separate optional validation profile. Neither structure is a phonological syllabifier or word segmenter. See [the full source reconciliation and parser acceptance contract](audits/current/UNICODE-KHMER-ORTHOGRAPHIC-SYLLABLE-GRAMMAR-2026-11-16.md). Status: scanner DONE_VERIFIED; BNF parser TODO; TN #61 profile TODO / NON_NORMATIVE.
+
+| KHM-ROM-IPA-GOLD-001 | DEFERRED for public beta | Owner decision in [issue #104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/104); independent IPA gold remains 0, accuracy NOT_ASSESSED. | Before expert-validated/production claims: approved versioned IPA convention, two annotators, third adjudicator/curator, private blind intake, rights-cleared 30-item pilot. |

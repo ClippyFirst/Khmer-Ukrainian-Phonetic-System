@@ -1,0 +1,535 @@
+{
+  "schema": "khmer-romanization-ipa-candidates/v1",
+  "evidence": "PCGN 1972 consonant table; source onset_ipa from data/khmer/consonants.json (Unicode 17 / R12a inventory)",
+  "note": "The entries array contains only source-registered base-consonant onset correspondences. The representative_syllables array contains six exact, source-cited series/vowel examples copied from the repository's representative IPA contrasts; these are not generalized to other vowel signs, codas, or syllable contexts. No unlisted vowel or coda is inferred.",
+  "entries": [
+    {
+      "source_units": [
+        "ក",
+        "គ",
+        "្ក",
+        "្គ"
+      ],
+      "romanization": "k",
+      "ipa": "k",
+      "rule_id": "PCGN-ONSET-K",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Consonant Characters and Subscript Consonant Forms row 1",
+      "ipa_evidence": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "scope": "source-verified base consonant onset only; romanized token must match by longest prefix",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "unicode17-ch16",
+        "r12a-orthography"
+      ]
+    },
+    {
+      "source_units": [
+        "ខ",
+        "ឃ",
+        "្ខ",
+        "្ឃ"
+      ],
+      "romanization": "kh",
+      "ipa": "kʰ",
+      "rule_id": "PCGN-ONSET-KH",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Consonant Characters and Subscript Consonant Forms row 2",
+      "ipa_evidence": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "scope": "source-verified base consonant onset only; romanized token must match by longest prefix",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "unicode17-ch16",
+        "r12a-orthography"
+      ]
+    },
+    {
+      "source_units": [
+        "ង",
+        "្ង"
+      ],
+      "romanization": "ng",
+      "ipa": "ŋ",
+      "rule_id": "PCGN-ONSET-NG",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Consonant Characters and Subscript Consonant Forms row 3",
+      "ipa_evidence": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "scope": "source-verified base consonant onset only; romanized token must match by longest prefix",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "unicode17-ch16",
+        "r12a-orthography"
+      ]
+    },
+    {
+      "source_units": [
+        "ច",
+        "ជ",
+        "្ច",
+        "្ជ"
+      ],
+      "romanization": "ch",
+      "ipa": "c",
+      "rule_id": "PCGN-ONSET-CH",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Consonant Characters and Subscript Consonant Forms row 4",
+      "ipa_evidence": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "scope": "source-verified base consonant onset only; romanized token must match by longest prefix",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "unicode17-ch16",
+        "r12a-orthography"
+      ]
+    },
+    {
+      "source_units": [
+        "ឆ",
+        "ឈ",
+        "្ឆ",
+        "្ឈ"
+      ],
+      "romanization": "chh",
+      "ipa": "cʰ",
+      "rule_id": "PCGN-ONSET-CHH",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Consonant Characters and Subscript Consonant Forms row 5",
+      "ipa_evidence": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "scope": "source-verified base consonant onset only; romanized token must match by longest prefix",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "unicode17-ch16",
+        "r12a-orthography"
+      ]
+    },
+    {
+      "source_units": [
+        "ញ",
+        "្ញ"
+      ],
+      "romanization": "nh",
+      "ipa": "ɲ",
+      "rule_id": "PCGN-ONSET-NH",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Consonant Characters and Subscript Consonant Forms row 6",
+      "ipa_evidence": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "scope": "source-verified base consonant onset only; romanized token must match by longest prefix",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "unicode17-ch16",
+        "r12a-orthography"
+      ]
+    },
+    {
+      "source_units": [
+        "ដ",
+        "ឌ",
+        "្ដ",
+        "្ឌ"
+      ],
+      "romanization": "d",
+      "ipa": "ɗ",
+      "rule_id": "PCGN-ONSET-D",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Consonant Characters and Subscript Consonant Forms row 7",
+      "ipa_evidence": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "scope": "source-verified base consonant onset only; romanized token must match by longest prefix",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "unicode17-ch16",
+        "r12a-orthography"
+      ]
+    },
+    {
+      "source_units": [
+        "ឋ",
+        "ឍ",
+        "្ឋ",
+        "្ឍ",
+        "ថ",
+        "ធ",
+        "្ថ",
+        "្ធ"
+      ],
+      "romanization": "th",
+      "ipa": "tʰ",
+      "rule_id": "PCGN-ONSET-TH",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Consonant Characters and Subscript Consonant Forms row 8; Consonant Characters and Subscript Consonant Forms row 9",
+      "ipa_evidence": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "scope": "source-verified base consonant onset only; romanized token must match by longest prefix",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "unicode17-ch16",
+        "r12a-orthography"
+      ]
+    },
+    {
+      "source_units": [
+        "ណ",
+        "ន",
+        "្ណ",
+        "្ន"
+      ],
+      "romanization": "n",
+      "ipa": "n",
+      "rule_id": "PCGN-ONSET-N",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Consonant Characters and Subscript Consonant Forms row 10",
+      "ipa_evidence": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "scope": "source-verified base consonant onset only; romanized token must match by longest prefix",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "unicode17-ch16",
+        "r12a-orthography"
+      ]
+    },
+    {
+      "source_units": [
+        "ត",
+        "ទ",
+        "្ត",
+        "្ទ"
+      ],
+      "romanization": "t",
+      "ipa": "t",
+      "rule_id": "PCGN-ONSET-T",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Consonant Characters and Subscript Consonant Forms row 11",
+      "ipa_evidence": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "scope": "source-verified base consonant onset only; romanized token must match by longest prefix",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "unicode17-ch16",
+        "r12a-orthography"
+      ]
+    },
+    {
+      "source_units": [
+        "ព",
+        "្ព"
+      ],
+      "romanization": "p",
+      "ipa": "p",
+      "rule_id": "PCGN-ONSET-P",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Consonant Characters and Subscript Consonant Forms row 13",
+      "ipa_evidence": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "scope": "source-verified base consonant onset only; romanized token must match by longest prefix",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "unicode17-ch16",
+        "r12a-orthography"
+      ]
+    },
+    {
+      "source_units": [
+        "ផ",
+        "ភ",
+        "្ផ",
+        "្ភ"
+      ],
+      "romanization": "ph",
+      "ipa": "pʰ",
+      "rule_id": "PCGN-ONSET-PH",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Consonant Characters and Subscript Consonant Forms row 14",
+      "ipa_evidence": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "scope": "source-verified base consonant onset only; romanized token must match by longest prefix",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "unicode17-ch16",
+        "r12a-orthography"
+      ]
+    },
+    {
+      "source_units": [
+        "ម",
+        "្ម"
+      ],
+      "romanization": "m",
+      "ipa": "m",
+      "rule_id": "PCGN-ONSET-M",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Consonant Characters and Subscript Consonant Forms row 15",
+      "ipa_evidence": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "scope": "source-verified base consonant onset only; romanized token must match by longest prefix",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "unicode17-ch16",
+        "r12a-orthography"
+      ]
+    },
+    {
+      "source_units": [
+        "យ"
+      ],
+      "romanization": "y",
+      "ipa": "j",
+      "rule_id": "PCGN-ONSET-Y",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Consonant Characters and Subscript Consonant Forms row 16",
+      "ipa_evidence": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "scope": "source-verified base consonant onset only; romanized token must match by longest prefix",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "unicode17-ch16",
+        "r12a-orthography"
+      ]
+    },
+    {
+      "source_units": [
+        "រ",
+        "្រ"
+      ],
+      "romanization": "r",
+      "ipa": "r",
+      "rule_id": "PCGN-ONSET-R",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Consonant Characters and Subscript Consonant Forms row 17",
+      "ipa_evidence": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "scope": "source-verified base consonant onset only; romanized token must match by longest prefix",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "unicode17-ch16",
+        "r12a-orthography"
+      ]
+    },
+    {
+      "source_units": [
+        "ឡ",
+        "ល",
+        "្ល"
+      ],
+      "romanization": "l",
+      "ipa": "l",
+      "rule_id": "PCGN-ONSET-L",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Consonant Characters and Subscript Consonant Forms row 18",
+      "ipa_evidence": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "scope": "source-verified base consonant onset only; romanized token must match by longest prefix",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "unicode17-ch16",
+        "r12a-orthography"
+      ]
+    },
+    {
+      "source_units": [
+        "វ",
+        "្វ"
+      ],
+      "romanization": "v",
+      "ipa": "ʋ",
+      "rule_id": "PCGN-ONSET-V",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Consonant Characters and Subscript Consonant Forms row 19",
+      "ipa_evidence": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "scope": "source-verified base consonant onset only; romanized token must match by longest prefix",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "unicode17-ch16",
+        "r12a-orthography"
+      ]
+    },
+    {
+      "source_units": [
+        "ស",
+        "្ស"
+      ],
+      "romanization": "s",
+      "ipa": "s",
+      "rule_id": "PCGN-ONSET-S",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Consonant Characters and Subscript Consonant Forms row 20",
+      "ipa_evidence": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "scope": "source-verified base consonant onset only; romanized token must match by longest prefix",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "unicode17-ch16",
+        "r12a-orthography"
+      ]
+    },
+    {
+      "source_units": [
+        "ហ",
+        "្ហ"
+      ],
+      "romanization": "h",
+      "ipa": "h",
+      "rule_id": "PCGN-ONSET-H",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Consonant Characters and Subscript Consonant Forms row 21",
+      "ipa_evidence": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "scope": "source-verified base consonant onset only; romanized token must match by longest prefix",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "unicode17-ch16",
+        "r12a-orthography"
+      ]
+    },
+    {
+      "source_units": [
+        "អ",
+        "្អ"
+      ],
+      "romanization": "'",
+      "ipa": "ʔ",
+      "rule_id": "PCGN-ONSET-GLOTTAL",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Consonant Characters and Subscript Consonant Forms row 22",
+      "ipa_evidence": [
+        "unicode17-ch16",
+        "r12a-orthography"
+      ],
+      "scope": "source-verified base consonant onset only; romanized token must match by longest prefix",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "unicode17-ch16",
+        "r12a-orthography"
+      ]
+    }
+  ],
+  "representative_syllables": [
+    {
+      "source": "ក",
+      "romanization": "ka",
+      "ipa": "kɑː",
+      "rule_id": "V-REP-INHERENT-FIRST-KA",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "r12a-orthography"
+      ],
+      "source_locator": "vowels.json representative_series_contrasts: orthography ក, first series",
+      "scope": "exact single-character representative only; not generalized",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Vowel Characters table row 1"
+    },
+    {
+      "source": "គ",
+      "romanization": "ko",
+      "ipa": "kɔː",
+      "rule_id": "V-REP-INHERENT-SECOND-KO",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "r12a-orthography"
+      ],
+      "source_locator": "vowels.json representative_series_contrasts: orthography គ, second series",
+      "scope": "exact single-character representative only; not generalized",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Vowel Characters table row 1"
+    },
+    {
+      "source": "កី",
+      "romanization": "kei",
+      "ipa": "kəj",
+      "rule_id": "V-REP-FIRST-SERIES-II",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "r12a-orthography"
+      ],
+      "source_locator": "vowels.json representative_series_contrasts: orthography ក + ី, first series",
+      "scope": "exact orthographic fixture only; not generalized",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Vowel Characters table row 4"
+    },
+    {
+      "source": "គី",
+      "romanization": "ki",
+      "ipa": "kiː",
+      "rule_id": "V-REP-SECOND-SERIES-II",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "r12a-orthography"
+      ],
+      "source_locator": "vowels.json representative_series_contrasts: orthography គ + ី, second series",
+      "scope": "exact orthographic fixture only; not generalized",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Vowel Characters table row 4"
+    },
+    {
+      "source": "កា",
+      "romanization": "ka",
+      "ipa": "kaː",
+      "rule_id": "V-REP-FIRST-SERIES-AA",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "r12a-orthography"
+      ],
+      "source_locator": "vowels.json representative_series_contrasts: orthography ក + ា, first series",
+      "scope": "exact orthographic fixture only; not generalized",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Vowel Characters table row 2"
+    },
+    {
+      "source": "គា",
+      "romanization": "kea",
+      "ipa": "kiə",
+      "rule_id": "V-REP-SECOND-SERIES-AA",
+      "source_ids": [
+        "bgn-pcgn-khmer-1972",
+        "r12a-orthography"
+      ],
+      "source_locator": "vowels.json representative_series_contrasts: orthography គ + ា, second series",
+      "scope": "exact orthographic fixture only; not generalized",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Vowel Characters table row 2"
+    }
+  ]
+}

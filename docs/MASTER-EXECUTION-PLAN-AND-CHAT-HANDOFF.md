@@ -1,5 +1,23 @@
 # Master execution plan and chat handoff — 2026-11-25
 
+## Current continuation: contextual romanization-mediated IPA — 2026-11-25
+
+- Owner approved `docs/superpowers/specs/2026-11-25-romanization-mediated-ipa-design.md`; implementation plan: [2026-11-25-romanization-mediated-ipa.md](superpowers/plans/2026-11-25-romanization-mediated-ipa.md).
+- Base main: `e972cd503f3670d08a2fbf0812efdc701513a810`.
+- Working branch: `feat/romanization-mediated-ipa-20261125`; draft PR [#572](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/572), clean/mergeable and intentionally unmerged pending owner review.
+- Latest branch head: `f471e3a16a84e248f954ebcf720ccbdbc5cb4016`.
+- Implemented: `data/khmer/romanization_ipa_onsets.json` (source-registered PCGN onset classes plus six exact series/vowel exemplars); official source ID `bgn-pcgn-khmer-1972`; JS adapter `src/khmer-romanization-ipa.js`; Python adapter `src/khmer_ua/romanization_ipa.py`; UI in `src/main.js` displays provisional IPA candidate/status. Orthographic romanization remains separate and explicitly labelled “не вимова”.
+- Behavior: longest leading PCGN token is cross-checked against original Khmer base consonant and registered onset IPA. Six exact vowel fixtures require both full Khmer spelling and ASCII romanization: `ក`→`ka`→`kɑː`; `គ`→`ko`→`kɔː`; `កី`→`kei`→`kəj`; `គី`→`ki`→`kiː`; `កា`→`ka`→`kaː`; `គា`→`kea`→`kiə`. The `ka` collision is disambiguated by retaining source spelling. BA b/p abstains. Every candidate remains PROVISIONAL and uses the existing IPA-only Ukrainian target adapter.
+- Further evidence gate: the 54 R12a reference-mapping observations in `data/khmer/vowel-context-register.json` are all explicitly `runtime_eligible=false` / `SPECIALIST_REFERENCE_MAPPING_NOT_LEXICAL_TOKEN`. They are not promoted to executable rules. Added 26 negative regression contexts for observed PCGN vowel spellings and two wrong source/romanization pairs; they remain onset-only with unknown vowel tails.
+- Explicit limit: general dependent vowels, codas, coeng/syllable-position rules, tone, stress and dialect detail remain PARTIAL / evidence-limited. No canonical IPA or pronunciation-accuracy claim changes.
+- Tests: `tests/romanization-ipa.test.mjs`, `tests/test_romanization_ipa.py`, `tests/romanization-ipa-parity.test.mjs`, `scripts/export_romanization_ipa_parity.py`, and `tests/browser/site.spec.js`. Cross-runtime parity covers all registered onsets, six exact vowel fixtures, 26 negative vowel contexts and mismatch abstentions.
+- Quality [45585936089](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45585936089): SUCCESS — 516 Python tests, 70 subtests, JS checks, structural/lexical/rule/segmentation parity, deterministic benchmarks and Vite build.
+- Chromium [45585936078](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45585936078): SUCCESS.
+- External khPOS [45585936092](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45585936092), shared Khmer IPA benchmark [45585936171](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45585936171), and pinned upstream Rust comparison [45585936083](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45585936083): SUCCESS.
+- Local tests were not run because no local clone/runtime was available; GitHub Actions is the verification environment.
+- Task ledger: bounded onset + six exact vowel adapter DONE_VERIFIED; browser integration DONE_VERIFIED; general contextual vowel/coda/syllable coverage PARTIAL / evidence-limited; independent expert-adjudicated IPA gold remains 0, deferred for public beta per issue #104, and pronunciation accuracy NOT_ASSESSED. PR #572 remains draft and unmerged pending review.
+
+
 ## Current continuation: shared Khmer IPA engine benchmark — 2026-11-25
 
 - Current default-branch base: `de158a3fd47bc151b6f952b2a89c4e67360174fe` (includes merged PR #569).
@@ -183,3 +201,55 @@ Exact workflow runs:
 The external benchmark pins upstream `Alujack/khmer-tokenizer` at `f38eae5924d4e41a46fd2204cf6951cdb0dc8908`, uses its 61,980-entry dictionary, and scores 1,000 corpus sentences / 10,778 gold tokens. The corpus is CC BY-NC-SA 4.0 and was downloaded temporarily by CI; it was not copied into the repository. The benchmark evaluates tokenization/segmentation, not phonetic transcription. Therefore it is valid external segmentation evidence but must not be cited as Khmer IPA accuracy.
 
 The PR now meets its engineering acceptance criteria. It remains unmerged because no explicit merge instruction was given. The only remaining work for this branch is owner review/merge; linguistic research tasks remain as previously recorded (independent IPA gold = 0; pronunciation accuracy NOT_ASSESSED; full contextual phonology PARTIAL).
+
+
+## Final continuation — romanization-mediated IPA fallback (2026-11-25)
+
+**Owner decision:** the approved design is implemented on a dedicated branch. The implementation intentionally remains conservative: direct IPA is still preferred; the romanization mode may derive a typed PROVISIONAL IPA candidate from the original Khmer spelling plus its BGN/PCGN-derived ASCII romanization; every Ukrainian pronunciation output is passed through the existing IPA-only target adapter. The separate orthographic romanization card remains visible and explicitly says it is not pronunciation.
+
+### Implementation and evidence boundary
+
+- Branch: `feat/romanization-mediated-ipa-20261125`
+- PR: [#572 — Add conservative romanization-mediated IPA fallback](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/572)
+- Exact final head: `20b860c01965ea2ea49cca439c26ab57ef351a8e`
+- Base: `main` at `e972cd503f3670d08a2fbf0812efdc701513a810`
+- 17 changed files; Python and JavaScript implementations; browser integration; source inventory, parity and negative tests.
+- Registered Khmer onset tokens are checked against original Khmer consonants and source IPA. The BA b/p ambiguity abstains.
+- Only six exact, source-aligned series/vowel syllable fixtures produce a full provisional IPA candidate, and only when both original Khmer spelling and ASCII romanization match.
+- Twenty-six other observed PCGN vowel spellings and two deliberately mismatched fixtures are negative cases: they retain an onset-only PROVISIONAL candidate and an explicit unknown vowel tail. No unsupported vowel is inferred.
+- A review of 54 R12a reference mappings found all are `runtime_eligible=false` / `SPECIALIST_REFERENCE_MAPPING_NOT_LEXICAL_TOKEN`; they are not executable lexical rules.
+- No candidate is promoted to SUPPORTED or canonical IPA. No neural model, remote service, or new runtime dependency was introduced.
+
+### Exact-head verification
+
+All six GitHub commit checks on the exact head completed successfully:
+
+| Check | Result | Evidence |
+|---|---|---|
+| Quality / Python + JS + parity + deterministic benchmarks + Vite build | PASS — 516 Python tests and 70 subtests; shared browser-runtime register contract passed | [45586289529](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45586289529) |
+| Chromium | PASS — 44 Playwright tests | [45586289504](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45586289504) |
+| External khPOS comparison | PASS | [45586289526](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45586289526) |
+| Shared IPA engine held-out benchmark | PASS | [45586289507](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45586289507) |
+| Pinned upstream Rust comparison | PASS | [45586289555](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45586289555) |
+| Additional Quality workflow | PASS | Exact-head check run above |
+
+Local execution was not available in this session; verification was performed by GitHub Actions. No claim of locally run tests is made.
+
+### Current task ledger
+
+| Task | Status | Acceptance / remaining work |
+|---|---|---|
+| `KHM-ROM-IPA-ADAPTER-001` | DONE_VERIFIED | Bounded source-checked onset inventory, six exact syllable fixtures, explicit abstention and 26 negative vowel cases; Python/JS semantic parity passed. |
+| `KHM-ROM-IPA-UI-001` | DONE_VERIFIED | Romanization mode displays the IPA-mediated provisional lane; orthographic romanization remains separate and marked “не вимова”; Chromium 44/44. |
+| `KHM-ROM-IPA-CONTEXT-001` | PARTIAL / evidence-limited | General vowel-series × dependent-vowel × coda × coeng/syllable-position rules, register harmony, stress/tone and dialect remain open. Requires profile-compatible lexical/audio evidence and specialist review; do not extrapolate from six fixtures or 54 reference mappings. |
+| `KHM-IPA-GOLD-001` | DEFERRED for public beta | Per owner decision in [issue #104](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/issues/104), expert-adjudicated gold remains 0 and accuracy remains NOT_ASSESSED. It is still mandatory before expert-validated or production linguistic claims. Acceptance: versioned IPA convention, two independent annotators, third adjudicator and curator, private blind intake, rights-checked items and 30-item pilot. |
+| Pronunciation accuracy | NOT_ASSESSED | No independent gold denominator; engineering/segmentation benchmarks are not pronunciation accuracy. |
+| Production model/provider integration | DEFERRED / separately gated | No model or service was added; rights, profile, privacy, runtime and deployment requirements remain separate decisions. |
+
+### PR and release state
+
+- PR #572 is open and mergeable; exact-head checks are green and there are no review threads.
+- PR #572 is intentionally not merged; no merge instruction was given.
+- PR #519 remains separate and untouched; it is a divergent hybrid-inference proposal and must be reconciled independently.
+- No release or deployment was triggered by this change.
+- Assessment: the romanization-mediated fallback is engineering-verified within its narrow inventory. The repository remains a research-ready partial prototype, not a linguistically validated Khmer G2P product.

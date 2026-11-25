@@ -295,10 +295,37 @@ test("romanization mode renders a separate provisional Ukrainian form", async ({
   await expect(page.locator("#romanization-result")).toHaveText("Sokha");
   await expect(page.locator("#ua-romanization-result")).toHaveText("Сок'а");
   await expect(page.locator("#ua-romanization-status")).toContainText("PROVISIONAL");
-  await expect(page.locator("#ua-result")).toHaveText("Сок'а");
+  await expect(page.locator("#ua-result-title")).toHaveText("Українська через романізацію (попередня IPA)");
+  await expect(page.locator("#ua-result")).toHaveText("с???");
+  await expect(page.locator("#ua-result-description")).toContainText("IPA-кандидат: s?");
   await expect(page.locator("#ipa-result")).toBeVisible();
 });
 
+
+test("romanization mode updates its contract when input switches between Khmer and Latin", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("សុខា");
+  await page.locator("#mode-romanization").click();
+  await expect(page.locator("#ua-result-title")).toHaveText("Українська через романізацію (попередня IPA)");
+  await page.locator("#source").fill("Kâmpŭchéa");
+  await expect(page.locator("#ua-result-title")).toHaveText("Українська з романізації");
+  await expect(page.locator("#ua-result")).toHaveText("Кампучеа");
+  await expect(page.locator("#output-method-note")).toContainText("Без вихідних кмерських графем");
+  await page.locator("#source").fill("សុខា");
+  await expect(page.locator("#ua-result-title")).toHaveText("Українська через романізацію (попередня IPA)");
+  await expect(page.locator("#ua-result")).toHaveText("с???");
+});
+
+test("romanization mode exposes the exact IPA candidate for source-verified series vowel examples", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("ក");
+  await page.locator("#mode-romanization").click();
+  await expect(page.locator("#ua-result-description")).toContainText("IPA-кандидат: kɑː");
+  await expect(page.locator("#status")).toContainText("PROVISIONAL");
+  await page.locator("#source").fill("កា");
+  await expect(page.locator("#ua-result-description")).toContainText("IPA-кандидат: kaː");
+  await expect(page.locator("#ua-orthographic-status")).toContainText("не вимова");
+});
 
 test("pre-romanized BGN/PCGN input maps directly to Ukrainian with diacritics", async ({ page }) => {
   await page.goto("/");
@@ -422,8 +449,8 @@ test("unresolved Khmer cluster shows the known onset in IPA mode and keeps roman
   await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-rule-id", "KHMER-PREVIEW-ONSET-IPA-V1");
   await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-position", "onset");
   await page.locator("#mode-romanization").click();
-  await expect(page.locator("#ua-result")).not.toContainText("???");
-  await expect(page.locator("#status")).toContainText("РОМАНІЗАЦІЯ");
+  await expect(page.locator("#ua-result")).toHaveText("к???");
+  await expect(page.locator("#status")).toContainText("РОМАНІЗАЦІЯ → IPA");
 });
 
 
