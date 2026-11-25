@@ -353,6 +353,7 @@ def _analyze_unit(unit: str) -> dict[str, Any]:
                     "ukrainian": ukrainian,
                     "status": "PROPOSED" if unsupported is None else "NOT_ESTABLISHED",
                     "rule_trace": ["KHMER_REGISTER_SERIES_INHERENT_VOWEL", "IPA_TO_UKRAINIAN_LONGEST_MATCH"],
+                    "ipa_kind": "UNRESOLVED",
                     "reason": "Conservative series-based inherent-vowel rule; source evidence is recorded, but the output remains proposed pending profile-matched adjudication.",
                     "evidence": list(consonant_evidence),
                     "structure": structure.phonological_representation,
@@ -556,10 +557,11 @@ class RuleBasedKhmerEngine:
                 ipa=ipa_value,
                 ukrainian=ua_value,
                 profile=self.profile,
-                # Canonical IPA kind remains unresolved until convention approval.
+                # Preserve explicit per-unit kind decisions; default to the
+                # typed adapter's kind only for source-registered lexical IPA.
                 ipa_kind=(
                     "NOT_APPLICABLE" if status in {"PUNCTUATION", "NON_LINGUISTIC"}
-                    else "UNRESOLVED"
+                    else unit.get("ipa_kind", typed_ipa.ipa_kind if typed_ipa is not None else "UNRESOLVED")
                 ),
                 ukrainian_kind=(
                     "NOT_APPLICABLE" if status in {"PUNCTUATION", "NON_LINGUISTIC"}

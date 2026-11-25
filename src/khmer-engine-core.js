@@ -484,6 +484,42 @@ function deriveOrthographicRomanizationFallback(unit) {
 }
 
 function renderUnknownUnit(unit, profile) {
+  const analysis = parseSyllable(unit);
+  if (analysis.status === "INVALID_OR_UNSUPPORTED") {
+    return {
+      source: unit,
+      ipa: "⟦INVALID_OR_UNSUPPORTED⟧",
+      ua: "⟦НЕПІДТРИМУЄТЬСЯ⟧",
+      typed_ipa: fromUnknownSourceUnit(unit, { provenance: ["KHMER_UNICODE_VALIDATION_FAILED"] }),
+      status: "INVALID_OR_UNSUPPORTED",
+      rule_trace: ["KHMER_UNICODE_VALIDATION_FAILED"],
+      note: analysis.reason ?? "Некоректна або непідтримувана Unicode-послідовність.",
+      analysis,
+      profile,
+    };
+  }
+
+  const derivedIpa = deriveDeterministicIpa(analysis);
+  if (derivedIpa) {
+    const profiledIpa = renderIpaProfile(derivedIpa, profile);
+    const mapped = mapThroughTypedIpa(profiledIpa, CONSONANTS[analysis.base]?.evidence ?? []);
+    if (mapped.value !== null) {
+      return {
+        source: unit,
+        ipa: "/" + profiledIpa + "/",
+        ua: mapped.value,
+        typed_ipa: mapped.typed_ipa,
+        status: "PROPOSED",
+        rule_trace: ["KHMER_REGISTER_SERIES_INHERENT_VOWEL", "IPA_TO_UKRAINIAN_LONGEST_MATCH"],
+        note: "Вимову виведено з документованої структури: базовий приголосний + встановлений регістр/шифтер + притаманна голосна серії. Українська форма є проєктною; результат не є лексичним винятком.",
+        analysis,
+        profile,
+        mapping_check: { policy_render: mapped.value, lexical_render: null, agrees: true },
+        evidence: CONSONANTS[analysis.base]?.evidence ?? [],
+      };
+    }
+  }
+
   const googleCandidates = lookupGooglePhonemicCandidates(unit);
   if (googleCandidates.length === 1) {
     const lexicalCandidate = googleCandidates[0];
@@ -520,41 +556,6 @@ function renderUnknownUnit(unit, profile) {
     };
   }
 
-  const analysis = parseSyllable(unit);
-  if (analysis.status === "INVALID_OR_UNSUPPORTED") {
-    return {
-      source: unit,
-      ipa: "⟦INVALID_OR_UNSUPPORTED⟧",
-      ua: "⟦НЕПІДТРИМУЄТЬСЯ⟧",
-      typed_ipa: fromUnknownSourceUnit(unit, { provenance: ["KHMER_UNICODE_VALIDATION_FAILED"] }),
-      status: "INVALID_OR_UNSUPPORTED",
-      rule_trace: ["KHMER_UNICODE_VALIDATION_FAILED"],
-      note: analysis.reason ?? "Некоректна або непідтримувана Unicode-послідовність.",
-      analysis,
-      profile,
-    };
-  }
-
-  const derivedIpa = deriveDeterministicIpa(analysis);
-  if (derivedIpa) {
-    const profiledIpa = renderIpaProfile(derivedIpa, profile);
-    const mapped = mapThroughTypedIpa(profiledIpa, CONSONANTS[analysis.base]?.evidence ?? []);
-    if (mapped.value !== null) {
-      return {
-        source: unit,
-        ipa: "/" + profiledIpa + "/",
-        ua: mapped.value,
-        typed_ipa: mapped.typed_ipa,
-        status: "PROPOSED",
-        rule_trace: ["KHMER_REGISTER_SERIES_INHERENT_VOWEL", "IPA_TO_UKRAINIAN_LONGEST_MATCH"],
-        note: "Вимову виведено з документованої структури: базовий приголосний + встановлений регістр/шифтер + притаманна голосна серії. Українська форма є проєктною; результат не є лексичним винятком.",
-        analysis,
-        profile,
-        mapping_check: { policy_render: mapped.value, lexical_render: null, agrees: true },
-        evidence: CONSONANTS[analysis.base]?.evidence ?? [],
-      };
-    }
-  }
 
   // Keep the orthographic candidate available for diagnostics, but never
   // let it pre-empt an independently supported IPA onset hint.
