@@ -88,3 +88,16 @@
 - General vowel mapping beyond the six exact examples, coda, syllabification, register-harmony and dialect adaptation remain **PARTIAL / evidence-limited**. `vowels.json` explicitly says it is not a complete deterministic orthography-to-IPA table. No complete vowel IPA matrix was fabricated.
 - The separate orthographic romanization card remains the full BGN/PCGN-derived orthographic output; it is not relabelled as pronunciation.
 - Local RED tests were not observed because this session used GitHub-hosted execution rather than a local clone. GitHub Actions Quality checks passed on code head `facfa463bd77b7ac9591b5c13e80a0b54daa96ae`; Chromium passed 44/44 on the same head. Local test execution and RED observation were unavailable in this session.
+
+
+## Follow-up evidence gate — 2026-11-25
+
+A further review of the 54 R12a reference-mapping observations found that the existing evidence register explicitly marks every one as `runtime_eligible: false` and `SPECIALIST_REFERENCE_MAPPING_NOT_LEXICAL_TOKEN`. The mappings describe orthographic reference values but do not constitute exact lexical/syllable tokens suitable for deterministic runtime lookup. Therefore no additional vowel IPA rules were promoted from that table.
+
+To preserve the distinction between source-described reference mappings and executable fixtures, added regression coverage for 26 observed PCGN romanizations (including `ke`, `koe`, `ku`, `ko`, `key`, `kao`, `kau`, `kou`, `kaeu`, `keu`, `koea`, `kuo`) and two mismatched spellings of the six accepted fixtures. All remain onset-only PROVISIONAL candidates with an explicit unknown vowel tail; no phonemic IPA is manufactured.
+
+- Temporary diagnostic test/file removed after recording the actual `@gmana/km-translit` outputs.
+- Python/JS parity includes all 26 negative contexts.
+- Quality [45585679238](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45585679238) SUCCESS.
+- General vowel/coda/coeng rules remain PARTIAL / evidence-limited; the six source-aligned syllable fixtures remain the only full provisional IPA outputs.
+
