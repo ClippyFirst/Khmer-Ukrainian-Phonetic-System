@@ -1,3 +1,16 @@
+## Romanization-mediated provisional IPA — 2026-11-25
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-ROM-IPA-ADAPTER-001 | DONE_VERIFIED (bounded inventory and cross-runtime behavior) | Draft PR [#572](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/572); Quality [45566659547](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45566659547) SUCCESS, including Python tests, JS tests, exact Python/JS candidate parity, source-inventory checks, structural/lexical/rule/segmentation parity and build. | Registered PCGN onset tokens are cross-checked against the original Khmer base consonant and source-registered IPA. Six exact series/vowel exemplars are accepted only when both full Khmer spelling and ASCII romanization match. Every result remains PROVISIONAL; ambiguous BA b/p abstains. |
+| KHM-ROM-IPA-UI-001 | PARTIAL (latest Chromium check pending) | `src/main.js` displays the IPA candidate and uncertainty in romanization mode while preserving the separate orthographic romanization card as “не вимова”; browser regression tests added to `tests/browser/site.spec.js`. | Latest Chromium run must pass exact vowel examples, onset-only fallback, direct Latin input, mode switching and separate orthographic output before this UI integration is marked DONE_VERIFIED. |
+| KHM-ROM-IPA-CONTEXT-001 | PARTIAL (evidence-limited) | Six exact IPA examples come from `data/khmer/vowels.json` representative contrasts and have row-level BGN/PCGN locators; onset IPA is cross-checked against `data/khmer/consonants.json`. | General dependent-vowel × consonant-series × coda × coeng/syllable-position mapping, stress/tone/dialect and specialist review remain open. `vowels.json` is explicitly not a complete deterministic orthography-to-IPA table; do not extrapolate the six fixtures. |
+| KHM-ROM-IPA-GOLD-001 | BLOCKED (unchanged) | Independent expert-adjudicated IPA gold remains 0; no new candidate has been imported into gold. | No accuracy claim or canonical promotion until a rights-cleared, profile-defined, independently adjudicated gold set exists. |
+
+**Research boundary:** this bridge improves bounded candidate coverage only. It does not change canonical IPA, the independent-gold count, or pronunciation accuracy (still NOT_ASSESSED).
+
+---
+
 ## Shared cross-engine Khmer IPA benchmark — 2026-11-25
 
 | ID | Status | Evidence | Acceptance boundary |
