@@ -381,7 +381,7 @@ if (typeof document !== "undefined") {
   });
   $("run-mekongphon")?.addEventListener("click", async () => {
     const input = source.value;
-    if (!/[\\p{Script=Khmer}]/u.test(input) || /\\p{Script=Latin}/u.test(input)) {
+    if (!/\p{Script=Khmer}/u.test(input) || /\p{Script=Latin}/u.test(input)) {
       $("mekongphon-status").textContent = "Модель приймає кмерський текст без латинської романізації.";
       return;
     }
