@@ -129,6 +129,7 @@ export function fromIpa(ipa, {
   }
   if (typeof ipa !== "string" || !ipa.trim()) {
     return fromUnknownSourceUnit("?", {
+      profile,
       provenance,
       uncertainty: [...uncertainty, "EMPTY-IPA-RESULT"],
     });
