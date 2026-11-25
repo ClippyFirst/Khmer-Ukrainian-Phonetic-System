@@ -83,7 +83,8 @@ function topLogProbabilities(row, limit) {
 async function generateBeam({ ort, encoder, decoder, tokenizers, manifest }, text, postProgress) {
   const maxLength = manifest.generation?.max_length ?? 128;
   const beamSize = 4;
-  const inputIds = tokenizers.encoder.encode(text, { maxLength });
+  const encodedInput = tokenizers.encoder.encodeWithMetadata(text, { maxLength });
+  const inputIds = encodedInput.ids;
   if (!inputIds.length) throw new Error("EMPTY_MODEL_INPUT");
   const attention = new BigInt64Array(inputIds.length).fill(1n);
   const encoderInputs = {
@@ -161,7 +162,7 @@ async function generateBeam({ ort, encoder, decoder, tokenizers, manifest }, tex
   return {
     ipa: tokenizers.decoder.decode(bestIds),
     input_token_count: inputIds.length,
-    input_truncated: inputIds.length >= maxLength,
+    input_truncated: encodedInput.truncated,
     output_token_count: bestIds.length,
     beam_size: beamSize,
   };
