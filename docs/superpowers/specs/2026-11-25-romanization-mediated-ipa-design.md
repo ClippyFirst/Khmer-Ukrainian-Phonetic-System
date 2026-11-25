@@ -1,7 +1,7 @@
 # Romanization-mediated IPA candidate path — design
 
 Date: 2026-11-25
-Status: PROPOSED — awaiting owner approval
+Status: APPROVED — implementation in progress (2026-11-25)
 Base: `main` at `e972cd503f3670d08a2fbf0812efdc701513a810`
 
 ## Intent
