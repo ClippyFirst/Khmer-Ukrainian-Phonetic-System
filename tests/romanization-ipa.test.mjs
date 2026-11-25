@@ -144,3 +144,18 @@ test("wrong romanization never reuses a representative vowel IPA", () => {
     assert.ok(result.typed_ipa.segments.some((segment) => segment.kind === "unknown"));
   }
 });
+
+test("unlisted vowel romanizations are recorded as observed PCGN ASCII outputs", () => {
+  const samples = [
+    ["កិ","ke"],["គិ","ki"],["កឹ","koe"],["គឹ","koe"],
+    ["កឺ","koe"],["គឺ","koe"],["កុ","ko"],["គុ","ku"],
+    ["កូ","ko"],["គូ","ku"],["កេ","ke"],["គេ","ke"],
+    ["កែ","ke"],["គែ","ke"],["កៃ","kai"],["គៃ","key"],
+    ["កោ","kao"],["គោ","ko"],["កៅ","kau"],["គៅ","kou"],
+    ["កើ","kaeu"],["គើ","keu"],["កឿ","koea"],["គឿ","koea"],
+    ["កួ","kuo"],["គួ","kuo"],
+  ];
+  for (const [source, expected] of samples) {
+    assert.equal(khmerToLatin(source).toLowerCase(), expected, source);
+  }
+});
