@@ -876,7 +876,7 @@ function convert(text, profile, options = {}) {
       provisionalUaParts.push(item.provisional_ukrainian);
       continue;
     }
-    if (item.partial_candidate_kind === "LEXICAL_PHONEMIC_CANDIDATE") {
+    if (["LEXICAL_PHONEMIC_CANDIDATE", "NEURAL_DISTILLED_OOV_SYLLABLE"].includes(item.partial_candidate_kind)) {
       flushProvisionalUnknown();
       provisionalUaParts.push(item.provisional_ukrainian && item.provisional_ukrainian !== "???"
         ? item.provisional_ukrainian + "???" : "???");
