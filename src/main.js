@@ -421,6 +421,7 @@ if (typeof document !== "undefined") {
         + " · profile match " + candidate.profile_match
         + " · " + candidate.elapsed_ms + " ms"
         + " · " + candidate.input_token_count + " вхідних токенів"
+        + " · ваги " + (candidate.model_bytes / 1048576).toFixed(1) + " MB"
         + (candidate.input_truncated ? " · ввід обрізано до ліміту моделі" : "")
         + " · текст не надсилався на сервер";
       lastModelInput = input;
