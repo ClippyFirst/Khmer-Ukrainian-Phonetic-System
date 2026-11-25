@@ -1,5 +1,18 @@
 # Master execution plan and chat handoff — 2026-11-25
 
+## Current continuation: NCKL Khmer-script respelling benchmark integration — 2026-11-25
+
+- Integration branch: `integrate/nckl-respelling-benchmark-20261125`, based on the post-#572 `main` commit `747e9388e0d68b16f2cc29113b9fdea648d2d7b2`; source PR [#573](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/573) was non-mergeable after #572 because both branches changed the master handoff and linguistic completion register. The seven-file change is being ported without overwriting the #572 updates.
+- PR [#572](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/572) is merged as `747e9388e0d68b16f2cc29113b9fdea648d2d7b2`. Its exact-head Quality, Chromium, khPOS, pinned Rust and shared IPA benchmark workflows passed.
+- NCKL benchmark files: `scripts/benchmark_nckl_respelling.py`, `tests/test_benchmark_nckl_respelling.py`, `.github/workflows/optional-nckl-respelling-benchmark.yml`, and `docs/research/NCKL-RESPelling-BENCHMARK-2026-11-25.md`. Dataset and model revisions are pinned; inference uses MIT-licensed `khmer-g2p==0.1.0`; CI retains aggregate metrics only.
+- Verified NCKL test results: 1,888 unique words, 100% output coverage, 83.16% exact match, 4.16% code-point CER, 93.06% syllable-count accuracy. This is Khmer-script respelling, not IPA; it does not measure or improve IPA accuracy.
+- Rights gate remains BLOCKED for commercial use and redistribution pending direct NCKL terms clarification. No dataset rows, source words, references, predictions or per-word errors are committed or retained in CI artifacts.
+- Public static service: existing Pages workflow builds/tests the site and deploys on pushes to `main`; deployment after this integration must be verified by its Actions run and live smoke step. No backend or live neural inference is added.
+- Linguistic limits remain: independent adjudicated IPA gold = 0; pronunciation accuracy = NOT_ASSESSED; broad contextual Khmer phonology = PARTIAL; production neural inference = separately deferred pending rights, profile, privacy and runtime decisions.
+
+---
+
+
 ## Current continuation: contextual romanization-mediated IPA — 2026-11-25
 
 - Owner approved `docs/superpowers/specs/2026-11-25-romanization-mediated-ipa-design.md`; implementation plan: [2026-11-25-romanization-mediated-ipa.md](superpowers/plans/2026-11-25-romanization-mediated-ipa.md).
@@ -251,5 +264,5 @@ Local execution was not available in this session; verification was performed by
 - PR #572 is open and mergeable; exact-head checks are green and there are no review threads.
 - PR #572 is intentionally not merged; no merge instruction was given.
 - PR #519 remains separate and untouched; it is a divergent hybrid-inference proposal and must be reconciled independently.
-- No release or deployment was triggered by this change.
+- PR #572 was merged; Pages deployment is triggered by the subsequent `main` update and must be verified independently. No formal release tag was created.
 - Assessment: the romanization-mediated fallback is engineering-verified within its narrow inventory. The repository remains a research-ready partial prototype, not a linguistically validated Khmer G2P product.
