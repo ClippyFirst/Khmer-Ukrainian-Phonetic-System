@@ -864,7 +864,7 @@ function convert(text, profile, options = {}) {
     if (item.partial_candidate_kind === "LEXICAL_PHONEMIC_CANDIDATE") {
       flushProvisionalUnknown();
       provisionalUaParts.push(item.provisional_ukrainian && item.provisional_ukrainian !== "???"
-        ? item.provisional_ukrainian + "???" : "???");
+        ? item.provisional_ukrainian : "???");
       continue;
     }
     pendingProvisionalUnknown = true;
@@ -885,7 +885,7 @@ function convert(text, profile, options = {}) {
     ukrainian: item.partial_candidate_kind === "NEURAL_DISTILLED_OOV_SYLLABLE"
       ? (item.provisional_ukrainian && item.provisional_ukrainian !== "???" ? item.provisional_ukrainian : "???")
       : item.partial_candidate_kind === "LEXICAL_PHONEMIC_CANDIDATE"
-        ? (item.provisional_ukrainian && item.provisional_ukrainian !== "???" ? item.provisional_ukrainian + "???" : "???")
+        ? (item.provisional_ukrainian && item.provisional_ukrainian !== "???" ? item.provisional_ukrainian : "???")
         : item.partial_candidate_kind === "ONSET_ONLY"
         ? item.provisional_ukrainian
         : ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
