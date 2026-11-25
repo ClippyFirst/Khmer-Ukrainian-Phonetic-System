@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the compact deterministic browser lexicon from the pinned Google source."""
+"""Build deterministic browser shards from the pinned Google phonemic source."""
 from __future__ import annotations
 
 import argparse
@@ -15,12 +15,17 @@ sys.path.insert(0, str(ROOT / "src"))
 from khmer_ua.google_phonemic import load_google_phonemic_lexicon, parse_google_phonemic
 
 DEFAULT_OUTPUT = ROOT / "data" / "khmer" / "google-phonemic-source-lexicon.json"
+SHARD_COUNT = 8
 
 
-def build_google_phonemic_lexicon() -> dict[str, Any]:
+def canonical_json(data: dict[str, Any]) -> str:
+    return json.dumps(data, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n"
+
+
+def build_google_phonemic_lexicon() -> tuple[dict[str, Any], dict[int, dict[str, Any]]]:
     source = load_google_phonemic_lexicon()
     mapping = source.mapping
-    entries: dict[str, list[list[Any]]] = {}
+    buckets: dict[int, dict[str, list[list[Any]]]] = {index: {} for index in range(SHARD_COUNT)}
     unresolved_rows = [
         [row.word, row.source_row, row.source_label, "EMPTY_SOURCE_PHONEMIC"]
         for row in source.unresolved_rows
@@ -30,6 +35,7 @@ def build_google_phonemic_lexicon() -> dict[str, Any]:
     unresolved_nonempty_rows = 0
 
     for word, rows in source.entries.items():
+        shard_id = ord(word[0]) % SHARD_COUNT
         for row in rows:
             parsed = parse_google_phonemic(row.source_phonemic, mapping)
             if parsed.status != "PROVISIONAL" or parsed.ipa is None:
@@ -45,7 +51,7 @@ def build_google_phonemic_lexicon() -> dict[str, Any]:
             mapping_status_counts[parsed.mapping_status] += 1
             # Tuple layout: [source phonemic string, original TSV line, optional label].
             # The browser runs the same token-to-IPA adapter at lookup time.
-            entries.setdefault(word, []).append([
+            buckets[shard_id].setdefault(word, []).append([
                 row.source_phonemic,
                 row.source_row,
                 row.source_label,
@@ -56,7 +62,26 @@ def build_google_phonemic_lexicon() -> dict[str, Any]:
     if unresolved_nonempty_rows:
         raise ValueError(f"{unresolved_nonempty_rows} non-empty Google phonemic rows failed IPA conversion")
 
-    return {
+    shard_data: dict[int, dict[str, Any]] = {}
+    shard_metadata = []
+    for shard_id, entries in buckets.items():
+        ordered_entries = {word: entries[word] for word in sorted(entries)}
+        shard_data[shard_id] = {
+            "schema_version": "google-phonemic-source-lexicon-shard/v1",
+            "source_id": mapping["source"]["id"],
+            "source_revision": mapping["source"]["source_revision"],
+            "shard_id": shard_id,
+            "entry_tuple_layout": ["source_phonemic", "source_row", "source_label"],
+            "entries": ordered_entries,
+        }
+        shard_metadata.append({
+            "id": shard_id,
+            "path": f"google-phonemic-source-lexicon-{shard_id}.json",
+            "word_count": len(ordered_entries),
+            "candidate_count": sum(len(rows) for rows in ordered_entries.values()),
+        })
+
+    manifest = {
         "schema_version": "google-phonemic-source-lexicon/v1",
         "source": {
             "id": mapping["source"]["id"],
@@ -75,35 +100,45 @@ def build_google_phonemic_lexicon() -> dict[str, Any]:
             "unresolved_nonempty_rows": unresolved_nonempty_rows,
             "mapping_status_counts": dict(sorted(mapping_status_counts.items())),
             "entry_tuple_layout": ["source_phonemic", "source_row", "source_label"],
+            "shard_count": SHARD_COUNT,
         },
-        "entries": {word: rows for word, rows in sorted(entries.items())},
+        "shards": shard_metadata,
         "unresolved_rows": sorted(unresolved_rows, key=lambda row: row[1]),
     }
-
-
-def canonical_json(data: dict[str, Any]) -> str:
-    return json.dumps(data, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n"
+    return manifest, shard_data
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
-    parser.add_argument("--check", action="store_true", help="fail if the committed artifact differs")
+    parser.add_argument("--check", action="store_true", help="fail if committed artifacts differ")
     args = parser.parse_args()
 
-    expected = canonical_json(build_google_phonemic_lexicon())
+    manifest, shards = build_google_phonemic_lexicon()
+    expected_files = {
+        args.output: canonical_json(manifest),
+        **{
+            args.output.parent / f"{args.output.stem}-{shard_id}.json": canonical_json(shard)
+            for shard_id, shard in shards.items()
+        },
+    }
+
     if args.check:
-        if not args.output.exists():
-            raise SystemExit(f"missing generated lexicon: {args.output}")
-        actual = args.output.read_text(encoding="utf-8")
-        if actual != expected:
-            raise SystemExit(f"generated lexicon drift: {args.output}")
-        print(f"Google phonemic source lexicon is reproducible: {len(expected.encode('utf-8'))} bytes")
+        for path, expected in expected_files.items():
+            if not path.exists():
+                raise SystemExit(f"missing generated lexicon artifact: {path}")
+            actual = path.read_text(encoding="utf-8")
+            if actual != expected:
+                raise SystemExit(f"generated lexicon drift: {path}")
+        total_bytes = sum(len(value.encode("utf-8")) for value in expected_files.values())
+        print(f"Google phonemic source lexicon is reproducible: {len(expected_files)} files, {total_bytes} bytes")
         return 0
 
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(expected, encoding="utf-8")
-    print(f"Wrote {args.output} ({len(expected.encode('utf-8'))} bytes)")
+    for path, value in expected_files.items():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(value, encoding="utf-8")
+    total_bytes = sum(len(value.encode("utf-8")) for value in expected_files.values())
+    print(f"Wrote {len(expected_files)} Google phonemic lexicon files ({total_bytes} bytes)")
     return 0
 
 
