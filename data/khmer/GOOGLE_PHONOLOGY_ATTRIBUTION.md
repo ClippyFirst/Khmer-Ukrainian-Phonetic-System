@@ -10,7 +10,7 @@ This project records the following upstream reference for research and source au
 
 ## Rights status
 
-<badge>BLOCKED — license scope unresolved</badge>
+**BLOCKED — license scope unresolved**
 
 The file has no file-level license header. At the pinned revision, the upstream repository README states that original files are Apache-2.0 unless otherwise noted and that some datasets are CC BY 4.0. The 2018 paper broadly describes data as CC BY 4.0 unless otherwise noted. These statements do not unambiguously establish the license for this exact companion JSON file. The project's third-party-rights audit therefore leaves its license scope unresolved pending authoritative clarification.
 
