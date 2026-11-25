@@ -663,6 +663,8 @@ test("production interface uses the deterministic engine without a standalone ne
 });
 
 test("Pages build serves and executes the actual neural-distilled static candidate table", async ({ page }) => {
+  const workerUrls = [];
+  page.on("worker", (worker) => workerUrls.push(worker.url()));
   await page.goto("/");
   const assetUrl = new URL("/data/google-neural-distilled-syllables.json", page.url()).toString();
   const response = await page.request.get(assetUrl);
@@ -680,4 +682,5 @@ test("Pages build serves and executes the actual neural-distilled static candida
   await expect(page.locator("#status")).toContainText("PROVISIONAL");
   await expect(page.locator("#unit-details")).toContainText("NEURAL_TEACHER_DISTILLED_STATIC_LOOKUP");
   await expect(page.locator("#unit-details")).toContainText("NEURAL_TEACHER_PREDICTION_NOT_SOURCE_ATTESTED");
+  await expect.poll(() => workerUrls.some((url) => url.includes("khmer-engine.worker"))).toBe(true);
 });
