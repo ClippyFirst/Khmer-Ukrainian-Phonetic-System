@@ -4,6 +4,7 @@ import { khmerToLatin } from "@gmana/km-translit";
 import onsetInventory from "../data/khmer/romanization_ipa_onsets.json" with { type: "json" };
 import consonants from "../data/khmer/consonants.json" with { type: "json" };
 import sources from "../data/khmer/sources.json" with { type: "json" };
+import vowels from "../data/khmer/vowels.json" with { type: "json" };
 import { buildRomanizationIpaCandidate } from "../src/khmer-romanization-ipa.js";
 
 test("confirms a romanized onset only against its source consonant class", () => {
@@ -84,7 +85,10 @@ test("every mapped IPA onset equals the repository's source-registered consonant
 });
 
 test("exact source-aligned representative series vowels produce provisional IPA without a fabricated tail", () => {
+  const evidence = new Map(vowels.representative_series_contrasts.map((item) => [item.orthography.join(""), item]));
   for (const fixture of onsetInventory.representative_syllables) {
+    assert.equal(evidence.get(fixture.source)?.ipa, fixture.ipa, fixture.rule_id + " must match the source vowel evidence");
+    assert.equal(evidence.get(fixture.source)?.source, "r12a-orthography");
     const romanized = khmerToLatin(fixture.source).toLowerCase();
     assert.equal(romanized, fixture.romanization, fixture.source + " upstream PCGN romanization");
     const result = buildRomanizationIpaCandidate(fixture.source, romanized);
