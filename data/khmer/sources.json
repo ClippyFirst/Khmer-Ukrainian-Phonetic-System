@@ -924,5 +924,15 @@
     "license_url": "https://creativecommons.org/licenses/by/4.0/",
     "license_reviewed_at": "2026-11-24",
     "license_review_notes": "The source page footer explicitly states Licence CC-By and links to Creative Commons Attribution 4.0. Redistribution and adaptation are permitted subject to attribution, a license link, and indication of changes. Source transcription conventions still vary by entry and are not normalized project IPA."
+  },
+  {
+    "id": "bgn-pcgn-khmer-1972",
+    "type": "official_romanization_reference",
+    "title": "Romanization of Khmer (Cambodian): BGN/PCGN 1972 Agreement",
+    "url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+    "scope": "Khmer consonant and vowel romanization, series-conditioned columns, coeng/subscript series behavior, contextual b/p alternation, and notes on omitted diacritics",
+    "status": "REFERENCE_STANDARD",
+    "license_status": "NOT_ASSESSED",
+    "note": "Used only to validate BGN/PCGN-derived Latin tokens and their source contexts; this reference does not itself establish the project's IPA output."
   }
 ]
