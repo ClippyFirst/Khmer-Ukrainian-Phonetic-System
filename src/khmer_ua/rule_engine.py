@@ -17,6 +17,7 @@ from .parser import analyze as analyze_structure
 from .word_segmenter import describe_word_segmentation, segment_words
 from .phonetic_result import PhoneticResult, PhoneticUnitResult, PhoneticUncertainty
 from .ipa_result import from_ipa, from_provisional_ipa, from_provisional_full_ipa, from_unknown_source_unit
+from .google_phonemic import load_google_phonemic_lexicon
 from .ipa_target import adapt_phonetic_result
 from .practical import map_ipa_string
 
@@ -306,6 +307,33 @@ def _analyze_unit(unit: str) -> dict[str, Any]:
             "source_locator": fixture.get("source_locator"),
             "lexical_ua_reference": fixture.get("ua"),
             "lexical_mapping_agrees": lexical_mapping_agrees,
+        }
+
+    google_candidates = load_google_phonemic_lexicon().lookup(unit)
+    if len(google_candidates) == 1:
+        lexical_candidate = google_candidates[0]
+        parsed = lexical_candidate.parsed
+        source_id = "google-khmer-pronunciation-sample-2026"
+        inventory_id = "google-khmer-phonology-inventory-2026"
+        return {
+            "source": unit,
+            "ipa": parsed.ipa,
+            "ukrainian": None,
+            "status": "PROVISIONAL",
+            "reason": (
+                "Google source phonemic candidate; token-to-IPA mapping and "
+                "equivalence to the selected target profile are not independently adjudicated."
+            ),
+            "rule_trace": [
+                "GOOGLE-PHONEMIC-LEXICON-EXACT",
+                "GOOGLE-PHONEMIC-TO-IPA",
+                f"GOOGLE-SOURCE-ROW:{lexical_candidate.source_row}",
+            ],
+            "evidence": [source_id, inventory_id],
+            "phonology_sources": [source_id, inventory_id],
+            "ipa_kind": "PHONEMIC",
+            "provisional_ipa": None,
+            "fallback_trace": [],
         }
 
     structure = analyze_structure(unit)
