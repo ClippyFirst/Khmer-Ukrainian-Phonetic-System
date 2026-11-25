@@ -106,6 +106,7 @@ test("exact source-aligned representative series vowels produce provisional IPA 
 });
 
 test("same ASCII romanization can remain distinct when original Khmer series context differs", () => {
+  assert.equal(khmerToLatin("ក").toLowerCase(), khmerToLatin("កា").toLowerCase());
   const first = buildRomanizationIpaCandidate("ក", khmerToLatin("ក"));
   const dependent = buildRomanizationIpaCandidate("កា", khmerToLatin("កា"));
   assert.equal(first.status, "PROVISIONAL");
