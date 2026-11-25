@@ -317,7 +317,9 @@ def main() -> int:
                 sequence = beams[parent][0] + [token_id]
                 if token_id == eos_id:
                     if rank < num_beams:
-                        finished.append((sequence, score))
+                        # Hugging Face stores the parent sequence without EOS;
+                        # generated_len excludes both the decoder prompt and EOS.
+                        finished.append((beams[parent][0], score))
                 elif len(next_beams) < num_beams:
                     next_beams.append((sequence, score))
                 if len(next_beams) >= num_beams:
