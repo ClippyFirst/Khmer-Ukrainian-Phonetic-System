@@ -21,6 +21,9 @@ if (/XMLHttpRequest|WebSocket|sendBeacon/u.test(client + worker)) {
 if (!worker.includes('fetch(new URL("../data/google-neural-distilled-syllables.json", import.meta.url)')) {
   throw new Error("Super-soft must load only the static same-origin distilled table");
 }
+if (!client.includes('fetch(new URL("../data/google-neural-distilled-syllables.json", import.meta.url)')) {
+  throw new Error("the local fallback must load the same static same-origin distilled table");
+}
 if (worker.includes("fetch(text") || worker.includes("fetch(inputText") || worker.includes("body: text")) {
   throw new Error("Khmer source text must never be sent as a network request body");
 }
