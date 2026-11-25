@@ -24,7 +24,7 @@ function loadDistilledTable() {
 async function runFallback(text, profile, fallback, outputLevel) {
   const options = { outputLevel };
   if (outputLevel === "exploratory") options.distilledSyllables = await loadDistilledTable();
-  try { return fallback(text, profile, options); }
+  try { return await fallback(text, profile, options); }
   catch { return null; }
 }
 
