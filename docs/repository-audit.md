@@ -3294,7 +3294,7 @@ Research limits remain: independent adjudicated IPA gold = 0; pronunciation accu
 
 ## Browser-local MekongPhon engine port audit — final closeout (2026-11-25)
 
-PR #578 was merged by the repository owner as `520a1592345ccabbf859bc88f024485631306f73` and deployed to GitHub Pages. Documentation closeout PR #579 then merged as `a23412eb5ec17568d49d65fd86a1d69a94dcce65`, the latest main SHA at this audit. The pinned BYU MATRIX MekongPhon model artifact declares Apache-2.0 in its upstream model-card metadata. The upstream training/evaluation corpus is not copied; its rights remain unresolved.
+PR #578 was merged by the repository owner as implementation commit `520a1592345ccabbf859bc88f024485631306f73` and deployed to GitHub Pages. Documentation closeout PR #579 then merged as `a23412eb5ec17568d49d65fd86a1d69a94dcce65`; the latest main SHA is `a23412eb5ec17568d49d65fd86a1d69a94dcce65`. The pinned BYU MATRIX MekongPhon model artifact declares Apache-2.0 in its upstream model-card metadata. The upstream training/evaluation corpus is not copied; its rights remain unresolved.
 
 - Browser runtime: integrity-pinned ONNX Runtime Web 1.23.2 (MIT), WASM, dedicated Web Worker, one-beam greedy decoding, maximum 64 output tokens.
 - Model export: separate encoder/decoder graphs, dynamic per-channel INT8; 35,001,440 model-weight bytes. FP32 graphs are used only for validation and are removed before packaging.
@@ -3302,7 +3302,7 @@ PR #578 was merged by the repository owner as `520a1592345ccabbf859bc88f02448563
 - User input remains local. Model assets are fetched from the same GitHub Pages origin only after explicit user action. No remote inference endpoint or telemetry is added.
 - The model candidate is separate from canonical deterministic output, labelled PROVISIONAL, with profile match UNVERIFIED. Raw IPA remains visible even if the Ukrainian adapter cannot map every segment.
 - Exact-head model-enabled Chromium suite: 46/46 Playwright tests passed, including actual local inference on `សភាតំណាងប្រជាជនកម្ពុជា` and a no-external-request assertion (Quality [45624434366](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624434366)).
-- Main Quality [45624955916](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955916), main browser smoke [45624955945](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955945), and Pages deploy/live-asset smoke [45624955965](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955965) all passed.
+- Main Quality [45625848740](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45625848740), main browser smoke [45625848767](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45625848767), and Pages deploy/live-asset smoke [45625848945](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45625848945) all passed.
 - The ONNX phrase candidate is `saʔpʰiedɑmnaaŋprɑciecʊənkampucie`. FP32 ONNX has 3.03% CER vs pinned Transformers on this probe; INT8 matches FP32 exactly. These are port-parity measurements, not pronunciation accuracy.
 
 Audit status: browser model integration and Pages deployment DONE_VERIFIED. Independent adjudicated Phnom Penh IPA gold remains 0; pronunciation accuracy NOT_ASSESSED; model profile equivalence UNVERIFIED; broader contextual Khmer phonology remains PARTIAL. Do not present the model as linguistically validated or its output as SUPPORTED gold.
