@@ -458,12 +458,25 @@ class RuleBasedKhmerEngine:
             typed_ipa = None
             if status not in {"PUNCTUATION", "NON_LINGUISTIC"}:
                 if source_ipa is not None:
-                    typed_ipa = from_ipa(
-                        source_ipa,
-                        status="UNCERTAIN",
-                        provenance=tuple(phonology_sources),
-                        uncertainty=(unit.get("reason", ""),) if unit.get("reason") else (),
-                    )
+                    kind = unit.get("ipa_kind", "PHONEMIC")
+                    uncertainty_notes = (unit.get("reason", ""),) if unit.get("reason") else ()
+                    if status == "PROVISIONAL":
+                        typed_ipa = from_provisional_full_ipa(
+                            source_ipa,
+                            kind=kind,
+                            profile=self.profile,
+                            provenance=tuple(phonology_sources),
+                            uncertainty=uncertainty_notes,
+                        )
+                    else:
+                        typed_ipa = from_ipa(
+                            source_ipa,
+                            status="UNCERTAIN",
+                            kind=kind,
+                            profile=self.profile,
+                            provenance=tuple(phonology_sources),
+                            uncertainty=uncertainty_notes,
+                        )
                 elif unit.get("provisional_ipa"):
                     fallback_trace = unit.get("fallback_trace", [])
                     fallback_unresolved = tuple(
@@ -476,12 +489,15 @@ class RuleBasedKhmerEngine:
                         unresolved_graphemes=fallback_unresolved or ("UNKNOWN_REMAINDER",),
                         provenance=tuple(phonology_sources) or ("KHMER-PREVIEW-ONSET-IPA-V1",),
                         uncertainty=(unit.get("reason", ""),) if unit.get("reason") else (),
+                        kind=unit.get("ipa_kind", "PHONETIC_BROAD"),
+                        profile=self.profile,
                     )
                 else:
                     typed_ipa = from_unknown_source_unit(
                         unit["source"],
                         provenance=tuple(phonology_sources) or ("KHMER-ENGINE-UNRESOLVED",),
                         uncertainty=(unit.get("reason", ""),) if unit.get("reason") else (),
+                        profile=self.profile,
                     )
             typed_ua = (
                 adapt_phonetic_result(typed_ipa, allow_uncertain=True)
@@ -502,7 +518,10 @@ class RuleBasedKhmerEngine:
                 ipa=ipa_value,
                 ukrainian=ua_value,
                 profile=self.profile,
-                ipa_kind="NOT_APPLICABLE" if status in {"PUNCTUATION", "NON_LINGUISTIC"} else "UNRESOLVED",
+                ipa_kind=(
+                    "NOT_APPLICABLE" if status in {"PUNCTUATION", "NON_LINGUISTIC"}
+                    else typed_ipa.ipa_kind if typed_ipa is not None else "UNRESOLVED"
+                ),
                 ukrainian_kind=(
                     "NOT_APPLICABLE" if status in {"PUNCTUATION", "NON_LINGUISTIC"}
                     else "IPA_DERIVED_PROVISIONAL" if typed_ipa is not None and typed_ipa.status == "PROVISIONAL"
