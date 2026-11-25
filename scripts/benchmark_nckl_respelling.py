@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Evaluate a pinned Khmer-script NCKL respelling model on its word-disjoint test split.
+"""Evaluate the MIT-licensed Khmer G2P package on the NCKL word-disjoint test split.
 
-This is a separate orthographic-respelling benchmark, NOT an IPA benchmark.
+This is a separate Khmer-script pronunciation-respelling benchmark, NOT IPA.
 The NCKL-derived dataset is fetched ephemerally; only aggregate metrics are
 written. No source words, references, predictions, or row-level records are
 stored in the repository or CI artifact.
@@ -10,11 +10,10 @@ from __future__ import annotations
 
 import argparse
 import hashlib
-import importlib
+import importlib.metadata
 import json
 import os
 import platform
-import sys
 import time
 from collections import defaultdict
 from datetime import datetime, timezone
@@ -25,8 +24,8 @@ DATASET_ID = "phonsobon/khmer-G2P"
 DATASET_REVISION = "2733e664ed4d77dee4cc588a130bb4844c9da767"
 MODEL_ID = "phonsobon/khmer-g2p"
 MODEL_REVISION = "7dbc6c3d1c1f5a9a8763be602fa679f130f20dca"
-UPSTREAM_CODE_REPOSITORY = "PhonSobon/Khmer-pronunciation"
-UPSTREAM_CODE_REVISION = "66b526ebd5edbacfeb7178f377de30662d9b30d2"
+MODEL_PACKAGE = "khmer-g2p"
+MODEL_PACKAGE_VERSION = "0.1.0"
 EXPECTED_SPLIT_ROWS = {"train": 34770, "validation": 1939, "test": 1920}
 EXPECTED_TEST_UNIQUE_WORDS = 1888
 ROOT = Path(__file__).resolve().parents[1]
@@ -96,7 +95,7 @@ def build_report(
     *,
     model_revision: str,
     dataset_revision: str,
-    upstream_code_revision: str,
+    model_package_version: str,
     runtime: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     references = group_references(rows)
@@ -149,11 +148,9 @@ def build_report(
             "id": MODEL_ID,
             "revision": model_revision,
             "license": "MIT as declared by the Hugging Face model card",
+            "package": MODEL_PACKAGE,
+            "package_version": model_package_version,
             "parameters": 7461956,
-        },
-        "upstream_code": {
-            "repository": UPSTREAM_CODE_REPOSITORY,
-            "revision": upstream_code_revision,
         },
         "source_attested_test_metrics": {
             "reference_pairs": reference_pairs,
@@ -198,61 +195,30 @@ def build_report(
     }
 
 
-def load_pinned_model(upstream_g2p_dir: Path):
-    """Load the model architecture from its pinned source and weights from HF."""
-    try:
-        import torch
-        from huggingface_hub import hf_hub_download
-        from safetensors.torch import load_file
-    except ImportError as exc:
-        raise RuntimeError("install the pinned torch, huggingface-hub and safetensors dependencies") from exc
-
-    upstream_g2p_dir = upstream_g2p_dir.resolve()
-    if not (upstream_g2p_dir / "model.py").is_file():
-        raise FileNotFoundError(f"upstream model.py not found under {upstream_g2p_dir}")
-    sys.path.insert(0, str(upstream_g2p_dir))
-    upstream_model = importlib.import_module("model")
-
-    config_path = hf_hub_download(MODEL_ID, "config.json", revision=MODEL_REVISION)
-    weights_path = hf_hub_download(MODEL_ID, "model.safetensors", revision=MODEL_REVISION)
-    config = json.loads(Path(config_path).read_text(encoding="utf-8"))
-    model = upstream_model.G2PModel(**config["config"])
-    state = load_file(weights_path, device="cpu")
-    model.load_state_dict(state)
-    model.eval()
-
-    source_vocab = upstream_model.Vocab([])
-    source_vocab.itos = config["src_vocab"]
-    source_vocab.stoi = {token: index for index, token in enumerate(source_vocab.itos)}
-    target_vocab = upstream_model.Vocab([])
-    target_vocab.itos = config["tgt_vocab"]
-    target_vocab.stoi = {token: index for index, token in enumerate(target_vocab.itos)}
-    return model, source_vocab, target_vocab, upstream_model, torch
-
-
 def predict_words(
     words: list[str],
     *,
-    upstream_g2p_dir: Path,
     batch_size: int = 64,
 ) -> tuple[dict[str, str], dict[str, Any]]:
+    """Run the MIT-licensed PyPI package with an immutable Hub model revision."""
     if batch_size < 1:
         raise ValueError("batch_size must be positive")
-    model, source_vocab, target_vocab, upstream_model, torch = load_pinned_model(upstream_g2p_dir)
+    try:
+        import torch
+        from khmer_g2p import KhmerG2P
+    except ImportError as exc:
+        raise RuntimeError("install the pinned torch and khmer-g2p dependencies") from exc
+
     torch.set_num_threads(1)
+    predictor = KhmerG2P(MODEL_ID, device="cpu", revision=MODEL_REVISION)
     predictions: dict[str, str] = {}
     started = time.perf_counter()
-    with torch.inference_mode():
-        for offset in range(0, len(words), batch_size):
-            batch = words[offset:offset + batch_size]
-            source = upstream_model.pad_batch([
-                source_vocab.encode(upstream_model.source_tokens("respell", word))
-                for word in batch
-            ])
-            sequences = model.greedy(source, max_len=128)
-            for word, sequence in zip(batch, sequences, strict=True):
-                tokens = target_vocab.decode(sequence)
-                predictions[word] = upstream_model.format_output("respell", tokens)
+    for offset in range(0, len(words), batch_size):
+        batch = words[offset:offset + batch_size]
+        outputs = predictor(batch)
+        if not isinstance(outputs, list) or len(outputs) != len(batch):
+            raise ValueError("khmer-g2p package returned an unexpected batch result")
+        predictions.update(zip(batch, outputs, strict=True))
     elapsed = time.perf_counter() - started
     return predictions, {
         "device": "cpu",
@@ -260,6 +226,7 @@ def predict_words(
         "inference_elapsed_seconds": round(elapsed, 6),
         "mean_latency_ms_per_unique_word": round(elapsed * 1000 / len(words), 4),
         "torch_version": torch.__version__,
+        "model_package_version": importlib.metadata.version(MODEL_PACKAGE),
     }
 
 
@@ -294,7 +261,6 @@ def write_report(path: Path, report: dict[str, Any]) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--upstream-g2p-dir", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--batch-size", type=int, default=64)
     args = parser.parse_args()
@@ -302,17 +268,16 @@ def main() -> int:
     splits, dataset_runtime = load_pinned_test_split()
     rows = splits["test"]
     references = group_references(rows)
-    predictions, model_runtime = predict_words(
-        list(references),
-        upstream_g2p_dir=args.upstream_g2p_dir,
-        batch_size=args.batch_size,
-    )
+    predictions, model_runtime = predict_words(list(references), batch_size=args.batch_size)
+    package_version = importlib.metadata.version(MODEL_PACKAGE)
+    if package_version != MODEL_PACKAGE_VERSION:
+        raise ValueError(f"expected {MODEL_PACKAGE}=={MODEL_PACKAGE_VERSION}, found {package_version}")
     report = build_report(
         rows,
         predictions,
         model_revision=MODEL_REVISION,
         dataset_revision=DATASET_REVISION,
-        upstream_code_revision=UPSTREAM_CODE_REVISION,
+        model_package_version=package_version,
         runtime={**dataset_runtime, **model_runtime},
     )
     digest = write_report(args.output, report)
