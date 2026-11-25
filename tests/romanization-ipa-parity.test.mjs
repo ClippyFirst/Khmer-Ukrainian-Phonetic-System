@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { test } from "node:test";
 import { buildRomanizationIpaCandidate } from "../src/khmer-romanization-ipa.js";
+import onsetInventory from "../data/khmer/romanization_ipa_onsets.json" with { type: "json" };
 
 test("Python and JavaScript romanization-mediated IPA results have exact semantic parity", () => {
   const python = spawnSync("python", ["scripts/export_romanization_ipa_parity.py"], {
@@ -11,8 +12,7 @@ test("Python and JavaScript romanization-mediated IPA results have exact semanti
   assert.equal(python.status, 0, python.stderr || python.stdout);
   const expected = JSON.parse(python.stdout);
   const cases = [
-    ["ខ្មែរ", "khmer"],
-    ["ង", "ng"],
+    ...onsetInventory.entries.map((entry) => [entry.source_units[0], entry.romanization]),
     ["ប", "b"],
     ["ក", "kh"],
     ["្ក", "k"],
