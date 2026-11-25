@@ -1,0 +1,404 @@
+{
+  "schema_version": "google-phonemic-to-ipa/v1",
+  "map_version": "2026-11-25.1",
+  "source": {
+    "id": "google-khmer-pronunciation-sample-2026",
+    "source_revision": "a90601024f07ab7e96c911243324e0adeb16da96",
+    "source_tsv_sha256": "b3f2e700d07d6c01a4c8cac5aa2f13b9a66885668ac482cc0c513f73c56495e5",
+    "source_tsv_git_blob_sha": "d399efeca642b1185786b2982374488c525e37c4",
+    "phonology_path": "km/festvox/phonology.json",
+    "phonology_git_blob_sha": "8fb697ff66b09ef0c2a17f17b35600af410a92a9",
+    "phonology_url": "https://github.com/google/language-resources/blob/a90601024f07ab7e96c911243324e0adeb16da96/km/festvox/phonology.json",
+    "license": "CC-BY-4.0"
+  },
+  "notation": {
+    "phone_delimiter": "whitespace",
+    "syllable_boundary": ".",
+    "kind": "PHONEMIC",
+    "note": "Google phone symbols are source phonemic tokens, not normalized IPA. Convert only through this explicit map."
+  },
+  "tokens": {
+    "i": {
+      "ipa": "i",
+      "kind": "vowel",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "ii": {
+      "ipa": "iː",
+      "kind": "vowel",
+      "mapping_status": "SOURCE_CORROBORATED",
+      "evidence_refs": [
+        "R12A:KHV-004"
+      ]
+    },
+    "ɨ": {
+      "ipa": "ɨ",
+      "kind": "vowel",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "ɨɨ": {
+      "ipa": "ɨː",
+      "kind": "vowel",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "u": {
+      "ipa": "u",
+      "kind": "vowel",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "uu": {
+      "ipa": "uː",
+      "kind": "vowel",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "e": {
+      "ipa": "e",
+      "kind": "vowel",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "ee": {
+      "ipa": "eː",
+      "kind": "vowel",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "ə": {
+      "ipa": "ə",
+      "kind": "vowel",
+      "mapping_status": "SOURCE_CORROBORATED",
+      "evidence_refs": [
+        "R12A:KHV-003"
+      ]
+    },
+    "əə": {
+      "ipa": "əː",
+      "kind": "vowel",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "ɛ": {
+      "ipa": "ɛ",
+      "kind": "vowel",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "ɛɛ": {
+      "ipa": "ɛː",
+      "kind": "vowel",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "o": {
+      "ipa": "o",
+      "kind": "vowel",
+      "mapping_status": "SOURCE_CORROBORATED",
+      "evidence_refs": [
+        "WIKTIONARY:KHV-LEX-KHNYOM"
+      ]
+    },
+    "oo": {
+      "ipa": "oː",
+      "kind": "vowel",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "ɔ": {
+      "ipa": "ɔ",
+      "kind": "vowel",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "ɔɔ": {
+      "ipa": "ɔː",
+      "kind": "vowel",
+      "mapping_status": "SOURCE_CORROBORATED",
+      "evidence_refs": [
+        "R12A:KHV-002"
+      ]
+    },
+    "a": {
+      "ipa": "a",
+      "kind": "vowel",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "aa": {
+      "ipa": "aː",
+      "kind": "vowel",
+      "mapping_status": "SOURCE_CORROBORATED",
+      "evidence_refs": [
+        "R12A:KHV-005"
+      ]
+    },
+    "ɑ": {
+      "ipa": "ɑ",
+      "kind": "vowel",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "ɑɑ": {
+      "ipa": "ɑː",
+      "kind": "vowel",
+      "mapping_status": "SOURCE_CORROBORATED",
+      "evidence_refs": [
+        "R12A:KHV-001"
+      ]
+    },
+    "iə": {
+      "ipa": "iə",
+      "kind": "diphthong",
+      "mapping_status": "SOURCE_CORROBORATED",
+      "evidence_refs": [
+        "R12A:KHV-006",
+        "WIKTIONARY:PHASA",
+        "WIKTIONARY:LANGIAC"
+      ]
+    },
+    "ɨə": {
+      "ipa": "ɨə",
+      "kind": "diphthong",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "uə": {
+      "ipa": "uə",
+      "kind": "diphthong",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "ae": {
+      "ipa": "ae",
+      "kind": "diphthong",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "aə": {
+      "ipa": "aə",
+      "kind": "diphthong",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "ao": {
+      "ipa": "ao",
+      "kind": "diphthong",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "oa": {
+      "ipa": "oa",
+      "kind": "diphthong",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "ie": {
+      "ipa": "iə",
+      "kind": "diphthong",
+      "mapping_status": "SOURCE_CORROBORATED",
+      "evidence_refs": [
+        "R12A:KHV-006",
+        "WIKTIONARY:PHASA",
+        "WIKTIONARY:LANGIAC"
+      ],
+      "notes": "The source token ie is mapped to IPA iə, not literal ie, because this correspondence matches the cited R12A and lexical IPA examples."
+    },
+    "ea": {
+      "ipa": "ea",
+      "kind": "diphthong",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "ɛə": {
+      "ipa": "ɛə",
+      "kind": "diphthong",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "p": {
+      "ipa": "p",
+      "kind": "consonant",
+      "mapping_status": "SOURCE_CORROBORATED",
+      "evidence_refs": [
+        "WIKTIONARY:PROCHACHON"
+      ]
+    },
+    "t": {
+      "ipa": "t",
+      "kind": "consonant",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "c": {
+      "ipa": "c",
+      "kind": "consonant",
+      "mapping_status": "SOURCE_CORROBORATED",
+      "evidence_refs": [
+        "WIKTIONARY:LANGIAC"
+      ]
+    },
+    "k": {
+      "ipa": "k",
+      "kind": "consonant",
+      "mapping_status": "SOURCE_CORROBORATED",
+      "evidence_refs": [
+        "R12A:KHV-001",
+        "R12A:KHV-002",
+        "R12A:KHV-003",
+        "R12A:KHV-004",
+        "R12A:KHV-005",
+        "R12A:KHV-006"
+      ]
+    },
+    "ʔ": {
+      "ipa": "ʔ",
+      "kind": "consonant",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "ph": {
+      "ipa": "pʰ",
+      "kind": "consonant",
+      "mapping_status": "SOURCE_CORROBORATED",
+      "evidence_refs": [
+        "WIKTIONARY:PHASA"
+      ]
+    },
+    "th": {
+      "ipa": "tʰ",
+      "kind": "consonant",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "ch": {
+      "ipa": "cʰ",
+      "kind": "consonant",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "kh": {
+      "ipa": "kʰ",
+      "kind": "consonant",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "ɓ": {
+      "ipa": "ɓ",
+      "kind": "consonant",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "ɗ": {
+      "ipa": "ɗ",
+      "kind": "consonant",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "m": {
+      "ipa": "m",
+      "kind": "consonant",
+      "mapping_status": "SOURCE_CORROBORATED",
+      "evidence_refs": [
+        "WIKTIONARY:KHNYOM"
+      ]
+    },
+    "n": {
+      "ipa": "n",
+      "kind": "consonant",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "ɲ": {
+      "ipa": "ɲ",
+      "kind": "consonant",
+      "mapping_status": "SOURCE_CORROBORATED",
+      "evidence_refs": [
+        "WIKTIONARY:KHNYOM"
+      ]
+    },
+    "ŋ": {
+      "ipa": "ŋ",
+      "kind": "consonant",
+      "mapping_status": "SOURCE_CORROBORATED",
+      "evidence_refs": [
+        "WIKTIONARY:LANGIAC"
+      ]
+    },
+    "r": {
+      "ipa": "r",
+      "kind": "consonant",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "w": {
+      "ipa": "w",
+      "kind": "consonant",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "l": {
+      "ipa": "l",
+      "kind": "consonant",
+      "mapping_status": "SOURCE_CORROBORATED",
+      "evidence_refs": [
+        "WIKTIONARY:LANGIAC"
+      ]
+    },
+    "j": {
+      "ipa": "j",
+      "kind": "consonant",
+      "mapping_status": "SOURCE_CORROBORATED",
+      "evidence_refs": [
+        "R12A:KHV-003"
+      ]
+    },
+    "h": {
+      "ipa": "h",
+      "kind": "consonant",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "s": {
+      "ipa": "s",
+      "kind": "consonant",
+      "mapping_status": "SOURCE_CORROBORATED",
+      "evidence_refs": [
+        "WIKTIONARY:PHASA"
+      ]
+    },
+    "z": {
+      "ipa": "z",
+      "kind": "consonant",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "g": {
+      "ipa": "ɡ",
+      "kind": "consonant",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "f": {
+      "ipa": "f",
+      "kind": "consonant",
+      "mapping_status": "PROVISIONAL",
+      "evidence_refs": []
+    },
+    "sil": {
+      "ipa": null,
+      "kind": "silence",
+      "mapping_status": "NOT_A_LEXICAL_PHONE",
+      "evidence_refs": []
+    },
+    "pau": {
+      "ipa": null,
+      "kind": "silence",
+      "mapping_status": "NOT_A_LEXICAL_PHONE",
+      "evidence_refs": []
+    }
+  }
+}
