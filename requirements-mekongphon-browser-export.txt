@@ -1,0 +1,9 @@
+# Reproducible browser-export toolchain for the Apache-2.0 MekongPhon model.
+# The upstream training corpus is not downloaded or redistributed.
+torch==2.5.1
+transformers==4.57.1
+safetensors==0.6.2
+huggingface-hub==0.36.0
+onnx==1.19.1
+onnxruntime==1.23.2
+numpy==2.2.6
