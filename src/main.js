@@ -3,7 +3,7 @@ import { khmerToLatin } from "@gmana/km-translit";
 import { renderKhmerRomanizationText, renderRomanizedText } from "./khmer-romanization-ukrainian.js";
 import { buildRomanizationIpaCandidate } from "./khmer-romanization-ipa.js";
 import { analyzeInWorker } from "./khmer-engine-client.js";
-import { convert, getStatusNotice } from "./khmer-engine-core.js";
+import { getStatusNotice } from "./khmer-status-notice.js";
 import { adaptPhoneticResult } from "./khmer-ipa-result.js";
 
 if (typeof document !== "undefined") {
@@ -26,6 +26,11 @@ if (typeof document !== "undefined") {
   let outputLevelMode = outputLevel?.value || "balanced";
   let activeMode = "phonetic";
   let renderRevision = 0;
+
+  async function fallbackConvert(...args) {
+    const { convert } = await import("./khmer-engine-core.js");
+    return convert(...args);
+  }
 
   function setOutputMode(mode) {
     activeMode = mode;
@@ -51,7 +56,15 @@ if (typeof document !== "undefined") {
     const inputText = source.value;
     const profile = $("profile").value;
     $("count").textContent = `${[...inputText].length} символів`;
-    const data = await analyzeInWorker(inputText, profile, convert, outputLevelMode);
+    if (!inputText.trim()) {
+      results.hidden = true;
+      issue.hidden = true;
+      empty.hidden = false;
+      live.textContent = "Очікує на введення";
+      return;
+    }
+    live.textContent = "Локальний рушій обробляє текст…";
+    const data = await analyzeInWorker(inputText, profile, fallbackConvert, outputLevelMode);
     if (revision !== renderRevision) return;
     if (!data) {
       results.hidden = true;
