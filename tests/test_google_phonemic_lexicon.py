@@ -16,7 +16,7 @@ def test_google_phonemic_lexicon_manifest_matches_pinned_source_counts():
     assert lexicon.manifest["unique_spellings_with_pronunciation"] == 62114
     assert lexicon.manifest["multi_pronunciation_words"] == 4
     assert lexicon.manifest["observed_phone_tokens"] == 54
-    assert lexicon.manifest["inventory_phone_tokens"] == 56
+    assert lexicon.manifest["mapped_phone_tokens"] == 54
     assert lexicon.manifest["ipa_gold_count"] == 0
     assert lexicon.manifest["candidate_status"] == "PROVISIONAL"
 
