@@ -6,9 +6,6 @@
     "source_revision": "a90601024f07ab7e96c911243324e0adeb16da96",
     "source_tsv_sha256": "b3f2e700d07d6c01a4c8cac5aa2f13b9a66885668ac482cc0c513f73c56495e5",
     "source_tsv_git_blob_sha": "d399efeca642b1185786b2982374488c525e37c4",
-    "phonology_path": "km/festvox/phonology.json",
-    "phonology_git_blob_sha": "8fb697ff66b09ef0c2a17f17b35600af410a92a9",
-    "phonology_url": "https://github.com/google/language-resources/blob/a90601024f07ab7e96c911243324e0adeb16da96/km/festvox/phonology.json",
     "license": "CC-BY-4.0"
   },
   "notation": {
@@ -387,18 +384,14 @@
       "kind": "consonant",
       "mapping_status": "PROVISIONAL",
       "evidence_refs": []
-    },
-    "sil": {
-      "ipa": null,
-      "kind": "silence",
-      "mapping_status": "NOT_A_LEXICAL_PHONE",
-      "evidence_refs": []
-    },
-    "pau": {
-      "ipa": null,
-      "kind": "silence",
-      "mapping_status": "NOT_A_LEXICAL_PHONE",
-      "evidence_refs": []
     }
+  },
+  "inventory_reference": {
+    "url": "https://github.com/google/language-resources/blob/a90601024f07ab7e96c911243324e0adeb16da96/km/festvox/phonology.json",
+    "revision": "a90601024f07ab7e96c911243324e0adeb16da96",
+    "git_blob_sha": "8fb697ff66b09ef0c2a17f17b35600af410a92a9",
+    "license_status": "BLOCKED_SCOPE_UNRESOLVED",
+    "redistributed": false,
+    "reason": "The file has no file-level license header. The upstream README defaults original files to Apache-2.0 unless otherwise noted, while the 2018 paper broadly describes data as CC BY 4.0 unless otherwise noted. The project rights audit requires clarification; this file is not copied or distributed."
   }
 }
