@@ -10,7 +10,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from .ipa import IPACandidate, validate_ipa_candidate
+from .ipa import validate_ipa_candidate
+from .ipa_result import TypedPhoneticResult, from_provisional_full_ipa
 
 DEFAULT_MAP_PATH = (
     Path(__file__).resolve().parents[2]
@@ -33,7 +34,7 @@ class GooglePhonemicResult:
     provenance: tuple[str, ...]
     uncertainty: tuple[str, ...]
     syllable_boundaries: tuple[int, ...]
-    candidate: IPACandidate | None = None
+    candidate: TypedPhoneticResult | None = None
 
 
 def load_google_phone_map(path: str | Path | None = None) -> dict[str, Any]:
@@ -148,7 +149,7 @@ def parse_google_phonemic(
 
     ipa = "".join(ipa_parts)
     try:
-        candidate = validate_ipa_candidate(
+        validate_ipa_candidate(
             ipa,
             profile=profile,
             kind="PHONEMIC",
@@ -156,6 +157,15 @@ def parse_google_phonemic(
             provider=provider,
             uncertainty=tuple(dict.fromkeys(uncertainty)),
         )
+        candidate = from_provisional_full_ipa(
+            ipa,
+            kind="PHONEMIC",
+            profile=profile,
+            provenance=provenance,
+            uncertainty=tuple(dict.fromkeys(uncertainty)),
+        )
+        if candidate.status == "UNRESOLVED":
+            return _unresolved(raw, tokens, ("INVALID_MAPPED_IPA",), provenance=provenance)
     except ValueError as exc:
         return _unresolved(raw, tokens, (f"INVALID_MAPPED_IPA:{exc}",), provenance=provenance)
 
