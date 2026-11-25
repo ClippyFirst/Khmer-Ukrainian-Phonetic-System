@@ -36,7 +36,7 @@ def test_metrics_accept_any_attested_alternative_and_count_syllables():
         {"ក": "ក", "ខ": "ខ"},
         model_revision="model-sha",
         dataset_revision="dataset-sha",
-        upstream_code_revision="code-sha",
+        model_package_version="0.1.0",
         runtime={"torch_version": "test"},
     )
     metrics = report["source_attested_test_metrics"]
@@ -60,10 +60,12 @@ def test_report_never_calls_respelling_ipa_or_independent_gold():
         {"ក": "ក"},
         model_revision="model-sha",
         dataset_revision="dataset-sha",
-        upstream_code_revision="code-sha",
+        model_package_version="0.1.0",
     )
     assert report["task"] == "Khmer-script NCKL pronunciation respelling"
     assert report["target_representation"] == "Khmer-script respelling with hyphen syllable separators; not IPA"
+    assert report["model"]["package"] == "khmer-g2p"
+    assert report["model"]["package_version"] == "0.1.0"
     assert report["independent_ipa_gold_count"] == 0
     assert report["ipa_accuracy"] is None
     assert "not IPA" in report["interpretation"]
@@ -76,7 +78,7 @@ def test_aggregate_report_does_not_emit_source_words_or_predictions():
         {"ក գաղտնի": "ក"},
         model_revision="model-sha",
         dataset_revision="dataset-sha",
-        upstream_code_revision="code-sha",
+        model_package_version="0.1.0",
     )
     rendered = str(report)
     assert "ក գաղտնի" not in rendered
@@ -93,7 +95,7 @@ def test_report_rejects_missing_or_extra_predictions():
             {},
             model_revision="model-sha",
             dataset_revision="dataset-sha",
-            upstream_code_revision="code-sha",
+            model_package_version="0.1.0",
         )
     except ValueError as error:
         assert "one prediction per unique word" in str(error)
