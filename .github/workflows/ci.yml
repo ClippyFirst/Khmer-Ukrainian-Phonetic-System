@@ -177,3 +177,37 @@ jobs:
           path: dist/nckl-phonemizer-bridge-report.json
           if-no-files-found: error
           retention-days: 14
+
+  google-phonemic-teacher:
+    if: github.ref == 'refs/heads/feat/deterministic-neural-distillation-20261125' || github.head_ref == 'feat/deterministic-neural-distillation-20261125'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-google-teacher.txt
+
+      - name: Install project test dependencies
+        run: python -m pip install --upgrade pip && python -m pip install -e ".[test]"
+
+      - name: Install pinned CPU-only neural teacher runtime
+        run: python -m pip install -r requirements-google-teacher.txt
+
+      - name: Train word-disjoint Google Khmer phonemic teacher
+        run: python scripts/train_google_phonemic_teacher.py --epochs 6 --batch-size 192 --output-dir dist/google-khmer-teacher
+
+      - name: Upload offline teacher checkpoint and aggregate-only evaluation
+        uses: actions/upload-artifact@v6
+        with:
+          name: google-khmer-phonemic-teacher-${{ github.sha }}
+          path: |
+            dist/google-khmer-teacher/teacher.pt
+            dist/google-khmer-teacher/metrics.json
+          if-no-files-found: error
+          retention-days: 14
