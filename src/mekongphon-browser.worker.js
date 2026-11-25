@@ -143,14 +143,33 @@ async function generateBeam({ ort, encoder, decoder, tokenizers, manifest }, tex
       const ids = [...beams[candidate.parent].ids, candidate.tokenId];
       if (candidate.tokenId === eosId) {
         // Match Transformers BeamSearchScorer: store the parent without EOS.
-        if (rank < beamSize) finished.push({ ids: beams[candidate.parent].ids, score: candidate.score });
+        if (rank < beamSize) {
+          finished.push({ ids: beams[candidate.parent].ids, score: candidate.score });
+          finished.sort((left, right) =>
+            (right.score / Math.max(1, right.ids.length - 1))
+              - (left.score / Math.max(1, left.ids.length - 1))
+          );
+          finished.splice(beamSize);
+        }
       } else if (nextBeams.length < beamSize) {
         nextBeams.push({ ids, score: candidate.score });
       }
       if (nextBeams.length >= beamSize) break;
     }
     beams = nextBeams;
-    if (finished.length >= beamSize || !beams.length) break;
+    if (!beams.length) break;
+    if (finished.length >= beamSize) {
+      const earlyStopping = manifest.generation?.early_stopping ?? false;
+      if (earlyStopping === true) break;
+      if (earlyStopping === false) {
+        const worstFinished = Math.min(
+          ...finished.map((item) => item.score / Math.max(1, item.ids.length - 1)),
+        );
+        const bestSumLogprobs = candidates[0].score;
+        const currentGeneratedLength = Math.max(1, targetLength - 1);
+        if (worstFinished >= bestSumLogprobs / currentGeneratedLength) break;
+      }
+    };
   }
 
   if (finished.length < beamSize) finished.push(...beams);
