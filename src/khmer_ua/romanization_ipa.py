@@ -43,6 +43,8 @@ def build_romanization_ipa_candidate(source_unit: str, romanized_unit: str) -> d
     )
     if not source or not romanized:
         return _unresolved(source, "EMPTY-SOURCE-OR-ROMANIZATION", provenance)
+    if source[0] == "ប" and romanized[:1] in {"b", "p"}:
+        return _unresolved(source, "AMBIGUOUS-PCGN-B-P-ALTERNATION", provenance)
 
     token = next((candidate for candidate in _TOKENS if romanized.startswith(candidate)), None)
     if token is None:
