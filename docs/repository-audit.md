@@ -3292,14 +3292,17 @@ Research limits remain: independent adjudicated IPA gold = 0; pronunciation accu
 - No deployment, release or main-branch merge was performed.
 
 
-## Browser-local MekongPhon engine port audit — 2026-11-25
+## Browser-local MekongPhon engine port audit — final closeout (2026-11-25)
 
-PR #578 adds a real browser-side IPA inference path instead of relying only on the bounded onset/fixture adapter. The pinned model artifact is Apache-2.0 per upstream model-card metadata; corpus rights are not inherited and the training corpus is not bundled. The model is exported to INT8 ONNX and executed locally via vendored ONNX Runtime Web/WASM in a Worker. The model is lazy-loaded after user action, and output remains a separate PROVISIONAL candidate through the typed IPA → Ukrainian adapter.
+PR #578 was merged by the repository owner as main commit `520a1592345ccabbf859bc88b2c8d18d6cd896d` and deployed to GitHub Pages. The pinned BYU MATRIX MekongPhon model artifact declares Apache-2.0 in its upstream model-card metadata. The upstream training/evaluation corpus is not copied; its rights remain unresolved.
 
-Evidence collected so far:
-- Python/JavaScript parity, Python tests, web checks, deterministic benchmarks and Vite build passed on PR head `74f6d885ce9312db1409854c760a2943a3649c47` (Quality run [45623011916](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45623011916)).
-- Browser tokenizer parity against pinned Transformers encoder and decoder tokenizers passed in the model-enabled export workflow.
-- Export generation parity: FP32 ONNX vs pinned Transformers was exact for two probes and 3.03% CER for the reported national-assembly phrase; INT8 output matched FP32 exactly on all three probes. This measures implementation parity only.
-- First model-enabled Chromium attempt failed because the test treated the initial explanatory status string containing the word PROVISIONAL as completed inference. The wait predicate was corrected to require the final `PROVISIONAL · MekongPhon@...` provider status, and the test window was extended to 230 seconds. The corrected exact-head run is pending.
+- Browser runtime: integrity-pinned ONNX Runtime Web 1.23.2 (MIT), WASM, dedicated Web Worker, one-beam greedy decoding, maximum 64 output tokens.
+- Model export: separate encoder/decoder graphs, dynamic per-channel INT8; 35,001,440 model-weight bytes. FP32 graphs are used only for validation and are removed before packaging.
+- Model and tokenizer are pinned to revision `20e069d384b240da76320e1569958568c12a54bc`; browser token IDs and decoding match pinned Transformers tokenizers on the three export probes.
+- User input remains local. Model assets are fetched from the same GitHub Pages origin only after explicit user action. No remote inference endpoint or telemetry is added.
+- The model candidate is separate from canonical deterministic output, labelled PROVISIONAL, with profile match UNVERIFIED. Raw IPA remains visible even if the Ukrainian adapter cannot map every segment.
+- Exact-head model-enabled Chromium suite: 46/46 Playwright tests passed, including actual local inference on `សភាតំណាងប្រជាជនកម្ពុជា` and a no-external-request assertion (Quality [45624434366](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624434366)).
+- Main Quality [45624955916](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955916), main browser smoke [45624955945](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955945), and Pages deploy/live-asset smoke [45624955965](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955965) all passed.
+- The ONNX phrase candidate is `saʔpʰiedɑmnaaŋprɑciecʊənkampucie`. FP32 ONNX has 3.03% CER vs pinned Transformers on this probe; INT8 matches FP32 exactly. These are port-parity measurements, not pronunciation accuracy.
 
-Audit status: browser model integration PARTIAL pending exact-head Chromium and Pages gates; pronunciation accuracy remains NOT_ASSESSED; model profile match remains UNVERIFIED; independent IPA gold remains 0. The deterministic canonical engine and the external model candidate remain separate. Do not present this as linguistically validated or deploy before the model-enabled Pages workflow passes.
+Audit status: browser model integration and Pages deployment DONE_VERIFIED. Independent adjudicated Phnom Penh IPA gold remains 0; pronunciation accuracy NOT_ASSESSED; model profile equivalence UNVERIFIED; broader contextual Khmer phonology remains PARTIAL. Do not present the model as linguistically validated or its output as SUPPORTED gold.
