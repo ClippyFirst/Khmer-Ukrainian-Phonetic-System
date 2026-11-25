@@ -204,3 +204,19 @@ The adapter never reads Khmer graphemes, source positions or romanization. The s
 IPA segments retain syllable boundaries, vowel length, tone symbols, certainty, provenance and uncertainty. Tone is not inferred by this change; tone fields remain null for Khmer unless an accepted source explicitly supplies them. Unknown regions render as a single `???` per contiguous region. The browser unit detail and CLI expose the typed status and uncertainty.
 
 Exact-head Quality [45490428639](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428639) passed 503 Python tests + 70 subtests, web checks, parity, benchmark and production build. Chromium [45490428728](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428728) passed 42/42 Playwright tests; pinned Rust segmentation [45490428786](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428786) and external khPOS [45490428814](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45490428814) also passed. This engineering contract does not increase phonological evidence coverage or establish pronunciation accuracy.
+
+## Нейромережева дистиляція в детерміновані правила — 2026-11-25 (PR #582)
+
+Цільова архітектура:
+
+`MekongPhon як офлайновий teacher → аналіз кандидатів → перевірка за незалежними джерелами → версійовані детерміновані правила/лексикон → типізований IPA → наявний український IPA-адаптер`.
+
+Нейромережа не повинна бути runtime-залежністю майбутнього основного рушія. Після затвердження правила й лексичні записи мають бути звичайними версійованими даними/кодом: однаковий NFC-ввід і версія рушія дають однаковий результат без ONNX, завантаження ваг, випадкової генерації чи мережевого виклику. Невідомі форми мають проходити наявний контрольований fallback, а не отримувати вигадану повну вимову.
+
+**Поточний крок — лише перевірка придатності teacher, не дистиляція правил.** Скрипт `scripts/benchmark_mekongphon_source_matrix.py` порівнює greedy one-beam вихід зафіксованої MekongPhon-моделі з усіма неперехресними source-attested прикладами у `data/khmer/vowel-context-register.json`, для яких існує повний IPA. Нормалізація обмежена NFC та зняттям однієї зовнішньої пари `/…/` або `[…]`; внутрішні символи, довгота, пробіли й діакритики не переписуються.
+
+У реєстрі є 14 контекстних випадків: 12 позначені SOURCE_ATTESTED_NOT_GOLD, але лише **шість** мають непорожній IPA; два випадки містять конфліктні джерельні аналізи. Окремі 54 спостереження зіставлення R12A прямо позначені `runtime_eligible=false` і не можуть бути перетворені на правила за самим фактом наявності таблиці.
+
+Звіт навмисно агрегований: не зберігає орфографію, вихід моделі чи рядок джерельного IPA; лишає лише ID випадку, хеш еталонного рядка та метрики редагування. Він завжди фіксує `independent_gold_count=0`, `accuracy=null`, `profile_match=UNVERIFIED`, `candidate_rules_emitted=0`. Навіть повний збіг на шести прикладах не дозволяє узагальнювати правило на інші голосні, фіналі, склади чи лексику.
+
+Поточний PR не змінює production runtime, не прибирає окрему кнопку локальної MekongPhon-моделі й не додає модельних передбачень до сайту. Після проходження цього діагностичного gate наступна робота — знайти/підготувати права-зрозумілий профільно сумісний корпус, провести незалежну ад'юдикацію, побудувати контекстну матрицю та лише тоді компілювати перевірені правила й точні лексичні винятки. Навчальний корпус MekongPhon не копіюється; ліцензія моделі не вирішує права на її навчальні дані.
