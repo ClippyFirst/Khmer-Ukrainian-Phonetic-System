@@ -93,3 +93,24 @@ def test_bridge_report_rejects_misaligned_prediction_maps():
         assert "one respelling and two IPA outputs per input" in str(error)
     else:
         raise AssertionError("expected prediction-map mismatch to fail")
+
+def test_whole_respelling_preserves_hyphen_boundaries_for_phonemizer():
+    calls = []
+
+    def fake_phonemizer(value):
+        calls.append(value)
+        return "ipa:" + value
+
+    assert MODULE["phonemize_respelling_whole"]("កា-ពុ-ជា", fake_phonemizer) == "ipa:កា-ពុ-ជា"
+    assert calls == ["កា-ពុ-ជា"]
+
+
+def test_spaced_respelling_passes_word_separators_without_splitting():
+    calls = []
+
+    def fake_phonemizer(value):
+        calls.append(value)
+        return "ipa:" + value
+
+    assert MODULE["phonemize_respelling_spaced"]("កា-ពុ-ជា", fake_phonemizer) == "ipa:កា ពុ ជា"
+    assert calls == ["កា ពុ ជា"]
