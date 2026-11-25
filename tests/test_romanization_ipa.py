@@ -58,3 +58,29 @@ def test_exact_representative_series_vowels_are_provisional_without_unknown_tail
         assert all(segment.certainty == "PROVISIONAL" for segment in result["typed_ipa"].segments)
         assert all(segment.kind != "unknown" for segment in result["typed_ipa"].segments)
         assert "NOT_GENERALIZED_TO_OTHER_VOWEL_OR_CODA_CONTEXTS" in result["uncertainty"]
+
+
+def test_unlisted_vowel_signs_remain_unknown_instead_of_being_extrapolated():
+    unlisted = (
+        ("កិ", "ke"), ("គិ", "ki"), ("កឹ", "koe"), ("គឹ", "koe"),
+        ("កឺ", "koe"), ("គឺ", "koe"), ("កុ", "ko"), ("គុ", "ku"),
+        ("កូ", "ko"), ("គូ", "ku"), ("កេ", "ke"), ("គេ", "ke"),
+        ("កែ", "ke"), ("គែ", "ke"), ("កៃ", "kai"), ("គៃ", "key"),
+        ("កោ", "kao"), ("គោ", "ko"), ("កៅ", "kau"), ("គៅ", "kou"),
+        ("កើ", "kaeu"), ("គើ", "keu"), ("កឿ", "koea"), ("គឿ", "koea"),
+        ("កួ", "kuo"), ("គួ", "kuo"),
+    )
+    for source, romanized in unlisted:
+        result = build_romanization_ipa_candidate(source, romanized)
+        assert result["status"] == "PROVISIONAL", (source, romanized)
+        assert result["romanized_onset"] == "k", (source, romanized)
+        assert result["typed_ipa"].phonemic_ipa is None, (source, romanized)
+        assert any(segment.kind == "unknown" for segment in result["typed_ipa"].segments), (source, romanized)
+
+
+def test_wrong_romanization_for_an_exact_vowel_fixture_does_not_reuse_its_ipa():
+    for source, romanized in (("កី", "ki"), ("គី", "kei")):
+        result = build_romanization_ipa_candidate(source, romanized)
+        assert result["status"] == "PROVISIONAL"
+        assert result["typed_ipa"].phonemic_ipa is None
+        assert any(segment.kind == "unknown" for segment in result["typed_ipa"].segments)
