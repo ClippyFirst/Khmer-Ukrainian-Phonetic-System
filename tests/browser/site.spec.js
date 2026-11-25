@@ -8,7 +8,9 @@ test.beforeEach(async ({ page }, testInfo) => {
     "IPA and Latin romanization remain visible outside the collapsed analysis drawer",
     "primary method switch is visible beside the main result without opening research details",
     "phonetic mode never substitutes an orthographic romanization fallback for unresolved IPA",
-    "unresolved independent vowel still receives a marked provisional result"
+    "unresolved independent vowel keeps orthographic fallback out of the phonetic result",
+    "output tiers select progressively broader local IPA candidates",
+    "strict withholds archived external IPA candidates while Soft and Super-soft may expose them"
   ].includes(testInfo.title)) return;
   await page.addInitScript(() => {
     document.addEventListener("DOMContentLoaded", () => {
@@ -63,14 +65,13 @@ test("phonetic mode never substitutes an orthographic romanization fallback for 
   await expect(page.locator("#status")).not.toContainText("EXTERNAL IPA CANDIDATE");
 });
 
-test("unresolved independent vowel still receives a marked provisional result", async ({ page }) => {
+test("unresolved independent vowel keeps orthographic fallback out of the phonetic result", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("ឥ");
   await expect(page.locator("#ipa-result")).toHaveText("⟦NOT_ESTABLISHED⟧");
-  await expect(page.locator("#ua-result")).not.toHaveText("???");
-  await expect(page.locator("#ua-result")).toHaveText(/\?\?\?$/u);
-  await expect(page.locator("#status")).toContainText("ОРФОГРАФІЧНА ПІДКАЗКА");
-  await expect(page.locator("#status")).toContainText("НЕ IPA");
+  await expect(page.locator("#ua-result")).toHaveText("???");
+  await expect(page.locator("#ua-orthographic-result")).not.toBeEmpty();
+  await expect(page.locator("#ua-orthographic-status")).toContainText("не вимова");
   await expect(page.locator("#issue-text")).toContainText("а не підтверджену вимову");
 });
 
@@ -422,14 +423,47 @@ test("unresolved Khmer phrase displays archived external IPA candidates with tra
   await expect(page.locator("#unit-details")).toContainText("BGN/PCGN-derived, не вимова");
 });
 
-test("archived provisional IPA candidate remains visible at every detail level", async ({ page }) => {
+test("strict withholds archived external IPA candidates while Soft and Super-soft may expose them", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("កម្ពុជាប្រជាធិបតេយ្យ");
-  for (const level of ["strict", "balanced", "exploratory"]) {
+  await page.locator("#output-level").selectOption("strict");
+  await expect(page.locator("#status")).not.toContainText("EXTERNAL IPA CANDIDATE");
+  await expect(page.locator("#ipa-result")).not.toHaveText("/kampuciə prɑciətʰɨppaʔtaj/???");
+  for (const level of ["balanced", "exploratory"]) {
     await page.locator("#output-level").selectOption(level);
     await expect(page.locator("#ua-result")).toHaveText("кампутьіє пратьієт'иппатай???");
     await expect(page.locator("#ipa-result")).toHaveText("/kampuciə prɑciətʰɨppaʔtaj/???");
   }
+});
+
+test("output tiers select progressively broader local IPA candidates", async ({ page }) => {
+  await page.route("**/data/google-neural-distilled-syllables.json", route => route.fulfill({
+    status: 200,
+    contentType: "application/json",
+    body: JSON.stringify({
+      schema: "google-khmer-neural-distilled-syllables/v1",
+      candidates: [{
+        orthography: "កិ",
+        google_phonemic_tokens: ["k", "e", "ʔ"],
+        status: "PROVISIONAL",
+        uncertainty: ["NEURAL_TEACHER_PREDICTION_NOT_SOURCE_ATTESTED"],
+        teacher_checkpoint_sha256: "browser-test-checkpoint",
+      }],
+    }),
+  }));
+  await page.goto("/");
+  await page.locator("#source").fill("កិ");
+  await page.locator("#output-level").selectOption("strict");
+  await expect(page.locator("#ipa-result")).toHaveText("⟦NOT_ESTABLISHED⟧");
+  await expect(page.locator("#ua-result")).toHaveText("???");
+  await page.locator("#output-level").selectOption("balanced");
+  await expect(page.locator("#ipa-result")).toHaveText("/k/???");
+  await expect(page.locator("#ua-result")).toHaveText("к???");
+  await page.locator("#output-level").selectOption("exploratory");
+  await expect(page.locator("#ipa-result")).toHaveText("/keʔ/???");
+  await expect(page.locator("#ua-result")).toHaveText("ке???");
+  await expect(page.locator("#unit-details")).toContainText("NEURAL_TEACHER_DISTILLED_STATIC_LOOKUP");
+  await expect(page.locator("#unit-details")).toContainText("лише Super-soft");
 });
 
 test("unit details disclose typed IPA status, provenance and unresolved remainder", async ({ page }) => {
