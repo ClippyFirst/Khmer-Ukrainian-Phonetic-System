@@ -48,7 +48,7 @@ export function parseGooglePhonemic(raw, {
   for (const token of sourceTokens) {
     if (token === ".") {
       if (previousWasBoundary || phoneIndex === syllableBoundaries.at(-1)) {
-        return unresolved(raw, sourceTokens, ["MALFORMED_SYLLABLE_BOUNDARY"], provenance);
+        return unresolved(raw, sourceTokens, ["MALFORMED_SYLLABLE_BOUNDARY"], provenance, profile);
       }
       ipaParts.push(".");
       syllableBoundaries.push(phoneIndex);
