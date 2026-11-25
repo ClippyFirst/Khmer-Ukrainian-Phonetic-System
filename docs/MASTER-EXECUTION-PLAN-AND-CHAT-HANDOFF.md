@@ -17,7 +17,7 @@
 
 - Owner approved `docs/superpowers/specs/2026-11-25-romanization-mediated-ipa-design.md`; implementation plan: [2026-11-25-romanization-mediated-ipa.md](superpowers/plans/2026-11-25-romanization-mediated-ipa.md).
 - Base main: `e972cd503f3670d08a2fbf0812efdc701513a810`.
-- Working branch: `feat/romanization-mediated-ipa-20261125`; draft PR [#572](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/572), clean/mergeable and intentionally unmerged pending owner review.
+- Working branch: `feat/romanization-mediated-ipa-20261125`; PR [#572](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/572), merged by squash as `747e9388e0d68b16f2cc29113b9fdea648d2d7b2`.
 - Latest branch head: `f471e3a16a84e248f954ebcf720ccbdbc5cb4016`.
 - Implemented: `data/khmer/romanization_ipa_onsets.json` (source-registered PCGN onset classes plus six exact series/vowel exemplars); official source ID `bgn-pcgn-khmer-1972`; JS adapter `src/khmer-romanization-ipa.js`; Python adapter `src/khmer_ua/romanization_ipa.py`; UI in `src/main.js` displays provisional IPA candidate/status. Orthographic romanization remains separate and explicitly labelled “не вимова”.
 - Behavior: longest leading PCGN token is cross-checked against original Khmer base consonant and registered onset IPA. Six exact vowel fixtures require both full Khmer spelling and ASCII romanization: `ក`→`ka`→`kɑː`; `គ`→`ko`→`kɔː`; `កី`→`kei`→`kəj`; `គី`→`ki`→`kiː`; `កា`→`ka`→`kaː`; `គា`→`kea`→`kiə`. The `ka` collision is disambiguated by retaining source spelling. BA b/p abstains. Every candidate remains PROVISIONAL and uses the existing IPA-only Ukrainian target adapter.
@@ -261,8 +261,7 @@ Local execution was not available in this session; verification was performed by
 
 ### PR and release state
 
-- PR #572 is open and mergeable; exact-head checks are green and there are no review threads.
-- PR #572 is intentionally not merged; no merge instruction was given.
+- PR #572 was merged by squash as `747e9388e0d68b16f2cc29113b9fdea648d2d7b2`; its exact-head checks passed and it had no review threads.
 - PR #519 remains separate and untouched; it is a divergent hybrid-inference proposal and must be reconciled independently.
 - PR #572 was merged; Pages deployment is triggered by the subsequent `main` update and must be verified independently. No formal release tag was created.
 - Assessment: the romanization-mediated fallback is engineering-verified within its narrow inventory. The repository remains a research-ready partial prototype, not a linguistically validated Khmer G2P product.
