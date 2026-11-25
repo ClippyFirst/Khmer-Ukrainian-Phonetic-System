@@ -3306,3 +3306,35 @@ PR #578 was merged by the repository owner as implementation commit `520a1592345
 - The ONNX phrase candidate is `saʔpʰiedɑmnaaŋprɑciecʊənkampucie`. FP32 ONNX has 3.03% CER vs pinned Transformers on this probe; INT8 matches FP32 exactly. These are port-parity measurements, not pronunciation accuracy.
 
 Audit status: browser model integration and Pages deployment DONE_VERIFIED. Independent adjudicated Phnom Penh IPA gold remains 0; pronunciation accuracy NOT_ASSESSED; model profile equivalence UNVERIFIED; broader contextual Khmer phonology remains PARTIAL. Do not present the model as linguistically validated or its output as SUPPORTED gold.
+
+## Deterministic neural-teacher distillation audit — 2026-11-25 (PR #582)
+
+**Desired architecture:** use MekongPhon as an offline research-time teacher, then compile only evidence-reviewed rules and exact lexical entries into a deterministic local runtime. The final runtime should not need ONNX, model weights, network access or stochastic inference.
+
+### Current evidence
+
+- Main already contains both the deterministic IPA-first engine and optional browser-local MekongPhon inference. PR #578's model port and PR #579's deployment closeout are merged; the current public site is deployed. The optional model output remains PROVISIONAL and profile match UNVERIFIED.
+- The repository's contextual vowel register has 14 cases. Only six non-conflicting cases have a non-empty source IPA string; two cases explicitly preserve conflicting source analyses. Fifty-four R12A reference-mapping observations are marked `runtime_eligible=false`.
+- The broader IPA-Dict diagnostic reports MekongPhon 14.45% source-attested CER on 1,509 non-overlapping words, but the source is CC BY-NC-SA 4.0, target-profile equivalence is unverified, and the report explicitly says accuracy is NOT_ASSESSED. The 100-word MekongPhon split diagnostic reports 12.54% CER but is source-attested, not independent gold, and the source corpus has no declared data license. These metrics do not authorize runtime rule generation.
+- The model's training corpus is not copied or redistributed. Apache-2.0 model-card metadata does not resolve corpus rights.
+
+### PR #582 implementation
+
+- Adds `scripts/benchmark_mekongphon_source_matrix.py`, which compares one-beam greedy teacher output with only non-conflicting source-attested examples that contain IPA. It preserves the source string except NFC and outer delimiter removal.
+- The report contains aggregate diagnostics, case IDs and reference hashes only; it does not write raw source orthography, source IPA or model predictions.
+- The report hard-codes zero promoted rules, zero independent gold, null accuracy and `profile_match=UNVERIFIED`.
+- Regression tests were added first. The first run failed because the script was absent (expected RED); the next run exposed a missing report count, which was fixed. Exact-head Quality and model diagnostic evidence are required before marking the task complete.
+- No runtime module, new IPA rule, model-derived lexicon, production asset or deployment is added by this PR.
+
+### Audit classification
+
+| Item | Status | Reason / acceptance |
+|---|---|---|
+| Offline-teacher / deterministic-runtime architecture contract | DONE_VERIFIED | Documented in `docs/DETERMINISTIC-RULE-ENGINE.md`; no model runtime is intended in the final engine |
+| Source-matrix teacher diagnostic harness | PARTIAL | Harness and tests exist; exact-head model diagnostic workflow and artifact inspection remain required |
+| Generalized deterministic rules distilled from MekongPhon | BLOCKED | Six source IPA cases are insufficient for contextual generalization; model/profile and training-data limitations remain |
+| Deterministic runtime lexicon integration | TODO | Requires lawful candidate source, explicit status/provenance, cross-runtime parity and full-message regression coverage |
+| Independent pronunciation accuracy | BLOCKED / NOT_ASSESSED | Expert-adjudicated IPA gold remains 0 |
+| Training-corpus rights | BLOCKED | Exact data rights are unresolved; no corpus redistribution |
+
+PR #519 remains open and untouched because it is a divergent earlier provider/hybrid proposal; it is not a suitable base for this deterministic local runtime. No merge, release or deployment is performed by PR #582.
