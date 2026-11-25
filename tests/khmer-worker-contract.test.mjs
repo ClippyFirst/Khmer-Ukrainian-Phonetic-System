@@ -8,7 +8,7 @@ const html = fs.readFileSync("index.html", "utf8");
 
 for (const [label, source, required] of [
   ["main", main, ['import { analyzeInWorker } from "./khmer-engine-client.js"', "await analyzeInWorker(inputText, profile, convert, outputLevelMode)", "renderRevision"]],
-  ["client", client, ['new Worker(new URL("./khmer-engine.worker.js", import.meta.url)', 'postMessage({ id, text, profile, outputLevel })', "fallback(text, profile, { outputLevel })"]],
+  ["client", client, ['new Worker(new URL("./khmer-engine.worker.js", import.meta.url)', 'postMessage({ id, text, profile, outputLevel })', "fallback(text, profile, options)"]],
   ["worker", worker, ['import { convert } from "./khmer-engine-core.js"', "convert(text, profile, { outputLevel, distilledSyllables })", 'self.addEventListener("message"']],
 ]) {
   for (const fragment of required) {
