@@ -82,14 +82,14 @@ assert.ok(unresolvedWord.canonical_ua.endsWith("???"), "the canonical IPA-derive
 const unresolvedUnits = unresolvedWord.units.filter((unit) => unit.status === "EVIDENCE_LIMITED" || unit.status === "NOT_ESTABLISHED");
 assert.equal(unresolvedUnits.length, 1, "word segmentation must preserve the unresolved second lexical word as one unit");
 assert.equal(unresolvedUnits[0].source, "ប្រជាធិបតេយ្យ");
-assert.equal(unresolvedUnits[0].partial_candidate_kind, "ONSET_ONLY");
-assert.ok(unresolvedUnits[0].provisional_ukrainian.endsWith("???"), "the unresolved word must expose its known onset before the uncertainty marker");
+assert.equal(unresolvedUnits[0].partial_candidate_kind, "LEXICAL_PHONEMIC_CANDIDATE");
+assert.ok(unresolvedUnits[0].provisional_ukrainian && unresolvedUnits[0].provisional_ukrainian !== "???", "the exact Google phonemic lexical entry must be retained as a complete provisional candidate");
 assert.ok(unresolvedUnits[0].orthographic_fallback_ukrainian, "the separate orthographic candidate must remain inspectable");
 const unresolvedTypedUnits = unresolvedWord.phonetic_result.units.filter((unit) => unit.status === "EVIDENCE_LIMITED" || unit.status === "NOT_ESTABLISHED");
 assert.equal(unresolvedTypedUnits.length, 1, "machine-readable IPA provenance must retain word-level uncertainty");
-assert.equal(unresolvedTypedUnits[0].ukrainian_kind, "IPA_DERIVED_PROVISIONAL", "the visible Ukrainian target must be typed as an onset-only IPA-derived preview");
-assert.ok(unresolvedTypedUnits[0].ukrainian.endsWith("???"), "the visible onset-only IPA-derived candidate must carry the uncertainty suffix");
-assert.ok(unresolvedTypedUnits[0].ipa && !unresolvedTypedUnits[0].ipa.includes("NOT_ESTABLISHED"), "the typed result must retain the bare supported onset IPA separately");
+assert.equal(unresolvedTypedUnits[0].ukrainian_kind, "IPA_DERIVED_PROVISIONAL", "the visible Ukrainian target must be typed as an IPA-derived lexical candidate");
+assert.ok(unresolvedTypedUnits[0].ukrainian.endsWith("???"), "the visible IPA-derived lexical candidate must carry the uncertainty suffix");
+assert.ok(unresolvedTypedUnits[0].ipa && !unresolvedTypedUnits[0].ipa.includes("NOT_ESTABLISHED"), "the typed result must retain the bare provisional IPA separately");
 
 
 const bySource = Object.fromEntries(result.units.map((unit) => [unit.source, unit]));
@@ -151,16 +151,17 @@ assert.equal(parseSyllable("ក៊").register_rule, "NON_STANDARD_SHIFTER_USE");
 
 const paakApproximation = convert("ពាក់", "khmer-pph-careful-citation-v1");
 assert.equal(paakApproximation.units.length, 1, "ពាក់ must remain one lexical unit");
-assert.equal(paakApproximation.units[0].partial_candidate_kind, "ONSET_ONLY", "an unresolved coda must not hide the independently supported onset");
-assert.equal(paakApproximation.units[0].provisional_ipa, "p", "the known onset must be surfaced as a partial IPA candidate");
-assert.equal(paakApproximation.units[0].provisional_ukrainian, "п???", "the partial Ukrainian result must end with the explicit uncertainty marker");
-assert.equal(paakApproximation.ua, "п???", "the primary Ukrainian output must show the approximate phonetic result, not only ???");
+assert.equal(paakApproximation.units[0].partial_candidate_kind, "LEXICAL_PHONEMIC_CANDIDATE", "an exact Google phonemic dictionary entry must outrank an onset-only hint");
+assert.equal(paakApproximation.units[0].provisional_ipa, "peak", "the source phonemic tokens must be converted through the typed IPA adapter");
+assert.equal(paakApproximation.units[0].provisional_ukrainian, "пеак", "the complete provisional IPA candidate must be adapted into Ukrainian");
+assert.equal(paakApproximation.ua, "пеак???", "Soft must expose the lexical IPA candidate with an uncertainty marker");
 assert.equal(paakApproximation.units[0].orthographic_fallback_ukrainian, "Пеак", "the orthographic romanization candidate must remain available but separately typed");
-assert.equal(paakApproximation.phonetic_result.units[0].ukrainian, "п???", "the typed IPA-first result must preserve the visible partial IPA-derived target");
+assert.equal(paakApproximation.phonetic_result.units[0].ukrainian, "пеак???", "the typed IPA-first result must preserve the lexical candidate through the same adapter");
 assert.equal(paakApproximation.phonetic_result.units[0].ukrainian_kind, "IPA_DERIVED_PROVISIONAL");
-assert.equal(paakApproximation.phonetic_result.units[0].ipa, "p", "the typed IPA value must remain bare IPA without display uncertainty markers");
+assert.equal(paakApproximation.phonetic_result.units[0].ipa, "peak", "the typed IPA value must remain bare IPA without display uncertainty markers");
+assert.equal(paakApproximation.phonetic_result.units[0].ipa_kind, "PHONEMIC");
 assert.deepEqual(paakApproximation.phonetic_result.units[0].provenance.structure, ["unicode17-ch16"]);
-assert.deepEqual(paakApproximation.phonetic_result.units[0].provenance.phonology, ["r12a-orthography"], "Unicode structure evidence must not be mislabeled as phonetic evidence");
+assert.deepEqual(paakApproximation.phonetic_result.units[0].provenance.phonology, ["GOOGLE_PHONEMIC_SOURCE:google-khmer-pronunciation-sample-2026", "GOOGLE_SOURCE_REVISION:a90601024f07ab7e96c911243324e0adeb16da96", "GOOGLE_PHONOLOGY_TO_IPA_ADAPTER:2026-11-25.1"], "Google phonemic provenance must remain explicit and distinct from structural evidence");
 
 const multipleShifters = convert("ស៊៉ា", "khmer-pph-careful-citation-v1");
 assert.equal(multipleShifters.status, "EVIDENCE_LIMITED");
