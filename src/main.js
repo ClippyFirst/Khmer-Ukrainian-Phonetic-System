@@ -186,8 +186,8 @@ if (typeof document !== "undefined") {
               : data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
     const levelGuidance = {
       strict: "Strict: лише детерміновані правила й джерельно індексовані пропозиції. Немає нейромережевих OOV-підстановок, словникових кандидатів без підтвердження профілю чи часткових підказок. Це найобережніший рівень, але не експертний gold.",
-      balanced: "Soft: додає точні словникові фонемні записи Google та часткові IPA-підказки, коли повну структуру не встановлено. Усі такі доповнення позначені PROVISIONAL і не маскують невизначеність.",
-      exploratory: "Super-soft: додатково використовує статичні детерміновані OOV-кандидати, отримані дистиляцією офлайнової нейромережі, та орфографічні резервні підказки. Це розширює непорожнє покриття, але збільшує частку неперевірених результатів."
+      balanced: "Soft: додає точні словникові фонемні записи Google, повні CV/CVC-кандидати з локального детермінованого рушія та часткові IPA-підказки. Згенеровані кандидати позначені PROVISIONAL; повний запис не плутається з підтвердженою вимовою.",
+      exploratory: "Super-soft: додатково використовує розширені OOV-кандидати з дистиляції офлайнової нейромережі та окремі орфографічні резервні підказки. Вони підвищують покриття, але мають нижчий доказовий статус."
     };
     outputLevelNote.textContent = levelGuidance[outputLevelMode];
     $("details").textContent = data.note + " " + levelGuidance[outputLevelMode];
@@ -213,7 +213,10 @@ if (typeof document !== "undefined") {
       heading.append(sourceLabel, statusLabel);
       const values = document.createElement("p");
       values.className = "unit-values";
-      values.textContent = "IPA: " + unit.ipa
+      const displayedUnitIpa = unit.partial_candidate_kind === "NEURAL_DISTILLED_OOV_SYLLABLE"
+        ? "/" + unit.provisional_ipa + "/"
+        : unit.ipa;
+      values.textContent = "IPA: " + displayedUnitIpa
         + (unit.fallback_status === "PROVISIONAL"
           ? " · Попередня українська форма: " + unit.fallback_ukrainian + " [PROVISIONAL · BGN/PCGN, не IPA]"
           : " · Українська: " + unit.ua)
@@ -224,7 +227,7 @@ if (typeof document !== "undefined") {
               ? " · Окрема орфографічна романізація: " + unit.orthographic_fallback_ukrainian + " [BGN/PCGN-derived, не вимова]"
               : "")
           : unit.partial_candidate_kind === "NEURAL_DISTILLED_OOV_SYLLABLE"
-            ? " · Детермінований OOV-кандидат із нейромережевої дистиляції: /" + unit.provisional_ipa + "/ → " + unit.provisional_ukrainian + " [PROVISIONAL · лише Super-soft]"
+            ? " · Детермінований CV/CVC-кандидат із нейромережевої дистиляції: /" + unit.provisional_ipa + "/ → " + unit.provisional_ukrainian + " [PROVISIONAL · Soft/Super-soft]"
             : unit.provisional_ipa
               ? " · Попередній IPA-кандидат: /" + unit.provisional_ipa + "/ → " + unit.provisional_ukrainian + " [PROVISIONAL]"
                 + (unit.orthographic_fallback_ukrainian
