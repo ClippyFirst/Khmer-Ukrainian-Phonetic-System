@@ -281,6 +281,18 @@ def main() -> int:
         })
 
     shutil.copy2(source_dir / "README.md", output_dir / "UPSTREAM_MODEL_CARD.md")
+    shutil.copy2(source_dir / "encoder_tokenizer" / "tokenizer.json", output_dir / "encoder_tokenizer.json")
+    shutil.copy2(source_dir / "decoder_tokenizer" / "tokenizer.json", output_dir / "decoder_tokenizer.json")
+    tokenizer_parity = []
+    for probe in probes:
+        encoder_ids = encoder_tokenizer(probe, truncation=True, max_length=args.max_length)["input_ids"]
+        decoder_ids = decoder_tokenizer(probe, truncation=True, max_length=args.max_length)["input_ids"]
+        tokenizer_parity.append({
+            "text": probe,
+            "encoder_ids": list(encoder_ids),
+            "decoder_ids": list(decoder_ids),
+        })
+    write_json(output_dir / "tokenizer-parity.json", tokenizer_parity)
     files = {}
     for path in sorted(output_dir.glob("*.onnx")):
         files[path.name] = {"bytes": path.stat().st_size, "sha256": sha256_file(path)}
