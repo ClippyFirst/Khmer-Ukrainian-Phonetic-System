@@ -21,4 +21,4 @@ def test_shared_strictness_labels_preserve_existing_semantics():
 def test_strictness_labels_are_not_confidence_or_accuracy_claims():
     policy = (ROOT / "docs" / "BETA-RELEASE-POLICY.md").read_text(encoding="utf-8")
     assert "These are disclosure/acceptance levels" in policy
-    assert "not complete syllables, IPA or confirmed Ukrainian pronunciation" in policy
+    assert "Complete candidates remain `PROVISIONAL`" in policy and "broader lexicon-derived OOV candidate inventory" in policy
