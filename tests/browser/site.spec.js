@@ -273,14 +273,14 @@ test("one unsupported unit does not hide neighboring IPA and Ukrainian output", 
   await expect(page.locator("#ua-result")).toHaveText("ка ??? ко");
 });
 
-test("unresolved Khmer coda displays the available onset with an uncertainty marker", async ({ page }) => {
+test("Soft prefers exact Google phonemic lexicon over an onset-only hint", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("ពាក់");
-  await expect(page.locator("#ipa-result")).toHaveText("/p/???");
-  await expect(page.locator("#ua-result")).toHaveText("п???");
-  await expect(page.locator("#unit-details")).toContainText("лише початковий приголосний");
+  await expect(page.locator("#ipa-result")).toHaveText("/peak/???");
+  await expect(page.locator("#ua-result")).toHaveText("пеак???");
+  await expect(page.locator("#unit-details")).toContainText("Попередній IPA-кандидат: /peak/ → пеак");
   await expect(page.locator("#unit-details")).toContainText("Окрема орфографічна романізація: Пеак");
-  await expect(page.locator("#status")).toContainText("NOT ESTABLISHED");
+  await expect(page.locator("#status")).toContainText("PROVISIONAL");
 });
 
 test("clear control restores the empty state", async ({ page }) => {
