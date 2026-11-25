@@ -11,7 +11,7 @@ on:
       - "src/khmer_ua/**"
 
 concurrency:
-  group: shared-engine-${{ github.event.pull_request.number || github.ref }}
+  group: shared-engine-${{ github.event.pull_request.head.ref || github.ref_name }}
   cancel-in-progress: true
 
 permissions:
