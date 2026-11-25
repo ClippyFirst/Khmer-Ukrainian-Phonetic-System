@@ -43,7 +43,7 @@ export function analyzeInWorker(text, profile, fallback, outputLevel = "balanced
         activeWorker.postMessage({ id, text, profile, outputLevel });
       } catch {
         pending.delete(id);
-        try { resolve(fallback(text, profile)); }
+        try { resolve(fallback(text, profile, { outputLevel })); }
         catch { resolve(null); }
       }
     });
