@@ -882,11 +882,6 @@ function convert(text, profile, options = {}) {
         ? item.provisional_ukrainian + "???" : "???");
       continue;
     }
-    if (item.fallback_status === "PROVISIONAL" && item.fallback_ukrainian) {
-      flushProvisionalUnknown();
-      provisionalUaParts.push(item.fallback_ukrainian + "???");
-      continue;
-    }
     pendingProvisionalUnknown = true;
   }
   flushProvisionalUnknown();
@@ -906,18 +901,14 @@ function convert(text, profile, options = {}) {
       ? (item.provisional_ukrainian && item.provisional_ukrainian !== "???" ? item.provisional_ukrainian + "???" : "???")
       : item.partial_candidate_kind === "ONSET_ONLY"
         ? item.provisional_ukrainian
-        : (item.orthographic_fallback_ukrainian || item.fallback_ukrainian)
-          ? (item.orthographic_fallback_ukrainian || item.fallback_ukrainian) + "???"
-          : ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
-            ? item.ua
-            : item.status === "PROPOSED" ? item.ua : "???",
+        : ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
+          ? item.ua
+          : item.status === "PROPOSED" ? item.ua : "???",
     ukrainian_kind: ["ONSET_ONLY", "LEXICAL_PHONEMIC_CANDIDATE", "NEURAL_DISTILLED_OOV_SYLLABLE"].includes(item.partial_candidate_kind)
       ? "IPA_DERIVED_PROVISIONAL"
-      : item.orthographic_fallback_ukrainian || item.fallback_status === "PROVISIONAL"
-        ? "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
-        : ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
-          ? "NOT_APPLICABLE"
-          : item.status === "PROPOSED" ? "IPA_DERIVED" : "UNRESOLVED",
+      : ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
+        ? "NOT_APPLICABLE"
+        : item.status === "PROPOSED" ? "IPA_DERIVED" : "UNRESOLVED",
     typed_ipa: item.typed_ipa ? serializePhoneticResult(item.typed_ipa) : null,
     profile,
     provenance: {
@@ -967,16 +958,15 @@ function convert(text, profile, options = {}) {
   const canonicalUa = ua;
   const strictIpa = rendered.map((item) =>
     ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status) ? item.ipa
-      : item.status === "PROPOSED" ? item.ipa : "⟦NOT_ESTABLISHED⟧"
+      : item.status === "PROPOSED" && item.confidence_tier === "B" ? item.ipa : "⟦NOT_ESTABLISHED⟧"
   ).join("").replace(/(⟦NOT_ESTABLISHED⟧){2,}/gu, "⟦NOT_ESTABLISHED⟧");
   const strictUa = rendered.map((item) =>
     ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status) ? item.ua
-      : item.status === "PROPOSED" ? item.ua : "???"
+      : item.status === "PROPOSED" && item.confidence_tier === "B" ? item.ua : "???"
   ).join("");
   const useNeuralCandidate = outputLevel === "exploratory" && hasNeuralDistilledCandidate;
   const useLexicalCandidate = outputLevel !== "strict" && hasGoogleLexicalCandidate;
   const usePartialCandidate = outputLevel !== "strict" && hasPartialOnset;
-  const useOrthographicCandidate = outputLevel === "exploratory" && hasOrthographicFallback;
   const displayIpa = outputLevel === "strict"
     ? strictIpa
     : selectedExternalCandidate
@@ -987,15 +977,14 @@ function convert(text, profile, options = {}) {
     ? strictUa
     : selectedExternalCandidate
       ? selectedExternalCandidate.mapped_ukrainian + "???"
-      : (useNeuralCandidate || useLexicalCandidate || usePartialCandidate || useOrthographicCandidate)
+      : (useNeuralCandidate || useLexicalCandidate || usePartialCandidate)
         ? provisionalUa : canonicalUa;
   const ukrainianOutputKind = selectedExternalCandidate
     ? "EXTERNAL_IPA_PROVISIONAL"
     : useNeuralCandidate ? "NEURAL_DISTILLED_IPA_PROVISIONAL"
       : useLexicalCandidate ? "IPA_DERIVED_PROVISIONAL"
-        : useOrthographicCandidate ? "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
-          : usePartialCandidate ? "IPA_DERIVED_PARTIAL" : "CANONICAL_IPA_DERIVED_OR_UNRESOLVED";
-  const displayStatus = outputLevel !== "strict" && (selectedExternalCandidate || useNeuralCandidate || useLexicalCandidate || useOrthographicCandidate || usePartialCandidate)
+        : usePartialCandidate ? "IPA_DERIVED_PARTIAL" : "CANONICAL_IPA_DERIVED_OR_UNRESOLVED";
+  const displayStatus = outputLevel !== "strict" && (selectedExternalCandidate || useNeuralCandidate || useLexicalCandidate || usePartialCandidate)
     ? "PROVISIONAL" : canonicalStatus;
   const confidence = outputLevel !== "strict" && (selectedExternalCandidate || useNeuralCandidate || useLexicalCandidate || useOrthographicCandidate || usePartialCandidate)
     ? "C"
@@ -1045,7 +1034,7 @@ function convert(text, profile, options = {}) {
       || (outputLevel !== "strict" && hasGoogleLexicalCandidate)
       || (outputLevel === "exploratory" && hasNeuralDistilledCandidate)
       || (outputLevel !== "strict" && hasPartialOnset)
-      || (outputLevel === "exploratory" && hasOrthographicFallback)),
+      ),
     status: displayStatus,
     display_status: displayStatus,
     output_level: outputLevel,
@@ -1064,7 +1053,7 @@ function convert(text, profile, options = {}) {
       partial: !complete && (resolved.length > 0 || (outputLevel !== "strict" && hasGoogleLexicalCandidate)
         || (outputLevel === "exploratory" && hasNeuralDistilledCandidate)
         || (outputLevel !== "strict" && hasPartialOnset)
-        || (outputLevel === "exploratory" && hasOrthographicFallback)),
+        ),
       units: phoneticResults,
     },
     analyses,
