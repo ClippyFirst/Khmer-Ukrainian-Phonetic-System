@@ -1,3 +1,16 @@
+## NCKL Khmer-script respelling benchmark — 2026-11-25
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-NCKL-RESP-001 | DONE_VERIFIED (separate respelling task only) | [PR #573](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/573); final MIT-package inference [45582973744](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45582973744), aggregate artifact [15006794082](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45582973744/artifacts/15006794082). 1,888 unique test words: 100% coverage, 83.16% exact match, 4.16% CER, 93.06% syllable-count accuracy. | Pinned dataset/model, MIT package, word-disjoint split validation, tests and aggregate-only artifact. Khmer-script respelling only; not IPA and not runtime model integration. |
+| KHM-NCKL-RESP-RIGHTS-001 | BLOCKED for commercial use / redistribution | Dataset card labels content `other / nckl-khmer-dictionary-2022` and states underlying dictionary remains © NCKL; no blanket redistribution license is stated. | Obtain direct NCKL permission/terms before commercial use or redistribution. Current workflow retains aggregate metrics only. |
+
+**Representation boundary:** NCKL pronunciation respelling is Khmer script with hyphen syllable separators, not IPA. Independent IPA gold remains 0; pronunciation accuracy remains NOT_ASSESSED.
+
+See [NCKL respelling benchmark methodology](../research/NCKL-RESPelling-BENCHMARK-2026-11-25.md).
+
+---
+
 ## Romanization-mediated provisional IPA — 2026-11-25
 
 | ID | Status | Evidence | Acceptance boundary |
@@ -44,7 +57,7 @@
 | KHM-PHON-CONTEXT-001 | PARTIAL (unchanged) | Exact lexical fixtures, narrow inherent-vowel rules, and partial onset preservation; broad dependent-vowel × consonant-series × coda × syllable-context matrix remains incomplete. | Context-qualified, source-located rules and positive/negative fixtures; Python/browser parity; specialist review; no grapheme-to-Ukrainian shortcut. |
 | KHM-IPA-GOLD-001 | BLOCKED (unchanged) | Independent expert-adjudicated gold remains 0; issue #104 remains open. | Approved versioned IPA convention, two independent annotators, third adjudicator, curator, private blind intake and rights-cleared 30-item pilot. |
  
-**Public-service boundary:** the PR changes are not merged to `main` or deployed. Current PR #557 is a draft continuation branch. Public Pages behavior must not be described as having live multi-provider inference. Broad pronunciation accuracy remains **NOT ASSESSED**.
+**Public-service boundary:** PR #572 is merged to `main`; NCKL benchmark code is separate research tooling and does not change the static Pages runtime. No live multi-provider inference is present. Broad pronunciation accuracy remains **NOT ASSESSED**.
 
 **Development process gate adopted:** reproduce and minimize the exact defect; document root cause; add a failing regression; make the smallest repair; run Python, Node, structural/lexical/rule/segmentation parity, benchmarks, build and Chromium checks; inspect the complete diff; update this register and the master handoff. A passing unit test alone is not release evidence.
 
