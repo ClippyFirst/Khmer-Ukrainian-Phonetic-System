@@ -3294,7 +3294,7 @@ Research limits remain: independent adjudicated IPA gold = 0; pronunciation accu
 
 ## Browser-local MekongPhon engine port audit — final closeout (2026-11-25)
 
-PR #578 was merged by the repository owner as main commit `520a1592345ccabbf859bc88f024485631306f73` and deployed to GitHub Pages. The pinned BYU MATRIX MekongPhon model artifact declares Apache-2.0 in its upstream model-card metadata. The upstream training/evaluation corpus is not copied; its rights remain unresolved.
+PR #578 was merged by the repository owner as `520a1592345ccabbf859bc88f024485631306f73` and deployed to GitHub Pages. Documentation closeout PR #579 then merged as `a23412eb5ec17568d49d65fd86a1d69a94dcce65`, the latest main SHA at this audit. The pinned BYU MATRIX MekongPhon model artifact declares Apache-2.0 in its upstream model-card metadata. The upstream training/evaluation corpus is not copied; its rights remain unresolved.
 
 - Browser runtime: integrity-pinned ONNX Runtime Web 1.23.2 (MIT), WASM, dedicated Web Worker, one-beam greedy decoding, maximum 64 output tokens.
 - Model export: separate encoder/decoder graphs, dynamic per-channel INT8; 35,001,440 model-weight bytes. FP32 graphs are used only for validation and are removed before packaging.
