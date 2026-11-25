@@ -947,14 +947,17 @@ function convert(text, profile, options = {}) {
       selected: false,
     };
   });
-  const selectedExternalCandidate = externalCandidates.find((candidate) =>
+  // Archived provider outputs are retained for inspection only. The
+  // deterministic site engine never lets a captured external candidate
+  // replace its local lexical/rule/neural-distilled result.
+  const archivedExternalCandidate = externalCandidates.find((candidate) =>
     candidate.provider === providerEntry?.selected_provider
     && candidate.status === "PROVISIONAL"
     && candidate.profile_match === "UNVERIFIED"
     && candidate.mapped_ukrainian !== null
     && candidate.mapping_agrees
   ) ?? null;
-  if (selectedExternalCandidate) selectedExternalCandidate.selected = true;
+  const selectedExternalCandidate = null;
   const canonicalIpa = ipa;
   const canonicalUa = ua;
   const strictIpa = rendered.map((item) =>
@@ -970,24 +973,20 @@ function convert(text, profile, options = {}) {
   const usePartialCandidate = outputLevel !== "strict" && hasPartialOnset;
   const displayIpa = outputLevel === "strict"
     ? strictIpa
-    : selectedExternalCandidate
-      ? "/" + selectedExternalCandidate.ipa + "/???"
-      : (useNeuralCandidate || useLexicalCandidate || usePartialCandidate)
-        ? bestEffortCandidateIpa : canonicalIpa;
+    : (useNeuralCandidate || useLexicalCandidate || usePartialCandidate)
+      ? bestEffortCandidateIpa : canonicalIpa;
   const displayUa = outputLevel === "strict"
     ? strictUa
-    : selectedExternalCandidate
-      ? selectedExternalCandidate.mapped_ukrainian + "???"
-      : (useNeuralCandidate || useLexicalCandidate || usePartialCandidate)
-        ? provisionalUa : canonicalUa;
+    : (useNeuralCandidate || useLexicalCandidate || usePartialCandidate)
+      ? provisionalUa : canonicalUa;
   const ukrainianOutputKind = selectedExternalCandidate
     ? "EXTERNAL_IPA_PROVISIONAL"
     : useNeuralCandidate ? "NEURAL_DISTILLED_IPA_PROVISIONAL"
       : useLexicalCandidate ? "IPA_DERIVED_PROVISIONAL"
         : usePartialCandidate ? "IPA_DERIVED_PARTIAL" : "CANONICAL_IPA_DERIVED_OR_UNRESOLVED";
-  const displayStatus = outputLevel !== "strict" && (selectedExternalCandidate || useNeuralCandidate || useLexicalCandidate || usePartialCandidate)
+  const displayStatus = outputLevel !== "strict" && (useNeuralCandidate || useLexicalCandidate || usePartialCandidate)
     ? "PROVISIONAL" : canonicalStatus;
-  const confidence = outputLevel !== "strict" && (selectedExternalCandidate || useNeuralCandidate || useLexicalCandidate || usePartialCandidate)
+  const confidence = outputLevel !== "strict" && (useNeuralCandidate || useLexicalCandidate || usePartialCandidate)
     ? "C"
     : linguistic.length
       ? linguistic.map((item) => item.confidence_tier).sort((a, b) => ({A:0,B:1,C:2,D:3}[b] - {A:0,B:1,C:2,D:3}[a]))[0]
@@ -1015,9 +1014,8 @@ function convert(text, profile, options = {}) {
     ? resultNote + " Для частини OOV-складів показано детермінований кандидат із таблиці, сформованої офлайновою нейромережею; це PROVISIONAL, не незалежно підтверджена вимова."
     : hasGoogleLexicalCandidate
       ? resultNote + " Показано локальний Google-фонемний словниковий кандидат через типізований IPA-адаптер; він залишається PROVISIONAL до незалежної перевірки профілю."
-      : selectedExternalCandidate
-        ? resultNote + " Додатково показано зовнішній IPA-кандидат від " + selectedExternalCandidate.provider
-          + "; profile_match=UNVERIFIED, статус PROVISIONAL. Знак ??? наприкінці позначає неперевіреність; деталі та інші провайдери наведено нижче."
+      : archivedExternalCandidate
+        ? resultNote + " Архівний вихід стороннього рушія збережено лише для порівняння в деталях; він не використовується як результат локального детермінованого рушія."
         : resultNote;
 
   return {
@@ -1029,9 +1027,10 @@ function convert(text, profile, options = {}) {
     canonical_status: canonicalStatus,
     external_candidates: externalCandidates,
     backend_failures: providerEntry?.backend_failures ?? [],
-    selected_external_candidate: selectedExternalCandidate,
+    selected_external_candidate: null,
+    archived_external_candidate: archivedExternalCandidate,
     complete,
-    partial: !complete && (resolved.length > 0 || (outputLevel !== "strict" && Boolean(selectedExternalCandidate))
+    partial: !complete && (resolved.length > 0
       || (outputLevel !== "strict" && hasGoogleLexicalCandidate)
       || (outputLevel === "exploratory" && hasNeuralDistilledCandidate)
       || (outputLevel !== "strict" && hasPartialOnset)
