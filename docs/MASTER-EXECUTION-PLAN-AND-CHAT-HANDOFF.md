@@ -2,16 +2,19 @@
 
 ## Current continuation: contextual romanization-mediated IPA — 2026-11-25
 
-- Owner approved `docs/superpowers/specs/2026-11-25-romanization-mediated-ipa-design.md`.
-- Implementation plan: [2026-11-25-romanization-mediated-ipa.md](superpowers/plans/2026-11-25-romanization-mediated-ipa.md).
-- Working branch: `feat/romanization-mediated-ipa-20261125`, based on current main `e972cd503f3670d08a2fbf0812efdc701513a810` plus the approved design/plan documentation commits.
-- Draft PR [#572](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/572).
-- Implemented: shared evidence-bounded PCGN onset inventory; JavaScript and Python adapters; source-onset/romanization cross-check; typed PROVISIONAL IPA; Ukrainian output through the existing IPA-only target adapter; romanization-mode UI integration; separate orthographic romanization card retained.
-- Conservative boundary: onset-only IPA. Vowels, codas, syllable boundaries, tone and dialect detail are not inferred. PCGN b/p alternation abstains. Romanized ASCII is never treated as lossless.
-- Added focused tests: `tests/romanization-ipa.test.mjs` and `tests/test_romanization_ipa.py`; JavaScript tests are included in `npm test` and `npm run check`.
-- CI run [45564965013](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45564965013) was in progress at the time of this handoff update. No test is marked passed until the workflow reports success.
-- Local tests were not run: no local repository clone/runtime was available in this session; GitHub Actions is the execution environment.
-- Current status: implementation PARTIAL pending CI, browser verification, explicit JS/Python output parity, and reviewer inspection. This does not change canonical IPA or the research accuracy status.
+- Owner approved `docs/superpowers/specs/2026-11-25-romanization-mediated-ipa-design.md`; implementation plan: [2026-11-25-romanization-mediated-ipa.md](superpowers/plans/2026-11-25-romanization-mediated-ipa.md).
+- Base main: `e972cd503f3670d08a2fbf0812efdc701513a810`.
+- Working branch: `feat/romanization-mediated-ipa-20261125`; draft PR [#572](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/572).
+- Latest branch head after documentation closeout: `8afcd0ef9b40c5e8f1b57e06e80577d17de008e8`. Latest code/test head with green Quality and browser checks: `9d5acbb95fbe46df884d1ccc2482eb48d6f6d90e`.
+- Implemented: `data/khmer/romanization_ipa_onsets.json` evidence-bounded PCGN onset inventory; JS adapter `src/khmer-romanization-ipa.js`; Python adapter `src/khmer_ua/romanization_ipa.py`; UI integration in `src/main.js`; separate orthographic romanization card retained and explicitly labelled “не вимова”.
+- Behavior: the source Khmer base consonant is cross-checked against the longest leading PCGN romanization token. Only the registered onset IPA is emitted; the IPA is typed `PROVISIONAL` and passed through the existing IPA-only Ukrainian target adapter. Unsupported spans remain `???`. PCGN BA b/p alternation abstains.
+- Explicit limit: no contextual vowel/coda/syllable/tone/dialect inference is implemented. The existing `vowels.json` is explicitly a representative model, not a complete orthography-to-IPA matrix. This branch is a verified first stage, not full contextual G2P completion.
+- Added tests: `tests/romanization-ipa.test.mjs`, `tests/test_romanization_ipa.py`, `tests/romanization-ipa-parity.test.mjs`, `scripts/export_romanization_ipa_parity.py`, plus browser cases in `tests/browser/site.spec.js`. Parity covers every registered onset mapping and abstention/mismatch cases.
+- GitHub Actions Quality checks [45565725161](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45565725161): SUCCESS — Python suite, `npm run check`, structural/lexical/rule/segmentation parity, engine/tokenizer benchmarks and Vite build.
+- Chromium browser smoke [45565725034](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45565725034): SUCCESS, 43/43 Playwright tests.
+- External khPOS segmentation benchmark [45565725111](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45565725111): SUCCESS. Pinned upstream Rust comparison [45565724945](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45565724945): SUCCESS. Shared Khmer IPA engine benchmark [45565724925](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45565724925): still in progress at this update; no result claimed.
+- Local tests were not run because no local clone/runtime was available in this session. The green evidence above is from GitHub Actions.
+- Status: onset adapter and browser integration DONE_VERIFIED at code head `9d5acbb95fbe46df884d1ccc2482eb48d6f6d90e`; full vowel/coda/syllable adaptation PARTIAL / evidence-limited. No change to canonical IPA or pronunciation-accuracy claims. PR remains draft and unmerged pending review.
 
 ## Current continuation: shared Khmer IPA engine benchmark — 2026-11-25
 
