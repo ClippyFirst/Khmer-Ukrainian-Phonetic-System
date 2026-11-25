@@ -36,6 +36,9 @@ export function buildRomanizationIpaCandidate(sourceUnit, romanizedUnit) {
     "data/khmer/consonants.json",
   ];
   if (!source || !romanized) return unresolved(source, "EMPTY-SOURCE-OR-ROMANIZATION", provenance);
+  if (source[0] === "ប" && /^[bp]/u.test(romanized)) {
+    return unresolved(source, "AMBIGUOUS-PCGN-B-P-ALTERNATION", provenance);
+  }
 
   const token = longestTokens.find((candidate) => romanized.startsWith(candidate));
   if (!token) return unresolved(source, "NO-RECOGNIZED-PCGN-ONSET-TOKEN", provenance);
