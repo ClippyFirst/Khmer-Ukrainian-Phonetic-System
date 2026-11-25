@@ -999,9 +999,11 @@
     "url": "https://github.com/google/language-resources/blob/a90601024f07ab7e96c911243324e0adeb16da96/km/festvox/phonology.json",
     "revision": "a90601024f07ab7e96c911243324e0adeb16da96",
     "file_git_blob_sha": "8fb697ff66b09ef0c2a17f17b35600af410a92a9",
-    "license": "CC-BY-4.0",
-    "status": "PHONEMIC_INVENTORY_REFERENCE",
-    "scope": "Defines the 56-phone Google Khmer Festvox inventory and broad feature values. It does not provide a direct IPA conversion table.",
-    "notes": "All 54 distinct tokens observed in the non-empty Khmer rows of the pinned Google pronunciation TSV occur in this inventory; sil and pau are unused in those lexical rows. The project's IPA mapping is separate and evidence-gated."
+    "license": "UNRESOLVED_SCOPE_CONFLICT_APACHE_2_0_VS_CC_BY_4_0",
+    "status": "BLOCKED_LICENSE_SCOPE_UNRESOLVED",
+    "scope": "Reference only: pinned km/festvox/phonology.json has no file-level license header. Upstream README defaults original files to Apache-2.0 unless otherwise noted; the 2018 paper broadly describes data as CC BY 4.0 unless otherwise noted. These statements do not settle the exact file license. The project does not copy, redistribute, or include this file in runtime/build artifacts pending authoritative clarification.",
+    "notes": "The upstream reference inventory reports 56 phones; all 54 distinct lexical tokens observed in the separately licensed CC BY 4.0 Google Khmer lexicon occur in it, while sil and pau are unused. This fact is recorded for audit only. The inventory copy was removed from the project branch; the runtime token map is validated directly against the 54 tokens observed in the licensed TSV.",
+    "redistributed": false,
+    "redistribution_status": "NOT_COPIED"
   }
 ]
