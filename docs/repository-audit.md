@@ -3396,7 +3396,7 @@ The production browser path runs no neural model, ONNX Runtime or remote inferen
 - Distilled composition diagnostic: 2,532 candidates, 63.86% exact, 14.19% token error rate and 98.4% composition coverage under an orthographic-syllable-count alignment assumption.
 - Google phonemic-to-IPA screening: 6/6 R12A vowel-context examples match; 3/7 overlapping source-attested lexical entries match, four remain explicit conflicts.
 - These are not independent pronunciation-accuracy metrics. Independent adjudicated IPA gold remains 0; profile equivalence remains UNVERIFIED; accuracy remains NOT_ASSESSED.
-- The MekongPhon teacher gate is a failed diagnostic (0/6 exact, 44.44% CER for greedy and beam-4). NCKL split-syllable bridge is also a negative control (8/12 exact, 6.93% CER versus direct Khmer Phonemizer 11/12 exact, 0.99% CER). Neither is promoted as the final teacher or runtime.
+- The MekongPhon teacher gate is a failed diagnostic (0/6 exact, 44.44% CER for greedy and beam-4). NCKL bridge variants are also negative controls (split 8/12 exact, whole-string 7/12, spaced-string 7/12; each bridge CER 6.93%; direct phonemizer 11/12 exact, 0.99% CER). None is integrated.93% CER versus direct Khmer Phonemizer 11/12 exact, 0.99% CER). Neither is promoted as the final teacher or runtime.
 
 ### Current-head verification
 
