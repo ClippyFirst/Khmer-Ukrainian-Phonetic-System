@@ -260,7 +260,7 @@ assert.equal(convert("   ", "khmer-pph-careful-citation-v1"), null);
 
 const provisionalNotice = getStatusNotice(unresolvedWord);
 assert.match(provisionalNotice, /локальний фонемний словниковий кандидат/u);
-assert.match(provisionalNotice, /профіль не підтверджений/u);
+assert.match(provisionalNotice, /відповідність словникового профілю цільовому профілю не підтверджена/u);
 assert.doesNotMatch(provisionalNotice, /зовнішній IPA-кандидат/u);
 assert.doesNotMatch(provisionalNotice, /khmer-phonemizer/u, "archived provider diagnostics must not be presented as the selected local result");
 const proposedNotice = getStatusNotice(convert("ក", "khmer-pph-careful-citation-v1"));
