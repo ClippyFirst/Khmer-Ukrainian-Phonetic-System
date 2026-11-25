@@ -110,7 +110,7 @@ def main() -> int:
     )
     input_ids = encoded["input_ids"]
     attention_mask = encoded["attention_mask"]
-    with torch.inference_mode():
+    with torch.no_grad():
         encoder_hidden = model.encoder(
             input_ids=input_ids, attention_mask=attention_mask, return_dict=False
         )[0]
