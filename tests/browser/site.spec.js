@@ -602,3 +602,16 @@ test("late worker response cannot overwrite the newest input result", async ({ p
   await page.waitForTimeout(300);
   await expect(page.locator("#ua-result")).toContainText("п'ієса к'мае");
 });
+
+
+test("reported Khmer national-assembly phrase renders a source-backed IPA-derived result", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("សភាតំណាងប្រជាជនកម្ពុជា");
+  await expect(page.locator("#ipa-result")).toHaveText(
+    "/saʔ.pʰiə tɑm.naːŋ/ /prɑː.ciə.cŭən/ /kam.pu.ciə/"
+  );
+  await expect(page.locator("#ua-result")).toHaveText("сап'іє тамнанг пратьієтьуен кампутьіє");
+  await expect(page.locator("#status")).not.toContainText("NOT_ESTABLISHED");
+  await expect(page.locator("#status")).not.toContainText("НЕВСТАНОВЛЕНО");
+  await expect(page.locator("#ua-orthographic-status")).toContainText("не вимова");
+});
