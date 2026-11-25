@@ -644,11 +644,18 @@ test("MekongPhon runs as an on-device browser model and returns the pinned ONNX 
   await button.click();
   await expect(page.locator("#mekongphon-status")).not.toHaveText(/Не запускається автоматично/);
   const expected = probe.onnx_int8_greedy;
+  await page.waitForFunction(() => {
+    const status = document.querySelector("#mekongphon-status")?.textContent ?? "";
+    return status.includes("PROVISIONAL") || status.startsWith("Локальний рушій не запустився:");
+  }, null, { timeout: 110000 });
+  const modelStatus = await page.locator("#mekongphon-status").textContent();
+  if (!modelStatus?.includes("PROVISIONAL")) {
+    throw new Error("Browser-local model reported: " + modelStatus);
+  }
   await expect(page.locator("#mekongphon-ipa")).toHaveText(
     expected.startsWith("/") ? expected : "/" + expected + "/",
-    { timeout: 110000 },
+    { timeout: 5000 },
   );
-  await expect(page.locator("#mekongphon-status")).toContainText("PROVISIONAL");
   await expect(page.locator("#mekongphon-status")).toContainText("текст не надсилався на сервер");
   expect(externalRequests).toEqual([]);
 });
