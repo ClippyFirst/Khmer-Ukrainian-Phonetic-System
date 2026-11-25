@@ -6,7 +6,7 @@
 
 **Architecture:** Use the pinned Google Khmer pronunciation lexicon (CC BY 4.0) as the large source-backed phonemic lexical layer. Convert its custom phonemic tokens through an explicit, provenance-aware token-to-IPA adapter. Train a project-owned neural teacher offline with a correct phone-token target tokenizer (not a character-level approximation). Distill validated teacher behavior into static deterministic lexical/context rules. The existing IPA-to-Ukrainian adapter remains the only practical-orthography path.
 
-**Tech Stack:** Python 3.12, PyTorch CPU for offline teacher training, pinned Google source TSV + Festvox phonology inventory, Python/JavaScript shared token map, existing typed IPA result and Ukrainian adapter, GitHub Actions.
+**Tech Stack:** Python 3.12, PyTorch CPU for offline teacher training, pinned CC BY 4.0 Google source TSV, project-authored 54-token map, Python/JavaScript shared typed IPA adapter, existing Ukrainian adapter, GitHub Actions. The companion Festvox phonology JSON is reference-only and not redistributed while its license scope is unresolved.
 
 **Spec:** `docs/superpowers/specs/2026-11-25-deterministic-khmer-ipa-engine-design.md`
 
@@ -18,7 +18,7 @@
 - Google source phonemic strings are not already project IPA. Convert through a dedicated, typed, inspectable adapter.
 - Preserve the four multi-pronunciation Google lexical entries as candidate arrays; never choose a variant arbitrarily. Preserve blank rows as unresolved.
 - Preserve syllable boundaries (`.`), vowel length, phoneme inventory, source row provenance, source revision/hash, IPA kind, status and uncertainty.
-- The Google lexicon and phonology inventory are CC BY 4.0; keep attribution with any derivative.
+- The Google pronunciation TSV itself declares CC BY 4.0; retain its attribution with every derivative. The companion `km/festvox/phonology.json` has unresolved license scope (Apache-2.0 default vs broad CC BY 4.0 paper statement) and is not copied or redistributed.
 - The external NPanha model repo has MIT code but no committed checkpoint or training TSV. Its reported metrics are not reproducible project evidence. Re-train from the pinned Google source; do not claim its metrics as ours.
 - The NCKL model outputs Khmer-script respelling, not IPA. Its split-syllable bridge currently degrades source concordance; keep it as a negative-control diagnostic only unless an alternate boundary mode proves otherwise.
 - The MekongPhon direct IPA model failed the six-case source-concordance gate under greedy and beam-4. Do not promote it as the primary teacher.
@@ -67,7 +67,7 @@
 ### Task 2: Validate the Google phonemic source and define a typed phonemic → IPA adapter
 
 **Files:**
-- Create: `data/khmer/google-phonology.json` (pinned source inventory)
+- Do not create or redistribute: `data/khmer/google-phonology.json` (companion source inventory rights are unresolved)
 - Create: `data/khmer/google-phonemic-to-ipa.json`
 - Create: `src/khmer_ua/google_phonemic.py`
 - Create: `src/google-phonemic-ipa.js`
@@ -76,12 +76,12 @@
 - Create: `tests/google-phonemic-ipa.test.mjs`
 - Modify: `src/khmer-ipa-result.js` to preserve explicit IPA kind in browser results
 - Read: `data/khmer/google-pronunciation-full.tsv`
-- Read: pinned Google `km/festvox/phonology.json`
+- Reference only: pinned Google `km/festvox/phonology.json`; its license scope is unresolved, so no copy is retained or bundled
 
 **Source facts to verify in code/tests:**
 - Google source commit: `a90601024f07ab7e96c911243324e0adeb16da96`.
 - Khmer rows: 62,179; non-empty phonemic outputs: 62,118; empty outputs: 61; unique spellings with non-empty outputs: 62,114; four words have multiple pronunciation variants.
-- Distinct observed Khmer phone tokens: 54; all 54 occur in the pinned 56-phone phonology inventory; `sil` and `pau` are unused.
+- Distinct observed Khmer lexical phone tokens: 54; the project-authored map now contains exactly these 54 tokens. The upstream companion inventory reports 56 phones, but its license scope is unresolved and it is not redistributed; `sil` and `pau` are therefore excluded from the runtime map.
 - Preliminary token map: 6/6 R12A vowel-context examples exact; 3/7 source-attested lexical sample exact. These are source-concordance diagnostics, not accuracy.
 
 **Interfaces:**
@@ -93,7 +93,7 @@
 - `ie → iə` is allowed only with the recorded R12A source evidence. Other diphthong mappings remain explicit and provisional unless corroborated.
 
 - [x] **Step 1: Write failing tests first**
-  - Every observed source token exists in the pinned source inventory.
+  - Every observed source token is present in the project-authored map.
   - Every token is either explicitly mapped or explicitly unresolved.
   - Long vowels map to IPA length marks.
   - Syllable dots are preserved.
@@ -106,10 +106,10 @@
 - [x] **Step 2: Verify RED**
   - Run focused Python and JavaScript tests; confirm missing parser/schema fails.
 
-- [x] **Step 3: Add the pinned phonology inventory and evidence-bearing token map**
-  - Record Google revision, source URL, CC BY 4.0, source file hash and token evidence.
+- [x] **Step 3: Add the evidence-bearing token map from the licensed TSV**
+  - Record Google lexicon revision, source URL, CC BY 4.0, source file hash and token evidence.
   - Mark mappings corroborated only when source examples support them; mark the rest provisional.
-  - `sil` and `pau` remain non-lexical boundary/silence tokens, not guessed phones.
+  - The companion phonology JSON remains reference-only and is not copied; `sil` and `pau` are not part of the 54-token lexical map.
 
 - [x] **Step 4: Implement Python and JavaScript adapters**
   - Parse space-delimited phonemic tokens and explicit dot boundaries.
@@ -238,7 +238,7 @@
 
 - NCKL respelling → Khmer Phonemizer bridge: DONE_VERIFIED as a negative control. Split-syllable 8/12 exact, 6.93% CER; whole-string 7/12 exact, 6.93% CER; spaced-string 7/12 exact, 6.93% CER. Direct Khmer Phonemizer on the same 12 source-attested inputs: 11/12 exact, 0.99% CER. No NCKL bridge mode is integrated.
 - MekongPhon direct IPA source-matrix gate: DONE_VERIFIED as a failed promotion diagnostic; greedy and beam-4 both 0/6 exact, 44.44% CER. The standalone model UI/ONNX production path is removed in this continuation; historical research is retained.
-- Google source inventory and typed phonemic→IPA adapter: DONE_VERIFIED on code-identical files in successful Quality run 45653367069; latest exact-head rerun pending. The adapter keeps Google notation distinct from IPA and fails closed on unknown tokens.
+- Google TSV source pin and typed phonemic→IPA adapter: DONE_VERIFIED on code-identical files in successful Quality run 45653367069; latest exact-head rerun pending. The 54-token map is checked directly against the licensed TSV; the uncleared companion phonology JSON is not copied.
 - Google deterministic lexical shards and Python/JS lookup: DONE_VERIFIED on code-identical files in successful Quality run 45653367069; latest exact-head rerun pending. Eight shards, four multi-pronunciation words preserved, 61 blank rows unresolved.
 - Google lexicon schemas: PARTIAL pending exact-head Quality; manifest/shard JSON Schema and a test covering all eight shards are now added.
 - Project-owned neural teacher: DONE_VERIFIED by run 45653367069, artifact 15043450562; held-out source-label metrics 84.18% exact, 4.33% PER, 100% label coverage. These are not independent IPA accuracy.
