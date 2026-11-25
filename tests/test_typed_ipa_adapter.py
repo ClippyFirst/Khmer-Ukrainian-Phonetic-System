@@ -6,6 +6,7 @@ from khmer_ua.ipa_result import (
     TypedPhoneticResult,
     from_ipa,
     from_provisional_ipa,
+    from_provisional_full_ipa,
     from_unknown_source_unit,
 )
 from khmer_ua.ipa_target import adapt_phonetic_result
@@ -118,15 +119,52 @@ def test_typed_result_never_infers_tone_or_promotes_provisional_segments():
         result.status = "SUPPORTED"
 
 
+
+
+def test_typed_ipa_preserves_phonemic_kind_and_target_profile():
+    result = from_ipa(
+        "kɑː",
+        status="UNCERTAIN",
+        kind="PHONEMIC",
+        profile="khmer-pph-careful-citation-v1",
+        provenance=("GOOGLE-PHONEMIC-IPA-MAP-V1",),
+    )
+
+    assert result.ipa_kind == "PHONEMIC"
+    assert result.profile == "khmer-pph-careful-citation-v1"
+    assert result.to_dict()["ipa_kind"] == "PHONEMIC"
+    assert result.to_dict()["profile"] == "khmer-pph-careful-citation-v1"
+
+
+def test_complete_provisional_ipa_retains_full_ipa_and_kind():
+    result = from_provisional_full_ipa(
+        "pʰiə.saː",
+        kind="PHONEMIC",
+        provenance=("GOOGLE-PHONEMIC-IPA-MAP-V1",),
+        uncertainty=("TARGET_PROFILE_EQUIVALENCE_UNVERIFIED",),
+    )
+
+    assert result.status == "PROVISIONAL"
+    assert result.ipa_kind == "PHONEMIC"
+    assert result.profile == "khmer-pph-careful-citation-v1"
+    assert result.phonemic_ipa == "pʰiə.saː"
+    assert all(segment.certainty == "PROVISIONAL" for segment in result.segments)
+    assert isinstance(adapt_phonetic_result(result), str)
+
+
 def test_engine_exposes_typed_ipa_result_for_canonical_and_provisional_units():
     engine = RuleBasedKhmerEngine()
     canonical = engine.analyze("ខ្មែរ")["phonetic_result"]["units"][0]
     provisional = engine.analyze("ក្ក")["phonetic_result"]["units"][0]
 
     assert canonical["typed_ipa"]["status"] == "UNCERTAIN"
+    assert canonical["typed_ipa"]["ipa_kind"] == "PHONEMIC"
+    assert canonical["ipa_kind"] == "PHONEMIC"
     assert canonical["typed_ipa"]["phonemic_ipa"] == "kʰmae"
     assert canonical["ukrainian_kind"] == "IPA_DERIVED"
     assert provisional["typed_ipa"]["status"] == "PROVISIONAL"
+    assert provisional["typed_ipa"]["ipa_kind"] == "PHONETIC_BROAD"
+    assert provisional["ipa_kind"] == "PHONETIC_BROAD"
     assert provisional["typed_ipa"]["phonemic_ipa"] is None
     assert provisional["ukrainian"] == "к???"
     assert provisional["ukrainian_kind"] == "IPA_DERIVED_PROVISIONAL"
