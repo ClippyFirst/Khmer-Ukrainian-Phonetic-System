@@ -3421,3 +3421,38 @@ The production browser path runs no neural model, ONNX Runtime or remote inferen
 | GitHub Pages deployment of this branch | DEFERRED | Main-only deployment workflow; no merge/deploy performed |
 
 PR #582 remains draft. PR #519 remains open and untouched because it is a divergent earlier provider/hybrid proposal. No branches were deleted, no merge was performed, and no Pages deployment was initiated by this audit.
+
+
+## Superseding execution status — 2026-11-25 (exact head 686a9f5)
+
+This section supersedes earlier pending/queued statements above for the exact head `686a9f5dcdcdf6ffd08c934e45f95a48a3e18e61`. Base `main` remained `8838a1f33b03aa1bad7c045c216305bb3e60e3f9` during verification.
+
+### Verified implementation and checks
+
+- Quality workflow [45690493937](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45690493937): **success**. Python suite: 564 passed plus 70 subtests. Google teacher completed all 12/12 epochs; its held-out Google-source-label test reported 84.175% word exact match, 4.331% phone-token error rate and 100% output coverage. These are source-label prediction metrics, not independent IPA accuracy.
+- The same run's deterministic distillation reported 2,532 accepted candidates and 89 rejected internal-boundary candidates from 2,621 OOV syllable candidates; 63.855% held-out composition exact match, 14.194% phone-token error rate and 98.419% composition coverage under the count-only assumption that orthographic syllable count equals Google phonological dot count. No rules were promoted. Accuracy is null / `NOT_ASSESSED_NO_INDEPENDENT_IPA_GOLD`; profile equivalence remains `UNVERIFIED`.
+- The generated teacher artifact is attached to run 45690493937 (artifact 15059945245). Source is pinned at revision `a90601024f07ab7e96c911243324e0adeb16da96`, SHA-256 `b3f2e700d07d6c01a4c8cac5aa2f13b9a66885668ac482cc0c513f73c56495e5`, CC BY 4.0, 62,179 source rows, 62,118 non-empty rows and 61,214 unique spellings with pronunciation.
+- The exact-head Pages build-check in run 45690493937: **success**; it staged the actual generated candidate table, built the Pages site and ran Chromium against that staged artifact. Pages-specific browser suite: **49 passed**, including the real static-table execution, same-origin worker, no external network requests for Khmer input, local fallback, latest-input race guard and no standalone neural model in production.
+- Exact-head generic Chromium smoke [45690493765](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45690493765): **success, 48 passed**.
+- Exact-head shared Khmer IPA engine benchmark [45690493847](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45690493847): **success**; external khPOS benchmark [45690493805](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45690493805): **success**; pinned upstream Rust comparison [45690494064](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45690494064): **success**.
+- Earlier fixed-count expectations were removed. CI and browser assertions now validate the accounting invariant `accepted + rejected == OOV candidate inventory`, because teacher outputs may legitimately change the accepted/rejected split while preserving complete accounting.
+
+### Final task ledger at this head
+
+| Work item | Status | Evidence / remaining acceptance |
+|---|---|---|
+| Pinned Google source inventory, attribution and typed phonemic → IPA adapter | DONE_VERIFIED | Exact-head Quality success; no claim that source phonemic labels are independent IPA gold |
+| Deterministic lexical shards and Python/browser parity | DONE_VERIFIED | Exact-head Quality success |
+| Offline neural teacher and reproducible static OOV distillation | DONE_VERIFIED as provisional research pipeline | 12 epochs; artifact 15059945245; 2,532 accepted / 89 rejected; zero rules promoted |
+| Browser worker, local fallback and deterministic tier integration | DONE_VERIFIED for implemented contract | Exact-head generic Chromium 48/48 and Pages artifact Chromium 49/49 |
+| Production build with actual generated static table | DONE_VERIFIED | Exact-head `pages-build-check` success; this is a build check, not a deployment |
+| Strict > Soft > Super-soft empirical accuracy ordering | BLOCKED | Requires independent adjudicated IPA gold; none exists |
+| Independent pronunciation accuracy and Google target-profile equivalence | BLOCKED | IPA gold count 0; profile equivalence `UNVERIFIED` |
+| Live GitHub Pages deployment | TODO pending PR integration | PR #582 is still a draft and has not been merged; after merge verify the main-branch Pages deployment and live URL/assets |
+
+### Branch and integration state
+
+- PR #582 remains the active implementation PR on `feat/deterministic-neural-distillation-20261125`; verified code head is `686a9f5dcdcdf6ffd08c934e45f95a48a3e18e61`. It was mergeable/clean against unchanged main when checked; integration and deployment have not yet occurred.
+- PR #519 remains untouched because it is a divergent earlier provider/hybrid proposal. PR #572 is already merged. PR #573 remains closed/unmerged due unresolved licensing/data scope. No user branch was deleted, no force push was used, and no release was published.
+- The implementation is now **build-verified and ready for integration review**, but it is not a linguistically validated production release: independent IPA accuracy and profile equivalence remain evidence-blocked. A successful Pages build-check must not be described as a live deployment.
+- No local commands are claimed: the working container has no repository checkout and could not resolve GitHub DNS. All stated checks above are remote GitHub Actions results.
