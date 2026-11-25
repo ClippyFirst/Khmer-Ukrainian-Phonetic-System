@@ -37,15 +37,18 @@ for (const [word] of fullWordFrequency.entries) {
 }
 
 const cspTag = html.match(/<meta http-equiv="Content-Security-Policy" content="([^"]+)"/u)?.[1] ?? "";
-if (!cspTag.includes("connect-src 'self'") || !cspTag.includes("wasm-unsafe-eval")
+if (!cspTag.includes("connect-src 'self'") || cspTag.includes("wasm-unsafe-eval")
     || cspTag.includes("connect-src 'none'") || cspTag.includes("https://")) {
-  throw new Error("local ONNX model policy must allow same-origin fetch + WASM only, never remote model or text endpoints");
+  throw new Error("deterministic browser policy must allow same-origin static data only and no WASM eval or remote text endpoints");
 }
-if (!html.includes('id="run-mekongphon"') || !html.includes('id="mekongphon-ipa"')) {
-  throw new Error("browser-local MekongPhon candidate panel is missing");
+if (html.includes('id="run-mekongphon"') || html.includes('id="mekongphon-ipa"')) {
+  throw new Error("standalone neural model UI must not be part of the deterministic production engine");
 }
-if (!js.includes("analyzeWithMekongPhon") || !js.includes("BROWSER-LOCAL-INFERENCE")) {
-  throw new Error("MekongPhon local worker is not wired into the browser UI");
+if (js.includes("analyzeWithMekongPhon") || js.includes("BROWSER-LOCAL-INFERENCE")) {
+  throw new Error("the production UI must use deterministic precomputed rules, not runtime neural inference");
+}
+if (!js.includes("analyzeInWorker") || !js.includes("outputLevelMode")) {
+  throw new Error("the deterministic engine worker and output-tier controls must be wired into the browser UI");
 }
 for (const x of ["Content-Security-Policy", "src/main.js", 'id="source"', 'id="results"']) {
   if (!html.includes(x)) throw new Error("index missing " + x);
@@ -259,18 +262,18 @@ if (orthographicFallback.ipa !== "⟦NOT_ESTABLISHED⟧"
     || orthographicFallback.canonical_ua !== "???") {
   throw new Error("orthographic fallback must not be promoted into canonical IPA-derived Ukrainian output");
 }
-if (orthographicFallback.ua !== orthographicFallback.units[0].fallback_ukrainian + "???"
+if (orthographicFallback.ua !== "???"
     || orthographicFallback.status !== "NOT_ESTABLISHED"
-    || orthographicFallback.display_status !== "PROVISIONAL"
-    || orthographicFallback.ukrainian_output_kind !== "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
-    || orthographicFallback.phonetic_result.units[0]?.ukrainian_kind !== "ORTHOGRAPHIC_ROMANIZATION_FALLBACK") {
-  throw new Error("the main Ukrainian output must expose the orthographic fallback with an explicit ??? marker and typed provenance");
+    || orthographicFallback.display_status !== "NOT_ESTABLISHED"
+    || orthographicFallback.ukrainian_output_kind !== "CANONICAL_IPA_DERIVED_OR_UNRESOLVED"
+    || orthographicFallback.phonetic_result.units[0]?.ukrainian_kind !== "UNRESOLVED") {
+  throw new Error("orthographic romanization must remain outside the primary IPA-derived Ukrainian result");
 }
-if (orthographicFallback.complete || !orthographicFallback.partial
-    || orthographicFallback.phonetic_result.complete || !orthographicFallback.phonetic_result.partial) {
-  throw new Error("provisional display must never be reported as complete phonetic transcription");
+if (orthographicFallback.complete || orthographicFallback.partial
+    || orthographicFallback.phonetic_result.complete || orthographicFallback.phonetic_result.partial) {
+  throw new Error("an orthographic-only fallback must not be counted as partial phonetic coverage");
 }
-console.log("provisional Ukrainian fallback and IPA separation: PASS");
+console.log("orthographic fallback isolation from IPA-derived output: PASS");
 
 console.log("evidence coverage dashboard integration: PASS");
 

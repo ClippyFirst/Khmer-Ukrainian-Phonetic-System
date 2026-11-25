@@ -27,36 +27,40 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-          cache-dependency-path: requirements-mekongphon-browser-export.txt
+          cache-dependency-path: requirements-google-teacher.txt
 
-      - name: Restore pinned model export cache
-        id: model-cache
+      - name: Restore offline Google Khmer teacher checkpoint
+        id: google-teacher-cache
         uses: actions/cache@v4
         with:
-          path: public/models/mekongphon
-          key: mekongphon-${{ runner.os }}-${{ hashFiles('scripts/export_mekongphon_onnx.py', 'requirements-mekongphon-browser-export.txt') }}
+          path: .cache/google-khmer-teacher/teacher.pt
+          key: google-khmer-teacher-${{ runner.os }}-${{ hashFiles('data/khmer/google-pronunciation-full.tsv', 'scripts/train_google_phonemic_teacher.py', 'scripts/google_teacher/**', 'scripts/distill_google_teacher.py', 'src/khmer_ua/google_phonemic.py', 'src/khmer_ua/google_teacher_data.py', 'src/khmer_ua/orthographic_syllables.py', 'requirements-google-teacher.txt') }}
 
-      - name: Install pinned model export toolchain
-        if: steps.model-cache.outputs.cache-hit != 'true'
-        run: python -m pip install --upgrade pip && python -m pip install -r requirements-mekongphon-browser-export.txt
+      - name: Install pinned CPU-only Google Khmer teacher runtime
+        run: python -m pip install --upgrade pip && python -m pip install -r requirements-google-teacher.txt && python -m pip install jsonschema==4.26.0
 
-      - name: Export browser-local MekongPhon model
-        if: steps.model-cache.outputs.cache-hit != 'true'
-        run: python scripts/export_mekongphon_onnx.py --output-dir public/models/mekongphon
+      - name: Train Google Khmer phonemic teacher when cache is cold
+        if: steps.google-teacher-cache.outputs.cache-hit != 'true'
+        run: python scripts/train_google_phonemic_teacher.py --epochs 12 --batch-size 192 --embedding-size 96 --hidden-size 128 --output-dir .cache/google-khmer-teacher
+
+      - name: Distill teacher into static deterministic OOV syllable candidates
+        run: python scripts/distill_google_teacher.py --checkpoint .cache/google-khmer-teacher/teacher.pt --output-dir .cache/google-khmer-teacher --batch-size 192
+
+      - name: Validate static deterministic candidate artifact and evidence limits
+        run: python scripts/validate_google_distilled_syllables.py .cache/google-khmer-teacher/distilled-syllables.json
+
+      - name: Stage deterministic OOV candidate table for the browser
+        run: |
+          mkdir -p public/data
+          cp .cache/google-khmer-teacher/distilled-syllables.json public/data/google-neural-distilled-syllables.json
 
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
           node-version: 24
 
-      - name: Vendor integrity-pinned ONNX Runtime Web
-        run: node scripts/vendor_onnxruntime_web.mjs public/vendor/onnxruntime-web
-
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
-
-      - name: Verify browser tokenizer against pinned Transformers tokenizers
-        run: node tests/mekongphon-browser-tokenizer.test.mjs public/models/mekongphon
 
       - name: Run web checks
         run: npm run check
@@ -107,8 +111,15 @@ jobs:
           curl --fail --silent --show-error --retry 8 --retry-delay 5 --retry-all-errors "$script_url" -o /tmp/main.js
           curl --fail --silent --show-error --retry 8 --retry-delay 5 --retry-all-errors "$css_url" -o /tmp/styles.css
           test -s /tmp/main.js && test -s /tmp/styles.css
-          curl --fail --silent --show-error --retry 8 --retry-delay 5 --retry-all-errors "$base/models/mekongphon/manifest.json" -o /tmp/mekongphon-manifest.json
-          grep -q '"model_revision": "20e069d384b240da76320e1569958568c12a54bc"' /tmp/mekongphon-manifest.json
-          curl --fail --silent --show-error --retry 8 --retry-delay 5 --retry-all-errors "$base/models/mekongphon/encoder.int8.onnx" -o /dev/null
-          curl --fail --silent --show-error --retry 8 --retry-delay 5 --retry-all-errors "$base/models/mekongphon/decoder.int8.onnx" -o /dev/null
-          curl --fail --silent --show-error --retry 8 --retry-delay 5 --retry-all-errors "$base/vendor/onnxruntime-web/ort-wasm-simd-threaded.wasm" -o /dev/null
+          curl --fail --silent --show-error --retry 8 --retry-delay 5 --retry-all-errors "$base/data/google-neural-distilled-syllables.json" -o /tmp/google-neural-distilled-syllables.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          artifact = json.loads(Path("/tmp/google-neural-distilled-syllables.json").read_text(encoding="utf-8"))
+          assert artifact.get("schema") == "google-khmer-neural-distilled-syllables/v1"
+          accepted = len(artifact.get("candidates", []))
+          rejected = sum(artifact.get("rejected", {}).values())
+          assert accepted + rejected == artifact["inventory"]["oov_syllable_candidates"]
+          assert accepted > 0
+          print("deployed deterministic OOV table:", accepted, "accepted candidates;", rejected, "rejected")
+          PY

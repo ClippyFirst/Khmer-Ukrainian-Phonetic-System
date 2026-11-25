@@ -1,0 +1,207 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/blob/main/schemas/deterministic-khmer-phonology.schema.json",
+  "title": "Static neural-distilled Khmer phonemic syllable candidates",
+  "description": "Validates the deterministic runtime artifact distilled offline from the Google Khmer phonemic teacher. Candidate IPA is phonemic and provisional, not adjudicated gold.",
+  "type": "object",
+  "required": [
+    "candidate_policy",
+    "candidates",
+    "inventory",
+    "rejected",
+    "schema",
+    "source",
+    "teacher"
+  ],
+  "properties": {
+    "schema": {
+      "const": "google-khmer-neural-distilled-syllables/v1"
+    },
+    "candidate_policy": {
+      "const": "OOV orthographic syllable strings only; deterministic lookup candidate, never SUPPORTED without independent evidence"
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "attribution",
+        "id",
+        "license",
+        "revision",
+        "tsv_sha256"
+      ],
+      "properties": {
+        "attribution": {
+          "type": "string",
+          "minLength": 1
+        },
+        "id": {
+          "const": "google-khmer-pronunciation-sample-2026"
+        },
+        "license": {
+          "const": "CC-BY-4.0"
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "tsv_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "teacher": {
+      "type": "object",
+      "required": [
+        "accuracy",
+        "architecture",
+        "checkpoint_sha256",
+        "profile_equivalence",
+        "seed"
+      ],
+      "properties": {
+        "accuracy": {
+          "type": "null"
+        },
+        "architecture": {
+          "type": "string",
+          "minLength": 1
+        },
+        "checkpoint_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "profile_equivalence": {
+          "const": "UNVERIFIED"
+        },
+        "seed": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "inventory": {
+      "type": "object",
+      "required": [
+        "ambiguous_orthographic_words_skipped",
+        "invalid_or_evidence_limited_words_skipped",
+        "known_lexical_words",
+        "oov_syllable_candidates",
+        "unique_orthographic_syllables"
+      ],
+      "properties": {
+        "ambiguous_orthographic_words_skipped": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "invalid_or_evidence_limited_words_skipped": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "known_lexical_words": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "oov_syllable_candidates": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unique_orthographic_syllables": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "rejected": {
+      "type": "object",
+      "required": [
+        "empty_prediction",
+        "internal_boundary",
+        "unknown_phone",
+        "unmapped_ipa"
+      ],
+      "properties": {
+        "empty_prediction": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "internal_boundary": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unknown_phone": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unmapped_ipa": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "candidates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "google_phonemic_tokens",
+          "ipa",
+          "ipa_kind",
+          "mapping_status",
+          "orthography",
+          "status",
+          "ukrainian_candidate",
+          "uncertainty"
+        ],
+        "properties": {
+          "google_phonemic_tokens": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "ipa": {
+            "type": "string",
+            "minLength": 1
+          },
+          "ipa_kind": {
+            "const": "PHONEMIC"
+          },
+          "mapping_status": {
+            "enum": [
+              "PROVISIONAL",
+              "SOURCE_CORROBORATED"
+            ]
+          },
+          "orthography": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "const": "PROVISIONAL"
+          },
+          "ukrainian_candidate": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uncertainty": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

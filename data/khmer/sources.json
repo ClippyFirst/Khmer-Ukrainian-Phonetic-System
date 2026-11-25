@@ -820,6 +820,18 @@
       "service_bundle_bytes": 1949890,
       "service_bundle_gzip_bytes": 378230,
       "duplicate_dictionary_bundle_optimization": "DEFERRED_PENDING_REAL_DEPLOYED_STARTUP_MEASUREMENT"
+    },
+    "phonemic_data": {
+      "rows": 62179,
+      "nonempty_khmer_transcriptions": 62118,
+      "empty_khmer_transcriptions": 61,
+      "unique_khmer_spellings_with_transcription": 62114,
+      "multi_pronunciation_words": 4,
+      "observed_phone_tokens": 54,
+      "ipa_status": "SOURCE_PHONEMIC_NOT_IPA",
+      "adapter": "data/khmer/google-phonemic-to-ipa.json",
+      "runtime_status": "PROVISIONAL_UNTIL_PROFILE_ADJUDICATION",
+      "note": "The full project TSV is byte-for-byte identical to the pinned upstream km/data/lexicon.tsv and its file header declares CC BY 4.0. Its 54 observed Khmer lexical phone tokens are the token inventory used by the project-authored adapter. The companion km/festvox/phonology.json reports 56 phones but is not redistributed because its file-level license scope is unresolved; it is retained only as a blocked source reference. Google phonemic strings are not directly IPA and must pass through the dedicated adapter."
     }
   },
   {
@@ -980,5 +992,18 @@
     "status": "SECONDARY_LEXICAL_REFERENCE",
     "license": "Wiktionary:Copyrights states entry text is dual-licensed CC BY-SA 4.0 and GFDL; that policy page labels itself draft/unofficial, so retain the source link and check the applicable Wikimedia Terms of Use. Do not assume embedded third-party media shares these terms.",
     "limitations": "Community-maintained lexical transcription; no audio-based independent adjudication or verified equivalence to a narrowly defined Phnom Penh careful-citation speaker sample. The source breve is retained in IPA; Ukrainian practical spelling does not encode vowel quantity."
+  },
+  {
+    "id": "google-khmer-phonology-inventory-2026",
+    "name": "Google Khmer Festvox phonology inventory",
+    "url": "https://github.com/google/language-resources/blob/a90601024f07ab7e96c911243324e0adeb16da96/km/festvox/phonology.json",
+    "revision": "a90601024f07ab7e96c911243324e0adeb16da96",
+    "file_git_blob_sha": "8fb697ff66b09ef0c2a17f17b35600af410a92a9",
+    "license": "UNRESOLVED_SCOPE_CONFLICT_APACHE_2_0_VS_CC_BY_4_0",
+    "status": "BLOCKED_LICENSE_SCOPE_UNRESOLVED",
+    "scope": "Reference only: pinned km/festvox/phonology.json has no file-level license header. Upstream README defaults original files to Apache-2.0 unless otherwise noted; the 2018 paper broadly describes data as CC BY 4.0 unless otherwise noted. These statements do not settle the exact file license. The project does not copy, redistribute, or include this file in runtime/build artifacts pending authoritative clarification.",
+    "notes": "The upstream reference inventory reports 56 phones; all 54 distinct lexical tokens observed in the separately licensed CC BY 4.0 Google Khmer lexicon occur in it, while sil and pau are unused. This fact is recorded for audit only. The inventory copy was removed from the project branch; the runtime token map is validated directly against the 54 tokens observed in the licensed TSV.",
+    "redistributed": false,
+    "redistribution_status": "NOT_COPIED"
   }
 ]

@@ -31,6 +31,10 @@ on:
       - "data/tests/web-fixtures.json"
   workflow_dispatch:
 
+concurrency:
+  group: khpos-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 

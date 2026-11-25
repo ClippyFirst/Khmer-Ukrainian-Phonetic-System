@@ -10,6 +10,10 @@ on:
       - ".github/workflows/khmer-shared-engine-benchmark.yml"
       - "src/khmer_ua/**"
 
+concurrency:
+  group: shared-engine-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 

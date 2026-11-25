@@ -1,0 +1,352 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/blob/main/schemas/google-phonemic-source-lexicon.schema.json",
+  "title": "Google Khmer phonemic source lexicon manifest or shard",
+  "description": "Validates the pinned source-preserving Google Khmer phonemic lexicon. Source phonemic tokens are not IPA.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/manifest"
+    },
+    {
+      "$ref": "#/$defs/shard"
+    }
+  ],
+  "$defs": {
+    "source": {
+      "type": "object",
+      "required": [
+        "id",
+        "revision",
+        "license",
+        "source_tsv_path",
+        "source_tsv_sha256",
+        "phonology_reference",
+        "ipa_map_path",
+        "ipa_map_version"
+      ],
+      "properties": {
+        "id": {
+          "const": "google-khmer-pronunciation-sample-2026"
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "license": {
+          "const": "CC-BY-4.0"
+        },
+        "source_tsv_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_tsv_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "ipa_map_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ipa_map_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "phonology_reference": {
+          "type": "object",
+          "required": [
+            "url",
+            "revision",
+            "git_blob_sha",
+            "license_status",
+            "redistributed",
+            "reason"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "revision": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{40}$"
+            },
+            "git_blob_sha": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{40}$"
+            },
+            "license_status": {
+              "const": "BLOCKED_SCOPE_UNRESOLVED"
+            },
+            "redistributed": {
+              "const": false
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "entry": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "integer",
+          "minimum": 1
+        },
+        {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      ],
+      "minItems": 3,
+      "maxItems": 3,
+      "items": false
+    },
+    "manifest": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "source",
+        "manifest",
+        "shards",
+        "unresolved_rows"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "google-phonemic-source-lexicon/v1"
+        },
+        "source": {
+          "$ref": "#/$defs/source"
+        },
+        "manifest": {
+          "type": "object",
+          "required": [
+            "candidate_status",
+            "empty_pronunciation_rows",
+            "entry_tuple_layout",
+            "mapped_phone_tokens",
+            "ipa_gold_count",
+            "license",
+            "mapped_nonempty_rows",
+            "mapping_status_counts",
+            "multi_pronunciation_words",
+            "nonempty_pronunciation_rows",
+            "observed_phone_tokens",
+            "shard_count",
+            "source_id",
+            "source_revision",
+            "source_rows",
+            "source_tsv_sha256",
+            "unique_spellings_with_pronunciation",
+            "unresolved_nonempty_rows"
+          ],
+          "properties": {
+            "candidate_status": {
+              "const": "PROVISIONAL"
+            },
+            "empty_pronunciation_rows": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "entry_tuple_layout": {
+              "const": [
+                "source_phonemic",
+                "source_row",
+                "source_label"
+              ]
+            },
+            "ipa_gold_count": {
+              "const": 0
+            },
+            "license": {
+              "const": "CC-BY-4.0"
+            },
+            "mapped_nonempty_rows": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "mapping_status_counts": {
+              "type": "object",
+              "required": [
+                "PROVISIONAL",
+                "SOURCE_CORROBORATED"
+              ],
+              "properties": {
+                "PROVISIONAL": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "SOURCE_CORROBORATED": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "additionalProperties": false
+            },
+            "multi_pronunciation_words": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "nonempty_pronunciation_rows": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "observed_phone_tokens": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "shard_count": {
+              "const": 8
+            },
+            "source_id": {
+              "const": "google-khmer-pronunciation-sample-2026"
+            },
+            "source_revision": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{40}$"
+            },
+            "source_rows": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "source_tsv_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "unique_spellings_with_pronunciation": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "unresolved_nonempty_rows": {
+              "const": 0
+            },
+            "mapped_phone_tokens": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "additionalProperties": false
+        },
+        "shards": {
+          "type": "array",
+          "minItems": 8,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "required": [
+              "candidate_count",
+              "id",
+              "path",
+              "word_count"
+            ],
+            "properties": {
+              "candidate_count": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "id": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 7
+              },
+              "path": {
+                "type": "string",
+                "pattern": "^google-phonemic-source-lexicon-[0-7]\\.json$"
+              },
+              "word_count": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "unresolved_rows": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "integer",
+                "minimum": 1
+              },
+              {
+                "type": "null"
+              },
+              {
+                "const": "EMPTY_SOURCE_PHONEMIC"
+              }
+            ],
+            "minItems": 4,
+            "maxItems": 4,
+            "items": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "shard": {
+      "type": "object",
+      "required": [
+        "entries",
+        "entry_tuple_layout",
+        "schema_version",
+        "shard_id",
+        "source_id",
+        "source_revision"
+      ],
+      "properties": {
+        "entries": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "[\\u1780-\\u17FF]"
+          },
+          "additionalProperties": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/$defs/entry"
+            }
+          }
+        },
+        "entry_tuple_layout": {
+          "const": [
+            "source_phonemic",
+            "source_row",
+            "source_label"
+          ]
+        },
+        "schema_version": {
+          "const": "google-phonemic-source-lexicon-shard/v1"
+        },
+        "shard_id": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        "source_id": {
+          "const": "google-khmer-pronunciation-sample-2026"
+        },
+        "source_revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -5,17 +5,17 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_shared_strictness_labels_preserve_existing_semantics():
     html = (ROOT / "index.html").read_text(encoding="utf-8")
-    engine = (ROOT / "src" / "main.js").read_text(encoding="utf-8") + (ROOT / "src" / "khmer-engine-core.js").read_text(encoding="utf-8")
+    main = (ROOT / "src" / "main.js").read_text(encoding="utf-8")
+    engine = (ROOT / "src" / "khmer-engine-core.js").read_text(encoding="utf-8")
 
     assert '<option value="strict">Strict ·' in html
     assert '<option value="balanced" selected>Soft ·' in html
     assert '<option value="exploratory">Super-soft ·' in html
 
-    assert 'strict: "Обережний рівень:' in engine
-    assert 'balanced: "Збалансований рівень:' in engine
-    assert 'exploratory: "Дослідницький рівень:' in engine
-    assert 'item.fallback_status === "PROVISIONAL"' in engine
-    assert 'outputLevelMode !== "strict"' not in engine
+    assert 'strict: "Strict: лише детерміновані правила' in main
+    assert 'balanced: "Soft: додає точні словникові фонемні записи Google' in main
+    assert 'exploratory: "Super-soft: додатково використовує статичні детерміновані OOV-кандидати' in main
+    assert 'outputLevelMode !== "strict"' not in main + engine
 
 
 def test_strictness_labels_are_not_confidence_or_accuracy_claims():

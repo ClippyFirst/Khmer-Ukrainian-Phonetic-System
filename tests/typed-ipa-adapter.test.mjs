@@ -3,7 +3,9 @@ import assert from "node:assert/strict";
 import {
   fromIpa,
   fromProvisionalIpa,
+  fromProvisionalFullIpa,
   fromUnknownSourceUnit,
+  serializePhoneticResult,
   adaptPhoneticResult,
 } from "../src/khmer-ipa-result.js";
 import { convert } from "../src/khmer-engine-core.js";
@@ -78,5 +80,35 @@ assert.equal(onset.phonetic_result.units[0].typed_ipa.phonemic_ipa, null);
 assert.equal(onset.phonetic_result.units[0].ukrainian, "к???");
 assert.equal(onset.phonetic_result.units[0].ukrainian_kind, "IPA_DERIVED_PROVISIONAL");
 assert.equal(onset.phonetic_result.units[0].typed_ipa.tone_category, null);
+
+
+
+const phonemicKind = fromIpa("kɑː", {
+  status: "UNCERTAIN",
+  kind: "PHONEMIC",
+  provenance: ["GOOGLE-PHONEMIC-IPA-MAP-V1"],
+});
+assert.equal(phonemicKind.ipa_kind, "PHONEMIC");
+assert.equal(serializePhoneticResult(phonemicKind).ipa_kind, "PHONEMIC");
+
+const broadKind = fromProvisionalIpa("pʰiə", {
+  kind: "PHONETIC_BROAD",
+  appendUnknownTail: false,
+});
+assert.equal(broadKind.ipa_kind, "PHONETIC_BROAD");
+
+
+
+const fullProvisional = fromProvisionalFullIpa("pʰiə.saː", {
+  kind: "PHONEMIC",
+  provenance: ["GOOGLE-PHONEMIC-IPA-MAP-V1"],
+  uncertainty: ["TARGET_PROFILE_EQUIVALENCE_UNVERIFIED"],
+});
+assert.equal(fullProvisional.status, "PROVISIONAL");
+assert.equal(fullProvisional.ipa_kind, "PHONEMIC");
+assert.equal(fullProvisional.profile, "khmer-pph-careful-citation-v1");
+assert.equal(fullProvisional.phonemic_ipa, "pʰiə.saː");
+assert.ok(fullProvisional.segments.every((segment) => segment.certainty === "PROVISIONAL"));
+assert.equal(typeof adaptPhoneticResult(fullProvisional), "string");
 
 console.log("Typed IPA result and single Ukrainian adapter contract: PASS");

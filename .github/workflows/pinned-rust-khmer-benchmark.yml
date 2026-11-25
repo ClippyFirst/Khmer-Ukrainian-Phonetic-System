@@ -21,6 +21,10 @@ on:
       - "data/khmer/google-pronunciation-full-frequency.json"
   workflow_dispatch:
 
+concurrency:
+  group: pinned-rust-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 

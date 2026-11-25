@@ -1,3 +1,64 @@
+# Current implementation audit — 2026-11-25
+
+## Scope and branch
+
+- Audited continuation branch: `feat/deterministic-neural-distillation-20261125`.
+- Draft integration PR: #582, based on current `main` SHA `8838a1f33b03aa1bad7c045c216305bb3e60e3f9`.
+- Current production `main` is unchanged. No merge or Pages deployment is recorded for this continuation.
+- This audit supersedes the older "optional browser-local MekongPhon model" deployment description for the proposed production UI; the old ONNX implementation remains historical/research material.
+
+## Verified source/data facts
+
+- Google Khmer pronunciation TSV is pinned to `google/language-resources` commit `a90601024f07ab7e96c911243324e0adeb16da96`, with CC BY 4.0 attribution.
+- The pinned Khmer lexicon contains 62,179 rows, 62,118 non-empty phonemic transcriptions, 61 blank rows, 62,114 unique spellings and four multi-pronunciation spellings.
+- The pinned Festvox inventory defines 56 phones. All 54 distinct phone tokens observed in the non-empty lexical rows occur in that inventory.
+- The phone inventory defines source phonemic labels; it is not an IPA mapping. The project-specific token map carries per-token evidence statuses. The manifest counts 1,451 rows with only source-corroborated token mappings and 60,667 rows containing at least one provisional mapping.
+- The preliminary adapter matched 6/6 R12A screening cases. A separate source-attested lexical comparison matched 3/7; four mismatches remain explicit. These small diagnostics are not accuracy measurements.
+
+## Neural teacher and distillation evidence
+
+- The project-owned teacher uses a word-disjoint train/dev/test split and atomic phoneme-token targets. Exact CI run [45653367069](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45653367069) completed; its artifact was inspected.
+- Held-out Google source-label metrics: 84.18% word exact match, 4.33% phone-token error rate, 100% source-label coverage.
+- Distillation produced 2,532 OOV syllable candidates. Held-out composition diagnostic: 63.86% exact match, 14.19% token error rate, 98.4% candidate coverage.
+- These are reproduction/teacher-student metrics against Google source labels. They do not establish IPA accuracy or contemporary Phnom Penh profile equivalence. Independent adjudicated IPA gold remains 0.
+
+## Runtime architecture changes under review
+
+- Python and JavaScript Google phonemic parsers preserve typed IPA kind, syllable boundaries, provenance and uncertainty. Unknown/non-lexical tokens fail closed.
+- Exact Google lexical hits are routed through the typed IPA adapter and then the existing Ukrainian IPA adapter. Orthographic romanization is kept separate.
+- Browser Strict / Soft / Super-soft are now actual engine modes, not presentation-only labels. Strict filters to tier-B source-located proposals; Soft adds Google lexical and onset-only provisional candidates; Super-soft adds static neural-distilled OOV syllable candidates.
+- The offline teacher is not shipped to visitors. Pages build regenerates the distilled JSON and stages only that static table. Browser Worker and its local fallback read the same-origin table; no Khmer input is sent to a server.
+- The public UI no longer exposes the standalone MekongPhon model panel. Pages workflow no longer exports ONNX graphs or vendors ONNX Runtime WASM.
+- Super-soft's 100% target is non-empty display coverage, where unresolved markers count as an explicit output. It is not full IPA coverage.
+
+## Task ledger
+
+| Area | Status | Audit finding |
+|---|---|---|
+| Google source pinning and attribution | DONE_VERIFIED | Immutable revision, SHA-256, CC BY 4.0 and phone inventory recorded |
+| Google phonemic → IPA adapter | DONE_VERIFIED / exact-head rerun pending | Tokenized, typed, evidence-aware adapters and regression tests exist |
+| Static Google lexical shards | DONE_VERIFIED / exact-head rerun pending | Eight deterministic shards; ambiguity and blank rows retained |
+| Offline neural teacher | DONE_VERIFIED | CI training job and inspectable artifact with fixed split/metrics |
+| Neural-to-deterministic OOV distillation | DONE_VERIFIED as research artifact | Static artifact schema and held-out metrics exist; no linguistic promotion claim |
+| Browser tier integration | PARTIAL | Implementation and tests added; exact-head CI/Chromium pending |
+| Pages static artifact pipeline | PARTIAL | Cache/train/distill/copy/smoke steps added; deployment not run |
+| Independent pronunciation accuracy | BLOCKED | No adjudicated IPA gold |
+| Profile equivalence | BLOCKED | Google source labels do not independently establish the target variety/profile |
+| Broad productive G2P | PARTIAL | 2,532 syllable candidates do not cover all orthographic contexts |
+
+## Verification state
+
+- The previous teacher/distillation CI run [45653367069](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45653367069) succeeded.
+- Code-head Quality run [45663895838](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45663895838) was still queued at the last status check. Other browser and benchmark runs from the same continuation were also queued. They must not be reported as passing.
+- The branch's Pages workflow has not run because deployment is triggered from `main`; the static table path remains deployment-unverified.
+- Open PR #519 is based on stale main and was left untouched. PR #578's browser model port is already merged historically; its public UI/build path is removed by this proposed continuation.
+
+## Release assessment
+
+**Still a partial research prototype; not release-ready.** The deterministic runtime design is now coherent and the offline teacher/distillation evidence is reproducible, but exact-head Quality/Chromium, Pages build/deployment smoke, independent IPA adjudication and target-profile validation remain open gates.
+
+---
+
 # Repository audit — 2026-10-05
 
 ## Identity
@@ -3306,3 +3367,128 @@ PR #578 was merged by the repository owner as implementation commit `520a1592345
 - The ONNX phrase candidate is `saʔpʰiedɑmnaaŋprɑciecʊənkampucie`. FP32 ONNX has 3.03% CER vs pinned Transformers on this probe; INT8 matches FP32 exactly. These are port-parity measurements, not pronunciation accuracy.
 
 Audit status: browser model integration and Pages deployment DONE_VERIFIED. Independent adjudicated Phnom Penh IPA gold remains 0; pronunciation accuracy NOT_ASSESSED; model profile equivalence UNVERIFIED; broader contextual Khmer phonology remains PARTIAL. Do not present the model as linguistically validated or its output as SUPPORTED gold.
+
+## Deterministic neural-distilled Khmer IPA engine audit — 2026-11-25 (PR #582)
+
+### Selected architecture
+
+The target is a local deterministic Khmer engine developed from an offline neural teacher:
+
+`licensed phonemic source → offline neural teacher → evidence-gated static distillation → deterministic local engine → typed IPA → Ukrainian IPA adapter`.
+
+The production browser path runs no neural model, ONNX Runtime or remote inference. It loads deterministic code and static source/candidate data. The model is a build/research dependency only.
+
+### Implementation and source evidence
+
+- Google Khmer pronunciation lexicon is pinned at `a90601024f07ab7e96c911243324e0adeb16da96`; the full TSV is CC BY 4.0 and the 54-token runtime map is validated directly against it. The companion Festvox phonology JSON has unresolved license scope and is not copied or redistributed.
+- Source inventory: 62,179 Khmer rows, 62,118 non-empty phonemic rows, 61 blank rows, 62,114 unique spellings and four spellings with multiple pronunciation variants. The 54 observed lexical phone tokens are all present in the 56-phone source inventory.
+- `src/khmer_ua/google_phonemic.py` and `src/google-phonemic-ipa.js` keep Google source phonemic notation distinct from IPA and preserve source provenance, token mapping status, syllable boundaries and vowel length. Unknown/non-lexical tokens fail closed.
+- `scripts/build_google_phonemic_lexicon.py` creates eight deterministic shards. Python and browser lookups preserve multi-pronunciation candidates and do not silently choose one variant.
+- Project-owned offline neural teacher is trained on spelling-grouped, word-disjoint splits with atomic target phone tokens.
+- Distillation creates a static OOV orthographic-syllable candidate table. Candidate status remains PROVISIONAL; teacher agreement never promotes a row to SUPPORTED.
+- Python/browser deterministic engines use the typed IPA boundary and existing Ukrainian IPA adapter. Browser worker and fallback load only same-origin static candidate JSON.
+- The site UI defaults to Soft; Strict withholds unadjudicated dictionary/model candidates; Super-soft may expose static neural-distilled candidates. Its 100% contract is non-empty display output, not complete IPA coverage.
+
+### Metrics and interpretation
+
+- Prior successful Quality/teacher/distillation run: [45653367069](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45653367069).
+- Teacher held-out Google source-label prediction: 84.18% word exact, 4.33% phoneme-token error rate, 100% source-label coverage.
+- Distilled composition diagnostic: 2,532 candidates, 63.86% exact, 14.19% token error rate and 98.4% composition coverage under an orthographic-syllable-count alignment assumption.
+- Google phonemic-to-IPA screening: 6/6 R12A vowel-context examples match; 3/7 overlapping source-attested lexical entries match, four remain explicit conflicts.
+- These are not independent pronunciation-accuracy metrics. Independent adjudicated IPA gold remains 0; profile equivalence remains UNVERIFIED; accuracy remains NOT_ASSESSED.
+- The MekongPhon teacher gate is a failed diagnostic (0/6 exact, 44.44% CER for greedy and beam-4). NCKL bridge variants are also negative controls (split 8/12 exact, whole-string 7/12, spaced-string 7/12; each bridge CER 6.93%; direct phonemizer 11/12 exact, 0.99% CER). None is integrated.93% CER versus direct Khmer Phonemizer 11/12 exact, 0.99% CER). Neither is promoted as the final teacher or runtime.
+
+### Current-head verification
+
+- Browser smoke on earlier heads found stale test expectations for canonical unresolved markers and typed provenance. Those test assertions were corrected.
+- Browser smoke on `12b2675` then exposed a real status-notice bug: a local Google lexical candidate was labelled as an external provider candidate. The regression test was updated first; `getStatusNotice` was corrected in `755a89c695e93594adb3c980f2cc87adde80f6fd`.
+- External khPOS and pinned upstream Rust segmentation checks passed on `12b2675`; the shared engine benchmark was in progress at last observation.
+- Exact-head Quality/browser/benchmark results after `755a89c` and documentation updates are pending. The branch is not release-ready until one final SHA passes all relevant checks.
+- No local test commands were executed: no local checkout is available and github.com DNS resolution fails. Remote exact-head GitHub Actions are the verification source.
+
+### Audit classification
+
+| Item | Status | Reason / acceptance |
+|---|---|---|
+| Google source pin, attribution and inventory accounting | DONE_VERIFIED on prior Quality run | Exact-head rerun pending after later commits |
+| Typed Google phonemic → IPA adapter | DONE_VERIFIED on prior Quality run | Preserve explicit PHONEMIC/PROVISIONAL kind and fail closed |
+| Deterministic Google lexical shards and cross-runtime lookup | DONE_VERIFIED on prior Quality run | Exact head must pass generator drift and Python/JS parity |
+| Project-owned offline neural teacher | DONE_VERIFIED as source-label model | Current-head retraining pending; no IPA accuracy claim |
+| Neural-to-static OOV syllable distillation | DONE_VERIFIED as research artifact | 2,532 candidates; zero promotion to SUPPORTED |
+| Local deterministic browser/Python integration | PARTIAL | Code exists; exact-head Quality, Chromium and final code review pending |
+| Strict > Soft > Super-soft accuracy ordering | BLOCKED | No independent adjudicated IPA gold |
+| Independent pronunciation accuracy and target-profile equivalence | BLOCKED | Gold count 0; profile equivalence UNVERIFIED |
+| GitHub Pages deployment of this branch | DEFERRED | Main-only deployment workflow; no merge/deploy performed |
+
+PR #582 remains draft. PR #519 remains open and untouched because it is a divergent earlier provider/hybrid proposal. No branches were deleted, no merge was performed, and no Pages deployment was initiated by this audit.
+
+
+## Superseding execution status — 2026-11-25 (exact head 686a9f5)
+
+This section supersedes earlier pending/queued statements above for the exact head `686a9f5dcdcdf6ffd08c934e45f95a48a3e18e61`. Base `main` remained `8838a1f33b03aa1bad7c045c216305bb3e60e3f9` during verification.
+
+### Verified implementation and checks
+
+- Quality workflow [45690493937](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45690493937): **success**. Python suite: 564 passed plus 70 subtests. Google teacher completed all 12/12 epochs; its held-out Google-source-label test reported 84.175% word exact match, 4.331% phone-token error rate and 100% output coverage. These are source-label prediction metrics, not independent IPA accuracy.
+- The same run's deterministic distillation reported 2,532 accepted candidates and 89 rejected internal-boundary candidates from 2,621 OOV syllable candidates; 63.855% held-out composition exact match, 14.194% phone-token error rate and 98.419% composition coverage under the count-only assumption that orthographic syllable count equals Google phonological dot count. No rules were promoted. Accuracy is null / `NOT_ASSESSED_NO_INDEPENDENT_IPA_GOLD`; profile equivalence remains `UNVERIFIED`.
+- The generated teacher artifact is attached to run 45690493937 (artifact 15059945245). Source is pinned at revision `a90601024f07ab7e96c911243324e0adeb16da96`, SHA-256 `b3f2e700d07d6c01a4c8cac5aa2f13b9a66885668ac482cc0c513f73c56495e5`, CC BY 4.0, 62,179 source rows, 62,118 non-empty rows and 61,214 unique spellings with pronunciation.
+- The exact-head Pages build-check in run 45690493937: **success**; it staged the actual generated candidate table, built the Pages site and ran Chromium against that staged artifact. Pages-specific browser suite: **49 passed**, including the real static-table execution, same-origin worker, no external network requests for Khmer input, local fallback, latest-input race guard and no standalone neural model in production.
+- Exact-head generic Chromium smoke [45690493765](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45690493765): **success, 48 passed**.
+- Exact-head shared Khmer IPA engine benchmark [45690493847](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45690493847): **success**; external khPOS benchmark [45690493805](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45690493805): **success**; pinned upstream Rust comparison [45690494064](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45690494064): **success**.
+- Earlier fixed-count expectations were removed. CI and browser assertions now validate the accounting invariant `accepted + rejected == OOV candidate inventory`, because teacher outputs may legitimately change the accepted/rejected split while preserving complete accounting.
+
+### Final task ledger at this head
+
+| Work item | Status | Evidence / remaining acceptance |
+|---|---|---|
+| Pinned Google source inventory, attribution and typed phonemic → IPA adapter | DONE_VERIFIED | Exact-head Quality success; no claim that source phonemic labels are independent IPA gold |
+| Deterministic lexical shards and Python/browser parity | DONE_VERIFIED | Exact-head Quality success |
+| Offline neural teacher and reproducible static OOV distillation | DONE_VERIFIED as provisional research pipeline | 12 epochs; artifact 15059945245; 2,532 accepted / 89 rejected; zero rules promoted |
+| Browser worker, local fallback and deterministic tier integration | DONE_VERIFIED for implemented contract | Exact-head generic Chromium 48/48 and Pages artifact Chromium 49/49 |
+| Production build with actual generated static table | DONE_VERIFIED | Exact-head `pages-build-check` success; this is a build check, not a deployment |
+| Strict > Soft > Super-soft empirical accuracy ordering | BLOCKED | Requires independent adjudicated IPA gold; none exists |
+| Independent pronunciation accuracy and Google target-profile equivalence | BLOCKED | IPA gold count 0; profile equivalence `UNVERIFIED` |
+| Live GitHub Pages deployment | TODO pending PR integration | PR #582 is still a draft and has not been merged; after merge verify the main-branch Pages deployment and live URL/assets |
+
+### Branch and integration state
+
+- PR #582 remains the active implementation PR on `feat/deterministic-neural-distillation-20261125`; verified code head is `686a9f5dcdcdf6ffd08c934e45f95a48a3e18e61`. It was mergeable/clean against unchanged main when checked; integration and deployment have not yet occurred.
+- PR #519 remains untouched because it is a divergent earlier provider/hybrid proposal. PR #572 is already merged. PR #573 remains closed/unmerged due unresolved licensing/data scope. No user branch was deleted, no force push was used, and no release was published.
+- The implementation is now **build-verified and ready for integration review**, but it is not a linguistically validated production release: independent IPA accuracy and profile equivalence remain evidence-blocked. A successful Pages build-check must not be described as a live deployment.
+- No local commands are claimed: the working container has no repository checkout and could not resolve GitHub DNS. All stated checks above are remote GitHub Actions results.
+
+
+## Final superseding status — exact head 77e5ee4 (2026-11-25)
+
+This entry supersedes the prior metrics and pending-status entries for this continuation. Verified branch head: `77e5ee43266a622978dd37e92cf54231a1921860`; base `main`: `8838a1f33b03aa1bad7c045c216305bb3e60e3f9`.
+
+### Final exact-head verification
+
+- Quality workflow [45697903503](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45697903503): **success**. Python tests: 564 passed plus 70 subtests; lexicon/schema/parity and web checks passed; teacher, distillation, source matrix and NCKL diagnostic jobs succeeded. The browser-model export job was correctly skipped for this architecture.
+- Generic Chromium smoke [45697903507](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45697903507): **success, 48 passed**. Shared engine benchmark [45697903476](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45697903476), external khPOS benchmark [45697903391](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45697903391), and pinned upstream Rust comparison [45697903367](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45697903367): **all success**.
+- Exact-head Pages build-check: **success**. It downloaded teacher artifact 15061573629, staged the generated table into `public/data`, verified staged/build artifact identity, built the Pages site and executed Chromium against the real static table: **49 passed**. This remains a build-check, not a live deployment.
+- Teacher artifact source pin remains revision `a90601024f07ab7e96c911243324e0adeb16da96`, source TSV SHA-256 `b3f2e700d07d6c01a4c8cac5aa2f13b9a66885668ac482cc0c513f73c56495e5`, CC BY 4.0; 62,179 source rows, 62,118 non-empty rows, 61,214 unique spellings with pronunciation.
+
+### Exact-head teacher and distillation metrics
+
+- Teacher training completed 8 of 12 requested epochs. Held-out Google-source-label prediction: 82.7772% word exact match, 4.7722% phone-token error rate, 100% output coverage. These are source-label prediction metrics, not independent IPA accuracy.
+- Distillation: 2,539 accepted provisional candidates + 82 rejected internal-boundary candidates = 2,621 OOV syllable candidates. Held-out composition diagnostic: 63.9279% word exact match, 13.2874% phone-token error rate, 98.6166% coverage and 100% syllable-boundary-count agreement under the count-only orthographic-syllable-count/Google-dot-count assumption. No rules were promoted.
+- Checkpoint SHA-256: `96ecb67d06293cd1c9ead51911d7e842d2310412c7174d96281993cbb627590b`. Accuracy remains null / `NOT_ASSESSED_NO_INDEPENDENT_IPA_GOLD`; profile equivalence remains `UNVERIFIED`; IPA gold count remains 0. Metrics must not be described as independent phonetic accuracy.
+
+### Provenance correction
+
+The artifact stores its checkpoint digest at `artifact.teacher.checkpoint_sha256`, not at the artifact root or individual candidate rows. Both browser loading paths (Worker and local fallback) now propagate that digest into each candidate's `teacher_checkpoint_sha256` field. The engine result's `neural_teacher_checkpoint_sha256` therefore carries the actual checkpoint provenance instead of null. The worker contract test asserts propagation in both paths. This correction is in the verified exact head.
+
+### Final ledger and integration state
+
+| Item | Status | Evidence / remaining acceptance |
+|---|---|---|
+| Google source pin, attribution, typed phonemic → IPA adapter, deterministic lexicon and parity | DONE_VERIFIED | Exact-head Quality success |
+| Offline teacher and static deterministic OOV table | DONE_VERIFIED as provisional research pipeline | Artifact 15061573629; metrics and limits above; zero rules promoted |
+| Strict/Soft/Super-soft browser engine, same-origin worker, local fallback, provenance | DONE_VERIFIED for implemented contract | Exact-head 48/48 generic and 49/49 Pages-artifact Chromium tests |
+| Production Pages build with real generated table | DONE_VERIFIED | Exact-head Pages build-check success; no live deploy yet |
+| Empirical accuracy ordering Strict > Soft > Super-soft | BLOCKED | Requires independent adjudicated IPA gold |
+| Independent pronunciation accuracy / target-profile equivalence | BLOCKED | IPA gold count 0; profile equivalence UNVERIFIED |
+| Live GitHub Pages deployment | TODO pending PR merge | After merge verify main-branch deployment and live URL/assets |
+
+PR #582 is marked ready for review, open, and mergeable against unchanged `main`; it has not yet been merged. PR #519 remains untouched as a divergent earlier provider/hybrid proposal; PR #572 is already merged; PR #573 remains closed/unmerged due unresolved licensing/data scope. No branches were deleted, no force push was used, and no release was published. The implementation is build-verified and integration-ready, but not a linguistically validated production release until independent IPA gold and target-profile evidence exist.

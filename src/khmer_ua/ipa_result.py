@@ -10,6 +10,8 @@ import unicodedata
 from typing import Iterable
 
 RESULT_STATUSES = frozenset({"SUPPORTED", "UNCERTAIN", "PROVISIONAL", "UNRESOLVED"})
+IPA_KINDS = frozenset({"PHONEMIC", "PHONETIC_BROAD", "PHONETIC_NARROW"})
+DEFAULT_PROFILE = "khmer-pph-careful-citation-v1"
 _MODIFIERS = frozenset({"ˈ", "ˌ", "ː", "ˑ"})
 _TONE_MARKS = frozenset("˥˦˧˨˩")
 _BOUNDARIES = frozenset({" ", "\t", "\n", ".", "·", "‧"})
@@ -35,6 +37,8 @@ class TypedPhoneticResult:
     status: str = "SUPPORTED"
     provenance: tuple[str, ...] = ()
     uncertainty: tuple[str, ...] = ()
+    ipa_kind: str = "UNRESOLVED"
+    profile: str = DEFAULT_PROFILE
 
     def to_dict(self) -> dict:
         return {
@@ -47,6 +51,8 @@ class TypedPhoneticResult:
             "status": self.status,
             "provenance": list(self.provenance),
             "uncertainty": list(self.uncertainty),
+            "ipa_kind": self.ipa_kind,
+            "profile": self.profile,
         }
 
 
@@ -134,15 +140,20 @@ def from_ipa(
     ipa: str,
     *,
     status: str = "SUPPORTED",
+    kind: str = "PHONEMIC",
+    profile: str = DEFAULT_PROFILE,
     provenance: tuple[str, ...] = (),
     uncertainty: tuple[str, ...] = (),
 ) -> TypedPhoneticResult:
     """Parse supplied IPA symbols without consulting target correspondences."""
     if status not in {"SUPPORTED", "UNCERTAIN"}:
         raise ValueError(f"unsupported complete IPA status: {status}")
+    if kind not in IPA_KINDS:
+        raise ValueError(f"unsupported IPA kind: {kind}")
     if not isinstance(ipa, str) or not ipa.strip():
         return from_unknown_source_unit(
             "?",
+            profile=profile,
             provenance=provenance,
             uncertainty=(*uncertainty, "EMPTY-IPA-RESULT"),
         )
@@ -158,6 +169,8 @@ def from_ipa(
             status="UNRESOLVED",
             provenance=provenance,
             uncertainty=tuple(dict.fromkeys((*uncertainty, "UNSUPPORTED-IPA-NOTATION"))),
+            ipa_kind="UNRESOLVED",
+            profile=profile,
         )
     return TypedPhoneticResult(
         phonemic_ipa=raw,
@@ -169,6 +182,8 @@ def from_ipa(
         status=status,
         provenance=provenance,
         uncertainty=uncertainty,
+        ipa_kind=kind,
+        profile=profile,
     )
 
 
@@ -179,6 +194,8 @@ def from_provisional_ipa(
     provenance: tuple[str, ...] = (),
     uncertainty: tuple[str, ...] = (),
     append_unknown_tail: bool = True,
+    kind: str = "PHONETIC_BROAD",
+    profile: str = DEFAULT_PROFILE,
 ) -> TypedPhoneticResult:
     """Build provisional IPA + one explicit unknown region from registered hints."""
     segments: list[PhoneticSegment] = []
@@ -187,6 +204,8 @@ def from_provisional_ipa(
         hint = from_ipa(
             ipa_hint,
             status="UNCERTAIN",
+            kind=kind,
+            profile=profile,
             provenance=provenance,
             uncertainty=uncertainty,
         )
@@ -215,6 +234,38 @@ def from_provisional_ipa(
         status="PROVISIONAL" if raw else "UNRESOLVED",
         provenance=provenance,
         uncertainty=notes,
+        ipa_kind=kind if raw else "UNRESOLVED",
+        profile=profile,
+    )
+
+
+def from_provisional_full_ipa(
+    ipa: str,
+    *,
+    kind: str = "PHONEMIC",
+    profile: str = DEFAULT_PROFILE,
+    provenance: tuple[str, ...] = (),
+    uncertainty: tuple[str, ...] = (),
+) -> TypedPhoneticResult:
+    """Represent a complete IPA candidate whose linguistic reading is provisional."""
+    typed = from_ipa(
+        ipa,
+        status="UNCERTAIN",
+        kind=kind,
+        profile=profile,
+        provenance=provenance,
+        uncertainty=uncertainty,
+    )
+    if typed.status == "UNRESOLVED":
+        return typed
+    return replace(
+        typed,
+        segments=tuple(replace(segment, certainty="PROVISIONAL") for segment in typed.segments),
+        status="PROVISIONAL",
+        provenance=tuple(dict.fromkeys((*typed.provenance, "CANDIDATE:PROVISIONAL-FULL-IPA"))),
+        uncertainty=tuple(dict.fromkeys((*typed.uncertainty, "PHONETIC-READING-PROVISIONAL"))),
+        ipa_kind=kind,
+        profile=profile,
     )
 
 
@@ -223,6 +274,7 @@ def from_unknown_source_unit(
     *,
     provenance: tuple[str, ...] = (),
     uncertainty: tuple[str, ...] = (),
+    profile: str = DEFAULT_PROFILE,
 ) -> TypedPhoneticResult:
     """Represent an unresolved source unit without fabricating an IPA phone."""
     if not surface:
@@ -235,4 +287,6 @@ def from_unknown_source_unit(
         status="UNRESOLVED",
         provenance=trace,
         uncertainty=tuple(dict.fromkeys((*uncertainty, "PHONETIC-READING-UNKNOWN"))),
+        ipa_kind="UNRESOLVED",
+        profile=profile,
     )

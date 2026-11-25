@@ -1,6 +1,4 @@
 import { test, expect } from "@playwright/test";
-import fs from "node:fs";
-import path from "node:path";
 
 test.beforeEach(async ({ page }, testInfo) => {
   if ([
@@ -8,7 +6,8 @@ test.beforeEach(async ({ page }, testInfo) => {
     "IPA and Latin romanization remain visible outside the collapsed analysis drawer",
     "primary method switch is visible beside the main result without opening research details",
     "phonetic mode never substitutes an orthographic romanization fallback for unresolved IPA",
-    "unresolved independent vowel still receives a marked provisional result"
+    "unresolved independent vowel keeps orthographic fallback out of the phonetic result",
+    "strict withholds archived external IPA candidates while Soft and Super-soft may expose them"
   ].includes(testInfo.title)) return;
   await page.addInitScript(() => {
     document.addEventListener("DOMContentLoaded", () => {
@@ -63,15 +62,14 @@ test("phonetic mode never substitutes an orthographic romanization fallback for 
   await expect(page.locator("#status")).not.toContainText("EXTERNAL IPA CANDIDATE");
 });
 
-test("unresolved independent vowel still receives a marked provisional result", async ({ page }) => {
+test("unresolved independent vowel keeps orthographic fallback out of the phonetic result", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("ឥ");
   await expect(page.locator("#ipa-result")).toHaveText("⟦NOT_ESTABLISHED⟧");
-  await expect(page.locator("#ua-result")).not.toHaveText("???");
-  await expect(page.locator("#ua-result")).toHaveText(/\?\?\?$/u);
-  await expect(page.locator("#status")).toContainText("ОРФОГРАФІЧНА ПІДКАЗКА");
-  await expect(page.locator("#status")).toContainText("НЕ IPA");
-  await expect(page.locator("#issue-text")).toContainText("а не підтверджену вимову");
+  await expect(page.locator("#ua-result")).toHaveText("???");
+  await expect(page.locator("#ua-orthographic-result")).not.toBeEmpty();
+  await expect(page.locator("#ua-orthographic-status")).toContainText("не вимова");
+  await expect(page.locator("#unit-details")).toContainText("IPA: ⟦NOT_ESTABLISHED⟧");
 });
 
 test("research tools are collapsed by default and can be opened on demand", async ({ page }) => {
@@ -272,14 +270,14 @@ test("one unsupported unit does not hide neighboring IPA and Ukrainian output", 
   await expect(page.locator("#ua-result")).toHaveText("ка ??? ко");
 });
 
-test("unresolved Khmer coda displays the available onset with an uncertainty marker", async ({ page }) => {
+test("Soft prefers exact Google phonemic lexicon over an onset-only hint", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("ពាក់");
-  await expect(page.locator("#ipa-result")).toHaveText("/p/???");
-  await expect(page.locator("#ua-result")).toHaveText("п???");
-  await expect(page.locator("#unit-details")).toContainText("лише початковий приголосний");
+  await expect(page.locator("#ipa-result")).toHaveText("/peak/???");
+  await expect(page.locator("#ua-result")).toHaveText("пеак???");
+  await expect(page.locator("#unit-details")).toContainText("Попередній IPA-кандидат: /peak/ → пеак");
   await expect(page.locator("#unit-details")).toContainText("Окрема орфографічна романізація: Пеак");
-  await expect(page.locator("#status")).toContainText("NOT ESTABLISHED");
+  await expect(page.locator("#status")).toContainText("PROVISIONAL");
 });
 
 test("clear control restores the empty state", async ({ page }) => {
@@ -405,13 +403,13 @@ test("romanization method can be activated by keyboard and status is announced",
 
 
 
-test("unresolved Khmer phrase displays archived external IPA candidates with trailing uncertainty marker", async ({ page }) => {
+test("local lexical IPA is primary while archived external candidates remain diagnostic", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("កម្ពុជាប្រជាធិបតេយ្យ");
-  await expect(page.locator("#ipa-result")).toHaveText("/kampuciə prɑciətʰɨppaʔtaj/???");
+  await expect(page.locator("#ipa-result")).toHaveText("/kam.pu.ciə/ /prɑ.ciə.tʰɨp.paʔ.taj/???");
   await expect(page.locator("#ua-result")).toHaveText("кампутьіє пратьієт'иппатай???");
-  await expect(page.locator("#status")).toContainText("EXTERNAL IPA CANDIDATE");
-  await expect(page.locator("#status")).toContainText("PROFILE MATCH UNVERIFIED");
+  await expect(page.locator("#status")).toContainText("PROVISIONAL");
+  await expect(page.locator("#status")).not.toContainText("EXTERNAL IPA CANDIDATE");
   await expect(page.locator("#unit-details")).toContainText("Зовнішні IPA-кандидати");
   await expect(page.locator("#unit-details")).toContainText("khmer-phonemizer");
   await expect(page.locator("#unit-details")).toContainText("mekongphon");
@@ -422,14 +420,47 @@ test("unresolved Khmer phrase displays archived external IPA candidates with tra
   await expect(page.locator("#unit-details")).toContainText("BGN/PCGN-derived, не вимова");
 });
 
-test("archived provisional IPA candidate remains visible at every detail level", async ({ page }) => {
+test("Strict withholds unadjudicated lexical candidates while Soft uses the local phonemic lexicon", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("កម្ពុជាប្រជាធិបតេយ្យ");
-  for (const level of ["strict", "balanced", "exploratory"]) {
+  await page.locator("#output-level").selectOption("strict");
+  await expect(page.locator("#status")).not.toContainText("EXTERNAL IPA CANDIDATE");
+  await expect(page.locator("#ipa-result")).not.toHaveText("/kam.pu.ciə/ /prɑ.ciə.tʰɨp.paʔ.taj/???");
+  for (const level of ["balanced", "exploratory"]) {
     await page.locator("#output-level").selectOption(level);
     await expect(page.locator("#ua-result")).toHaveText("кампутьіє пратьієт'иппатай???");
-    await expect(page.locator("#ipa-result")).toHaveText("/kampuciə prɑciətʰɨppaʔtaj/???");
+    await expect(page.locator("#ipa-result")).toHaveText("/kam.pu.ciə/ /prɑ.ciə.tʰɨp.paʔ.taj/???");
   }
+});
+
+test("output tiers select progressively broader local IPA candidates", async ({ page }) => {
+  await page.route("**/data/google-neural-distilled-syllables.json", route => route.fulfill({
+    status: 200,
+    contentType: "application/json",
+    body: JSON.stringify({
+      schema: "google-khmer-neural-distilled-syllables/v1",
+      candidates: [{
+        orthography: "កិ",
+        google_phonemic_tokens: ["k", "e", "ʔ"],
+        status: "PROVISIONAL",
+        uncertainty: ["NEURAL_TEACHER_PREDICTION_NOT_SOURCE_ATTESTED"],
+        teacher_checkpoint_sha256: "browser-test-checkpoint",
+      }],
+    }),
+  }));
+  await page.goto("/");
+  await page.locator("#source").fill("កិ");
+  await page.locator("#output-level").selectOption("strict");
+  await expect(page.locator("#ipa-result")).toHaveText("⟦NOT_ESTABLISHED⟧");
+  await expect(page.locator("#ua-result")).toHaveText("???");
+  await page.locator("#output-level").selectOption("balanced");
+  await expect(page.locator("#ipa-result")).toHaveText("/k/???");
+  await expect(page.locator("#ua-result")).toHaveText("к???");
+  await page.locator("#output-level").selectOption("exploratory");
+  await expect(page.locator("#ipa-result")).toHaveText("/keʔ/???");
+  await expect(page.locator("#ua-result")).toHaveText("ке???");
+  await expect(page.locator("#unit-details")).toContainText("Детермінований OOV-кандидат із нейромережевої дистиляції");
+  await expect(page.locator("#unit-details")).toContainText("лише Super-soft");
 });
 
 test("unit details disclose typed IPA status, provenance and unresolved remainder", async ({ page }) => {
@@ -446,7 +477,7 @@ test("unresolved Khmer cluster shows the known onset in IPA mode and keeps roman
   await page.locator("#source").fill("ក្ក");
   await expect(page.locator("#ipa-result")).toHaveText("/k/???");
   await expect(page.locator("#ua-result")).toHaveText("к???");
-  await expect(page.locator("#status")).toContainText("NOT ESTABLISHED");
+  await expect(page.locator("#status")).toContainText("PROVISIONAL");
   await expect(page.locator("#unit-details")).toContainText("Попередня IPA-підказка:");
   await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-rule-id", "KHMER-PREVIEW-ONSET-IPA-V1");
   await expect(page.locator(".unit-detail[data-fallback-rule-id]")).toHaveAttribute("data-fallback-position", "onset");
@@ -618,51 +649,52 @@ test("reported Khmer national-assembly phrase renders a source-backed IPA-derive
   await expect(page.locator("#ua-orthographic-status")).toContainText("не вимова");
 });
 
-test("MekongPhon runs as an on-device browser model and returns the pinned ONNX candidate", async ({ page }) => {
-  const manifestPath = path.resolve("dist/models/mekongphon/manifest.json");
-  test.skip(!fs.existsSync(manifestPath), "model assets are generated only in the model-enabled Pages/export build");
-  const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
-  const probe = manifest.parity.generation_probes.find((item) =>
-    item.input === "សភាតំណាងប្រជាជនកម្ពុជា"
-  );
-  expect(probe?.onnx_int8_greedy).toBeTruthy();
-  test.setTimeout(240000);
-
-  const externalRequests = [];
-  page.on("request", (request) => {
-    const url = new URL(request.url());
-    if (url.origin !== new URL("http://127.0.0.1").origin
-        && !["localhost", "127.0.0.1", "::1"].includes(url.hostname)) {
-      externalRequests.push(url.href);
-    }
-  });
-
+test("production interface uses the deterministic engine without a standalone neural model", async ({ page }) => {
+  const requests = [];
+  page.on("request", (request) => requests.push(request.url()));
   await page.goto("/");
-  await page.locator("#source").fill("សភាតំណាងប្រជាជនកម្ពុជា");
-  const button = page.locator("#run-mekongphon");
-  await expect(button).toBeEnabled();
-  await button.click();
-  await expect(page.locator("#mekongphon-status")).not.toHaveText(/Не запускається автоматично/);
-  const expected = probe.onnx_int8_greedy;
-  try {
-    await page.waitForFunction(() => {
-      const status = document.querySelector("#mekongphon-status")?.textContent ?? "";
-      return status.startsWith("PROVISIONAL · MekongPhon@")
-      || status.startsWith("Локальний рушій не запустився:");
-    }, null, { timeout: 230000 });
-  } catch (error) {
-    const lastStatus = await page.locator("#mekongphon-status").textContent();
-    throw new Error("Timed out waiting for local model. Last UI status: " + lastStatus);
-  }
-  const modelStatus = await page.locator("#mekongphon-status").textContent();
-  if (!modelStatus?.includes("PROVISIONAL")) {
-    throw new Error("Browser-local model reported: " + modelStatus);
-  }
-  await expect(page.locator("#mekongphon-ipa")).toHaveText(
-    expected.startsWith("/") ? expected : "/" + expected + "/",
-    { timeout: 5000 },
-  );
-  await expect(page.locator("#mekongphon-status")).toContainText("текст не надсилався на сервер");
-  expect(externalRequests).toEqual([]);
+  await expect(page.locator("#run-mekongphon")).toHaveCount(0);
+  await expect(page.locator("#mekongphon-panel")).toHaveCount(0);
+  await page.locator("#source").fill("ខ្មែរ");
+  await expect(page.locator("#ua-result")).toContainText("к'мае");
+  await expect.poll(() => requests.some((url) => url.includes("khmer-engine.worker"))).toBe(true);
+  expect(requests.some((url) => /onnx|mekongphon|ort-wasm/u.test(url))).toBe(false);
 });
 
+test("Pages build serves and executes the actual neural-distilled static candidate table", async ({ page }) => {
+  const workerUrls = [];
+  page.on("worker", (worker) => workerUrls.push(worker.url()));
+  await page.goto("/");
+  const assetUrl = new URL("/data/google-neural-distilled-syllables.json", page.url()).toString();
+  const response = await page.request.get(assetUrl);
+  const contentType = response.headers()["content-type"] || "";
+  test.skip(response.status() === 404 || !contentType.includes("application/json"), "the generic browser-smoke job does not stage the Pages-only teacher artifact");
+  expect(response.ok()).toBe(true);
+  const artifact = await response.json();
+  expect(artifact.schema).toBe("google-khmer-neural-distilled-syllables/v1");
+  expect(artifact.candidates.length).toBeGreaterThan(0);
+  const rejectedCount = Object.values(artifact.rejected).reduce((total, count) => total + count, 0);
+  expect(artifact.candidates.length + rejectedCount).toBe(artifact.inventory.oov_syllable_candidates);
+  expect(artifact.candidates.some((candidate) => candidate.orthography === "កិ")).toBe(true);
+
+  await page.locator("#source").fill("កិ");
+  await page.locator("#output-level").selectOption("exploratory");
+  await expect(page.locator("#ipa-result")).toHaveText("/keʔ/???");
+  await expect(page.locator("#ua-result")).toHaveText("ке???");
+  await expect(page.locator("#status")).toContainText("PROVISIONAL");
+  await expect(page.locator("#unit-details")).toContainText("Детермінований OOV-кандидат із нейромережевої дистиляції");
+  await expect(page.locator("#unit-details")).toContainText("не має незалежної фонетичної ад'юдикації");
+  await expect.poll(() => workerUrls.some((url) => url.includes("khmer-engine.worker"))).toBe(true);
+});
+
+test("initial page does not load the large engine worker until non-empty input", async ({ page }) => {
+  const workerUrls = [];
+  page.on("worker", (worker) => workerUrls.push(worker.url()));
+  await page.goto("/");
+  await expect(page.locator("#empty")).toBeVisible();
+  expect(workerUrls).toHaveLength(0);
+
+  await page.locator("#source").fill("កិ");
+  await expect.poll(() => workerUrls.some((url) => url.includes("khmer-engine.worker"))).toBe(true);
+  await expect(page.locator("#ipa-result")).toContainText("/k/???");
+});

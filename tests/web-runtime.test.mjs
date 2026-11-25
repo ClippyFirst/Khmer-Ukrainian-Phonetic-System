@@ -20,6 +20,45 @@ const expectedUa = "ка ко ка кіє ко ку кей кі ке кей ка
 const tokens = tokenize(adversarial);
 assert.equal(tokens.filter((token) => /\S/u.test(token)).length, 32, "the 32-unit adversarial block must remain 32 orthographic units");
 
+const tierInput = "កិ";
+const strictTier = convert(tierInput, "khmer-pph-careful-citation-v1", { outputLevel: "strict" });
+const softTier = convert(tierInput, "khmer-pph-careful-citation-v1", { outputLevel: "balanced" });
+const superSoftTier = convert(tierInput, "khmer-pph-careful-citation-v1", {
+  outputLevel: "exploratory",
+  distilledSyllables: {
+    "កិ": {
+      orthography: "កិ",
+      google_phonemic_tokens: ["k", "e", "ʔ"],
+      status: "PROVISIONAL",
+      uncertainty: ["NEURAL_TEACHER_PREDICTION_NOT_SOURCE_ATTESTED"],
+      teacher_checkpoint_sha256: "fixture-checkpoint",
+    },
+  },
+});
+assert.equal(strictTier.output_level, "strict");
+assert.equal(strictTier.ipa, "⟦NOT_ESTABLISHED⟧", "Strict must not use a neural OOV prediction or a partial onset");
+assert.equal(strictTier.ua, "???");
+assert.equal(softTier.output_level, "balanced");
+assert.ok(softTier.ipa.includes("/k/???"), "Soft may expose the registered onset as a partial IPA candidate");
+assert.ok(softTier.ua.includes("к???"), "Soft must retain the known onset while marking the unresolved remainder");
+assert.equal(superSoftTier.output_level, "exploratory");
+assert.equal(superSoftTier.ipa, "/keʔ/???", "Super-soft must use the static neural-distilled candidate, not execute a model");
+assert.equal(superSoftTier.ua, "ке???", "The neural candidate must pass through the shared IPA-to-Ukrainian adapter");
+assert.equal(superSoftTier.units[0].partial_candidate_kind, "NEURAL_DISTILLED_OOV_SYLLABLE");
+assert.equal(superSoftTier.phonetic_result.units[0].ipa_kind, "PHONEMIC");
+assert.equal(strictTier.tier_coverage.strict.ipa_candidate_coverage, 0);
+assert.equal(softTier.tier_coverage.soft.ipa_candidate_coverage, 1,
+  "Soft must increase IPA-candidate coverage over Strict on an OOV input with a known onset");
+assert.equal(superSoftTier.tier_coverage.super_soft.nonempty_output_coverage, 1,
+  "Super-soft must return a non-empty output for every linguistic input unit, including explicit unknown markers");
+assert.equal(superSoftTier.phonetic_result.units[0].ukrainian_kind, "IPA_DERIVED_PROVISIONAL");
+assert.ok(superSoftTier.phonetic_result.units[0].typed_ipa.provenance.includes("CANDIDATE:PROVISIONAL-FULL-IPA"));
+assert.match(getStatusNotice(superSoftTier), /офлайнової нейромережевої дистиляції/u);
+assert.doesNotMatch(getStatusNotice(superSoftTier), /зовнішній IPA-кандидат/u);
+const superSoftUnsupported = convert("☃", "khmer-pph-careful-citation-v1", { outputLevel: "exploratory" });
+assert.ok(superSoftUnsupported.ipa.length > 0 && superSoftUnsupported.ua.length > 0,
+  "Super-soft must always return a non-empty result string, even when the IPA itself is unresolved");
+
 const result = convert(adversarial, "khmer-pph-careful-citation-v1");
 assert.ok(result, "adversarial block must produce a result");
 assert.equal(result.status, "PROPOSED");
@@ -34,30 +73,31 @@ assert.deepEqual(
   ["កម្ពុជា", " ", "ប្រជាធិបតេយ្យ"],
   "known multi-cluster lexical fixtures must be recognized without requiring whitespace between Khmer words",
 );
-assert.equal(unresolvedWord.ipa, "/kampuciə prɑciətʰɨppaʔtaj/???", "the browser IPA result must preserve the archived Khmer Phonemizer candidate and mark it as unverified");
-assert.equal(unresolvedWord.ua, "кампутьіє пратьієт'иппатай???", "the browser IPA adapter must render the selected provisional IPA candidate and append one uncertainty marker");
+assert.equal(unresolvedWord.ipa, "/kam.pu.ciə/ /prɑ.ciə.tʰɨp.paʔ.taj/???", "the browser IPA result must use the local source-backed fixture plus exact Google phonemic lexical candidate");
+assert.equal(unresolvedWord.ua, "кампутьіє пратьієт'иппатай???", "the browser IPA adapter must render the local lexical candidate and append one uncertainty marker");
 assert.ok(unresolvedWord.ipa.endsWith("???") && unresolvedWord.ipa !== "???", "an unresolved IPA result must retain its candidate before the uncertainty marker");
 assert.ok(unresolvedWord.ua.endsWith("???") && unresolvedWord.ua !== "???", "an unresolved Ukrainian result must retain its candidate before the uncertainty marker");
 assert.equal(unresolvedWord.status, "PROVISIONAL");
 assert.equal(unresolvedWord.confidence_tier, "C");
-assert.equal(unresolvedWord.selected_external_candidate.provider, "khmer-phonemizer");
-assert.equal(unresolvedWord.selected_external_candidate.profile_match, "UNVERIFIED");
+assert.equal(unresolvedWord.selected_external_candidate, null, "archived external candidates must not replace the local deterministic engine output");
+assert.equal(unresolvedWord.archived_external_candidate.provider, "khmer-phonemizer");
+assert.equal(unresolvedWord.external_candidates.find((candidate) => candidate.provider === "khmer-phonemizer").profile_match, "UNVERIFIED");
 assert.equal(unresolvedWord.external_candidates.length, 2, "both previously captured provider IPA candidates must remain inspectable");
 assert.equal(unresolvedWord.external_candidates.find((candidate) => candidate.provider === "mekongphon").mapping_failure, "y");
 assert.equal(unresolvedWord.backend_failures[0].provider, "epitran", "rejected provider output must remain visible as a failure, not be promoted to IPA");
-assert.ok(unresolvedWord.canonical_ipa.endsWith("???"), "the internal deterministic result must retain the partial onset and uncertainty marker");
-assert.ok(unresolvedWord.canonical_ua.endsWith("???"), "the canonical IPA-derived target must retain its partial onset and uncertainty marker");
+assert.ok(unresolvedWord.canonical_ipa.endsWith("⟦NOT_ESTABLISHED⟧"), "the canonical IPA lane must retain the typed unresolved marker; display-tier candidates remain separate");
+assert.ok(unresolvedWord.canonical_ua.endsWith("???"), "the canonical IPA-derived target must retain the unresolved second word marker");
 const unresolvedUnits = unresolvedWord.units.filter((unit) => unit.status === "EVIDENCE_LIMITED" || unit.status === "NOT_ESTABLISHED");
 assert.equal(unresolvedUnits.length, 1, "word segmentation must preserve the unresolved second lexical word as one unit");
 assert.equal(unresolvedUnits[0].source, "ប្រជាធិបតេយ្យ");
-assert.equal(unresolvedUnits[0].partial_candidate_kind, "ONSET_ONLY");
-assert.ok(unresolvedUnits[0].provisional_ukrainian.endsWith("???"), "the unresolved word must expose its known onset before the uncertainty marker");
+assert.equal(unresolvedUnits[0].partial_candidate_kind, "LEXICAL_PHONEMIC_CANDIDATE");
+assert.ok(unresolvedUnits[0].provisional_ukrainian && unresolvedUnits[0].provisional_ukrainian !== "???", "the exact Google phonemic lexical entry must be retained as a complete provisional candidate");
 assert.ok(unresolvedUnits[0].orthographic_fallback_ukrainian, "the separate orthographic candidate must remain inspectable");
 const unresolvedTypedUnits = unresolvedWord.phonetic_result.units.filter((unit) => unit.status === "EVIDENCE_LIMITED" || unit.status === "NOT_ESTABLISHED");
 assert.equal(unresolvedTypedUnits.length, 1, "machine-readable IPA provenance must retain word-level uncertainty");
-assert.equal(unresolvedTypedUnits[0].ukrainian_kind, "IPA_DERIVED_PROVISIONAL", "the visible Ukrainian target must be typed as an onset-only IPA-derived preview");
-assert.ok(unresolvedTypedUnits[0].ukrainian.endsWith("???"), "the visible onset-only IPA-derived candidate must carry the uncertainty suffix");
-assert.ok(unresolvedTypedUnits[0].ipa && !unresolvedTypedUnits[0].ipa.includes("NOT_ESTABLISHED"), "the typed result must retain the bare supported onset IPA separately");
+assert.equal(unresolvedTypedUnits[0].ukrainian_kind, "IPA_DERIVED_PROVISIONAL", "the visible Ukrainian target must be typed as an IPA-derived lexical candidate");
+assert.ok(unresolvedTypedUnits[0].ukrainian.endsWith("???"), "the visible IPA-derived lexical candidate must carry the uncertainty suffix");
+assert.ok(unresolvedTypedUnits[0].ipa && !unresolvedTypedUnits[0].ipa.includes("NOT_ESTABLISHED"), "the typed result must retain the bare provisional IPA separately");
 
 
 const bySource = Object.fromEntries(result.units.map((unit) => [unit.source, unit]));
@@ -119,19 +159,21 @@ assert.equal(parseSyllable("ក៊").register_rule, "NON_STANDARD_SHIFTER_USE");
 
 const paakApproximation = convert("ពាក់", "khmer-pph-careful-citation-v1");
 assert.equal(paakApproximation.units.length, 1, "ពាក់ must remain one lexical unit");
-assert.equal(paakApproximation.units[0].partial_candidate_kind, "ONSET_ONLY", "an unresolved coda must not hide the independently supported onset");
-assert.equal(paakApproximation.units[0].provisional_ipa, "p", "the known onset must be surfaced as a partial IPA candidate");
-assert.equal(paakApproximation.units[0].provisional_ukrainian, "п???", "the partial Ukrainian result must end with the explicit uncertainty marker");
-assert.equal(paakApproximation.ua, "п???", "the primary Ukrainian output must show the approximate phonetic result, not only ???");
+assert.equal(paakApproximation.units[0].partial_candidate_kind, "LEXICAL_PHONEMIC_CANDIDATE", "an exact Google phonemic dictionary entry must outrank an onset-only hint");
+assert.equal(paakApproximation.units[0].provisional_ipa, "peak", "the source phonemic tokens must be converted through the typed IPA adapter");
+assert.equal(paakApproximation.units[0].provisional_ukrainian, "пеак", "the complete provisional IPA candidate must be adapted into Ukrainian");
+assert.equal(paakApproximation.ua, "пеак???", "Soft must expose the lexical IPA candidate with an uncertainty marker");
 assert.equal(paakApproximation.units[0].orthographic_fallback_ukrainian, "Пеак", "the orthographic romanization candidate must remain available but separately typed");
-assert.equal(paakApproximation.phonetic_result.units[0].ukrainian, "п???", "the typed IPA-first result must preserve the visible partial IPA-derived target");
+assert.equal(paakApproximation.phonetic_result.units[0].ukrainian, "пеак???", "the typed IPA-first result must preserve the lexical candidate through the same adapter");
 assert.equal(paakApproximation.phonetic_result.units[0].ukrainian_kind, "IPA_DERIVED_PROVISIONAL");
-assert.equal(paakApproximation.phonetic_result.units[0].ipa, "p", "the typed IPA value must remain bare IPA without display uncertainty markers");
+assert.equal(paakApproximation.phonetic_result.units[0].ipa, "peak", "the typed IPA value must remain bare IPA without display uncertainty markers");
+assert.equal(paakApproximation.phonetic_result.units[0].ipa_kind, "PHONEMIC");
 assert.deepEqual(paakApproximation.phonetic_result.units[0].provenance.structure, ["unicode17-ch16"]);
-assert.deepEqual(paakApproximation.phonetic_result.units[0].provenance.phonology, ["r12a-orthography"], "Unicode structure evidence must not be mislabeled as phonetic evidence");
+assert.deepEqual(paakApproximation.phonetic_result.units[0].provenance.phonology, ["GOOGLE_SOURCE:google-khmer-pronunciation-sample-2026", "GOOGLE_SOURCE_REVISION:a90601024f07ab7e96c911243324e0adeb16da96", "IPA_MAP:2026-11-25.1"], "Google phonemic provenance must remain explicit and distinct from structural evidence");
 
 const multipleShifters = convert("ស៊៉ា", "khmer-pph-careful-citation-v1");
-assert.equal(multipleShifters.status, "EVIDENCE_LIMITED");
+assert.equal(multipleShifters.canonical_status, "EVIDENCE_LIMITED", "the canonical engine status must retain the unresolved evidence state");
+assert.equal(multipleShifters.status, "PROVISIONAL", "the display status must disclose the separately exposed onset-only IPA candidate");
 assert.equal(multipleShifters.units[0].provisional_ipa, "s", "a register conflict must not erase the independently identifiable onset");
 assert.equal(multipleShifters.units[0].provisional_ukrainian, "с???", "the partial target must retain an explicit unknown remainder");
 assert.equal(multipleShifters.ipa, "/s/???", "the primary IPA line must expose the known onset and end with the uncertainty marker");
@@ -154,7 +196,7 @@ assert.equal(mixed.phonetic_result.schema, "khmer-phonetic-result/v1");
 assert.equal(mixed.phonetic_result.partial, true);
 assert.deepEqual(mixed.phonetic_result.pipeline, ["source-orthography", "structural-analysis", "source-phonology", "ipa", "ukrainian-target-adaptation"]);
 assert.equal(mixed.phonetic_result.units[0].ipa, "kɑː", "typed result stores bare IPA, without display delimiters");
-assert.equal(mixed.phonetic_result.units[0].ipa_kind, "UNRESOLVED", "the web runtime must not guess a phonemic or phonetic transcription kind before expert approval");
+assert.equal(mixed.phonetic_result.units[0].ipa_kind, "PHONEMIC", "the source lexical IPA adapter must preserve its declared phonemic representation kind");
 assert.deepEqual(mixed.phonetic_result.units[0].rule_trace, ["KHMER_LEXICAL_FIXTURE", "IPA_TO_UKRAINIAN_LONGEST_MATCH"]);
 assert.equal(mixed.phonetic_result.units.length, mixed.units.length);
 assert.equal(mixed.phonetic_result.units[0].provenance.phonology[0], "wiktionary:ka", "lexical provenance must remain distinct from structural Unicode provenance");
@@ -218,9 +260,11 @@ assert.throws(() => convert("ក", "unsupported_profile"), /Unsupported pronunci
 assert.equal(convert("   ", "khmer-pph-careful-citation-v1"), null);
 
 
-const externalNotice = getStatusNotice(unresolvedWord);
-assert.match(externalNotice, /profile_match=UNVERIFIED/u);
-assert.match(externalNotice, /khmer-phonemizer/u);
+const provisionalNotice = getStatusNotice(unresolvedWord);
+assert.match(provisionalNotice, /локальний фонемний словниковий кандидат/u);
+assert.match(provisionalNotice, /відповідність словникового профілю цільовому профілю не підтверджена/u);
+assert.doesNotMatch(provisionalNotice, /зовнішній IPA-кандидат/u);
+assert.doesNotMatch(provisionalNotice, /khmer-phonemizer/u, "archived provider diagnostics must not be presented as the selected local result");
 const proposedNotice = getStatusNotice(convert("ក", "khmer-pph-careful-citation-v1"));
 assert.match(proposedNotice, /PROPOSED/u);
 assert.match(proposedNotice, /дослідницькими пропозиціями/u);

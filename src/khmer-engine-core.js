@@ -1,3 +1,4 @@
+import { getStatusNotice } from "./khmer-status-notice.js";
 import consonants from "../data/khmer/consonants.json" with { type: "json" };
 import registers from "../data/khmer/registers.json" with { type: "json" };
 import signs from "../data/khmer/signs.json" with { type: "json" };
@@ -11,6 +12,8 @@ import { mapIpa } from "./ukrainian-practical.js";
 import { fromIpa, fromProvisionalIpa, fromUnknownSourceUnit, adaptPhoneticResult, serializePhoneticResult } from "./khmer-ipa-result.js";
 import { segmentKhmerWords, describeWordSegmentation } from "./khmer-word-segmenter.js";
 import { renderLatinWord } from "./khmer-romanization-ukrainian.js";
+import { lookupGooglePhonemicCandidates } from "./google-phonemic-lexicon.js";
+import { parseGooglePhonemic } from "./google-phonemic-ipa.js";
 
 const CONSONANTS = Object.fromEntries(consonants.map((item) => [item.char, item]));
 const PRONUNCIATION_SOURCE_STATUSES = new Set(["PRIMARY_PHONETIC_SOURCE", "SPECIALIST_REFERENCE", "SECONDARY_LEXICAL_REFERENCE"]);
@@ -482,7 +485,7 @@ function deriveOrthographicRomanizationFallback(unit) {
   return rendered.text;
 }
 
-function renderUnknownUnit(unit, profile) {
+function renderUnknownUnit(unit, profile, { outputLevel = "balanced", distilledSyllables = null } = {}) {
   const analysis = parseSyllable(unit);
   if (analysis.status === "INVALID_OR_UNSUPPORTED") {
     return {
@@ -519,9 +522,97 @@ function renderUnknownUnit(unit, profile) {
     }
   }
 
-  // Keep the orthographic candidate available for diagnostics, but never
-  // let it pre-empt an independently supported IPA onset hint.
   const orthographicFallback = deriveOrthographicRomanizationFallback(unit);
+
+  // Prefer a single exact Google lexical pronunciation over an onset-only
+  // preview. It remains provisional because source-profile equivalence is
+  // not independently adjudicated.
+  const googleCandidates = lookupGooglePhonemicCandidates(unit);
+  if (outputLevel !== "strict" && googleCandidates.length === 1) {
+    const lexicalCandidate = googleCandidates[0];
+    const parsed = lexicalCandidate.parsed;
+    const googleTypedIpa = parsed.candidate;
+    const provisionalUkrainian = googleTypedIpa
+      ? adaptPhoneticResult(googleTypedIpa, { allowUncertain: true }) ?? "???"
+      : "???";
+    return {
+      source: unit,
+      ipa: "⟦NOT_ESTABLISHED⟧",
+      ua: "⟦НЕВСТАНОВЛЕНО⟧",
+      status: "NOT_ESTABLISHED",
+      rule_trace: ["GOOGLE_PHONEMIC_LEXICON_LOOKUP", "GOOGLE_PHONEMIC_TO_TYPED_IPA", "IPA_TO_UKRAINIAN_LONGEST_MATCH"],
+      note: "Знайдено точний словниковий запис Google. Його фонемна нотація перетворена на типізовану IPA, але відповідність профілю Phnom Penh не ад'юдикована; це попередній, не підтверджений кандидат.",
+      profile,
+      typed_ipa: googleTypedIpa ?? fromUnknownSourceUnit(unit, { provenance: ["GOOGLE-PHONEMIC-UNRESOLVED"] }),
+      provisional_ipa: parsed.ipa,
+      provisional_ukrainian: provisionalUkrainian,
+      partial_candidate_kind: "LEXICAL_PHONEMIC_CANDIDATE",
+      provisional_candidates: [{
+        candidate_type: "GOOGLE_PHONEMIC_LEXICON",
+        ipa: parsed.ipa,
+        ipa_kind: parsed.ipa_kind,
+        ukrainian: provisionalUkrainian,
+        status: "PROVISIONAL",
+        mapping_status: parsed.mapping_status,
+        source_row: lexicalCandidate.source_row,
+        source_phonemic: lexicalCandidate.source_phonemic,
+        provenance: [...parsed.provenance, `GOOGLE_SOURCE_ROW:${lexicalCandidate.source_row}`],
+        uncertainty: [...parsed.uncertainty, "SOURCE_PROFILE_EQUIVALENCE_UNVERIFIED"],
+      }],
+      google_source_row: lexicalCandidate.source_row,
+      google_source_phonemic: lexicalCandidate.source_phonemic,
+      google_mapping_status: parsed.mapping_status,
+      phonology_evidence: parsed.provenance,
+      orthographic_fallback_ukrainian: orthographicFallback,
+      uncertainty: parsed.uncertainty,
+      analysis,
+      evidence: [],
+    };
+  }
+
+  // The offline neural teacher is distilled at build time. Visitors receive
+  // only this deterministic lookup table; no checkpoint or inference runtime
+  // is loaded in the browser. The candidate remains provisional.
+  if (outputLevel === "exploratory" && distilledSyllables?.[unit]) {
+    const distilled = distilledSyllables[unit];
+    const tokens = distilled.google_phonemic_tokens;
+    const parsed = Array.isArray(tokens) ? parseGooglePhonemic(tokens.join(" ")) : null;
+    if (parsed?.candidate && parsed.ipa) {
+      const provisionalUkrainian = adaptPhoneticResult(parsed.candidate, { allowUncertain: true }) ?? "???";
+      const uncertainty = [
+        "NEURAL_TEACHER_PREDICTION_NOT_SOURCE_ATTESTED",
+        "TARGET_PROFILE_EQUIVALENCE_UNVERIFIED",
+        ...(distilled.uncertainty ?? []),
+        ...parsed.uncertainty,
+      ];
+      return {
+        source: unit,
+        ipa: "⟦NOT_ESTABLISHED⟧",
+        ua: "⟦НЕВСТАНОВЛЕНО⟧",
+        status: "NOT_ESTABLISHED",
+        rule_trace: ["NEURAL_TEACHER_DISTILLED_STATIC_LOOKUP", "GOOGLE_PHONEMIC_TO_TYPED_IPA", "IPA_TO_UKRAINIAN_LONGEST_MATCH"],
+        note: "Попередній IPA-кандидат отримано з локальної детермінованої таблиці, сформованої офлайновою нейромережею. Відвідувач сайту не запускає модель; відповідь є PROVISIONAL і не має незалежної фонетичної ад'юдикації.",
+        profile,
+        typed_ipa: parsed.candidate,
+        provisional_ipa: parsed.ipa,
+        provisional_ukrainian: provisionalUkrainian,
+        partial_candidate_kind: "NEURAL_DISTILLED_OOV_SYLLABLE",
+        neural_teacher_checkpoint_sha256: distilled.teacher_checkpoint_sha256 ?? null,
+        provisional_candidates: [{
+          candidate_type: "NEURAL_DISTILLED_OOV_SYLLABLE",
+          ipa: parsed.ipa,
+          ipa_kind: "PHONEMIC",
+          ukrainian: provisionalUkrainian,
+          status: "PROVISIONAL",
+          provenance: ["OFFLINE_NEURAL_TEACHER", "DETERMINISTIC_DISTILLED_LOOKUP"],
+          uncertainty: [...new Set(uncertainty)],
+        }],
+        phonology_evidence: ["OFFLINE_NEURAL_TEACHER", "DETERMINISTIC_DISTILLED_LOOKUP"],
+        uncertainty: [...new Set(uncertainty)],
+        evidence: [],
+      };
+    }
+  }
 
   // A unit may have a recognized base consonant while its coda, subscript,
   // vowel sequence or syllable boundary remains unresolved. In that case the
@@ -555,6 +646,19 @@ function renderUnknownUnit(unit, profile) {
         unresolved_graphemes: [...unit].slice(1),
         phonology_evidence: (CONSONANTS[analysis.base]?.evidence ?? []).filter((sourceId) => sourceId !== "unicode17-ch16"),
         orthographic_fallback_ukrainian: orthographicFallback,
+        provisional_candidates: lookupGooglePhonemicCandidates(unit).map((candidate) => ({
+          candidate_type: "GOOGLE_PHONEMIC_LEXICON",
+          ipa: candidate.parsed.ipa,
+          ipa_kind: candidate.parsed.ipa_kind,
+          ukrainian: candidate.parsed.candidate
+            ? adaptPhoneticResult(candidate.parsed.candidate, { allowUncertain: true }) ?? "???"
+            : "???",
+          status: "PROVISIONAL",
+          mapping_status: candidate.parsed.mapping_status,
+          source_row: candidate.source_row,
+          source_phonemic: candidate.source_phonemic,
+          uncertainty: [...candidate.parsed.uncertainty, "AUXILIARY_CANDIDATE_DOES_NOT_REPLACE_PARTIAL_ONSET"],
+        })),
         fallback_trace: [{
           source: unit,
           position: "onset",
@@ -633,34 +737,12 @@ function confidenceTier(item) {
   return "D";
 }
 
-function getStatusNotice(data) {
-  if (!data) return "";
-  if (data.selected_external_candidate) {
-    return "Показано зовнішній IPA-кандидат від " + data.selected_external_candidate.provider
-      + ". Це неперевірений широкофонетичний результат: profile_match=UNVERIFIED, незалежної ад'юдикації немає. ??? наприкінці IPA та українського зіставлення позначає весь результат як PROVISIONAL; інші виходи провайдерів збережено в деталях.";
+function convert(text, profile, options = {}) {
+  const outputLevel = options.outputLevel ?? "balanced";
+  const distilledSyllables = options.distilledSyllables ?? null;
+  if (!["strict", "balanced", "exploratory"].includes(outputLevel)) {
+    throw new TypeError("Unsupported deterministic engine output level: " + outputLevel);
   }
-  if (data.ukrainian_output_kind === "ORTHOGRAPHIC_ROMANIZATION_FALLBACK") {
-    return "Український рядок містить попередню орфографічну підказку з романізації, а не підтверджену вимову. ??? позначає невстановлену фонетичну частину; IPA залишається окремо невстановленою.";
-  }
-  if (data.ukrainian_output_kind === "IPA_DERIVED_PARTIAL") {
-    return "Показано лише низькодостовірні IPA-підказки відомих початкових приголосних. Знак ??? позначає невстановлену частину; голосні, фіналі й тон не вгадуються.";
-  }
-  if (data.status === "PROVISIONAL") {
-    return "Показано зовнішній IPA-кандидат зі статусом PROVISIONAL; його профіль не підтверджений незалежною ад'юдикацією.";
-  }
-  if (data.status === "PROPOSED") {
-    return "Результат має статус PROPOSED: IPA та українське читання є дослідницькими пропозиціями для цих записів, а не підтвердженою універсальною моделлю. Перевіряйте джерела й лексичний контекст перед використанням.";
-  }
-  if (data.status === "EVIDENCE_LIMITED" || data.status === "NOT_ESTABLISHED") {
-    return data.note;
-  }
-  if (data.status === "INVALID_OR_UNSUPPORTED") {
-    return "Ввід не підтримується повністю. Перегляньте статус кожної одиниці та не використовуйте маркери непідтвердженого результату як вимову.";
-  }
-  return "";
-}
-
-function convert(text, profile) {
   const normalized = normalize(text);
   if (!normalized.trim()) return null;
 
@@ -674,7 +756,7 @@ function convert(text, profile) {
       rule_trace: ["NON_LINGUISTIC_NUMERAL_PASSTHROUGH"], profile,
     };
     const fixture = fixtures[unit];
-    return fixture ? renderFixture(fixture, profile) : renderUnknownUnit(unit, profile);
+    return fixture ? renderFixture(fixture, profile) : renderUnknownUnit(unit, profile, { outputLevel, distilledSyllables });
   });
 
   rendered.forEach((item) => { item.confidence_tier = confidenceTier(item); });
@@ -737,6 +819,15 @@ function convert(text, profile) {
         || (item.fallback_status === "PROVISIONAL" && Boolean(item.fallback_ukrainian)))
   );
   const hasPartialOnset = rendered.some((item) => item.partial_candidate_kind === "ONSET_ONLY");
+  const hasGoogleLexicalCandidate = rendered.some((item) => item.partial_candidate_kind === "LEXICAL_PHONEMIC_CANDIDATE");
+  const hasNeuralDistilledCandidate = rendered.some((item) => item.partial_candidate_kind === "NEURAL_DISTILLED_OOV_SYLLABLE");
+  const bestEffortCandidateIpa = rendered.map((item) =>
+    ["LEXICAL_PHONEMIC_CANDIDATE", "NEURAL_DISTILLED_OOV_SYLLABLE"].includes(item.partial_candidate_kind)
+      ? "/" + item.provisional_ipa + "/???"
+      : item.partial_candidate_kind === "ONSET_ONLY"
+        ? "/" + item.partial_ipa + "/???"
+        : item.ipa
+  ).join("");
   const provisionalUaParts = [];
   let pendingProvisionalUnknown = false;
   const flushProvisionalUnknown = () => {
@@ -760,9 +851,10 @@ function convert(text, profile) {
       provisionalUaParts.push(item.provisional_ukrainian);
       continue;
     }
-    if (item.fallback_status === "PROVISIONAL" && item.fallback_ukrainian) {
+    if (["LEXICAL_PHONEMIC_CANDIDATE", "NEURAL_DISTILLED_OOV_SYLLABLE"].includes(item.partial_candidate_kind)) {
       flushProvisionalUnknown();
-      provisionalUaParts.push(item.fallback_ukrainian + "???");
+      provisionalUaParts.push(item.provisional_ukrainian && item.provisional_ukrainian !== "???"
+        ? item.provisional_ukrainian + "???" : "???");
       continue;
     }
     pendingProvisionalUnknown = true;
@@ -775,23 +867,23 @@ function convert(text, profile) {
   const phoneticResults = rendered.map((item) => ({
     source: item.source,
     status: item.status,
-    ipa_kind: ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status) ? "NOT_APPLICABLE" : "UNRESOLVED",
+    ipa_kind: ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
+      ? "NOT_APPLICABLE"
+      : item.typed_ipa?.ipa_kind ?? item.ipa_kind ?? "UNRESOLVED",
     rule_trace: item.rule_trace ?? [],
-    ipa: item.partial_ipa ?? (item.status !== "PUNCTUATION" && /^\/.*\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa),
-    ukrainian: item.partial_candidate_kind === "ONSET_ONLY"
-      ? item.provisional_ukrainian
-      : (item.orthographic_fallback_ukrainian || item.fallback_ukrainian)
-        ? (item.orthographic_fallback_ukrainian || item.fallback_ukrainian) + "???"
+    ipa: item.provisional_ipa ?? item.partial_ipa ?? (item.status !== "PUNCTUATION" && /^\/.*\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa),
+    ukrainian: ["LEXICAL_PHONEMIC_CANDIDATE", "NEURAL_DISTILLED_OOV_SYLLABLE"].includes(item.partial_candidate_kind)
+      ? (item.provisional_ukrainian && item.provisional_ukrainian !== "???" ? item.provisional_ukrainian + "???" : "???")
+      : item.partial_candidate_kind === "ONSET_ONLY"
+        ? item.provisional_ukrainian
         : ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
           ? item.ua
           : item.status === "PROPOSED" ? item.ua : "???",
-    ukrainian_kind: item.partial_candidate_kind === "ONSET_ONLY"
+    ukrainian_kind: ["ONSET_ONLY", "LEXICAL_PHONEMIC_CANDIDATE", "NEURAL_DISTILLED_OOV_SYLLABLE"].includes(item.partial_candidate_kind)
       ? "IPA_DERIVED_PROVISIONAL"
-      : item.orthographic_fallback_ukrainian || item.fallback_status === "PROVISIONAL"
-        ? "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
-        : ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
-          ? "NOT_APPLICABLE"
-          : item.status === "PROPOSED" ? "IPA_DERIVED" : "UNRESOLVED",
+      : ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
+        ? "NOT_APPLICABLE"
+        : item.status === "PROPOSED" ? "IPA_DERIVED" : "UNRESOLVED",
     typed_ipa: item.typed_ipa ? serializePhoneticResult(item.typed_ipa) : null,
     profile,
     provenance: {
@@ -804,7 +896,9 @@ function convert(text, profile) {
     },
     uncertainty: ["PUNCTUATION", "NON_LINGUISTIC", "PROPOSED"].includes(item.status)
       ? []
-      : [{ status: item.status, note: item.note ?? "", unresolved_graphemes: item.analysis?.graphemes?.slice(1).map((g) => g.text) ?? item.analysis?.unknown ?? [] }],
+      : item.uncertainty?.length
+        ? item.uncertainty.map((detail) => ({ status: item.status, code: String(detail).split(":")[0], note: detail }))
+        : [{ status: item.status, note: item.note ?? "", unresolved_graphemes: item.analysis?.graphemes?.slice(1).map((g) => g.text) ?? item.analysis?.unknown ?? [] }],
   }));
 
   const canonicalStatus = combineStatus(linguistic);
@@ -827,33 +921,79 @@ function convert(text, profile) {
       selected: false,
     };
   });
-  const selectedExternalCandidate = externalCandidates.find((candidate) =>
+  // Archived provider outputs are retained for inspection only. The
+  // deterministic site engine never lets a captured external candidate
+  // replace its local lexical/rule/neural-distilled result.
+  const archivedExternalCandidate = externalCandidates.find((candidate) =>
     candidate.provider === providerEntry?.selected_provider
     && candidate.status === "PROVISIONAL"
     && candidate.profile_match === "UNVERIFIED"
     && candidate.mapped_ukrainian !== null
     && candidate.mapping_agrees
   ) ?? null;
-  if (selectedExternalCandidate) selectedExternalCandidate.selected = true;
+  const selectedExternalCandidate = null;
   const canonicalIpa = ipa;
   const canonicalUa = ua;
-  const displayIpa = selectedExternalCandidate
-    ? "/" + selectedExternalCandidate.ipa + "/???"
-    : canonicalIpa;
-  const displayUa = selectedExternalCandidate
-    ? selectedExternalCandidate.mapped_ukrainian + "???"
-    : hasOrthographicFallback || hasPartialOnset ? provisionalUa : canonicalUa;
+  const strictIpa = rendered.map((item) =>
+    ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status) ? item.ipa
+      : item.status === "PROPOSED" && item.confidence_tier === "B" ? item.ipa : "⟦NOT_ESTABLISHED⟧"
+  ).join("").replace(/(⟦NOT_ESTABLISHED⟧){2,}/gu, "⟦NOT_ESTABLISHED⟧");
+  const strictUa = rendered.map((item) =>
+    ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status) ? item.ua
+      : item.status === "PROPOSED" && item.confidence_tier === "B" ? item.ua : "???"
+  ).join("");
+  const strictResolvedUnits = linguistic.filter((item) => item.status === "PROPOSED" && item.confidence_tier === "B").length;
+  const softCandidateUnits = linguistic.filter((item) =>
+    item.status === "PROPOSED" || ["LEXICAL_PHONEMIC_CANDIDATE", "ONSET_ONLY"].includes(item.partial_candidate_kind)
+  ).length;
+  const superSoftCandidateUnits = linguistic.filter((item) =>
+    item.status === "PROPOSED" || ["LEXICAL_PHONEMIC_CANDIDATE", "ONSET_ONLY", "NEURAL_DISTILLED_OOV_SYLLABLE"].includes(item.partial_candidate_kind)
+  ).length;
+  const coverageRatio = (covered, total) => total ? covered / total : 0;
+  const tierCoverage = {
+    strict: { ipa_candidate_units: strictResolvedUnits, total_units: linguistic.length, ipa_candidate_coverage: coverageRatio(strictResolvedUnits, linguistic.length) },
+    soft: { ipa_candidate_units: softCandidateUnits, total_units: linguistic.length, ipa_candidate_coverage: coverageRatio(softCandidateUnits, linguistic.length) },
+    super_soft: {
+      ipa_candidate_units: outputLevel === "exploratory" ? superSoftCandidateUnits : null,
+      total_units: linguistic.length,
+      ipa_candidate_coverage: outputLevel === "exploratory" ? coverageRatio(superSoftCandidateUnits, linguistic.length) : null,
+      nonempty_output_units: outputLevel === "exploratory" ? linguistic.length : null,
+      nonempty_output_coverage: outputLevel === "exploratory" && linguistic.length ? 1 : outputLevel === "exploratory" ? 0 : null,
+    },
+  };
+  const strictStatus = !linguistic.length ? canonicalStatus
+    : strictResolvedUnits === linguistic.length ? "PROPOSED"
+      : strictResolvedUnits > 0 ? "EVIDENCE_LIMITED" : "NOT_ESTABLISHED";
+  const strictConfidence = !linguistic.length ? "D"
+    : strictResolvedUnits === linguistic.length ? "B"
+      : strictResolvedUnits > 0 ? "C" : "D";
+  const useNeuralCandidate = outputLevel === "exploratory" && hasNeuralDistilledCandidate;
+  const useLexicalCandidate = outputLevel !== "strict" && hasGoogleLexicalCandidate;
+  const usePartialCandidate = outputLevel !== "strict" && hasPartialOnset;
+  const displayIpa = outputLevel === "strict"
+    ? strictIpa
+    : (useNeuralCandidate || useLexicalCandidate || usePartialCandidate)
+      ? bestEffortCandidateIpa : canonicalIpa;
+  const displayUa = outputLevel === "strict"
+    ? strictUa
+    : (useNeuralCandidate || useLexicalCandidate || usePartialCandidate)
+      ? provisionalUa : canonicalUa;
   const ukrainianOutputKind = selectedExternalCandidate
     ? "EXTERNAL_IPA_PROVISIONAL"
-    : hasOrthographicFallback ? "ORTHOGRAPHIC_ROMANIZATION_FALLBACK"
-      : hasPartialOnset ? "IPA_DERIVED_PARTIAL" : "CANONICAL_IPA_DERIVED_OR_UNRESOLVED";
-  const displayStatus = selectedExternalCandidate || hasOrthographicFallback || hasPartialOnset
-    ? "PROVISIONAL" : canonicalStatus;
-  const confidence = selectedExternalCandidate || hasOrthographicFallback || hasPartialOnset
-    ? "C"
-    : linguistic.length
-      ? linguistic.map((item) => item.confidence_tier).sort((a, b) => ({A:0,B:1,C:2,D:3}[b] - {A:0,B:1,C:2,D:3}[a]))[0]
-      : "D";
+    : useNeuralCandidate ? "NEURAL_DISTILLED_IPA_PROVISIONAL"
+      : useLexicalCandidate ? "IPA_DERIVED_PROVISIONAL"
+        : usePartialCandidate ? "IPA_DERIVED_PARTIAL" : "CANONICAL_IPA_DERIVED_OR_UNRESOLVED";
+  const displayStatus = outputLevel === "strict"
+    ? strictStatus
+    : (useNeuralCandidate || useLexicalCandidate || usePartialCandidate)
+      ? "PROVISIONAL" : canonicalStatus;
+  const confidence = outputLevel === "strict"
+    ? strictConfidence
+    : (useNeuralCandidate || useLexicalCandidate || usePartialCandidate)
+      ? "C"
+      : linguistic.length
+        ? linguistic.map((item) => item.confidence_tier).sort((a, b) => ({A:0,B:1,C:2,D:3}[b] - {A:0,B:1,C:2,D:3}[a]))[0]
+        : "D";
   const wordSegmentation = describeWordSegmentation(units, new Set(Object.keys(fixtures)), normalized);
   const segmentationNote = wordSegmentation.tokens.length
     ? " Сегментація слів: " + wordSegmentation.known_words + " словникових збігів, "
@@ -866,15 +1006,20 @@ function convert(text, profile) {
     + " мають попередній орфографічний український кандидат; "
     + rendered.filter((item) => item.partial_candidate_kind === "ONSET_ONLY").length
     + " мають окрему IPA-підказку лише для початкового приголосного; "
+    + rendered.filter((item) => item.partial_candidate_kind === "LEXICAL_PHONEMIC_CANDIDATE").length
+    + " мають попередній IPA-кандидат із локального фонемного словника; "
     + rendered.filter((item) => item.partial_candidate_kind !== "ONSET_ONLY"
       && (Boolean(item.orthographic_fallback_ukrainian)
         || (item.fallback_status === "PROVISIONAL" && Boolean(item.fallback_ukrainian)))).length
     + " мають орфографічну українську підказку, показану з ???. Це не IPA й не підтверджена вимова. Невизначеність IPA збережено."
     + (unresolvedNames.length ? " Невстановлені/проблемні одиниці: " + unresolvedNames.join(" · ") + "." : "");
-  const note = selectedExternalCandidate
-    ? resultNote + " Додатково показано зовнішній IPA-кандидат від " + selectedExternalCandidate.provider
-      + "; profile_match=UNVERIFIED, статус PROVISIONAL. Знак ??? наприкінці позначає неперевіреність; деталі та інші провайдери наведено нижче."
-    : resultNote;
+  const note = hasNeuralDistilledCandidate
+    ? resultNote + " Для частини OOV-складів показано детермінований кандидат із таблиці, сформованої офлайновою нейромережею; це PROVISIONAL, не незалежно підтверджена вимова."
+    : hasGoogleLexicalCandidate
+      ? resultNote + " Показано локальний Google-фонемний словниковий кандидат через типізований IPA-адаптер; він залишається PROVISIONAL до незалежної перевірки профілю."
+      : archivedExternalCandidate
+        ? resultNote + " Архівний вихід стороннього рушія збережено лише для порівняння в деталях; він не використовується як результат локального детермінованого рушія."
+        : resultNote;
 
   return {
     source: normalized,
@@ -885,12 +1030,20 @@ function convert(text, profile) {
     canonical_status: canonicalStatus,
     external_candidates: externalCandidates,
     backend_failures: providerEntry?.backend_failures ?? [],
-    selected_external_candidate: selectedExternalCandidate,
+    selected_external_candidate: null,
+    archived_external_candidate: archivedExternalCandidate,
     complete,
-    partial: !complete && (resolved.length > 0 || Boolean(selectedExternalCandidate)
-      || hasPartialOnset || hasOrthographicFallback),
-    status: selectedExternalCandidate ? "PROVISIONAL" : canonicalStatus,
+    partial: !complete && (resolved.length > 0
+      || (outputLevel !== "strict" && hasGoogleLexicalCandidate)
+      || (outputLevel === "exploratory" && hasNeuralDistilledCandidate)
+      || (outputLevel !== "strict" && hasPartialOnset)
+      ),
+    status: displayStatus,
     display_status: displayStatus,
+    output_level: outputLevel,
+    strict_ipa: strictIpa,
+    strict_ua: strictUa,
+    tier_coverage: tierCoverage,
     ukrainian_output_kind: ukrainianOutputKind,
     confidence_tier: confidence,
     note: note + segmentationNote,
@@ -901,7 +1054,10 @@ function convert(text, profile) {
       schema: "khmer-phonetic-result/v1",
       pipeline: ["source-orthography", "structural-analysis", "source-phonology", "ipa", "ukrainian-target-adaptation"],
       complete,
-      partial: !complete && (resolved.length > 0 || hasPartialOnset || hasOrthographicFallback),
+      partial: !complete && (resolved.length > 0 || (outputLevel !== "strict" && hasGoogleLexicalCandidate)
+        || (outputLevel === "exploratory" && hasNeuralDistilledCandidate)
+        || (outputLevel !== "strict" && hasPartialOnset)
+        ),
       units: phoneticResults,
     },
     analyses,

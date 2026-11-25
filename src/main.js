@@ -3,9 +3,8 @@ import { khmerToLatin } from "@gmana/km-translit";
 import { renderKhmerRomanizationText, renderRomanizedText } from "./khmer-romanization-ukrainian.js";
 import { buildRomanizationIpaCandidate } from "./khmer-romanization-ipa.js";
 import { analyzeInWorker } from "./khmer-engine-client.js";
-import { convert, getStatusNotice } from "./khmer-engine-core.js";
-import { analyzeWithMekongPhon } from "./mekongphon-browser-client.js";
-import { fromIpa, adaptPhoneticResult } from "./khmer-ipa-result.js";
+import { getStatusNotice } from "./khmer-status-notice.js";
+import { adaptPhoneticResult } from "./khmer-ipa-result.js";
 
 if (typeof document !== "undefined") {
   const $ = (id) => document.getElementById(id);
@@ -27,9 +26,11 @@ if (typeof document !== "undefined") {
   let outputLevelMode = outputLevel?.value || "balanced";
   let activeMode = "phonetic";
   let renderRevision = 0;
-  let modelRequestRevision = 0;
-  let modelBusy = false;
-  let lastModelInput = null;
+
+  async function fallbackConvert(...args) {
+    const { convert } = await import("./khmer-engine-core.js");
+    return convert(...args);
+  }
 
   function setOutputMode(mode) {
     activeMode = mode;
@@ -55,7 +56,15 @@ if (typeof document !== "undefined") {
     const inputText = source.value;
     const profile = $("profile").value;
     $("count").textContent = `${[...inputText].length} символів`;
-    const data = await analyzeInWorker(inputText, profile, convert);
+    if (!inputText.trim()) {
+      results.hidden = true;
+      issue.hidden = true;
+      empty.hidden = false;
+      live.textContent = "Очікує на введення";
+      return;
+    }
+    live.textContent = "Локальний рушій обробляє текст…";
+    const data = await analyzeInWorker(inputText, profile, fallbackConvert, outputLevelMode);
     if (revision !== renderRevision) return;
     if (!data) {
       results.hidden = true;
@@ -69,10 +78,6 @@ if (typeof document !== "undefined") {
     const hasLatin = /\p{Script=Latin}/u.test(data.source);
     const hasMixedScript = hasKhmer && hasLatin;
     const usesKhmerRomanizer = hasKhmer && !hasLatin;
-    const modelButton = $("run-mekongphon");
-    const modelPanel = $("mekongphon-panel");
-    if (modelButton) modelButton.disabled = modelBusy || !hasKhmer || hasLatin;
-    if (modelPanel) modelPanel.hidden = activeMode !== "phonetic" || outputLevelMode === "strict";
 
     const latinRomanization = usesKhmerRomanizer ? khmerToLatin(data.source) : data.source;
     romanizationResult.textContent = latinRomanization;
@@ -180,9 +185,9 @@ if (typeof document !== "undefined") {
               ? data.status.replaceAll("_", " ") + " · PROVISIONAL · ЧАСТКОВА IPA-ПІДКАЗКА · ??? · доказовий рівень C"
               : data.status.replaceAll("_", " ") + " · доказовий рівень " + data.confidence_tier;
     const levelGuidance = {
-      strict: "Обережний рівень: показано лише наявні джерельно індексовані пропозиції; непідтверджені IPA не реконструюються. Якщо вимову не встановлено, окрема орфографічна підказка має суфікс ??? і не є транскрипцією. PROPOSED не є експертним gold.",
-      balanced: "Збалансований рівень: показує основний частковий результат, статус кожної одиниці та причини невизначеності. Невстановлені фрагменти зберігаються на своїх позиціях; орфографічні підказки позначаються ???.",
-      exploratory: "Дослідницький рівень: додатково показує часткові структурні підказки початкового приголосного та доступні орфографічні резервні варіанти. Вони не є повним складом або підтвердженою українською вимовою."
+      strict: "Strict: лише детерміновані правила й джерельно індексовані пропозиції. Немає нейромережевих OOV-підстановок, словникових кандидатів без підтвердження профілю чи часткових підказок. Це найобережніший рівень, але не експертний gold.",
+      balanced: "Soft: додає точні словникові фонемні записи Google та часткові IPA-підказки, коли повну структуру не встановлено. Усі такі доповнення позначені PROVISIONAL і не маскують невизначеність.",
+      exploratory: "Super-soft: додатково використовує статичні детерміновані OOV-кандидати, отримані дистиляцією офлайнової нейромережі, та орфографічні резервні підказки. Це розширює непорожнє покриття, але збільшує частку неперевірених результатів."
     };
     outputLevelNote.textContent = levelGuidance[outputLevelMode];
     $("details").textContent = data.note + " " + levelGuidance[outputLevelMode];
@@ -218,9 +223,14 @@ if (typeof document !== "undefined") {
             + (unit.orthographic_fallback_ukrainian
               ? " · Окрема орфографічна романізація: " + unit.orthographic_fallback_ukrainian + " [BGN/PCGN-derived, не вимова]"
               : "")
-          : unit.provisional_ipa
-            ? " · Попередня підказка: " + unit.provisional_ipa + " → " + unit.provisional_ukrainian + " [PROVISIONAL]"
-            : "");
+          : unit.partial_candidate_kind === "NEURAL_DISTILLED_OOV_SYLLABLE"
+            ? " · Детермінований OOV-кандидат із нейромережевої дистиляції: /" + unit.provisional_ipa + "/ → " + unit.provisional_ukrainian + " [PROVISIONAL · лише Super-soft]"
+            : unit.provisional_ipa
+              ? " · Попередній IPA-кандидат: /" + unit.provisional_ipa + "/ → " + unit.provisional_ukrainian + " [PROVISIONAL]"
+                + (unit.orthographic_fallback_ukrainian
+                  ? " · Окрема орфографічна романізація: " + unit.orthographic_fallback_ukrainian + " [BGN/PCGN-derived, не вимова]"
+                  : "")
+              : "");
       const note = document.createElement("p");
       note.className = "unit-note";
       note.textContent = unit.note || "Окремого пояснення для цієї одиниці немає.";
@@ -371,81 +381,7 @@ if (typeof document !== "undefined") {
   modePhonetic.addEventListener("click", () => setOutputMode("phonetic"));
   modeRomanization.addEventListener("click", () => setOutputMode("romanization"));
   setOutputMode("phonetic");
-  source.addEventListener("input", () => {
-    modelRequestRevision += 1;
-    modelBusy = false;
-    if (lastModelInput !== null && lastModelInput !== source.value) {
-      $("mekongphon-status").textContent = "Ввід змінився після попереднього запуску. Натисніть кнопку, щоб обчислити новий кандидат.";
-    }
-    render();
-  });
-  $("run-mekongphon")?.addEventListener("click", async () => {
-    const input = source.value;
-    if (!/\p{Script=Khmer}/u.test(input) || /\p{Script=Latin}/u.test(input)) {
-      $("mekongphon-status").textContent = "Модель приймає кмерський текст без латинської романізації.";
-      return;
-    }
-    const request = ++modelRequestRevision;
-    modelBusy = true;
-    $("run-mekongphon").disabled = true;
-    $("mekongphon-status").textContent = "Підготовка локальної моделі…";
-    try {
-      const response = await analyzeWithMekongPhon(input, (progress) => {
-        if (request === modelRequestRevision && input === source.value) {
-          $("mekongphon-status").textContent = progress;
-        }
-      });
-      if (request !== modelRequestRevision || input !== source.value) return;
-      if (response.error) {
-        throw new Error(response.message || response.error);
-      }
-      const candidate = response.result;
-      // Publish the raw model transcription first. A target-adapter limitation
-      // must never hide a successfully generated IPA candidate.
-      $("mekongphon-ipa").textContent = candidate.ipa
-        ? (candidate.ipa.startsWith("/") ? candidate.ipa : "/" + candidate.ipa + "/")
-        : "⟦IPA не повернуто⟧";
-      let ukrainian = null;
-      let mappingError = null;
-      try {
-        const typed = fromIpa(candidate.ipa, {
-          status: "UNCERTAIN",
-          provenance: [
-            "MekongPhon:" + candidate.model_revision,
-            "ONNX-Runtime-Web:WASM",
-            "BROWSER-LOCAL-INFERENCE",
-          ],
-          uncertainty: candidate.uncertainty,
-        });
-        ukrainian = adaptPhoneticResult(typed, { allowUncertain: true });
-      } catch (error) {
-        mappingError = error instanceof Error ? error.message : String(error);
-      }
-      $("mekongphon-ua").textContent = ukrainian
-        ? ukrainian
-        : "— · IPA-кандидат отримано, але український адаптер не зміг зіставити всі його сегменти";
-      $("mekongphon-status").textContent =
-        "PROVISIONAL · " + candidate.provider + "@" + candidate.model_revision.slice(0, 12)
-        + " · profile match " + candidate.profile_match
-        + " · " + candidate.elapsed_ms + " ms"
-        + " · " + candidate.input_token_count + " вхідних токенів"
-        + " · ваги " + (candidate.model_bytes / 1048576).toFixed(1) + " MB"
-        + (candidate.input_truncated ? " · ввід обрізано до ліміту моделі" : "")
-        + (mappingError ? " · UA-адаптер: " + mappingError : "")
-        + " · текст не надсилався на сервер";
-      lastModelInput = input;
-    } catch (error) {
-      if (request === modelRequestRevision) {
-        $("mekongphon-status").textContent =
-          "Локальний рушій не запустився: " + (error instanceof Error ? error.message : String(error));
-      }
-    } finally {
-      if (request === modelRequestRevision) {
-        modelBusy = false;
-        render();
-      }
-    }
-  });
+  source.addEventListener("input", render);
   outputLevel?.addEventListener("change", () => { outputLevelMode = outputLevel.value; render(); });
   $("profile").addEventListener("change", render);
   $("example").addEventListener("click", () => {

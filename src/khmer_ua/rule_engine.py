@@ -16,7 +16,8 @@ from .normalize import normalize_khmer
 from .parser import analyze as analyze_structure
 from .word_segmenter import describe_word_segmentation, segment_words
 from .phonetic_result import PhoneticResult, PhoneticUnitResult, PhoneticUncertainty
-from .ipa_result import from_ipa, from_provisional_ipa, from_unknown_source_unit
+from .ipa_result import from_ipa, from_provisional_ipa, from_provisional_full_ipa, from_unknown_source_unit
+from .google_phonemic import load_google_phonemic_lexicon
 from .ipa_target import adapt_phonetic_result
 from .practical import map_ipa_string
 
@@ -60,7 +61,7 @@ def _confidence_tier(unit: dict[str, Any]) -> str:
         and registered_phonology_source
     ):
         return "B"
-    if unit.get("provisional_ipa") or status in {"EVIDENCE_LIMITED", "PROPOSED", "PROVISIONAL", "ANALYSIS_DEPENDENT"}:
+    if unit.get("provisional_ipa") or unit.get("provisional_candidates") or status in {"EVIDENCE_LIMITED", "PROPOSED", "PROVISIONAL", "ANALYSIS_DEPENDENT"}:
         return "C"
     if status in {"PUNCTUATION", "NON_LINGUISTIC"}:
         return "N/A"
@@ -352,22 +353,52 @@ def _analyze_unit(unit: str) -> dict[str, Any]:
                     "ukrainian": ukrainian,
                     "status": "PROPOSED" if unsupported is None else "NOT_ESTABLISHED",
                     "rule_trace": ["KHMER_REGISTER_SERIES_INHERENT_VOWEL", "IPA_TO_UKRAINIAN_LONGEST_MATCH"],
+                    "ipa_kind": "UNRESOLVED",
                     "reason": "Conservative series-based inherent-vowel rule; source evidence is recorded, but the output remains proposed pending profile-matched adjudication.",
                     "evidence": list(consonant_evidence),
                     "structure": structure.phonological_representation,
                 }
 
     preview = _provisional_preview(structure, unit)
-    return {
+    result = {
         "source": unit, "ipa": None, "ukrainian": None, "status": "NOT_ESTABLISHED",
         "provisional_ipa": preview["ipa_preview"] if preview else None,
         "provisional_ukrainian": preview["ukrainian_preview"] if preview else None,
         "fallback_status": preview["status"] if preview else "UNKNOWN",
         "fallback_trace": preview["syllables"] if preview else [],
-        "rule_trace": ["KHMER_UNSUPPORTED_PATTERN_WITHHELD", "PROVISIONAL_ONSET_IPA_PREVIEW"],
+        "rule_trace": ["KHMER_UNSUPPORTED_PATTERN_WITHHELD"]
+            + (["PROVISIONAL_ONSET_IPA_PREVIEW"] if preview else []),
         "reason": "Canonical IPA remains withheld. A separate low-confidence onset-only preview is offered where a registered consonant IPA is available; no vowel, coda or tone is inferred.",
         "structure": structure.phonological_representation,
     }
+    # The Google source lexicon is auxiliary. It never overwrites the
+    # deterministic engine's canonical abstention.
+    google_candidates = load_google_phonemic_lexicon().lookup(unit)
+    if google_candidates:
+        result["provisional_candidates"] = [
+            {
+                "candidate_type": "GOOGLE_PHONEMIC_LEXICON",
+                "ipa": candidate.parsed.ipa,
+                "ipa_kind": candidate.parsed.ipa_kind,
+                "ukrainian": (
+                    adapt_phonetic_result(candidate.parsed.candidate, allow_uncertain=True)
+                    if candidate.parsed.candidate is not None else None
+                ),
+                "status": "PROVISIONAL",
+                "mapping_status": candidate.parsed.mapping_status,
+                "profile": candidate.parsed.profile,
+                "source_row": candidate.source_row,
+                "source_label": candidate.source_label,
+                "provenance": list(candidate.parsed.provenance) + [
+                    f"GOOGLE_SOURCE_ROW:{candidate.source_row}"
+                ],
+                "uncertainty": list(candidate.parsed.uncertainty) + [
+                    "AUXILIARY_CANDIDATE_DOES_NOT_REPLACE_CANONICAL_ENGINE_OUTPUT"
+                ],
+            }
+            for candidate in google_candidates
+        ]
+    return result
 
 
 def _combine_status(units: list[dict[str, Any]]) -> str:
@@ -428,6 +459,7 @@ class RuleBasedKhmerEngine:
         )
         has_provisional_preview = any(
             unit.get("provisional_ipa") or unit.get("provisional_ukrainian")
+            or unit.get("provisional_candidates")
             for unit in linguistic
         )
         partial = not complete and (bool(resolved) or has_provisional_preview)
@@ -454,16 +486,40 @@ class RuleBasedKhmerEngine:
                     note=unit.get("reason", ""),
                     unresolved_graphemes=tuple(unresolved_graphemes),
                 ),)
+            if unit.get("uncertainty"):
+                uncertainty = tuple(uncertainty) + tuple(
+                    PhoneticUncertainty(
+                        status=status,
+                        note=str(detail),
+                        unresolved_graphemes=tuple(unresolved_graphemes),
+                    )
+                    for detail in unit.get("uncertainty", ())
+                )
 
             typed_ipa = None
             if status not in {"PUNCTUATION", "NON_LINGUISTIC"}:
                 if source_ipa is not None:
-                    typed_ipa = from_ipa(
-                        source_ipa,
-                        status="UNCERTAIN",
-                        provenance=tuple(phonology_sources),
-                        uncertainty=(unit.get("reason", ""),) if unit.get("reason") else (),
-                    )
+                    kind = unit.get("ipa_kind", "PHONEMIC")
+                    if kind not in {"PHONEMIC", "PHONETIC_BROAD", "PHONETIC_NARROW"}:
+                        kind = "PHONEMIC"
+                    uncertainty_notes = tuple(unit.get("uncertainty", ())) + ((unit.get("reason", ""),) if unit.get("reason") else ())
+                    if status == "PROVISIONAL":
+                        typed_ipa = from_provisional_full_ipa(
+                            source_ipa,
+                            kind=kind,
+                            profile=self.profile,
+                            provenance=tuple(phonology_sources),
+                            uncertainty=uncertainty_notes,
+                        )
+                    else:
+                        typed_ipa = from_ipa(
+                            source_ipa,
+                            status="UNCERTAIN",
+                            kind=kind,
+                            profile=self.profile,
+                            provenance=tuple(phonology_sources),
+                            uncertainty=uncertainty_notes,
+                        )
                 elif unit.get("provisional_ipa"):
                     fallback_trace = unit.get("fallback_trace", [])
                     fallback_unresolved = tuple(
@@ -476,12 +532,15 @@ class RuleBasedKhmerEngine:
                         unresolved_graphemes=fallback_unresolved or ("UNKNOWN_REMAINDER",),
                         provenance=tuple(phonology_sources) or ("KHMER-PREVIEW-ONSET-IPA-V1",),
                         uncertainty=(unit.get("reason", ""),) if unit.get("reason") else (),
+                        kind=unit.get("ipa_kind", "PHONETIC_BROAD"),
+                        profile=self.profile,
                     )
                 else:
                     typed_ipa = from_unknown_source_unit(
                         unit["source"],
                         provenance=tuple(phonology_sources) or ("KHMER-ENGINE-UNRESOLVED",),
                         uncertainty=(unit.get("reason", ""),) if unit.get("reason") else (),
+                        profile=self.profile,
                     )
             typed_ua = (
                 adapt_phonetic_result(typed_ipa, allow_uncertain=True)
@@ -502,7 +561,12 @@ class RuleBasedKhmerEngine:
                 ipa=ipa_value,
                 ukrainian=ua_value,
                 profile=self.profile,
-                ipa_kind="NOT_APPLICABLE" if status in {"PUNCTUATION", "NON_LINGUISTIC"} else "UNRESOLVED",
+                # Preserve explicit per-unit kind decisions; default to the
+                # typed adapter's kind only for source-registered lexical IPA.
+                ipa_kind=(
+                    "NOT_APPLICABLE" if status in {"PUNCTUATION", "NON_LINGUISTIC"}
+                    else unit.get("ipa_kind", typed_ipa.ipa_kind if typed_ipa is not None else "UNRESOLVED")
+                ),
                 ukrainian_kind=(
                     "NOT_APPLICABLE" if status in {"PUNCTUATION", "NON_LINGUISTIC"}
                     else "IPA_DERIVED_PROVISIONAL" if typed_ipa is not None and typed_ipa.status == "PROVISIONAL"
@@ -559,6 +623,11 @@ class RuleBasedKhmerEngine:
             "reason": " ".join(reasons),
             "evidence": evidence,
             "units": rendered,
+            "provisional_candidates": [
+                {"source": unit["source"], **candidate}
+                for unit in rendered
+                for candidate in unit.get("provisional_candidates", [])
+            ],
             "word_segmentation": describe_word_segmentation(tokens, set(_LEXICON), normalized),
             "phonetic_result": phonetic_result,
             "structure": structure.phonological_representation,

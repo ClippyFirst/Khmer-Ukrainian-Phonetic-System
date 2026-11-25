@@ -4,6 +4,10 @@ name: Quality checks
   push:
   pull_request:
 
+concurrency:
+  group: quality-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
@@ -30,6 +34,9 @@ jobs:
 
       - name: Run Python tests
         run: pytest -q
+
+      - name: Verify generated Google phonemic lexicon shards
+        run: python scripts/build_google_phonemic_lexicon.py --check
 
       - name: Set up Node.js
         uses: actions/setup-node@v7
@@ -113,3 +120,165 @@ jobs:
           path: dist/models/mekongphon/
           if-no-files-found: error
           retention-days: 14
+
+  distillation-source-matrix:
+    if: github.ref == 'refs/heads/feat/deterministic-neural-distillation-20261125' || github.head_ref == 'feat/deterministic-neural-distillation-20261125'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-mekongphon-browser-export.txt
+
+      - name: Install pinned teacher inference toolchain
+        run: python -m pip install --upgrade pip && python -m pip install -r requirements-mekongphon-browser-export.txt
+
+      - name: Compare greedy and beam4 MekongPhon output with the source-attested matrix
+        run: python scripts/benchmark_mekongphon_source_matrix.py --output dist/mekongphon-source-matrix-report.json
+
+      - name: Upload aggregate-only diagnostic
+        uses: actions/upload-artifact@v6
+        with:
+          name: mekongphon-source-matrix-${{ github.sha }}
+          path: dist/mekongphon-source-matrix-report.json
+          if-no-files-found: error
+          retention-days: 14
+
+  nckl-phonemizer-bridge:
+    if: github.ref == 'refs/heads/feat/deterministic-neural-distillation-20261125' || github.head_ref == 'feat/deterministic-neural-distillation-20261125'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install pinned NCKL model and deterministic phonemizer
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu "torch==2.5.1"
+          python -m pip install "huggingface-hub==0.26.2" "safetensors==0.4.5" "khmer-g2p==0.1.0"
+          python -m pip install -e ".[phonemizer]"
+
+      - name: Compare direct IPA phonemizer with NCKL-respelling bridge
+        run: python scripts/benchmark_nckl_phonemizer_bridge.py --output dist/nckl-phonemizer-bridge-report.json
+
+      - name: Upload aggregate-only bridge diagnostic
+        uses: actions/upload-artifact@v6
+        with:
+          name: nckl-phonemizer-bridge-${{ github.sha }}
+          path: dist/nckl-phonemizer-bridge-report.json
+          if-no-files-found: error
+          retention-days: 14
+
+  google-phonemic-teacher:
+    if: github.ref == 'refs/heads/feat/deterministic-neural-distillation-20261125' || github.head_ref == 'feat/deterministic-neural-distillation-20261125'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-google-teacher.txt
+
+      - name: Install project test dependencies
+        run: python -m pip install --upgrade pip && python -m pip install -e ".[test]"
+
+      - name: Install pinned CPU-only neural teacher runtime
+        run: python -m pip install -r requirements-google-teacher.txt
+
+      - name: Train word-disjoint Google Khmer phonemic teacher
+        run: python scripts/train_google_phonemic_teacher.py --epochs 12 --batch-size 192 --embedding-size 96 --hidden-size 128 --output-dir dist/google-khmer-teacher
+
+      - name: Distill teacher predictions into a deterministic OOV syllable candidate table
+        run: python scripts/distill_google_teacher.py --checkpoint dist/google-khmer-teacher/teacher.pt --output-dir dist/google-khmer-teacher --batch-size 192
+
+      - name: Validate static deterministic candidate artifact and evidence limits
+        run: python scripts/validate_google_distilled_syllables.py dist/google-khmer-teacher/distilled-syllables.json
+
+      - name: Upload offline teacher and deterministic distillation artifacts
+        uses: actions/upload-artifact@v6
+        with:
+          name: google-khmer-phonemic-teacher-${{ github.sha }}
+          path: |
+            dist/google-khmer-teacher/teacher.pt
+            dist/google-khmer-teacher/metrics.json
+            dist/google-khmer-teacher/distilled-syllables.json
+            dist/google-khmer-teacher/distillation-metrics.json
+          if-no-files-found: error
+          retention-days: 14
+
+  pages-build-check:
+    if: github.ref == 'refs/heads/feat/deterministic-neural-distillation-20261125' || github.head_ref == 'feat/deterministic-neural-distillation-20261125'
+    needs: google-phonemic-teacher
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Download exact-head teacher and distillation artifact
+        uses: actions/download-artifact@v6
+        with:
+          name: google-khmer-phonemic-teacher-${{ github.sha }}
+          path: dist/google-khmer-teacher
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Stage static deterministic candidate table
+        run: |
+          mkdir -p public/data
+          cp dist/google-khmer-teacher/distilled-syllables.json public/data/google-neural-distilled-syllables.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          artifact = json.loads(Path("public/data/google-neural-distilled-syllables.json").read_text(encoding="utf-8"))
+          assert artifact.get("schema") == "google-khmer-neural-distilled-syllables/v1"
+          accepted = len(artifact.get("candidates", []))
+          rejected = sum(artifact.get("rejected", {}).values())
+          assert accepted + rejected == artifact["inventory"]["oov_syllable_candidates"]
+          assert accepted > 0
+          print("staged deterministic OOV table:", len(artifact["candidates"]), "candidates")
+          PY
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Run production web checks
+        run: npm run check
+
+      - name: Build production Pages site with the real distilled table
+        run: |
+          npm run build
+          test -s dist/data/google-neural-distilled-syllables.json
+          cmp public/data/google-neural-distilled-syllables.json dist/data/google-neural-distilled-syllables.json
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Verify production page in Chromium with the real static table
+        run: npm run test:browser
