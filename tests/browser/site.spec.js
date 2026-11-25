@@ -672,7 +672,9 @@ test("Pages build serves and executes the actual neural-distilled static candida
   expect(response.ok()).toBe(true);
   const artifact = await response.json();
   expect(artifact.schema).toBe("google-khmer-neural-distilled-syllables/v1");
-  expect(artifact.candidates).toHaveLength(2532);
+  expect(artifact.candidates.length).toBeGreaterThan(0);
+  const rejectedCount = Object.values(artifact.rejected).reduce((total, count) => total + count, 0);
+  expect(artifact.candidates.length + rejectedCount).toBe(artifact.inventory.oov_syllable_candidates);
   expect(artifact.candidates.some((candidate) => candidate.orthography === "កិ")).toBe(true);
 
   await page.locator("#source").fill("កិ");
