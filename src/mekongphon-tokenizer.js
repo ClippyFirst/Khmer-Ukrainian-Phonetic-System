@@ -56,15 +56,18 @@ function buildTokenizer(data) {
     return symbols;
   }
 
-  function encode(text, { maxLength = data.truncation?.max_length ?? 128 } = {}) {
-    const ids = [];
+  function encodeWithMetadata(text, { maxLength = data.truncation?.max_length ?? 128 } = {}) {
+    const allIds = [];
     for (const piece of String(text).match(PRETOKENIZER) ?? []) {
       const bytes = new TextEncoder().encode(piece);
       const byteEncoded = [...bytes].map((byte) => BYTE_ENCODER.get(byte)).join("");
-      for (const token of bpe(byteEncoded)) ids.push(vocab[token] ?? unknownId);
-      if (ids.length >= maxLength) break;
+      for (const token of bpe(byteEncoded)) allIds.push(vocab[token] ?? unknownId);
     }
-    return ids.slice(0, maxLength);
+    return { ids: allIds.slice(0, maxLength), truncated: allIds.length > maxLength };
+  }
+
+  function encode(text, options) {
+    return encodeWithMetadata(text, options).ids;
   }
 
   function decode(ids, { skipSpecialTokens = true } = {}) {
@@ -89,7 +92,7 @@ function buildTokenizer(data) {
     return new TextDecoder("utf-8", { fatal: false }).decode(new Uint8Array(bytes));
   }
 
-  return { encode, decode };
+  return { encode, encodeWithMetadata, decode };
 }
 
 export function createMekongPhonTokenizers(encoderJson, decoderJson) {
