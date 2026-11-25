@@ -209,6 +209,9 @@ jobs:
       - name: Distill teacher predictions into a deterministic OOV syllable candidate table
         run: python scripts/distill_google_teacher.py --checkpoint dist/google-khmer-teacher/teacher.pt --output-dir dist/google-khmer-teacher --batch-size 192
 
+      - name: Validate static deterministic candidate artifact and evidence limits
+        run: python scripts/validate_google_distilled_syllables.py dist/google-khmer-teacher/distilled-syllables.json
+
       - name: Upload offline teacher and deterministic distillation artifacts
         uses: actions/upload-artifact@v6
         with:
