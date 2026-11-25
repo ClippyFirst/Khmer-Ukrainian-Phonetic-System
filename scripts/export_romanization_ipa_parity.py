@@ -19,7 +19,14 @@ cases = [
     ("ប", "b"),
     ("ក", "kh"),
     ("្ក", "k"),
-]
+    (("កិ", "ke"), ("គិ", "ki"), ("កឹ", "koe"), ("គឹ", "koe"),
+     ("កឺ", "koe"), ("គឺ", "koe"), ("កុ", "ko"), ("គុ", "ku"),
+     ("កូ", "ko"), ("គូ", "ku"), ("កេ", "ke"), ("គេ", "ke"),
+     ("កែ", "ke"), ("គែ", "ke"), ("កៃ", "kai"), ("គៃ", "key"),
+     ("កោ", "kao"), ("គោ", "ko"), ("កៅ", "kau"), ("គៅ", "kou"),
+     ("កើ", "kaeu"), ("គើ", "keu"), ("កឿ", "koea"), ("គឿ", "koea"),
+     ("កួ", "kuo"), ("គួ", "kuo")),
+ ]
 output = []
 for source, romanized in cases:
     result = build_romanization_ipa_candidate(source, romanized)
