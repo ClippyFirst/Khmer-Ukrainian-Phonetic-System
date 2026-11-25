@@ -23,8 +23,14 @@ async function loadRuntime(postProgress) {
       fetch(asset("models/mekongphon/decoder_tokenizer.json")).then(checkJson),
     ]);
     const tokenizers = createMekongPhonTokenizers(encoderJson, decoderJson);
+    const modelBytes = Object.entries(manifest.files ?? {})
+      .filter(([name]) => name.endsWith(".int8.onnx"))
+      .reduce((total, [, item]) => total + (item.bytes ?? 0), 0);
 
-    postProgress("Завантаження ваг MekongPhon (лише на цей пристрій)…");
+    postProgress(
+      "Завантаження ваг MekongPhon (~" + (modelBytes / 1048576).toFixed(1)
+      + " MB; лише на цей пристрій)…",
+    );
     const [encoder, decoder] = await Promise.all([
       ort.InferenceSession.create(asset("models/mekongphon/encoder.int8.onnx"), {
         executionProviders: ["wasm"],
@@ -35,7 +41,7 @@ async function loadRuntime(postProgress) {
         graphOptimizationLevel: "all",
       }),
     ]);
-    return { ort, manifest, tokenizers, encoder, decoder };
+    return { ort, manifest, tokenizers, encoder, decoder, modelBytes };
   })().catch((error) => {
     runtimePromise = undefined;
     throw error;
@@ -223,6 +229,7 @@ self.addEventListener("message", async ({ data }) => {
         elapsed_ms: Math.round(elapsed),
         execution_provider: "onnxruntime-web-wasm",
         input_sent_to_server: false,
+        model_bytes: runtime.modelBytes,
       },
     });
   } catch (error) {
