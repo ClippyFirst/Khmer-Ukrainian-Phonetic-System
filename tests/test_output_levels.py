@@ -14,7 +14,7 @@ def test_shared_strictness_labels_preserve_existing_semantics():
 
     assert 'strict: "Strict: лише детерміновані правила' in main
     assert 'balanced: "Soft: додає точні словникові фонемні записи Google, повні CV/CVC-кандидати' in main
-    assert 'exploratory: "Super-soft: додатково використовує статичні детерміновані OOV-кандидати' in main
+    assert 'exploratory: "Super-soft: додатково використовує розширені OOV-кандидати' in main
     assert 'outputLevel !== "strict"' in engine
 
 
