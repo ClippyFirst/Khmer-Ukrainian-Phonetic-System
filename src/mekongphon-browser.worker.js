@@ -88,7 +88,7 @@ function topLogProbabilities(row, limit) {
 
 async function generateBeam({ ort, encoder, decoder, tokenizers, manifest }, text, postProgress) {
   const maxLength = manifest.generation?.max_length ?? 128;
-  const beamSize = 4;
+  const beamSize = manifest.generation?.num_beams ?? 1;
   const lengthPenalty = manifest.generation?.length_penalty ?? 1.0;
   const encodedInput = tokenizers.encoder.encodeWithMetadata(text, { maxLength });
   const inputIds = encodedInput.ids;
