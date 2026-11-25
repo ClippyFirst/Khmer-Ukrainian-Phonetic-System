@@ -1,7 +1,7 @@
 # Romanization-mediated IPA candidate path — design
 
 Date: 2026-11-25
-Status: APPROVED — implementation in progress (2026-11-25)
+Status: APPROVED — first implementation stage delivered; broader phonology remains partial (2026-11-25)
 Base: `main` at `e972cd503f3670d08a2fbf0812efdc701513a810`
 
 ## Intent
@@ -70,3 +70,14 @@ Improve the “Українська через романізацію” mode by
 ## Decisions left to implementation
 
 The builder should first verify the exact behavior and licensing of `@gmana/km-translit`, whether it exposes aligned/tokenized output or only a diacritic-stripped string, and whether a safe source-aligned representation can be added without replacing the current romanizer. If alignment cannot be recovered reliably, the bridge must use the original Khmer orthographic structure alongside the romanized sequence rather than pretending the ASCII string is lossless.
+
+## Implementation status — 2026-11-25
+
+The first executable stage is implemented on branch `feat/romanization-mediated-ipa-20261125` (draft PR #572):
+
+- A source-aligned PCGN onset adapter cross-checks the leading romanization token against the original Khmer base consonant and the repository's source-registered onset IPA.
+- The resulting typed IPA is always `PROVISIONAL` or `UNRESOLVED`; Ukrainian output uses the existing IPA-only adapter.
+- The context-sensitive PCGN BA `b/p` row abstains. Vowels, codas, syllable boundaries, tone and dialect detail remain unresolved.
+- The orthographic romanization card remains separately available and explicitly marked “не вимова”.
+- Python/JavaScript semantics and all registered onset rules have parity tests. Quality checks passed on `9d5acbb95fbe46df884d1ccc2482eb48d6d6f90e`; Chromium smoke passed 43/43 on the same code head.
+- This is a verified partial implementation, not completion of the full contextual G2P acceptance criteria. The vowel model explicitly warns that its representative contrasts are not a complete deterministic orthography-to-IPA matrix. Do not generalize the onset-only inventory into vowel/coda rules without additional evidence and tests.
