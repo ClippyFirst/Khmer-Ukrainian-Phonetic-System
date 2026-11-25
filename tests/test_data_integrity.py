@@ -205,3 +205,25 @@ def test_national_assembly_components_are_source_registered_and_not_gold():
         assert corpus[word]["ipa_status"] == "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED"
         assert corpus[word]["evidence_status"] == corpus[word]["ipa_status"]
         assert corpus[word]["sources"]
+
+
+def test_mekongphon_browser_model_registry_pins_artifact_runtime_and_evidence_limits():
+    sources = json.loads((ROOT / "data/khmer/sources.json").read_text(encoding="utf-8"))
+    model = next(row for row in sources if row["id"] == "byumatrixlab-khmer-ipa-model")
+    runtime = model["browser_runtime"]
+    assert model["status"] == "OPTIONAL_EXTERNAL_MODEL_CANDIDATE_BROWSER_LOCAL_PORTED"
+    assert model["license"] == "Apache-2.0"
+    assert runtime["model_revision"] == "20e069d384b240da76320e1569958568c12a54bc"
+    assert runtime["model_artifact_license"] == "Apache-2.0"
+    assert runtime["runtime"] == "onnxruntime-web@1.23.2"
+    assert runtime["runtime_license"] == "MIT"
+    assert runtime["runtime_tarball_integrity"].startswith("sha512-")
+    assert runtime["model_weight_bytes"] == 35001440
+    assert runtime["user_text_sent_to_server"] is False
+    assert runtime["model_training_corpus_distributed"] is False
+    assert runtime["profile_match"] == "UNVERIFIED"
+    assert runtime["ipa_gold"] is False
+    assert runtime["accuracy_claim"] is False
+    assert runtime["phrase_probe"]["input"] == "សភាតំណាងប្រជាជនកម្ពុជា"
+    assert runtime["phrase_probe"]["fp32_cer_vs_transformers"] == 0.030303030303030304
+    assert runtime["phrase_probe"]["int8_cer_vs_fp32"] == 0
