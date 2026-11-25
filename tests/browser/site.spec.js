@@ -684,3 +684,15 @@ test("Pages build serves and executes the actual neural-distilled static candida
   await expect(page.locator("#unit-details")).toContainText("NEURAL_TEACHER_PREDICTION_NOT_SOURCE_ATTESTED");
   await expect.poll(() => workerUrls.some((url) => url.includes("khmer-engine.worker"))).toBe(true);
 });
+
+test("initial page does not load the large engine worker until non-empty input", async ({ page }) => {
+  const workerUrls = [];
+  page.on("worker", (worker) => workerUrls.push(worker.url()));
+  await page.goto("/");
+  await expect(page.locator("#empty")).toBeVisible();
+  expect(workerUrls).toHaveLength(0);
+
+  await page.locator("#source").fill("កិ");
+  await expect.poll(() => workerUrls.some((url) => url.includes("khmer-engine.worker"))).toBe(true);
+  await expect(page.locator("#ipa-result")).not.toHaveText("—");
+});
