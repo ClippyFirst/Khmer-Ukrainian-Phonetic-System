@@ -1,7 +1,7 @@
 {
-  "schema": "khmer-romanization-ipa-onsets/v1",
+  "schema": "khmer-romanization-ipa-candidates/v1",
   "evidence": "PCGN 1972 consonant table; source onset_ipa from data/khmer/consonants.json (Unicode 17 / R12a inventory)",
-  "note": "Only source-verified onset correspondences. Vowels, codas and syllable structure are deliberately not inferred. The ambiguous PCGN b/p row is excluded.",
+  "note": "The entries array contains only source-registered base-consonant onset correspondences. The representative_syllables array contains six exact, source-cited series/vowel examples copied from the repository's representative IPA contrasts; these are not generalized to other vowel signs, codas, or syllable contexts. No unlisted vowel or coda is inferred.",
   "entries": [
     {
       "source_units": [
