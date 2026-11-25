@@ -16,7 +16,7 @@ from .normalize import normalize_khmer
 from .parser import analyze as analyze_structure
 from .word_segmenter import describe_word_segmentation, segment_words
 from .phonetic_result import PhoneticResult, PhoneticUnitResult, PhoneticUncertainty
-from .ipa_result import from_ipa, from_provisional_ipa, from_unknown_source_unit
+from .ipa_result import from_ipa, from_provisional_ipa, from_provisional_full_ipa, from_unknown_source_unit
 from .ipa_target import adapt_phonetic_result
 from .practical import map_ipa_string
 
