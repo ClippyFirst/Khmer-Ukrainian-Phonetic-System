@@ -11,6 +11,7 @@ import { mapIpa } from "./ukrainian-practical.js";
 import { fromIpa, fromProvisionalIpa, fromUnknownSourceUnit, adaptPhoneticResult, serializePhoneticResult } from "./khmer-ipa-result.js";
 import { segmentKhmerWords, describeWordSegmentation } from "./khmer-word-segmenter.js";
 import { renderLatinWord } from "./khmer-romanization-ukrainian.js";
+import { lookupGooglePhonemicCandidates } from "./google-phonemic-lexicon.js";
 
 const CONSONANTS = Object.fromEntries(consonants.map((item) => [item.char, item]));
 const PRONUNCIATION_SOURCE_STATUSES = new Set(["PRIMARY_PHONETIC_SOURCE", "SPECIALIST_REFERENCE", "SECONDARY_LEXICAL_REFERENCE"]);
@@ -483,6 +484,42 @@ function deriveOrthographicRomanizationFallback(unit) {
 }
 
 function renderUnknownUnit(unit, profile) {
+  const googleCandidates = lookupGooglePhonemicCandidates(unit);
+  if (googleCandidates.length === 1) {
+    const lexicalCandidate = googleCandidates[0];
+    const parsed = lexicalCandidate.parsed;
+    const typedIpa = parsed.candidate;
+    const provisionalUkrainian = typedIpa
+      ? adaptPhoneticResult(typedIpa, { allowUncertain: true }) ?? "???"
+      : "???";
+    const sourceId = "google-khmer-pronunciation-sample-2026";
+    const inventoryId = "google-khmer-phonology-inventory-2026";
+    return {
+      source: unit,
+      ipa: "⟦NOT_ESTABLISHED⟧",
+      ua: "⟦НЕВСТАНОВЛЕНО⟧",
+      status: "PROVISIONAL",
+      rule_trace: [
+        "GOOGLE-PHONEMIC-LEXICON-EXACT",
+        "GOOGLE-PHONEMIC-TO-IPA",
+        `GOOGLE-SOURCE-ROW:${lexicalCandidate.source_row}`,
+        "IPA-TO-UKRAINIAN-LONGEST-MATCH",
+      ],
+      note: "Є локальний словниковий фонемний кандидат Google, перетворений на типізовану IPA. Відповідність обраному профілю та всі фонемні відповідності ще не ад'юдиковано; ??? позначає попередній статус.",
+      profile,
+      typed_ipa: typedIpa,
+      provisional_ipa: parsed.ipa,
+      provisional_ukrainian: provisionalUkrainian,
+      partial_candidate_kind: "LEXICAL_PHONEMIC_CANDIDATE",
+      evidence: [sourceId, inventoryId],
+      phonology_evidence: [sourceId, inventoryId],
+      uncertainty: parsed.uncertainty,
+      google_source_row: lexicalCandidate.source_row,
+      google_source_phonemic: lexicalCandidate.source_phonemic,
+      google_mapping_status: parsed.mapping_status,
+    };
+  }
+
   const analysis = parseSyllable(unit);
   if (analysis.status === "INVALID_OR_UNSUPPORTED") {
     return {
