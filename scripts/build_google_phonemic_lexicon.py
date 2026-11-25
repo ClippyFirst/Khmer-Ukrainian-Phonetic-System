@@ -1,36 +1,28 @@
 #!/usr/bin/env python3
-"""Build the deterministic browser lexicon from the pinned Google phonemic source."""
+"""Build the compact deterministic browser lexicon from the pinned Google source."""
 from __future__ import annotations
 
 import argparse
 import json
+import sys
 from collections import Counter
 from pathlib import Path
 from typing import Any
-import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from khmer_ua.google_phonemic import (
-    load_google_phonemic_lexicon,
-    parse_google_phonemic,
-)
+from khmer_ua.google_phonemic import load_google_phonemic_lexicon, parse_google_phonemic
 
-DEFAULT_OUTPUT = ROOT / "data" / "khmer" / "google-phonemic-ipa-lexicon.json"
+DEFAULT_OUTPUT = ROOT / "data" / "khmer" / "google-phonemic-source-lexicon.json"
 
 
 def build_google_phonemic_lexicon() -> dict[str, Any]:
     source = load_google_phonemic_lexicon()
     mapping = source.mapping
-    entries: dict[str, list[dict[str, Any]]] = {}
+    entries: dict[str, list[list[Any]]] = {}
     unresolved_rows = [
-        {
-            "word": row.word,
-            "source_row": row.source_row,
-            "reason": "EMPTY_SOURCE_PHONEMIC",
-            "source_label": row.source_label,
-        }
+        [row.word, row.source_row, row.source_label, "EMPTY_SOURCE_PHONEMIC"]
         for row in source.unresolved_rows
     ]
     mapping_status_counts: Counter[str] = Counter()
@@ -42,27 +34,30 @@ def build_google_phonemic_lexicon() -> dict[str, Any]:
             parsed = parse_google_phonemic(row.source_phonemic, mapping)
             if parsed.status != "PROVISIONAL" or parsed.ipa is None:
                 unresolved_nonempty_rows += 1
-                unresolved_rows.append({
-                    "word": row.word,
-                    "source_row": row.source_row,
-                    "reason": ";".join(parsed.uncertainty) or "UNRESOLVED_PHONEMIC_ADAPTER",
-                    "source_label": row.source_label,
-                })
+                unresolved_rows.append([
+                    row.word,
+                    row.source_row,
+                    row.source_label,
+                    ";".join(parsed.uncertainty) or "UNRESOLVED_PHONEMIC_ADAPTER",
+                ])
                 continue
             mapped_rows += 1
             mapping_status_counts[parsed.mapping_status] += 1
-            entries.setdefault(word, []).append({
-                "ipa": parsed.ipa,
-                "ipa_kind": parsed.ipa_kind,
-                "status": parsed.status,
-                "mapping_status": parsed.mapping_status,
-                "source_row": row.source_row,
-                "source_label": row.source_label,
-                "uncertainty": list(parsed.uncertainty),
-            })
+            # Tuple layout: [source phonemic string, original TSV line, optional label].
+            # The browser runs the same token-to-IPA adapter at lookup time.
+            entries.setdefault(word, []).append([
+                row.source_phonemic,
+                row.source_row,
+                row.source_label,
+            ])
 
-    data = {
-        "schema_version": "google-phonemic-ipa-lexicon/v1",
+    if mapped_rows + unresolved_nonempty_rows != source.manifest["nonempty_pronunciation_rows"]:
+        raise ValueError("Google phonemic lexicon row accounting does not reconcile")
+    if unresolved_nonempty_rows:
+        raise ValueError(f"{unresolved_nonempty_rows} non-empty Google phonemic rows failed IPA conversion")
+
+    return {
+        "schema_version": "google-phonemic-source-lexicon/v1",
         "source": {
             "id": mapping["source"]["id"],
             "revision": mapping["source"]["source_revision"],
@@ -79,17 +74,11 @@ def build_google_phonemic_lexicon() -> dict[str, Any]:
             "mapped_nonempty_rows": mapped_rows,
             "unresolved_nonempty_rows": unresolved_nonempty_rows,
             "mapping_status_counts": dict(sorted(mapping_status_counts.items())),
+            "entry_tuple_layout": ["source_phonemic", "source_row", "source_label"],
         },
         "entries": {word: rows for word, rows in sorted(entries.items())},
-        "unresolved_rows": sorted(unresolved_rows, key=lambda row: row["source_row"]),
+        "unresolved_rows": sorted(unresolved_rows, key=lambda row: row[1]),
     }
-    # Ensure the generated candidate inventory covers exactly the source rows
-    # that the adapter could convert. Never silently drop an ambiguous variant.
-    if mapped_rows + unresolved_nonempty_rows != source.manifest["nonempty_pronunciation_rows"]:
-        raise ValueError("Google phonemic lexicon row accounting does not reconcile")
-    if unresolved_nonempty_rows:
-        raise ValueError(f"{unresolved_nonempty_rows} non-empty Google phonemic rows failed IPA conversion")
-    return data
 
 
 def canonical_json(data: dict[str, Any]) -> str:
@@ -109,7 +98,7 @@ def main() -> int:
         actual = args.output.read_text(encoding="utf-8")
         if actual != expected:
             raise SystemExit(f"generated lexicon drift: {args.output}")
-        print(f"Google phonemic lexicon is reproducible: {len(expected.encode('utf-8'))} bytes")
+        print(f"Google phonemic source lexicon is reproducible: {len(expected.encode('utf-8'))} bytes")
         return 0
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
