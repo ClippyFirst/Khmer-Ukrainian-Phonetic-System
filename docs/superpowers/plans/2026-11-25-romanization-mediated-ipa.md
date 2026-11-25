@@ -85,6 +85,6 @@
 ## Current implementation boundary (2026-11-25)
 
 - Implemented and CI-verified so far: contextual onset candidate generation plus six exact series-conditioned vowel exemplars. Every IPA onset is cross-checked against the source consonant inventory and PCGN token class; the ambiguous BA b/p row abstains. The exact vowel fixtures match both original Khmer spelling and the ASCII romanization.
-- Full contextual vowel, coda, syllabification, register-harmony and dialect adaptation remain **PARTIAL / evidence-limited**. `vowels.json` explicitly says it is not a complete deterministic orthography-to-IPA table. No complete vowel IPA matrix was fabricated.
+- General vowel mapping beyond the six exact examples, coda, syllabification, register-harmony and dialect adaptation remain **PARTIAL / evidence-limited**. `vowels.json` explicitly says it is not a complete deterministic orthography-to-IPA table. No complete vowel IPA matrix was fabricated.
 - The separate orthographic romanization card remains the full BGN/PCGN-derived orthographic output; it is not relabelled as pronunciation.
 - Local RED tests were not observed because this session used GitHub-hosted execution rather than a local clone. GitHub Actions Quality checks passed on commit `9d5acbb95fbe46df884d1ccc2482eb48d6f6d90e`; browser smoke for the latest UI-label changes is still running.
