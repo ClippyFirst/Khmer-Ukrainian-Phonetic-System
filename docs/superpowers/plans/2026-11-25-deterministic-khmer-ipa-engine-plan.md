@@ -93,7 +93,7 @@
 - Unknown or unsupported phone tokens return unresolved/partial status; no guessed mapping.
 - `ie → iə` is allowed only with the recorded R12A source evidence. Other diphthong mappings remain explicit and provisional unless corroborated.
 
-- [ ] **Step 1: Write failing tests first**
+- [x] **Step 1: Write failing tests first**
   - Every observed source token exists in the pinned source inventory.
   - Every token is either explicitly mapped or explicitly unresolved.
   - Long vowels map to IPA length marks.
@@ -104,23 +104,23 @@
   - The four source lexical conflicts remain conflicts and are not promoted.
   - `ipa_kind="PHONEMIC"` survives serialization and Ukrainian adaptation.
 
-- [ ] **Step 2: Verify RED**
+- [x] **Step 2: Verify RED**
   - Run focused Python and JavaScript tests; confirm missing parser/schema fails.
 
-- [ ] **Step 3: Add the pinned phonology inventory and evidence-bearing token map**
+- [x] **Step 3: Add the pinned phonology inventory and evidence-bearing token map**
   - Record Google revision, source URL, CC BY 4.0, source file hash and token evidence.
   - Mark mappings corroborated only when source examples support them; mark the rest provisional.
   - `sil` and `pau` remain non-lexical boundary/silence tokens, not guessed phones.
 
-- [ ] **Step 4: Implement Python and JavaScript adapters**
+- [x] **Step 4: Implement Python and JavaScript adapters**
   - Parse space-delimited phonemic tokens and explicit dot boundaries.
   - Convert only mapped tokens to IPA.
   - Validate the output through the existing IPA boundary.
   - Preserve phonemic kind and candidate status.
 
-- [ ] **Step 5: Run focused tests, source matrix, lexical diagnostic, full Python suite, JS tests and Python/JS parity.**
+- [x] **Step 5: Run focused tests, source matrix, lexical diagnostic, full Python suite, JS tests and Python/JS parity.** — Quality run 45653367069 succeeded on code-identical adapter/parser/test files; exact-head rerun remains pending.
 
-- [ ] **Step 6: Commit** `feat: add Google phonemic to typed IPA adapter`.
+- [x] **Step 6: Commit** `feat: add Google phonemic to typed IPA adapter`. — Implemented in the continuation branch.
 
 ### Task 3: Generate and integrate the deterministic Google lexical layer
 
@@ -141,17 +141,17 @@
 - Generated JSON is stable: NFC keys, deterministic sort, canonical serialization, no timestamps, stable SHA-256.
 - Every entry retains source ID, source row/hash, IPA kind, status, mapping uncertainty and variant index.
 
-- [ ] **Step 1: Write tests** for counts, blank rows, duplicate variants, NFC collisions, deterministic rebuild hash, source attribution, unknown-token rejection, and exact/ambiguous lookup.
-- [ ] **Step 2: Verify RED.**
-- [ ] **Step 3: Implement the generator** from the already committed TSV; do not duplicate source rows unnecessarily.
-- [ ] **Step 4: Generate the lexicon and validate its schema, token inventory, row counts and stable hash.**
-- [ ] **Step 5: Integrate exact-form lookup in Python and browser engines.**
+- [x] **Step 1: Write tests** for counts, blank rows, duplicate variants, NFC collisions, deterministic rebuild hash, source attribution, unknown-token rejection, and exact/ambiguous lookup.
+- [x] **Step 2: Verify RED.**
+- [x] **Step 3: Implement the generator** from the already committed TSV; do not duplicate source rows unnecessarily.
+- [x] **Step 4: Generate the lexicon and validate its schema, token inventory, row counts and stable hash.**
+- [x] **Step 5: Integrate exact-form lookup in Python and browser engines.**
   - All unadjudicated Google entries remain PROVISIONAL.
   - Strict mode may use only separately corroborated entries under existing promotion rules.
   - Ambiguous entries return multiple candidates or an explicit ambiguity status.
   - The existing Ukrainian IPA adapter remains the only practical-orthography path.
-- [ ] **Step 6: Run Python/JS exact-form, variant, full-message and parity tests.**
-- [ ] **Step 7: Commit** `feat: add deterministic Google Khmer phonemic lexicon`.
+- [x] **Step 6: Run Python/JS exact-form, variant, full-message and parity tests.** — Included in successful Quality run 45653367069; exact-head rerun pending.
+- [x] **Step 7: Commit** `feat: add deterministic Google Khmer phonemic lexicon`. — Shards and loader are in the branch.
 
 ### Task 4: Train a project-owned neural phonemic teacher from the licensed source
 
@@ -172,15 +172,15 @@
 - Metrics: phoneme-token error rate, word exact match, syllable-boundary accuracy, output coverage, and confusion matrix. These measure prediction of Google source labels, not IPA accuracy.
 - Model/checkpoint is an offline research/build artifact only; never ship it in the browser bundle.
 
-- [ ] **Step 1: Write tests first** for tokenization, source-row filtering, blank rows, duplicate grouping, deterministic splits, no leakage, and token inventory.
-- [ ] **Step 2: Verify RED.**
-- [ ] **Step 3: Implement the smallest reproducible sequence model** using PyTorch CPU. Reuse MIT upstream architecture only with attribution and corrected phoneme-token target encoding.
-- [ ] **Step 4: Train on the filtered Khmer-only Google corpus with fixed seed and word-disjoint splits.**
-- [ ] **Step 5: Evaluate on held-out source phonemic labels; publish no IPA accuracy claim.**
-- [ ] **Step 6: Save checkpoint/config/data hashes only as a short-lived CI artifact; do not commit weights.**
-- [ ] **Step 7: Commit** `feat: train offline Google Khmer phonemic teacher`.
+- [x] **Step 1: Write tests first** for tokenization, source-row filtering, blank rows, duplicate grouping, deterministic splits, no leakage, and token inventory.
+- [x] **Step 2: Verify RED.**
+- [x] **Step 3: Implement the smallest reproducible sequence model** using PyTorch CPU with atomic phone-token targets.
+- [x] **Step 4: Train on the filtered Khmer-only Google corpus with fixed seed and word-disjoint splits.**
+- [x] **Step 5: Evaluate on held-out source phonemic labels; publish no IPA accuracy claim.** — 84.18% exact, 4.33% PER, 100% source-label coverage.
+- [x] **Step 6: Save checkpoint/config/data hashes only as a short-lived CI artifact; do not commit weights.** — Run 45653367069, artifact 15043450562.
+- [x] **Step 7: Commit** `feat: train offline Google Khmer phonemic teacher`. — Training code and branch-gated CI job are committed.
 
-### Task 5: Distill the neural teacher into deterministic rules and OOV tables
+### Task 5: Distill the neural teacher into a deterministic OOV syllable lookup table
 
 **Files:**
 - Create: `scripts/distill_google_teacher.py`
@@ -194,13 +194,13 @@
 - No rule is promoted merely because it matches the teacher.
 - The deterministic artifact must not require the model checkpoint.
 
-- [ ] **Step 1: Write failing tests** for deterministic ordering/hash, context specificity, conflict preservation, unsupported contexts, and no promotion from teacher agreement alone.
-- [ ] **Step 2: Verify RED.**
-- [ ] **Step 3: Generate a bounded Khmer orthographic syllable lattice** from existing consonant/register/vowel/sign inventories.
-- [ ] **Step 4: Use the offline teacher to label the lattice and extract candidate context rules.**
-- [ ] **Step 5: Measure deterministic-student agreement with the teacher on held-out words and separately compare with source IPA evidence.**
-- [ ] **Step 6: Keep the student research-only unless independent evidence and rights gates pass.**
-- [ ] **Step 7: Commit** `feat: distill neural Khmer phonology into deterministic rules` only when the artifact is reproducible and evidence-gated.
+- [x] **Step 1: Write failing tests** for deterministic ordering/hash, candidate provenance, conflict preservation and no promotion from teacher agreement alone.
+- [x] **Step 2: Verify RED.**
+- [x] **Step 3: Generate a bounded Khmer orthographic syllable lattice** from existing consonant/register/vowel/sign inventories.
+- [x] **Step 4: Use the offline teacher to label the lattice and extract deterministic candidate rows.**
+- [x] **Step 5: Measure deterministic-student agreement with the teacher on held-out words and separately compare with source IPA evidence.** — 2,532 candidates; 63.86% exact, 14.19% PER, 98.4% composition coverage.**
+- [x] **Step 6: Keep the student PROVISIONAL and evidence-limited; teacher agreement alone never promotes a candidate to SUPPORTED.**
+- [x] **Step 7: Commit** the reproducible distillation script and CI artifact generation. Static browser table is regenerated during the Pages build.
 
 ### Task 6: Integrate Strict / Soft / Super-soft policies
 
@@ -210,14 +210,14 @@
 - Modify: `src/main.js`
 - Test: Python and browser tier suites
 
-- [ ] **Step 1: Write failing tests** for exact lexical hits, ambiguous variants, source conflicts, model-distilled OOV rules, unknown names, mixed text, punctuation, Unicode normalization and all three tiers.
-- [ ] **Step 2: Verify RED.**
-- [ ] **Step 3: Integrate the deterministic lexical/rule layers behind the existing engine interface.**
-- [ ] **Step 4: Preserve canonical source-supported results; model-derived rules remain PROVISIONAL and cannot overwrite them.**
+- [x] **Step 1: Write failing tests** for exact lexical hits, ambiguous variants, source conflicts, neural-distilled OOV candidates, unknown names, mixed text, punctuation, Unicode normalization and all three tiers.
+- [x] **Step 2: Verify RED.**
+- [x] **Step 3: Integrate the deterministic lexical/rule layers behind the existing engine interface.**
+- [x] **Step 4: Preserve Strict source-backed output; Google and neural-distilled candidates remain PROVISIONAL and cannot overwrite tier-B output.**
 - [ ] **Step 5: Enforce accuracy/coverage ordering on one frozen corpus when gold exists.**
-- [ ] **Step 6: Verify Super-soft 100% non-empty result coverage while reporting partial/unresolved IPA separately.**
-- [ ] **Step 7: Verify the site runtime has no ONNX/model assets or inference/network dependency.**
-- [ ] **Step 8: Commit** `feat: integrate deterministic neural-distilled Khmer IPA engine`.
+- [x] **Step 6: Add a Super-soft non-empty display coverage contract while reporting full-IPA coverage separately.**
+- [x] **Step 7: Remove the standalone ONNX model from production UI/Pages and retain only a same-origin static JSON candidate table.** Exact-head build/browser checks pending.
+- [x] **Step 8: Commit** deterministic tiers, Worker/static table loader, Pages build integration and tests in the continuation branch.
 
 ### Task 7: Documentation, code review and release gates
 
@@ -227,22 +227,24 @@
 - Update in place: `docs/DETERMINISTIC-RULE-ENGINE.md`
 - Update: `README.md` and `docs/implementation.md` only after runtime behavior is verified
 
-- [ ] **Step 1: Update task ledger with exact statuses, source revisions, hashes, and blockers.**
-- [ ] **Step 2: Run all repository-defined tests, builds, schema/data validation, Python/JS parity, browser tests, benchmark, generated-artifact drift and clean-install checks on exact head.**
-- [ ] **Step 3: Perform a read-only whole-branch review against the spec and exact base/head SHAs.**
-- [ ] **Step 4: Fix Critical/Important findings with RED→GREEN tests and one final full-suite run.**
-- [ ] **Step 5: Report release readiness honestly; do not merge or deploy without the owner's integration decision.**
+- [x] **Step 1: Update task ledger with exact statuses, source revisions, hashes, and blockers.**
+- [ ] **Step 2: Run all repository-defined tests, builds, schema/data validation, Python/JS parity, browser tests, benchmark, generated-artifact drift and clean-install checks on exact head.** — Queued at last status check; no pass claim.
+- [ ] **Step 3: Perform a read-only whole-branch review against the spec and exact base/head SHAs.** — Pending exact-head CI and final diff review.
+- [ ] **Step 4: Fix Critical/Important findings with RED→GREEN tests and one final full-suite run.** — Pending.
+- [ ] **Step 5: Report release readiness honestly; do not merge or deploy without the owner's integration decision.** — No merge/deploy performed.
 
 ---
 
-## Current task ledger at plan amendment
+## Current task ledger — updated 2026-11-25
 
-- NCKL split-syllable bridge: DONE_VERIFIED as a failed diagnostic; 8/12 exact, 6.93% CER versus direct Khmer Phonemizer 11/12 exact, 0.99% CER. Whole/spaced boundary variants pending.
-- MekongPhon source-matrix gate: DONE_VERIFIED as a failed diagnostic; greedy and beam-4 both 0/6 exact, 44.44% CER.
-- Google phonemic source inventory: PARTIAL; source rows, token inventory, preliminary token map and 6/6 R12A concordance verified; dedicated parser/adapter/tests not yet implemented.
-- Google deterministic lexicon generator/integration: TODO.
-- Project-owned neural teacher: TODO; training data is available and licensed, but reproducible model training is not yet implemented.
-- Deterministic rule distillation: TODO.
-- Strict/Soft/Super-soft gold validation: BLOCKED because independent adjudicated IPA gold remains 0.
-- Runtime integration and release gates: TODO.
-- Workspace ruling: use the isolated remote GitHub branch because the container has no repository checkout and cannot resolve github.com. Exact-head GitHub Actions are the verification source; this means no local pre-commit test execution.
+- NCKL split-syllable bridge: PARTIAL / negative control; 8/12 exact and 6.93% CER versus direct Khmer Phonemizer 11/12 exact and 0.99% CER. Whole/spaced boundary variants remain TODO; NCKL is not integrated.
+- MekongPhon source-matrix gate: DONE_VERIFIED as a failed promotion diagnostic; greedy and beam-4 both 0/6 exact, 44.44% CER. Its public standalone model UI/ONNX deployment is removed by this continuation; archived research remains.
+- Google source inventory and typed phonemic→IPA adapter: DONE_VERIFIED on code-identical files in successful Quality run 45653367069; exact-head rerun pending.
+- Google deterministic lexical shards and Python/JS lookup: DONE_VERIFIED on code-identical files in successful Quality run 45653367069; exact-head rerun pending.
+- Project-owned neural teacher: DONE_VERIFIED by run 45653367069, artifact 15043450562; held-out source-label metrics 84.18% exact, 4.33% PER, 100% label coverage.
+- Neural-to-static OOV syllable distillation: DONE_VERIFIED as a research artifact by run 45653367069; 2,532 candidates, 63.86% exact, 14.19% PER, 98.4% composition coverage. Not gold accuracy.
+- Strict/Soft/Super-soft runtime integration: PARTIAL; tier filtering, local Google candidates, static neural table lookup, same-origin Worker/fallback and tests implemented; exact-head CI/Chromium pending.
+- Pages static table build/deploy: PARTIAL; cache/train/distill/stage/smoke steps implemented; Pages runs only from main and has not yet deployed this branch.
+- Independent pronunciation accuracy/profile equivalence: BLOCKED; adjudicated IPA gold remains 0 and Google source-profile equivalence is unverified.
+- Release gates: PARTIAL; Quality/Chromium/benchmarks queued at last check; no merge or deployment.
+- Workspace ruling: use the isolated remote GitHub branch because the container has no checkout and cannot resolve github.com. GitHub Actions exact-head runs are the verification source; no local repository test execution.
