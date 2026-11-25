@@ -625,7 +625,7 @@ test("MekongPhon runs as an on-device browser model and returns the pinned ONNX 
   const probe = manifest.parity.generation_probes.find((item) =>
     item.input === "សភាតំណាងប្រជាជនកម្ពុជា"
   );
-  expect(probe?.onnx_int8_beam4).toBeTruthy();
+  expect(probe?.onnx_int8_greedy).toBeTruthy();
   test.setTimeout(120000);
 
   const externalRequests = [];
@@ -642,7 +642,7 @@ test("MekongPhon runs as an on-device browser model and returns the pinned ONNX 
   const button = page.locator("#run-mekongphon");
   await expect(button).toBeEnabled();
   await button.click();
-  const expected = probe.onnx_int8_beam4;
+  const expected = probe.onnx_int8_greedy;
   await expect(page.locator("#mekongphon-ipa")).toHaveText(
     expected.startsWith("/") ? expected : "/" + expected + "/",
     { timeout: 110000 },
