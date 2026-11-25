@@ -132,7 +132,7 @@ jobs:
       - name: Install pinned teacher inference toolchain
         run: python -m pip install --upgrade pip && python -m pip install -r requirements-mekongphon-browser-export.txt
 
-      - name: Compare greedy MekongPhon output with the source-attested matrix
+      - name: Compare greedy and beam4 MekongPhon output with the source-attested matrix
         run: python scripts/benchmark_mekongphon_source_matrix.py --output dist/mekongphon-source-matrix-report.json
 
       - name: Upload aggregate-only diagnostic
