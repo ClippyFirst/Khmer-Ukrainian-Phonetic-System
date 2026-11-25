@@ -3,7 +3,7 @@ import { fromProvisionalFullIpa } from "./khmer-ipa-result.js";
 
 export const GOOGLE_PHONEMIC_PROFILE = "khmer-pph-careful-citation-v1";
 
-function unresolved(raw, sourceTokens, uncertainty, provenance) {
+function unresolved(raw, sourceTokens, uncertainty, provenance, profile = GOOGLE_PHONEMIC_PROFILE) {
   return {
     raw: typeof raw === "string" ? raw : "",
     source_tokens: sourceTokens,
@@ -11,7 +11,7 @@ function unresolved(raw, sourceTokens, uncertainty, provenance) {
     ipa_kind: "UNRESOLVED",
     status: "UNRESOLVED",
     mapping_status: "UNRESOLVED",
-    profile: GOOGLE_PHONEMIC_PROFILE,
+    profile,
     provenance: [...provenance],
     uncertainty: [...uncertainty],
     syllable_boundaries: [],
@@ -30,12 +30,12 @@ export function parseGooglePhonemic(raw, {
     `IPA_MAP:${mapping.map_version ?? "unversioned"}`,
   ];
   if (typeof raw !== "string" || !raw.trim()) {
-    return unresolved(raw, [], ["EMPTY_SOURCE_PHONEMIC"], provenance);
+    return unresolved(raw, [], ["EMPTY_SOURCE_PHONEMIC"], provenance, profile);
   }
 
   const sourceTokens = raw.trim().split(/\s+/u);
   if (!sourceTokens.length || sourceTokens[0] === "." || sourceTokens.at(-1) === ".") {
-    return unresolved(raw, sourceTokens, ["MALFORMED_SYLLABLE_BOUNDARY"], provenance);
+    return unresolved(raw, sourceTokens, ["MALFORMED_SYLLABLE_BOUNDARY"], provenance, profile);
   }
 
   const ipaParts = [];
@@ -58,10 +58,10 @@ export function parseGooglePhonemic(raw, {
 
     const entry = mapping.tokens?.[token];
     if (!entry) {
-      return unresolved(raw, sourceTokens, [`UNMAPPED_GOOGLE_PHONE:${token}`], provenance);
+      return unresolved(raw, sourceTokens, [`UNMAPPED_GOOGLE_PHONE:${token}`], provenance, profile);
     }
     if (typeof entry.ipa !== "string" || !entry.ipa) {
-      return unresolved(raw, sourceTokens, [`NON_LEXICAL_GOOGLE_PHONE:${token}`], provenance);
+      return unresolved(raw, sourceTokens, [`NON_LEXICAL_GOOGLE_PHONE:${token}`], provenance, profile);
     }
     ipaParts.push(entry.ipa);
     phoneIndex += 1;
@@ -73,7 +73,7 @@ export function parseGooglePhonemic(raw, {
   }
 
   if (!usedMappingStatuses.length || previousWasBoundary) {
-    return unresolved(raw, sourceTokens, ["EMPTY_OR_TRAILING_SYLLABLE"], provenance);
+    return unresolved(raw, sourceTokens, ["EMPTY_OR_TRAILING_SYLLABLE"], provenance, profile);
   }
 
   const ipa = ipaParts.join("");
@@ -84,7 +84,7 @@ export function parseGooglePhonemic(raw, {
     uncertainty: [...new Set(uncertainty)],
   });
   if (candidate.status === "UNRESOLVED" || candidate.ipa_kind !== "PHONEMIC") {
-    return unresolved(raw, sourceTokens, ["INVALID_MAPPED_IPA"], provenance);
+    return unresolved(raw, sourceTokens, ["INVALID_MAPPED_IPA"], provenance, profile);
   }
 
   if (syllableBoundaries.at(-1) !== phoneIndex) syllableBoundaries.push(phoneIndex);
