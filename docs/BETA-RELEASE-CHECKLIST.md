@@ -87,3 +87,16 @@ This is the latest verified Khmer public beta mainline. Engineering/deployment D
 Latest main SHA: `32b16b328f0433e30df6f3b1c4c5f7daa8ae59b5`. PR #495 merged the final exact-main evidence record and the methodology-page beta disclosure. Post-merge Quality [44909748314](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44909748314) SUCCESS (447 Python tests + 70 subtests; web checks/build passed); browser smoke [44909748266](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44909748266) SUCCESS (21 Chromium tests); Pages build/deploy [44909748262](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System-/actions/runs/44909748262) SUCCESS (production Chromium and deployed HTML/JS/CSS smoke).
 
 The README now links the beta checklist and policy; the landing page and methodology page show the 21 November beta status snapshot and distinguish engineering verification from linguistic validation. Engineering beta gate DONE_VERIFIED. Independent expert IPA gold remains 0 and accuracy null; vowel/context and lexical segmentation coverage remain PARTIAL/BLOCKED; manual accessibility remains TODO; MekongPhon and other uncleared third-party sources remain excluded. No IPA labels, gold rows, unsupported runtime rules or GitHub Release were added.
+
+
+## Superseding beta status — browser-local MekongPhon model (2026-11-25)
+
+This section supersedes the 21 November historical notes above that listed MekongPhon as excluded. PR #578 merged as `520a1592345ccabbf859bc88f024485631306f73`; documentation closeout PR #579 merged as `a23412eb5ec17568d49d65fd86a1d69a94dcce65`.
+
+- The public site now includes a user-triggered, browser-local MekongPhon IPA candidate. It is not an inference API: user text stays in the browser and only same-origin static model/runtime assets are fetched after explicit action.
+- The pinned model artifact `byumatrixlab/khmer-ipa` revision `20e069d384b240da76320e1569958568c12a54bc` declares Apache-2.0 in its upstream model-card metadata. The upstream training/evaluation corpus is not copied or redistributed; corpus rights remain unresolved.
+- ONNX Runtime Web 1.23.2 is vendored with verified npm integrity and its MIT notice. The shipped INT8 encoder/decoder weights total 35,001,440 bytes; FP32 graphs are validation-only.
+- Model output is a separate PROVISIONAL candidate, profile match UNVERIFIED, and never promoted to canonical IPA or gold. Independent expert IPA gold remains 0 and pronunciation accuracy remains NOT ASSESSED.
+- Exact-main Quality [45624955916](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955916), browser smoke [45624955945](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955945), and Pages build/deploy with deployed model/runtime asset smoke [45624955965](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955965) all passed. Model-enabled Chromium inference passed 46/46 Playwright tests in [45624434366](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624434366).
+
+The beta remains research-grade. The model integration closes an engineering/runtime gap; it does not close the independent IPA gold, pronunciation-accuracy, corpus-rights or manual accessibility gates.
