@@ -397,51 +397,70 @@ Local execution was not available in this session; verification was performed by
 
 The engineering port and public deployment are DONE_VERIFIED. The product remains a research-ready public beta, not an expert-validated or production-linguistically-validated Khmer G2P system. No formal release tag was created.
 
-## Deterministic neural-teacher distillation — continuation 2026-11-25 (PR #582)
+## Deterministic neural-distilled Khmer IPA engine — current continuation (PR #582)
 
-**Owner direction:** the desired product is a local deterministic engine developed with the neural model as an offline teacher, not a runtime that needs neural inference for every request.
+### Starting point and architecture decision
 
-- Starting `main`: `8838a1f33b03aa1bad7c045c216305bb3e60e3f9`.
-- Working branch: `feat/deterministic-neural-distillation-20261125`.
-- Draft PR: [#582 — Establish evidence-gated neural distillation path for deterministic Khmer IPA](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/582).
-- Latest branch head at this handoff update: `a19440dda714e166c6bb9ff17506511a4650db59` (subsequent CI/documentation commits must be reflected after exact-head checks).
-- Public service remains deployed at https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/.
+The requested target is a **local deterministic engine developed from an offline neural teacher**, not a neural model that runs on the website.
 
-### Reconciled starting state
+`pinned licensed phonemic source → offline neural teacher → evidence-gated static distillation → deterministic local engine → typed IPA → Ukrainian IPA adapter`.
 
-- PR #572 (conservative romanization-mediated IPA fallback) is merged as `747e9388e0d68b16f2cc29113b9fdea648d2d7b2`.
-- PR #578 (browser-local MekongPhon ONNX inference) is merged as `520a1592345ccabbf859bc88f024485631306f73`.
-- PR #579 (deployment/handoff closeout) is merged as `a23412eb5ec17568d49d65fd86a1d69a94dcce65`; later main documentation/audit commit is `8838a1f33b03aa1bad7c045c216305bb3e60e3f9`.
-- PR #519 remains open and untouched. It is a divergent earlier hybrid/provider proposal; it is not blindly ported because its Python/provider runtime path is not the desired static-site deterministic architecture and later merged work supersedes portions of its dual-method and candidate behavior.
-- Existing deterministic Python/browser engines, typed IPA adapter, lexical fixtures, source registries and contextual vowel evidence matrix are retained. No parallel phonology table is introduced.
+The website does not load neural weights, ONNX Runtime or call a remote inference API. It runs the existing structural/rule engine, the local phonemic lexicon and a static candidate table generated offline. All Ukrainian phonetic output passes through the shared IPA adapter.
 
-### Task ledger
+### Delivered implementation
 
-| Task | Status | Evidence / acceptance |
+- Pinned Google `language-resources` Khmer pronunciation source and Festvox phone inventory at commit `a90601024f07ab7e96c911243324e0adeb16da96`; attribution and CC BY 4.0 retained.
+- Added explicit Google phonemic-token → typed IPA adapter. Source tokens, syllable boundaries, vowel length, provenance and mapping uncertainty are preserved. Unknown tokens fail closed.
+- Generated eight reproducible lexical shards covering 62,118 non-empty Khmer phonemic rows; four multi-pronunciation spellings remain multi-candidate, and 61 blank rows remain unresolved.
+- Integrated exact-form lookup into Python and browser engines without promoting unadjudicated Google candidates into Strict.
+- Trained a project-owned offline neural teacher with word-disjoint train/dev/test splits and atomic phoneme-token targets.
+- Distilled 2,532 OOV orthographic syllable candidates into a static table. Browser Super-soft reads this same-origin JSON table; no model inference runs in the browser.
+- Integrated the deterministic tiers into the local Web Worker and local fallback. The production interface no longer presents a standalone neural-model button.
+- Fixed the status notice so local Google dictionary candidates and offline neural-distilled candidates are not mislabeled as external provider results.
+
+### Evidence and limitations
+
+- Prior complete Quality/teacher/distillation workflow [45653367069](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45653367069) passed on its exact head.
+- Teacher held-out source-label metrics: 84.18% word exact, 4.33% phoneme-token error rate, 100% source-label coverage. These are not independent IPA accuracy.
+- Distillation composition diagnostic: 2,532 candidates; 63.86% exact, 14.19% token error rate, 98.4% composition coverage under a syllable-count alignment assumption. Teacher agreement does not promote rules to SUPPORTED.
+- Preliminary Google phonemic-to-IPA concordance: 6/6 R12A vowel-context examples; 3/7 overlapping source-attested lexical examples exact, with four conflicts preserved. This is not a gold benchmark.
+- Independent adjudicated IPA gold remains 0. Google source profile equivalence to `khmer-pph-careful-citation-v1` remains UNVERIFIED. Accuracy is NOT_ASSESSED.
+- Strict > Soft > Super-soft accuracy ordering cannot be demonstrated without independent gold. Soft coverage is designed to exceed Strict; Super-soft guarantees non-empty display output, but that does **not** mean 100% complete IPA or 100% known pronunciation.
+
+### Current verification state
+
+- Browser smoke failed on older heads due to stale test expectations about canonical unresolved markers and provenance, then exposed a real status-notice bug. Tests were updated to reflect the typed contract and the notice bug was fixed in `755a89c695e93594adb3c980f2cc87adde80f6fd`.
+- External khPOS and pinned upstream Rust comparisons passed on the preceding head `12b2675fc44eecd0c12e5caf5a8409d91aabbf67`.
+- Latest exact-head Quality/browser/benchmark reruns after `755a89c` and documentation updates remain pending at this handoff. Do not report release readiness yet.
+- Container has no repository checkout and DNS to github.com fails; no local test commands were executed. GitHub Actions exact-head runs are the verification source.
+
+### Current task ledger
+
+| Work item | Status | Acceptance / blocker |
 |---|---|---|
-| Inspect current main, recent commits, merged PRs, open PR and current engine/data contracts | DONE_VERIFIED | Main SHA above; PR #572/#578/#579 merged; PR #519 inspected and left untouched; `AGENTS.md`, deterministic-engine contract, source matrix, source registry, core JS/Python engine, UI, model worker, tests and CI inspected |
-| Define offline teacher → deterministic runtime boundary | DONE_VERIFIED | `docs/DETERMINISTIC-RULE-ENGINE.md` section “Нейромережева дистиляція…”; model is research-time teacher only for the intended final architecture |
-| Add source-matrix diagnostic contract and tests | DONE_VERIFIED after current exact-head Quality run only | Initial test-only commit failed because the diagnostic module was absent (intended RED); first implementation exposed a missing `input_count` field (RED); field fixed. Exact final Quality run must include 529+ Python tests and 70 subtests with no failure |
-| Run MekongPhon against the repository's source-attested matrix | PARTIAL / pending exact-head CI | `scripts/benchmark_mekongphon_source_matrix.py`; greedy one-beam to mirror browser generation; aggregate-only report; CI job is branch-gated. Exact-head diagnostic run must complete and its artifact be inspected |
-| Derive new generalized contextual IPA rules from MekongPhon | BLOCKED / evidence-limited | Only six non-conflicting source-matrix cases have non-empty word-level IPA; two cases have conflicting source analyses; 54 R12A mapping observations are `runtime_eligible=false`. Six examples cannot support the full series × vowel × coda × syllable-context matrix |
-| Integrate a model-derived deterministic lexicon/rules into Python and browser runtime | TODO after source/rights gate | Acceptance: generated rule/lexicon data has explicit source/model provenance, exact scope, no unsupported generalization, shared Python/JS semantics, typed IPA output, full-message tests, and no model/ONNX runtime dependency |
-| Independent expert IPA gold and measured target-profile accuracy | BLOCKED | Gold remains 0; accuracy remains null; model profile match remains UNVERIFIED |
-| MekongPhon training-corpus redistribution rights | BLOCKED | Model card's Apache-2.0 declaration does not license the separate training/evaluation corpus; corpus is not copied or bundled |
-| Production deployment | DEFERRED for this PR | Current main deployment remains live; this branch changes no production assets and must not be merged/deployed until its actual implementation and evidence gates are satisfied |
+| MekongPhon direct IPA source-matrix diagnostic | DONE_VERIFIED as a failed promotion gate | 0/6 exact, 44.44% CER in greedy and beam-4; not selected as teacher |
+| NCKL respelling → phonemizer bridge | DONE_VERIFIED as negative control | 8/12 exact, 6.93% CER vs direct phonemizer 11/12, 0.99% CER; not integrated |
+| Google source inventory, token map and typed IPA adapter | DONE_VERIFIED on prior successful Quality run; exact latest head pending | Source hashes, inventory and six-case screening checked; four lexical conflicts remain |
+| Google deterministic lexicon and cross-runtime lookup | DONE_VERIFIED on prior successful Quality run; exact latest head pending | Eight shards, ambiguity and blank rows preserved |
+| Project-owned neural teacher | DONE_VERIFIED on prior teacher workflow | Current-head rerun pending; metrics are source-label prediction only |
+| Static neural-distilled OOV table | DONE_VERIFIED as provisional research artifact | 2,532 candidates; zero promoted to SUPPORTED |
+| Browser/Python deterministic tier integration | PARTIAL | Code exists; exact-head Quality/Chromium and whole-branch review pending |
+| GitHub Pages deployment of this branch | DEFERRED until integration | Pages deploys from main only; this branch has not been deployed |
+| Independent IPA accuracy/profile equivalence | BLOCKED | Gold count 0; target profile equivalence UNVERIFIED |
+| Final release readiness | TODO | Requires one final green SHA, code review, artifact drift and clean build |
 
-### Diagnostic implementation and verification history
+### Branch and PR reconciliation
 
-- Added `tests/test_benchmark_mekongphon_source_matrix.py` first. The initial exact push Quality run [45640125460](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45640125460) failed at collection because the diagnostic module did not yet exist — expected RED.
-- Added `scripts/benchmark_mekongphon_source_matrix.py`; next runs [45640265634](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45640265634) and [45640311848](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45640311848) failed one assertion because the report omitted `input_count`. Added the field in commit `0ac3aa9788b35a58c53bfb75f371986237dd6c20`.
-- Exact push Quality [45640511553](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45640511553) passed on `0ac3aa9788b35a58c53bfb75f371986237dd6c20`: 529 Python tests + 70 subtests, including the new diagnostic contract. This is not the final branch head.
-- Added a branch-gated `distillation-source-matrix` job to the existing canonical `.github/workflows/ci.yml` because a newly introduced workflow file is not executed for its own pull request until it exists on the base branch. It installs the pinned model inference toolchain, runs the six-case diagnostic and uploads an aggregate-only report. Exact current-head run is pending.
-- No model predictions, source rows, source IPA labels or generated runtime dictionary are committed or deployed by this PR. No new phonological rule is promoted.
+- PR #582 remains draft on `feat/deterministic-neural-distillation-20261125`; no merge or deployment has been performed.
+- PR #519 remains open and untouched because it is a divergent earlier provider/hybrid proposal.
+- Earlier MekongPhon browser port is retained as historical research/diagnostic, not the primary deterministic engine.
+- No user branch was deleted, no release was published, and no external settings or license choices were changed.
 
 ### Next genuine acceptance gates
 
-1. Wait for and inspect exact-current-head Quality, browser smoke and `distillation-source-matrix` workflows. Fix failures and rerun against the final branch head.
-2. Inspect the aggregate teacher/source diagnostic. Treat even exact agreement as corroboration only; do not promote generalized rules from the six-case matrix.
-3. Find a lawful, profile-compatible lexical/audio source and complete the contextual vowel × series × coda × syllable matrix. Keep conflicting source analyses separate.
-4. Obtain the expert approval, annotator/adjudicator and rights evidence required by `docs/ipa-gold-collection-playbook.md`; independent gold is still 0.
-5. Only then implement a versioned deterministic student (rules plus exact-form lexicon), consume it through the existing typed IPA boundary in both Python and browser, and prove exact semantic parity. The final runtime must not import ONNX Runtime or fetch model weights.
-6. Do not merge PR #582 or deploy this branch merely because the diagnostic and engineering tests are green. No release, license choice or external setting change is authorized here.
+1. Complete exact-head Quality and browser smoke; fix every real failure with regression tests.
+2. Inspect current-head teacher/distillation artifacts and confirm deterministic regeneration.
+3. Run Python suite, JS checks, cross-runtime parity, lexicon generator drift check, benchmarks, Vite build and Chromium production tests on one final SHA.
+4. Review all PR #582 changes against main and reconcile the open divergent PR without blind merging.
+5. Update this handoff and the audit with final commit and actual run links.
+6. Keep independent accuracy/profile equivalence blocked until adjudicated IPA gold exists. Only then decide whether PR #582 is ready for integration and Pages deployment.
