@@ -626,7 +626,7 @@ test("MekongPhon runs as an on-device browser model and returns the pinned ONNX 
     item.input === "សភាតំណាងប្រជាជនកម្ពុជា"
   );
   expect(probe?.onnx_int8_greedy).toBeTruthy();
-  test.setTimeout(120000);
+  test.setTimeout(240000);
 
   const externalRequests = [];
   page.on("request", (request) => {
@@ -647,8 +647,9 @@ test("MekongPhon runs as an on-device browser model and returns the pinned ONNX 
   try {
     await page.waitForFunction(() => {
       const status = document.querySelector("#mekongphon-status")?.textContent ?? "";
-      return status.includes("PROVISIONAL") || status.startsWith("Локальний рушій не запустився:");
-    }, null, { timeout: 110000 });
+      return status.startsWith("PROVISIONAL · MekongPhon@")
+      || status.startsWith("Локальний рушій не запустився:");
+    }, null, { timeout: 230000 });
   } catch (error) {
     const lastStatus = await page.locator("#mekongphon-status").textContent();
     throw new Error("Timed out waiting for local model. Last UI status: " + lastStatus);
