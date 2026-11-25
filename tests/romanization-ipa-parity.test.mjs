@@ -13,6 +13,7 @@ test("Python and JavaScript romanization-mediated IPA results have exact semanti
   const expected = JSON.parse(python.stdout);
   const cases = [
     ...onsetInventory.entries.map((entry) => [entry.source_units[0], entry.romanization]),
+    ...(onsetInventory.representative_syllables ?? []).map((entry) => [entry.source, entry.romanization]),
     ["ប", "b"],
     ["ក", "kh"],
     ["្ក", "k"],
