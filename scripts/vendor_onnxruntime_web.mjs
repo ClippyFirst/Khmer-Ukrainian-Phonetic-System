@@ -26,7 +26,7 @@ try {
   ]) {
     copyFileSync(path.join(dist, filename), path.join(root, filename));
   }
-  copyFileSync(path.join(temp, "package", "LICENSE"), path.join(root, "LICENSE"));
+  copyFileSync(path.resolve("licenses/ONNX-Runtime-MIT.txt"), path.join(root, "LICENSE"));
   const manifest = {
     package: "onnxruntime-web",
     version,
