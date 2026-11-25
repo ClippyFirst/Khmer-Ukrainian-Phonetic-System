@@ -152,3 +152,37 @@ This is the final superseding deployment note. The implementation PR #582 was sq
 **Final teacher artifact evidence** (Quality PR run `45699114121`, artifact `15061573629`): teacher 12/12 epochs, 84.18% held-out Google-source-label word exact match, 4.33% phone-token error rate, 100% output coverage. Distillation yielded 2,532 accepted candidates + 89 rejected internal-boundary candidates = 2,621 OOV syllable candidates; held-out composition diagnostic 63.86% exact match, 14.19% phone-token error rate, 98.42% coverage. These are source-label prediction and composition diagnostics only, not independent IPA accuracy. No rules were promoted; independent adjudicated IPA gold remains 0 and target-profile equivalence remains UNVERIFIED. Do not carry forward earlier artifact metrics (2,539 + 82; 82.78% teacher exact match) as the final merged artifact metrics.
 
 **Final disposition:** the deterministic engine is merged and deployed as a public research beta; implementation/build/runtime smoke gates are passed. It is not a linguistically validated production release. Strict/Soft/Super-soft empirical accuracy ordering, pronunciation accuracy, and target-profile equivalence remain evidence-blocked until an independent expert-adjudicated IPA gold corpus and explicit profile adjudication exist. The Super-soft 100% promise is display coverage with explicit unresolved markers, not 100% verified pronunciation accuracy.
+
+
+## 2026-11-25 follow-up: generalize Soft Khmer → IPA and remove false unknown tails (PR #583)
+
+**Status at this checkpoint: PARTIAL — implementation and regression tests are in PR #583; exact-head CI and Pages verification are pending.** This entry supersedes earlier statements that the neural-distilled candidate table is only consumed by Super-soft.
+
+### New evidence from the reported failing input
+
+The four syllables shown in the user reproduction were already present in the pinned Google phonemic source lexicon; no words were added to the dictionary:
+
+| Khmer | Existing source phonemic row | Typed IPA candidate | Ukrainian adapter output |
+|---|---|---|---|
+| រុង | `r u ŋ` (row 45018) | `/ruŋ/` | рунг |
+| ឡឺត | `l əə t` (row 60848) | `/ləːt/` | лет |
+| ឡាវ | `l aa w` (row 60741) | `/laːw/` | лау |
+| ឌី | `ɗ ii` (row 22023) | `/ɗiː/` | ді |
+
+The neural teacher independently produced the same four source-token sequences from the orthographic input. The previous display added a trailing `???` to complete phonemic candidates, confusing profile uncertainty with a genuinely missing phoneme. The Ukrainian adapter's `aw → ау` sequence is intentional; the separate BGN/PCGN orthographic route can still display a different spelling.
+
+### Implementation in PR #583
+
+- Complete Google phonemic candidates now pass through the typed Google-phonemic → IPA → Ukrainian adapter without a fabricated `???` suffix. They remain explicitly `PROVISIONAL` because the selected pronunciation profile has not been independently adjudicated.
+- The offline teacher's static artifact is being expanded from lexicon-derived OOV syllables to generated CV and CVC patterns using the pinned source vocabulary. This is a pattern-derived candidate space, not a patch adding the reported words to a dictionary.
+- Soft consumes only generated CV/CVC candidates plus existing exact source-backed candidates. Super-soft additionally sees the broader exploratory OOV candidate inventory and orthographic fallbacks. Strict continues to exclude unadjudicated model candidates.
+- All model-generated rows remain `PROVISIONAL`; no phonological rule is promoted to verified.
+
+### Verification state
+
+- Local inference using the saved teacher checkpoint produced `r u ŋ`, `l əə t`, `l aa w`, and `ɗ ii` for the four reported forms.
+- The four source lexicon rows were independently located in the pinned eight-shard data.
+- Regression tests now cover the four exact source-backed forms and the generated OOV CV form `កិ`; the latter is a test probe, not a lexical addition.
+- An initial browser smoke run failed only because its new expectation used `лав`; the actual configured `aw → ау` adapter correctly returned `лау`. The assertion was corrected. Final-head browser smoke, Quality, neural distillation validation, and production build remain pending at this checkpoint.
+- No independent adjudicated IPA gold was added. Accuracy, target-profile equivalence, and the empirical Strict > Soft > Super-soft accuracy ordering remain unverified.
+
