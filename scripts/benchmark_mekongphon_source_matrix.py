@@ -90,11 +90,14 @@ def build_report(
     model_revision: str,
     corpus_sha256: str,
     runtime: dict[str, str] | None = None,
+    decoding: str = "greedy",
 ) -> dict[str, Any]:
     if len(cases) != len(predictions):
         raise ValueError("expected one prediction per source case")
     if not cases:
         raise ValueError("cannot compare an empty source matrix")
+    if decoding not in {"greedy", "beam4"}:
+        raise ValueError("decoding must be 'greedy' or 'beam4'")
 
     strict_matches = 0
     total_errors = 0
@@ -125,6 +128,7 @@ def build_report(
         "engine": MODEL_ID,
         "engine_revision": model_revision,
         "engine_license": "Apache-2.0 as declared by the model card",
+        "decoding": decoding,
         "profile": "khmer-pph-careful-citation-v1",
         "profile_match": "UNVERIFIED",
         "corpus": "data/khmer/vowel-context-register.json",
@@ -174,34 +178,66 @@ def main() -> int:
     parser.add_argument("--register", type=Path, default=DEFAULT_REGISTER)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--batch-size", type=int, default=8)
-    parser.add_argument("--num-beams", type=int, default=1, help="Use one beam to mirror the browser's greedy runtime.")
     args = parser.parse_args()
-    if args.batch_size < 1 or args.num_beams != 1:
-        parser.error("--batch-size must be positive; --num-beams must be 1 to mirror browser inference")
+    if args.batch_size < 1:
+        parser.error("--batch-size must be positive")
 
     register_bytes = args.register.read_bytes()
     register = json.loads(register_bytes)
     cases = load_source_cases(register)
-    predictions, runtime = predict(
-        [case["orthography"] for case in cases],
+    words = [case["orthography"] for case in cases]
+    corpus_sha256 = hashlib.sha256(register_bytes).hexdigest()
+    greedy_predictions, greedy_runtime = predict(
+        words,
         model_revision=MODEL_REVISION,
         batch_size=args.batch_size,
-        num_beams=args.num_beams,
+        num_beams=1,
+    )
+    beam4_predictions, beam4_runtime = predict(
+        words,
+        model_revision=MODEL_REVISION,
+        batch_size=args.batch_size,
+        num_beams=4,
     )
     report = build_report(
         cases,
-        predictions,
+        greedy_predictions,
         model_revision=MODEL_REVISION,
-        corpus_sha256=hashlib.sha256(register_bytes).hexdigest(),
-        runtime=runtime,
+        corpus_sha256=corpus_sha256,
+        runtime=greedy_runtime,
+        decoding="greedy",
     )
+    beam4_report = build_report(
+        cases,
+        beam4_predictions,
+        model_revision=MODEL_REVISION,
+        corpus_sha256=corpus_sha256,
+        runtime=beam4_runtime,
+        decoding="beam4",
+    )
+    report["decoding_comparison"] = {
+        "greedy": {
+            "strict_matches": report["source_attested_diagnostic"]["strict_matches"],
+            "character_errors": report["source_attested_diagnostic"]["character_errors"],
+            "reference_codepoints": report["source_attested_diagnostic"]["reference_codepoints"],
+            "codepoint_cer": report["source_attested_diagnostic"]["codepoint_cer"],
+            "records": report["records"],
+        },
+        "beam4": {
+            "strict_matches": beam4_report["source_attested_diagnostic"]["strict_matches"],
+            "character_errors": beam4_report["source_attested_diagnostic"]["character_errors"],
+            "reference_codepoints": beam4_report["source_attested_diagnostic"]["reference_codepoints"],
+            "codepoint_cer": beam4_report["source_attested_diagnostic"]["codepoint_cer"],
+            "records": beam4_report["records"],
+        },
+    }
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
     print(json.dumps({
         "output": str(args.output),
         "input_count": report["source_case_count"],
-        "strict_source_attested_matches": report["source_attested_diagnostic"]["strict_matches"],
-        "codepoint_cer": report["source_attested_diagnostic"]["codepoint_cer"],
+        "greedy": report["decoding_comparison"]["greedy"],
+        "beam4": report["decoding_comparison"]["beam4"],
         "candidate_rules_emitted": 0,
         "rule_promotion": report["rule_promotion"],
         "accuracy": None,
