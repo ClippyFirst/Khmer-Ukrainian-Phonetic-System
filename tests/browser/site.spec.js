@@ -694,5 +694,5 @@ test("initial page does not load the large engine worker until non-empty input",
 
   await page.locator("#source").fill("កិ");
   await expect.poll(() => workerUrls.some((url) => url.includes("khmer-engine.worker"))).toBe(true);
-  await expect(page.locator("#ipa-result")).not.toHaveText("—");
+  await expect(page.locator("#ipa-result")).toContainText("/k/???");
 });
