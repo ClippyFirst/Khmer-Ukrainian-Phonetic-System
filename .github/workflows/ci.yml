@@ -142,3 +142,35 @@ jobs:
           path: dist/mekongphon-source-matrix-report.json
           if-no-files-found: error
           retention-days: 14
+
+  nckl-phonemizer-bridge:
+    if: github.ref == 'refs/heads/feat/deterministic-neural-distillation-20261125' || github.head_ref == 'feat/deterministic-neural-distillation-20261125'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install pinned NCKL model and deterministic phonemizer
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu "torch==2.5.1"
+          python -m pip install "huggingface-hub==0.26.2" "safetensors==0.4.5" "khmer-g2p==0.1.0"
+          python -m pip install -e ".[phonemizer]"
+
+      - name: Compare direct IPA phonemizer with NCKL-respelling bridge
+        run: python scripts/benchmark_nckl_phonemizer_bridge.py --output dist/nckl-phonemizer-bridge-report.json
+
+      - name: Upload aggregate-only bridge diagnostic
+        uses: actions/upload-artifact@v6
+        with:
+          name: nckl-phonemizer-bridge-${{ github.sha }}
+          path: dist/nckl-phonemizer-bridge-report.json
+          if-no-files-found: error
+          retention-days: 14
