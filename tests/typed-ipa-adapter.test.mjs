@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   fromIpa,
   fromProvisionalIpa,
+  fromProvisionalFullIpa,
   fromUnknownSourceUnit,
   serializePhoneticResult,
   adaptPhoneticResult,
@@ -95,5 +96,18 @@ const broadKind = fromProvisionalIpa("pʰiə", {
   appendUnknownTail: false,
 });
 assert.equal(broadKind.ipa_kind, "PHONETIC_BROAD");
+
+
+
+const fullProvisional = fromProvisionalFullIpa("pʰiə.saː", {
+  kind: "PHONEMIC",
+  provenance: ["GOOGLE-PHONEMIC-IPA-MAP-V1"],
+  uncertainty: ["TARGET_PROFILE_EQUIVALENCE_UNVERIFIED"],
+});
+assert.equal(fullProvisional.status, "PROVISIONAL");
+assert.equal(fullProvisional.ipa_kind, "PHONEMIC");
+assert.equal(fullProvisional.phonemic_ipa, "pʰiə.saː");
+assert.ok(fullProvisional.segments.every((segment) => segment.certainty === "PROVISIONAL"));
+assert.equal(typeof adaptPhoneticResult(fullProvisional), "string");
 
 console.log("Typed IPA result and single Ukrainian adapter contract: PASS");
