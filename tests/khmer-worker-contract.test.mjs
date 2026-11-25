@@ -9,8 +9,8 @@ const html = fs.readFileSync("index.html", "utf8");
 
 for (const [label, source, required] of [
   ["main", main, ['import { analyzeInWorker } from "./khmer-engine-client.js"', "await analyzeInWorker(inputText, profile, fallbackConvert, outputLevelMode)", "async function fallbackConvert(...args)", 'await import("./khmer-engine-core.js")', "if (!inputText.trim())", "renderRevision"]],
-  ["client", client, ['new Worker(new URL("./khmer-engine.worker.js", import.meta.url)', 'postMessage({ id, text, profile, outputLevel })', "fallback(text, profile, options)"]],
-  ["worker", worker, ['import { convert } from "./khmer-engine-core.js"', "convert(text, profile, { outputLevel, distilledSyllables })", 'self.addEventListener("message"']],
+  ["client", client, ['new Worker(new URL("./khmer-engine.worker.js", import.meta.url)', 'postMessage({ id, text, profile, outputLevel })', "fallback(text, profile, options)", "teacher_checkpoint_sha256: artifact.teacher?.checkpoint_sha256 ?? null"]],
+  ["worker", worker, ['import { convert } from "./khmer-engine-core.js"', "convert(text, profile, { outputLevel, distilledSyllables })", "teacher_checkpoint_sha256: artifact.teacher?.checkpoint_sha256 ?? null", 'self.addEventListener("message"']],
 ]) {
   for (const fragment of required) {
     if (!source.includes(fragment)) throw new Error(label + " worker contract missing: " + fragment);

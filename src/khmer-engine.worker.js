@@ -12,7 +12,10 @@ function loadDistilledTable() {
         if (artifact.schema !== "google-khmer-neural-distilled-syllables/v1" || !Array.isArray(artifact.candidates)) {
           throw new Error("DISTILLED_TABLE_SCHEMA_MISMATCH");
         }
-        return Object.fromEntries(artifact.candidates.map((item) => [item.orthography, item]));
+        return Object.fromEntries(artifact.candidates.map((item) => [item.orthography, {
+          ...item,
+          teacher_checkpoint_sha256: artifact.teacher?.checkpoint_sha256 ?? null,
+        }]));
       })
       .catch(() => null);
   }
