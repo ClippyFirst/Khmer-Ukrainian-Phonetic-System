@@ -29,6 +29,28 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-mekongphon-browser-export.txt
 
+      - name: Restore offline Google Khmer teacher checkpoint
+        id: google-teacher-cache
+        uses: actions/cache@v4
+        with:
+          path: dist/google-khmer-teacher/teacher.pt
+          key: google-khmer-teacher-${{ runner.os }}-${{ hashFiles('data/khmer/google-pronunciation-full.tsv', 'scripts/train_google_phonemic_teacher.py', 'scripts/google_teacher/**', 'scripts/distill_google_teacher.py', 'src/khmer_ua/google_phonemic.py', 'src/khmer_ua/google_teacher_data.py', 'src/khmer_ua/orthographic_syllables.py', 'requirements-google-teacher.txt') }}
+
+      - name: Install pinned CPU-only Google Khmer teacher runtime
+        run: python -m pip install --upgrade pip && python -m pip install -r requirements-google-teacher.txt
+
+      - name: Train Google Khmer phonemic teacher when cache is cold
+        if: steps.google-teacher-cache.outputs.cache-hit != 'true'
+        run: python scripts/train_google_phonemic_teacher.py --epochs 12 --batch-size 192 --embedding-size 96 --hidden-size 128 --output-dir dist/google-khmer-teacher
+
+      - name: Distill teacher into static deterministic OOV syllable candidates
+        run: python scripts/distill_google_teacher.py --checkpoint dist/google-khmer-teacher/teacher.pt --output-dir dist/google-khmer-teacher --batch-size 192
+
+      - name: Stage deterministic OOV candidate table for the browser
+        run: |
+          mkdir -p public/data
+          cp dist/google-khmer-teacher/distilled-syllables.json public/data/google-neural-distilled-syllables.json
+
       - name: Restore pinned model export cache
         id: model-cache
         uses: actions/cache@v4
