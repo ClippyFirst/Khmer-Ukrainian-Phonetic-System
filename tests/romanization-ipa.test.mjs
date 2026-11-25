@@ -3,6 +3,7 @@ import { test } from "node:test";
 import { khmerToLatin } from "@gmana/km-translit";
 import onsetInventory from "../data/khmer/romanization_ipa_onsets.json" with { type: "json" };
 import consonants from "../data/khmer/consonants.json" with { type: "json" };
+import sources from "../data/khmer/sources.json" with { type: "json" };
 import { buildRomanizationIpaCandidate } from "../src/khmer-romanization-ipa.js";
 
 test("confirms a romanized onset only against its source consonant class", () => {
@@ -75,7 +76,8 @@ test("every mapped IPA onset equals the repository's source-registered consonant
     for (const base of bases) {
       assert.equal(byChar[base].onset_ipa, entry.ipa, entry.rule_id + " must not invent IPA for " + base);
     }
-    assert.ok(entry.source_ids.includes("pcgn-1972-notes-2-8"));
+    assert.ok(entry.source_ids.includes("bgn-pcgn-khmer-1972"));
+    assert.ok(sources.some((source) => source.id === "bgn-pcgn-khmer-1972"));
     assert.ok(entry.source_ids.includes("unicode17-ch16"));
     assert.ok(entry.source_ids.includes("r12a-orthography"));
   }
