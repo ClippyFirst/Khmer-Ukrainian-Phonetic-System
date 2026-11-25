@@ -222,6 +222,9 @@ if (typeof document !== "undefined") {
             ? " · Детермінований OOV-кандидат із нейромережевої дистиляції: /" + unit.provisional_ipa + "/ → " + unit.provisional_ukrainian + " [PROVISIONAL · лише Super-soft]"
             : unit.provisional_ipa
               ? " · Попередній IPA-кандидат: /" + unit.provisional_ipa + "/ → " + unit.provisional_ukrainian + " [PROVISIONAL]"
+                + (unit.orthographic_fallback_ukrainian
+                  ? " · Окрема орфографічна романізація: " + unit.orthographic_fallback_ukrainian + " [BGN/PCGN-derived, не вимова]"
+                  : "")
               : "");
       const note = document.createElement("p");
       note.className = "unit-note";
