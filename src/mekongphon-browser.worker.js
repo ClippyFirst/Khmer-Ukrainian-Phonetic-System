@@ -95,7 +95,7 @@ async function generateBeam({ ort, encoder, decoder, tokenizers, manifest }, tex
   if (!inputIds.length) throw new Error("EMPTY_MODEL_INPUT");
   const attention = new BigInt64Array(inputIds.length).fill(1n);
   const encoderInputs = {
-    input_ids: tensor(ort, "int64", BigInt64Array.from(inputIds), [1, inputIds.length]),
+    input_ids: tensor(ort, "int64", BigInt64Array.from(inputIds, (id) => BigInt(id)), [1, inputIds.length]),
     attention_mask: tensor(ort, "int64", attention, [1, attention.length]),
   };
   const encoderOutput = await encoder.run(encoderInputs);
