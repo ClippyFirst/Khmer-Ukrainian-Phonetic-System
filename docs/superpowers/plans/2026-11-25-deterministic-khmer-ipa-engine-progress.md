@@ -1,77 +1,72 @@
-# SDD ledger — plan: docs/superpowers/plans/2026-11-25-deterministic-khmer-ipa-engine-plan.md
+# Execution ledger — deterministic neural-distilled Khmer IPA engine
 
-## Workspace
+## Workspace and integration boundary
 
 - Branch: `feat/deterministic-neural-distillation-20261125`
 - Base: `8838a1f33b03aa1bad7c045c216305bb3e60e3f9`
-- PR: #582 (draft)
-- Workspace ruling: the container has no repository checkout and cannot resolve github.com; no native worktree tool is exposed. Use the isolated remote GitHub branch as the workspace and exact-head GitHub Actions as verification. Cost if wrong: no local pre-commit test execution; mitigated by CI on every branch push/PR.
-- Current integration policy: do not merge or deploy from this task; keep PR #582 draft until deterministic runtime and evidence gates are met.
+- PR: [#582](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/582), draft
+- Latest code commit at this update: `755a89c695e93594adb3c980f2cc87adde80f6fd`
+- The container has no repository checkout and cannot resolve github.com. All changes were made through the remote GitHub branch; exact-head GitHub Actions are the verification environment. This means no local test execution.
+- Do not merge or deploy until exact-head gates and whole-branch review are complete. No merge/deploy has been performed.
 
-## Pre-flight
+## Architecture selected and implemented
 
-- Python and browser engines already share a typed IPA boundary and existing Ukrainian adapter.
-- The current browser MekongPhon model is optional/provisional and must not overwrite canonical deterministic fields.
-- The NCKL model outputs Khmer-script respelling with hyphen syllable boundaries, not IPA.
-- The deterministic phonemizer accepts Khmer script and returns IPA; the current experiment tests whether NCKL respelling improves its output.
-- No independent IPA gold exists. Source-attested diagnostic results are not accuracy.
+**Offline neural teacher → static deterministic student → typed IPA → Ukrainian IPA adapter.**
 
-## Task 1 — NCKL respelling → deterministic IPA bridge diagnostic
+- The website does not run a neural model, ONNX Runtime, or remote inference. The neural teacher trains offline from the pinned, licensed Google Khmer phonemic corpus.
+- Runtime is deterministic: existing structural parser, local rule engine, local source phonemic lexicon, evidence-bearing token-to-IPA map, and a static table of neural-distilled OOV syllable candidates.
+- Python and browser runtime share the typed IPA boundary and existing IPA → Ukrainian adaptation. The model never generates Ukrainian output directly.
+- Strict / Soft / Super-soft expose progressively wider candidate sets. Strict does not promote unadjudicated Google/model predictions. Soft can use local phonemic dictionary candidates. Super-soft can additionally use the static neural-distilled syllable table. Unresolved remainder remains explicit.
+- The model is an offline development dependency, not a visitor runtime dependency. Khmer input stays local in the browser; the static candidate table is fetched same-origin and cached by the browser.
 
-Status: PARTIAL; focused tests passed on an intermediate commit; exact-head model bridge job pending.
+## Task ledger
 
-- Test-first commit `f1f3bb58bbcd31abd99cbe216a8cfe49f93852fa` added `tests/test_benchmark_nckl_phonemizer_bridge.py` before the implementation.
-- Expected RED confirmed in Quality run [45642382335](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45642382335): collection failed because `scripts/benchmark_nckl_phonemizer_bridge.py` did not exist.
-- Implementation added in `d0baf521b9e2729ab32c16ae742d066eb7916fbd`; report newline corrected in `980b1408aed0f459a638cda2049a2661965de686`.
-- Focused/full Quality test job passed at commit `980b1408aed0f459a638cda2049a2661965de686` in run [45642506251](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45642506251). This is not the current head.
-- Branch-gated CI job `nckl-phonemizer-bridge` was added in commit `0635b69b943eaf7d43e92b89ca8472cd4e3b9ece`. It installs the pinned NCKL model and Khmer Phonemizer, runs both direct and bridged pipelines on the same source-attested corpus, and uploads only aggregate metrics and hashes.
-- Exact-head bridge result: PENDING. Inspect run [45642540955](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45642540955) and subsequent exact-head runs before updating status.
+| Task | Status | Evidence / remaining acceptance |
+|---|---|---|
+| Compare MekongPhon direct IPA output against source-attested matrix | DONE_VERIFIED as a failed promotion diagnostic | Greedy and beam-4: 0/6 exact, 44.44% codepoint CER. Not an accuracy score; not selected as teacher. |
+| Compare NCKL respelling bridge with direct Khmer Phonemizer | DONE_VERIFIED as a negative control | Split-syllable bridge 8/12 exact, 6.93% CER; direct Phonemizer 11/12 exact, 0.99% CER. NCKL output is not integrated. |
+| Pin Google Khmer phonemic source and Festvox phone inventory | DONE_VERIFIED | Google source commit `a90601024f07ab7e96c911243324e0adeb16da96`; CC BY 4.0 attribution retained; 62,118 non-empty Khmer rows, 61 blank rows, 62,114 unique spellings, four multi-pronunciation spellings. All 54 observed lexical phone tokens occur in the 56-phone inventory. |
+| Typed Google phonemic → IPA adapter | DONE_VERIFIED on prior successful full Quality run; exact latest head pending | Atomic source tokens, long-vowel marks and syllable dots preserved; unmapped tokens fail closed; per-token evidence and uncertainty retained. 6/6 R12A screening examples match; 3/7 overlapping lexical examples match and four conflicts remain visible. These are not accuracy metrics. |
+| Deterministic Google phonemic lexical shards and Python/browser lookup | DONE_VERIFIED on prior successful full Quality run; exact latest head pending | Eight reproducible shards; ambiguous variants preserved; blank rows unresolved; source hashes and attribution checked; no IPA promotion from corpus membership alone. |
+| Project-owned offline neural teacher | DONE_VERIFIED on prior successful teacher workflow | Run [45653367069](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45653367069), artifact [15043450562](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45653367069#artifacts): held-out Google source-label prediction 84.18% word exact, 4.33% phoneme-token error rate, 100% source-label coverage. Not independent IPA accuracy. Current-head retraining is pending. |
+| Distill neural teacher to static OOV syllable candidate table | DONE_VERIFIED as a research artifact | 2,532 candidates; 63.86% exact, 14.19% token error rate, 98.4% composition coverage under the documented syllable-count assumption. Teacher agreement only; zero candidates promoted to SUPPORTED. |
+| Integrate deterministic tiers, worker and local fallback | PARTIAL pending exact-head CI/Chromium | Code and tests are implemented. Worker loads only same-origin static candidate JSON in Super-soft; fallback uses the same static table. No remote inference. Exact-head browser smoke is not yet green. |
+| Production Pages artifact generation | PARTIAL / not deployed | Pages workflow trains/caches offline teacher, distills static table, stages it under `public/data`, runs checks/build/Chromium and smoke-tests the deployed asset. Workflow only deploys from main; PR branch is not deployed. |
+| Accuracy ordering Strict > Soft > Super-soft | BLOCKED | Independent adjudicated IPA gold remains 0. Do not infer tier accuracy ordering from source-label prediction or model/student agreement. |
+| Soft coverage > Strict; Super-soft non-empty output coverage = 100% | PARTIAL / contract implemented | Coverage is explicitly split into IPA candidate coverage and non-empty display coverage. Super-soft's 100% is non-empty output (unknown markers may remain), not 100% complete IPA. |
+| Independent target-profile equivalence and pronunciation accuracy | BLOCKED | Gold count 0; Google corpus profile equivalence to `khmer-pph-careful-citation-v1` remains UNVERIFIED. |
+| Whole-branch review and final release gates | TODO | Requires exact-head green Quality, Chromium browser smoke, current teacher/distillation workflow, artifact drift/clean build and read-only review. |
 
-## Completed diagnostic — MekongPhon teacher gate
+## Current exact-head CI history
 
-Status: DONE_VERIFIED as a diagnostic only; NOT selected as primary teacher.
+- On `8213510d209eaffee07cff83d82ab5e56fbae629`, browser smoke failed at an assertion expecting the canonical IPA field to end in `???`; canonical IPA correctly retains `⟦NOT_ESTABLISHED⟧`. Corrected the test to distinguish canonical typed status from display-tier uncertainty.
+- On `386b1f1eeae4bb328fa3bb2d401321021d9e9f3c`, browser smoke exposed stale expected provenance labels. Updated the test to assert the actual structured provenance emitted by the typed adapter.
+- On `12b2675fc44eecd0c12e5caf5a8409d91aabbf67`, the browser regression suite reached the status-notice assertion. It exposed a real UI bug: local Google lexical candidates were described as external provider candidates. Updated the regression test first, then fixed `getStatusNotice` in commit `755a89c695e93594adb3c980f2cc87adde80f6fd` to distinguish local Google, neural-distilled, partial and external candidate types.
+- Latest exact-head Quality and browser-smoke workflows for `755a89c695e93594adb3c980f2cc87adde80f6fd`: pending at this ledger update. Do not claim they passed.
+- Benchmarks on previous exact heads passed: shared Khmer IPA engine, external khPOS and pinned upstream Rust segmentation comparison. They must be rerun or confirmed on final head.
 
-- Source matrix contains six non-conflicting cases with non-empty IPA.
-- Greedy: 0/6 exact; codepoint CER 44.44%.
-- Beam-4: 0/6 exact; codepoint CER 44.44%.
-- Push run [45641401954](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45641401954) and PR run [45641415788](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45641415788) completed successfully on the diagnostic branch head.
-- Interpretation: not an accuracy score; this narrow source-concordance gate fails. Do not distill MekongPhon into production phonological rules.
-- Ruling: keep MekongPhon as a research/diagnostic candidate only — it has no exact match on the six available source examples in either decode mode and profile equivalence is unverified. Cost if wrong: a useful model may be excluded due to source/profile convention mismatch; retain the model and report as an optional research candidate rather than deleting it.
+## Previous PRs and branches
 
-## Task 2 — Typed respelling representation
+- PR #582 remains draft and is the active continuation branch.
+- PR #519 remains open and untouched; it is a divergent earlier provider/hybrid proposal, not the base for this deterministic neural-distilled architecture.
+- Earlier MekongPhon browser model port is retained only as historical research/diagnostic; the production UI path on this branch removes its standalone model button and ONNX runtime.
+- No branch was deleted, no conflicting PR was merged, no release was published, and no Pages deployment was initiated.
 
-Status: TODO; gated on Task 1 bridge result. No production parser/schema has been added.
+## Commands / checks actually executed
 
-## Task 3 — Deterministic respelling-to-IPA adapter
+- Remote CI run [45653367069](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45653367069): Quality, Google teacher, distillation/source matrix and NCKL diagnostic jobs all succeeded on that run's exact head.
+- Remote browser smoke [45668568863](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45668568863): failed at the old status-notice expectation; this prompted the local-vs-external notice fix.
+- Remote external khPOS benchmark on `12b2675`: success.
+- Remote pinned upstream Rust comparison on `12b2675`: success.
+- Remote shared engine benchmark on `12b2675`: in progress at last observation.
+- Latest branch push `755a89c` triggered new Quality/browser/benchmark runs; exact results are pending.
+- No local `pytest`, `npm run check`, build, or Playwright command is claimed as executed in this environment.
 
-Status: TODO; requires validated NCKL respelling semantics and source-backed contextual mappings. The current 54 R12A mapping observations are explicitly `runtime_eligible=false`; do not promote them directly.
+## Next acceptance gates
 
-## Task 4 — Offline deterministic-student compiler
-
-Status: BLOCKED / RIGHTS_REVIEW_REQUIRED until source/output rights and profile requirements are established. NCKL model weights are MIT per model card; underlying NCKL dictionary is copyrighted by NCKL and no blanket dataset redistribution license is declared. No NCKL training rows or raw model outputs are copied into the repository.
-
-## Task 5 — Python/browser runtime integration
-
-Status: TODO after Tasks 1–4. No site runtime behavior is changed by this branch so far. Final runtime must use static versioned data and the existing IPA → Ukrainian adapter; no ONNX/model inference dependency.
-
-## Task 6 — Strict/Soft/Super-soft evaluation
-
-Status: BLOCKED because independent adjudicated IPA gold remains 0. Existing user requirement retained: Strict accuracy > Soft > Super-soft; Soft coverage > Strict; Super-soft result coverage 100%. Measure complete IPA, provisional, partial, and unresolved coverage separately.
-
-## Task 7 — Documentation and release gates
-
-Status: PARTIAL. Design, plan, progress ledger, master handoff, repository audit, and deterministic engine doc updated. Exact-head tests, NCKL bridge result, final code review, and release-readiness decision remain pending.
-
-## Rulings
-
-1. Use remote GitHub branch instead of local worktree because the local environment has no checkout and network DNS to github.com fails. Cost: no local verification; mitigate with CI on exact SHAs.
-2. Do not promote MekongPhon as primary teacher after 0/6 and 44.44% CER under both greedy and beam-4. Cost: a profile mismatch may explain some differences; preserve as diagnostic candidate, not production teacher.
-3. Test NCKL respelling + deterministic IPA phonemizer as an alternate teacher bridge because its own held-out respelling benchmark is materially stronger (83.16% exact, 4.16% CER, 93.06% syllable-count accuracy) and exposes syllable boundaries. Cost: this is not IPA accuracy; bridge and profile must pass independent evaluation.
-4. Do not use the advertised 29,204-entry Khmer Acoustic Model dictionary: the pinned repository lacks the full dictionary/model artifacts and its license declarations conflict. Cost: losing a potentially valuable lexicon; revisit only if the complete artifacts and rights are supplied.
-5. Do not ship generated NCKL-derived outputs until rights review and independent phonetic validation. Cost: slower coverage expansion; avoids redistributing unlicensed data or presenting unverified pronunciations as supported.
-
-## Latest commands/evidence
-
-- Container inspection: `pwd`, `ls -la`, `git rev-parse --show-toplevel`, `git branch --show-current`; result: no repository checkout.
-- Local clone attempt: `git clone --filter=blob:none --no-checkout https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System.git`; blocked by DNS resolution (`Could not resolve host: github.com`).
-- Remote GitHub Actions are the only executable repository verification environment in this session.
+1. Inspect exact-head Quality and browser smoke on `755a89c`; fix every failure with a regression test and rerun.
+2. Inspect exact-head teacher/distillation artifacts and verify reproducibility and metric semantics.
+3. Run generated Google lexicon `--check`, Python tests, JS checks, cross-runtime parity, benchmarks, Vite build and Chromium tests on one final SHA.
+4. Review branch diff against main and resolve PR #519/#582 overlap without merging blindly.
+5. Update master handoff and repository audit with final SHA and evidence. Keep pronunciation accuracy/profile equivalence blocked until independent adjudicated IPA gold exists.
+6. Only then present the PR for integration; deployment remains a separate Pages/main-branch event.
