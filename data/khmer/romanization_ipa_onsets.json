@@ -1,0 +1,209 @@
+{
+  "schema": "khmer-romanization-ipa-onsets/v1",
+  "evidence": "PCGN 1972 consonant table; source onset_ipa from data/khmer/consonants.json (Unicode 17 / R12a inventory)",
+  "note": "Only source-verified onset correspondences. Vowels, codas and syllable structure are deliberately not inferred. The ambiguous PCGN b/p row is excluded.",
+  "entries": [
+    {
+      "source_units": [
+        "ក",
+        "គ",
+        "្ក",
+        "្គ"
+      ],
+      "romanization": "k",
+      "ipa": "k",
+      "rule_id": "PCGN-ONSET-K"
+    },
+    {
+      "source_units": [
+        "ខ",
+        "ឃ",
+        "្ខ",
+        "្ឃ"
+      ],
+      "romanization": "kh",
+      "ipa": "kʰ",
+      "rule_id": "PCGN-ONSET-KH"
+    },
+    {
+      "source_units": [
+        "ង",
+        "្ង"
+      ],
+      "romanization": "ng",
+      "ipa": "ŋ",
+      "rule_id": "PCGN-ONSET-NG"
+    },
+    {
+      "source_units": [
+        "ច",
+        "ជ",
+        "្ច",
+        "្ជ"
+      ],
+      "romanization": "ch",
+      "ipa": "c",
+      "rule_id": "PCGN-ONSET-CH"
+    },
+    {
+      "source_units": [
+        "ឆ",
+        "ឈ",
+        "្ឆ",
+        "្ឈ"
+      ],
+      "romanization": "chh",
+      "ipa": "cʰ",
+      "rule_id": "PCGN-ONSET-CHH"
+    },
+    {
+      "source_units": [
+        "ញ",
+        "្ញ"
+      ],
+      "romanization": "nh",
+      "ipa": "ɲ",
+      "rule_id": "PCGN-ONSET-NH"
+    },
+    {
+      "source_units": [
+        "ដ",
+        "ឌ",
+        "្ដ",
+        "្ឌ"
+      ],
+      "romanization": "d",
+      "ipa": "ɗ",
+      "rule_id": "PCGN-ONSET-D"
+    },
+    {
+      "source_units": [
+        "ឋ",
+        "ឍ",
+        "្ឋ",
+        "្ឍ",
+        "ថ",
+        "ធ",
+        "្ថ",
+        "្ធ"
+      ],
+      "romanization": "th",
+      "ipa": "tʰ",
+      "rule_id": "PCGN-ONSET-TH"
+    },
+    {
+      "source_units": [
+        "ណ",
+        "ន",
+        "្ណ",
+        "្ន"
+      ],
+      "romanization": "n",
+      "ipa": "n",
+      "rule_id": "PCGN-ONSET-N"
+    },
+    {
+      "source_units": [
+        "ត",
+        "ទ",
+        "្ត",
+        "្ទ"
+      ],
+      "romanization": "t",
+      "ipa": "t",
+      "rule_id": "PCGN-ONSET-T"
+    },
+    {
+      "source_units": [
+        "ព",
+        "្ព"
+      ],
+      "romanization": "p",
+      "ipa": "p",
+      "rule_id": "PCGN-ONSET-P"
+    },
+    {
+      "source_units": [
+        "ផ",
+        "ភ",
+        "្ផ",
+        "្ភ"
+      ],
+      "romanization": "ph",
+      "ipa": "pʰ",
+      "rule_id": "PCGN-ONSET-PH"
+    },
+    {
+      "source_units": [
+        "ម",
+        "្ម"
+      ],
+      "romanization": "m",
+      "ipa": "m",
+      "rule_id": "PCGN-ONSET-M"
+    },
+    {
+      "source_units": [
+        "យ"
+      ],
+      "romanization": "y",
+      "ipa": "j",
+      "rule_id": "PCGN-ONSET-Y"
+    },
+    {
+      "source_units": [
+        "រ",
+        "្រ"
+      ],
+      "romanization": "r",
+      "ipa": "r",
+      "rule_id": "PCGN-ONSET-R"
+    },
+    {
+      "source_units": [
+        "ឡ",
+        "ល",
+        "្ល"
+      ],
+      "romanization": "l",
+      "ipa": "l",
+      "rule_id": "PCGN-ONSET-L"
+    },
+    {
+      "source_units": [
+        "វ",
+        "្វ"
+      ],
+      "romanization": "v",
+      "ipa": "ʋ",
+      "rule_id": "PCGN-ONSET-V"
+    },
+    {
+      "source_units": [
+        "ស",
+        "្ស"
+      ],
+      "romanization": "s",
+      "ipa": "s",
+      "rule_id": "PCGN-ONSET-S"
+    },
+    {
+      "source_units": [
+        "ហ",
+        "្ហ"
+      ],
+      "romanization": "h",
+      "ipa": "h",
+      "rule_id": "PCGN-ONSET-H"
+    },
+    {
+      "source_units": [
+        "អ",
+        "្អ"
+      ],
+      "romanization": "'",
+      "ipa": "ʔ",
+      "rule_id": "PCGN-ONSET-GLOTTAL"
+    }
+  ]
+}
