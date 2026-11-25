@@ -80,6 +80,12 @@ jobs:
         run: python -m pip install --upgrade pip && python -m pip install -r requirements-mekongphon-browser-export.txt
       - name: Export pinned model and verify ONNX Runtime parity
         run: python scripts/export_mekongphon_onnx.py --output-dir dist/mekongphon
+      - name: Set up Node.js for tokenizer parity
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Verify browser tokenizer against pinned Transformers tokenizers
+        run: node tests/mekongphon-browser-tokenizer.test.mjs dist/mekongphon
       - name: Upload browser model proof-of-port
         uses: actions/upload-artifact@v6
         with:
