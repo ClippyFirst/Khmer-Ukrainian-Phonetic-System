@@ -482,12 +482,21 @@ class RuleBasedKhmerEngine:
                     note=unit.get("reason", ""),
                     unresolved_graphemes=tuple(unresolved_graphemes),
                 ),)
+            if unit.get("uncertainty"):
+                uncertainty = tuple(uncertainty) + tuple(
+                    PhoneticUncertainty(
+                        status=status,
+                        note=str(detail),
+                        unresolved_graphemes=tuple(unresolved_graphemes),
+                    )
+                    for detail in unit.get("uncertainty", ())
+                )
 
             typed_ipa = None
             if status not in {"PUNCTUATION", "NON_LINGUISTIC"}:
                 if source_ipa is not None:
                     kind = unit.get("ipa_kind", "PHONEMIC")
-                    uncertainty_notes = (unit.get("reason", ""),) if unit.get("reason") else ()
+                    uncertainty_notes = tuple(unit.get("uncertainty", ())) + ((unit.get("reason", ""),) if unit.get("reason") else ())
                     if status == "PROVISIONAL":
                         typed_ipa = from_provisional_full_ipa(
                             source_ipa,
