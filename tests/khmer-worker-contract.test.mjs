@@ -7,9 +7,9 @@ const core = fs.readFileSync("src/khmer-engine-core.js", "utf8");
 const html = fs.readFileSync("index.html", "utf8");
 
 for (const [label, source, required] of [
-  ["main", main, ['import { analyzeInWorker } from "./khmer-engine-client.js"', "await analyzeInWorker(inputText, profile, convert)", "renderRevision"]],
-  ["client", client, ['new Worker(new URL("./khmer-engine.worker.js", import.meta.url)', 'postMessage({ id, text, profile })', "fallback(text, profile)"]],
-  ["worker", worker, ['import { convert } from "./khmer-engine-core.js"', "convert(text, profile)", 'self.addEventListener("message"']],
+  ["main", main, ['import { analyzeInWorker } from "./khmer-engine-client.js"', "await analyzeInWorker(inputText, profile, convert, outputLevelMode)", "renderRevision"]],
+  ["client", client, ['new Worker(new URL("./khmer-engine.worker.js", import.meta.url)', 'postMessage({ id, text, profile })', "fallback(text, profile, { outputLevel })"]],
+  ["worker", worker, ['import { convert } from "./khmer-engine-core.js"', "convert(text, profile, { outputLevel, distilledSyllables })", 'self.addEventListener("message"']],
 ]) {
   for (const fragment of required) {
     if (!source.includes(fragment)) throw new Error(label + " worker contract missing: " + fragment);
