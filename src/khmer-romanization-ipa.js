@@ -36,6 +36,31 @@ export function buildRomanizationIpaCandidate(sourceUnit, romanizedUnit) {
     "data/khmer/consonants.json",
   ];
   if (!source || !romanized) return unresolved(source, "EMPTY-SOURCE-OR-ROMANIZATION", provenance);
+
+  const representative = (onsetInventory.representative_syllables ?? []).find((entry) =>
+    entry.source === source && entry.romanization === romanized
+  );
+  if (representative) {
+    const uncertainty = [
+      "EXACT_REPRESENTATIVE_SERIES_VOWEL_FIXTURE",
+      "NOT_GENERALIZED_TO_OTHER_VOWEL_OR_CODA_CONTEXTS",
+      "STRESS_AND_DIALECT_DETAIL_NOT_ADJUDICATED",
+    ];
+    const typed_ipa = fromProvisionalIpa(representative.ipa, {
+      provenance: [...provenance, ...representative.source_ids, representative.rule_id],
+      uncertainty,
+      appendUnknownTail: false,
+    });
+    return {
+      status: "PROVISIONAL",
+      typed_ipa,
+      ukrainian: adaptPhoneticResult(typed_ipa) || "???",
+      romanized_onset: romanized,
+      provenance: [...provenance, ...representative.source_ids, representative.rule_id],
+      uncertainty,
+    };
+  }
+
   if (source[0] === "ប" && /^[bp]/u.test(romanized)) {
     return unresolved(source, "AMBIGUOUS-PCGN-B-P-ALTERNATION", provenance);
   }
