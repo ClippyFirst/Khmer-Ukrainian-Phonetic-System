@@ -20,6 +20,38 @@ const expectedUa = "ка ко ка кіє ко ку кей кі ке кей ка
 const tokens = tokenize(adversarial);
 assert.equal(tokens.filter((token) => /\S/u.test(token)).length, 32, "the 32-unit adversarial block must remain 32 orthographic units");
 
+const tierInput = "កិ";
+const strictTier = convert(tierInput, "khmer-pph-careful-citation-v1", { outputLevel: "strict" });
+const softTier = convert(tierInput, "khmer-pph-careful-citation-v1", { outputLevel: "balanced" });
+const superSoftTier = convert(tierInput, "khmer-pph-careful-citation-v1", {
+  outputLevel: "exploratory",
+  distilledSyllables: {
+    "កិ": {
+      orthography: "កិ",
+      google_phonemic_tokens: ["k", "e", "ʔ"],
+      status: "PROVISIONAL",
+      uncertainty: ["NEURAL_TEACHER_PREDICTION_NOT_SOURCE_ATTESTED"],
+      teacher_checkpoint_sha256: "fixture-checkpoint",
+    },
+  },
+});
+assert.equal(strictTier.output_level, "strict");
+assert.equal(strictTier.ipa, "⟦NOT_ESTABLISHED⟧", "Strict must not use a neural OOV prediction or a partial onset");
+assert.equal(strictTier.ua, "???");
+assert.equal(softTier.output_level, "balanced");
+assert.ok(softTier.ipa.includes("/k/???"), "Soft may expose the registered onset as a partial IPA candidate");
+assert.ok(softTier.ua.includes("к???"), "Soft must retain the known onset while marking the unresolved remainder");
+assert.equal(superSoftTier.output_level, "exploratory");
+assert.equal(superSoftTier.ipa, "/keʔ/???", "Super-soft must use the static neural-distilled candidate, not execute a model");
+assert.equal(superSoftTier.ua, "ке???", "The neural candidate must pass through the shared IPA-to-Ukrainian adapter");
+assert.equal(superSoftTier.units[0].partial_candidate_kind, "NEURAL_DISTILLED_OOV_SYLLABLE");
+assert.equal(superSoftTier.phonetic_result.units[0].ipa_kind, "PHONEMIC");
+assert.equal(superSoftTier.phonetic_result.units[0].ukrainian_kind, "IPA_DERIVED_PROVISIONAL");
+assert.ok(superSoftTier.phonetic_result.units[0].typed_ipa.provenance.includes("CANDIDATE:PROVISIONAL-FULL-IPA"));
+const superSoftUnsupported = convert("☃", "khmer-pph-careful-citation-v1", { outputLevel: "exploratory" });
+assert.ok(superSoftUnsupported.ipa.length > 0 && superSoftUnsupported.ua.length > 0,
+  "Super-soft must always return a non-empty result string, even when the IPA itself is unresolved");
+
 const result = convert(adversarial, "khmer-pph-careful-citation-v1");
 assert.ok(result, "adversarial block must produce a result");
 assert.equal(result.status, "PROPOSED");
