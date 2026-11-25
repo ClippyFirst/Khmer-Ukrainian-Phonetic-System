@@ -66,19 +66,20 @@ assert.deepEqual(
   ["កម្ពុជា", " ", "ប្រជាធិបតេយ្យ"],
   "known multi-cluster lexical fixtures must be recognized without requiring whitespace between Khmer words",
 );
-assert.equal(unresolvedWord.ipa, "/kampuciə prɑciətʰɨppaʔtaj/???", "the browser IPA result must preserve the archived Khmer Phonemizer candidate and mark it as unverified");
-assert.equal(unresolvedWord.ua, "кампутьіє пратьієт'иппатай???", "the browser IPA adapter must render the selected provisional IPA candidate and append one uncertainty marker");
+assert.equal(unresolvedWord.ipa, "/kam.pu.ciə/ /prɑ.ciə.tʰɨp.paʔ.taj/???", "the browser IPA result must use the local source-backed fixture plus exact Google phonemic lexical candidate");
+assert.equal(unresolvedWord.ua, "кампутьіє пратьієт'иппатай???", "the browser IPA adapter must render the local lexical candidate and append one uncertainty marker");
 assert.ok(unresolvedWord.ipa.endsWith("???") && unresolvedWord.ipa !== "???", "an unresolved IPA result must retain its candidate before the uncertainty marker");
 assert.ok(unresolvedWord.ua.endsWith("???") && unresolvedWord.ua !== "???", "an unresolved Ukrainian result must retain its candidate before the uncertainty marker");
 assert.equal(unresolvedWord.status, "PROVISIONAL");
 assert.equal(unresolvedWord.confidence_tier, "C");
-assert.equal(unresolvedWord.selected_external_candidate.provider, "khmer-phonemizer");
-assert.equal(unresolvedWord.selected_external_candidate.profile_match, "UNVERIFIED");
+assert.equal(unresolvedWord.selected_external_candidate, null, "archived external candidates must not replace the local deterministic engine output");
+assert.equal(unresolvedWord.archived_external_candidate.provider, "khmer-phonemizer");
+assert.equal(unresolvedWord.external_candidates.find((candidate) => candidate.provider === "khmer-phonemizer").profile_match, "UNVERIFIED");
 assert.equal(unresolvedWord.external_candidates.length, 2, "both previously captured provider IPA candidates must remain inspectable");
 assert.equal(unresolvedWord.external_candidates.find((candidate) => candidate.provider === "mekongphon").mapping_failure, "y");
 assert.equal(unresolvedWord.backend_failures[0].provider, "epitran", "rejected provider output must remain visible as a failure, not be promoted to IPA");
-assert.ok(unresolvedWord.canonical_ipa.endsWith("???"), "the internal deterministic result must retain the partial onset and uncertainty marker");
-assert.ok(unresolvedWord.canonical_ua.endsWith("???"), "the canonical IPA-derived target must retain its partial onset and uncertainty marker");
+assert.ok(unresolvedWord.canonical_ipa.endsWith("???"), "the internal deterministic result must retain the unresolved second word marker");
+assert.ok(unresolvedWord.canonical_ua.endsWith("???"), "the canonical IPA-derived target must retain the unresolved second word marker");
 const unresolvedUnits = unresolvedWord.units.filter((unit) => unit.status === "EVIDENCE_LIMITED" || unit.status === "NOT_ESTABLISHED");
 assert.equal(unresolvedUnits.length, 1, "word segmentation must preserve the unresolved second lexical word as one unit");
 assert.equal(unresolvedUnits[0].source, "ប្រជាធិបតេយ្យ");
