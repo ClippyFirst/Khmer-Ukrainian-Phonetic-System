@@ -216,3 +216,54 @@ jobs:
             dist/google-khmer-teacher/distillation-metrics.json
           if-no-files-found: error
           retention-days: 14
+
+  pages-build-check:
+    if: github.ref == 'refs/heads/feat/deterministic-neural-distillation-20261125' || github.head_ref == 'feat/deterministic-neural-distillation-20261125'
+    needs: google-phonemic-teacher
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Download exact-head teacher and distillation artifact
+        uses: actions/download-artifact@v6
+        with:
+          name: google-khmer-phonemic-teacher-${{ github.sha }}
+          path: dist/google-khmer-teacher
+
+      - name: Stage static deterministic candidate table
+        run: |
+          mkdir -p public/data
+          cp dist/google-khmer-teacher/distilled-syllables.json public/data/google-neural-distilled-syllables.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          artifact = json.loads(Path("public/data/google-neural-distilled-syllables.json").read_text(encoding="utf-8"))
+          assert artifact.get("schema") == "google-khmer-neural-distilled-syllables/v1"
+          assert len(artifact.get("candidates", [])) == 2532
+          print("staged deterministic OOV table:", len(artifact["candidates"]), "candidates")
+          PY
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Run production web checks
+        run: npm run check
+
+      - name: Build production Pages site with the real distilled table
+        run: |
+          npm run build
+          test -s dist/data/google-neural-distilled-syllables.json
+          cmp public/data/google-neural-distilled-syllables.json dist/data/google-neural-distilled-syllables.json
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Verify production page in Chromium with the real static table
+        run: npm run test:browser
