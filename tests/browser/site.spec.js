@@ -662,3 +662,22 @@ test("production interface uses the deterministic engine without a standalone ne
   expect(requests.some((url) => /onnx|mekongphon|ort-wasm/u.test(url))).toBe(false);
 });
 
+test("Pages build serves and executes the actual neural-distilled static candidate table", async ({ page }) => {
+  await page.goto("/");
+  const assetUrl = new URL("/data/google-neural-distilled-syllables.json", page.url()).toString();
+  const response = await page.request.get(assetUrl);
+  test.skip(response.status() === 404, "the generic browser-smoke job does not stage the Pages-only teacher artifact");
+  expect(response.ok()).toBe(true);
+  const artifact = await response.json();
+  expect(artifact.schema).toBe("google-khmer-neural-distilled-syllables/v1");
+  expect(artifact.candidates).toHaveLength(2532);
+  expect(artifact.candidates.some((candidate) => candidate.orthography === "កិ")).toBe(true);
+
+  await page.locator("#source").fill("កិ");
+  await page.locator("#output-level").selectOption("exploratory");
+  await expect(page.locator("#ipa-result")).toHaveText("/keʔ/???");
+  await expect(page.locator("#ua-result")).toHaveText("ке???");
+  await expect(page.locator("#status")).toContainText("PROVISIONAL");
+  await expect(page.locator("#unit-details")).toContainText("NEURAL_TEACHER_DISTILLED_STATIC_LOOKUP");
+  await expect(page.locator("#unit-details")).toContainText("NEURAL_TEACHER_PREDICTION_NOT_SOURCE_ATTESTED");
+});
