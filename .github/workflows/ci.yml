@@ -64,7 +64,7 @@ jobs:
         run: npm run build
 
   export-browser-model:
-    if: github.ref == 'refs/heads/feat/browser-local-mekongphon-ipa-20261125'
+    if: github.ref == 'refs/heads/feat/browser-local-mekongphon-ipa-20261125' || github.head_ref == 'feat/browser-local-mekongphon-ipa-20261125'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
