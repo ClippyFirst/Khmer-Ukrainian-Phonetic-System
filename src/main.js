@@ -136,6 +136,15 @@ if (typeof document !== "undefined") {
     if (activeMode === "romanization" && usesKhmerRomanizer) {
       uaResultTitle.textContent = "Українська через романізацію (попередня IPA)";
       uaResultDescription.textContent = "Показано лише звірений початковий приголосний; решта складу не реконструюється. Нижче окремо наведено орфографічну романізацію — це не вимова.";
+      outputMethodNote.textContent = "Шлях 2 · кмерська графіка → BGN/PCGN-derived романізація + звірка з вихідними графемами → попередня IPA → українська адаптація. Повні склади не реконструюються.";
+    } else if (activeMode === "romanization") {
+      uaResultTitle.textContent = "Українська з романізації";
+      uaResultDescription.textContent = hasMixedScript
+        ? "Змішаний кмерсько-латинський ввід не має єдиного профілю; орфографічні фрагменти позначено окремо."
+        : "Готова латинська BGN/PCGN-форма передається орфографічно; без кмерського джерела IPA-кандидат не виводиться. Це не фонетична транскрипція.";
+      outputMethodNote.textContent = hasMixedScript
+        ? "Змішаний ввід: розділіть кмерський текст і готову романізацію."
+        : "Шлях 2 · готова BGN/PCGN-форма → українська орфографічна передача. Без вихідних кмерських графем контекстний IPA-кандидат не будується.";
     }
     $("status").textContent = activeMode === "romanization"
       ? romanizationOnlyInput
