@@ -55,15 +55,14 @@
   - Whole respelling (hyphens preserved and passed to phonemizer once).
   - Spaces substituted for hyphens and passed to phonemizer once.
 
-- [ ] **Step 3: Run all three variants on the same 12 source-attested inputs**
-  - Compare direct, split, whole-string and spaced-string output.
-  - Store only hashes and aggregate metrics; do not retain raw words, respellings, source IPA or generated IPA.
-  - Run focused tests and exact-head CI.
-  - If neither whole nor spaced mode improves on direct, close this branch as a failed bridge and do not integrate NCKL.
+- [x] **Step 3: Run all three variants on the same 12 source-attested inputs**
+  - Exact diagnostic artifact from run 45653367069: direct Khmer Phonemizer 11/12 exact, 0.99% CER; split-syllable bridge 8/12 exact, 6.93% CER; whole-string and spaced-string variants each 7/12 exact, 6.93% CER.
+  - Aggregate-only artifact retained hashes and metrics; no raw words, respellings, source IPA or generated IPA were retained.
+  - All three NCKL bridge modes underperform the direct deterministic phonemizer; NCKL is rejected as an engine/teacher bridge and not integrated.
 
-- [ ] **Step 4: Record the final decision**
-  - Mark the diagnostic `DONE_VERIFIED` with exact run/commit.
-  - Retain NCKL only as a research candidate; do not call it the primary engine.
+- [x] **Step 4: Record the final decision**
+  - Mark the diagnostic `DONE_VERIFIED` as a negative control: run 45653367069, code head `a70f304cba563a78dc87b79bc0177901eda38b8f`.
+  - Retain the NCKL model only as a research reference; do not call it the primary engine or use its outputs in the runtime.
 
 ### Task 2: Validate the Google phonemic source and define a typed phonemic → IPA adapter
 
