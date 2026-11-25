@@ -79,5 +79,5 @@ The first executable stage is implemented on branch `feat/romanization-mediated-
 - The resulting typed IPA is always `PROVISIONAL` or `UNRESOLVED`; Ukrainian output uses the existing IPA-only adapter.
 - The context-sensitive PCGN BA `b/p` row abstains. Vowels, codas, syllable boundaries, tone and dialect detail remain unresolved.
 - The orthographic romanization card remains separately available and explicitly marked “не вимова”.
-- Python/JavaScript semantics and all registered onset rules have parity tests. Quality checks passed on `9d5acbb95fbe46df884d1ccc2482eb48d6d6f90e`; Chromium smoke passed 43/43 on the same code head.
+- Python/JavaScript semantics and all registered onset rules have parity tests. Quality checks passed on `9d5acbb95fbe46df884d1ccc2482eb48d6f6d90e`; Chromium smoke passed 43/43 on the same code head.
 - This is a verified partial implementation, not completion of the full contextual G2P acceptance criteria. The vowel model explicitly warns that its representative contrasts are not a complete deterministic orthography-to-IPA matrix. Do not generalize the onset-only inventory into vowel/coda rules without additional evidence and tests.
