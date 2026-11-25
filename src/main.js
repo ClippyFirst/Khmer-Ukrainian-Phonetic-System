@@ -400,22 +400,30 @@ if (typeof document !== "undefined") {
         throw new Error(response.message || response.error);
       }
       const candidate = response.result;
-      const typed = fromIpa(candidate.ipa, {
-        status: "UNCERTAIN",
-        provenance: [
-          "MekongPhon:" + candidate.model_revision,
-          "ONNX-Runtime-Web:WASM",
-          "BROWSER-LOCAL-INFERENCE",
-        ],
-        uncertainty: candidate.uncertainty,
-      });
-      const ukrainian = adaptPhoneticResult(typed, { allowUncertain: true });
+      // Publish the raw model transcription first. A target-adapter limitation
+      // must never hide a successfully generated IPA candidate.
       $("mekongphon-ipa").textContent = candidate.ipa
         ? (candidate.ipa.startsWith("/") ? candidate.ipa : "/" + candidate.ipa + "/")
         : "⟦IPA не повернуто⟧";
+      let ukrainian = null;
+      let mappingError = null;
+      try {
+        const typed = fromIpa(candidate.ipa, {
+          status: "UNCERTAIN",
+          provenance: [
+            "MekongPhon:" + candidate.model_revision,
+            "ONNX-Runtime-Web:WASM",
+            "BROWSER-LOCAL-INFERENCE",
+          ],
+          uncertainty: candidate.uncertainty,
+        });
+        ukrainian = adaptPhoneticResult(typed, { allowUncertain: true });
+      } catch (error) {
+        mappingError = error instanceof Error ? error.message : String(error);
+      }
       $("mekongphon-ua").textContent = ukrainian
         ? ukrainian
-        : "— · українське зіставлення неповне або містить непідтримані IPA-сегменти";
+        : "— · IPA-кандидат отримано, але український адаптер не зміг зіставити всі його сегменти";
       $("mekongphon-status").textContent =
         "PROVISIONAL · " + candidate.provider + "@" + candidate.model_revision.slice(0, 12)
         + " · profile match " + candidate.profile_match
@@ -423,6 +431,7 @@ if (typeof document !== "undefined") {
         + " · " + candidate.input_token_count + " вхідних токенів"
         + " · ваги " + (candidate.model_bytes / 1048576).toFixed(1) + " MB"
         + (candidate.input_truncated ? " · ввід обрізано до ліміту моделі" : "")
+        + (mappingError ? " · UA-адаптер: " + mappingError : "")
         + " · текст не надсилався на сервер";
       lastModelInput = input;
     } catch (error) {
