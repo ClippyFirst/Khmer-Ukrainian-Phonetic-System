@@ -18,6 +18,7 @@ function segmentKind(symbol) {
 function makeResult({
   phonemic_ipa = null,
   ipa_kind = "UNRESOLVED",
+  profile = "khmer-pph-careful-citation-v1",
   segments = [],
   status = "SUPPORTED",
   provenance = [],
@@ -27,6 +28,7 @@ function makeResult({
   return {
     phonemic_ipa,
     ipa_kind,
+    profile,
     segments,
     syllable_boundaries: [0, segments.length],
     vowel_length,
@@ -42,6 +44,7 @@ export function serializePhoneticResult(result) {
   return {
     phonemic_ipa: result.phonemic_ipa,
     ipa_kind: result.ipa_kind,
+    profile: result.profile,
     segments: result.segments.map((segment) => ({ ...segment })),
     syllable_boundaries: [...result.syllable_boundaries],
     vowel_length: result.vowel_length,
@@ -114,6 +117,7 @@ function tokenizeIpa(ipa, provenance, certainty) {
 export function fromIpa(ipa, {
   status = "SUPPORTED",
   kind = "PHONEMIC",
+  profile = "khmer-pph-careful-citation-v1",
   provenance = [],
   uncertainty = [],
 } = {}) {
@@ -136,6 +140,7 @@ export function fromIpa(ipa, {
   if (unsupported.length) {
     const result = makeResult({
       segments,
+      profile,
       ipa_kind: "UNRESOLVED",
       status: "UNRESOLVED",
       provenance,
@@ -147,6 +152,7 @@ export function fromIpa(ipa, {
   const result = makeResult({
     phonemic_ipa: raw,
     ipa_kind: kind,
+    profile,
     segments,
     status,
     provenance,
@@ -163,10 +169,11 @@ export function fromProvisionalIpa(ipaHint, {
   uncertainty = [],
   appendUnknownTail = true,
   kind = "PHONETIC_BROAD",
+  profile = "khmer-pph-careful-citation-v1",
 } = {}) {
   let typed = null;
   if (ipaHint) {
-    typed = fromIpa(ipaHint, { status: "UNCERTAIN", kind, provenance, uncertainty });
+    typed = fromIpa(ipaHint, { status: "UNCERTAIN", kind, profile, provenance, uncertainty });
     if (typed.status === "UNRESOLVED") return typed;
   }
   const segments = (typed?.segments ?? []).map((segment) => ({
@@ -185,6 +192,7 @@ export function fromProvisionalIpa(ipaHint, {
   return makeResult({
     segments,
     ipa_kind: ipaHint ? kind : "UNRESOLVED",
+    profile,
     status: ipaHint ? "PROVISIONAL" : "UNRESOLVED",
     provenance: [...new Set([...provenance, "FALLBACK:GRAPHEME-POSITION-PREVIEW"])],
     uncertainty: [...new Set([...uncertainty, "PHONETIC-READING-PROVISIONAL"])],
@@ -193,10 +201,11 @@ export function fromProvisionalIpa(ipaHint, {
 
 export function fromProvisionalFullIpa(ipa, {
   kind = "PHONEMIC",
+  profile = "khmer-pph-careful-citation-v1",
   provenance = [],
   uncertainty = [],
 } = {}) {
-  const typed = fromIpa(ipa, { status: "UNCERTAIN", kind, provenance, uncertainty });
+  const typed = fromIpa(ipa, { status: "UNCERTAIN", kind, profile, provenance, uncertainty });
   if (typed.status === "UNRESOLVED") return typed;
   return {
     ...typed,
@@ -211,12 +220,14 @@ export function fromProvisionalFullIpa(ipa, {
 }
 
 export function fromUnknownSourceUnit(surface, {
+  profile = "khmer-pph-careful-citation-v1",
   provenance = [],
   uncertainty = [],
 } = {}) {
   if (typeof surface !== "string" || !surface) throw new TypeError("Unknown source unit must not be empty");
   const trace = [...new Set([...provenance, "FALLBACK:UNKNOWN-SOURCE-UNIT"])];
   return makeResult({
+    profile,
     ipa_kind: "UNRESOLVED",
     segments: [{
       ipa: "?",
