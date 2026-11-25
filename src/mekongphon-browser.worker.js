@@ -109,6 +109,39 @@ async function generateBeam({ ort, encoder, decoder, tokenizers, manifest }, tex
   const maskTensor = tensor(ort, "int64", repeatedMask, [beamSize, sourceLength]);
   const startId = manifest.generation?.decoder_start_token_id ?? 2;
   const eosId = manifest.generation?.eos_token_id ?? 3;
+  if (beamSize === 1) {
+    const ids = [startId];
+    for (let step = 0; step < maxLength - 1; step += 1) {
+      postProgress("Генерація IPA · крок " + (step + 1));
+      const decoderIds = BigInt64Array.from(ids, (id) => BigInt(id));
+      const output = await decoder.run({
+        decoder_input_ids: tensor(ort, "int64", decoderIds, [1, ids.length]),
+        encoder_hidden_states: hiddenTensor,
+        encoder_attention_mask: maskTensor,
+      });
+      const logits = output.logits.data;
+      const vocabularySize = output.logits.dims[2];
+      const offset = (ids.length - 1) * vocabularySize;
+      let bestId = 0;
+      let bestScore = -Infinity;
+      for (let tokenId = 0; tokenId < vocabularySize; tokenId += 1) {
+        const score = logits[offset + tokenId];
+        if (score > bestScore) {
+          bestScore = score;
+          bestId = tokenId;
+        }
+      }
+      ids.push(bestId);
+      if (bestId === eosId) break;
+    }
+    return {
+      ipa: tokenizers.decoder.decode(ids),
+      input_token_count: inputIds.length,
+      input_truncated: encodedInput.truncated,
+      output_token_count: ids.length,
+      beam_size: 1,
+    };
+  }
   let beams = Array.from({ length: beamSize }, (_, index) => ({
     ids: [startId],
     score: index === 0 ? 0 : -1e9,
