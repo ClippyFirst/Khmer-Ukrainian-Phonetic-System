@@ -63,3 +63,16 @@ The selected browser display is `/kampuciə prɑciətʰɨppaʔtaj/???` and `ка
 Provider candidates are now tokenized into the same source-independent `TypedPhoneticResult` model before target adaptation. The IPA parser preserves valid IPA even if the Ukrainian correspondence table cannot map it; the target adapter then withholds the Ukrainian value and the provider diagnostic retains the exact unsupported tail. Provider status, profile match, provenance and uncertainty remain separate from canonical engine status. A provider's `COMPLETE` assertion does not become `SUPPORTED` gold, and no provider candidate overwrites canonical IPA or Ukrainian output.
 
 The target adapter consumes typed IPA only. It does not read Khmer graphemes or the romanization route. BGN/PCGN orthographic fallback remains a separate display candidate and is never passed through the IPA adapter.
+
+
+## Browser-local MekongPhon port — 2026-11-25
+
+The public Pages build now has a separate browser execution path for the pinned `byumatrixlab/khmer-ipa` model:
+- Model revision: `20e069d384b240da76320e1569958568c12a54bc`; upstream model-card metadata declares Apache-2.0.
+- Export: separate encoder/decoder ONNX graphs, dynamically quantized per-channel INT8; FP32 graphs are used for export validation and are not shipped.
+- Runtime: vendored, integrity-pinned ONNX Runtime Web, WASM execution in a dedicated Web Worker; no remote inference endpoint.
+- Tokenization: browser ByteLevel BPE implementation is checked against the pinned Transformers tokenizers before the Pages build.
+- UX: model weights are lazy-loaded only after an explicit user action; the model's IPA and Ukrainian adaptation remain a separate `PROVISIONAL` candidate with model revision, elapsed time, input token count, model size and uncertainty visible. It does not replace canonical deterministic fields.
+- Input privacy: Khmer input is processed in the browser and is not transmitted to a server.
+
+The CI export workflow compares FP32 and INT8 generation against the pinned Transformers model and checks the browser output in production Chromium. This proves deployment/runtime parity only. It does **not** prove linguistic accuracy: there is still no independent adjudicated Phnom Penh IPA gold corpus, and the upstream model's profile equivalence is unverified. The model's upstream training corpus is not downloaded or redistributed. The standard Pages deployment workflow repeats the pinned export, tokenizer check and browser tests before publishing the model assets with the static site.
