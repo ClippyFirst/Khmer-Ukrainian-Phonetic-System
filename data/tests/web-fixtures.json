@@ -423,7 +423,7 @@
     "ipa": "/saʔ.pʰiə tɑm.naːŋ/",
     "ua": "сап'іє тамнанг",
     "status": "PROPOSED",
-    "note": "The archived Wiktionary entry for the longer compound សភាតំណាងរាស្ត្រ gives standard IPA /saʔ.pʰiə tɑm.naːŋ riəh/. This fixture retains only its first two lexical components as a source-located span. The full user phrase is compositional, not directly source-attested; this community transcription has not been independently adjudicated.",
+    "note": "Проєктна українська форма. The archived Wiktionary entry for the longer compound សភាតំណាងរាស្ត្រ gives standard IPA /saʔ.pʰiə tɑm.naːŋ riəh/. This fixture retains only its first two lexical components as a source-located span. The full user phrase is compositional, not directly source-attested; this community transcription has not been independently adjudicated.",
     "evidence": [
       "wiktionary:spha-tamnang-ras"
     ],
@@ -434,7 +434,7 @@
     "ipa": "/prɑː.ciə.cŭən/",
     "ua": "пратьієтьуен",
     "status": "PROPOSED",
-    "note": "Wiktionary Pronunciation gives standard IPA /prɑː.ciə.cŭən/. U+016D breve is retained in the IPA; the Ukrainian practical adapter renders the short /ŭ/ as у because Ukrainian spelling does not encode this quantity distinction. Community-maintained source; not independently adjudicated.",
+    "note": "Проєктна українська форма. Wiktionary Pronunciation gives standard IPA /prɑː.ciə.cŭən/. U+016D breve is retained in the IPA; the Ukrainian practical adapter renders the short /ŭ/ as у because Ukrainian spelling does not encode this quantity distinction. Community-maintained source; not independently adjudicated.",
     "evidence": [
       "wiktionary:prochachon"
     ],
