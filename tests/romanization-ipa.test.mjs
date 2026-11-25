@@ -89,6 +89,10 @@ test("exact source-aligned representative series vowels produce provisional IPA 
   for (const fixture of onsetInventory.representative_syllables) {
     assert.equal(evidence.get(fixture.source)?.ipa, fixture.ipa, fixture.rule_id + " must match the source vowel evidence");
     assert.equal(evidence.get(fixture.source)?.source, "r12a-orthography");
+    assert.ok(fixture.source_ids.includes("bgn-pcgn-khmer-1972"));
+    assert.ok(fixture.source_ids.includes("r12a-orthography"));
+    assert.match(fixture.pcgn_source_url, /^https:\/\//u);
+    assert.match(fixture.pcgn_source_locator, /Vowel Characters table row/u);
     const romanized = khmerToLatin(fixture.source).toLowerCase();
     assert.equal(romanized, fixture.romanization, fixture.source + " upstream PCGN romanization");
     const result = buildRomanizationIpaCandidate(fixture.source, romanized);
