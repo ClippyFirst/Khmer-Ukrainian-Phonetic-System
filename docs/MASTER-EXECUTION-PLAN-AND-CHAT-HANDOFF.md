@@ -5,7 +5,7 @@
 - Owner approved `docs/superpowers/specs/2026-11-25-romanization-mediated-ipa-design.md`; implementation plan: [2026-11-25-romanization-mediated-ipa.md](superpowers/plans/2026-11-25-romanization-mediated-ipa.md).
 - Base main: `e972cd503f3670d08a2fbf0812efdc701513a810`.
 - Working branch: `feat/romanization-mediated-ipa-20261125`; draft PR [#572](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/572).
-- Latest branch head after documentation closeout: `8afcd0ef9b40c5e8f1b57e06e80577d17de008e8`. Latest code/test head with green Quality and browser checks: `9d5acbb95fbe46df884d1ccc2482eb48d6f6d90e`.
+- Latest branch head after documentation closeout: `fbd29dd50c39861bdadb40ff6e803368efd5c5f8`. Latest code/test head with green Quality and browser checks: `9d5acbb95fbe46df884d1ccc2482eb48d6f6d90e`.
 - Implemented: `data/khmer/romanization_ipa_onsets.json` evidence-bounded PCGN onset inventory; JS adapter `src/khmer-romanization-ipa.js`; Python adapter `src/khmer_ua/romanization_ipa.py`; UI integration in `src/main.js`; separate orthographic romanization card retained and explicitly labelled “не вимова”.
 - Behavior: the source Khmer base consonant is cross-checked against the longest leading PCGN romanization token. Only the registered onset IPA is emitted; the IPA is typed `PROVISIONAL` and passed through the existing IPA-only Ukrainian target adapter. Unsupported spans remain `???`. PCGN BA b/p alternation abstains.
 - Explicit limit: no contextual vowel/coda/syllable/tone/dialect inference is implemented. The existing `vowels.json` is explicitly a representative model, not a complete orthography-to-IPA matrix. This branch is a verified first stage, not full contextual G2P completion.
