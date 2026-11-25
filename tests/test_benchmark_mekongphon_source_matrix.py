@@ -61,6 +61,7 @@ def test_source_matrix_report_is_diagnostic_only_and_does_not_leak_rows():
     )
 
     assert report["input_count"] == 2
+    assert report["decoding"] == "greedy"
     assert report["source_attested_diagnostic"]["strict_matches"] == 1
     assert report["source_attested_diagnostic"]["character_errors"] == 1
     assert report["independent_gold_count"] == 0
