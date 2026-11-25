@@ -110,6 +110,6 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: mekongphon-browser-onnx-${{ github.sha }}
-          path: dist/mekongphon/
+          path: dist/models/mekongphon/
           if-no-files-found: error
           retention-days: 14
