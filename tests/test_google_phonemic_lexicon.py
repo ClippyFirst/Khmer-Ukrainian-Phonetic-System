@@ -1,6 +1,8 @@
+import json
 from pathlib import Path
 
 import pytest
+from jsonschema import Draft202012Validator
 
 from khmer_ua.google_phonemic import load_google_phonemic_lexicon
 
@@ -68,3 +70,28 @@ def test_google_phonemic_source_hash_is_verified(tmp_path: Path):
 
     with pytest.raises(ValueError, match="source TSV hash mismatch"):
         load_google_phonemic_lexicon(altered, verify_hash=True)
+
+def test_google_phonemic_manifest_and_all_shards_validate_against_schema():
+    root = Path(__file__).resolve().parents[1]
+    data_dir = root / "data" / "khmer"
+    schema = json.loads(
+        (root / "schemas" / "google-phonemic-source-lexicon.schema.json").read_text(encoding="utf-8")
+    )
+    validator = Draft202012Validator(schema)
+
+    manifest = json.loads(
+        (data_dir / "google-phonemic-source-lexicon.json").read_text(encoding="utf-8")
+    )
+    errors = list(validator.iter_errors(manifest))
+    assert not errors, [error.message for error in errors]
+
+    shards = sorted(data_dir.glob("google-phonemic-source-lexicon-[0-7].json"))
+    assert len(shards) == 8
+    for shard_path in shards:
+        shard = json.loads(shard_path.read_text(encoding="utf-8"))
+        errors = list(validator.iter_errors(shard))
+        assert not errors, f"{shard_path.name}: {[error.message for error in errors]}"
+        shard_id = int(shard_path.stem.rsplit("-", 1)[1])
+        assert shard["shard_id"] == shard_id
+        assert shard["source_revision"] == manifest["source"]["revision"]
+
