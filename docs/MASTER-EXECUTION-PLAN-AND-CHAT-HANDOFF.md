@@ -1,7 +1,7 @@
 ## Current continuation: NCKL Khmer-script respelling benchmark — 2026-11-25
 
 - Base main: `e972cd503f3670d08a2fbf0812efdc701513a810`.
-- Working branch: `bench/nckl-respelling-20261125`; PR not yet opened.
+- Working branch: `bench/nckl-respelling-20261125`; PR [#573](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/573) open, non-draft, clean/mergeable, intentionally unmerged.
 - Added `scripts/benchmark_nckl_respelling.py`, `tests/test_benchmark_nckl_respelling.py`, `.github/workflows/optional-nckl-respelling-benchmark.yml`, and `docs/research/NCKL-RESPelling-BENCHMARK-2026-11-25.md`.
 - Dataset pin: `phonsobon/khmer-G2P` revision `2733e664ed4d77dee4cc588a130bb4844c9da767`; model pin: `phonsobon/khmer-g2p` revision `7dbc6c3d1c1f5a9a8763be602fa679f130f20dca`; inference code uses MIT-licensed PyPI `khmer-g2p==0.1.0` with the explicit model revision. No unlicensed upstream GitHub source checkout remains.
 - This is a separate **Khmer-script pronunciation-respelling** task, not IPA. The test split has 1,920 pairs / 1,888 unique words. The harness verifies train/validation/test word-disjointness and groups all alternative readings per word.
