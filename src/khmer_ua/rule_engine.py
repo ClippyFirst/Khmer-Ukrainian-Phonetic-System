@@ -309,33 +309,6 @@ def _analyze_unit(unit: str) -> dict[str, Any]:
             "lexical_mapping_agrees": lexical_mapping_agrees,
         }
 
-    google_candidates = load_google_phonemic_lexicon().lookup(unit)
-    if len(google_candidates) == 1:
-        lexical_candidate = google_candidates[0]
-        parsed = lexical_candidate.parsed
-        source_id = "google-khmer-pronunciation-sample-2026"
-        inventory_id = "google-khmer-phonology-inventory-2026"
-        return {
-            "source": unit,
-            "ipa": parsed.ipa,
-            "ukrainian": None,
-            "status": "PROVISIONAL",
-            "reason": (
-                "Google source phonemic candidate; token-to-IPA mapping and "
-                "equivalence to the selected target profile are not independently adjudicated."
-            ),
-            "rule_trace": [
-                "GOOGLE-PHONEMIC-LEXICON-EXACT",
-                "GOOGLE-PHONEMIC-TO-IPA",
-                f"GOOGLE-SOURCE-ROW:{lexical_candidate.source_row}",
-            ],
-            "evidence": [source_id, inventory_id],
-            "phonology_sources": [source_id, inventory_id],
-            "ipa_kind": "PHONEMIC",
-            "provisional_ipa": None,
-            "fallback_trace": [],
-        }
-
     structure = analyze_structure(unit)
     if structure.status == "INVALID_OR_UNSUPPORTED":
         return {
@@ -386,7 +359,7 @@ def _analyze_unit(unit: str) -> dict[str, Any]:
                 }
 
     preview = _provisional_preview(structure, unit)
-    return {
+    result = {
         "source": unit, "ipa": None, "ukrainian": None, "status": "NOT_ESTABLISHED",
         "provisional_ipa": preview["ipa_preview"] if preview else None,
         "provisional_ukrainian": preview["ukrainian_preview"] if preview else None,
@@ -396,6 +369,34 @@ def _analyze_unit(unit: str) -> dict[str, Any]:
         "reason": "Canonical IPA remains withheld. A separate low-confidence onset-only preview is offered where a registered consonant IPA is available; no vowel, coda or tone is inferred.",
         "structure": structure.phonological_representation,
     }
+    # The Google source lexicon is auxiliary. It never overwrites the
+    # deterministic engine's canonical abstention.
+    google_candidates = load_google_phonemic_lexicon().lookup(unit)
+    if google_candidates:
+        result["provisional_candidates"] = [
+            {
+                "candidate_type": "GOOGLE_PHONEMIC_LEXICON",
+                "ipa": candidate.parsed.ipa,
+                "ipa_kind": candidate.parsed.ipa_kind,
+                "ukrainian": (
+                    adapt_phonetic_result(candidate.parsed.candidate, allow_uncertain=True)
+                    if candidate.parsed.candidate is not None else None
+                ),
+                "status": "PROVISIONAL",
+                "mapping_status": candidate.parsed.mapping_status,
+                "profile": candidate.parsed.profile,
+                "source_row": candidate.source_row,
+                "source_label": candidate.source_label,
+                "provenance": list(candidate.parsed.provenance) + [
+                    f"GOOGLE_SOURCE_ROW:{candidate.source_row}"
+                ],
+                "uncertainty": list(candidate.parsed.uncertainty) + [
+                    "AUXILIARY_CANDIDATE_DOES_NOT_REPLACE_CANONICAL_ENGINE_OUTPUT"
+                ],
+            }
+            for candidate in google_candidates
+        ]
+    return result
 
 
 def _combine_status(units: list[dict[str, Any]]) -> str:
@@ -555,9 +556,10 @@ class RuleBasedKhmerEngine:
                 ipa=ipa_value,
                 ukrainian=ua_value,
                 profile=self.profile,
+                # Canonical IPA kind remains unresolved until convention approval.
                 ipa_kind=(
                     "NOT_APPLICABLE" if status in {"PUNCTUATION", "NON_LINGUISTIC"}
-                    else typed_ipa.ipa_kind if typed_ipa is not None else "UNRESOLVED"
+                    else "UNRESOLVED"
                 ),
                 ukrainian_kind=(
                     "NOT_APPLICABLE" if status in {"PUNCTUATION", "NON_LINGUISTIC"}
@@ -615,6 +617,11 @@ class RuleBasedKhmerEngine:
             "reason": " ".join(reasons),
             "evidence": evidence,
             "units": rendered,
+            "provisional_candidates": [
+                {"source": unit["source"], **candidate}
+                for unit in rendered
+                for candidate in unit.get("provisional_candidates", [])
+            ],
             "word_segmentation": describe_word_segmentation(tokens, set(_LEXICON), normalized),
             "phonetic_result": phonetic_result,
             "structure": structure.phonological_representation,
