@@ -453,10 +453,13 @@
       "ipa": "kɑː",
       "rule_id": "V-REP-INHERENT-FIRST-KA",
       "source_ids": [
+        "bgn-pcgn-khmer-1972",
         "r12a-orthography"
       ],
       "source_locator": "vowels.json representative_series_contrasts: orthography ក, first series",
-      "scope": "exact single-character representative only; not generalized"
+      "scope": "exact single-character representative only; not generalized",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Vowel Characters table row 1"
     },
     {
       "source": "គ",
@@ -464,10 +467,13 @@
       "ipa": "kɔː",
       "rule_id": "V-REP-INHERENT-SECOND-KO",
       "source_ids": [
+        "bgn-pcgn-khmer-1972",
         "r12a-orthography"
       ],
       "source_locator": "vowels.json representative_series_contrasts: orthography គ, second series",
-      "scope": "exact single-character representative only; not generalized"
+      "scope": "exact single-character representative only; not generalized",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Vowel Characters table row 1"
     },
     {
       "source": "កី",
@@ -475,10 +481,13 @@
       "ipa": "kəj",
       "rule_id": "V-REP-FIRST-SERIES-II",
       "source_ids": [
+        "bgn-pcgn-khmer-1972",
         "r12a-orthography"
       ],
       "source_locator": "vowels.json representative_series_contrasts: orthography ក + ី, first series",
-      "scope": "exact orthographic fixture only; not generalized"
+      "scope": "exact orthographic fixture only; not generalized",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Vowel Characters table row 4"
     },
     {
       "source": "គី",
@@ -486,10 +495,13 @@
       "ipa": "kiː",
       "rule_id": "V-REP-SECOND-SERIES-II",
       "source_ids": [
+        "bgn-pcgn-khmer-1972",
         "r12a-orthography"
       ],
       "source_locator": "vowels.json representative_series_contrasts: orthography គ + ី, second series",
-      "scope": "exact orthographic fixture only; not generalized"
+      "scope": "exact orthographic fixture only; not generalized",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Vowel Characters table row 4"
     },
     {
       "source": "កា",
@@ -497,10 +509,13 @@
       "ipa": "kaː",
       "rule_id": "V-REP-FIRST-SERIES-AA",
       "source_ids": [
+        "bgn-pcgn-khmer-1972",
         "r12a-orthography"
       ],
       "source_locator": "vowels.json representative_series_contrasts: orthography ក + ា, first series",
-      "scope": "exact orthographic fixture only; not generalized"
+      "scope": "exact orthographic fixture only; not generalized",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Vowel Characters table row 2"
     },
     {
       "source": "គា",
@@ -508,10 +523,13 @@
       "ipa": "kiə",
       "rule_id": "V-REP-SECOND-SERIES-AA",
       "source_ids": [
+        "bgn-pcgn-khmer-1972",
         "r12a-orthography"
       ],
       "source_locator": "vowels.json representative_series_contrasts: orthography គ + ា, second series",
-      "scope": "exact orthographic fixture only; not generalized"
+      "scope": "exact orthographic fixture only; not generalized",
+      "pcgn_source_url": "https://assets.publishing.service.gov.uk/media/5ab4e25aed915d78bc23451e/ROMANIZATION_OF_KHMER.pdf",
+      "pcgn_source_locator": "Vowel Characters table row 2"
     }
   ]
 }
