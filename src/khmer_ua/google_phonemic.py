@@ -32,6 +32,7 @@ class GooglePhonemicResult:
     ipa_kind: str
     status: str
     mapping_status: str
+    profile: str
     provenance: tuple[str, ...]
     uncertainty: tuple[str, ...]
     syllable_boundaries: tuple[int, ...]
@@ -60,6 +61,7 @@ def _unresolved(
     tokens: tuple[str, ...],
     uncertainty: tuple[str, ...],
     *,
+    profile: str = DEFAULT_PROFILE,
     provenance: tuple[str, ...] = (),
     boundaries: tuple[int, ...] = (),
 ) -> GooglePhonemicResult:
@@ -70,6 +72,7 @@ def _unresolved(
         ipa_kind="UNRESOLVED",
         status="UNRESOLVED",
         mapping_status="UNRESOLVED",
+        profile=profile,
         provenance=provenance,
         uncertainty=uncertainty,
         syllable_boundaries=boundaries,
@@ -97,11 +100,11 @@ def parse_google_phonemic(
         f"IPA_MAP:{phone_map.get('map_version', 'unversioned')}",
     )
     if not isinstance(raw, str) or not raw.strip():
-        return _unresolved(raw if isinstance(raw, str) else "", (), ("EMPTY_SOURCE_PHONEMIC",), provenance=provenance)
+        return _unresolved(raw if isinstance(raw, str) else "", (), ("EMPTY_SOURCE_PHONEMIC",), profile=profile, provenance=provenance)
 
     tokens = tuple(raw.strip().split())
     if not tokens or tokens[0] == "." or tokens[-1] == ".":
-        return _unresolved(raw, tokens, ("MALFORMED_SYLLABLE_BOUNDARY",), provenance=provenance)
+        return _unresolved(raw, tokens, ("MALFORMED_SYLLABLE_BOUNDARY",), profile=profile, provenance=provenance)
 
     ipa_parts: list[str] = []
     uncertainty = ["TARGET_PROFILE_EQUIVALENCE_UNVERIFIED"]
@@ -125,6 +128,8 @@ def parse_google_phonemic(
                 raw,
                 tokens,
                 (f"UNMAPPED_GOOGLE_PHONE:{token}",),
+                profile=profile,
+                profile=profile,
                 provenance=provenance,
                 boundaries=tuple(boundaries),
             )
@@ -146,7 +151,7 @@ def parse_google_phonemic(
             uncertainty.append(f"UNVERIFIED_PHONE_MAPPING:{token}")
 
     if not used_mapping_statuses or previous_was_boundary:
-        return _unresolved(raw, tokens, ("EMPTY_OR_TRAILING_SYLLABLE",), provenance=provenance)
+        return _unresolved(raw, tokens, ("EMPTY_OR_TRAILING_SYLLABLE",), profile=profile, provenance=provenance)
 
     ipa = "".join(ipa_parts)
     try:
@@ -168,7 +173,7 @@ def parse_google_phonemic(
         if candidate.status == "UNRESOLVED":
             return _unresolved(raw, tokens, ("INVALID_MAPPED_IPA",), provenance=provenance)
     except ValueError as exc:
-        return _unresolved(raw, tokens, (f"INVALID_MAPPED_IPA:{exc}",), provenance=provenance)
+        return _unresolved(raw, tokens, (f"INVALID_MAPPED_IPA:{exc}",), profile=profile, provenance=provenance)
 
     if boundaries[-1] != phone_index:
         boundaries.append(phone_index)
@@ -184,6 +189,7 @@ def parse_google_phonemic(
         ipa_kind="PHONEMIC",
         status="PROVISIONAL",
         mapping_status=mapping_status,
+        profile=profile,
         provenance=provenance,
         uncertainty=tuple(dict.fromkeys(uncertainty)),
         syllable_boundaries=tuple(boundaries),
