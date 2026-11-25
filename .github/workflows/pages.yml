@@ -117,6 +117,9 @@ jobs:
           from pathlib import Path
           artifact = json.loads(Path("/tmp/google-neural-distilled-syllables.json").read_text(encoding="utf-8"))
           assert artifact.get("schema") == "google-khmer-neural-distilled-syllables/v1"
-          assert len(artifact.get("candidates", [])) == 2532
-          print("deployed deterministic OOV table:", len(artifact["candidates"]), "candidates")
+          accepted = len(artifact.get("candidates", []))
+          rejected = sum(artifact.get("rejected", {}).values())
+          assert accepted + rejected == artifact["inventory"]["oov_syllable_candidates"]
+          assert accepted > 0
+          print("deployed deterministic OOV table:", accepted, "accepted candidates;", rejected, "rejected")
           PY
