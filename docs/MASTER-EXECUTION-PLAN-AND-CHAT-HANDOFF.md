@@ -409,7 +409,7 @@ The website does not load neural weights, ONNX Runtime or call a remote inferenc
 
 ### Delivered implementation
 
-- Pinned Google `language-resources` Khmer pronunciation source and Festvox phone inventory at commit `a90601024f07ab7e96c911243324e0adeb16da96`; attribution and CC BY 4.0 retained.
+- Pinned Google `language-resources` Khmer pronunciation lexicon at commit `a90601024f07ab7e96c911243324e0adeb16da96`; the TSV itself declares CC BY 4.0. The companion Festvox phonology JSON has unresolved file-license scope and is not copied or redistributed. The 54-token runtime map is validated directly against the licensed TSV.
 - Added explicit Google phonemic-token → typed IPA adapter. Source tokens, syllable boundaries, vowel length, provenance and mapping uncertainty are preserved. Unknown tokens fail closed.
 - Generated eight reproducible lexical shards covering 62,118 non-empty Khmer phonemic rows; four multi-pronunciation spellings remain multi-candidate, and 61 blank rows remain unresolved.
 - Integrated exact-form lookup into Python and browser engines without promoting unadjudicated Google candidates into Strict.
