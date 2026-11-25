@@ -3380,7 +3380,7 @@ The production browser path runs no neural model, ONNX Runtime or remote inferen
 
 ### Implementation and source evidence
 
-- Google Khmer pronunciation lexicon and Festvox phone inventory are pinned at `a90601024f07ab7e96c911243324e0adeb16da96`; CC BY 4.0 attribution is preserved.
+- Google Khmer pronunciation lexicon is pinned at `a90601024f07ab7e96c911243324e0adeb16da96`; the full TSV is CC BY 4.0 and the 54-token runtime map is validated directly against it. The companion Festvox phonology JSON has unresolved license scope and is not copied or redistributed.
 - Source inventory: 62,179 Khmer rows, 62,118 non-empty phonemic rows, 61 blank rows, 62,114 unique spellings and four spellings with multiple pronunciation variants. The 54 observed lexical phone tokens are all present in the 56-phone source inventory.
 - `src/khmer_ua/google_phonemic.py` and `src/google-phonemic-ipa.js` keep Google source phonemic notation distinct from IPA and preserve source provenance, token mapping status, syllable boundaries and vowel length. Unknown/non-lexical tokens fail closed.
 - `scripts/build_google_phonemic_lexicon.py` creates eight deterministic shards. Python and browser lookups preserve multi-pronunciation candidates and do not silently choose one variant.
