@@ -45,5 +45,18 @@ The workflow fetches the dataset and model ephemerally. It uploads only aggregat
 
 ## Measured result
 
-The first inference run using the upstream GitHub checkout returned 83.16% exact-match rate and 4.16% CER, reproducing the package's published 83.2% / 4.2% test claim. It is superseded for final provenance due to the source repository's missing standalone license file. The MIT-package rerun is pending; only its result will be accepted as final. No IPA accuracy was measured.
+Final MIT-package inference [45582973744](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45582973744) succeeded using `khmer-g2p==0.1.0` and the pinned Hub model revision. Aggregate artifact [15006794082](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45582973744/artifacts/15006794082) was inspected; ZIP SHA-256 `915727bce6e27d28b2191f116ba6e8dc03fd0004c21d1c53e9b67e8709146f1e`; JSON SHA-256 `3fde5453bb9a739ea55ab4b7510716671898b7c3ddd5fb145410bb7cc7ec27fc`. The archive contains only aggregate JSON and its checksum sidecar, with no row-level records.
+
+| Metric | Final result |
+|---|---:|
+| Reference pairs | 1,920 |
+| Unique test words | 1,888 |
+| Output coverage | 100% (1,888/1,888) |
+| Word exact matches | 1,570 / 1,888 |
+| Word exact-match rate | 83.16% |
+| Character edits | 803 / 19,298 reference code points |
+| Character error rate | 4.16% |
+| Syllable-count accuracy | 93.06% (1,757/1,888) |
+
+The final MIT-package run reproduces the upstream PyPI-reported test results to one decimal place (83.2% exact / 4.2% CER). The earlier GitHub-source-checkout run is superseded and not used as final evidence. These metrics concern NCKL Khmer-script respelling only; no IPA accuracy was measured.
 - This benchmark is diagnostic research only; no runtime model integration is proposed.
