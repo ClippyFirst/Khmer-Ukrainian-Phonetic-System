@@ -19,10 +19,10 @@ for (const [label, source, required] of [
 if (/XMLHttpRequest|WebSocket|sendBeacon/u.test(client + worker)) {
   throw new Error("browser engine worker must not use remote inference or telemetry transports");
 }
-if (!worker.includes('fetch(new URL("../data/google-neural-distilled-syllables.json", import.meta.url)')) || !worker.includes('outputLevel !== "strict"')) {
+if (!worker.includes('fetch(new URL("../data/google-neural-distilled-syllables.json", import.meta.url)') || !worker.includes('outputLevel !== "strict"')) {
   throw new Error("Soft and Super-soft must load the static same-origin distilled table");
 }
-if (!client.includes('fetch(new URL("../data/google-neural-distilled-syllables.json", import.meta.url)')) || !client.includes('outputLevel !== "strict"')) {
+if (!client.includes('fetch(new URL("../data/google-neural-distilled-syllables.json", import.meta.url)') || !client.includes('outputLevel !== "strict"')) {
   throw new Error("the local fallback must load the same static same-origin distilled table for Soft and Super-soft");
 }
 if (worker.includes("fetch(text") || worker.includes("fetch(inputText") || worker.includes("body: text")) {
