@@ -280,6 +280,7 @@ def main() -> int:
 
     def beam_onnx(text: str, quantized: bool, num_beams: int = 4) -> str:
         early_stopping = getattr(model.generation_config, "early_stopping", False)
+        length_penalty = float(getattr(model.generation_config, "length_penalty", 1.0))
         enc = encoder_tokenizer(
             text, return_tensors="np", truncation=True, max_length=args.max_length
         )
@@ -323,7 +324,7 @@ def main() -> int:
                         # Hugging Face stores the parent sequence without EOS;
                         # generated_len excludes both the decoder prompt and EOS.
                         finished.append((beams[parent][0], score))
-                        finished.sort(key=lambda item: item[1] / max(1, len(item[0]) - 1), reverse=True)
+                        finished.sort(key=lambda item: item[1] / (max(1, len(item[0]) - 1) ** length_penalty), reverse=True)
                         del finished[num_beams:]
                 elif len(next_beams) < num_beams:
                     next_beams.append((sequence, score))
@@ -337,18 +338,18 @@ def main() -> int:
                     break
                 if early_stopping is False:
                     worst_finished = min(
-                        score / max(1, len(sequence) - 1)
+                        score / (max(1, len(sequence) - 1) ** length_penalty)
                         for sequence, score in finished
                     )
                     best_sum_logprobs = candidates[0][0]
                     current_generated_length = max(1, target_length - 1)
-                    if worst_finished >= best_sum_logprobs / current_generated_length:
+                    if worst_finished >= best_sum_logprobs / (current_generated_length ** length_penalty):
                         break
         if len(finished) < num_beams:
             finished.extend(beams)
         best = max(
             finished,
-            key=lambda item: item[1] / max(1, len(item[0]) - 1),
+            key=lambda item: item[1] / (max(1, len(item[0]) - 1) ** length_penalty),
         )[0]
         return decoder_tokenizer.decode(best, skip_special_tokens=True)
 
@@ -427,6 +428,7 @@ def main() -> int:
             "max_length": args.max_length,
             "beam_count_in_browser_spike": 4,
             "early_stopping": getattr(model.generation_config, "early_stopping", False),
+            "length_penalty": float(getattr(model.generation_config, "length_penalty", 1.0)),
         },
         "quantization": "ONNX Runtime dynamic per-channel QInt8 weights",
         "opset": args.opset,
