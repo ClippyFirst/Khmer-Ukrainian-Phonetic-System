@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+from dataclasses import replace
 from pathlib import Path
 
 from .ipa_result import from_provisional_ipa, from_unknown_source_unit
@@ -76,6 +77,10 @@ def build_romanization_ipa_candidate(source_unit: str, romanized_unit: str) -> d
         provenance=(*provenance, entry["rule_id"]),
         uncertainty=uncertainty,
         append_unknown_tail=True,
+    )
+    typed = replace(
+        typed,
+        provenance=tuple(dict.fromkeys((*typed.provenance, "FALLBACK:GRAPHEME-POSITION-PREVIEW"))),
     )
     return {
         "status": "PROVISIONAL",
