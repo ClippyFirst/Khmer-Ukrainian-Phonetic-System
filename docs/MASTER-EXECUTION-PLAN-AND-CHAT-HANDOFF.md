@@ -1,3 +1,57 @@
+## Current continuation: deterministic neural-distilled Khmer IPA engine — 2026-11-25
+
+**Current integration branch:** `feat/deterministic-neural-distillation-20261125`  
+**Draft PR:** [#582](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/582)  
+**Base:** current `main` at `8838a1f33b03aa1bad7c045c216305bb3e60e3f9`  
+**Branch head at this documentation update:** `9bec26c75ac82380ac6c45680a446afc71131eb4`  
+**Default branch remains unchanged. No merge or deployment has been performed.**
+
+### Decision and runtime architecture
+
+The production goal is a **local deterministic engine developed from an offline neural teacher**, not a neural model running in every visitor's browser.
+
+1. The source lexicon is pinned to Google `language-resources` revision `a90601024f07ab7e96c911243324e0adeb16da96`. It contains 62,179 Khmer rows: 62,118 non-empty phonemic transcriptions, 61 empty rows, 62,114 unique spellings and four multi-pronunciation spellings.
+2. The pinned Google Festvox inventory defines 56 phones; all 54 tokens observed in non-empty lexical rows occur in that inventory. The phone inventory is not an IPA conversion table.
+3. The dedicated `GOOGLE_PHONEMIC → typed IPA` adapter preserves syllable boundaries and length, tracks token mapping status and fails closed on unknown/non-lexical tokens. The six R12A screening cases match; the separate source-attested lexical diagnostic has 3/7 exact matches and four explicit conflicts. Neither result is a gold accuracy score.
+4. A project-owned neural teacher is trained offline with a word-disjoint split and atomic phone-token targets. On the held-out Google source-label split it achieved 84.18% exact word match, 4.33% phone-token error rate and 100% source-label coverage. These metrics measure reproduction of Google labels, not independent contemporary Phnom Penh pronunciation accuracy.
+5. Distillation produced 2,532 deterministic OOV syllable candidates. The held-out composition diagnostic achieved 63.86% exact match, 14.19% token error rate and 98.4% candidate coverage. These are teacher/student source-label diagnostics, not IPA accuracy.
+6. The Pages build regenerates the distilled static JSON. The browser loads only that same-origin data table in Super-soft mode; it does not download model weights, run ONNX Runtime or send Khmer text to a server. If the Worker cannot start, the local fallback uses the same static table.
+7. The previous standalone MekongPhon model panel and ONNX/WASM deployment have been removed from the proposed public UI/build. Its merged research implementation and archived outputs remain available for comparison, not as primary production output.
+
+### Actual output-tier contract
+
+- **Strict:** only source-located tier-B proposals; no unadjudicated Google lexical hits, onset-only previews, archived provider snapshots or neural-distilled OOV candidates.
+- **Soft:** adds exact Google phonemic lexical candidates and partial onset IPA hints, all typed and marked `PROVISIONAL`.
+- **Super-soft:** adds static neural-distilled OOV syllable candidates. It returns a non-empty display for every linguistic input unit by using explicit unresolved markers where no candidate exists. This is **100% non-empty display coverage**, not 100% full IPA coverage.
+- BGN/PCGN orthographic fallback remains in a separate panel and is never used as the Ukrainian output of the IPA pipeline.
+- Archived Khmer Phonemizer/MekongPhon/Epitran outputs are diagnostic-only and cannot replace the local deterministic engine's output.
+
+### Task ledger
+
+| Task | Status | Evidence / acceptance condition |
+|---|---|---|
+| Pin Google source TSV and phonology inventory with attribution | DONE_VERIFIED | Source revision, hashes, CC BY 4.0, 62,118 non-empty rows and 54/56 inventory coverage validated |
+| Implement typed Google phonemic → IPA adapters in Python and JS | DONE_VERIFIED / pending exact-head rerun | Dedicated token map and parser; 6/6 R12A screening matches; unknown tokens fail closed; lexical conflicts retained |
+| Generate and integrate 62,118-row static lexical shards | DONE_VERIFIED / pending exact-head rerun | Eight deterministic shards, 61 blank rows preserved, four ambiguous spellings retained, schema and parity tests |
+| Train project-owned neural teacher | DONE_VERIFIED | Exact CI teacher job and saved artifact from run [45653367069](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45653367069); 84.18% exact, 4.33% PER, 100% source-label coverage |
+| Distill teacher into OOV syllable candidates | DONE_VERIFIED as research artifact | Same run artifact inspected: 2,532 candidates, 63.86% exact, 14.19% PER, 98.4% composition coverage |
+| Integrate Strict / Soft / Super-soft into browser output | PARTIAL | Engine, Worker, UI and regression tests changed; exact-head Quality/Chromium still required |
+| Generate and publish static table in Pages build | PARTIAL | Workflow now caches offline teacher checkpoint and stages only distilled JSON; Pages deployment not yet run |
+| Remove standalone model inference from production UI | PARTIAL | UI, CSP, Pages workflow and tests updated; exact-head checks pending |
+| Independent IPA accuracy and profile equivalence | BLOCKED | Independent adjudicated IPA gold count remains 0; Google phonemic labels do not establish target-profile equivalence |
+| Broader OOV/contextual phonology beyond the distilled syllable inventory | PARTIAL / evidence-limited | 2,532 candidates do not cover every Khmer syllable/context; no guessing or promotion from teacher agreement alone |
+
+### Verification state and open blockers
+
+- Previous teacher/distillation CI run [45653367069](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45653367069) completed successfully and its aggregate metrics/artifact were inspected.
+- The code head `5007b8d0f6d28dac4f93aab8b3066f5ac24f1e43` triggered Quality run [45663895838](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45663895838), but GitHub Actions still reports it queued. The latest commits after that code head update documentation only; rerun exact-head checks if needed.
+- Browser, pinned Rust, khPOS and shared held-out benchmark runs from this continuation were also queued at last inspection. Do not claim they passed until their exact run conclusions are available.
+- Pages workflow has not run on this branch because deployment is triggered from `main`. The draft PR must be reviewed and merged before a production deployment can verify the staged static table.
+- Open PR #519 is an older dual-transcription UI branch based on stale base `fe870f1b6d138d39bc271362cdda4165c1e3517e`; it is not reused or modified here. PR #578's MekongPhon browser port is already merged on main, but its standalone model UI/runtime is intentionally removed by this proposed continuation.
+- No independent gold, pronunciation accuracy, or 100% full-IPA coverage is claimed.
+
+---
+
 ## Browser-local MekongPhon port — 2026-11-25
 
 - User requirement: the IPA-producing neural engine must execute on the public site, not only through a Python/provider integration. Branch: feat/browser-local-mekongphon-ipa-20261125; PR #578.
