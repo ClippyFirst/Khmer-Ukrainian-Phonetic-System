@@ -827,7 +827,7 @@ function convert(text, profile, options = {}) {
     item.partial_candidate_kind === "NEURAL_DISTILLED_OOV_SYLLABLE"
       ? "/" + item.provisional_ipa + "/"
       : item.partial_candidate_kind === "LEXICAL_PHONEMIC_CANDIDATE"
-        ? "/" + item.provisional_ipa + "/???"
+        ? "/" + item.provisional_ipa + "/"
         : item.partial_candidate_kind === "ONSET_ONLY"
           ? "/" + item.partial_ipa + "/???"
           : item.ipa
