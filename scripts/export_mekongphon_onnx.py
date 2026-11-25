@@ -51,7 +51,7 @@ def main() -> int:
     import torch
     from huggingface_hub import snapshot_download
     from onnxruntime.quantization import QuantType, quantize_dynamic
-    from transformers import AutoTokenizer, EncoderDecoderModel
+    from transformers import AutoConfig, AutoTokenizer, EncoderDecoderModel
 
     torch.set_num_threads(1)
     torch.manual_seed(0)
@@ -65,9 +65,19 @@ def main() -> int:
             "encoder_tokenizer/*", "decoder_tokenizer/*",
         ],
     ))
+    config = AutoConfig.from_pretrained(source_dir, local_files_only=True)
+    # EncoderDecoderConfig has nested BERT configs; set both before module
+    # construction so ONNX tracing uses the explicit eager attention path.
+    config.encoder._attn_implementation = "eager"
+    config.decoder._attn_implementation = "eager"
     model = EncoderDecoderModel.from_pretrained(
-        source_dir, local_files_only=True, attn_implementation="eager"
+        source_dir, config=config, local_files_only=True, attn_implementation="eager"
     ).to("cpu").eval()
+    print(
+        "attention implementations:",
+        type(model.encoder.encoder.layer[0].attention.self).__name__,
+        type(model.decoder.bert.encoder.layer[0].attention.self).__name__,
+    )
     encoder_tokenizer = AutoTokenizer.from_pretrained(
         source_dir / "encoder_tokenizer", local_files_only=True
     )
