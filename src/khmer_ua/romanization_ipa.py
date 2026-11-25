@@ -44,6 +44,40 @@ def build_romanization_ipa_candidate(source_unit: str, romanized_unit: str) -> d
     )
     if not source or not romanized:
         return _unresolved(source, "EMPTY-SOURCE-OR-ROMANIZATION", provenance)
+
+    representative = next(
+        (
+            entry for entry in _INVENTORY.get("representative_syllables", [])
+            if entry["source"] == source and entry["romanization"] == romanized
+        ),
+        None,
+    )
+    if representative is not None:
+        uncertainty = (
+            "EXACT_REPRESENTATIVE_SERIES_VOWEL_FIXTURE",
+            "NOT_GENERALIZED_TO_OTHER_VOWEL_OR_CODA_CONTEXTS",
+            "STRESS_AND_DIALECT_DETAIL_NOT_ADJUDICATED",
+        )
+        trace = (*provenance, *representative["source_ids"], representative["rule_id"])
+        typed = from_provisional_ipa(
+            representative["ipa"],
+            provenance=trace,
+            uncertainty=uncertainty,
+            append_unknown_tail=False,
+        )
+        typed = replace(
+            typed,
+            provenance=tuple(dict.fromkeys((*typed.provenance, "FALLBACK:GRAPHEME-POSITION-PREVIEW"))),
+        )
+        return {
+            "status": "PROVISIONAL",
+            "typed_ipa": typed,
+            "ukrainian": adapt_phonetic_result(typed) or "???",
+            "romanized_onset": romanized,
+            "provenance": trace,
+            "uncertainty": uncertainty,
+        }
+
     if source[0] == "ប" and romanized[:1] in {"b", "p"}:
         return _unresolved(source, "AMBIGUOUS-PCGN-B-P-ALTERNATION", provenance)
 
