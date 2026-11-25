@@ -339,7 +339,7 @@ The 2026-11-24 exact-head Quality workflow [45490428639](https://github.com/Clip
 
 ## Optional browser-local MekongPhon candidate (2026-11-25)
 
-The Balanced (Soft) and Exploratory (Super-soft) phonetic views include an explicit **Run local model** action. On request, the browser lazily downloads the pinned BYU MATRIX Lab `byumatrixlab/khmer-ipa` model artifact (about 35 MB of dynamically quantized INT8 weights) and the ONNX Runtime Web WASM runtime (about 12 MB). Inference runs in a dedicated Web Worker on the user's device. The Khmer input is not sent to a server; only same-origin static model/runtime assets are fetched. The Strict view hides this unadjudicated provider.
+The Soft and Super-soft phonetic views include an explicit **Run local model** action. On request, the browser lazily downloads the pinned BYU MATRIX Lab `byumatrixlab/khmer-ipa` model artifact (about 35 MB of dynamically quantized INT8 weights) and the ONNX Runtime Web WASM runtime (about 12 MB). Inference runs in a dedicated Web Worker on the user's device. The Khmer input is not sent to a server; only same-origin static model/runtime assets are fetched. The Strict view hides this unadjudicated provider.
 
 The model revision is `20e069d384b240da76320e1569958568c12a54bc`; the model card declares Apache-2.0. The runtime is `onnxruntime-web@1.23.2` (MIT), vendored with verified npm tarball integrity. The browser uses greedy decoding with a 64-token output limit to keep the local path responsive. The raw model IPA is displayed separately from the canonical rule/lexicon result and is passed through the existing typed IPA → Ukrainian adapter; unsupported target mappings do not hide the raw IPA.
 
