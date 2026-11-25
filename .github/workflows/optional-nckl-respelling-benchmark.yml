@@ -2,12 +2,6 @@ name: Optional NCKL Khmer respelling benchmark
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - "bench/nckl-respelling-20261125"
-    paths:
-      - "scripts/benchmark_nckl_respelling.py"
-      - ".github/workflows/optional-nckl-respelling-benchmark.yml"
 
 permissions:
   contents: read
