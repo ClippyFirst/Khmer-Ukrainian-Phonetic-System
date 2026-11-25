@@ -169,7 +169,7 @@ assert.equal(paakApproximation.phonetic_result.units[0].ukrainian_kind, "IPA_DER
 assert.equal(paakApproximation.phonetic_result.units[0].ipa, "peak", "the typed IPA value must remain bare IPA without display uncertainty markers");
 assert.equal(paakApproximation.phonetic_result.units[0].ipa_kind, "PHONEMIC");
 assert.deepEqual(paakApproximation.phonetic_result.units[0].provenance.structure, ["unicode17-ch16"]);
-assert.deepEqual(paakApproximation.phonetic_result.units[0].provenance.phonology, ["GOOGLE_SOURCE:google-khmer-pronunciation-sample-2026", "GOOGLE_PHONOLOGY:a90601024f07ab7e96c911243324e0adeb16da96", "IPA_MAP:2026-11-25.1"], "Google phonemic provenance must remain explicit and distinct from structural evidence");
+assert.deepEqual(paakApproximation.phonetic_result.units[0].provenance.phonology, ["GOOGLE_SOURCE:google-khmer-pronunciation-sample-2026", "GOOGLE_SOURCE_REVISION:a90601024f07ab7e96c911243324e0adeb16da96", "IPA_MAP:2026-11-25.1"], "Google phonemic provenance must remain explicit and distinct from structural evidence");
 
 const multipleShifters = convert("ស៊៉ា", "khmer-pph-careful-citation-v1");
 assert.equal(multipleShifters.canonical_status, "EVIDENCE_LIMITED", "the canonical engine status must retain the unresolved evidence state");
