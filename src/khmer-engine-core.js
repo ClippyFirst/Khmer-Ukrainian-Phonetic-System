@@ -838,9 +838,7 @@ function convert(text, profile) {
     status: item.status,
     ipa_kind: ["PUNCTUATION", "NON_LINGUISTIC"].includes(item.status)
       ? "NOT_APPLICABLE"
-      : ["ONSET_ONLY", "LEXICAL_PHONEMIC_CANDIDATE"].includes(item.partial_candidate_kind)
-        ? item.typed_ipa?.ipa_kind ?? "UNRESOLVED"
-        : item.ipa_kind ?? "UNRESOLVED",
+      : item.typed_ipa?.ipa_kind ?? item.ipa_kind ?? "UNRESOLVED",
     rule_trace: item.rule_trace ?? [],
     ipa: item.provisional_ipa ?? item.partial_ipa ?? (item.status !== "PUNCTUATION" && /^\/.*\/$/su.test(item.ipa) ? item.ipa.slice(1, -1) : item.ipa),
     ukrainian: ["ONSET_ONLY", "LEXICAL_PHONEMIC_CANDIDATE"].includes(item.partial_candidate_kind)

@@ -154,7 +154,7 @@ assert.equal(mixed.phonetic_result.schema, "khmer-phonetic-result/v1");
 assert.equal(mixed.phonetic_result.partial, true);
 assert.deepEqual(mixed.phonetic_result.pipeline, ["source-orthography", "structural-analysis", "source-phonology", "ipa", "ukrainian-target-adaptation"]);
 assert.equal(mixed.phonetic_result.units[0].ipa, "kɑː", "typed result stores bare IPA, without display delimiters");
-assert.equal(mixed.phonetic_result.units[0].ipa_kind, "UNRESOLVED", "the web runtime must not guess a phonemic or phonetic transcription kind before expert approval");
+assert.equal(mixed.phonetic_result.units[0].ipa_kind, "PHONEMIC", "the source lexical IPA adapter must preserve its declared phonemic representation kind");
 assert.deepEqual(mixed.phonetic_result.units[0].rule_trace, ["KHMER_LEXICAL_FIXTURE", "IPA_TO_UKRAINIAN_LONGEST_MATCH"]);
 assert.equal(mixed.phonetic_result.units.length, mixed.units.length);
 assert.equal(mixed.phonetic_result.units[0].provenance.phonology[0], "wiktionary:ka", "lexical provenance must remain distinct from structural Unicode provenance");

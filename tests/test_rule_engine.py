@@ -69,7 +69,7 @@ def test_mixed_input_preserves_supported_units_and_marks_only_unresolved_units()
     assert typed["schema"] == "khmer-phonetic-result/v1"
     assert typed["partial"] is True
     assert typed["units"][0]["ipa"] == "kʰmae"
-    assert typed["units"][0]["ipa_kind"] == "UNRESOLVED"
+    assert typed["units"][0]["ipa_kind"] == "PHONEMIC"
     assert typed["units"][0]["rule_trace"] == ["KHMER_LEXICAL_FIXTURE", "IPA_TO_UKRAINIAN_LONGEST_MATCH"]
     assert typed["units"][0]["provenance"]["phonology"] == ["wiktionary:khmae"]
     assert typed["units"][0]["provenance"]["target_policy"] == ["data/ukrainian/practical-policy.json"]
