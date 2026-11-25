@@ -17,10 +17,12 @@ for (const row of expected) {
     row.encoder_ids,
     "encoder ByteLevel BPE IDs differ from the pinned Transformers tokenizer",
   );
+  const decoderActual = tokenizers.decoder.encode(row.text, { maxLength });
   assert.deepEqual(
-    tokenizers.decoder.encode(row.text, { maxLength }),
+    decoderActual,
     row.decoder_ids,
-    "decoder ByteLevel BPE IDs differ from the pinned Transformers tokenizer",
+    "decoder ByteLevel BPE IDs differ from the pinned Transformers tokenizer; "
+      + JSON.stringify({ text: row.text, actual: decoderActual, expected: row.decoder_ids }),
   );
   assert.deepEqual(
     tokenizers.decoder.encode(row.decoder_probe, { maxLength }),
