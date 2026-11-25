@@ -19,7 +19,6 @@ from .ipa_result import TypedPhoneticResult, from_provisional_full_ipa
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_MAP_PATH = ROOT / "data" / "khmer" / "google-phonemic-to-ipa.json"
 DEFAULT_TSV_PATH = ROOT / "data" / "khmer" / "google-pronunciation-full.tsv"
-DEFAULT_INVENTORY_PATH = ROOT / "data" / "khmer" / "google-phonology.json"
 DEFAULT_PROFILE = "khmer-pph-careful-citation-v1"
 PROVIDER = "google-khmer-pronunciation-lexicon"
 
@@ -90,13 +89,12 @@ def parse_google_phonemic(
     """Convert a Google source phonemic string to typed, provisional IPA.
 
     Spaces delimit source phone tokens. A standalone dot marks a syllable
-    boundary. Unknown, silence, pause, malformed-boundary, or unmapped tokens
-    fail closed rather than being guessed.
+    boundary. Unknown, malformed-boundary, or unmapped tokens fail closed rather than being guessed.
     """
     phone_map = mapping if mapping is not None else load_google_phone_map()
     provenance = (
         f"GOOGLE_SOURCE:{phone_map.get('source', {}).get('id', 'unregistered')}",
-        f"GOOGLE_PHONOLOGY:{phone_map.get('source', {}).get('source_revision', 'unversioned')}",
+        f"GOOGLE_SOURCE_REVISION:{phone_map.get('source', {}).get('source_revision', 'unversioned')}",
         f"IPA_MAP:{phone_map.get('map_version', 'unversioned')}",
     )
     if not isinstance(raw, str) or not raw.strip():
@@ -256,11 +254,7 @@ def load_google_phonemic_lexicon(
             f"Google Khmer source TSV hash mismatch: expected {expected_hash}, got {actual_hash}"
         )
 
-    inventory = json.loads(DEFAULT_INVENTORY_PATH.read_text(encoding="utf-8"))
-    inventory_tokens = {row[0] for row in inventory.get("phones", [])}
     mapping_tokens = set(mapping["tokens"])
-    if mapping_tokens != inventory_tokens:
-        raise ValueError("Google phonemic IPA map does not match pinned phonology inventory")
 
     entries: dict[str, list[GooglePhonemicSourceRow]] = {}
     unresolved_rows: list[GooglePhonemicSourceRow] = []
@@ -287,11 +281,11 @@ def load_google_phonemic_lexicon(
         entries.setdefault(word, []).append(row)
         observed_tokens.update(token for token in phonemic.split() if token != ".")
 
-    if observed_tokens != mapping_tokens - {"sil", "pau"}:
+    if observed_tokens != mapping_tokens:
         missing = sorted(observed_tokens - mapping_tokens)
-        unused = sorted((mapping_tokens - {"sil", "pau"}) - observed_tokens)
+        unused = sorted(mapping_tokens - observed_tokens)
         raise ValueError(
-            f"Google phonemic token inventory drift: unmapped={missing}, unused={unused}"
+            f"Google phonemic token-map drift: unmapped={missing}, unused={unused}"
         )
 
     frozen_entries = {word: tuple(rows) for word, rows in sorted(entries.items())}
@@ -307,7 +301,7 @@ def load_google_phonemic_lexicon(
         "unique_spellings_with_pronunciation": len(frozen_entries),
         "multi_pronunciation_words": multi_variant_words,
         "observed_phone_tokens": len(observed_tokens),
-        "inventory_phone_tokens": len(inventory_tokens),
+        "mapped_phone_tokens": len(mapping_tokens),
         "ipa_gold_count": 0,
         "candidate_status": "PROVISIONAL",
     }
