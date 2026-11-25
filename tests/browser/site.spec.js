@@ -644,10 +644,15 @@ test("MekongPhon runs as an on-device browser model and returns the pinned ONNX 
   await button.click();
   await expect(page.locator("#mekongphon-status")).not.toHaveText(/Не запускається автоматично/);
   const expected = probe.onnx_int8_greedy;
-  await page.waitForFunction(() => {
-    const status = document.querySelector("#mekongphon-status")?.textContent ?? "";
-    return status.includes("PROVISIONAL") || status.startsWith("Локальний рушій не запустився:");
-  }, null, { timeout: 110000 });
+  try {
+    await page.waitForFunction(() => {
+      const status = document.querySelector("#mekongphon-status")?.textContent ?? "";
+      return status.includes("PROVISIONAL") || status.startsWith("Локальний рушій не запустився:");
+    }, null, { timeout: 110000 });
+  } catch (error) {
+    const lastStatus = await page.locator("#mekongphon-status").textContent();
+    throw new Error("Timed out waiting for local model. Last UI status: " + lastStatus);
+  }
   const modelStatus = await page.locator("#mekongphon-status").textContent();
   if (!modelStatus?.includes("PROVISIONAL")) {
     throw new Error("Browser-local model reported: " + modelStatus);
