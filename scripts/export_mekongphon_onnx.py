@@ -38,7 +38,7 @@ def write_json(path: Path, value: Any) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", type=Path, required=True)
-    parser.add_argument("--max-length", type=int, default=128)
+    parser.add_argument("--max-length", type=int, default=64)
     parser.add_argument("--opset", type=int, default=17)
     parser.add_argument("--probe", action="append", default=[])
     args = parser.parse_args()
@@ -453,7 +453,8 @@ def main() -> int:
             "decoder_start_token_id": int(model.config.decoder_start_token_id),
             "eos_token_id": int(model.config.eos_token_id),
             "max_length": args.max_length,
-            "beam_count_in_browser_spike": 4,
+            "num_beams": 1,
+            "beam4_reference_checked": True,
             "early_stopping": getattr(model.generation_config, "early_stopping", False),
             "length_penalty": float(getattr(model.generation_config, "length_penalty", 1.0)),
         },
