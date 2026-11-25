@@ -48,3 +48,7 @@ The previously unresolved input សភាតំណាងប្រជាជនក
 - Chromium [45609869453](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45609869453): SUCCESS — 45/45 Playwright tests.
 - The first test-only commit intentionally failed at the expected missing-lexical-fixture assertion; the log recorded the previous output /s/??? /t/??? /ɓ/??? /kam.pu.ciə/. The final source-backed fixture set passes.
 - All new IPA remains PROPOSED and not independently adjudicated. The complete input phrase is compositional; a phrase-level source locator for the entire string was not found. This demonstrates coverage for this lexical item, not general Khmer pronunciation accuracy.
+
+## Production deployment closeout — 2026-11-25
+
+PR #576 was merged as ecbae0fa6b3a44433c5d787ba0877613caf05834. Pages workflow [45610398273](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45610398273) passed the production Chromium suite, deployed the static site and passed the deployed-site/runtime-asset smoke checks. The public app is https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/ . This verifies deployment and runtime assets, not linguistic accuracy.
