@@ -117,13 +117,23 @@ if (typeof document !== "undefined") {
       ? "— · для готової романізації оберіть метод «З романізації»"
       : moveMarkerToWordEnd(data.ua);
     const romanizationUaOutput = uaRomanized.text || "???";
-    const romanizationIpaUaOutput = usesKhmerRomanizer
+    const romanizationCandidates = usesKhmerRomanizer
       ? data.units.map((unit) => {
-        if (["PUNCTUATION", "NON_LINGUISTIC"].includes(unit.status)) return unit.ua ?? unit.source;
+        if (["PUNCTUATION", "NON_LINGUISTIC"].includes(unit.status)) return null;
         const romanizedUnit = khmerToLatin(unit.source);
-        return buildRomanizationIpaCandidate(unit.source, romanizedUnit).ukrainian;
-      }).join("")
+        return buildRomanizationIpaCandidate(unit.source, romanizedUnit);
+      })
+      : [];
+    const romanizationIpaUaOutput = usesKhmerRomanizer
+      ? data.units.map((unit, index) => romanizationCandidates[index]?.ukrainian ?? unit.ua ?? unit.source).join("")
       : romanizationUaOutput;
+    const romanizationIpaText = romanizationCandidates
+      .filter(Boolean)
+      .map((candidate) => candidate.typed_ipa.segments.map((segment) => segment.ipa).join("") || "?")
+      .join(" ");
+    const romanizationIpaStatus = romanizationCandidates.some((candidate) => candidate?.status === "PROVISIONAL")
+      ? "PROVISIONAL"
+      : "UNRESOLVED";
     uaOrthographicResult.textContent = romanizationUaOutput;
     uaOrthographicStatus.textContent = uaRomanized.status === "PROVISIONAL"
       ? "PROVISIONAL · BGN/PCGN-derived орфографічна передача; не вимова."
@@ -135,8 +145,8 @@ if (typeof document !== "undefined") {
       : phoneticUaOutput;
     if (activeMode === "romanization" && usesKhmerRomanizer) {
       uaResultTitle.textContent = "Українська через романізацію (попередня IPA)";
-      uaResultDescription.textContent = "Показано лише звірений початковий приголосний; решта складу не реконструюється. Нижче окремо наведено орфографічну романізацію — це не вимова.";
-      outputMethodNote.textContent = "Шлях 2 · кмерська графіка → BGN/PCGN-derived романізація + звірка з вихідними графемами → попередня IPA → українська адаптація. Повні склади не реконструюються.";
+      uaResultDescription.textContent = "IPA-кандидат: " + (romanizationIpaText || "?") + " · " + romanizationIpaStatus + ". Непідтверджені голосні, фіналі й інші позиції залишаються невстановленими; окрема орфографічна романізація нижче — не вимова.";
+      outputMethodNote.textContent = "Шлях 2 · кмерська графіка → BGN/PCGN-derived романізація + звірка з вихідними графемами → IPA " + (romanizationIpaText || "?") + " → українська адаптація. Статус: " + romanizationIpaStatus + ".";
     } else if (activeMode === "romanization") {
       uaResultTitle.textContent = "Українська з романізації";
       uaResultDescription.textContent = hasMixedScript
@@ -149,7 +159,7 @@ if (typeof document !== "undefined") {
     $("status").textContent = activeMode === "romanization"
       ? romanizationOnlyInput
         ? "РОМАНІЗАЦІЯ · ВХІД УЖЕ ЛАТИНКОЮ · ОРФОГРАФІЧНИЙ РЕЖИМ"
-        : "РОМАНІЗАЦІЯ → IPA · ЛИШЕ ПІДТВЕРДЖЕНИЙ ONSET · PROVISIONAL"
+        : "РОМАНІЗАЦІЯ → IPA · " + romanizationIpaStatus + " · КАНДИДАТ З НЕВИЗНАЧЕНІСТЮ"
       : romanizationOnlyInput
         ? "IPA НЕ ЗАСТОСОВУЄТЬСЯ ДО ГОТОВОЇ РОМАНІЗАЦІЇ"
         : data.selected_external_candidate
