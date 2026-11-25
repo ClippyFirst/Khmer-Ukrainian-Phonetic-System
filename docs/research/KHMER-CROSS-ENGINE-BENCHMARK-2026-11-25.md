@@ -78,6 +78,20 @@ The phonsobon/khmer-G2P dataset reports 38,629 word-to-pronunciation pairs (37,7
 
 Dataset: [phonsobon/khmer-G2P](https://huggingface.co/datasets/phonsobon/khmer-G2P). A 7.5M-parameter model card reports 83.37% best validation word accuracy; that is a validation result, not a held-out test result and not IPA accuracy: [phonsobon/khmer-g2p](https://huggingface.co/phonsobon/khmer-g2p).
 
+### NCKL / PhonSobon — Khmer-script respelling benchmark (separate task)
+
+The NCKL-derived `phonsobon/khmer-G2P` corpus is evaluated on its own word-disjoint test split, separately from all IPA benchmarks. It contains 1,920 test pairs / 1,888 unique words, with multiple accepted readings grouped by word. Targets are Khmer-script pronunciation respellings with hyphen syllable boundaries, not IPA.
+
+Pinned dataset revision: `2733e664ed4d77dee4cc588a130bb4844c9da767`. Pinned model revision: `7dbc6c3d1c1f5a9a8763be602fa679f130f20dca` (7,461,956 parameters; model card declares MIT). Upstream architecture source is pinned at `PhonSobon/Khmer-pronunciation` commit `66b526ebd5edbacfeb7178f377de30662d9b30d2`.
+
+The upstream model card reports 83.37% validation word accuracy; its PyPI package description reports 83.2% word accuracy and 4.2% character error rate on its test split. Those are the author's published results, not this repository's measured results.
+
+Our harness reports output coverage, exact match against any NCKL alternative, code-point CER, and syllable-count accuracy. These are source-attested NCKL respelling metrics only. They cannot be compared with the IPA CER above, used as IPA accuracy, or promoted to the project's independent IPA gold.
+
+Rights: the dataset card uses the custom `other / nckl-khmer-dictionary-2022` label and states that the underlying dictionary remains © NCKL; it asks users to check NCKL terms before commercial use or redistribution. The optional workflow downloads data ephemerally and uploads aggregate metrics only. It does not retain source rows, words, references, predictions or per-word errors. Commercial use and redistribution remain blocked pending NCKL terms clarification.
+
+Implementation: `scripts/benchmark_nckl_respelling.py`; tests `tests/test_benchmark_nckl_respelling.py`; workflow `.github/workflows/optional-nckl-respelling-benchmark.yml`; methodology `NCKL-RESPelling-BENCHMARK-2026-11-25.md`. Quality [45582195369](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45582195369) passed; external inference [45582195410](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45582195410) is pending at this documentation revision.
+
 ### Earlier Khmer G2P research
 
 - Kak et al. (2016), WFST-based Khmer G2P, report 3.49% phoneme error rate and 12.98% word error rate on their test set: [paper PDF](https://ksoky.github.io/static/pdf/wfst_g2p.pdf).
