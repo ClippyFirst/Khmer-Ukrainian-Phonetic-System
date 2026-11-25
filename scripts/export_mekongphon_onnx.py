@@ -113,6 +113,7 @@ def main() -> int:
                 return_dict=False,
             )[0]
 
+    print("generation config:", model.generation_config.to_dict())
     probes = args.probe or list(DEFAULT_PROBES)
     encoded = encoder_tokenizer(
         probes[:2], return_tensors="pt", padding=True,
@@ -278,6 +279,7 @@ def main() -> int:
         return decoder_tokenizer.decode(ids, skip_special_tokens=True)
 
     def beam_onnx(text: str, quantized: bool, num_beams: int = 4) -> str:
+        early_stopping = getattr(model.generation_config, "early_stopping", False)
         enc = encoder_tokenizer(
             text, return_tensors="np", truncation=True, max_length=args.max_length
         )
@@ -320,13 +322,27 @@ def main() -> int:
                         # Hugging Face stores the parent sequence without EOS;
                         # generated_len excludes both the decoder prompt and EOS.
                         finished.append((beams[parent][0], score))
+                        finished.sort(key=lambda item: item[1] / max(1, len(item[0]) - 1), reverse=True)
+                        del finished[num_beams:]
                 elif len(next_beams) < num_beams:
                     next_beams.append((sequence, score))
                 if len(next_beams) >= num_beams:
                     break
             beams = next_beams
-            if len(finished) >= num_beams or not beams:
+            if not beams:
                 break
+            if len(finished) >= num_beams:
+                if early_stopping is True:
+                    break
+                if early_stopping is False:
+                    worst_finished = min(
+                        score / max(1, len(sequence) - 1)
+                        for sequence, score in finished
+                    )
+                    best_sum_logprobs = candidates[0][0]
+                    current_generated_length = max(1, target_length - 1)
+                    if worst_finished >= best_sum_logprobs / current_generated_length:
+                        break
         if len(finished) < num_beams:
             finished.extend(beams)
         best = max(
@@ -342,10 +358,10 @@ def main() -> int:
         )
         with torch.inference_mode():
             greedy_reference_ids = model.generate(
-                **tokenized, max_length=args.max_length, num_beams=1, early_stopping=True
+                **tokenized, max_length=args.max_length, num_beams=1
             )[0]
             beam_reference_ids = model.generate(
-                **tokenized, max_length=args.max_length, num_beams=4, early_stopping=True
+                **tokenized, max_length=args.max_length, num_beams=4
             )[0]
         greedy_reference = decoder_tokenizer.decode(greedy_reference_ids, skip_special_tokens=True)
         beam_reference = decoder_tokenizer.decode(beam_reference_ids, skip_special_tokens=True)
@@ -409,6 +425,7 @@ def main() -> int:
             "eos_token_id": int(model.config.eos_token_id),
             "max_length": args.max_length,
             "beam_count_in_browser_spike": 4,
+            "early_stopping": getattr(model.generation_config, "early_stopping", False),
         },
         "quantization": "ONNX Runtime dynamic per-channel QInt8 weights",
         "opset": args.opset,
