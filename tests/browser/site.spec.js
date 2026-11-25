@@ -680,8 +680,8 @@ test("Pages build serves and executes the actual neural-distilled static candida
   await expect(page.locator("#ipa-result")).toHaveText("/keʔ/???");
   await expect(page.locator("#ua-result")).toHaveText("ке???");
   await expect(page.locator("#status")).toContainText("PROVISIONAL");
-  await expect(page.locator("#unit-details")).toContainText("NEURAL_TEACHER_DISTILLED_STATIC_LOOKUP");
-  await expect(page.locator("#unit-details")).toContainText("NEURAL_TEACHER_PREDICTION_NOT_SOURCE_ATTESTED");
+  await expect(page.locator("#unit-details")).toContainText("Детермінований OOV-кандидат із нейромережевої дистиляції");
+  await expect(page.locator("#unit-details")).toContainText("не має незалежної фонетичної ад'юдикації");
   await expect.poll(() => workerUrls.some((url) => url.includes("khmer-engine.worker"))).toBe(true);
 });
 
