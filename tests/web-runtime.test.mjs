@@ -258,9 +258,11 @@ assert.throws(() => convert("ក", "unsupported_profile"), /Unsupported pronunci
 assert.equal(convert("   ", "khmer-pph-careful-citation-v1"), null);
 
 
-const externalNotice = getStatusNotice(unresolvedWord);
-assert.match(externalNotice, /profile_match=UNVERIFIED/u);
-assert.match(externalNotice, /khmer-phonemizer/u);
+const provisionalNotice = getStatusNotice(unresolvedWord);
+assert.match(provisionalNotice, /локальний фонемний словниковий кандидат/u);
+assert.match(provisionalNotice, /профіль не підтверджений/u);
+assert.doesNotMatch(provisionalNotice, /зовнішній IPA-кандидат/u);
+assert.doesNotMatch(provisionalNotice, /khmer-phonemizer/u, "archived provider diagnostics must not be presented as the selected local result");
 const proposedNotice = getStatusNotice(convert("ក", "khmer-pph-careful-citation-v1"));
 assert.match(proposedNotice, /PROPOSED/u);
 assert.match(proposedNotice, /дослідницькими пропозиціями/u);
