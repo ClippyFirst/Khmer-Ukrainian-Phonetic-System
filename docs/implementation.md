@@ -31,3 +31,6 @@ The Pages workflow must regenerate the pinned model artifacts, verify tokenizers
 ## Browser-local MekongPhon model — 2026-11-25
 
 The public app now exposes an explicit, lazy browser-local neural IPA candidate. The pinned BYU MATRIX Lab model artifact is exported to separate ONNX encoder/decoder graphs, dynamically quantized to INT8, and executed by ONNX Runtime Web in a dedicated Web Worker. The app does not send user input to a server; only same-origin static model/runtime assets are fetched. The raw IPA candidate is rendered before Ukrainian target adaptation and never replaces canonical deterministic/lexical output. Browser decode is greedy with a 64-token output limit. The model output is always PROVISIONAL, profile match UNVERIFIED, and not gold. Model artifact license Apache-2.0; runtime MIT; training corpus not redistributed.
+
+
+Production deployment confirmation: PR #578 merged as 520a1592345ccabbf859bc88f024485631306f73; Pages deployment and deployed asset smoke [45624955965](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955965) passed. Public app: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/ .
