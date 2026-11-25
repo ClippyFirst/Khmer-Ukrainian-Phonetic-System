@@ -79,8 +79,8 @@
 - Create/update: `docs/superpowers/plans/2026-11-25-romanization-mediated-ipa.md`
 
 - [x] Add exact JS/Python semantic parity fixtures for every registered onset rule and ensure romanization never becomes canonical IPA.
-- [x] GitHub Actions Quality checks passed: Python tests, `npm run check`, structural/lexical/rule/segmentation parity, benchmarks and Vite build. Browser smoke pending on the latest head.
-- [x] Record exact checks and remaining evidence-limited contexts in the master handoff; final SHA and latest browser result remain to be refreshed.
+- [x] GitHub Actions Quality checks passed: Python tests, `npm run check`, structural/lexical/rule/segmentation parity, benchmarks and Vite build. Chromium browser smoke passed 43/43 Playwright tests on code head `9d5acbb95fbe46df884d1ccc2482eb48d6f6d90e`.
+- [x] Record exact checks and remaining evidence-limited contexts in the master handoff; documentation closeout head is `48e5d037c09d47575d7882bd298c208af195f8f6`; full contextual vowel/coda/syllable work remains partial.
 
 ## Current implementation boundary (2026-11-25)
 
