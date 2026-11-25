@@ -53,6 +53,8 @@ assert.equal(superSoftTier.tier_coverage.super_soft.nonempty_output_coverage, 1,
   "Super-soft must return a non-empty output for every linguistic input unit, including explicit unknown markers");
 assert.equal(superSoftTier.phonetic_result.units[0].ukrainian_kind, "IPA_DERIVED_PROVISIONAL");
 assert.ok(superSoftTier.phonetic_result.units[0].typed_ipa.provenance.includes("CANDIDATE:PROVISIONAL-FULL-IPA"));
+assert.match(getStatusNotice(superSoftTier), /офлайнової нейромережевої дистиляції/u);
+assert.doesNotMatch(getStatusNotice(superSoftTier), /зовнішній IPA-кандидат/u);
 const superSoftUnsupported = convert("☃", "khmer-pph-careful-citation-v1", { outputLevel: "exploratory" });
 assert.ok(superSoftUnsupported.ipa.length > 0 && superSoftUnsupported.ua.length > 0,
   "Super-soft must always return a non-empty result string, even when the IPA itself is unresolved");
