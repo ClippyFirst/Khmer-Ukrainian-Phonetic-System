@@ -414,6 +414,11 @@ def main() -> int:
             "int8_beam4_matches_fp32": int8_beam == fp32_beam,
         })
 
+    # FP32 graphs are validation-only. Do not ship the 136 MB diagnostic
+    # copies; the browser consumes the dynamically quantized INT8 pair.
+    encoder_fp32.unlink(missing_ok=True)
+    decoder_fp32.unlink(missing_ok=True)
+
     shutil.copy2(source_dir / "README.md", output_dir / "UPSTREAM_MODEL_CARD.md")
     shutil.copy2(source_dir / "encoder_tokenizer" / "tokenizer.json", output_dir / "encoder_tokenizer.json")
     shutil.copy2(source_dir / "decoder_tokenizer" / "tokenizer.json", output_dir / "decoder_tokenizer.json")
@@ -433,8 +438,9 @@ def main() -> int:
         })
     write_json(output_dir / "tokenizer-parity.json", tokenizer_parity)
     files = {}
-    for path in sorted(output_dir.glob("*.onnx")):
-        files[path.name] = {"bytes": path.stat().st_size, "sha256": sha256_file(path)}
+    for path in sorted(output_dir.iterdir()):
+        if path.is_file() and path.name != "manifest.json":
+            files[path.name] = {"bytes": path.stat().st_size, "sha256": sha256_file(path)}
     manifest = {
         "schema_version": "1.0",
         "model_id": MODEL_ID,
