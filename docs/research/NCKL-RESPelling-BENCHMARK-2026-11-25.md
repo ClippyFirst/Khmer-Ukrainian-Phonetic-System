@@ -12,7 +12,7 @@ The dataset card explicitly describes its target as Khmer-script respelling rath
 |---|---|---|
 | Dataset | `phonsobon/khmer-G2P` revision `2733e664ed4d77dee4cc588a130bb4844c9da767` | NCKL Khmer Dictionary 2022 respelling pairs |
 | Model | `phonsobon/khmer-g2p` revision `7dbc6c3d1c1f5a9a8763be602fa679f130f20dca` | 7,461,956-parameter character Transformer |
-| Model architecture source | `PhonSobon/Khmer-pronunciation` revision `66b526ebd5edbacfeb7178f377de30662d9b30d2` | Upstream inference architecture and tokenizer |
+| Inference package | `khmer-g2p==0.1.0` (PyPI, MIT) | Package exposes `KhmerG2P(..., revision=...)`, so the Hub model revision is pinned explicitly |
 | Target split | `test` | Word-disjoint from train and validation |
 
 Dataset: [phonsobon/khmer-G2P](https://huggingface.co/datasets/phonsobon/khmer-G2P). Model: [phonsobon/khmer-g2p](https://huggingface.co/phonsobon/khmer-g2p). Upstream source: [PhonSobon/Khmer-pronunciation](https://github.com/PhonSobon/Khmer-pronunciation). Dataset card split sizes: train 34,770 pairs / 33,979 unique words; validation 1,939 / 1,888; test 1,920 / 1,888. The harness verifies the split sizes and checks pairwise word-disjointness before inference.
@@ -41,20 +41,9 @@ The workflow fetches the dataset and model ephemerally. It uploads only aggregat
 - Optional workflow: `.github/workflows/optional-nckl-respelling-benchmark.yml`.
 - Test-first RED: Quality run [45581925948](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45581925948) failed exactly because the harness module did not yet exist (6 expected FileNotFoundError failures; 507 existing tests and 70 subtests passed).
 - Final Quality [45582195369](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45582195369): SUCCESS — full Python, JS, parity, deterministic benchmark and build suite.
-- Optional NCKL inference [45582195410](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45582195410): SUCCESS. Aggregate artifact [nckl-respelling-aggregate](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45582195410/artifacts/15007665451), ZIP SHA-256 `cc50383512e570b3cc36f1bd505046c1dc696a1ea607d3df992fb72087574755`; JSON SHA-256 `dc7a0c319e8499feac65d2ba7d11a064b37d0e3c0ed57449c4d3f09f6864d18e`. The archive contains only aggregate JSON and its checksum sidecar; this was inspected.
+- Initial NCKL inference [45582195410](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45582195410) SUCCESS using the upstream GitHub source checkout. That run is superseded for final provenance because the GitHub source repository has no standalone license file. The final benchmark must be rerun using the MIT-licensed PyPI package below; do not use the initial artifact as final evidence.
 
 ## Measured result
 
-| Metric | Result |
-|---|---:|
-| Reference pairs | 1,920 |
-| Unique test words | 1,888 |
-| Output coverage | 100% (1,888/1,888) |
-| Word exact matches | 1,570 / 1,888 |
-| Word exact-match rate | 83.16% |
-| Character edits | 803 / 19,298 reference code points |
-| Character error rate | 4.16% |
-| Syllable-count accuracy | 93.06% (1,757/1,888) |
-
-The measured 83.16% exact-match rate and 4.16% CER reproduce the upstream PyPI-reported test results to one decimal place (83.2% / 4.2%). This is a useful reproducibility check, not evidence about our IPA engine. All model outputs were non-empty. No IPA accuracy was measured.
+The first inference run using the upstream GitHub checkout returned 83.16% exact-match rate and 4.16% CER, reproducing the package's published 83.2% / 4.2% test claim. It is superseded for final provenance due to the source repository's missing standalone license file. The MIT-package rerun is pending; only its result will be accepted as final. No IPA accuracy was measured.
 - This benchmark is diagnostic research only; no runtime model integration is proposed.
