@@ -26,7 +26,7 @@ export function parseGooglePhonemic(raw, {
 } = {}) {
   const provenance = [
     `GOOGLE_SOURCE:${mapping.source?.id ?? "unregistered"}`,
-    `GOOGLE_PHONOLOGY:${mapping.source?.source_revision ?? "unversioned"}`,
+    `GOOGLE_SOURCE_REVISION:${mapping.source?.source_revision ?? "unversioned"}`,
     `IPA_MAP:${mapping.map_version ?? "unversioned"}`,
   ];
   if (typeof raw !== "string" || !raw.trim()) {
