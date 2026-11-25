@@ -1,6 +1,7 @@
 import fixtures from "../data/tests/web-fixtures.json" with { type: "json" };
 import { khmerToLatin } from "@gmana/km-translit";
 import { renderKhmerRomanizationText, renderRomanizedText } from "./khmer-romanization-ukrainian.js";
+import { buildRomanizationIpaCandidate } from "./khmer-romanization-ipa.js";
 import { analyzeInWorker } from "./khmer-engine-client.js";
 import { convert, getStatusNotice } from "./khmer-engine-core.js";
 
@@ -36,11 +37,11 @@ if (typeof document !== "undefined") {
     modeRomanization.setAttribute("aria-pressed", String(mode === "romanization"));
     outputMethodNote.textContent = mode === "phonetic"
       ? "Шлях 1 · за вимовою: кмерська графіка → структурний і фонологічний аналіз → IPA → українська адаптація. Невстановлені IPA-фрагменти залишаються явно позначеними."
-      : "Шлях 2 · з романізації: кмерська графіка → BGN/PCGN-derived латинський запис або готова BGN/PCGN-форма → українська орфографічна передача. Це не фонетична транскрипція; IPA тут не використовується.";
+      : "Шлях 2 · через романізацію: кмерська графіка → BGN/PCGN-derived запис + звірка з вихідними графемами → попередня IPA-підказка → українська адаптація. Окрема орфографічна романізація залишається нижче.";
     uaResultTitle.textContent = mode === "phonetic" ? "Українська за вимовою (IPA)" : "Українська з романізації";
     uaResultDescription.textContent = mode === "phonetic"
       ? "Основний шлях — через IPA. Якщо повну вимову не встановлено, може з'явитися окремо позначена орфографічна підказка з ???; це не підтверджена вимова."
-      : "Окремий орфографічний шлях через BGN/PCGN; не залежить від стану IPA.";
+      : "Для кмерського вводу — лише підтверджений початковий приголосний через типізовану PROVISIONAL IPA; голосні, фіналі та непідтверджені ділянки позначаються ???. Окрема романізація — не вимова.";
     render();
   }
 
@@ -116,6 +117,13 @@ if (typeof document !== "undefined") {
       ? "— · для готової романізації оберіть метод «З романізації»"
       : moveMarkerToWordEnd(data.ua);
     const romanizationUaOutput = uaRomanized.text || "???";
+    const romanizationIpaUaOutput = usesKhmerRomanizer
+      ? data.units.map((unit) => {
+        if (["PUNCTUATION", "NON_LINGUISTIC"].includes(unit.status)) return unit.ua ?? unit.source;
+        const romanizedUnit = khmerToLatin(unit.source);
+        return buildRomanizationIpaCandidate(unit.source, romanizedUnit).ukrainian;
+      }).join("")
+      : romanizationUaOutput;
     uaOrthographicResult.textContent = romanizationUaOutput;
     uaOrthographicStatus.textContent = uaRomanized.status === "PROVISIONAL"
       ? "PROVISIONAL · BGN/PCGN-derived орфографічна передача; не вимова."
@@ -123,12 +131,16 @@ if (typeof document !== "undefined") {
         ? "PARTIAL · непідтримані латинські фрагменти позначено в ⟦…⟧; не вимова."
         : "PASSTHROUGH · окремої романізаційної передачі немає; не вимова.";
     $("ua-result").textContent = activeMode === "romanization"
-      ? romanizationUaOutput
+      ? romanizationIpaUaOutput
       : phoneticUaOutput;
+    if (activeMode === "romanization" && usesKhmerRomanizer) {
+      uaResultTitle.textContent = "Українська через романізацію (попередня IPA)";
+      uaResultDescription.textContent = "Показано лише звірений початковий приголосний; решта складу не реконструюється. Нижче окремо наведено орфографічну романізацію — це не вимова.";
+    }
     $("status").textContent = activeMode === "romanization"
       ? romanizationOnlyInput
-        ? "РОМАНІЗАЦІЯ · ВХІД УЖЕ ЛАТИНКОЮ · " + uaRomanized.status
-        : "РОМАНІЗАЦІЯ · BGN/PCGN-DERIVED · " + uaRomanized.status
+        ? "РОМАНІЗАЦІЯ · ВХІД УЖЕ ЛАТИНКОЮ · ОРФОГРАФІЧНИЙ РЕЖИМ"
+        : "РОМАНІЗАЦІЯ → IPA · ЛИШЕ ПІДТВЕРДЖЕНИЙ ONSET · PROVISIONAL"
       : romanizationOnlyInput
         ? "IPA НЕ ЗАСТОСОВУЄТЬСЯ ДО ГОТОВОЇ РОМАНІЗАЦІЇ"
         : data.selected_external_candidate
