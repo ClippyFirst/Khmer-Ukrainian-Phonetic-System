@@ -308,7 +308,8 @@ Local execution was not available in this session; verification was performed by
 **Owner request:** make an IPA-producing engine available in the public website instead of stopping at unresolved markers. The implementation is merged and deployed.
 
 - PR: [#578 — Port MekongPhon IPA inference into the browser](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/578), merged by repository owner.
-- Merge commit / current main SHA at closeout: `520a1592345ccabbf859bc88f024485631306f73`.
+- PR #578 merge commit: `520a1592345ccabbf859bc88f024485631306f73`.
+- PR #579 documentation closeout merged as `a23412eb5ec17568d49d65fd86a1d69a94dcce65`; latest main SHA at this handoff: `a23412eb5ec17568d49d65fd86a1d69a94dcce65`.
 - Branch used: `feat/browser-local-mekongphon-ipa-20261125`.
 - Public service: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/
 - Model: `byumatrixlab/khmer-ipa`, revision `20e069d384b240da76320e1569958568c12a54bc`; pinned model-card metadata declares Apache-2.0. The upstream training/evaluation corpus is not copied or redistributed; its rights remain unresolved.
