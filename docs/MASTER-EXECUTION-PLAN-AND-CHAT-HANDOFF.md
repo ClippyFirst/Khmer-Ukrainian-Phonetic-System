@@ -439,7 +439,7 @@ The website does not load neural weights, ONNX Runtime or call a remote inferenc
 | Work item | Status | Acceptance / blocker |
 |---|---|---|
 | MekongPhon direct IPA source-matrix diagnostic | DONE_VERIFIED as a failed promotion gate | 0/6 exact, 44.44% CER in greedy and beam-4; not selected as teacher |
-| NCKL respelling → phonemizer bridge | DONE_VERIFIED as negative control | 8/12 exact, 6.93% CER vs direct phonemizer 11/12, 0.99% CER; not integrated |
+| NCKL respelling → phonemizer bridge | DONE_VERIFIED as negative control | Split 8/12 exact; whole-string and spaced-string each 7/12 exact; all bridge variants 6.93% CER vs direct phonemizer 11/12 exact, 0.99% CER; not integrated |
 | Google source inventory, token map and typed IPA adapter | DONE_VERIFIED on prior successful Quality run; exact latest head pending | Source hashes, inventory and six-case screening checked; four lexical conflicts remain |
 | Google deterministic lexicon and cross-runtime lookup | DONE_VERIFIED on prior successful Quality run; exact latest head pending | Eight shards, ambiguity and blank rows preserved |
 | Project-owned neural teacher | DONE_VERIFIED on prior teacher workflow | Current-head rerun pending; metrics are source-label prediction only |
