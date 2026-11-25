@@ -116,7 +116,7 @@ def parse_google_phonemic(
     for token in tokens:
         if token == ".":
             if previous_was_boundary or phone_index == boundaries[-1]:
-                return _unresolved(raw, tokens, ("MALFORMED_SYLLABLE_BOUNDARY",), provenance=provenance)
+                return _unresolved(raw, tokens, ("MALFORMED_SYLLABLE_BOUNDARY",), profile=profile, provenance=provenance)
             ipa_parts.append(".")
             boundaries.append(phone_index)
             previous_was_boundary = True
@@ -129,7 +129,6 @@ def parse_google_phonemic(
                 tokens,
                 (f"UNMAPPED_GOOGLE_PHONE:{token}",),
                 profile=profile,
-                profile=profile,
                 provenance=provenance,
                 boundaries=tuple(boundaries),
             )
@@ -140,6 +139,7 @@ def parse_google_phonemic(
                 raw,
                 tokens,
                 (f"NON_LEXICAL_GOOGLE_PHONE:{token}",),
+                profile=profile,
                 provenance=provenance,
                 boundaries=tuple(boundaries),
             )
@@ -171,7 +171,7 @@ def parse_google_phonemic(
             uncertainty=tuple(dict.fromkeys(uncertainty)),
         )
         if candidate.status == "UNRESOLVED":
-            return _unresolved(raw, tokens, ("INVALID_MAPPED_IPA",), provenance=provenance)
+            return _unresolved(raw, tokens, ("INVALID_MAPPED_IPA",), profile=profile, provenance=provenance)
     except ValueError as exc:
         return _unresolved(raw, tokens, (f"INVALID_MAPPED_IPA:{exc}",), profile=profile, provenance=provenance)
 
