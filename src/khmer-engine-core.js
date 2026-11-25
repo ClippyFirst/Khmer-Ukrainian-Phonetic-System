@@ -521,6 +521,8 @@ function renderUnknownUnit(unit, profile, { outputLevel = "balanced", distilledS
     }
   }
 
+  const orthographicFallback = deriveOrthographicRomanizationFallback(unit);
+
   // Prefer a single exact Google lexical pronunciation over an onset-only
   // preview. It remains provisional because source-profile equivalence is
   // not independently adjudicated.
@@ -560,6 +562,8 @@ function renderUnknownUnit(unit, profile, { outputLevel = "balanced", distilledS
       google_source_phonemic: lexicalCandidate.source_phonemic,
       google_mapping_status: parsed.mapping_status,
       phonology_evidence: parsed.provenance,
+      orthographic_fallback_ukrainian: orthographicFallback,
+      analysis,
       evidence: [],
     };
   }
@@ -607,10 +611,6 @@ function renderUnknownUnit(unit, profile, { outputLevel = "balanced", distilledS
       };
     }
   }
-
-  // Keep the orthographic candidate available for diagnostics, but never
-  // let it pre-empt an independently supported IPA onset hint.
-  const orthographicFallback = deriveOrthographicRomanizationFallback(unit);
 
   // A unit may have a recognized base consonant while its coda, subscript,
   // vowel sequence or syllable boundary remains unresolved. In that case the
