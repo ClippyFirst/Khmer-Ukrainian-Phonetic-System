@@ -130,6 +130,7 @@ def build_report(
         "corpus": "data/khmer/vowel-context-register.json",
         "corpus_sha256": corpus_sha256,
         "source_ids": sorted({case["ipa_source"] for case in cases}),
+        "input_count": len(cases),
         "source_case_count": len(cases),
         "reference_convention": "source transcription preserved verbatim apart from NFC and outer delimiter removal",
         "source_attested_diagnostic": {
