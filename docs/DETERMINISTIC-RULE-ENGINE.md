@@ -251,7 +251,7 @@ Exact-head Quality [45490428639](https://github.com/ClippyFirst/Khmer-Ukrainian-
 ### Відкинуті teacher-кандидати
 
 - MekongPhon greedy і beam-4 дали 0/6 точних збігів та 44,44% codepoint CER на вузькій source-attested матриці. Це не accuracy, але gate не пройдено; модель не обрана teacher для дистиляції.
-- NCKL split-syllable respelling → Khmer Phonemizer дав 8/12 exact і 6,93% CER, тоді як прямий Khmer Phonemizer на тому самому наборі дав 11/12 exact і 0,99% CER. Bridge не інтегровано.
+- NCKL split-syllable respelling → Khmer Phonemizer дав 8/12 exact і 6,93% CER; whole-string і spaced-string варіанти кожен дали 7/12 exact і 6,93% CER. Прямий Khmer Phonemizer на тому самому наборі дав 11/12 exact і 0,99% CER. Жоден NCKL bridge не інтегровано.
 - Обидва результати залишаються негативними діагностичними контрольними точками, а не причиною видаляти сторонні дослідження.
 
 ### Поточний стан перевірки
