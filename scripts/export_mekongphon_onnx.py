@@ -255,29 +255,100 @@ def main() -> int:
                 break
         return decoder_tokenizer.decode(ids, skip_special_tokens=True)
 
+    def beam_onnx(text: str, quantized: bool, num_beams: int = 4) -> str:
+        enc = encoder_tokenizer(
+            text, return_tensors="np", truncation=True, max_length=args.max_length
+        )
+        enc_session = encoder_q_session if quantized else encoder_session
+        dec_session = decoder_q_session if quantized else decoder_session
+        hidden = enc_session.run(
+            ["encoder_hidden_states"],
+            {"input_ids": enc["input_ids"], "attention_mask": enc["attention_mask"]},
+        )[0]
+        mask = enc["attention_mask"]
+        start_id = int(model.config.decoder_start_token_id)
+        eos_id = int(model.config.eos_token_id)
+        beams = [([start_id], 0.0)] + [([start_id], -1e9)] * (num_beams - 1)
+        finished = []
+        for _ in range(args.max_length - 1):
+            sequences = np.asarray([sequence for sequence, _ in beams], dtype=np.int64)
+            batch_hidden = np.repeat(hidden, len(beams), axis=0)
+            batch_mask = np.repeat(mask, len(beams), axis=0)
+            logits = dec_session.run(
+                ["logits"],
+                {
+                    "decoder_input_ids": sequences,
+                    "encoder_hidden_states": batch_hidden,
+                    "encoder_attention_mask": batch_mask,
+                },
+            )[0][:, -1, :]
+            candidates = []
+            for beam_index, (_, beam_score) in enumerate(beams):
+                row = logits[beam_index].astype(np.float64)
+                row_max = float(np.max(row))
+                log_z = row_max + float(np.log(np.exp(row - row_max).sum()))
+                for token_id, value in enumerate(row):
+                    candidates.append((beam_score + float(value) - log_z, beam_index, token_id))
+            candidates.sort(key=lambda item: item[0], reverse=True)
+            next_beams = []
+            for rank, (score, parent, token_id) in enumerate(candidates[: 2 * num_beams]):
+                sequence = beams[parent][0] + [token_id]
+                if token_id == eos_id:
+                    if rank < num_beams:
+                        finished.append((sequence, score))
+                elif len(next_beams) < num_beams:
+                    next_beams.append((sequence, score))
+                if len(next_beams) >= num_beams:
+                    break
+            beams = next_beams
+            if len(finished) >= num_beams or not beams:
+                break
+        if not finished:
+            finished.extend(beams)
+        best = max(
+            finished,
+            key=lambda item: item[1] / max(1, len(item[0]) - 1),
+        )[0]
+        return decoder_tokenizer.decode(best, skip_special_tokens=True)
+
     generation_results = []
     for probe in probes:
         tokenized = encoder_tokenizer(
             probe, return_tensors="pt", truncation=True, max_length=args.max_length
         )
         with torch.inference_mode():
-            reference_ids = model.generate(
+            greedy_reference_ids = model.generate(
                 **tokenized, max_length=args.max_length, num_beams=1, early_stopping=True
             )[0]
-        reference = decoder_tokenizer.decode(reference_ids, skip_special_tokens=True)
-        fp32_output = greedy_onnx(probe, quantized=False)
-        int8_output = greedy_onnx(probe, quantized=True)
-        if reference != fp32_output:
+            beam_reference_ids = model.generate(
+                **tokenized, max_length=args.max_length, num_beams=4, early_stopping=True
+            )[0]
+        greedy_reference = decoder_tokenizer.decode(greedy_reference_ids, skip_special_tokens=True)
+        beam_reference = decoder_tokenizer.decode(beam_reference_ids, skip_special_tokens=True)
+        fp32_greedy = greedy_onnx(probe, quantized=False)
+        int8_greedy = greedy_onnx(probe, quantized=True)
+        fp32_beam = beam_onnx(probe, quantized=False)
+        int8_beam = beam_onnx(probe, quantized=True)
+        if greedy_reference != fp32_greedy:
             raise RuntimeError(
                 f"FP32 greedy generation mismatch for probe {probe!r}: "
-                f"Transformers={reference!r}, ONNX={fp32_output!r}"
+                f"Transformers={greedy_reference!r}, ONNX={fp32_greedy!r}"
+            )
+        if beam_reference != fp32_beam:
+            raise RuntimeError(
+                f"FP32 beam-4 generation mismatch for probe {probe!r}: "
+                f"Transformers={beam_reference!r}, ONNX={fp32_beam!r}"
             )
         generation_results.append({
             "input": probe,
-            "transformers_greedy": reference,
-            "onnx_fp32_greedy": fp32_output,
-            "onnx_int8_greedy": int8_output,
-            "int8_matches_fp32": int8_output == fp32_output,
+            "transformers_greedy": greedy_reference,
+            "onnx_fp32_greedy": fp32_greedy,
+            "onnx_int8_greedy": int8_greedy,
+            "int8_greedy_matches_fp32": int8_greedy == fp32_greedy,
+            "transformers_beam4": beam_reference,
+            "onnx_fp32_beam4": fp32_beam,
+            "onnx_int8_beam4": int8_beam,
+            "int8_beam4_matches_fp32": int8_beam == fp32_beam,
         })
 
     shutil.copy2(source_dir / "README.md", output_dir / "UPSTREAM_MODEL_CARD.md")
@@ -313,7 +384,7 @@ def main() -> int:
             "decoder_start_token_id": int(model.config.decoder_start_token_id),
             "eos_token_id": int(model.config.eos_token_id),
             "max_length": args.max_length,
-            "beam_count_in_browser_spike": 1,
+            "beam_count_in_browser_spike": 4,
         },
         "quantization": "ONNX Runtime dynamic per-channel QInt8 weights",
         "opset": args.opset,
