@@ -1,3 +1,7 @@
+## Browser-local model merge/deployment closeout — 2026-11-25
+
+PR #578 merged as 520a1592345ccabbf859bc88f024485631306f73. Exact-head main Quality [45624955916](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955916), browser smoke [45624955945](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955945), and Pages deploy/deployed-asset smoke [45624955965](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955965) all SUCCESS. The public app now serves the local model manifest, INT8 encoder/decoder and WASM runtime. This verifies implementation and deployment, not pronunciation accuracy.
+
 ## Browser-local MekongPhon inference port — 2026-11-25
 
 | ID | Status | Evidence | Acceptance boundary |
