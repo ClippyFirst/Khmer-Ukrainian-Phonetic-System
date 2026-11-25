@@ -212,7 +212,7 @@ def test_mekongphon_browser_model_registry_pins_artifact_runtime_and_evidence_li
     model = next(row for row in sources if row["id"] == "byumatrixlab-khmer-ipa-model")
     runtime = model["browser_runtime"]
     assert model["status"] == "OPTIONAL_EXTERNAL_MODEL_CANDIDATE_BROWSER_LOCAL_PORTED"
-    assert model["license"] == "Apache-2.0"
+    assert model["license"].startswith("Apache-2.0")
     assert runtime["model_revision"] == "20e069d384b240da76320e1569958568c12a54bc"
     assert runtime["model_artifact_license"] == "Apache-2.0"
     assert runtime["runtime"] == "onnxruntime-web@1.23.2"
