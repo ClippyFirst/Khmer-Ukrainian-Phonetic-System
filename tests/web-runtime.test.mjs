@@ -42,8 +42,8 @@ assert.equal(softTier.output_level, "balanced");
 assert.ok(softTier.ipa.includes("/k/???"), "Soft may expose the registered onset as a partial IPA candidate");
 assert.ok(softTier.ua.includes("к???"), "Soft must retain the known onset while marking the unresolved remainder");
 assert.equal(superSoftTier.output_level, "exploratory");
-assert.equal(superSoftTier.ipa, "/keʔ/???", "Super-soft must use the static neural-distilled candidate, not execute a model");
-assert.equal(superSoftTier.ua, "ке???", "The neural candidate must pass through the shared IPA-to-Ukrainian adapter");
+assert.equal(superSoftTier.ipa, "/keʔ/", "Super-soft must use the static neural-distilled candidate, not execute a model");
+assert.equal(superSoftTier.ua, "ке", "The neural candidate must pass through the shared IPA-to-Ukrainian adapter");
 assert.equal(superSoftTier.units[0].partial_candidate_kind, "NEURAL_DISTILLED_OOV_SYLLABLE");
 assert.equal(superSoftTier.phonetic_result.units[0].ipa_kind, "PHONEMIC");
 assert.equal(strictTier.tier_coverage.strict.ipa_candidate_coverage, 0);
@@ -73,10 +73,10 @@ assert.deepEqual(
   ["កម្ពុជា", " ", "ប្រជាធិបតេយ្យ"],
   "known multi-cluster lexical fixtures must be recognized without requiring whitespace between Khmer words",
 );
-assert.equal(unresolvedWord.ipa, "/kam.pu.ciə/ /prɑ.ciə.tʰɨp.paʔ.taj/???", "the browser IPA result must use the local source-backed fixture plus exact Google phonemic lexical candidate");
-assert.equal(unresolvedWord.ua, "кампутьіє пратьієт'иппатай???", "the browser IPA adapter must render the local lexical candidate and append one uncertainty marker");
-assert.ok(unresolvedWord.ipa.endsWith("???") && unresolvedWord.ipa !== "???", "an unresolved IPA result must retain its candidate before the uncertainty marker");
-assert.ok(unresolvedWord.ua.endsWith("???") && unresolvedWord.ua !== "???", "an unresolved Ukrainian result must retain its candidate before the uncertainty marker");
+assert.equal(unresolvedWord.ipa, "/kam.pu.ciə/ /prɑ.ciə.tʰɨp.paʔ.taj/", "the browser IPA result must use the local source-backed fixture plus exact Google phonemic lexical candidate");
+assert.equal(unresolvedWord.ua, "кампутьіє пратьієт'иппатай", "the browser IPA adapter must render the local lexical candidate and append one uncertainty marker");
+assert.ok(unresolvedWord.ipa.includes("/prɑ.ciə.tʰɨp.paʔ.taj/"), "the complete lexical IPA candidate must render without a fabricated unknown tail");
+assert.ok(unresolvedWord.ua.includes("пратьієт'иппатай") && !unresolvedWord.ua.includes("???"), "the complete lexical Ukrainian candidate must render without a fabricated unknown tail");
 assert.equal(unresolvedWord.status, "PROVISIONAL");
 assert.equal(unresolvedWord.confidence_tier, "C");
 assert.equal(unresolvedWord.selected_external_candidate, null, "archived external candidates must not replace the local deterministic engine output");
@@ -96,7 +96,7 @@ assert.ok(unresolvedUnits[0].orthographic_fallback_ukrainian, "the separate orth
 const unresolvedTypedUnits = unresolvedWord.phonetic_result.units.filter((unit) => unit.status === "EVIDENCE_LIMITED" || unit.status === "NOT_ESTABLISHED");
 assert.equal(unresolvedTypedUnits.length, 1, "machine-readable IPA provenance must retain word-level uncertainty");
 assert.equal(unresolvedTypedUnits[0].ukrainian_kind, "IPA_DERIVED_PROVISIONAL", "the visible Ukrainian target must be typed as an IPA-derived lexical candidate");
-assert.ok(unresolvedTypedUnits[0].ukrainian.endsWith("???"), "the visible IPA-derived lexical candidate must carry the uncertainty suffix");
+assert.ok(!unresolvedTypedUnits[0].ukrainian.includes("???"), "a complete lexical candidate must not carry a fake unresolved-segment suffix");
 assert.ok(unresolvedTypedUnits[0].ipa && !unresolvedTypedUnits[0].ipa.includes("NOT_ESTABLISHED"), "the typed result must retain the bare provisional IPA separately");
 
 
@@ -162,9 +162,9 @@ assert.equal(paakApproximation.units.length, 1, "ពាក់ must remain one le
 assert.equal(paakApproximation.units[0].partial_candidate_kind, "LEXICAL_PHONEMIC_CANDIDATE", "an exact Google phonemic dictionary entry must outrank an onset-only hint");
 assert.equal(paakApproximation.units[0].provisional_ipa, "peak", "the source phonemic tokens must be converted through the typed IPA adapter");
 assert.equal(paakApproximation.units[0].provisional_ukrainian, "пеак", "the complete provisional IPA candidate must be adapted into Ukrainian");
-assert.equal(paakApproximation.ua, "пеак???", "Soft must expose the lexical IPA candidate with an uncertainty marker");
+assert.equal(paakApproximation.ua, "пеак", "Soft must expose the complete lexical IPA candidate without a fake unknown tail");
 assert.equal(paakApproximation.units[0].orthographic_fallback_ukrainian, "Пеак", "the orthographic romanization candidate must remain available but separately typed");
-assert.equal(paakApproximation.phonetic_result.units[0].ukrainian, "пеак???", "the typed IPA-first result must preserve the lexical candidate through the same adapter");
+assert.equal(paakApproximation.phonetic_result.units[0].ukrainian, "пеак", "the typed IPA-first result must preserve the complete lexical candidate through the same adapter");
 assert.equal(paakApproximation.phonetic_result.units[0].ukrainian_kind, "IPA_DERIVED_PROVISIONAL");
 assert.equal(paakApproximation.phonetic_result.units[0].ipa, "peak", "the typed IPA value must remain bare IPA without display uncertainty markers");
 assert.equal(paakApproximation.phonetic_result.units[0].ipa_kind, "PHONEMIC");
