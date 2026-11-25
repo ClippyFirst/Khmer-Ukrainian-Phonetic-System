@@ -52,3 +52,13 @@ The previously unresolved input សភាតំណាងប្រជាជនក
 ## Production deployment closeout — 2026-11-25
 
 PR #576 was merged as ecbae0fa6b3a44433c5d787ba0877613caf05834. Pages workflow [45610398273](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45610398273) passed the production Chromium suite, deployed the static site and passed the deployed-site/runtime-asset smoke checks. The public app is https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/ . This verifies deployment and runtime assets, not linguistic accuracy.
+
+
+## Browser-local MekongPhon verification — 2026-11-25
+
+- Pinned model artifact revision 20e069d384b240da76320e1569958568c12a54bc; export creates FP32 graphs for validation and removes them before packaging; only INT8 graphs are deployed (~35 MB).
+- Python export gates: FP32 ONNX generation CER ≤5% vs pinned Transformers on three diagnostic probes; INT8 vs FP32 CER ≤5%; reported phrase FP32 CER 3.03%, INT8 CER 0%. These are export parity metrics, not pronunciation accuracy.
+- JavaScript encoder/decoder tokenizer parity against pinned Transformers token IDs passed for all export probes.
+- Model-enabled production build exercised in Chromium: 46/46 Playwright tests passed, including real local ONNX inference and no-external-request assertion.
+- The browser worker executes greedy decoding (one beam, max 64 tokens). Input remains local; same-origin static model/runtime assets are fetched after explicit click.
+- Acceptance boundary: model outputs remain PROVISIONAL, profile match UNVERIFIED; independent adjudicated IPA gold remains 0 and pronunciation accuracy NOT_ASSESSED. Training corpus rights remain unresolved and the corpus is not redistributed.

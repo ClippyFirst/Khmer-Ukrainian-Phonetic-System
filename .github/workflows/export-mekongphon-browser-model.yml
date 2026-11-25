@@ -1,0 +1,42 @@
+name: Export browser-local MekongPhon model
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mekongphon-browser-export
+  cancel-in-progress: false
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-mekongphon-browser-export.txt
+      - name: Install pinned export toolchain
+        run: python -m pip install --upgrade pip && python -m pip install -r requirements-mekongphon-browser-export.txt
+      - name: Export pinned model and verify ONNX Runtime parity
+        run: python scripts/export_mekongphon_onnx.py --output-dir dist/mekongphon
+      - name: Set up Node.js for tokenizer parity
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Verify browser tokenizer against pinned Transformers tokenizers
+        run: node tests/mekongphon-browser-tokenizer.test.mjs dist/mekongphon
+      - name: Upload browser model proof-of-port
+        uses: actions/upload-artifact@v6
+        with:
+          name: mekongphon-browser-onnx-\${{ github.sha }}
+          path: dist/mekongphon/
+          if-no-files-found: error
+          retention-days: 14

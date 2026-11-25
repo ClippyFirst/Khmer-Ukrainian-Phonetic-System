@@ -20,3 +20,14 @@ The shared `khmer-phonetic-result/v1` payload is specified in `schemas/phonetic-
 The browser lexical fixture trie now preserves the reported span សភាតំណាង from the archived Wiktionary compound សភាតំណាងរាស្ត្រ, plus the directly listed lexical entry ប្រជាជន; the existing កម្ពុជា fixture completes the reported input. The exact phrase is composed from these source-located spans and is not itself directly source-attested. All new IPA fixtures remain PROPOSED and are not gold.
 
 The shared Ukrainian target policy also maps the source transcription's U+016D ŭ to у. The breve remains in the IPA output; the target spelling omits vowel quantity because Ukrainian practical orthography does not encode this distinction. This is a project target-policy choice and is covered in both Python and browser regression tests.
+
+## Optional browser-local neural IPA candidate
+
+The deterministic rule engine remains the canonical, zero-network path. A separate optional browser model path is provided by `src/mekongphon-browser-client.js` and `src/mekongphon-browser.worker.js`. It loads the pinned MekongPhon encoder/decoder ONNX INT8 graphs and ByteLevel BPE tokenizers from same-origin static assets, runs them with vendored ONNX Runtime Web/WASM, and returns a separate `PROVISIONAL` IPA candidate. The typed IPA adapter then attempts Ukrainian rendering; neither a successful model call nor a complete target mapping upgrades the candidate to source-supported pronunciation. Model weights are fetched only after explicit user action, and input text stays local. Model revision/profile provenance and uncertainty are attached to the result. The Python package and deterministic engine remain independent of ONNX Runtime Web.
+
+The Pages workflow must regenerate the pinned model artifacts, verify tokenizers against the upstream Transformers tokenizer, run the browser model test, and smoke-test the deployed manifest, model graphs and WASM runtime. A static Vite build without staged model assets does not by itself prove the neural path is deployable.
+
+
+## Browser-local MekongPhon model — 2026-11-25
+
+The public app now exposes an explicit, lazy browser-local neural IPA candidate. The pinned BYU MATRIX Lab model artifact is exported to separate ONNX encoder/decoder graphs, dynamically quantized to INT8, and executed by ONNX Runtime Web in a dedicated Web Worker. The app does not send user input to a server; only same-origin static model/runtime assets are fetched. The raw IPA candidate is rendered before Ukrainian target adaptation and never replaces canonical deterministic/lexical output. Browser decode is greedy with a 64-token output limit. The model output is always PROVISIONAL, profile match UNVERIFIED, and not gold. Model artifact license Apache-2.0; runtime MIT; training corpus not redistributed.

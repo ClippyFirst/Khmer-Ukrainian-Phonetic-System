@@ -1,3 +1,17 @@
+## Browser-local MekongPhon port — 2026-11-25
+
+- User requirement: the IPA-producing neural engine must execute on the public site, not only through a Python/provider integration. Branch: feat/browser-local-mekongphon-ipa-20261125; PR #578.
+- Implemented a user-triggered, lazy browser-local model path: Khmer input → pinned ByteLevel BPE tokenizer → ONNX encoder/decoder → provisional IPA → existing typed IPA parser → Ukrainian practical adapter. Raw IPA is rendered before target mapping, so adapter limitations cannot hide the model candidate.
+- Upstream model artifact: byumatrixlab/khmer-ipa at immutable revision 20e069d384b240da76320e1569958568c12a54bc; model card declares Apache-2.0. The training corpus is not redistributed; corpus rights remain unresolved.
+- Export: FP32 encoder/decoder graphs are validation-only and removed before packaging; dynamically quantized INT8 pair is deployed (~35 MB). ONNX Runtime Web 1.23.2 (MIT) is integrity-pinned and vendored; WASM executes in a dedicated Web Worker. One-beam greedy decode, max output length 64 tokens, to keep browser latency bounded.
+- Privacy: no inference backend, telemetry or external model API. Only same-origin static model/runtime assets are fetched after explicit click; the Khmer input is passed to a local worker and never sent over the network. CSP permits connect-src 'self' and wasm-unsafe-eval only as required for local assets/WASM.
+- Export evidence: FP32 ONNX vs pinned Transformers generation is gated at ≤5% CER on three diagnostic probes; INT8 vs FP32 is gated at ≤5%. For the reported phrase, FP32 ONNX CER is 3.03%; INT8 matches FP32 exactly. These are export parity checks, not pronunciation accuracy.
+- Browser tokenizer parity: all pinned encoder/decoder token ID probes match Transformers. Model-enabled production build Chromium: 46/46 Playwright tests passed, including real local inference and no-external-request assertion.
+- Model output remains PROVISIONAL, profile match UNVERIFIED, not gold and never overrides canonical deterministic/lexical results. Independent adjudicated IPA gold remains 0; accuracy remains NOT_ASSESSED.
+- Model assets are generated in CI and Pages build, not committed to git. The FP32 graphs are deleted before packaging. CI uploads the built model asset from dist/models/mekongphon.
+- Remaining blockers: independent expert-adjudicated target-profile IPA gold; rights clarification for upstream training corpus; browser performance/coverage evaluation on longer, diverse inputs. The browser port itself is DONE_VERIFIED once final CI/Pages deployment checks pass.
+
+---
 ## Final merge and deployment closeout — 2026-11-25
 
 - Implementation PR [#576](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/576) was merged by squash into main as `ecbae0fa6b3a44433c5d787ba0877613caf05834`.
@@ -287,3 +301,41 @@ Local execution was not available in this session; verification was performed by
 - PR #519 remains separate and untouched; it is a divergent hybrid-inference proposal and must be reconciled independently.
 - PR #572 was merged; Pages deployment is triggered by the subsequent `main` update and must be verified independently. No formal release tag was created.
 - Assessment: the romanization-mediated fallback is engineering-verified within its narrow inventory. The repository remains a research-ready partial prototype, not a linguistically validated Khmer G2P product.
+
+
+## Browser-local neural IPA engine port — 2026-11-25 (PR #578)
+
+**Owner request:** port an IPA-producing engine into the website so the browser can produce a useful IPA candidate instead of stopping at unresolved markers. This work is on a dedicated branch and is not deployed to main.
+
+- Branch: `feat/browser-local-mekongphon-ipa-20261125`
+- Draft PR: [#578 — Port MekongPhon IPA inference into the browser](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/578)
+- PR base SHA: `de00a090db3c714ded911f1ecb2c8d18d6cd896d`
+- Current head at this handoff: `ad645892c4c65446dc343b562835a3f40adb2fe2`
+- Model: `byumatrixlab/khmer-ipa`, pinned revision `20e069d384b240da76320e1569958568c12a54bc`; model-card metadata says Apache-2.0. The upstream training corpus is not copied.
+
+### Implementation delivered on branch
+
+- Exported separate encoder/decoder ONNX graphs; dynamically quantized per-channel INT8; FP32 graphs are validation-only and are not shipped.
+- Added a dedicated browser Web Worker, vendored integrity-pinned ONNX Runtime Web WASM, and browser ByteLevel BPE tokenizers.
+- Model weights (~35 MB) load only after an explicit button press. Khmer text remains in the browser; no inference API or telemetry is introduced.
+- Generated IPA is passed through the existing typed IPA → Ukrainian adapter. The result is a separate `PROVISIONAL` candidate with provenance, uncertainty, timing and size metadata; it never silently replaces canonical deterministic output.
+- Added model export and tokenizer parity to the Pages build, plus a production Chromium inference test. README, hybrid-engine docs and this handoff describe the evidence boundary.
+
+### Verification ledger at handoff
+
+| Task | Status | Evidence / acceptance |
+|---|---|---|
+| Pinned model export and ONNX validation | DONE_VERIFIED | CI export produced INT8 graphs; FP32 ONNX generation differed from pinned Transformers by 0% CER on two probes and 3.03% CER on the reported assembly phrase; INT8 matched FP32 on all three probes. This is export/runtime parity, not phonetic accuracy. |
+| Browser tokenizer port | DONE_VERIFIED | Encoder and decoder ByteLevel BPE IDs and decoder round-trip matched the pinned Transformers tokenizers in CI. |
+| Python/JS core suite and parity | DONE_VERIFIED on PR head before latest test-only change | Python tests, npm checks, structural/lexical/rule/segmentation parity, deterministic benchmarks and Vite build passed in run [45623011916](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45623011916). |
+| Production Chromium model inference | PARTIAL | First run [45622223015](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45622223015) exposed a false-positive test wait: the initial status text itself contained `PROVISIONAL`, so the test proceeded before inference completed. The test now waits for the completed `PROVISIONAL · MekongPhon@...` result and has a 230-second inference window. Exact-head rerun is pending. |
+| GitHub Pages build/deploy | TODO for this PR | Workflow now exports the pinned model, verifies tokenizers, runs web/browser checks and smoke-tests the model assets. It must pass on exact PR head after merge before claiming public deployment. No deployment performed from this branch. |
+| Independent IPA accuracy | BLOCKED / evidence-limited | No independent adjudicated Phnom Penh IPA gold corpus; model profile equivalence is `UNVERIFIED`. No accuracy claim or promotion to canonical `SUPPORTED` is permitted. |
+
+### Next acceptance gates
+
+1. Exact-head push CI [45623318504](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45623318504): export, tokenizer parity, model-enabled Chromium inference and all core checks must pass.
+2. PR #578's separate browser smoke must pass; it does not replace the model-enabled export/Chromium test.
+3. Review the 62-commit PR history and final diff; squash/merge only with owner authorization. Do not deploy or merge autonomously.
+4. After owner merge, verify Pages build/deploy and fetch the live manifest/model/runtime assets; then record exact main SHA and deployed workflow evidence.
+5. Keep the model candidate separate and `PROVISIONAL` until an independent profile-matched IPA gold set and specialist adjudication exist.

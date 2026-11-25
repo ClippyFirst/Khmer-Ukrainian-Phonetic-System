@@ -402,12 +402,38 @@
     "url": "https://huggingface.co/byumatrixlab/khmer-ipa",
     "scope": "33.6M-parameter BERT encoder-decoder with separate Khmer and IPA tokenizers; model card reports best evaluation loss 0.1736 at checkpoint 26000; the model card's example output is IPA-like. The LREC 2026 MekongPhon paper reports under 2% CER on its own held-out evaluation setup. The associated MekongPhon paper reports 1,314,779 sentence pairs expanded by longest-match lexicon lookup over OPUS from an 8,026-entry seed lexicon; 500 seed entries were reviewed by two proficient L2 speakers, not native annotators.",
     "license": "Apache-2.0 as declared by the model card",
-    "status": "OPTIONAL_EXTERNAL_MODEL_CANDIDATE",
+    "status": "OPTIONAL_EXTERNAL_MODEL_CANDIDATE_BROWSER_LOCAL_PORTED",
     "limitations": "The model card license does not resolve rights in the training corpus; MekongPhon repository snapshot has no declared root LICENSE. Source-attested diagnostic results are not independent project gold; model evaluation uses pron_no_tones and does not establish tone/phonation recovery. Published under-2% CER is dictionary-seeded and not independent sentence transcription; reviewer qualifications are L2, not native target-variety adjudicators. The optional benchmark workflow is manual-dispatch only until the MekongPhon corpus license is clarified; the one-time run is retained as historical diagnostic evidence.",
     "model_revision": "20e069d384b240da76320e1569958568c12a54bc",
     "evaluation_corpus_revision": "f80f6c1840c4818b51e05f2e00cded4701a5b662",
     "project_run_id": 42997945391,
-    "automation_status": "MANUAL_WORKFLOW_DISPATCH_ONLY_PENDING_CORPUS_RIGHTS"
+    "automation_status": "MANUAL_WORKFLOW_DISPATCH_ONLY_PENDING_CORPUS_RIGHTS",
+    "browser_runtime": {
+      "status": "ON_DEVICE_INFERENCE_VERIFIED_IN_CHROMIUM",
+      "model_revision": "20e069d384b240da76320e1569958568c12a54bc",
+      "model_artifact_license": "Apache-2.0",
+      "export": "separate encoder/decoder ONNX; dynamic per-channel INT8 weights",
+      "model_weight_bytes": 35001440,
+      "runtime": "onnxruntime-web@1.23.2",
+      "runtime_license": "MIT",
+      "runtime_tarball_integrity": "sha512-T09JUtMn+CZLk3mFwqiH0lgQf+4S7+oYHHtk6uhaYAAJI95bTcKi5bOOZYwORXfS/RLZCjDDEXGWIuOCAFlEjg==",
+      "execution": "same-origin WASM in a dedicated Web Worker; one-beam decode; max output length 64",
+      "user_text_sent_to_server": false,
+      "model_training_corpus_distributed": false,
+      "tokenizer_parity": "3 pinned encoder/decoder probes pass against Transformers tokenizers",
+      "browser_test": "46/46 Playwright Chromium tests passed on the model-enabled production build",
+      "phrase_probe": {
+        "input": "សភាតំណាងប្រជាជនកម្ពុជា",
+        "transformers_reference": "saʔpʰiedɑmnaaŋprɑciecʊənkampuʔcie",
+        "browser_onnx_int8_candidate": "saʔpʰiedɑmnaaŋprɑciecʊənkampucie",
+        "fp32_cer_vs_transformers": 0.030303030303030304,
+        "int8_cer_vs_fp32": 0
+      },
+      "profile_match": "UNVERIFIED",
+      "ipa_gold": false,
+      "accuracy_claim": false,
+      "caveat": "The 3.03% CER is ONNX-export parity against the pinned upstream model, not pronunciation accuracy. Independent adjudicated target-variety IPA gold remains unavailable."
+    }
   },
   {
     "id": "phonsobon-khmer-g2p-model",
