@@ -417,5 +417,27 @@
       "phkasla-partner-chatumukh"
     ],
     "source_locator": "Khmer Wiktionary, ចតុម្មុខ, syllabification ចៈ-តុម-មុក and proper-name examples: https://km.wiktionary.org/wiki/ចតុម្មុខ (accessed 2026-11-23); Phkasla Partner quoting Chuon Nath: https://phkaslapartner.com/learn/khmerwords-2781/ (accessed 2026-11-23); English Wiktionary, spelling variant ចតុមុខ, standard IPA /caʔ.tom.muk/: https://en.wiktionary.org/wiki/ចតុមុខ (accessed 2026-11-23)."
+  },
+  "សភាតំណាង": {
+    "source": "សភាតំណាង",
+    "ipa": "/saʔ.pʰiə tɑm.naːŋ/",
+    "ua": "сап'іє тамнанг",
+    "status": "PROPOSED",
+    "note": "The archived Wiktionary entry for the longer compound សភាតំណាងរាស្ត្រ gives standard IPA /saʔ.pʰiə tɑm.naːŋ riəh/. This fixture retains only its first two lexical components as a source-located span. The full user phrase is compositional, not directly source-attested; this community transcription has not been independently adjudicated.",
+    "evidence": [
+      "wiktionary:spha-tamnang-ras"
+    ],
+    "source_locator": "Wiktionary English dump (2023-04), Khmer entry សភាតំណាងរាស្ត្រ, Pronunciation > standard IPA /saʔ.pʰiə tɑm.naːŋ riəh/: https://kaweah.freedombox.rocks/kiwix/content/wiktionary_en_all_maxi_2023-04/A///%E1%9E%9F%E1%9E%97%E1%9E%B6%E1%9E%8F%E1%9F%86%E1%9E%8E%E1%9E%B6%E1%9E%84%E1%9E%9A%E1%9E%B6%E1%9E%9F%E1%9F%92%E1%9E%8F%E1%9F%92%E1%9E%9A. The fixture extracts the exact initial span /saʔ.pʰiə tɑm.naːŋ/ only; not a source for the complete user phrase."
+  },
+  "ប្រជាជន": {
+    "source": "ប្រជាជន",
+    "ipa": "/prɑː.ciə.cŭən/",
+    "ua": "пратьієтьуен",
+    "status": "PROPOSED",
+    "note": "Wiktionary Pronunciation gives standard IPA /prɑː.ciə.cŭən/. U+016D breve is retained in the IPA; the Ukrainian practical adapter renders the short /ŭ/ as у because Ukrainian spelling does not encode this quantity distinction. Community-maintained source; not independently adjudicated.",
+    "evidence": [
+      "wiktionary:prochachon"
+    ],
+    "source_locator": "Wiktionary, Khmer entry ប្រជាជន, Pronunciation > standard IPA /prɑː.ciə.cŭən/: https://en.wiktionary.org/wiki/ប្រជាជន (accessed 2026-11-25)."
   }
 }
