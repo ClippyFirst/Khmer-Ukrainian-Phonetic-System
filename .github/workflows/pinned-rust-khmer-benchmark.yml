@@ -22,7 +22,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: pinned-rust-${{ github.event.pull_request.number || github.ref }}
+  group: pinned-rust-${{ github.event.pull_request.head.ref || github.ref_name }}
   cancel-in-progress: true
 
 permissions:
