@@ -13,8 +13,6 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from khmer_ua.google_phonemic import (
-    DEFAULT_INVENTORY_PATH,
-    DEFAULT_TSV_PATH,
     load_google_phonemic_lexicon,
     parse_google_phonemic,
 )
@@ -63,7 +61,6 @@ def build_google_phonemic_lexicon() -> dict[str, Any]:
                 "uncertainty": list(parsed.uncertainty),
             })
 
-    inventory = json.loads(DEFAULT_INVENTORY_PATH.read_text(encoding="utf-8"))
     data = {
         "schema_version": "google-phonemic-ipa-lexicon/v1",
         "source": {
