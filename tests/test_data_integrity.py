@@ -180,3 +180,28 @@ def test_additional_wiktionary_lexical_fixtures_have_permanent_locators_and_dist
         assert corpus[word]["ipa"] == ipa
         assert corpus[word]["ipa_status"] == "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED"
         assert oldid in corpus[word]["sources"][0]
+
+
+def test_national_assembly_components_are_source_registered_and_not_gold():
+    sources = {
+        row["id"]: row
+        for row in json.loads((ROOT / "data/khmer/sources.json").read_text(encoding="utf-8"))
+    }
+    fixtures = json.loads((ROOT / "data/tests/web-fixtures.json").read_text(encoding="utf-8"))
+    corpus = json.loads((ROOT / "data/tests/verified-lexical-corpus.json").read_text(encoding="utf-8"))
+    expected = {
+        "សភាតំណាង": ("wiktionary:spha-tamnang-ras", "/saʔ.pʰiə tɑm.naːŋ/"),
+        "ប្រជាជន": ("wiktionary:prochachon", "/prɑː.ciə.cŭən/"),
+    }
+    for word, (source_id, ipa) in expected.items():
+        source = sources[source_id]
+        assert source["status"] == "SECONDARY_LEXICAL_REFERENCE"
+        assert ipa in source["scope"]
+        assert fixtures[word]["ipa"] == ipa
+        assert fixtures[word]["status"] == "PROPOSED"
+        assert source_id in fixtures[word]["evidence"]
+        assert fixtures[word]["source_locator"]
+        assert corpus[word]["ipa"] == ipa
+        assert corpus[word]["ipa_status"] == "SOURCE_ATTESTED_NOT_INDEPENDENTLY_ADJUDICATED"
+        assert corpus[word]["evidence_status"] == corpus[word]["ipa_status"]
+        assert corpus[word]["sources"]
