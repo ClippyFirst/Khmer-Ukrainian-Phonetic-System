@@ -119,3 +119,10 @@ def test_unregistered_khmer_structure_remains_visible_as_unknown():
     assert result["provisional_ukrainian"] == "???"
     assert result["fallback_status"] == "UNKNOWN"
     assert result["fallback_trace"][0]["source"] == "្"
+
+
+def test_source_breve_u_maps_to_ukrainian_u_without_erasing_ipa():
+    # Wiktionary uses U+016D in the standard transcription of ជន.
+    # The shortness remains in the displayed IPA; Ukrainian spelling has no
+    # corresponding vowel-quantity mark.
+    assert map_ipa_string("cŭən") == ("тьуен", None)

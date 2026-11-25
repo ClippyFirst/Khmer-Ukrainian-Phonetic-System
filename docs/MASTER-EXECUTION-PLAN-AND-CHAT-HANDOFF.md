@@ -1,3 +1,15 @@
+## Current continuation: source-backed coverage for the reported Khmer assembly phrase — 2026-11-25
+
+- Base: current default main at 64c7dcacdf40e182b6d72876820c20fcd6e9c5f3; branch fix/romanization-ipa-entry-20261125; PR [#576](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/576).
+- Regression was first added RED. Quality run [45609529222](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45609529222) failed at the intended assertion and reproduced the exact browser-engine result /s/??? /t/??? /ɓ/??? /kam.pu.ciə/ for សភាតំណាងប្រជាជនកម្ពុជា.
+- Added source-located lexical span សភាតំណាង with /saʔ.pʰiə tɑm.naːŋ/, extracted only from the first two components of the archived Wiktionary compound entry សភាតំណាងរាស្ត្រ; added ប្រជាជន with /prɑː.ciə.cŭən/; reused the existing កម្ពុជា fixture /kam.pu.ciə/. All are PROPOSED / source-attested but not independently adjudicated.
+- Added U+016D ŭ → Ukrainian у to the shared target policy. The source breve remains in displayed IPA; Ukrainian practical spelling does not encode this quantity distinction. Python and browser target-adapter tests cover it.
+- Resulting browser IPA: /saʔ.pʰiə tɑm.naːŋ/ /prɑː.ciə.cŭən/ /kam.pu.ciə/; IPA-derived Ukrainian candidate: сап'іє тамнанг пратьієтьуен кампутьіє. The complete user phrase is compositional and is not itself directly source-attested; no gold/accuracy claim is made.
+- Exact-head Quality [45609962020](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45609962020) SUCCESS: 524 Python tests + 70 subtests; npm run check, Python↔JS structural/lexical/rule/segmentation parity, deterministic engine/tokenizer benchmarks and Vite build all completed.
+- Chromium [45609869453](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45609869453) SUCCESS: 45/45 Playwright tests, including the new reported-phrase UI assertion. Browser run code head bfdccc121d6f1bbd9af892b42bd3b2d091be33e0; subsequent change before final Quality head only lower-cased proposal markers in fixture notes.
+- Task ledger: specific phrase lexical coverage and target adaptation DONE_VERIFIED; whole phrase's direct phrase-level source attestation PARTIAL (compositional); broad contextual G2P and open-vocabulary vowel/coda coverage remain PARTIAL/evidence-limited; independent expert IPA gold remains 0 and pronunciation accuracy NOT_ASSESSED. Public browser remains static and does not call external Python providers.
+
+---
 # Master execution plan and chat handoff — 2026-11-25
 
 ## Current continuation: NCKL Khmer-script respelling benchmark integration — 2026-11-25

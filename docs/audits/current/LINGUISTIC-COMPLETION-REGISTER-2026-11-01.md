@@ -1,3 +1,14 @@
+## Reported Khmer assembly phrase lexical coverage — 2026-11-25
+
+| ID | Status | Evidence | Acceptance boundary |
+|---|---|---|---|
+| KHM-LEX-ASM-001 | DONE_VERIFIED (specific source-located spans) | PR [#576](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/576); Quality [45609962020](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45609962020) SUCCESS (524 tests + 70 subtests); Chromium [45609869453](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45609869453) SUCCESS (45/45). | Browser recognizes សភាតំណាង /saʔ.pʰiə tɑm.naːŋ/, ប្រជាជន /prɑː.ciə.cŭən/, and existing កម្ពុជា /kam.pu.ciə/; IPA-only Ukrainian adapter renders the complete candidate. Regression checks source registration, evidence notes, IPA, UA output and no orthographic fallback. All lexical IPA remains PROPOSED / not independently adjudicated. |
+| KHM-LEX-ASM-PHRASE-001 | PARTIAL (compositional phrase, not phrase-level source-attested) | Archived Wiktionary entry for សភាតំណាងរាស្ត្រ supplies the first two lexical components; direct Wiktionary entries supply ប្រជាជន and កម្ពុជា. | The exact input សភាតំណាងប្រជាជនកម្ពុជា is composed from source-located spans; no direct source for the complete phrase was located. Do not describe it as source-attested phrase-level IPA or gold. |
+| KHM-UA-BREVE-001 | DONE_VERIFIED (target-policy mapping only) | Shared data/ukrainian/practical-policy.json entry U+016D ŭ → у; Python tests/test_practical.py; browser phrase regression; Quality [45609962020](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45609962020). | Shortness remains visible in source IPA; Ukrainian practical spelling does not encode this quantity distinction. This is a project target-policy choice, not independent phonetic adjudication. |
+
+Scope limit: this change fixes the reported lexical phrase, not general Khmer G2P. Unseen words, broad dependent-vowel × register × coda × coeng/syllable-position behavior, dialect/style and tone remain evidence-limited. Independent adjudicated IPA gold remains 0; pronunciation accuracy remains NOT_ASSESSED.
+
+---
 ## NCKL Khmer-script respelling benchmark — 2026-11-25
 
 | ID | Status | Evidence | Acceptance boundary |
