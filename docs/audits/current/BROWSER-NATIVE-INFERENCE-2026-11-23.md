@@ -293,3 +293,8 @@ The 2026-11-23 deployment boundary above is historical and is superseded by the 
 | Make the model candidate visible without hiding it behind an adapter failure | DONE_VERIFIED | Raw IPA is committed to UI before typed IPA/UA adaptation; regression test checks model output |
 | Independently adjudicate target-profile pronunciation accuracy | TODO / EVIDENCE-LIMITED | Requires a licensed, split-independent, expert-adjudicated IPA gold corpus and dialect/profile definition |
 | Resolve upstream training-corpus redistribution rights | BLOCKED | Model weights are licensed Apache-2.0; corpus is not redistributed and its rights remain unresolved |
+
+
+### Main merge and production confirmation — 2026-11-25
+
+PR #578 merged as 520a1592345ccabbf859bc88f024485631306f73. Main Quality [45624955916](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955916), Chromium smoke [45624955945](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955945), and Pages deploy [45624955965](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955965) all passed. The deployed-site smoke checked the manifest, INT8 encoder/decoder and WASM runtime from the public origin. The public app is https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/ .

@@ -1,3 +1,14 @@
+## Final merge and production deployment — browser-local MekongPhon — 2026-11-25
+
+- Implementation PR [#578](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/pull/578) merged by squash into main as 520a1592345ccabbf859bc88f024485631306f73.
+- Exact-head main Quality [45624955916](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955916): SUCCESS — Python tests, npm/web checks, Python↔JS structural/lexical/rule/segmentation parity, deterministic benchmarks and build.
+- Exact-head main browser smoke [45624955945](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955945): SUCCESS — production site visible results in Chromium.
+- Exact-head Pages deployment [45624955965](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955965): SUCCESS — model export, tokenizer parity, web checks, production build, real local model inference in Chromium, Pages upload/deploy and deployed-site/runtime-asset smoke checks.
+- The deployed smoke test fetched the model manifest, INT8 encoder, INT8 decoder and ONNX Runtime Web WASM asset from the public Pages origin.
+- Public app: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/ . The optional Run local model action is available in Soft and Super-soft phonetic views.
+- The browser model is live, but its outputs remain PROVISIONAL / profile_match UNVERIFIED. The model's 3.03% CER is export parity vs the pinned upstream Transformers model, not pronunciation accuracy. Independent adjudicated IPA gold remains 0; training-corpus rights remain unresolved and the corpus is not redistributed.
+
+---
 ## Browser-local MekongPhon port — 2026-11-25
 
 - User requirement: the IPA-producing neural engine must execute on the public site, not only through a Python/provider integration. Branch: feat/browser-local-mekongphon-ipa-20261125; PR #578.

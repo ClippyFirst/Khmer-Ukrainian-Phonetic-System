@@ -62,3 +62,13 @@ PR #576 was merged as ecbae0fa6b3a44433c5d787ba0877613caf05834. Pages workflow [
 - Model-enabled production build exercised in Chromium: 46/46 Playwright tests passed, including real local ONNX inference and no-external-request assertion.
 - The browser worker executes greedy decoding (one beam, max 64 tokens). Input remains local; same-origin static model/runtime assets are fetched after explicit click.
 - Acceptance boundary: model outputs remain PROVISIONAL, profile match UNVERIFIED; independent adjudicated IPA gold remains 0 and pronunciation accuracy NOT_ASSESSED. Training corpus rights remain unresolved and the corpus is not redistributed.
+
+
+## Main merge and Pages deployment — 2026-11-25
+
+- PR #578 merged as 520a1592345ccabbf859bc88f024485631306f73.
+- Main Quality [45624955916](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955916): SUCCESS.
+- Main browser smoke [45624955945](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955945): SUCCESS.
+- Pages [45624955965](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45624955965): SUCCESS. Build ran model export and tokenizer parity, exercised actual model inference in production Chromium, uploaded/deployed Pages, then smoke-tested the deployed model manifest, INT8 encoder, INT8 decoder and WASM runtime assets.
+- Public app: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/ .
+- The deployed neural candidate remains PROVISIONAL and profile-unverified; deployment success is not pronunciation-accuracy evidence.
