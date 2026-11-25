@@ -73,7 +73,13 @@ def predict_many(model, words, source_vocab, target_vocab, batch_size=192):
     return results
 
 
-def build_syllable_inventory(lexicon):
+def build_syllable_inventory(lexicon, source_vocab):
+    """Build a non-lexical CV/CVC candidate space plus corpus-derived OOV syllables.
+
+    The generated core inventory is a bounded orthographic-pattern transducer
+    distilled from the neural teacher. It does not add words to the lexicon:
+    every generated form is independently predicted from its Khmer code points.
+    """
     known_words = set(lexicon.entries)
     syllables = set()
     ambiguous_words = 0
@@ -87,17 +93,44 @@ def build_syllable_inventory(lexicon):
                 invalid_words += 1
             continue
         syllables.update(item.source_text for item in parsed.syllables)
+
+    consonants = sorted(
+        token for token in source_vocab
+        if len(token) == 1 and "\u1780" <= token <= "\u17a2"
+    )
+    vowel_signs = sorted(
+        token for token in source_vocab
+        if len(token) == 1 and "\u17b6" <= token <= "\u17c5"
+    )
+    if len(consonants) < 30 or len(vowel_signs) < 12:
+        raise ValueError(
+            "teacher source vocabulary is too small for the generated Khmer CV/CVC inventory: "
+            f"{len(consonants)} consonants, {len(vowel_signs)} dependent vowels"
+        )
+
+    generated_cv = {onset + vowel for onset in consonants for vowel in vowel_signs}
+    generated_cvc = {
+        onset + vowel + coda
+        for onset in consonants
+        for vowel in vowel_signs
+        for coda in consonants
+    }
+    generated_core = (generated_cv | generated_cvc) - known_words
+    all_syllables = syllables | generated_core
     oov = sorted(
-        syllable for syllable in syllables
+        syllable for syllable in all_syllables
         if syllable not in known_words and 1 <= len(syllable) <= 16
     )
     return sorted(syllables), oov, {
         "known_lexical_words": len(known_words),
         "unique_orthographic_syllables": len(syllables),
         "oov_syllable_candidates": len(oov),
+        "generated_cv_candidates": len(generated_cv - known_words),
+        "generated_cvc_candidates": len(generated_cvc - known_words),
+        "generated_core_candidates": len(generated_core),
         "ambiguous_orthographic_words_skipped": ambiguous_words,
         "invalid_or_evidence_limited_words_skipped": invalid_words,
-    }
+    }, generated_core
 
 
 def compose_test_diagnostic(model, examples, source_vocab, target_vocab, batch_size):
@@ -159,7 +192,7 @@ def main() -> int:
 
     model, checkpoint, source_vocab, target_vocab = load_teacher(args.checkpoint)
     lexicon = load_google_phonemic_lexicon()
-    all_syllables, oov_syllables, inventory = build_syllable_inventory(lexicon)
+    all_syllables, oov_syllables, inventory, soft_syllables = build_syllable_inventory(lexicon, source_vocab)
     predictions = predict_many(model, oov_syllables, source_vocab, target_vocab, args.batch_size)
     mapping = {}
     table = []
@@ -182,6 +215,7 @@ def main() -> int:
         ukrainian = adapt_phonetic_result(parsed.candidate, allow_uncertain=True)
         record = {
             "orthography": syllable,
+            "tier": "soft" if syllable in soft_syllables else "exploratory",
             "google_phonemic_tokens": phones,
             "ipa": parsed.ipa,
             "ipa_kind": "PHONEMIC",
@@ -221,7 +255,7 @@ def main() -> int:
             "profile_equivalence": "UNVERIFIED",
             "accuracy": None,
         },
-        "candidate_policy": "OOV orthographic syllable strings only; deterministic lookup candidate, never SUPPORTED without independent evidence",
+        "candidate_policy": "Offline teacher predictions for generated Khmer CV/CVC patterns and lexicon-derived OOV syllables; all candidates remain PROVISIONAL, never SUPPORTED without independent evidence",
         "inventory": inventory,
         "rejected": rejected,
         "candidates": table,
@@ -236,6 +270,8 @@ def main() -> int:
         "teacher_checkpoint_sha256": teacher_sha,
         "inventory": inventory,
         "accepted_candidates": len(table),
+        "accepted_soft_candidates": sum(item["tier"] == "soft" for item in table),
+        "accepted_exploratory_candidates": sum(item["tier"] == "exploratory" for item in table),
         "rejected_candidates": rejected,
         "composition_test": composition,
         "accuracy": None,
