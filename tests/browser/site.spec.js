@@ -642,6 +642,7 @@ test("MekongPhon runs as an on-device browser model and returns the pinned ONNX 
   const button = page.locator("#run-mekongphon");
   await expect(button).toBeEnabled();
   await button.click();
+  await expect(page.locator("#mekongphon-status")).not.toHaveText(/Не запускається автоматично/);
   const expected = probe.onnx_int8_greedy;
   await expect(page.locator("#mekongphon-ipa")).toHaveText(
     expected.startsWith("/") ? expected : "/" + expected + "/",
