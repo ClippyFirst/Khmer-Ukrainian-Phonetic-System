@@ -1,3 +1,17 @@
+## Current continuation: NCKL Khmer-script respelling benchmark — 2026-11-25
+
+- Base main: `e972cd503f3670d08a2fbf0812efdc701513a810`.
+- Working branch: `bench/nckl-respelling-20261125`; PR not yet opened.
+- Added `scripts/benchmark_nckl_respelling.py`, `tests/test_benchmark_nckl_respelling.py`, `.github/workflows/optional-nckl-respelling-benchmark.yml`, and `docs/research/NCKL-RESPelling-BENCHMARK-2026-11-25.md`.
+- Dataset pin: `phonsobon/khmer-G2P` revision `2733e664ed4d77dee4cc588a130bb4844c9da767`; model pin: `phonsobon/khmer-g2p` revision `7dbc6c3d1c1f5a9a8763be602fa679f130f20dca`; upstream architecture code pin: `PhonSobon/Khmer-pronunciation` commit `66b526ebd5edbacfeb7178f377de30662d9b30d2`.
+- This is a separate **Khmer-script pronunciation-respelling** task, not IPA. The test split has 1,920 pairs / 1,888 unique words. The harness verifies train/validation/test word-disjointness and groups all alternative readings per word.
+- Metrics: output coverage, exact match against any NCKL alternative, Unicode code-point CER using the minimum-edit alternative (same policy as the upstream evaluator), and syllable-count accuracy. No source rows, words, references, predictions or per-word errors are retained.
+- Rights: dataset card labels content `other / nckl-khmer-dictionary-2022`, states underlying content remains © NCKL, and asks users to check terms before commercial use or redistribution. Only aggregate metrics are uploaded. Commercial use/redistribution remain blocked pending direct NCKL terms clarification.
+- TDD RED: Quality [45581925948](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45581925948) failed with 6 expected missing-harness FileNotFoundError failures; 507 existing tests and 70 subtests passed.
+- Quality GREEN: [45582195369](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45582195369) SUCCESS — full Python suite, npm checks, structural/lexical/rule/segmentation parity, engine/tokenizer benchmarks and Vite build.
+- Optional model execution: [45582195410](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45582195410) was running at this handoff update. Do not report metrics until the workflow and aggregate artifact are inspected.
+- Independent IPA gold remains 0; this benchmark does not change IPA accuracy or canonical IPA. Production neural fallback is unchanged and remains blocked by separate profile/rights/runtime gates.
+
 # Master execution plan and chat handoff — 2026-11-25
 
 ## Current continuation: shared Khmer IPA engine benchmark — 2026-11-25
