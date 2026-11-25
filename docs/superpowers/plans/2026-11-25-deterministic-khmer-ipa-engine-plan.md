@@ -2,179 +2,224 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Replace per-request neural inference with a deterministic browser-local Khmer IPA engine whose rules and lexical data were developed with an offline neural teacher and whose IPA flows through the existing Ukrainian adapter.
+**Goal:** Build a browser-local deterministic Khmer-to-Ukrainian phonetic engine from the licensed Google Khmer phonemic lexicon and an offline neural G2P teacher trained on that corpus. The final site runtime loads only static rules/lexicon and never runs a neural model.
 
-**Architecture:** Use the NCKL G2P model as a research-time teacher for Khmer-script pronunciation respelling, then use a deterministic phonemizer to map respellings to IPA. If the same-input bridge diagnostic passes, compile approved outputs and contextual decisions into static, versioned rules/lexical data consumed by the existing Python and JavaScript engines. The final runtime loads no model weights and makes no inference request.
+**Architecture:** Use the pinned Google Khmer pronunciation lexicon (CC BY 4.0) as the large source-backed phonemic lexical layer. Convert its custom phonemic tokens through an explicit, provenance-aware token-to-IPA adapter. Train a project-owned neural teacher offline with a correct phone-token target tokenizer (not a character-level approximation). Distill validated teacher behavior into static deterministic lexical/context rules. The existing IPA-to-Ukrainian adapter remains the only practical-orthography path.
 
-**Tech Stack:** Python 3.12, PyTorch CPU + pinned `khmer-g2p` for offline teacher inference, `khmerphonemizer==0.0.3` as a deterministic IPA candidate, existing JavaScript site engine, existing typed IPA adapter, GitHub Actions.
+**Tech Stack:** Python 3.12, PyTorch CPU for offline teacher training, pinned Google source TSV + Festvox phonology inventory, Python/JavaScript shared token map, existing typed IPA result and Ukrainian adapter, GitHub Actions.
 
 **Spec:** `docs/superpowers/specs/2026-11-25-deterministic-khmer-ipa-engine-design.md`
 
 ## Global Constraints
 
-- Preserve `Khmer orthography → structural analysis → source phonology/respelling → typed IPA → Ukrainian IPA adaptation → practical Ukrainian orthography`.
-- No Ukrainian output may be generated independently from source graphemes while IPA is only an audit side channel.
-- The final site runtime must not load NCKL/MekongPhon weights, import ONNX Runtime, call an inference API, or depend on network inference.
-- All generated rules/entries carry source/model revision, hashes, target profile, IPA kind, evidence status, uncertainty, and rights status.
-- Model outputs and source-attested comparisons are not independent IPA gold; accuracy remains null until expert-adjudicated gold exists.
-- Never redistribute NCKL training rows or MekongPhon corpus data without explicit rights evidence.
-- Keep source-conflicting analyses separate; no silent pronunciation guesses.
-- Strict accuracy must exceed Soft, Soft coverage must exceed Strict, and Super-soft must return a non-empty best-effort result for 100% of accepted Khmer inputs; report complete-IPA and supported-IPA coverage separately.
-- Preserve existing Python/JavaScript parity, Ukrainian adapter behavior, and the current deployed main branch until a validated replacement exists.
-- Use a dedicated branch; do not merge, deploy, release, or choose a license on the owner's behalf.
+- Preserve `Khmer orthography → structural analysis → source phonology/phonemic representation → typed IPA → Ukrainian IPA adaptation → Ukrainian practical orthography`.
+- Do not generate Ukrainian output independently from source graphemes while displaying IPA only as an audit side channel.
+- The final site runtime must not load model weights, import ONNX Runtime, call a model API, or perform neural inference.
+- Google source phonemic strings are not already project IPA. Convert through a dedicated, typed, inspectable adapter.
+- Preserve the four multi-pronunciation Google lexical entries as candidate arrays; never choose a variant arbitrarily. Preserve blank rows as unresolved.
+- Preserve syllable boundaries (`.`), vowel length, phoneme inventory, source row provenance, source revision/hash, IPA kind, status and uncertainty.
+- The Google lexicon and phonology inventory are CC BY 4.0; keep attribution with any derivative.
+- The external NPanha model repo has MIT code but no committed checkpoint or training TSV. Its reported metrics are not reproducible project evidence. Re-train from the pinned Google source; do not claim its metrics as ours.
+- The NCKL model outputs Khmer-script respelling, not IPA. Its split-syllable bridge currently degrades source concordance; keep it as a negative-control diagnostic only unless an alternate boundary mode proves otherwise.
+- The MekongPhon direct IPA model failed the six-case source-concordance gate under greedy and beam-4. Do not promote it as the primary teacher.
+- Accuracy remains NOT_ASSESSED until independent adjudicated IPA gold exists. Source-attested diagnostic CER and neural teacher/student agreement are not accuracy.
+- Strict accuracy > Soft > Super-soft; Soft result coverage > Strict; Super-soft non-empty result coverage = 100%. Report complete IPA, supported, provisional, partial and unresolved coverage separately.
+- Preserve the existing Python/JavaScript parity and Ukrainian adapter. Keep main/deployed site unchanged until the replacement is verified.
+- Do not merge, deploy, publish a release, or choose a project license on the owner's behalf.
 
 ## Review Focus
 
-1. **Malformed teacher respelling** (empty syllables, doubled/trailing hyphens, whitespace-only output) — reject or mark unresolved; never silently concatenate invalid syllables.
-2. **Multi-syllable boundaries and stress** (hyphens in respelling vs dots/spaces/stress in IPA references) — preserve boundaries and normalize only the explicitly allowed notation markers in diagnostic comparisons.
-3. **Register/vowel/coda context** (first/second series, shifters, open/closed syllables, NIKAHIT/REAHMUK) — no context-free vowel-sign mapping; tests must cover contextual variants and unresolved cases.
-4. **Unknown lexical forms** (names, compounds, unseen syllable combinations) — use deterministic fallback with explicit uncertainty; never claim full IPA when only onset/partial output exists.
-5. **Profile and rights mismatch** (NCKL training data, model-derived outputs, external IPA convention) — block distribution/promotion unless the required rights and profile evidence exist.
+1. **Token inventory drift:** every non-empty lexicon phone must exist in the pinned Google phonology inventory and the IPA map. Unknown tokens fail validation.
+2. **Multi-character phones:** `ph`, `th`, `kh`, `ch`, doubled vowels and diphthongs are single phonemic tokens, not character sequences.
+3. **Syllable boundaries and length:** `.` and long-vowel phones must survive tokenization, training, IPA conversion and serialization.
+4. **Profile conflicts:** source-attested conflicts in aspiration, glottal stops and vowel length remain explicit; no global normalization that hides them.
+5. **Duplicate pronunciations and blank entries:** retain variants; do not silently select or invent pronunciations.
+6. **Model split leakage:** all variants of one normalized spelling belong to the same train/dev/test split.
+7. **OOV behavior:** deterministic rules must return an explicitly uncertain candidate or unresolved status; never claim complete IPA from a partial onset.
 
 ---
 
-### Task 1: Complete the NCKL-respelling → deterministic-IPA bridge diagnostic
+### Task 1: Finish the NCKL bridge negative-control diagnostic
 
 **Files:**
-- Create: `scripts/benchmark_nckl_phonemizer_bridge.py`
-- Create: `tests/test_benchmark_nckl_phonemizer_bridge.py`
-- Modify: `.github/workflows/ci.yml`
-- Read: `data/tests/verified-lexical-corpus.json`
-- Read: `scripts/benchmark_nckl_respelling.py`, `scripts/benchmark_g2p.py`
+- Modify: `scripts/benchmark_nckl_phonemizer_bridge.py`
+- Modify: `tests/test_benchmark_nckl_phonemizer_bridge.py`
+- Existing CI job: `nckl-phonemizer-bridge` in `.github/workflows/ci.yml`
 
-**Interfaces:**
-- `phonemize_respelling(respelling: str, phonemizer: Callable[[str], Any]) -> str` splits only at explicit NCKL hyphen boundaries, phonemizes each syllable, and joins IPA syllables with dots.
-- `build_report(corpus, respellings, direct_outputs, bridge_outputs, *, model_revision, phonemizer_version, corpus_sha256, runtime=None) -> dict` emits aggregate-only source-attested diagnostics.
-- NCKL model revision: `7dbc6c3d1c1f5a9a8763be602fa679f130f20dca`; model output is Khmer-script respelling, not IPA.
-- Phonemizer: `khmerphonemizer==0.0.3`.
+- [x] **Step 1: Test the split-syllable bridge first**
+  - Direct Khmer Phonemizer: 11/12 exact, 0.99% CER.
+  - NCKL respelling split into syllables then phonemized separately: 8/12 exact, 6.93% CER.
+  - The split-syllable bridge fails the screening gate.
 
-- [x] **Step 1: Write the failing tests first**
-  - `test_respelling_bridge_preserves_model_syllable_boundaries`
-  - `test_respelling_bridge_rejects_empty_syllables_and_non_string`
-  - `test_source_ipa_comparison_key_removes_notation_only`
-  - `test_bridge_report_is_aggregate_only_and_never_accuracy`
-  - `test_bridge_report_rejects_misaligned_prediction_maps`
+- [x] **Step 2: Add boundary-mode tests before implementation**
+  - Whole respelling (hyphens preserved and passed to phonemizer once).
+  - Spaces substituted for hyphens and passed to phonemizer once.
 
-- [x] **Step 2: Verify RED**
-  - CI run `45642382335` failed during collection because the script did not exist. This is the expected test-first failure.
+- [ ] **Step 3: Run all three variants on the same 12 source-attested inputs**
+  - Compare direct, split, whole-string and spaced-string output.
+  - Store only hashes and aggregate metrics; do not retain raw words, respellings, source IPA or generated IPA.
+  - Run focused tests and exact-head CI.
+  - If neither whole nor spaced mode improves on direct, close this branch as a failed bridge and do not integrate NCKL.
 
-- [x] **Step 3: Implement the bridge diagnostic**
-  - Run the NCKL model only in CI/offline research.
-  - Compare direct Khmer Phonemizer with NCKL respelling split into syllables and passed to the same deterministic phonemizer.
-  - Store only hashes, case indices and aggregate metrics; do not store words, source IPA, respellings or generated IPA.
+- [ ] **Step 4: Record the final decision**
+  - Mark the diagnostic `DONE_VERIFIED` with exact run/commit.
+  - Retain NCKL only as a research candidate; do not call it the primary engine.
 
-- [ ] **Step 4: Verify GREEN and inspect the exact-head bridge run**
-  - Run: `pytest -q tests/test_benchmark_nckl_phonemizer_bridge.py`
-  - Run the full `Quality checks` workflow and `nckl-phonemizer-bridge` job on the final branch SHA.
-  - Expected: all tests pass; workflow reports direct and bridged source-attested CER/exact counts, with `accuracy=null` and `independent_gold_count=0`.
-  - Continue only if bridge output coverage is not lower, exact matches do not decrease, and CER improves by at least 20% relative. Otherwise mark this teacher path non-production and do not integrate it.
-
-- [ ] **Step 5: Record the diagnostic decision**
-  - If it passes the screening gate, proceed to Task 2.
-  - If it fails, record `BLOCKED` and investigate a different teacher or source-only expansion; do not force a rule promotion.
-
-### Task 2: Define a typed Khmer pronunciation-respelling intermediate representation
+### Task 2: Validate the Google phonemic source and define a typed phonemic → IPA adapter
 
 **Files:**
-- Create: `schemas/khmer-respelling.schema.json`
-- Create: `src/khmer_ua/respelling.py`
-- Create: `src/khmer-respelling.js`
-- Test: `tests/test_khmer_respelling.py`
-- Test: `tests/khmer-respelling.test.mjs`
+- Create: `data/khmer/google-phonology.json` (pinned source inventory)
+- Create: `data/khmer/google-phonemic-to-ipa.json`
+- Create: `src/khmer_ua/google_phonemic.py`
+- Create: `src/google-phonemic-ipa.js`
+- Create: `scripts/validate_google_phonemic_lexicon.py`
+- Create: `tests/test_google_phonemic_ipa.py`
+- Create: `tests/google-phonemic-ipa.test.mjs`
+- Modify: `src/khmer-ipa-result.js` to preserve explicit IPA kind in browser results
+- Read: `data/khmer/google-pronunciation-full.tsv`
+- Read: pinned Google `km/festvox/phonology.json`
+
+**Source facts to verify in code/tests:**
+- Google source commit: `a90601024f07ab7e96c911243324e0adeb16da96`.
+- Khmer rows: 62,179; non-empty phonemic outputs: 62,118; empty outputs: 61; unique spellings with non-empty outputs: 62,114; four words have multiple pronunciation variants.
+- Distinct observed Khmer phone tokens: 54; all 54 occur in the pinned 56-phone phonology inventory; `sil` and `pau` are unused.
+- Preliminary token map: 6/6 R12A vowel-context examples exact; 3/7 source-attested lexical sample exact. These are source-concordance diagnostics, not accuracy.
 
 **Interfaces:**
-- Python `parse_respelling(raw: str, *, provider: str, revision: str, profile: str) -> KhmerRespelling`.
-- JavaScript `parseKhmerRespelling(raw, provenance) -> KhmerRespelling`.
-- Shared fields: NFC raw text, ordered syllable array, exact separator/boundary provenance, provider/model revision, target profile, evidence status, uncertainty, and parse errors.
-- The respelling representation is explicitly not IPA and cannot be passed directly to the Ukrainian IPA adapter.
+- Python `parse_google_phonemic(raw: str, mapping: dict) -> GooglePhonemicResult`.
+- JavaScript `parseGooglePhonemic(raw, mapping) -> GooglePhonemicResult`.
+- The intermediate representation is explicitly `GOOGLE_PHONEMIC`, not IPA.
+- The adapter returns IPA with `ipa_kind="PHONEMIC"`, preserves `.` syllable boundaries, and records mapping status/provenance/uncertainty.
+- Unknown or unsupported phone tokens return unresolved/partial status; no guessed mapping.
+- `ie → iə` is allowed only with the recorded R12A source evidence. Other diphthong mappings remain explicit and provisional unless corroborated.
 
-- [ ] **Step 1: Write tests** for one syllable, multiple hyphen-delimited syllables, Unicode NFC, leading/trailing/doubled separators, empty input, unsupported characters, and provenance preservation.
-- [ ] **Step 2: Run tests and verify expected RED** because the parser/schema do not exist.
-- [ ] **Step 3: Implement the smallest Python and JavaScript parsers** from the shared schema; do not infer phonetic values.
-- [ ] **Step 4: Run focused tests, full Python tests, JS checks, and cross-runtime structural parity.**
-- [ ] **Step 5: Commit** `feat: add typed Khmer pronunciation respelling boundary`.
+- [ ] **Step 1: Write failing tests first**
+  - Every observed source token exists in the pinned source inventory.
+  - Every token is either explicitly mapped or explicitly unresolved.
+  - Long vowels map to IPA length marks.
+  - Syllable dots are preserved.
+  - Multi-character phones are tokenized as one unit.
+  - Unknown tokens fail closed.
+  - The six R12A examples map exactly.
+  - The four source lexical conflicts remain conflicts and are not promoted.
+  - `ipa_kind="PHONEMIC"` survives serialization and Ukrainian adaptation.
 
-### Task 3: Build and validate deterministic respelling → IPA adaptation
+- [ ] **Step 2: Verify RED**
+  - Run focused Python and JavaScript tests; confirm missing parser/schema fails.
+
+- [ ] **Step 3: Add the pinned phonology inventory and evidence-bearing token map**
+  - Record Google revision, source URL, CC BY 4.0, source file hash and token evidence.
+  - Mark mappings corroborated only when source examples support them; mark the rest provisional.
+  - `sil` and `pau` remain non-lexical boundary/silence tokens, not guessed phones.
+
+- [ ] **Step 4: Implement Python and JavaScript adapters**
+  - Parse space-delimited phonemic tokens and explicit dot boundaries.
+  - Convert only mapped tokens to IPA.
+  - Validate the output through the existing IPA boundary.
+  - Preserve phonemic kind and candidate status.
+
+- [ ] **Step 5: Run focused tests, source matrix, lexical diagnostic, full Python suite, JS tests and Python/JS parity.**
+
+- [ ] **Step 6: Commit** `feat: add Google phonemic to typed IPA adapter`.
+
+### Task 3: Generate and integrate the deterministic Google lexical layer
 
 **Files:**
-- Create or modify: `src/khmer_ua/respelling_ipa.py`
-- Create or modify: `src/khmer-respelling-ipa.js`
-- Modify: `data/khmer/vowel-context-register.json` only when source evidence supports an explicit new record
-- Test: `tests/test_respelling_ipa.py`
-- Test: `tests/respelling-ipa.test.mjs`
+- Create: `scripts/build_google_phonemic_lexicon.py`
+- Create: `schemas/google-phonemic-ipa-lexicon.schema.json`
+- Create: generated `data/khmer/google-phonemic-ipa-lexicon.json`
+- Modify: `src/khmer_ua/rule_engine.py`
+- Modify: `src/khmer-engine-core.js`
+- Modify: `data/khmer/sources.json`
+- Update: `data/khmer/GOOGLE_PRONUNCIATION_SAMPLE_ATTRIBUTION.md`
+- Test: `tests/test_google_phonemic_lexicon.py`
+- Test: `tests/google-phonemic-lexicon.test.mjs`
 
 **Interfaces:**
-- Python `respelling_to_ipa(value: KhmerRespelling) -> TypedPhoneticResult`.
-- JavaScript `respellingToIpa(value) -> TypedPhoneticResult`.
-- Output kinds/statuses must be explicit; unknown vowels/codas remain unresolved or provisional, never silently guessed.
-- The same typed result must be consumable by the existing Ukrainian adapter.
+- `build_lexicon(source_tsv, token_map) -> canonical JSON`.
+- Python and JavaScript lookup return the same ordered candidate array.
+- Generated JSON is stable: NFC keys, deterministic sort, canonical serialization, no timestamps, stable SHA-256.
+- Every entry retains source ID, source row/hash, IPA kind, status, mapping uncertainty and variant index.
 
-- [ ] **Step 1: Write tests** for first/second series, shifters, independent/dependent vowels, coda, NIKAHIT, REAHMUK, consonant clusters, syllable boundaries, long vowels, and unsupported combinations.
-- [ ] **Step 2: Run focused tests and verify RED.**
-- [ ] **Step 3: Inspect the pinned Khmer Phonemizer implementation and its license; port only the deterministic rules required by the validated respelling grammar.** Do not import a Python-only runtime into the browser.
-- [ ] **Step 4: Implement the smallest adapter that produces typed IPA and explicit uncertainty.**
-- [ ] **Step 5: Run focused tests, existing IPA adapter tests, Python/JS parity, and full-message fixtures.**
-- [ ] **Step 6: Commit** `feat: map validated Khmer respelling to typed IPA`.
+- [ ] **Step 1: Write tests** for counts, blank rows, duplicate variants, NFC collisions, deterministic rebuild hash, source attribution, unknown-token rejection, and exact/ambiguous lookup.
+- [ ] **Step 2: Verify RED.**
+- [ ] **Step 3: Implement the generator** from the already committed TSV; do not duplicate source rows unnecessarily.
+- [ ] **Step 4: Generate the lexicon and validate its schema, token inventory, row counts and stable hash.**
+- [ ] **Step 5: Integrate exact-form lookup in Python and browser engines.**
+  - All unadjudicated Google entries remain PROVISIONAL.
+  - Strict mode may use only separately corroborated entries under existing promotion rules.
+  - Ambiguous entries return multiple candidates or an explicit ambiguity status.
+  - The existing Ukrainian IPA adapter remains the only practical-orthography path.
+- [ ] **Step 6: Run Python/JS exact-form, variant, full-message and parity tests.**
+- [ ] **Step 7: Commit** `feat: add deterministic Google Khmer phonemic lexicon`.
 
-### Task 4: Build the offline deterministic-student compiler
+### Task 4: Train a project-owned neural phonemic teacher from the licensed source
 
 **Files:**
-- Create: `scripts/distill_nckl_rules.py`
-- Create: `schemas/deterministic-khmer-ipa-lexicon.schema.json`
-- Create: `tests/test_distill_nckl_rules.py`
-- Generated output (only after rights gate): `data/khmer/nckl-distilled-ipa-lexicon.json`
+- Create: `scripts/train_google_phonemic_teacher.py`
+- Create: `scripts/google_teacher/model.py`
+- Create: `scripts/google_teacher/tokenization.py`
+- Create: `scripts/google_teacher/data.py`
+- Create: `tests/test_google_teacher_data.py`
+- Create: `tests/test_google_teacher_tokenization.py`
+- Create: branch-gated CI workflow job in `.github/workflows/ci.yml`
 
 **Interfaces:**
-- `compile_distilled_lexicon(inputs, respellings, ipa_candidates, provenance) -> dict`.
-- The compiler must be deterministic: stable sort, NFC keys, no timestamps in the compiled artifact, canonical JSON, stable SHA-256.
-- The compiler must refuse distribution output unless an explicit rights status and rights evidence locator are supplied.
-- Entries remain `PROVISIONAL` until source/profile review; teacher agreement is recorded separately from accuracy.
-- The artifact contains no raw NCKL training rows.
+- Input tokenizer: NFC Khmer grapheme/codepoint sequence with a documented normalization policy.
+- Target tokenizer: space-delimited Google phone tokens plus explicit syllable-boundary token `.`; `ph`, `aa`, `ie`, etc. are atomic target tokens, never split into characters.
+- Dataset split: deterministic, word-disjoint train/dev/test; all variants of a spelling stay in one split.
+- Training config: pinned seed, architecture, epochs, batch size, optimizer, early stopping and CPU thread count.
+- Metrics: phoneme-token error rate, word exact match, syllable-boundary accuracy, output coverage, and confusion matrix. These measure prediction of Google source labels, not IPA accuracy.
+- Model/checkpoint is an offline research/build artifact only; never ship it in the browser bundle.
 
-- [ ] **Step 1: Write failing tests** for stable ordering/hash, duplicate NFC keys, missing outputs, malformed IPA, provenance, rights refusal, exact-form-only lookup, and no accidental generalization.
-- [ ] **Step 2: Run tests and verify RED.**
-- [ ] **Step 3: Implement the compiler and research-only output mode.**
-- [ ] **Step 4: Generate a small research artifact only if the bridge diagnostic passes; do not commit or deploy it while NCKL-derived-output rights remain unresolved.**
-- [ ] **Step 5: Validate schema and deterministic rebuild equality.**
-- [ ] **Step 6: Commit** `feat: compile evidence-gated deterministic IPA lexicon` only when rights and source acceptance permit it; otherwise record `BLOCKED`.
+- [ ] **Step 1: Write tests first** for tokenization, source-row filtering, blank rows, duplicate grouping, deterministic splits, no leakage, and token inventory.
+- [ ] **Step 2: Verify RED.**
+- [ ] **Step 3: Implement the smallest reproducible sequence model** using PyTorch CPU. Reuse MIT upstream architecture only with attribution and corrected phoneme-token target encoding.
+- [ ] **Step 4: Train on the filtered Khmer-only Google corpus with fixed seed and word-disjoint splits.**
+- [ ] **Step 5: Evaluate on held-out source phonemic labels; publish no IPA accuracy claim.**
+- [ ] **Step 6: Save checkpoint/config/data hashes only as a short-lived CI artifact; do not commit weights.**
+- [ ] **Step 7: Commit** `feat: train offline Google Khmer phonemic teacher`.
 
-### Task 5: Integrate the deterministic student into Python and the browser
+### Task 5: Distill the neural teacher into deterministic rules and OOV tables
+
+**Files:**
+- Create: `scripts/distill_google_teacher.py`
+- Create: `schemas/deterministic-khmer-phonology.schema.json`
+- Create: `tests/test_distill_google_teacher.py`
+- Generated artifact only after verification: `data/khmer/google-neural-distilled-rules.json`
+
+**Interfaces:**
+- `distill_teacher(model, syllable_lattice, evidence, config) -> deterministic rule artifact`.
+- Candidate rules include source context, onset/register, vowel, coda, syllable position, teacher revision, support count, held-out teacher agreement, source evidence, profile and uncertainty.
+- No rule is promoted merely because it matches the teacher.
+- The deterministic artifact must not require the model checkpoint.
+
+- [ ] **Step 1: Write failing tests** for deterministic ordering/hash, context specificity, conflict preservation, unsupported contexts, and no promotion from teacher agreement alone.
+- [ ] **Step 2: Verify RED.**
+- [ ] **Step 3: Generate a bounded Khmer orthographic syllable lattice** from existing consonant/register/vowel/sign inventories.
+- [ ] **Step 4: Use the offline teacher to label the lattice and extract candidate context rules.**
+- [ ] **Step 5: Measure deterministic-student agreement with the teacher on held-out words and separately compare with source IPA evidence.**
+- [ ] **Step 6: Keep the student research-only unless independent evidence and rights gates pass.**
+- [ ] **Step 7: Commit** `feat: distill neural Khmer phonology into deterministic rules` only when the artifact is reproducible and evidence-gated.
+
+### Task 6: Integrate Strict / Soft / Super-soft policies
 
 **Files:**
 - Modify: `src/khmer_ua/rule_engine.py`
 - Modify: `src/khmer-engine-core.js`
 - Modify: `src/main.js`
-- Modify: `src/khmer-engine.js` or the existing app entrypoint as needed
-- Test: existing engine suites plus new full-message parity fixtures
+- Test: Python and browser tier suites
 
-**Interfaces:**
-- Both runtimes use the same versioned deterministic lexicon/rule artifact and return the same typed IPA status, provenance, uncertainty, and Ukrainian adaptation.
-- The existing deterministic engine remains the fallback and canonical source-supported path.
-- Model-derived entries are a separate provisional layer; they cannot overwrite supported canonical fields without satisfying the promotion policy.
-
-- [ ] **Step 1: Write failing Python and browser tests** for exact lexicon hits, contextual rule hits, unknown words, mixed text, punctuation, spaces, Unicode normalization, and each confidence tier.
+- [ ] **Step 1: Write failing tests** for exact lexical hits, ambiguous variants, source conflicts, model-distilled OOV rules, unknown names, mixed text, punctuation, Unicode normalization and all three tiers.
 - [ ] **Step 2: Verify RED.**
-- [ ] **Step 3: Integrate the compiled deterministic student behind the existing engine interface.**
-- [ ] **Step 4: Remove neural inference from the primary user flow only after the deterministic path is functional and verified; retain offline research scripts separately.**
-- [ ] **Step 5: Run Python/JS structural, lexical, rule, segmentation and full-message parity tests.**
-- [ ] **Step 6: Build the static site and verify no ONNX/model assets or model-network requests are required by the production bundle.**
-- [ ] **Step 7: Commit** `feat: use deterministic neural-distilled Khmer IPA engine`.
+- [ ] **Step 3: Integrate the deterministic lexical/rule layers behind the existing engine interface.**
+- [ ] **Step 4: Preserve canonical source-supported results; model-derived rules remain PROVISIONAL and cannot overwrite them.**
+- [ ] **Step 5: Enforce accuracy/coverage ordering on one frozen corpus when gold exists.**
+- [ ] **Step 6: Verify Super-soft 100% non-empty result coverage while reporting partial/unresolved IPA separately.**
+- [ ] **Step 7: Verify the site runtime has no ONNX/model assets or inference/network dependency.**
+- [ ] **Step 8: Commit** `feat: integrate deterministic neural-distilled Khmer IPA engine`.
 
-### Task 6: Validate Strict / Soft / Super-soft coverage and accuracy
-
-**Files:**
-- Modify: `scripts/ipa_gold_corpus.py` only if schema changes are required
-- Modify: existing benchmark scripts and tier policy docs
-- Test: frozen independent IPA gold benchmark
-
-- [ ] **Step 1: Confirm lawful, profile-compatible, expert-adjudicated IPA gold exists.** If not, record `BLOCKED`; do not substitute source-attested or model-generated outputs.
-- [ ] **Step 2: Freeze train/dev/test manifests and independent adjudication provenance.**
-- [ ] **Step 3: Run all three tiers on the same frozen inputs.**
-- [ ] **Step 4: Assert Strict accuracy > Soft > Super-soft; Soft coverage > Strict; Super-soft non-empty result coverage = 100%.**
-- [ ] **Step 5: Report complete IPA coverage, supported IPA coverage, provisional coverage, partial output and unresolved output separately.**
-- [ ] **Step 6: Commit** `test: enforce deterministic engine tier coverage and accuracy policy`.
-
-### Task 7: Close out documentation and release gates
+### Task 7: Documentation, code review and release gates
 
 **Files:**
 - Update in place: `docs/MASTER-EXECUTION-PLAN-AND-CHAT-HANDOFF.md`
@@ -182,17 +227,22 @@
 - Update in place: `docs/DETERMINISTIC-RULE-ENGINE.md`
 - Update: `README.md` and `docs/implementation.md` only after runtime behavior is verified
 
-- [ ] **Step 1: Update task ledger with exact statuses and evidence.**
-- [ ] **Step 2: Run all repository-defined tests, builds, parity checks, browser tests, schema/data validation and generated-artifact drift checks on the exact head.**
-- [ ] **Step 3: Perform a read-only whole-branch code review using the plan/spec and exact base/head SHAs.**
-- [ ] **Step 4: Fix Critical/Important findings with RED→GREEN tests and one final full-suite run; ledger Minor findings as deferred.**
-- [ ] **Step 5: Report release readiness honestly. Do not merge or deploy without the owner's integration decision.**
+- [ ] **Step 1: Update task ledger with exact statuses, source revisions, hashes, and blockers.**
+- [ ] **Step 2: Run all repository-defined tests, builds, schema/data validation, Python/JS parity, browser tests, benchmark, generated-artifact drift and clean-install checks on exact head.**
+- [ ] **Step 3: Perform a read-only whole-branch review against the spec and exact base/head SHAs.**
+- [ ] **Step 4: Fix Critical/Important findings with RED→GREEN tests and one final full-suite run.**
+- [ ] **Step 5: Report release readiness honestly; do not merge or deploy without the owner's integration decision.**
 
 ---
 
-## Current task ledger at plan creation
+## Current task ledger at plan amendment
 
-- Task 1 diagnostic implementation: PARTIAL; tests have a RED run and the script/workflow exist; exact-head NCKL bridge result pending.
-- MekongPhon source-matrix gate: DONE_VERIFIED as a diagnostic; 0/6 exact, 44.44% CER for greedy and beam-4; no rule promotion.
-- Tasks 2–7: TODO or BLOCKED by the gates above; no deterministic student is yet integrated into the site.
-- Ruling: use the remote GitHub branch as the isolated workspace because this environment has no repository checkout and cannot resolve github.com; GitHub Actions must provide exact-head verification. Cost if wrong: no local pre-commit test execution, mitigated by branch-gated CI.
+- NCKL split-syllable bridge: DONE_VERIFIED as a failed diagnostic; 8/12 exact, 6.93% CER versus direct Khmer Phonemizer 11/12 exact, 0.99% CER. Whole/spaced boundary variants pending.
+- MekongPhon source-matrix gate: DONE_VERIFIED as a failed diagnostic; greedy and beam-4 both 0/6 exact, 44.44% CER.
+- Google phonemic source inventory: PARTIAL; source rows, token inventory, preliminary token map and 6/6 R12A concordance verified; dedicated parser/adapter/tests not yet implemented.
+- Google deterministic lexicon generator/integration: TODO.
+- Project-owned neural teacher: TODO; training data is available and licensed, but reproducible model training is not yet implemented.
+- Deterministic rule distillation: TODO.
+- Strict/Soft/Super-soft gold validation: BLOCKED because independent adjudicated IPA gold remains 0.
+- Runtime integration and release gates: TODO.
+- Workspace ruling: use the isolated remote GitHub branch because the container has no repository checkout and cannot resolve github.com. Exact-head GitHub Actions are the verification source; this means no local pre-commit test execution.
