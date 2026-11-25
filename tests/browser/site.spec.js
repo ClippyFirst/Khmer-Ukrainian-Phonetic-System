@@ -302,6 +302,20 @@ test("romanization mode renders a separate provisional Ukrainian form", async ({
 });
 
 
+test("romanization mode updates its contract when input switches between Khmer and Latin", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("សុខា");
+  await page.locator("#mode-romanization").click();
+  await expect(page.locator("#ua-result-title")).toHaveText("Українська через романізацію (попередня IPA)");
+  await page.locator("#source").fill("Kâmpŭchéa");
+  await expect(page.locator("#ua-result-title")).toHaveText("Українська з романізації");
+  await expect(page.locator("#ua-result")).toHaveText("Кампучеа");
+  await expect(page.locator("#output-method-note")).toContainText("Без вихідних кмерських графем");
+  await page.locator("#source").fill("សុខា");
+  await expect(page.locator("#ua-result-title")).toHaveText("Українська через романізацію (попередня IPA)");
+  await expect(page.locator("#ua-result")).toHaveText("с???");
+});
+
 test("pre-romanized BGN/PCGN input maps directly to Ukrainian with diacritics", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("Kâmpŭchéa");
