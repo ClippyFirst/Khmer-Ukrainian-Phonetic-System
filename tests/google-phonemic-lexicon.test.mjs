@@ -13,7 +13,7 @@ assert.equal(GOOGLE_PHONEMIC_LEXICON_MANIFEST.empty_pronunciation_rows, 61);
 assert.equal(GOOGLE_PHONEMIC_LEXICON_MANIFEST.unique_spellings_with_pronunciation, 62114);
 assert.equal(GOOGLE_PHONEMIC_LEXICON_MANIFEST.multi_pronunciation_words, 4);
 assert.equal(GOOGLE_PHONEMIC_LEXICON_MANIFEST.observed_phone_tokens, 54);
-assert.equal(GOOGLE_PHONEMIC_LEXICON_MANIFEST.inventory_phone_tokens, 56);
+assert.equal(GOOGLE_PHONEMIC_LEXICON_MANIFEST.mapped_phone_tokens, 54);
 assert.equal(GOOGLE_PHONEMIC_LEXICON_MANIFEST.ipa_gold_count, 0);
 assert.equal(GOOGLE_PHONEMIC_UNRESOLVED_ROWS.length, 61);
 
