@@ -79,12 +79,12 @@
 - Create/update: `docs/superpowers/plans/2026-11-25-romanization-mediated-ipa.md`
 
 - [x] Add exact JS/Python semantic parity fixtures for every registered onset rule and ensure romanization never becomes canonical IPA.
-- [x] GitHub Actions Quality checks passed: Python tests, `npm run check`, structural/lexical/rule/segmentation parity, benchmarks and Vite build. Chromium browser smoke passed 43/43 Playwright tests on code head `9d5acbb95fbe46df884d1ccc2482eb48d6f6d90e`.
-- [x] Record exact checks and remaining evidence-limited contexts in the master handoff; documentation closeout head is `48e5d037c09d47575d7882bd298c208af195f8f6`; full contextual vowel/coda/syllable work remains partial.
+- [x] GitHub Actions Quality checks passed: Python tests, `npm run check`, structural/lexical/rule/segmentation parity, benchmarks and Vite build. Chromium browser smoke passed 44/44 Playwright tests on code head `facfa463bd77b7ac9591b5c13e80a0b54daa96ae`.
+- [x] Record exact checks and remaining evidence-limited contexts in the master handoff; latest documented handoff head is `c3b95a28aca9b5135c93cdb7e6083df0ba51900f`; full contextual vowel/coda/syllable work remains partial.
 
 ## Current implementation boundary (2026-11-25)
 
 - Implemented and CI-verified so far: contextual onset candidate generation plus six exact series-conditioned vowel exemplars. Every IPA onset is cross-checked against the source consonant inventory and PCGN token class; the ambiguous BA b/p row abstains. The exact vowel fixtures match both original Khmer spelling and the ASCII romanization.
 - General vowel mapping beyond the six exact examples, coda, syllabification, register-harmony and dialect adaptation remain **PARTIAL / evidence-limited**. `vowels.json` explicitly says it is not a complete deterministic orthography-to-IPA table. No complete vowel IPA matrix was fabricated.
 - The separate orthographic romanization card remains the full BGN/PCGN-derived orthographic output; it is not relabelled as pronunciation.
-- Local RED tests were not observed because this session used GitHub-hosted execution rather than a local clone. GitHub Actions Quality checks passed on commit `9d5acbb95fbe46df884d1ccc2482eb48d6f6d90e`; browser smoke for the latest UI-label changes is still running.
+- Local RED tests were not observed because this session used GitHub-hosted execution rather than a local clone. GitHub Actions Quality checks passed on code head `facfa463bd77b7ac9591b5c13e80a0b54daa96ae`; Chromium passed 44/44 on the same head. Local test execution and RED observation were unavailable in this session.
