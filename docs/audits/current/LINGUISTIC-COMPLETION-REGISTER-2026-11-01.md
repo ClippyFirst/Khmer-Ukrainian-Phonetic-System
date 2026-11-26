@@ -3980,3 +3980,6 @@ Current canonical registry counts: **14 case records**, **13 context dimensions*
 - Registered MekongPhon (Shurtz et al. 2026, DOI 10.63317/4bb9rvdshu4z) as an external parallel IPA reference, not independent project gold: model/benchmark lineage already includes MekongPhon-related data and exact dataset/licence/profile provenance still needs audit.
 - /w/ target correction is confirmed in main: default Ukrainian /w/ → в; /aw/ → ау and /aːw/ → ав remain distinct; compatibility_ru is not the Ukrainian default.
 - Status: full productive phonological matrix PARTIAL; Edinburgh cluster annotation pilot TODO; broad independent IPA gold BLOCKED/TODO (0 adjudicated records); pronunciation accuracy NOT_ASSESSED. No isolated word entries or unsupported IPA rules were added.
+
+
+- Additional independent lexical source located: Filippi & Hiep (2016), UNESCO's 339-page *Khmer Pronouncing Dictionary: Standard Khmer and Phnom Penh Dialect* (record KH/2016/CLT/BK/72). Registered as a profile-specific secondary lexical reference, not acoustic gold. Catalogue metadata verified; entry-level transcription and reuse rights still require inspection. No entries copied.
