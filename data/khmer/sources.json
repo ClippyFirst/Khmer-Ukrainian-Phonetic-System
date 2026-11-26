@@ -1005,5 +1005,48 @@
     "notes": "The upstream reference inventory reports 56 phones; all 54 distinct lexical tokens observed in the separately licensed CC BY 4.0 Google Khmer lexicon occur in it, while sil and pau are unused. This fact is recorded for audit only. The inventory copy was removed from the project branch; the runtime token map is validated directly against the 54 tokens observed in the licensed TSV.",
     "redistributed": false,
     "redistribution_status": "NOT_COPIED"
+  },
+  {
+    "id": "ed-kirby-cluster-audio-2018",
+    "type": "independent_acoustic_dataset",
+    "title": "James Kirby (2018), Acoustic transitions in Khmer word-initial clusters: audio recordings, 2013",
+    "year": 2018,
+    "doi": "10.7488/ds/2454",
+    "url": "https://datashare.ed.ac.uk/items/0d735b30-f6ef-4e14-b6f0-a6b5a136e240/full",
+    "scope": "24-bit/44.1 kHz audio from 10 Phnom Penh Khmer speakers (3 female), 79 lexical items, three repetitions at two self-selected speech rates; includes segmented Praat TextGrids. Candidate for independent onset-cluster and intrusive-transition IPA annotation, not a supplied IPA gold corpus.",
+    "status": "PRIMARY_PHONETIC_SOURCE",
+    "license_status": "CC-BY-4.0_VERIFIED_IN_DATASET_END_USER_LICENCE",
+    "license_id": "CC-BY-4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "redistribution_status": "ALLOWED_WITH_ATTRIBUTION",
+    "license_reviewed_at": "2026-11-26",
+    "license_review_notes": "Edinburgh DataShare end-user licence PDF explicitly identifies Creative Commons Attribution 4.0 International. Attribute James Kirby/Edinburgh DataShare and indicate changes. Audio/derived annotations require source locators and no implied endorsement."
+  },
+  {
+    "id": "openslr-slr42-khmer-audio",
+    "type": "speech_audio_corpus",
+    "title": "OpenSLR SLR42, High quality TTS data for Khmer",
+    "url": "https://www.openslr.org/42/",
+    "scope": "Khmer WAV recordings plus line_index.tsv orthographic transcriptions and speaker identifiers in filenames; manually quality checked; Google-collected. The published download is described as male-speaker data. Not IPA-labelled; use only for independent audio annotation after archive metadata/profile audit.",
+    "status": "AUDIO_TRANSCRIPT_SOURCE",
+    "license_status": "CC-BY-SA-4.0_STATED_ON_RESOURCE_PAGE",
+    "license_id": "CC-BY-SA-4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "redistribution_status": "ALLOWED_WITH_ATTRIBUTION_AND_SHAREALIKE_SUBJECT_TO_RIGHTS_REVIEW",
+    "license_reviewed_at": "2026-11-26",
+    "license_review_notes": "Resource page states CC BY-SA 4.0. Archive speaker count, dialect, style, item coverage and rights of every included component still require inspection."
+  },
+  {
+    "id": "mekongphon-lrec-2026",
+    "type": "parallel_ipa_corpus",
+    "title": "Shurtz, Richardson & Richardson (2026), MekongPhon: A Large-Scale Parallel IPA Corpus for Lao and Khmer",
+    "year": 2026,
+    "doi": "10.63317/4bb9rvdshu4z",
+    "url": "https://aclanthology.org/2026.lrec-1.129/",
+    "scope": "Paper reports 1.3 million Khmer orthography–IPA pairs, aligned and verified, and public release of data/code/models. Existing project teacher/benchmark ecosystem already uses MekongPhon-related material; treat as source-concordance only pending full dataset revision, license, dialect and training-lineage audit.",
+    "status": "EXTERNAL_G2P_REFERENCE_NOT_INDEPENDENT_GOLD",
+    "license_status": "DATASET_LICENCE_AND_PROVENANCE_REVIEW_REQUIRED",
+    "redistribution_status": "NOT_CLEARED",
+    "license_reviewed_at": "2026-11-26"
   }
 ]
