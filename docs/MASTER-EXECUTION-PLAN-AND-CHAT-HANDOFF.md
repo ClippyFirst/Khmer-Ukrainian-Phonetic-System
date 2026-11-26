@@ -613,3 +613,6 @@ The neural teacher independently produced the same four source-token sequences f
 - /w/ is already fixed on main as Ukrainian в; /aw/ and /aːw/ remain distinct diphthong vs long-vowel-plus-consonant mappings. Do not regress to у.
 - Existing PR #584 remains open for a Pages validator self-contained import fix; unrelated to this linguistic research branch. PR #519 remains open/stale and untouched.
 - Next executable tasks: inspect Edinburgh archive and TextGrid metadata; derive a speaker/item/rate/cluster manifest; create double-annotation pilot rows; then expand compositional rules only where the evidence supports them. No independent gold or accuracy claim is made yet.
+
+
+- Additional source located and registered: UNESCO 2016 *Khmer Pronouncing Dictionary: Standard Khmer and Phnom Penh Dialect* (339 pages). Potential independent lexical/profile cross-check, but not audio gold; notation, exact coverage and copyright permissions remain unverified. No entries copied.
