@@ -596,3 +596,20 @@ The neural teacher independently produced the same four source-token sequences f
 - PR #586 exact-head Quality [45776759424](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45776759424), Chromium [45776759171](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45776759171), teacher/distillation and production Pages build-check all succeeded. The main deployment for `d2c37994245a3eaf4941cbbcdeb79fd0c60a1789` succeeded in [45778308083](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45778308083); its post-deploy smoke test passed. Main Chromium [45778308101](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45778308101) passed all 50 tests, including the exact reported phrase; the build-time artifact test was not skipped on the deployment build and passed.
 - Live public site: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/. The current main branch and Pages deployment include the generalized deterministic Soft/Super-soft candidate table and the corrected `/w/ → в` adapter.
 - Remaining linguistic limitation: all newly generated/model-derived candidates remain `PROVISIONAL`; independent expert-adjudicated IPA gold is still 0. The implementation is deployed and browser/build verified, but pronunciation accuracy and target-profile equivalence are not established.
+
+
+## 2026-11-26 continuation: structural Khmer G2P coverage and independent IPA gold
+
+**Research branch:** `research/phonological-structure-coverage-ipa-gold-20261126`  
+**Base main:** `efc101626bce56dd26c2d4c97b3fe62558b8998a`  
+**Branch implementation so far:** source/evidence audit and corpus registry; no production phonology rule has been guessed or added.
+
+- New audit: `docs/audits/current/KHMER-PHONOLOGICAL-STRUCTURE-COVERAGE-AND-INDEPENDENT-GOLD-PLAN-2026-11-26.md`.
+- Updated `data/khmer/sources.json` with Edinburgh DataShare cluster audio, OpenSLR SLR42 and MekongPhon evidence records.
+- Existing baseline measured from main: 14 source-indexed vowel/register lexical cases (12 source-attested-not-gold, 2 conflicting) and only three dependent vowel signs represented; 32 dependent-vowel × series cells are expected. Most cells remain not established.
+- Independent IPA gold currently has 0 records: gold.tsv contains only its header; annotations.jsonl, records.jsonl and splits.jsonl are empty.
+- Strongest new gold-pilot source: Edinburgh DataShare DOI 10.7488/ds/2454, with 10 Phnom Penh speakers, 79 cluster items, repeated tokens at two speech rates and segmented TextGrids. Its end-user licence was inspected as CC BY 4.0. It still requires independent phonemic/narrow-phonetic IPA annotation and adjudication.
+- OpenSLR SLR42 is CC BY-SA 4.0 audio + text, but detailed speaker/dialect/style coverage is not yet audited. MekongPhon is a useful external source-concordance reference but not independent gold for this project until training lineage and provenance are resolved.
+- /w/ is already fixed on main as Ukrainian в; /aw/ and /aːw/ remain distinct diphthong vs long-vowel-plus-consonant mappings. Do not regress to у.
+- Existing PR #584 remains open for a Pages validator self-contained import fix; unrelated to this linguistic research branch. PR #519 remains open/stale and untouched.
+- Next executable tasks: inspect Edinburgh archive and TextGrid metadata; derive a speaker/item/rate/cluster manifest; create double-annotation pilot rows; then expand compositional rules only where the evidence supports them. No independent gold or accuracy claim is made yet.
