@@ -623,3 +623,7 @@ The neural teacher independently produced the same four source-token sequences f
 
 
 - Extracted Minegishi 1985's complete 28-row two-series vowel-sign value table (§1.2, printed pp.45–46) to `data/khmer/source-extracts/minegishi-1985-vowel-sign-values.json`. Values remain the source's bracketed phonetic notation, not normalized IPA; unclear row-label diacritics are flagged and no Unicode mapping or engine rule is inferred. New regression test enforces these boundaries.
+
+
+- UNESCO dictionary PDF preface was inspected: its authors define “Standard” as formal/institutional usage (universities, schools, administration, media) and question whether one uniform standard pronunciation had been clearly established. Treat it as a lexical profile reference, not an unquestioned homogeneous speech norm.
+- Exact-head PR #587 verification on commit `441b46b4a84f7d28c3c9ac1d6a7ce04ec7dedf88`: Quality [45812970684](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45812970684) SUCCESS (**566 Python tests + 70 subtests; web checks PASS**); Chromium [45812970861](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45812970861) SUCCESS (**49 passed, 1 Pages-build-only test skipped**). The new Minegishi source-table regression passed. No production G2P code changed in this research PR.
