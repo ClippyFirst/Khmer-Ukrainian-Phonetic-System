@@ -3986,3 +3986,6 @@ Current canonical registry counts: **14 case records**, **13 context dimensions*
 
 
 - Additional candidate: Sodimana et al. (2018) report 17 female Khmer TTS speakers, 2,906 audio files, 3:58h and a separate 70,671-entry manually phonemically transcribed lexicon; paper states CC BY 4.0 unless otherwise noted. Registered as audio/transcript source with file-level rights and archive lineage pending. Because the current teacher uses the Google phonemic lexicon, those labels are not independent gold; raw audio may be independently reannotated only with speaker/lexical leakage controls and dialect scope unresolved.
+
+
+- Minegishi (1985) full two-series vowel-sign table extracted from printed pp.45–46 (28 rows) into `data/khmer/source-extracts/minegishi-1985-vowel-sign-values.json`. The table's romanized sign labels and bracketed phonetic values are preserved as source notation; unclear diacritics are flagged, Unicode mapping is NOT_CROSSWALKED and IPA normalization is NOT_NORMALIZED_IPA. Added a regression test to prevent accidental promotion to code-point/IPA rules. This is source evidence, not gold.
