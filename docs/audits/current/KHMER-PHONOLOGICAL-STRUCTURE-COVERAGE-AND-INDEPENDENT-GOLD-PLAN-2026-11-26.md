@@ -134,7 +134,7 @@ The pinned Khmer IPA-Dict file is derived from the aakanee.com Khmer-English Dic
 
 **Filippi & Hiep (2016), Khmer pronouncing dictionary: Standard Khmer and Phnom Penh dialect**, UNESCO Office Phnom Penh / KAM éditions, document KH/2016/CLT/BK/72, 339 pages. [UNESCO record](https://unesdoc.unesco.org/ark:/48223/pf0000246360).
 
-- The UNESCO catalogue confirms the dual profile scope (Standard Khmer and Phnom Penh dialect), trilingual publication and 339-page extent.
+- The UNESCO catalogue confirms the dual profile scope (Standard Khmer and Phnom Penh dialect), trilingual publication and 339-page extent. The inspected preface says “Standard” refers to formal/institutional use (universities, schools, administration and media), and questions whether a uniform standard pronunciation had been clearly established; do not equate this label with one empirically homogeneous speaker variety.
 - This is a promising independent lexical reference for comparing profile-specific pronunciation entries and identifying candidate structural contrasts.
 - It is not an audio corpus, and it is not independent acoustic adjudication. The actual IPA/phonetic notation, lexical coverage and entry-level structure still need page-level inspection.
 - Reuse rights were not established from the catalogue record. Do not bulk-copy entries or redistribute derived lexicon data until the publication's rights terms are verified.
