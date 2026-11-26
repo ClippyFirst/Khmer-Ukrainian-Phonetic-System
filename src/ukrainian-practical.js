@@ -14,9 +14,10 @@ export function mapIpa(ipa, practicalPolicy) {
     .filter((key) => practicalPolicy.sequences[key]?.default !== undefined)
     .sort((a, b) => b.length - a.length);
   let rest = ipa.replace(/[ˈˌ]/gu, "");
-  // Ukrainian practical spelling does not encode Khmer vowel quantity.
-  // Keep length in the IPA fixture; omit only a post-vocalic ː in this adapter.
-  rest = rest.replace(/(?<=[aeiouɑɒæɛɜəɨɪɔɵœɐɤɯʊʌʏʉ])ː/gu, "");
+  // Match long vowels before diphthong sequences. Stripping ː first would
+  // collapse /aːw/ into /aw/ and incorrectly consume consonantal /w/ as part
+  // of the diphthong. Explicit long-vowel entries below omit quantity in the
+  // Ukrainian output while preserving this phonological distinction.
   let value = "";
   let syllableStart = true;
   while (rest) {
