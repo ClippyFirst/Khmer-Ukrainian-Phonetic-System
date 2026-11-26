@@ -550,7 +550,7 @@ This is the final superseding deployment note. The implementation PR #582 was sq
 
 ## 2026-11-25 follow-up: generalize Soft Khmer → IPA and remove false unknown tails (PR #583)
 
-**Status: PR #583 merged and its exact-head implementation/teacher/Pages-build/Chromium/benchmark gates passed.** The subsequent main-branch Pages deployment failed in the validator import step; see the 2026-11-26 follow-up below. This entry supersedes earlier statements that the neural-distilled candidate table is only consumed by Super-soft.
+**Status at this checkpoint: PARTIAL — implementation and regression tests are in PR #583; exact-head CI and Pages verification are pending.** This entry supersedes earlier statements that the neural-distilled candidate table is only consumed by Super-soft.
 
 ### New evidence from the reported failing input
 
@@ -560,10 +560,10 @@ The four syllables shown in the user reproduction were already present in the pi
 |---|---|---|---|
 | រុង | `r u ŋ` (row 45018) | `/ruŋ/` | рунг |
 | ឡឺត | `l əə t` (row 60848) | `/ləːt/` | лет |
-| ឡាវ | `l aa w` (row 60741) | `/laːw/` | лав (after PR #585 adapter fix) |
+| ឡាវ | `l aa w` (row 60741) | `/laːw/` | лау |
 | ឌី | `ɗ ii` (row 22023) | `/ɗiː/` | ді |
 
-The neural teacher independently produced the same four source-token sequences from the orthographic input. The previous display added a trailing `???` to complete phonemic candidates, confusing profile uncertainty with a genuinely missing phoneme. The canonical target distinguishes `/aw/` (diphthong → `ау`) from `/aːw/` (long vowel + consonantal `/w/` → `ав`). The adapter previously stripped `ː` before longest-match segmentation and incorrectly collapsed the latter into the former; PR #585 fixes this.
+The neural teacher independently produced the same four source-token sequences from the orthographic input. The previous display added a trailing `???` to complete phonemic candidates, confusing profile uncertainty with a genuinely missing phoneme. The canonical Ukrainian IPA adapter maps consonantal `/w/` to `в`, not `у`; the legacy `compatibility_ru: у` value is not the default. Keep `/aw/` (a diphthong) distinct from `/aːw/` (long vowel plus consonant): the former maps to `ау`, while the latter maps to `ав`. The adapter must preserve `ː` until longest-match segmentation, then render long-vowel quantity without a separate Ukrainian mark. The separate BGN/PCGN orthographic route remains distinct.
 
 ### Implementation in PR #583
 
@@ -577,9 +577,12 @@ The neural teacher independently produced the same four source-token sequences f
 - Local inference using the saved teacher checkpoint produced `r u ŋ`, `l əə t`, `l aa w`, and `ɗ ii` for the four reported forms.
 - The four source lexicon rows were independently located in the pinned eight-shard data.
 - Regression tests now cover the four exact source-backed forms and the generated OOV CV form `កិ`; the latter is a test probe, not a lexical addition.
-- PR #583 exact-head verification on `653f07b61f7d21b674df9ec1e1c76d2595eb04af`: Quality [45772026933](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45772026933) PASS (564 Python tests + 70 subtests; offline teacher training, static distillation validation and Pages build-check all PASS); Chromium [45772026932](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45772026932) PASS (49 passed, one Pages-only generic-run skip); external khPOS benchmark [45772026897](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45772026897) PASS. PR #583 merged as `58691bdc80c2c83882e765aa89ebcfb28a86f509`.
-- The main-branch Pages deployment [45773125196](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45773125196) FAILED before deploy: `scripts/validate_google_distilled_syllables.py` imported `khmer_ua` without adding `src` to `sys.path`. Main Quality [45773125141](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45773125141), Chromium [45773125121](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45773125121), and external khPOS [45773125207](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45773125207) passed, but the deployment did not. A separate validator-import fix is in progress.
-- PR #583's regenerated teacher artifact: 12/12 epochs; held-out Google source-label word exact match 84.1754%, phone-token error 4.3309%, coverage 100%. Distillation: 13,941 accepted candidates (11,633 Soft + 2,308 exploratory), 3,804 rejected internal-boundary candidates, 17,745 total OOV syllable candidates. Held-out composition diagnostic: 63.8554% exact, 14.1937% phone-token error, 98.4189% coverage. These are Google source-label reproduction diagnostics, not independent IPA accuracy; IPA gold remains 0.
-- PR #585 fixes the separate target-adaptation bug: preserving `ː` until longest-match segmentation keeps `/aw/ → ау` distinct from `/aːw/ → ав`. Exact-head Quality [45775899034](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45775899034) PASS (564 Python tests + 70 subtests and JS/parity/benchmark/build checks); Chromium [45775899044](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45775899044) PASS (49 tests), including the user's phrase `/ruŋ/ /ləːt/ /laːw/ /ɗiː/` → `рунг лет лав ді`. PR #585 is open pending merge.
+- An initial browser smoke run failed only because its new expectation used `лав`; the actual configured `aw → ау` adapter correctly returned `лау`. The assertion was corrected. Exact-head verification on `f6041dac3428fe4d049d3980ef8855e1ca225274`: the Quality test job passed 564 Python tests plus 70 subtests, all JavaScript checks, Python/JavaScript parity checks, deterministic-engine benchmarks and the site build; browser smoke run [45711511779](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45711511779) passed 48 tests with one Pages-only artifact test skipped; external khPOS benchmark [45711511868](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45711511868) succeeded. The Quality workflow's neural-teacher training/distillation and Pages artifact build-check are still running; no deployment has occurred.
 - No independent adjudicated IPA gold was added. Accuracy, target-profile equivalence, and the empirical Strict > Soft > Super-soft accuracy ordering remain unverified.
 
+
+## 2026-11-26 follow-up: Pages deployment validator fix (PR #586)
+
+- PR #585 has now been squash-merged to main as `08b3ef4dcd77f9631d14682cd7e66878a90638e6`. It preserves `ː` through longest-match IPA mapping: `/aw/ → ау`, `/aːw/ → ав`; the reported phrase now renders `рунг лет лав ді` in the browser test. The fix is merged but awaits the next successful Pages deployment.
+- The remaining deployment blocker is PR #586: `scripts/validate_google_distilled_syllables.py` now adds the repository `src` directory before importing `khmer_ua`, and a subprocess regression test removes `PYTHONPATH` to prove the validator is self-contained. CI is configured to run the offline teacher and Pages build-check on this branch. PR #586 remains open pending exact-head Quality, Chromium and Pages artifact verification.
+- Do not claim the live Pages site contains PR #583 or PR #585 until the main deployment workflow succeeds and live app, Worker, static JSON artifact and the reported phrase are smoke-tested.
