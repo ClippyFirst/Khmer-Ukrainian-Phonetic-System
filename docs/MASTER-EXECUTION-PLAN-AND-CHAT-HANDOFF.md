@@ -620,3 +620,6 @@ The neural teacher independently produced the same four source-token sequences f
 
 - Google/Sodimana et al. 2018 TTS corpus is another potential audio annotation source: paper reports 17 female speakers, 2,906 recordings, 3:58h, plus a separate 70,671-entry phonemic lexicon; CC BY 4.0 unless otherwise noted. The project teacher already uses the Google lexicon, so those labels cannot be treated as independent gold. Audio could be independently reannotated only after archive lineage, speaker metadata, dialect and file-level rights are verified.
 - Exact-head PR #587 Quality run [45812080747](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45812080747) SUCCESS (Python tests and web checks); Chromium browser smoke [45812080707](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45812080707) SUCCESS. Documentation/evidence changes only; no runtime phonology changed.
+
+
+- Extracted Minegishi 1985's complete 28-row two-series vowel-sign value table (§1.2, printed pp.45–46) to `data/khmer/source-extracts/minegishi-1985-vowel-sign-values.json`. Values remain the source's bracketed phonetic notation, not normalized IPA; unclear row-label diacritics are flagged and no Unicode mapping or engine rule is inferred. New regression test enforces these boundaries.
