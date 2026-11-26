@@ -98,10 +98,14 @@ if (chaktomukPhrase.ipa !== "/kroŋ/ /caʔ.tom.muk/" || chaktomukPhrase.ua !== "
   throw new Error("Krong Chaktomuk phrase must retain both lexical units through the IPA-first adapter");
 }
 const semivowelW = mapIpa("w", policy);
+const longVowelPlusW = mapIpa("aːw", policy);
+const diphthongAw = mapIpa("aw", policy);
 const semivowelWLong = adaptPhoneticResult(fromProvisionalFullIpa("laːw"), { allowUncertain: true });
-if (policy.segments.w?.default !== "в" || semivowelW.value !== "в" || semivowelWLong !== "лав") {
-  throw new Error("IPA /w/ is a consonantal semivowel rendered as Ukrainian в, not vowel у: " + JSON.stringify({
-    policy: policy.segments.w, direct: semivowelW, sequence: semivowelWLong
+if (policy.segments.w?.default !== "в" || semivowelW.value !== "в"
+    || longVowelPlusW.value !== "ав" || diphthongAw.value !== "ау"
+    || semivowelWLong !== "лав") {
+  throw new Error("IPA /w/ must remain в after a long vowel; /aw/ is a separate diphthong: " + JSON.stringify({
+    policy: policy.segments.w, direct: semivowelW, longVowelPlusW, diphthongAw, typedSequence: semivowelWLong
   }));
 }
 const sourceBackedKhmerProbes = [
