@@ -4,14 +4,18 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
 from jsonschema import Draft202012Validator
 
-from khmer_ua.google_phonemic import load_google_phonemic_lexicon
-
 
 ROOT = Path(__file__).resolve().parents[1]
+# Keep this repository script runnable in clean Pages runners without requiring
+# an editable package install; the validator reads the pinned source lexicon.
+sys.path.insert(0, str(ROOT / "src"))
+from khmer_ua.google_phonemic import load_google_phonemic_lexicon  # noqa: E402
+
 SCHEMA_PATH = ROOT / "schemas" / "deterministic-khmer-phonology.schema.json"
 MANIFEST_PATH = ROOT / "data" / "khmer" / "google-phonemic-source-lexicon.json"
 
