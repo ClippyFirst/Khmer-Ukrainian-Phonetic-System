@@ -183,7 +183,7 @@ jobs:
           retention-days: 14
 
   google-phonemic-teacher:
-    if: github.ref == 'refs/heads/feat/deterministic-neural-distillation-20261125' || github.head_ref == 'feat/deterministic-neural-distillation-20261125' || github.ref == 'refs/heads/feat/generalized-khmer-g2p-distillation-20261125' || github.head_ref == 'feat/generalized-khmer-g2p-distillation-20261125'
+    if: github.ref == 'refs/heads/feat/deterministic-neural-distillation-20261125' || github.head_ref == 'feat/deterministic-neural-distillation-20261125' || github.ref == 'refs/heads/feat/generalized-khmer-g2p-distillation-20261125' || github.head_ref == 'feat/generalized-khmer-g2p-distillation-20261125' || github.ref == 'refs/heads/fix-pages-distillation-validator-import-20261126' || github.head_ref == 'fix-pages-distillation-validator-import-20261126'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -225,7 +225,7 @@ jobs:
           retention-days: 14
 
   pages-build-check:
-    if: github.ref == 'refs/heads/feat/deterministic-neural-distillation-20261125' || github.head_ref == 'feat/deterministic-neural-distillation-20261125' || github.ref == 'refs/heads/feat/generalized-khmer-g2p-distillation-20261125' || github.head_ref == 'feat/generalized-khmer-g2p-distillation-20261125'
+    if: github.ref == 'refs/heads/feat/deterministic-neural-distillation-20261125' || github.head_ref == 'feat/deterministic-neural-distillation-20261125' || github.ref == 'refs/heads/feat/generalized-khmer-g2p-distillation-20261125' || github.head_ref == 'feat/generalized-khmer-g2p-distillation-20261125' || github.ref == 'refs/heads/fix-pages-distillation-validator-import-20261126' || github.head_ref == 'fix-pages-distillation-validator-import-20261126'
     needs: google-phonemic-teacher
     runs-on: ubuntu-latest
     timeout-minutes: 30
