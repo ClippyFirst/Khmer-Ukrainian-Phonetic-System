@@ -560,7 +560,7 @@ The four syllables shown in the user reproduction were already present in the pi
 |---|---|---|---|
 | រុង | `r u ŋ` (row 45018) | `/ruŋ/` | рунг |
 | ឡឺត | `l əə t` (row 60848) | `/ləːt/` | лет |
-| ឡាវ | `l aa w` (row 60741) | `/laːw/` | лау |
+| ឡាវ | `l aa w` (row 60741) | `/laːw/` | лав |
 | ឌី | `ɗ ii` (row 22023) | `/ɗiː/` | ді |
 
 The neural teacher independently produced the same four source-token sequences from the orthographic input. The previous display added a trailing `???` to complete phonemic candidates, confusing profile uncertainty with a genuinely missing phoneme. The canonical Ukrainian IPA adapter maps consonantal `/w/` to `в`, not `у`; the legacy `compatibility_ru: у` value is not the default. Keep `/aw/` (a diphthong) distinct from `/aːw/` (long vowel plus consonant): the former maps to `ау`, while the latter maps to `ав`. The adapter must preserve `ː` until longest-match segmentation, then render long-vowel quantity without a separate Ukrainian mark. The separate BGN/PCGN orthographic route remains distinct.
@@ -577,7 +577,7 @@ The neural teacher independently produced the same four source-token sequences f
 - Local inference using the saved teacher checkpoint produced `r u ŋ`, `l əə t`, `l aa w`, and `ɗ ii` for the four reported forms.
 - The four source lexicon rows were independently located in the pinned eight-shard data.
 - Regression tests now cover the four exact source-backed forms and the generated OOV CV form `កិ`; the latter is a test probe, not a lexical addition.
-- An initial browser smoke run failed only because its new expectation used `лав`; the actual configured `aw → ау` adapter correctly returned `лау`. The assertion was corrected. Exact-head verification on `f6041dac3428fe4d049d3980ef8855e1ca225274`: the Quality test job passed 564 Python tests plus 70 subtests, all JavaScript checks, Python/JavaScript parity checks, deterministic-engine benchmarks and the site build; browser smoke run [45711511779](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45711511779) passed 48 tests with one Pages-only artifact test skipped; external khPOS benchmark [45711511868](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45711511868) succeeded. The Quality workflow's neural-teacher training/distillation and Pages artifact build-check are still running; no deployment has occurred.
+- An early regression exposed a real adapter bug: `/aːw/` was reduced to `/aw/` before longest-match segmentation, so the long vowel plus consonantal `/w/` was incorrectly rendered as `лау`. PR #585 fixed the adapter by preserving `ː` through matching; `/aw/ → ау`, `/aːw/ → ав`, `/laːw/ → лав`. The initial 48-test run is historical and superseded by exact-head checks on PR #585 and the subsequent Pages deployment.
 - No independent adjudicated IPA gold was added. Accuracy, target-profile equivalence, and the empirical Strict > Soft > Super-soft accuracy ordering remain unverified.
 
 
@@ -586,3 +586,13 @@ The neural teacher independently produced the same four source-token sequences f
 - PR #585 has now been squash-merged to main as `08b3ef4dcd77f9631d14682cd7e66878a90638e6`. It preserves `ː` through longest-match IPA mapping: `/aw/ → ау`, `/aːw/ → ав`; the reported phrase now renders `рунг лет лав ді` in the browser test. The fix is merged but awaits the next successful Pages deployment.
 - The remaining deployment blocker is PR #586: `scripts/validate_google_distilled_syllables.py` now adds the repository `src` directory before importing `khmer_ua`, and a subprocess regression test removes `PYTHONPATH` to prove the validator is self-contained. CI is configured to run the offline teacher and Pages build-check on this branch. PR #586 remains open pending exact-head Quality, Chromium and Pages artifact verification.
 - Do not claim the live Pages site contains PR #583 or PR #585 until the main deployment workflow succeeds and live app, Worker, static JSON artifact and the reported phrase are smoke-tested.
+
+
+## 2026-11-26 final deployment and /w/ correction
+
+- PR #583 merged as `58691bdc80c2c83882e765aa89ebcfb28a86f509`; it adds generated CV/CVC candidate generalization to Soft and removes fabricated `???` suffixes from complete source-backed phonemic candidates.
+- PR #585 merged as `08b3ef4dcd77f9631d14682cd7e66878a90638e6`; it fixes the Ukrainian IPA adapter so consonantal `/w/` is `в`, not `у`, and preserves vowel length while matching. The exact reported phrase is `រុងឡឺត ឡាវឌី` → IPA `/ruŋ/ /ləːt/ /laːw/ /ɗiː/` → Ukrainian `рунг лет лав ді`. The separate short diphthong `/aw/` maps to `ау`; `/aːw/` maps to `ав`.
+- PR #586 merged as `d2c37994245a3eaf4941cbbcdeb79fd0c60a1789`; it fixes the Pages validator's source-layout import and adds a subprocess regression check with `PYTHONPATH` removed.
+- PR #586 exact-head Quality [45776759424](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45776759424), Chromium [45776759171](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45776759171), teacher/distillation and production Pages build-check all succeeded. The main deployment for `d2c37994245a3eaf4941cbbcdeb79fd0c60a1789` succeeded in [45778308083](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45778308083); its post-deploy smoke test passed. Main Chromium [45778308101](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45778308101) passed all 50 tests, including the exact reported phrase; the build-time artifact test was not skipped on the deployment build and passed.
+- Live public site: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/. The current main branch and Pages deployment include the generalized deterministic Soft/Super-soft candidate table and the corrected `/w/ → в` adapter.
+- Remaining linguistic limitation: all newly generated/model-derived candidates remain `PROVISIONAL`; independent expert-adjudicated IPA gold is still 0. The implementation is deployed and browser/build verified, but pronunciation accuracy and target-profile equivalence are not established.
