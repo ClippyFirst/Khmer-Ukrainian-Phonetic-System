@@ -3983,3 +3983,6 @@ Current canonical registry counts: **14 case records**, **13 context dimensions*
 
 
 - Additional independent lexical source located: Filippi & Hiep (2016), UNESCO's 339-page *Khmer Pronouncing Dictionary: Standard Khmer and Phnom Penh Dialect* (record KH/2016/CLT/BK/72). Registered as a profile-specific secondary lexical reference, not acoustic gold. Catalogue metadata verified; entry-level transcription and reuse rights still require inspection. No entries copied.
+
+
+- Additional candidate: Sodimana et al. (2018) report 17 female Khmer TTS speakers, 2,906 audio files, 3:58h and a separate 70,671-entry manually phonemically transcribed lexicon; paper states CC BY 4.0 unless otherwise noted. Registered as audio/transcript source with file-level rights and archive lineage pending. Because the current teacher uses the Google phonemic lexicon, those labels are not independent gold; raw audio may be independently reannotated only with speaker/lexical leakage controls and dialect scope unresolved.
