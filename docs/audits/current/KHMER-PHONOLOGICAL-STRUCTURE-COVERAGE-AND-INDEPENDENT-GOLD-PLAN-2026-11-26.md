@@ -81,6 +81,15 @@ Shurtz, Richardson & Richardson (2026), “MekongPhon: A Large-Scale Parallel IP
 
 The pinned Khmer IPA-Dict file is derived from the aakanee.com Khmer-English Dictionary and carries CC BY-NC-SA 4.0. It is useful as a cross-source diagnostic after overlap controls, but is neither audio-adjudicated nor gold for the selected careful Phnom Penh profile. Commercial redistribution remains blocked by its non-commercial licence.
 
+### F. UNESCO Khmer Pronouncing Dictionary — independent lexical profile cross-check
+
+**Filippi & Hiep (2016), Khmer pronouncing dictionary: Standard Khmer and Phnom Penh dialect**, UNESCO Office Phnom Penh / KAM éditions, document KH/2016/CLT/BK/72, 339 pages. [UNESCO record](https://unesdoc.unesco.org/ark:/48223/pf0000246360).
+
+- The UNESCO catalogue confirms the dual profile scope (Standard Khmer and Phnom Penh dialect), trilingual publication and 339-page extent.
+- This is a promising independent lexical reference for comparing profile-specific pronunciation entries and identifying candidate structural contrasts.
+- It is not an audio corpus, and it is not independent acoustic adjudication. The actual IPA/phonetic notation, lexical coverage and entry-level structure still need page-level inspection.
+- Reuse rights were not established from the catalogue record. Do not bulk-copy entries or redistribute derived lexicon data until the publication's rights terms are verified.
+
 ### E. General ASR corpora — audio/transcript only
 
 The Khmer ASR Cultural Dataset is advertised as 37.62 hours of speech-text pairs from 12 speakers. Potentially useful for additional annotation, but dialect, style, item coverage and redistribution rights must be verified from authoritative dataset metadata. ASR transcript alignment does not supply IPA.
