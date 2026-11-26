@@ -126,3 +126,9 @@ def test_source_breve_u_maps_to_ukrainian_u_without_erasing_ipa():
     # The shortness remains in the displayed IPA; Ukrainian spelling has no
     # corresponding vowel-quantity mark.
     assert map_ipa_string("cŭən") == ("тьуен", None)
+
+
+def test_every_ipa_w_is_rendered_as_ukrainian_v_including_aw_sequences():
+    assert map_segment("w") == "в"
+    assert map_sequence(["a", "w"]) == "ав"
+    assert map_ipa_string("wa aw aːw laːw") == ("ва ав ав лав", None)
