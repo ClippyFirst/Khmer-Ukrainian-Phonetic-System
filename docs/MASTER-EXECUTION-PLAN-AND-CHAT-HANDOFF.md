@@ -636,3 +636,8 @@ The owner clarified that IPA /w/ must map to Ukrainian **в in all contexts**. T
 TDD evidence: added Python whole-IPA tests and JavaScript typed-IPA adapter tests for /w/, /wa/, /aw/, /aːw/ and /laːw/. Exact-head browser CI on the test-only commit 446bdf5521ff7b08b48d9d776ecac5774d8fa002 failed as expected: /aw/ returned ау instead of ав. The policy fix is on commit b70e0ed64e95d997f8dd36d51ef5ad50d54f7cc0; final CI is running and must be checked before claiming completion.
 
 The broader structural work remains PARTIAL/BLOCKED: Minegishi's 28 source labels are still not crosswalked to Khmer Unicode; source audio archive download/inspection is still blocked by environment network access; independent adjudicated IPA gold remains 0. Do not infer a codepoint crosswalk or promote a rule without direct source evidence.
+
+
+### Verification closure for universal /w/ mapping — 2026-11-26
+
+Exact-head commit a6d0cd399379bf98d0088412a9e0f3001590eb97 passed Quality workflow 45816118423: 567 Python tests, 70 subtests, generated lexicon checks, web checks, structural parity (129 cases), lexical fixture parity (40 fixtures), consonant/rule parity (46 cases), segmentation candidate parity (6 fixtures), engine/tokenizer benchmarks and production build all succeeded. Chromium workflow 45816118516 passed 49 tests with 1 expected Pages-build-only skip. The first RED browser run specifically showed /aw/ → ау; the corrected policy and updated existing web contract now pass. No production site deployment was triggered by this research branch; the branch remains a draft PR.
