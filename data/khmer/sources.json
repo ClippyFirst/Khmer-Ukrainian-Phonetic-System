@@ -1048,5 +1048,18 @@
     "license_status": "DATASET_LICENCE_AND_PROVENANCE_REVIEW_REQUIRED",
     "redistribution_status": "NOT_CLEARED",
     "license_reviewed_at": "2026-11-26"
+  },
+  {
+    "id": "unesco-khmer-pronouncing-dictionary-2016",
+    "type": "independent_dialect_pronunciation_dictionary",
+    "title": "Filippi & Hiep (2016), Khmer pronouncing dictionary: standard Khmer and Phnom Penh dialect",
+    "year": 2016,
+    "url": "https://unesdoc.unesco.org/ark:/48223/pf0000246360",
+    "scope": "339-page plurilingual Khmer/English/French pronunciation dictionary explicitly covering Standard Khmer and Phnom Penh dialect. Candidate independent lexical cross-check for profile contrasts; not an audio corpus or adjudicated narrow-phonetic gold.",
+    "status": "SECONDARY_LEXICAL_REFERENCE",
+    "license_status": "NOT_ASSESSED_COPYRIGHTED_PUBLICATION",
+    "redistribution_status": "NO_REPRODUCTION_PENDING_RIGHTS_REVIEW",
+    "license_reviewed_at": "2026-11-26",
+    "limitations": "UNESCO catalogue metadata confirms title, authors, language and extent; pronunciation notation and coverage of structural environments still need direct page-level inspection. Do not assume open-access PDF availability implies permission to redistribute its entries."
   }
 ]
