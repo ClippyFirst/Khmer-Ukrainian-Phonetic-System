@@ -712,7 +712,8 @@ test("initial page does not load the large engine worker until non-empty input",
   await page.locator("#source").fill("កិ");
   await expect.poll(() => workerUrls.some((url) => url.includes("khmer-engine.worker"))).toBe(true);
   const artifactResponse = await page.request.get(new URL("/data/google-neural-distilled-syllables.json", page.url()).toString());
-  if (artifactResponse.ok()) {
+  const artifactContentType = artifactResponse.headers()["content-type"] || "";
+  if (artifactResponse.ok() && artifactContentType.includes("application/json")) {
     await expect(page.locator("#ipa-result")).toContainText("/keʔ/");
   } else {
     await expect(page.locator("#ipa-result")).toContainText("/k/???");
