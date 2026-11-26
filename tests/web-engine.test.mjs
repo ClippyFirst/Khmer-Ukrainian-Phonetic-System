@@ -1,4 +1,5 @@
 import { convert, tokenize } from "../src/khmer-engine-core.js";
+import { lookupGooglePhonemicCandidates } from "../src/google-phonemic-lexicon.js";
 import fs from "node:fs";
 import { mapIpa } from "../src/ukrainian-practical.js";
 import { segmentKhmerWordsDetailed, segmentKhmerWordsCandidates, describeWordSegmentation, WORD_DICTIONARY_SIZE, WORD_SEGMENTER_ID, isKnownKhmerWord } from "../src/khmer-word-segmenter.js";
@@ -94,6 +95,61 @@ const chaktomukPhrase = convert("ក្រុងចតុម្មុខ", "khme
 if (chaktomukPhrase.ipa !== "/kroŋ/ /caʔ.tom.muk/" || chaktomukPhrase.ua !== "кронг тьатоммук"
     || chaktomukPhrase.status !== "PROPOSED" || chaktomukPhrase.confidence_tier !== "B") {
   throw new Error("Krong Chaktomuk phrase must retain both lexical units through the IPA-first adapter");
+}
+const sourceBackedKhmerProbes = [
+  ["រុង", "ruŋ", "рунг"],
+  ["ឡឺត", "ləːt", "лет"],
+  ["ឡាវ", "laːw", "лау"],
+  ["ឌី", "ɗiː", "ді"],
+];
+for (const [word, expectedIpa, expectedUkrainian] of sourceBackedKhmerProbes) {
+  const lexical = lookupGooglePhonemicCandidates(word);
+  if (lexical.length !== 1 || lexical[0].parsed.ipa !== expectedIpa || !lexical[0].parsed.candidate) {
+    throw new Error("source-backed Google phonemic lookup failed for " + word + ": " + JSON.stringify(lexical));
+  }
+  const output = convert(word, "khmer-pph-careful-citation-v1", { outputLevel: "balanced" });
+  if (!output.ipa.includes("/" + expectedIpa + "/") || output.ua !== expectedUkrainian
+      || output.status !== "PROVISIONAL" || output.ua.includes("???")) {
+    throw new Error("complete source-backed provisional IPA must render without fake unknown tails for " + word + ": " + JSON.stringify({
+      ipa: output.ipa, ua: output.ua, status: output.status
+    }));
+  }
+}
+const reportedPhrase = convert(
+  "រុងឡឺត ឡាវឌី",
+  "khmer-pph-careful-citation-v1",
+  { outputLevel: "balanced" },
+);
+if (reportedPhrase.ipa !== "/ruŋ/ /ləːt/ /laːw/ /ɗiː/"
+    || reportedPhrase.ua !== "рунг лет лау ді"
+    || reportedPhrase.status !== "PROVISIONAL") {
+  throw new Error("the exact reported Khmer phrase must flow through source-backed IPA and Ukrainian adaptation: " + JSON.stringify({
+    ipa: reportedPhrase.ipa, ua: reportedPhrase.ua, status: reportedPhrase.status,
+    units: reportedPhrase.units.map(item => item.source)
+  }));
+}
+const generatedOovCandidate = convert(
+  "កិ",
+  "khmer-pph-careful-citation-v1",
+  { outputLevel: "balanced", distilledSyllables: {
+    "កិ": { tier: "soft", google_phonemic_tokens: ["k", "e", "ʔ"] },
+  } },
+);
+if (generatedOovCandidate.ipa !== "/keʔ/" || generatedOovCandidate.ua !== "ке"
+    || generatedOovCandidate.status !== "PROVISIONAL") {
+  throw new Error("Soft must expose a complete generated CV candidate for an OOV input: " + JSON.stringify({
+    ipa: generatedOovCandidate.ipa, ua: generatedOovCandidate.ua, status: generatedOovCandidate.status
+  }));
+}
+const generatedOovStrict = convert(
+  "កិ",
+  "khmer-pph-careful-citation-v1",
+  { outputLevel: "strict", distilledSyllables: {
+    "កិ": { tier: "soft", google_phonemic_tokens: ["k", "e", "ʔ"] },
+  } },
+);
+if (generatedOovStrict.ipa === "/keʔ/" || generatedOovStrict.ua === "ке") {
+  throw new Error("Strict must not consume generated OOV CV/CVC candidates");
 }
 const contextualPalatalMapping = mapIpa("prɑciə", policy);
 if (contextualPalatalMapping.value !== "пратьіє" || contextualPalatalMapping.unsupported !== null) throw new Error("IPA /c+iə/ must use Ukrainian contextual spelling with explicit project soft-sign distinction");

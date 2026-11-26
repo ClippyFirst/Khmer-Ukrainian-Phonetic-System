@@ -64,7 +64,7 @@ The browser exposes three levels under the shared project vocabulary. Existing i
 | Shared level | Internal value | Inclusion rule |
 |---|---|---|
 | **Strict** | `strict` | Only source-indexed proposals with explicit support. Unsupported IPA and Ukrainian forms are not reconstructed. |
-| **Soft** | `balanced` | Show the available partial result, per-unit status and reasons for uncertainty; unresolved fragments retain their positions. |
-| **Super-soft** | `exploratory` | Additionally expose partial structural/onset hints. These are not complete syllables, IPA or confirmed Ukrainian pronunciation. |
+| **Soft** | `balanced` | Show exact source-backed Google phonemic candidates and generated CV/CVC candidates from the offline neural teacher through the typed IPA → Ukrainian adapter. Complete candidates remain `PROVISIONAL`; genuinely unresolved fragments retain explicit markers. |
+| **Super-soft** | `exploratory` | Additionally expose the broader lexicon-derived OOV candidate inventory and separate structural/orthographic hints. These remain provisional and may include unresolved markers. |
 
 These are disclosure/acceptance levels, not three different phonological truth claims. The Super-soft channel must remain visibly research-only and must not overwrite the Strict result. The UI note and per-unit statuses remain authoritative. If a future rule cannot preserve this distinction, it must not be enabled by a label change alone.

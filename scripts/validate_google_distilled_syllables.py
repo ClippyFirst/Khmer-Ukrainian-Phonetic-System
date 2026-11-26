@@ -8,6 +8,8 @@ from pathlib import Path
 
 from jsonschema import Draft202012Validator
 
+from khmer_ua.google_phonemic import load_google_phonemic_lexicon
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = ROOT / "schemas" / "deterministic-khmer-phonology.schema.json"
@@ -45,6 +47,19 @@ def validate_artifact(path: Path) -> dict:
         raise ValueError("teacher artifact must not claim independent pronunciation accuracy")
     if artifact["teacher"]["profile_equivalence"] != "UNVERIFIED":
         raise ValueError("teacher target-profile equivalence must remain UNVERIFIED")
+
+    candidates = {item["orthography"]: item for item in artifact["candidates"]}
+    lexical_words = set(load_google_phonemic_lexicon().entries)
+    # This probe must stay outside the pinned lexical word list: it verifies
+    # generalization from the generated CV/CVC space, not a dictionary patch.
+    for probe in ("កិ",):
+        if probe in lexical_words:
+            raise ValueError(f"generated Soft regression probe {probe!r} unexpectedly exists in the lexical dictionary")
+        candidate = candidates.get(probe)
+        if candidate is None or candidate.get("tier") != "soft":
+            raise ValueError(f"generated Soft CV/CVC candidate missing for regression probe {probe!r}")
+        if not candidate.get("google_phonemic_tokens") or not candidate.get("ipa") or not candidate.get("ukrainian_candidate"):
+            raise ValueError(f"generated Soft candidate is incomplete for regression probe {probe!r}")
     return artifact
 
 
@@ -56,6 +71,8 @@ def main() -> int:
     print(json.dumps({
         "schema": artifact["schema"],
         "accepted_candidates": len(artifact["candidates"]),
+        "accepted_soft_candidates": sum(item["tier"] == "soft" for item in artifact["candidates"]),
+        "accepted_exploratory_candidates": sum(item["tier"] == "exploratory" for item in artifact["candidates"]),
         "rejected_candidates": sum(artifact["rejected"].values()),
         "source_revision": artifact["source"]["revision"],
         "accuracy": artifact["teacher"]["accuracy"],

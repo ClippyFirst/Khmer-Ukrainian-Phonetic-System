@@ -273,8 +273,8 @@ test("one unsupported unit does not hide neighboring IPA and Ukrainian output", 
 test("Soft prefers exact Google phonemic lexicon over an onset-only hint", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("ពាក់");
-  await expect(page.locator("#ipa-result")).toHaveText("/peak/???");
-  await expect(page.locator("#ua-result")).toHaveText("пеак???");
+  await expect(page.locator("#ipa-result")).toHaveText("/peak/");
+  await expect(page.locator("#ua-result")).toHaveText("пеак");
   await expect(page.locator("#unit-details")).toContainText("Попередній IPA-кандидат: /peak/ → пеак");
   await expect(page.locator("#unit-details")).toContainText("Окрема орфографічна романізація: Пеак");
   await expect(page.locator("#status")).toContainText("PROVISIONAL");
@@ -406,8 +406,8 @@ test("romanization method can be activated by keyboard and status is announced",
 test("local lexical IPA is primary while archived external candidates remain diagnostic", async ({ page }) => {
   await page.goto("/");
   await page.locator("#source").fill("កម្ពុជាប្រជាធិបតេយ្យ");
-  await expect(page.locator("#ipa-result")).toHaveText("/kam.pu.ciə/ /prɑ.ciə.tʰɨp.paʔ.taj/???");
-  await expect(page.locator("#ua-result")).toHaveText("кампутьіє пратьієт'иппатай???");
+  await expect(page.locator("#ipa-result")).toHaveText("/kam.pu.ciə/ /prɑ.ciə.tʰɨp.paʔ.taj/");
+  await expect(page.locator("#ua-result")).toHaveText("кампутьіє пратьієт'иппатай");
   await expect(page.locator("#status")).toContainText("PROVISIONAL");
   await expect(page.locator("#status")).not.toContainText("EXTERNAL IPA CANDIDATE");
   await expect(page.locator("#unit-details")).toContainText("Зовнішні IPA-кандидати");
@@ -428,8 +428,8 @@ test("Strict withholds unadjudicated lexical candidates while Soft uses the loca
   await expect(page.locator("#ipa-result")).not.toHaveText("/kam.pu.ciə/ /prɑ.ciə.tʰɨp.paʔ.taj/???");
   for (const level of ["balanced", "exploratory"]) {
     await page.locator("#output-level").selectOption(level);
-    await expect(page.locator("#ua-result")).toHaveText("кампутьіє пратьієт'иппатай???");
-    await expect(page.locator("#ipa-result")).toHaveText("/kam.pu.ciə/ /prɑ.ciə.tʰɨp.paʔ.taj/???");
+    await expect(page.locator("#ua-result")).toHaveText("кампутьіє пратьієт'иппатай");
+    await expect(page.locator("#ipa-result")).toHaveText("/kam.pu.ciə/ /prɑ.ciə.tʰɨp.paʔ.taj/");
   }
 });
 
@@ -441,6 +441,7 @@ test("output tiers select progressively broader local IPA candidates", async ({ 
       schema: "google-khmer-neural-distilled-syllables/v1",
       candidates: [{
         orthography: "កិ",
+        tier: "soft",
         google_phonemic_tokens: ["k", "e", "ʔ"],
         status: "PROVISIONAL",
         uncertainty: ["NEURAL_TEACHER_PREDICTION_NOT_SOURCE_ATTESTED"],
@@ -454,13 +455,14 @@ test("output tiers select progressively broader local IPA candidates", async ({ 
   await expect(page.locator("#ipa-result")).toHaveText("⟦NOT_ESTABLISHED⟧");
   await expect(page.locator("#ua-result")).toHaveText("???");
   await page.locator("#output-level").selectOption("balanced");
-  await expect(page.locator("#ipa-result")).toHaveText("/k/???");
-  await expect(page.locator("#ua-result")).toHaveText("к???");
+  await expect(page.locator("#ipa-result")).toHaveText("/keʔ/");
+  await expect(page.locator("#ua-result")).toHaveText("ке");
+  await expect(page.locator("#unit-details")).toContainText("Soft/Super-soft");
   await page.locator("#output-level").selectOption("exploratory");
-  await expect(page.locator("#ipa-result")).toHaveText("/keʔ/???");
-  await expect(page.locator("#ua-result")).toHaveText("ке???");
-  await expect(page.locator("#unit-details")).toContainText("Детермінований OOV-кандидат із нейромережевої дистиляції");
-  await expect(page.locator("#unit-details")).toContainText("лише Super-soft");
+  await expect(page.locator("#ipa-result")).toHaveText("/keʔ/");
+  await expect(page.locator("#ua-result")).toHaveText("ке");
+  await expect(page.locator("#unit-details")).toContainText("Детермінований CV/CVC-кандидат із нейромережевої дистиляції");
+  await expect(page.locator("#unit-details")).toContainText("Soft/Super-soft");
 });
 
 test("unit details disclose typed IPA status, provenance and unresolved remainder", async ({ page }) => {
@@ -649,6 +651,17 @@ test("reported Khmer national-assembly phrase renders a source-backed IPA-derive
   await expect(page.locator("#ua-orthographic-status")).toContainText("не вимова");
 });
 
+test("reported Khmer phrase renders complete source-backed IPA and Ukrainian through the site", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("រុងឡឺត ឡាវឌី");
+  await expect(page.locator("#ipa-result")).toHaveText("/ruŋ/ /ləːt/ /laːw/ /ɗiː/");
+  await expect(page.locator("#ua-result")).toHaveText("рунг лет лау ді");
+  await expect(page.locator("#status")).toContainText("PROVISIONAL");
+  await expect(page.locator("#ua-result")).not.toContainText("???");
+  await expect(page.locator("#unit-details")).toContainText("IPA: /ruŋ/");
+  await expect(page.locator("#unit-details")).toContainText("IPA: /ləːt/");
+});
+
 test("production interface uses the deterministic engine without a standalone neural model", async ({ page }) => {
   const requests = [];
   page.on("request", (request) => requests.push(request.url()));
@@ -677,12 +690,14 @@ test("Pages build serves and executes the actual neural-distilled static candida
   expect(artifact.candidates.length + rejectedCount).toBe(artifact.inventory.oov_syllable_candidates);
   expect(artifact.candidates.some((candidate) => candidate.orthography === "កិ")).toBe(true);
 
+  const generatedCandidate = artifact.candidates.find((candidate) => candidate.orthography === "កិ");
+  expect(generatedCandidate.tier).toBe("soft");
   await page.locator("#source").fill("កិ");
-  await page.locator("#output-level").selectOption("exploratory");
-  await expect(page.locator("#ipa-result")).toHaveText("/keʔ/???");
-  await expect(page.locator("#ua-result")).toHaveText("ке???");
+  await page.locator("#output-level").selectOption("balanced");
+  await expect(page.locator("#ipa-result")).toHaveText("/keʔ/");
+  await expect(page.locator("#ua-result")).toHaveText("ке");
   await expect(page.locator("#status")).toContainText("PROVISIONAL");
-  await expect(page.locator("#unit-details")).toContainText("Детермінований OOV-кандидат із нейромережевої дистиляції");
+  await expect(page.locator("#unit-details")).toContainText("Детермінований CV/CVC-кандидат із нейромережевої дистиляції");
   await expect(page.locator("#unit-details")).toContainText("не має незалежної фонетичної ад'юдикації");
   await expect.poll(() => workerUrls.some((url) => url.includes("khmer-engine.worker"))).toBe(true);
 });
@@ -696,5 +711,11 @@ test("initial page does not load the large engine worker until non-empty input",
 
   await page.locator("#source").fill("កិ");
   await expect.poll(() => workerUrls.some((url) => url.includes("khmer-engine.worker"))).toBe(true);
-  await expect(page.locator("#ipa-result")).toContainText("/k/???");
+  const artifactResponse = await page.request.get(new URL("/data/google-neural-distilled-syllables.json", page.url()).toString());
+  const artifactContentType = artifactResponse.headers()["content-type"] || "";
+  if (artifactResponse.ok() && artifactContentType.includes("application/json")) {
+    await expect(page.locator("#ipa-result")).toContainText("/keʔ/");
+  } else {
+    await expect(page.locator("#ipa-result")).toContainText("/k/???");
+  }
 });
