@@ -627,3 +627,12 @@ The neural teacher independently produced the same four source-token sequences f
 
 - UNESCO dictionary PDF preface was inspected: its authors define “Standard” as formal/institutional usage (universities, schools, administration, media) and question whether one uniform standard pronunciation had been clearly established. Treat it as a lexical profile reference, not an unquestioned homogeneous speech norm.
 - Exact-head PR #587 verification on commit `441b46b4a84f7d28c3c9ac1d6a7ce04ec7dedf88`: Quality [45812970684](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45812970684) SUCCESS (**566 Python tests + 70 subtests; web checks PASS**); Chromium [45812970861](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45812970861) SUCCESS (**49 passed, 1 Pages-build-only test skipped**). The new Minegishi source-table regression passed. No production G2P code changed in this research PR.
+
+
+## 2026-11-26 algorithmic correction: every /w/ → Ukrainian в
+
+The owner clarified that IPA /w/ must map to Ukrainian **в in all contexts**. This supersedes the earlier target-policy distinction that rendered /aw/ as ау. The executable data/ukrainian/practical-policy.json policy is now version 2026-11-26.1: standalone /w/ remains в and the sequence /aw/ now maps to ав. Since Ukrainian practical spelling does not encode vowel length, /aw/ and /aːw/ both render ав; their IPA inputs remain distinct and preserve length. The Russian compatibility comparator's legacy /w/ → у is separate and is not used by the Ukrainian target adapter.
+
+TDD evidence: added Python whole-IPA tests and JavaScript typed-IPA adapter tests for /w/, /wa/, /aw/, /aːw/ and /laːw/. Exact-head browser CI on the test-only commit 446bdf5521ff7b08b48d9d776ecac5774d8fa002 failed as expected: /aw/ returned ау instead of ав. The policy fix is on commit b70e0ed64e95d997f8dd36d51ef5ad50d54f7cc0; final CI is running and must be checked before claiming completion.
+
+The broader structural work remains PARTIAL/BLOCKED: Minegishi's 28 source labels are still not crosswalked to Khmer Unicode; source audio archive download/inspection is still blocked by environment network access; independent adjudicated IPA gold remains 0. Do not infer a codepoint crosswalk or promote a rule without direct source evidence.
