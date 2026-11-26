@@ -112,3 +112,15 @@ assert.ok(fullProvisional.segments.every((segment) => segment.certainty === "PRO
 assert.equal(typeof adaptPhoneticResult(fullProvisional), "string");
 
 console.log("Typed IPA result and single Ukrainian adapter contract: PASS");
+
+const wCases = [
+  ["w", "в"],
+  ["aw", "ав"],
+  ["aːw", "ав"],
+  ["laːw", "лав"],
+  ["wa", "ва"],
+];
+for (const [ipa, expected] of wCases) {
+  const typed = fromIpa(ipa, { status: "SUPPORTED" });
+  assert.equal(adaptPhoneticResult(typed), expected, `all /w/ contexts must use Ukrainian в: /${ipa}/`);
+}
