@@ -3970,3 +3970,13 @@ Current canonical registry counts: **14 case records**, **13 context dimensions*
 - GitHub Pages production home, methodology, JS and CSS assets were fetched successfully; production Chromium smoke passed.
 - Public beta is deployed. Formal release tag not created. Independent IPA gold remains 0; pronunciation accuracy NOT_ASSESSED; contextual phonology PARTIAL; manual accessibility audit DEFERRED.
 - PR #519 remains open and non-mergeable; left untouched pending explicit diff reconciliation.
+
+
+## 2026-11-26 phonological-structure coverage and independent audio gold source audit
+
+- Added [phonological-structure coverage and independent IPA gold plan](KHMER-PHONOLOGICAL-STRUCTURE-COVERAGE-AND-INDEPENDENT-GOLD-PLAN-2026-11-26.md). The existing vowel/register evidence file has 14 lexical cases (12 source-attested-not-gold; 2 conflicting analyses) across only three dependent-vowel signs. The 16-sign × 2-series report has 32 expected cells; most remain not established. The project gold TSV is header-only and annotation/record/split JSONL files are empty (gold count 0).
+- Registered the independent Edinburgh DataShare onset-cluster audio dataset: Kirby 2018, DOI 10.7488/ds/2454; 10 Phnom Penh speakers, 79 lexical items, three repetitions at two self-selected speech rates, segmented Praat TextGrids. The dataset end-user licence was inspected: CC BY 4.0. It is suitable for an independently annotated cluster pilot, not already-labelled IPA gold.
+- Registered OpenSLR SLR42 as CC BY-SA 4.0 audio + orthographic transcript source; speaker count, dialect, style and detailed coverage remain to be audited from the archive.
+- Registered MekongPhon (Shurtz et al. 2026, DOI 10.63317/4bb9rvdshu4z) as an external parallel IPA reference, not independent project gold: model/benchmark lineage already includes MekongPhon-related data and exact dataset/licence/profile provenance still needs audit.
+- /w/ target correction is confirmed in main: default Ukrainian /w/ → в; /aw/ → ау and /aːw/ → ав remain distinct; compatibility_ru is not the Ukrainian default.
+- Status: full productive phonological matrix PARTIAL; Edinburgh cluster annotation pilot TODO; broad independent IPA gold BLOCKED/TODO (0 adjudicated records); pronunciation accuracy NOT_ASSESSED. No isolated word entries or unsupported IPA rules were added.
