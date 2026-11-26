@@ -46,7 +46,7 @@ This is a work specification, not a claim that every combination is legal or evi
 - 100% non-empty display coverage is not 100% IPA coverage.
 - Orthographic syllable counts are not phonetic syllable counts.
 - Keep careful Standard Khmer and colloquial Phnom Penh processes separate.
-- Preserve length before IPA longest-match parsing: /aw/ and /aːw/ are distinct; current target mapping keeps /w/ → в, /aw/ → ау, /aːw/ → ав.
+- Preserve length in the phonological/IPA representation, but apply the user's target rule uniformly: every /w/ is Ukrainian в, including the offglide in /aw/. Therefore both /aw/ and /aːw/ render as ав; vowel length remains inspectable in IPA but is not encoded in Ukrainian practical spelling.
 
 ## New source extraction: Minegishi (1985) vowel-sign × series table
 
@@ -176,3 +176,10 @@ The Khmer ASR Cultural Dataset is advertised as 37.62 hours of speech-text pairs
 5. Implement productive phonological rules only after annotation and source evidence support them.
 
 **Conclusion:** the deterministic browser engine is deployed and its code path is tested, but the general Khmer phonological model remains a partial research prototype. The next credible advance is a structure-stratified, independently annotated audio gold pilot—not a larger dictionary.
+
+
+## Algorithmic target correction — universal /w/ mapping (2026-11-26)
+
+The owner clarified that IPA /w/ must render as Ukrainian **в in every context**, not only as a standalone consonant. The executable Ukrainian policy was updated accordingly: the segment entry remains /w/ → в and the sequence /aw/ now renders ав (not ау). The Russian compatibility comparator remains a separate output mode and does not control Ukrainian transcription. Long-vowel quantity remains in IPA; both /aw/ and /aːw/ therefore produce ав in Ukrainian practical spelling.
+
+Regression coverage was added at both Python and typed-IPA JavaScript adapter boundaries for /w/, /wa/, /aw/, /aːw/ and /laːw/. The first browser CI run failed specifically on /aw/ (actual ау, expected ав), confirming the regression test caught the previous sequence override. The policy correction was then applied; final exact-head CI is pending at the time of this note.
