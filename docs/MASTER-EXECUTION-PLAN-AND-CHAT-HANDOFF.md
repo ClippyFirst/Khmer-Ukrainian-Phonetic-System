@@ -596,3 +596,48 @@ The neural teacher independently produced the same four source-token sequences f
 - PR #586 exact-head Quality [45776759424](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45776759424), Chromium [45776759171](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45776759171), teacher/distillation and production Pages build-check all succeeded. The main deployment for `d2c37994245a3eaf4941cbbcdeb79fd0c60a1789` succeeded in [45778308083](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45778308083); its post-deploy smoke test passed. Main Chromium [45778308101](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45778308101) passed all 50 tests, including the exact reported phrase; the build-time artifact test was not skipped on the deployment build and passed.
 - Live public site: https://clippyfirst.github.io/Khmer-Ukrainian-Phonetic-System/. The current main branch and Pages deployment include the generalized deterministic Soft/Super-soft candidate table and the corrected `/w/ → в` adapter.
 - Remaining linguistic limitation: all newly generated/model-derived candidates remain `PROVISIONAL`; independent expert-adjudicated IPA gold is still 0. The implementation is deployed and browser/build verified, but pronunciation accuracy and target-profile equivalence are not established.
+
+
+## 2026-11-26 continuation: structural Khmer G2P coverage and independent IPA gold
+
+**Research branch:** `research/phonological-structure-coverage-ipa-gold-20261126`  
+**Base main:** `efc101626bce56dd26c2d4c97b3fe62558b8998a`  
+**Branch implementation so far:** source/evidence audit and corpus registry; no production phonology rule has been guessed or added.
+
+- New audit: `docs/audits/current/KHMER-PHONOLOGICAL-STRUCTURE-COVERAGE-AND-INDEPENDENT-GOLD-PLAN-2026-11-26.md`.
+- Updated `data/khmer/sources.json` with Edinburgh DataShare cluster audio, OpenSLR SLR42 and MekongPhon evidence records.
+- Existing baseline measured from main: 14 source-indexed vowel/register lexical cases (12 source-attested-not-gold, 2 conflicting) and only three dependent vowel signs represented; 32 dependent-vowel × series cells are expected. Most cells remain not established.
+- Independent IPA gold currently has 0 records: gold.tsv contains only its header; annotations.jsonl, records.jsonl and splits.jsonl are empty.
+- Strongest new gold-pilot source: Edinburgh DataShare DOI 10.7488/ds/2454, with 10 Phnom Penh speakers, 79 cluster items, repeated tokens at two speech rates and segmented TextGrids. Its end-user licence was inspected as CC BY 4.0. It still requires independent phonemic/narrow-phonetic IPA annotation and adjudication.
+- OpenSLR SLR42 is CC BY-SA 4.0 audio + text, but detailed speaker/dialect/style coverage is not yet audited. MekongPhon is a useful external source-concordance reference but not independent gold for this project until training lineage and provenance are resolved.
+- /w/ is already fixed on main as Ukrainian в; /aw/ and /aːw/ remain distinct diphthong vs long-vowel-plus-consonant mappings. Do not regress to у.
+- Existing PR #584 remains open for a Pages validator self-contained import fix; unrelated to this linguistic research branch. PR #519 remains open/stale and untouched.
+- Next executable tasks: inspect Edinburgh archive and TextGrid metadata; derive a speaker/item/rate/cluster manifest; create double-annotation pilot rows; then expand compositional rules only where the evidence supports them. No independent gold or accuracy claim is made yet.
+
+
+- Additional source located and registered: UNESCO 2016 *Khmer Pronouncing Dictionary: Standard Khmer and Phnom Penh Dialect* (339 pages). Potential independent lexical/profile cross-check, but not audio gold; notation, exact coverage and copyright permissions remain unverified. No entries copied.
+
+
+- Google/Sodimana et al. 2018 TTS corpus is another potential audio annotation source: paper reports 17 female speakers, 2,906 recordings, 3:58h, plus a separate 70,671-entry phonemic lexicon; CC BY 4.0 unless otherwise noted. The project teacher already uses the Google lexicon, so those labels cannot be treated as independent gold. Audio could be independently reannotated only after archive lineage, speaker metadata, dialect and file-level rights are verified.
+- Exact-head PR #587 Quality run [45812080747](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45812080747) SUCCESS (Python tests and web checks); Chromium browser smoke [45812080707](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45812080707) SUCCESS. Documentation/evidence changes only; no runtime phonology changed.
+
+
+- Extracted Minegishi 1985's complete 28-row two-series vowel-sign value table (§1.2, printed pp.45–46) to `data/khmer/source-extracts/minegishi-1985-vowel-sign-values.json`. Values remain the source's bracketed phonetic notation, not normalized IPA; unclear row-label diacritics are flagged and no Unicode mapping or engine rule is inferred. New regression test enforces these boundaries.
+
+
+- UNESCO dictionary PDF preface was inspected: its authors define “Standard” as formal/institutional usage (universities, schools, administration, media) and question whether one uniform standard pronunciation had been clearly established. Treat it as a lexical profile reference, not an unquestioned homogeneous speech norm.
+- Exact-head PR #587 verification on commit `441b46b4a84f7d28c3c9ac1d6a7ce04ec7dedf88`: Quality [45812970684](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45812970684) SUCCESS (**566 Python tests + 70 subtests; web checks PASS**); Chromium [45812970861](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45812970861) SUCCESS (**49 passed, 1 Pages-build-only test skipped**). The new Minegishi source-table regression passed. No production G2P code changed in this research PR.
+
+
+## 2026-11-26 algorithmic correction: every /w/ → Ukrainian в
+
+The owner clarified that IPA /w/ must map to Ukrainian **в in all contexts**. This supersedes the earlier target-policy distinction that rendered /aw/ as ау. The executable data/ukrainian/practical-policy.json policy is now version 2026-11-26.1: standalone /w/ remains в and the sequence /aw/ now maps to ав. Since Ukrainian practical spelling does not encode vowel length, /aw/ and /aːw/ both render ав; their IPA inputs remain distinct and preserve length. The Russian compatibility comparator's legacy /w/ → у is separate and is not used by the Ukrainian target adapter.
+
+TDD evidence: added Python whole-IPA tests and JavaScript typed-IPA adapter tests for /w/, /wa/, /aw/, /aːw/ and /laːw/. Exact-head browser CI on the test-only commit 446bdf5521ff7b08b48d9d776ecac5774d8fa002 failed as expected: /aw/ returned ау instead of ав. The policy fix is on commit b70e0ed64e95d997f8dd36d51ef5ad50d54f7cc0; final CI is running and must be checked before claiming completion.
+
+The broader structural work remains PARTIAL/BLOCKED: Minegishi's 28 source labels are still not crosswalked to Khmer Unicode; source audio archive download/inspection is still blocked by environment network access; independent adjudicated IPA gold remains 0. Do not infer a codepoint crosswalk or promote a rule without direct source evidence.
+
+
+### Verification closure for universal /w/ mapping — 2026-11-26
+
+Exact-head commit a6d0cd399379bf98d0088412a9e0f3001590eb97 passed Quality workflow 45816118423: 567 Python tests, 70 subtests, generated lexicon checks, web checks, structural parity (129 cases), lexical fixture parity (40 fixtures), consonant/rule parity (46 cases), segmentation candidate parity (6 fixtures), engine/tokenizer benchmarks and production build all succeeded. Chromium workflow 45816118516 passed 49 tests with 1 expected Pages-build-only skip. The first RED browser run specifically showed /aw/ → ау; the corrected policy and updated existing web contract now pass. No production site deployment was triggered by this research branch; the branch remains a draft PR.

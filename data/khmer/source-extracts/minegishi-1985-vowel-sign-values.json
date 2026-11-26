@@ -1,0 +1,329 @@
+{
+  "schema_version": "1.0.0",
+  "source_id": "minegishi1985-modern-khmer-orthography-dialects",
+  "source_title": "Modern Khmer Orthography and Its Dialects",
+  "source_doi": "10.11435/GENGO1939.1985.88_41",
+  "source_locator": "§1.2, printed pp.45–46 (PDF pp.5–6), unnumbered table 母音記号の音価",
+  "scope": "Source-faithful extraction of the 28 rows of the two-series vowel-sign value table. Labels are Minegishi's romanized vowel-sign labels, not Unicode code points. Values are the source's bracketed phonetic notation, not normalized project IPA.",
+  "column_labels": {
+    "first": "voiceless-series consonant letter (source terminology)",
+    "second": "voiced-series consonant letter (source terminology)"
+  },
+  "interpretation_notes": [
+    "The source's 'voiceless'/'voiced' labels identify orthographic consonant series; they are not claims that all modern consonants in the class are voiceless/voiced.",
+    "Some vowel-sign label diacritics are unclear in the scanned table. Preserve the transcription and ambiguity flag; do not infer a Unicode sign mapping from this file alone.",
+    "For the ā row in the voiced-series column, the source prints [eə] with parenthetical ([i·ə]); §1.2 says ordinary Phnom Penh speech uses [i·ə] while formal/school pronunciation uses [ee].",
+    "The table is a historical descriptive source and dialect discussion, not acoustic gold and not a direct deterministic IPA rule table.",
+    "Short i, y and u are described as checked vowels requiring a coda; without a written final consonant, the source describes glottal closure. Several spellings are analyzed as having implicit final /y/ or /w/. See the accompanying audit for page-located details."
+  ],
+  "rows": [
+    {
+      "id": "MIN85-VOW-01",
+      "source_label": "i",
+      "first_series_value": "[əi]",
+      "second_series_value": "[i:]",
+      "label_status": "clear",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.45; PDF p.5"
+    },
+    {
+      "id": "MIN85-VOW-02",
+      "source_label": "e",
+      "first_series_value": "[ɛ:]",
+      "second_series_value": "[e:]",
+      "label_status": "clear",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.45; PDF p.5"
+    },
+    {
+      "id": "MIN85-VOW-03",
+      "source_label": "ae",
+      "first_series_value": "[a·ɛ]",
+      "second_series_value": "[ɛ:]",
+      "label_status": "clear",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.45; PDF p.5"
+    },
+    {
+      "id": "MIN85-VOW-04",
+      "source_label": "ia",
+      "first_series_value": "[i·ə]",
+      "second_series_value": "[i·ə]",
+      "label_status": "clear",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.45; PDF p.5"
+    },
+    {
+      "id": "MIN85-VOW-05",
+      "source_label": "ȳ",
+      "first_series_value": "[ə:]",
+      "second_series_value": "[i:]",
+      "label_status": "unclear_diacritic",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.45; PDF p.5"
+    },
+    {
+      "id": "MIN85-VOW-06",
+      "source_label": "oe",
+      "first_series_value": "[a·ə]",
+      "second_series_value": "[ə:]",
+      "label_status": "clear",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.45; PDF p.5"
+    },
+    {
+      "id": "MIN85-VOW-07",
+      "source_label": "ā",
+      "first_series_value": "[a:]",
+      "second_series_value": "[eə] ([i·ə])",
+      "label_status": "unclear_diacritic",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.45; PDF p.5"
+    },
+    {
+      "id": "MIN85-VOW-08",
+      "source_label": "ya",
+      "first_series_value": "[i·ə]",
+      "second_series_value": "[i·ə]",
+      "label_status": "clear",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.45; PDF p.5"
+    },
+    {
+      "id": "MIN85-VOW-09",
+      "source_label": "ū",
+      "first_series_value": "[o:]",
+      "second_series_value": "[u:]",
+      "label_status": "unclear_diacritic",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.45; PDF p.5"
+    },
+    {
+      "id": "MIN85-VOW-10",
+      "source_label": "o",
+      "first_series_value": "[a·o]",
+      "second_series_value": "[ɔ:]",
+      "label_status": "clear",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.45; PDF p.5"
+    },
+    {
+      "id": "MIN85-VOW-11",
+      "source_label": "a",
+      "first_series_value": "[ɔ:]",
+      "second_series_value": "[ɔ:]",
+      "label_status": "clear",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.45; PDF p.5"
+    },
+    {
+      "id": "MIN85-VOW-12",
+      "source_label": "ua",
+      "first_series_value": "[u·o]",
+      "second_series_value": "[u·o]",
+      "label_status": "clear",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.45; PDF p.5"
+    },
+    {
+      "id": "MIN85-VOW-13",
+      "source_label": "ār",
+      "first_series_value": "not used",
+      "second_series_value": "[ɔ·ə]",
+      "label_status": "unclear_diacritic",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.45; PDF p.5"
+    },
+    {
+      "id": "MIN85-VOW-14",
+      "source_label": "ih",
+      "first_series_value": "[əh]",
+      "second_series_value": "[ih]",
+      "label_status": "clear",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.46; PDF p.6"
+    },
+    {
+      "id": "MIN85-VOW-15",
+      "source_label": "ec",
+      "first_series_value": "[əc]",
+      "second_series_value": "[ec]",
+      "label_status": "clear",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.46; PDF p.6"
+    },
+    {
+      "id": "MIN85-VOW-16",
+      "source_label": "eñ",
+      "first_series_value": "[ən]",
+      "second_series_value": "[en]",
+      "label_status": "unclear_final_mark",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.46; PDF p.6"
+    },
+    {
+      "id": "MIN85-VOW-17",
+      "source_label": "es",
+      "first_series_value": "[ɛh]",
+      "second_series_value": "[e:h]",
+      "label_status": "clear",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.46; PDF p.6"
+    },
+    {
+      "id": "MIN85-VOW-18",
+      "source_label": "eh",
+      "first_series_value": "[ɛh]",
+      "second_series_value": "[ɛh]",
+      "label_status": "clear",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.46; PDF p.6"
+    },
+    {
+      "id": "MIN85-VOW-19",
+      "source_label": "ai",
+      "first_series_value": "[ai]",
+      "second_series_value": "[ei]",
+      "label_status": "clear",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.46; PDF p.6"
+    },
+    {
+      "id": "MIN85-VOW-20",
+      "source_label": "y",
+      "first_series_value": "[iʔ]",
+      "second_series_value": "[əʔ]",
+      "label_status": "unclear_diacritic",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.46; PDF p.6"
+    },
+    {
+      "id": "MIN85-VOW-21",
+      "source_label": "au",
+      "first_series_value": "[aʊ]",
+      "second_series_value": "[iʊ]",
+      "label_status": "clear",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.46; PDF p.6"
+    },
+    {
+      "id": "MIN85-VOW-22",
+      "source_label": "uv",
+      "first_series_value": "[əʊ]",
+      "second_series_value": "not used",
+      "label_status": "unclear_mark",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.46; PDF p.6"
+    },
+    {
+      "id": "MIN85-VOW-23",
+      "source_label": "ah",
+      "first_series_value": "[ah]",
+      "second_series_value": "[ɛah]",
+      "label_status": "clear",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.46; PDF p.6"
+    },
+    {
+      "id": "MIN85-VOW-24",
+      "source_label": "as",
+      "first_series_value": "[ah]",
+      "second_series_value": "[ɔah]",
+      "label_status": "unclear_mark",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.46; PDF p.6"
+    },
+    {
+      "id": "MIN85-VOW-25",
+      "source_label": "u",
+      "first_series_value": "[oʔ]",
+      "second_series_value": "[uʔ]",
+      "label_status": "clear",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.46; PDF p.6"
+    },
+    {
+      "id": "MIN85-VOW-26",
+      "source_label": "oh",
+      "first_series_value": "[oh]",
+      "second_series_value": "[uoh]",
+      "label_status": "clear",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.46; PDF p.6"
+    },
+    {
+      "id": "MIN85-VOW-27",
+      "source_label": "um",
+      "first_series_value": "[om]",
+      "second_series_value": "[om]",
+      "label_status": "clear",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.46; PDF p.6"
+    },
+    {
+      "id": "MIN85-VOW-28",
+      "source_label": "am",
+      "first_series_value": "[ɔm]",
+      "second_series_value": "[ɔm]",
+      "label_status": "clear",
+      "unicode_mapping_status": "NOT_CROSSWALKED",
+      "ipa_normalization_status": "SOURCE_PHONETIC_NOTATION_NOT_NORMALIZED_IPA",
+      "evidence_status": "SOURCE_ATTESTED_NOT_GOLD",
+      "source_locator": "printed p.46; PDF p.6"
+    }
+  ]
+}
