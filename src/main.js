@@ -213,7 +213,7 @@ if (typeof document !== "undefined") {
       heading.append(sourceLabel, statusLabel);
       const values = document.createElement("p");
       values.className = "unit-values";
-      const displayedUnitIpa = unit.partial_candidate_kind === "NEURAL_DISTILLED_OOV_SYLLABLE"
+      const displayedUnitIpa = ["NEURAL_DISTILLED_OOV_SYLLABLE", "LEXICAL_PHONEMIC_CANDIDATE"].includes(unit.partial_candidate_kind)
         ? "/" + unit.provisional_ipa + "/"
         : unit.ipa;
       values.textContent = "IPA: " + displayedUnitIpa
