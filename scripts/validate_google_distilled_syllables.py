@@ -49,7 +49,7 @@ def validate_artifact(path: Path) -> dict:
     candidates = {item["orthography"]: item for item in artifact["candidates"]}
     # Regression probes are test inputs, not lexical additions. They verify
     # that the generated CV/CVC transducer generalizes without word lookup.
-    for probe in ("កិ",):
+    for probe in ("រុង", "ឡឺត", "ឡាវ", "ឌី"):
         candidate = candidates.get(probe)
         if candidate is None or candidate.get("tier") != "soft":
             raise ValueError(f"generated Soft CV/CVC candidate missing for regression probe {probe!r}")
