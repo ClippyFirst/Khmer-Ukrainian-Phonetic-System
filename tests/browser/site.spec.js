@@ -651,6 +651,17 @@ test("reported Khmer national-assembly phrase renders a source-backed IPA-derive
   await expect(page.locator("#ua-orthographic-status")).toContainText("не вимова");
 });
 
+test("reported Khmer phrase renders complete source-backed IPA and Ukrainian through the site", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#source").fill("រុងឡឺត ឡាវឌី");
+  await expect(page.locator("#ipa-result")).toHaveText("/ruŋ/ /ləːt/ /laːw/ /ɗiː/");
+  await expect(page.locator("#ua-result")).toHaveText("рунг лет лау ді");
+  await expect(page.locator("#status")).toContainText("PROVISIONAL");
+  await expect(page.locator("#ua-result")).not.toContainText("???");
+  await expect(page.locator("#unit-details")).toContainText("IPA: /ruŋ/");
+  await expect(page.locator("#unit-details")).toContainText("IPA: /ləːt/");
+});
+
 test("production interface uses the deterministic engine without a standalone neural model", async ({ page }) => {
   const requests = [];
   page.on("request", (request) => requests.push(request.url()));
@@ -679,12 +690,14 @@ test("Pages build serves and executes the actual neural-distilled static candida
   expect(artifact.candidates.length + rejectedCount).toBe(artifact.inventory.oov_syllable_candidates);
   expect(artifact.candidates.some((candidate) => candidate.orthography === "កិ")).toBe(true);
 
+  const generatedCandidate = artifact.candidates.find((candidate) => candidate.orthography === "កិ");
+  expect(generatedCandidate.tier).toBe("soft");
   await page.locator("#source").fill("កិ");
-  await page.locator("#output-level").selectOption("exploratory");
-  await expect(page.locator("#ipa-result")).toHaveText("/keʔ/???");
-  await expect(page.locator("#ua-result")).toHaveText("ке???");
+  await page.locator("#output-level").selectOption("balanced");
+  await expect(page.locator("#ipa-result")).toHaveText("/keʔ/");
+  await expect(page.locator("#ua-result")).toHaveText("ке");
   await expect(page.locator("#status")).toContainText("PROVISIONAL");
-  await expect(page.locator("#unit-details")).toContainText("Детермінований OOV-кандидат із нейромережевої дистиляції");
+  await expect(page.locator("#unit-details")).toContainText("Детермінований CV/CVC-кандидат із нейромережевої дистиляції");
   await expect(page.locator("#unit-details")).toContainText("не має незалежної фонетичної ад'юдикації");
   await expect.poll(() => workerUrls.some((url) => url.includes("khmer-engine.worker"))).toBe(true);
 });
@@ -698,5 +711,10 @@ test("initial page does not load the large engine worker until non-empty input",
 
   await page.locator("#source").fill("កិ");
   await expect.poll(() => workerUrls.some((url) => url.includes("khmer-engine.worker"))).toBe(true);
-  await expect(page.locator("#ipa-result")).toContainText("/k/???");
+  const artifactResponse = await page.request.get(new URL("/data/google-neural-distilled-syllables.json", page.url()).toString());
+  if (artifactResponse.ok()) {
+    await expect(page.locator("#ipa-result")).toContainText("/keʔ/");
+  } else {
+    await expect(page.locator("#ipa-result")).toContainText("/k/???");
+  }
 });
