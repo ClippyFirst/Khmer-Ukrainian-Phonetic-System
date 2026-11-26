@@ -69,6 +69,16 @@ James Kirby (2018), “Acoustic transitions in Khmer word-initial clusters: audi
 - It contains orthographic transcripts, not IPA. Use for audio-based annotation only after speaker, dialect, style and rights provenance are verified.
 - Review ShareAlike compatibility before redistributing derived annotations.
 
+### G. Google open-source Khmer TTS corpus — audio annotation candidate with lineage caveat
+
+Sodimana et al. (2018), “A Step-by-Step Process for Building TTS Voices Using Open Source Data and Frameworks,” DOI https://doi.org/10.21437/SLTU.2018-14.
+
+- The paper reports a Khmer audio corpus of 17 female speakers, 2,906 files and 3 hours 58 minutes, paired with normalized orthographic transcripts. It separately reports a 70,671-entry Khmer pronunciation lexicon manually transcribed under linguist-designed phonemic guidelines and quality checked by native-speaker linguists.
+- The paper says the datasets are released under CC BY 4.0 unless otherwise noted. File-level terms and exact lineage must still be checked against the specific archive before redistribution.
+- Dialect/region is not specified, and the recordings are TTS/read-speech material. Do not label them as Phnom Penh without evidence.
+- Important independence boundary: the project's teacher is already supervised by the Google phonemic lexicon. The lexicon labels are therefore not independent gold. Raw audio could support independent human annotation, but only with speaker/lexical split controls and a documented relationship between audio files and the teacher lexicon.
+- The paper's audio counts differ from the SLR42 page's male-speaker download description. Verify archive lineage and metadata; do not assume they are the same corpus/archive.
+
 ### C. MekongPhon — external reference, not independent gold for this engine
 
 Shurtz, Richardson & Richardson (2026), “MekongPhon: A Large-Scale Parallel IPA Corpus for Lao and Khmer,” LREC 2026. DOI: https://doi.org/10.63317/4bb9rvdshu4z
