@@ -2,6 +2,7 @@ import { convert, tokenize } from "../src/khmer-engine-core.js";
 import { lookupGooglePhonemicCandidates } from "../src/google-phonemic-lexicon.js";
 import fs from "node:fs";
 import { mapIpa } from "../src/ukrainian-practical.js";
+import { fromProvisionalFullIpa, adaptPhoneticResult } from "../src/khmer-ipa-result.js";
 import { segmentKhmerWordsDetailed, segmentKhmerWordsCandidates, describeWordSegmentation, WORD_DICTIONARY_SIZE, WORD_SEGMENTER_ID, isKnownKhmerWord } from "../src/khmer-word-segmenter.js";
 import fullWordFrequency from "../data/khmer/google-pronunciation-full-frequency.json" with { type: "json" };
 
@@ -96,10 +97,21 @@ if (chaktomukPhrase.ipa !== "/kroŋ/ /caʔ.tom.muk/" || chaktomukPhrase.ua !== "
     || chaktomukPhrase.status !== "PROPOSED" || chaktomukPhrase.confidence_tier !== "B") {
   throw new Error("Krong Chaktomuk phrase must retain both lexical units through the IPA-first adapter");
 }
+const semivowelW = mapIpa("w", policy);
+const longVowelPlusW = mapIpa("aːw", policy);
+const diphthongAw = mapIpa("aw", policy);
+const semivowelWLong = adaptPhoneticResult(fromProvisionalFullIpa("laːw"), { allowUncertain: true });
+if (policy.segments.w?.default !== "в" || semivowelW.value !== "в"
+    || longVowelPlusW.value !== "ав" || diphthongAw.value !== "ау"
+    || semivowelWLong !== "лав") {
+  throw new Error("IPA /w/ must remain в after a long vowel; /aw/ is a separate diphthong: " + JSON.stringify({
+    policy: policy.segments.w, direct: semivowelW, longVowelPlusW, diphthongAw, typedSequence: semivowelWLong
+  }));
+}
 const sourceBackedKhmerProbes = [
   ["រុង", "ruŋ", "рунг"],
   ["ឡឺត", "ləːt", "лет"],
-  ["ឡាវ", "laːw", "лау"],
+  ["ឡាវ", "laːw", "лав"],
   ["ឌី", "ɗiː", "ді"],
 ];
 for (const [word, expectedIpa, expectedUkrainian] of sourceBackedKhmerProbes) {
@@ -121,7 +133,7 @@ const reportedPhrase = convert(
   { outputLevel: "balanced" },
 );
 if (reportedPhrase.ipa !== "/ruŋ/ /ləːt/ /laːw/ /ɗiː/"
-    || reportedPhrase.ua !== "рунг лет лау ді"
+    || reportedPhrase.ua !== "рунг лет лав ді"
     || reportedPhrase.status !== "PROVISIONAL") {
   throw new Error("the exact reported Khmer phrase must flow through source-backed IPA and Ukrainian adaptation: " + JSON.stringify({
     ipa: reportedPhrase.ipa, ua: reportedPhrase.ua, status: reportedPhrase.status,

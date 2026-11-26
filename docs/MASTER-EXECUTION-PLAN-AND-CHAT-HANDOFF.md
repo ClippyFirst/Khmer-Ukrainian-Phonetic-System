@@ -563,7 +563,7 @@ The four syllables shown in the user reproduction were already present in the pi
 | ឡាវ | `l aa w` (row 60741) | `/laːw/` | лау |
 | ឌី | `ɗ ii` (row 22023) | `/ɗiː/` | ді |
 
-The neural teacher independently produced the same four source-token sequences from the orthographic input. The previous display added a trailing `???` to complete phonemic candidates, confusing profile uncertainty with a genuinely missing phoneme. The Ukrainian adapter's `aw → ау` sequence is intentional; the separate BGN/PCGN orthographic route can still display a different spelling.
+The neural teacher independently produced the same four source-token sequences from the orthographic input. The previous display added a trailing `???` to complete phonemic candidates, confusing profile uncertainty with a genuinely missing phoneme. The canonical Ukrainian IPA adapter maps consonantal `/w/` to `в`, not `у`; the legacy `compatibility_ru: у` value is not the default. Keep `/aw/` (a diphthong) distinct from `/aːw/` (long vowel plus consonant): the former maps to `ау`, while the latter maps to `ав`. The adapter must preserve `ː` until longest-match segmentation, then render long-vowel quantity without a separate Ukrainian mark. The separate BGN/PCGN orthographic route remains distinct.
 
 ### Implementation in PR #583
 
