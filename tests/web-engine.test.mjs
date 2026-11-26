@@ -102,9 +102,9 @@ const longVowelPlusW = mapIpa("aːw", policy);
 const diphthongAw = mapIpa("aw", policy);
 const semivowelWLong = adaptPhoneticResult(fromProvisionalFullIpa("laːw"), { allowUncertain: true });
 if (policy.segments.w?.default !== "в" || semivowelW.value !== "в"
-    || longVowelPlusW.value !== "ав" || diphthongAw.value !== "ау"
+    || longVowelPlusW.value !== "ав" || diphthongAw.value !== "ав"
     || semivowelWLong !== "лав") {
-  throw new Error("IPA /w/ must remain в after a long vowel; /aw/ is a separate diphthong: " + JSON.stringify({
+  throw new Error("every IPA /w/ context, including /aw/, must render Ukrainian в: " + JSON.stringify({
     policy: policy.segments.w, direct: semivowelW, longVowelPlusW, diphthongAw, typedSequence: semivowelWLong
   }));
 }
