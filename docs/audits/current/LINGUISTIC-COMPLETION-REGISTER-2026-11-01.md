@@ -3989,3 +3989,6 @@ Current canonical registry counts: **14 case records**, **13 context dimensions*
 
 
 - Minegishi (1985) full two-series vowel-sign table extracted from printed pp.45–46 (28 rows) into `data/khmer/source-extracts/minegishi-1985-vowel-sign-values.json`. The table's romanized sign labels and bracketed phonetic values are preserved as source notation; unclear diacritics are flagged, Unicode mapping is NOT_CROSSWALKED and IPA normalization is NOT_NORMALIZED_IPA. Added a regression test to prevent accidental promotion to code-point/IPA rules. This is source evidence, not gold.
+
+
+- Minegishi (1985) table extraction regression: exact-head Quality run [45812970684](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45812970684) PASS, including **566 Python tests + 70 subtests** and web checks. Exact-head Chromium [45812970861](https://github.com/ClippyFirst/Khmer-Ukrainian-Phonetic-System/actions/runs/45812970861) PASS (**49 passed, 1 build-only test skipped**). The new test verifies 28 source rows, preserves ambiguous labels, and prevents accidental Unicode/IPA promotion.
