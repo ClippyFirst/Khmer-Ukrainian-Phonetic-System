@@ -1061,5 +1061,21 @@
     "redistribution_status": "NO_REPRODUCTION_PENDING_RIGHTS_REVIEW",
     "license_reviewed_at": "2026-11-26",
     "limitations": "UNESCO catalogue metadata confirms title, authors, language and extent; pronunciation notation and coverage of structural environments still need direct page-level inspection. Do not assume open-access PDF availability implies permission to redistribute its entries."
+  },
+  {
+    "id": "google-khmer-tts-audio-2018",
+    "type": "speech_audio_corpus",
+    "title": "Sodimana et al. (2018), Google open-source Khmer TTS audio corpus",
+    "year": 2018,
+    "doi": "10.21437/SLTU.2018-14",
+    "url": "https://www.openslr.org/42/",
+    "scope": "Paper reports Khmer audio from 17 female speakers, 2,906 files and 3:58:00 total duration, with orthographic transcripts; Khmer lexicon described separately contains 70,671 manually phonemically transcribed entries. The paper states CC BY 4.0 unless otherwise noted. The SLR42 archive page lists a male-speaker download; verify exact archive lineage and file-level metadata before assuming it is the same audio corpus.",
+    "status": "AUDIO_TRANSCRIPT_SOURCE",
+    "license_status": "CC-BY-4.0_STATED_UNLESS_OTHERWISE_NOTED_IN_PAPER_FILE_SCOPE_PENDING",
+    "license_id": "CC-BY-4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "redistribution_status": "CONDITIONAL_PENDING_FILE_LEVEL_RIGHTS_AND_LINEAGE_AUDIT",
+    "license_reviewed_at": "2026-11-26",
+    "limitations": "Dialect/region is not specified in the paper; TTS/read-speech task, not spontaneous speech. The phonemic lexicon is already used as teacher supervision, so do not score its labels as independent gold. Raw audio can support independent human annotation only with speaker and lexical leakage controls."
   }
 ]
