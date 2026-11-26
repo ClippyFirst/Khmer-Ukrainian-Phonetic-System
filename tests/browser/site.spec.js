@@ -655,7 +655,7 @@ test("reported Khmer phrase renders complete source-backed IPA and Ukrainian thr
   await page.goto("/");
   await page.locator("#source").fill("រុងឡឺត ឡាវឌី");
   await expect(page.locator("#ipa-result")).toHaveText("/ruŋ/ /ləːt/ /laːw/ /ɗiː/");
-  await expect(page.locator("#ua-result")).toHaveText("рунг лет лау ді");
+  await expect(page.locator("#ua-result")).toHaveText("рунг лет лав ді");
   await expect(page.locator("#status")).toContainText("PROVISIONAL");
   await expect(page.locator("#ua-result")).not.toContainText("???");
   await expect(page.locator("#unit-details")).toContainText("IPA: /ruŋ/");
