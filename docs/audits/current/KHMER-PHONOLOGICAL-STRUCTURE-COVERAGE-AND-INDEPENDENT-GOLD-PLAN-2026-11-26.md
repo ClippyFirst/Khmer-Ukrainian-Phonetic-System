@@ -48,6 +48,45 @@ This is a work specification, not a claim that every combination is legal or evi
 - Keep careful Standard Khmer and colloquial Phnom Penh processes separate.
 - Preserve length before IPA longest-match parsing: /aw/ and /aːw/ are distinct; current target mapping keeps /w/ → в, /aw/ → ау, /aːw/ → ав.
 
+## New source extraction: Minegishi (1985) vowel-sign × series table
+
+The Undermind full-text extraction of Minegishi's unnumbered table 母音記号の音価 (§1.2, printed pp.45–46; PDF pp.5–6) provides 28 rows across two orthographic consonant series. The source uses its own phonetic notation and romanized vowel-sign labels; several label diacritics are unclear in the scan. A source-faithful machine-readable transcription now lives at `data/khmer/source-extracts/minegishi-1985-vowel-sign-values.json`.
+
+| Source label | First-series column | Second-series column |
+|---|---|---|
+| i | [əi] | [i:] |
+| e | [ɛ:] | [e:] |
+| ae | [a·ɛ] | [ɛ:] |
+| ia | [i·ə] | [i·ə] |
+| ȳ (mark unclear) | [ə:] | [i:] |
+| oe | [a·ə] | [ə:] |
+| ā (mark unclear) | [a:] | [eə] ([i·ə]) |
+| ya | [i·ə] | [i·ə] |
+| ū (mark unclear) | [o:] | [u:] |
+| o | [a·o] | [ɔ:] |
+| a | [ɔ:] | [ɔ:] |
+| ua | [u·o] | [u·o] |
+| ār (mark unclear) | not used | [ɔ·ə] |
+| ih | [əh] | [ih] |
+| ec | [əc] | [ec] |
+| eñ (final mark unclear) | [ən] | [en] |
+| es | [ɛh] | [e:h] |
+| eh | [ɛh] | [ɛh] |
+| ai | [ai] | [ei] |
+| y (mark unclear; distinct row) | [iʔ] | [əʔ] |
+| au | [aʊ] | [iʊ] |
+| uv (mark unclear) | [əʊ] | not used |
+| ah | [ah] | [ɛah] |
+| as (mark unclear) | [ah] | [ɔah] |
+| u | [oʔ] | [uʔ] |
+| oh | [oh] | [uoh] |
+| um | [om] | [om] |
+| am | [ɔm] | [ɔm] |
+
+**Interpretation boundary:** these are the author's bracketed phonetic values, not normalized IPA, and the source labels are not Unicode grapheme identifiers. No row has been silently crosswalked to a Khmer code point or inserted into the runtime. The ā second-series cell explicitly varies: ordinary Phnom Penh speech [i·ə], formal/school pronunciation [ee]. The source also states that short i/y/u are checked vowels; without a written final consonant they receive glottal closure, and several spellings are analyzed with implicit final /y/ or /w/. Final r is silent; final s/h represent /h/; final m represents /m/ (§1.2, printed pp.45–46).
+
+This is a meaningful expansion of source-indexed structural evidence, not independent gold. Exact Unicode crosswalk, modern-profile compatibility and phonemic/phonetic normalization remain separate research tasks. A Python regression test checks all 28 rows and ensures ambiguous labels remain un-crosswalked and source notation is not mislabeled as IPA.
+
 ## Independent audio and benchmark source triage
 
 ### A. Edinburgh DataShare — priority for an independent cluster pilot
